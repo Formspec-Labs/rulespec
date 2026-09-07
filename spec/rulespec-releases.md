@@ -5,6 +5,15 @@ Rulespec Core and Rulespec Extrapolator. It also defines the canonical JSON and
 validation rules that let a consumer verify their artifacts without a
 Rulespec, SpicyRegs, RefSpec, or SpicySearch checkout.
 
+> **Standalone validation scope (2026-09-06).** Rulespec owns the input
+> preparation, semantic segmentation, extraction, evidence linking, and
+> validation needed to evaluate a local document without other platform
+> products, except RefSpec for tags, terms, and thesauri. The earlier blanket
+> prohibition on Rulespec-owned segmentation below is superseded for that
+> workflow. The release formats in this document retain their prepared-input
+> requirements; a local validation run does not require those release artifacts.
+> See [the owner clarification](../docs/decisions.md#2026-09-06-validate-document-understanding-within-rulespec).
+
 > **Execution-boundary correction (2026-08-02, supersession in place — the
 > superseded sentences below are struck and annotated, never deleted).** Three
 > capability claims in §3 named the Extrapolator as the executor of work this

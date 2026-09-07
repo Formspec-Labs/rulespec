@@ -1,5 +1,36 @@
 # Product and release decisions
 
+## 2026-09-06: Validate document understanding within Rulespec
+
+**Status:** Accepted — owner clarification.
+
+### Decision
+
+Rulespec must be able to validate its document-to-knowledge workflow from a
+local source document without depending on another platform product, except
+RefSpec for tags, terms, and thesauri.
+
+Rulespec owns the input preparation, segmentation by meaning, extraction,
+evidence linking, and validation required for that workflow. Finding the text
+that constitutes a requirement, condition, exception, definition, or entity
+is part of Rulespec's task. These semantic units can span structural sections
+or share one paragraph. DocSpec's segmentation does not supply this capability.
+
+### Scope and consequences
+
+- A local validation run must not require DocSpec, SpicyRegs, SpicySearch,
+  their services, or their release artifacts.
+- RefSpec supplies reference vocabulary; Rulespec determines what the source
+  says and which passages support each extracted item.
+- This is a platform-product dependency boundary, not a prohibition on ordinary
+  parsing libraries or model tooling used within Rulespec.
+- The 2026-08-02 prohibition on Rulespec-owned segmentation is superseded for
+  this standalone workflow. Existing prepared-input release formats remain
+  exchange formats; their required pins are not local-run prerequisites.
+- This decision establishes the intended capability. It does not claim that
+  the complete extraction workflow is already implemented or alter existing
+  release schemas, fixture restrictions, or publication approval rules.
+
 ## 2026-08-25: Separate the artifact runtime from graph conformance
 
 **Status:** Accepted

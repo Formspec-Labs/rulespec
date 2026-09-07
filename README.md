@@ -16,9 +16,55 @@ The rules live in PDFs. The software lives in code. The bridge between them is u
 
 Rulespec is that bridge, written down — a structured, machine-validatable record of what a rule says, where it came from, who has authority over it, where it is in its lifecycle, and what software is allowed to do with it.
 
+## From documents to referenceable knowledge
+
+The product objective is to turn source documents into structured, traceable
+knowledge: individually identifiable rules, requirements, concepts, and entities
+that software can reference and connect, with every assertion grounded in the
+exact passages that support it.
+
+Given a passport adjudication manual, the intended workflow is to:
+
+1. Preserve its chapters, sections, paragraphs, and tables as referenceable
+   source passages.
+2. Identify the requirements, eligibility conditions, exceptions, definitions,
+   procedural steps, entities, and required evidence those passages describe.
+3. Connect those pieces: an exception modifies a requirement, a definition
+   explains a term, or a document serves as evidence for a condition.
+4. Give each piece a stable identity and retain its supporting passages, so
+   another system can refer to a specific requirement and inspect its basis.
+
+A section and a rule need not correspond one to one. One paragraph may express
+several requirements; one complete requirement may depend on a paragraph, a
+definition elsewhere, and an exception in another chapter. The workflow must
+preserve both the document's structure and these relationships of meaning.
+It must also distinguish direct source statements from interpretations assembled
+across passages, retaining uncertainty and review status.
+
+For validating this workflow, Rulespec must operate independently of other
+platform products, except RefSpec for tags, terms, and thesauri. Given a local
+document, Rulespec owns the input preparation, segmentation by meaning,
+extraction, evidence linking, and validation needed to evaluate the result.
+DocSpec's document segmentation does not supply the semantic boundaries this
+workflow needs; a DocSpec release or service is not a prerequisite.
+
+Rulespec Core defines how the results are represented and checked. The complete
+standalone workflow remains an implementation objective. Existing
+[Extrapolation release formats](spec/rulespec-releases.md#3-extrapolationrelease)
+describe an exchange path using prepared upstream inputs; they do not define
+the prerequisites for a local validation run. The
+[product decisions](docs/decisions.md) record this distinction.
+
+Success means a consumer can reference an individual requirement, follow its
+conditions and exceptions, and recover the exact source evidence and any
+interpretation involved. Passing schema validation alone does not establish
+that the extraction is correct or complete.
+
 ## What Rulespec captures
 
-Not the text of the rule. Plenty of formats already do that. Rulespec captures the things *around* the rule — the parts that make a rule trustworthy for software to use:
+Rulespec represents structured assertions about a document's meaning alongside
+the evidence and context that make those assertions trustworthy for software
+to use:
 
 - **Origin.** A specific section of a statute, a regulation, a policy memo, a court ruling, an internal interpretation. Citations stay attached to the assertion.
 - **Authority.** The chain from "the law" down to "this particular requirement" — legislature, agency, sub-agency, delegated officer. Software can walk the chain and check it ends in something legitimate.
