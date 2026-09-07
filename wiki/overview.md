@@ -2,123 +2,98 @@
 
 ## Purpose
 
-Rulespec is a portable semantic and verification layer for software that uses legal, regulatory, and policy rules. It records a rule’s origin, authority, lifecycle, permitted uses, concepts, evidence, reference releases, and downstream effects.
+Rulespec makes rules legible to software. It defines a machine-validatable record of a rule’s origin, authority, lifecycle, adoption, usage permissions, concepts, and supporting evidence.
 
-The repository:
+The repository provides three connected capabilities:
 
-- Compiles authoritative CUE constraints into JSON Schema, Rust, TypeScript, Shapes Constraint Language (SHACL), and Rego.
-- Exposes approved vocabulary terms to Python authors.
-- Assesses non-JSON-LD mappings at L0 and JSON-LD data at L1–L4.
-- Verifies immutable platform artifacts and release records before a product decides to publish, deploy, or activate them.
+1. Compile authoritative CUE constraints into schemas, types, validation shapes, and policy artifacts.
+2. Assess implementations and fixtures through L0–L4 conformance checks.
+3. Verify immutable platform artifacts and release records before consumers admit them.
 
-Rulespec does not acquire source documents, run product workflows, serve search, or make product release decisions.
+Rulespec supplies the semantic and validation foundation beneath rule-driven products; it is not a workflow engine, document processor, search engine, or publication system.
 
 ## End-to-end architecture
 
 ```mermaid
 flowchart LR
-    subgraph Sources["Semantic and evidence sources"]
-        CUE["CUE constraints"]
-        Semantic["JSON-LD context,<br/>vocabulary, and specifications"]
-        Mappings["Carrier mappings and<br/>partner declarations"]
-        Data["Rulespec JSON-LD data<br/>and fixtures"]
-        RustRuntime["Rust behavior runtime"]
-        Releases["Artifact directories<br/>and release bundles"]
-    end
+    Sources["Semantic sources<br/>CUE constraints, JSON-LD context,<br/>vocabulary and behavior specifications"]
 
-    subgraph Build["Compile and bind"]
-        Compiler["constraint_compiler_ast"]
-        Registry["contract_term_registry"]
-        Targets["JSON Schema, Rust,<br/>TypeScript, SHACL, Rego"]
-        Terms["Python terms and enums"]
-    end
+    Compiler["Constraint compiler<br/>parse, normalize, resolve,<br/>and validate"]
+    Registry["Contract term registry<br/>admitted rkaf terms"]
 
-    CUE --> Compiler --> Targets
-    CUE --> Registry
-    Semantic --> Registry --> Terms
-    Terms --> Data
+    Generated["Generated artifacts<br/>JSON Schema, Rust, TypeScript,<br/>SHACL, and Rego"]
+    PythonAPI["Python authoring API<br/>rulespec_conformance.contract"]
 
-    subgraph Assessment["Assess conformance"]
-        L0["l0_mapping_audit"]
-        Binding["compiled_schema_binding"]
-        Reporter["conformance_fixture_reporting"]
-    end
+    Data["Rulespec JSON-LD data<br/>fixtures and consumer records"]
+    Mappings["SQL, CSV, and Parquet<br/>mapping declarations"]
 
-    CUE --> L0
-    Semantic --> L0
-    Mappings --> L0
-    Targets --> Binding --> Reporter
-    Targets --> Reporter
-    Data --> Reporter
-    RustRuntime --> Reporter
+    Conformance["Conformance assessment<br/>L0 mapping audit and<br/>L1-L4 fixture reporting"]
+    Evidence["Reports, verdicts,<br/>self-certification, and exit status"]
 
-    L0 --> L0Results["L0 mapping verdicts"]
-    Reporter --> Reports["L1-L4 reports,<br/>exit status, and self-certification"]
+    Candidates["Platform artifacts and<br/>Core or Extrapolation releases"]
+    Integrity["Artifact and release<br/>integrity verification"]
+    Admission["Verified artifact or<br/>ordered refusal reasons"]
 
-    subgraph Integrity["Verify artifact and release integrity"]
-        ArtifactRuntime["platform_artifact_runtime"]
-        ReleaseV1["release_record_validation"]
-        ReleaseV2["extrapolation_release_v2_verification"]
-    end
+    Sources --> Compiler --> Generated
+    Sources --> Registry --> PythonAPI
+    PythonAPI --> Data
+    Generated --> Conformance
+    Data --> Conformance
+    Mappings --> Conformance
+    Conformance --> Evidence
 
-    Releases --> ArtifactRuntime
-    Releases --> ReleaseV1
-    Releases --> ReleaseV2
-
-    ArtifactRuntime --> IntegrityResults["Verified results or<br/>deterministic refusals"]
-    ReleaseV1 --> IntegrityResults
-    ReleaseV2 --> IntegrityResults
-
-    L0Results -. "release evidence" .-> Gate["Product-owned release gate"]
-    Reports -. "release evidence" .-> Gate
-    IntegrityResults --> Gate
-    Gate --> Decision["Approval, publication,<br/>deployment, or activation"]
+    Generated --> Integrity
+    Candidates --> Integrity
+    Integrity --> Admission
 ```
 
-The assessment paths remain distinct:
+Compilation and validation remain separate responsibilities. The term registry helps Python producers use admitted names, but it does not define their meaning or validate data. Compiled JSON Schema, SHACL, and runtime behavior implement those checks.
+
+### Assessment and integrity paths
 
 ```mermaid
 flowchart TD
     Input{"Input type"}
 
-    Input -->|"SQL, CSV, Parquet,<br/>or another mapped format"| L0["L0: audit vocabulary mapping,<br/>ranges, transforms, and samples"]
-    L0 --> L0Verdict["Mapping and partner verdict"]
+    Input -->|"Non-JSON-LD mapping"| L0["L0: audit terms, types,<br/>ranges, transforms, and samples"]
+    L0 --> L0Result["Mapping and partner verdicts"]
 
-    Input -->|"JSON-LD"| L1["L1: decode and classify JSON"]
+    Input -->|"JSON-LD fixture"| L1["L1: decode JSON-LD"]
     L1 --> L2["L2: select compiled schema<br/>and validate structure"]
-    L2 --> L3["L3: validate SHACL constraints<br/>and release-digest semantics"]
-    L3 --> Behavior{"Behavior fixture?"}
-    Behavior -->|"Yes"| L4["L4: run Rust behavior validator"]
-    Behavior -->|"No"| Result["Fixture result"]
-    L4 --> Result
-    Result --> Report["Human or JSON report,<br/>status, or self-certification"]
+    L2 --> L3["L3: validate SHACL,<br/>digests, and semantic rules"]
+    L3 --> L4["L4 when applicable:<br/>run Rust behavior validator"]
+    L4 --> Report["Fixture result and report"]
 
-    Input -->|"Artifact or release"| Format["Check required format"]
-    Format --> Verify["Recompute identities, digests,<br/>pins, membership, and counts"]
-    Verify --> Evidence["Resolve immutable evidence"]
-    Evidence --> Integrity["Verified result or issues"]
-    Integrity --> Product["Product-owned decision"]
+    Input -->|"spicy-artifact/1.0"| Artifact["Check canonical manifests,<br/>membership, sizes, hashes,<br/>counts, and product semantics"]
+    Artifact --> ArtifactResult["VerifiedArtifact or<br/>deterministic refusal"]
+
+    Input -->|"Core or Extrapolation v1"| V1["Apply closed JSON Schema,<br/>identity, pin, evidence,<br/>receipt, and coverage checks"]
+    V1 --> V1Result["ValidationIssue list"]
+
+    Input -->|"Extrapolation v2 bundle"| V2["Check manifests, schemas,<br/>Parquet rows, pins, evidence,<br/>dispositions, and totals"]
+    V2 --> V2Result["VerificationResult"]
 ```
 
-The term registry helps authors use approved names; it does not validate data. L0 audits non-JSON-LD mappings independently of the cumulative L1–L4 JSON-LD path. Integrity verification proves only the selected artifact or release format’s stated properties.
+These checks produce evidence for a release decision. Passing them does not publish, deploy, or activate an artifact.
 
 ## Core module documentation
 
-Area guides:
+### Semantic compilation and binding
 
 - [Semantic contract compilation and binding](/Users/mikewolfd/Work/rulespec/wiki/semantic_contract_compilation_and_binding.md)
+- [Constraint compiler AST](/Users/mikewolfd/Work/rulespec/wiki/constraint_compiler_ast.md) — parses the supported CUE subset, resolves composed shapes, and emits target formats.
+- [Contract term registry](/Users/mikewolfd/Work/rulespec/wiki/contract_term_registry.md) — exposes admitted `rkaf:` terms through the Python package.
+
+### Conformance assessment and certification
+
 - [Conformance assessment and certification](/Users/mikewolfd/Work/rulespec/wiki/conformance_assessment_and_certification.md)
+- [Compiled schema binding](/Users/mikewolfd/Work/rulespec/wiki/compiled_schema_binding.md) — discovers schemas and selects immutable bindings for L2 validation.
+- [Conformance fixture reporting](/Users/mikewolfd/Work/rulespec/wiki/conformance_fixture_reporting.md) — runs L1–L4 checks and renders reports or reference self-certification.
+- [L0 mapping audit](/Users/mikewolfd/Work/rulespec/wiki/l0_mapping_audit.md) — audits non-JSON-LD mappings against the vocabulary.
+
+### Artifact and release integrity
+
 - [Artifact and release integrity](/Users/mikewolfd/Work/rulespec/wiki/artifact_and_release_integrity.md)
-
-| Core module | Implementation | Documentation |
-|---|---|---|
-| `constraint_compiler_ast` | [constraints_compile.py](/Users/mikewolfd/Work/rulespec/tools/constraints_compile.py) | [Constraint compiler AST](/Users/mikewolfd/Work/rulespec/wiki/constraint_compiler_ast.md) |
-| `contract_term_registry` | [_term.py](/Users/mikewolfd/Work/rulespec/src/rulespec_conformance/contract/_term.py) | [Contract term registry](/Users/mikewolfd/Work/rulespec/wiki/contract_term_registry.md) |
-| `compiled_schema_binding` | [conformance_lib.py](/Users/mikewolfd/Work/rulespec/src/rulespec_conformance/conformance_lib.py) | [Compiled schema binding](/Users/mikewolfd/Work/rulespec/wiki/compiled_schema_binding.md) |
-| `conformance_fixture_reporting` | [conformance_report.py](/Users/mikewolfd/Work/rulespec/tools/conformance_report.py) | [Conformance fixture reporting](/Users/mikewolfd/Work/rulespec/wiki/conformance_fixture_reporting.md) |
-| `l0_mapping_audit` | [l0_mapping_audit.py](/Users/mikewolfd/Work/rulespec/tools/l0_mapping_audit.py) | [L0 mapping audit](/Users/mikewolfd/Work/rulespec/wiki/l0_mapping_audit.md) |
-| `platform_artifact_runtime` | [_artifact.py](/Users/mikewolfd/Work/rulespec/packages/rulespec-artifacts/src/rulespec_artifacts/_artifact.py) | [Platform artifact runtime](/Users/mikewolfd/Work/rulespec/wiki/platform_artifact_runtime.md) |
-| `release_record_validation` | [rulespec_release.py](/Users/mikewolfd/Work/rulespec/tools/rulespec_release.py) | [Release record validation](/Users/mikewolfd/Work/rulespec/wiki/release_record_validation.md) |
-| `extrapolation_release_v2_verification` | [extrapolation_release_v2.py](/Users/mikewolfd/Work/rulespec/tools/extrapolation_release_v2.py) | [Extrapolation release v2 verification](/Users/mikewolfd/Work/rulespec/wiki/extrapolation_release_v2_verification.md) |
-
-The main verification entry points are `make compile`, `make test-audits`, `make test-conformance`, and the complete `make test` gate.
+- [Platform artifact runtime](/Users/mikewolfd/Work/rulespec/wiki/platform_artifact_runtime.md) — constructs and verifies canonical `spicy-artifact/1.0` artifacts.
+- [Release record validation](/Users/mikewolfd/Work/rulespec/wiki/release_record_validation.md) — validates Core and Extrapolation version 1 release records.
+- [Extrapolation release v2 verification](/Users/mikewolfd/Work/rulespec/wiki/extrapolation_release_v2_verification.md) — verifies partitioned version 2 bundles and their evidence.
