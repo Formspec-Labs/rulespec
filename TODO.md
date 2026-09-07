@@ -5,10 +5,10 @@
 - [x] CUE source, 6-target compilation, adversarial fixtures, parity orchestrator, CI gates all green
 - [ ] Close the plan: note the architecture delta (Python compiler vs planned Rust `rkaf-constraints-compile` crate) in CHANGELOG. The `constraints/README.md` already documents the deferral. No code needed — declare done.
 
-## Projectors (Layer 4) — two real gaps
+## Projectors (Layer 4) — one real gap
 
-- [ ] Implement `validate()` on JSON-LD projector — currently returns `Ok(())`. Extract the rkaf partition and validate against compiled JSON Schema.
-- [ ] Implement `validate()` on OpenAPI projector — currently returns `Ok(())`. Validate the `x-rkaf` carrier structure against compiled schema.
+- [x] `validate()` on the JSON-LD projector. **Landed; this entry was stale.** Verified 2026-09-07 against `crates/rkaf-projector-json-ld/src/lib.rs:134` — it resolves the repo root, drives the constraints compile and validates against the compiled schema. No bare `Ok(())` remains.
+- [x] `validate()` on the OpenAPI projector. **Landed; same.** `crates/rkaf-projector-openapi/src/lib.rs:85`, same shape.
 - [ ] Add Derive fixture comparison to `tools/projector_parity.py` — currently only exercises round-trip. Add a Derive gate: run derive on a source fixture, compare byte output to expected file.
 
 Gate C (studio-profile CUE derivation) is **not** a projector gap — it's a Studio cutover concern. The CUE projector cannot yet round-trip `$defs`/`x-lm`/prose. Drop from this scope.
