@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/Users/mikewolfd/Work/rulespec/.tools/cue-native-v0.17.1/cue",
+    "def",
+    "--out",
+    "jsonschema",
+    "-e",
+    "#Composed",
+    "ordinary.cue"
+  ],
+  "returncode": 0,
+  "stdout": "{\n    \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n    \"type\": \"object\",\n    \"description\": \"A composed record.\",\n    \"additionalProperties\": false,\n    \"properties\": {\n        \"a_label\": {\n            \"type\": \"string\",\n            \"description\": \"The source label.\"\n        },\n        \"own\": {\n            \"allOf\": [\n                {\n                    \"type\": \"number\"\n                },\n                {\n                    \"type\": \"integer\",\n                    \"minimum\": 1\n                }\n            ]\n        },\n        \"z_id\": {\n            \"type\": \"string\",\n            \"description\": \"Stable identifier. Use it in later references.\"\n        }\n    },\n    \"required\": [\n        \"a_label\",\n        \"own\",\n        \"z_id\"\n    ]\n}\n",
+  "stderr": ""
+}

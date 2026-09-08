@@ -1,0 +1,46 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+        "NoEvidenceReason": {
+            "description": "Closed enum (§4.3).\n\n`rkaf:declared-hypothesis` is the v0.2 addition: a deliberately held,\nnot-yet-validated belief. It is distinct from both neighbours —\n`rkaf:axiomatic` needs no evidence, `rkaf:consensus-without-citation` has\nsocial grounding and no citable source, and this one has NO grounding at\nall, says so, and intends to be validated.\n\n§4.3 caps it at `rkaf:searchOnly` or `rkaf:reviewQueueOnly` until an\nEvidenceBinding-with-fragment replaces the reason. That cap is NOT\nexpressible here and is not compiled to any target: `rkaf:usageEligibility`\nis a property of the assertion envelope (`#ConsumerDisposition`), this is a\nproperty of the binding, and `rkaf:bindsAssertion` is a bare IRI. The\nconditional idiom requires both the guard and the requirement to be\nproperties of ONE shape, and the compiler flattens nested objects rather\nthan traversing them. The cap is therefore a producer obligation; see the\nnote in Core §4.3 and TODO.md.",
+            "enum": [
+                "rkaf:axiomatic",
+                "rkaf:inferred-from-warrant-class",
+                "rkaf:consensus-without-citation",
+                "rkaf:permitted-by-safety-label",
+                "rkaf:declared-hypothesis"
+            ]
+        }
+    },
+    "type": "object",
+    "description": "EvidenceBinding MUST either bind ≥1 SourceFragment OR carry a permitted\nnoEvidenceReason. CUE's disjunction expresses this directly; no Pattern C\ndance needed (the SHACL target compiles this disjunction to Pattern C).",
+    "additionalProperties": false,
+    "properties": {
+        "@type": {
+            "const": "rkaf:EvidenceBinding"
+        },
+        "rkaf:bindsAssertion": {
+            "type": "string"
+        },
+        "rkaf:hasAccessScope": {
+            "type": "string"
+        },
+        "rkaf:hasRetentionPolicy": {
+            "type": "string"
+        },
+        "rkaf:lastVerifiedAt": {
+            "type": "string",
+            "description": "Plan 7d — freshness. Orthogonal to lifecycle."
+        },
+        "rkaf:noEvidenceReason": {
+            "$ref": "#/$defs/NoEvidenceReason"
+        },
+        "rkaf:verifiedBy": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "rkaf:bindsAssertion",
+        "rkaf:noEvidenceReason"
+    ]
+}

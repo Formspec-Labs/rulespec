@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/attestation.json",
+  "title": "attestation",
+  "$defs": {
+    "AttestationDecision": {
+      "type": "string",
+      "enum": [
+        "rkaf:approved",
+        "rkaf:approvedWithConditions",
+        "rkaf:rejected",
+        "rkaf:abstained",
+        "rkaf:advisory",
+        "rkaf:endorsedForReview",
+        "rkaf:flaggedForReview"
+      ]
+    },
+    "AttestorKind": {
+      "type": "string",
+      "enum": [
+        "rkaf:humanUser",
+        "rkaf:aiModel",
+        "rkaf:aiAgent",
+        "rkaf:automatedParser",
+        "rkaf:team",
+        "rkaf:organization",
+        "rkaf:community",
+        "rkaf:formalReviewer",
+        "rkaf:conceptMintingAuthority"
+      ]
+    },
+    "Attestation": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:Attestation"
+        },
+        "rkaf:attestor": {
+          "type": "string"
+        },
+        "rkaf:attestorKind": {
+          "$ref": "#/$defs/AttestorKind"
+        },
+        "rkaf:targets": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "rkaf:decision": {
+          "$ref": "#/$defs/AttestationDecision"
+        },
+        "rkaf:attestationScope": {
+          "type": "string"
+        },
+        "rkaf:attestedAt": {
+          "type": "string"
+        },
+        "rkaf:rationale": {
+          "type": "string"
+        },
+        "rkaf:hasAccessScope": {
+          "type": "string"
+        },
+        "rkaf:hasRetentionPolicy": {
+          "type": "string"
+        },
+        "rkaf:hasEffectivePeriod": {
+          "type": "string"
+        },
+        "rkaf:revokedAt": {
+          "type": "string"
+        },
+        "rkaf:lastVerifiedAt": {
+          "type": "string"
+        },
+        "rkaf:verifiedBy": {
+          "type": "string"
+        },
+        "rkaf:targetFinding": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:attestor",
+        "rkaf:attestorKind",
+        "rkaf:targets",
+        "rkaf:decision",
+        "rkaf:attestationScope",
+        "rkaf:attestedAt"
+      ]
+    }
+  }
+}

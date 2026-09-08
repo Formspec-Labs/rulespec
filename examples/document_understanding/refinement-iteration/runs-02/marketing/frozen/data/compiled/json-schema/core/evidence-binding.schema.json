@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/evidence-binding.json",
+  "title": "evidence-binding",
+  "$defs": {
+    "NoEvidenceReason": {
+      "type": "string",
+      "enum": [
+        "rkaf:axiomatic",
+        "rkaf:inferred-from-warrant-class",
+        "rkaf:consensus-without-citation",
+        "rkaf:permitted-by-safety-label",
+        "rkaf:declared-hypothesis"
+      ]
+    },
+    "EvidenceRole": {
+      "type": "string",
+      "enum": [
+        "rkaf:textualEvidence",
+        "rkaf:structuralEvidence",
+        "rkaf:retrievalSignal",
+        "rkaf:authorityCitation",
+        "rkaf:officialSourceMetadata",
+        "rkaf:reviewedAuthorityChain",
+        "rkaf:formalAdoptionEvent",
+        "rkaf:mappingRationale",
+        "rkaf:registrationEvent",
+        "rkaf:rescissionEvidence"
+      ]
+    },
+    "EvidentiaryFunction": {
+      "type": "string",
+      "enum": [
+        "rkaf:supports",
+        "rkaf:qualifies",
+        "rkaf:contradicts",
+        "rkaf:definesScope",
+        "rkaf:providesContext"
+      ]
+    },
+    "EvidenceBinding": {
+      "type": "object",
+      "properties": {
+        "rkaf:bindsSourceFragment": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "rkaf:evidenceRole": {
+          "$ref": "#/$defs/EvidenceRole"
+        },
+        "rkaf:evidentiaryFunction": {
+          "$ref": "#/$defs/EvidentiaryFunction"
+        },
+        "rkaf:noEvidenceReason": {
+          "$ref": "#/$defs/NoEvidenceReason"
+        },
+        "@type": {
+          "const": "rkaf:EvidenceBinding"
+        },
+        "rkaf:bindsAssertion": {
+          "type": "string"
+        },
+        "rkaf:lastVerifiedAt": {
+          "type": "string"
+        },
+        "rkaf:verifiedBy": {
+          "type": "string"
+        },
+        "rkaf:hasAccessScope": {
+          "type": "string"
+        },
+        "rkaf:hasRetentionPolicy": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:bindsAssertion"
+      ],
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "properties": {
+                "rkaf:bindsSourceFragment": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "minItems": 1
+                    }
+                  ]
+                },
+                "rkaf:evidenceRole": {
+                  "$ref": "#/$defs/EvidenceRole"
+                },
+                "rkaf:evidentiaryFunction": {
+                  "$ref": "#/$defs/EvidentiaryFunction"
+                }
+              },
+              "required": [
+                "rkaf:bindsSourceFragment",
+                "rkaf:evidenceRole",
+                "rkaf:evidentiaryFunction"
+              ]
+            },
+            {
+              "properties": {
+                "rkaf:noEvidenceReason": {
+                  "$ref": "#/$defs/NoEvidenceReason"
+                }
+              },
+              "required": [
+                "rkaf:noEvidenceReason"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

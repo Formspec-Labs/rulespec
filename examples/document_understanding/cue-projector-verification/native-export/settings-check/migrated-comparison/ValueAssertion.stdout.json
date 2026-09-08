@@ -1,0 +1,30 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+        "AssertionPolarity": {
+            "description": "Whether the proposition is affirmed or denied. Part of the immutable\nproposition core, so it lives beside `#AssertionProposition` rather than in\none form's file: `#RelationshipAssertion` and `#ValueAssertion` both close\nover the same two values. Predicates stay affirmative; polarity records\nwhether the source-backed assertion affirms or denies that relationship.",
+            "enum": [
+                "rkaf:affirmed",
+                "rkaf:denied"
+            ]
+        }
+    },
+    "type": "object",
+    "description": "ValueAssertion is the second proposition-bearing Assertion specialization\n(§2.2). It differs from #RelationshipAssertion in exactly one place: the\nobject slot. A relationship's object is an IRI naming a semantic resource; a\nvalue's object is a typed literal.\n\nEverything else is shared by composition, not by restatement:\n  #AssertionProposition — subject, predicate, polarity (immutable core)\n  #DurableAssertionEnvelope — origin, epistemic basis, provenance,\n                              grounding, and consumer disposition\nBoth are declared in constraints/core/assertion.cue. The narrowings below\nare the same deliberate IRI tightenings #RelationshipAssertion applies; the\nprojector unifies them facet by facet into every target.",
+    "properties": {
+        "rkaf:assertionPolarity": {
+            "$ref": "#/$defs/AssertionPolarity"
+        },
+        "rkaf:assertsPredicate": {
+            "type": "string"
+        },
+        "rkaf:assertsSubject": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "rkaf:assertionPolarity",
+        "rkaf:assertsPredicate",
+        "rkaf:assertsSubject"
+    ]
+}

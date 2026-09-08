@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/retention-policy.json",
+  "title": "retention-policy",
+  "$defs": {
+    "RetentionTrigger": {
+      "type": "string",
+      "enum": [
+        "rkaf:creation",
+        "rkaf:lastAccess",
+        "rkaf:lastModification",
+        "rkaf:lifecycleEvent"
+      ]
+    },
+    "RetentionPostExpiry": {
+      "type": "string",
+      "enum": [
+        "rkaf:delete",
+        "rkaf:anonymize",
+        "rkaf:archive",
+        "rkaf:legal-hold-on-trigger"
+      ]
+    },
+    "RetentionPolicy": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:RetentionPolicy"
+        },
+        "rkaf:retentionDurationDays": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "rkaf:retentionTrigger": {
+          "$ref": "#/$defs/RetentionTrigger"
+        },
+        "rkaf:retentionPostExpiry": {
+          "$ref": "#/$defs/RetentionPostExpiry"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:retentionDurationDays",
+        "rkaf:retentionTrigger",
+        "rkaf:retentionPostExpiry"
+      ]
+    }
+  }
+}

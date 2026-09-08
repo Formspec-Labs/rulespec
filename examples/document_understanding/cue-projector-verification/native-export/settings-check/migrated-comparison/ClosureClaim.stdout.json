@@ -1,0 +1,100 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+        "ClosureClaimStatus": {
+            "description": "One value, on purpose. This is the experimental flag that gates the record:\na producer cannot author a ClosureClaim without declaring it disabled, and a\nconsumer reading `rkaf:closureClaimDisabled` knows the claim carries no\nweight without consulting prose.",
+            "const": "rkaf:closureClaimDisabled"
+        }
+    },
+    "type": "object",
+    "properties": {
+        "@type": {
+            "const": "rkaf:ClosureClaim"
+        },
+        "rkaf:closureArtifact": {
+            "type": "string",
+            "description": "WHERE the claim applies. The Artifact version, class-ranged to\n`rkaf:Artifact`, and the exact source regions enumerated, class-ranged to\n`rkaf:SourceFragment`. Both required: \"closure is always local\", so a\nclaim that names no region is a claim about a whole document, which this\nrecord must be incapable of expressing.",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:closureClaimStatus": {
+            "description": "The experimental gate. Required; exactly one legal value.",
+            "$ref": "#/$defs/ClosureClaimStatus"
+        },
+        "rkaf:closureMemberDigest": {
+            "type": "string",
+            "description": "The digest over the accepted member assertions. This is what makes the\nclaim checkable at all: \"these and only these\" is only verifiable against\na content-bound set, and a recomputed digest that differs means the\nenumeration is not the one that was reviewed.",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "rkaf:closurePredicateFamily": {
+            "type": "string",
+            "description": "WHAT was enumerated: the predicate family or collection shape covered.\nA producer-scoped IRI — the kernel does not own predicate families, and\nwhich relations a profile expects a boundary to address is a profile\nquestion.",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:closureProfileVersion": {
+            "type": "string",
+            "description": "UNDER WHICH RULES. The profile version whose normalization policy defined\nthe boundary; changing it invalidates the claim rather than updating it."
+        },
+        "rkaf:closureRegion": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            "minItems": 1
+        },
+        "rkaf:closureReviewedAt": {
+            "type": "string",
+            "description": "When the claim was reviewed or takes effect. Optional; closure is\n\"local and revocable\", and an unreviewed claim must be representable as\nunreviewed rather than back-dated."
+        },
+        "rkaf:hasAccessScope": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasApplicability": {
+            "type": "string",
+            "description": "Derived-shape narrowings of the envelope's reference fields, matching\nevery other envelope-composing form.",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasConfidence": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            }
+        },
+        "rkaf:hasExtractionProvenance": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasJustification": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasRetentionPolicy": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasSourceClaimant": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasWarrant": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:supersedesAssertion": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            }
+        }
+    },
+    "required": [
+        "rkaf:closureArtifact",
+        "rkaf:closureMemberDigest",
+        "rkaf:closurePredicateFamily",
+        "rkaf:closureProfileVersion",
+        "rkaf:closureRegion"
+    ]
+}

@@ -1,0 +1,183 @@
+{
+  "schema_version": "rulespec-evaluation-labels/1",
+  "dataset_id": "refinement-fresh-authorizations",
+  "split": "fresh-before-first-extraction",
+  "label_provenance": {
+    "reviewer": "Codex pre-extraction source adjudication",
+    "reviewer_kind": "aiAgent",
+    "method": "source_review"
+  },
+  "sources": [
+    {
+      "id": "urn:rulespec:document-understanding:document:642333d8fa40e65d13b94121c43c891c8c1289cd4db3d05af1ca7ebf16b7576a",
+      "text": "(b) Implementation specifications: General requirements—(1) Valid authorizations. (i) A valid authorization is a document that meets the requirements in paragraphs (a)(3)(ii), (a)(4)(ii), (c)(1), and (c)(2) of this section, as applicable.\n\n(ii) A valid authorization may contain elements or information in addition to the elements required by this section, provided that such additional elements or information are not inconsistent with the elements required by this section.\n\n(2) Defective authorizations. An authorization is not valid, if the document submitted has any of the following defects:\n\n(i) The expiration date has passed or the expiration event is known by the covered entity to have occurred;\n\n(ii) The authorization has not been filled out completely, with respect to an element described by paragraph (c) of this section, if applicable;\n\n(iii) The authorization is known by the covered entity to have been revoked;\n\n(iv) The authorization violates paragraph (b)(3) or (4) of this section, if applicable;\n\n(v) Any material information in the authorization is known by the covered entity to be false.",
+      "sha256": "642333d8fa40e65d13b94121c43c891c8c1289cd4db3d05af1ca7ebf16b7576a"
+    }
+  ],
+  "expected_units": [
+    {
+      "id": "authorizations-01",
+      "kind": "definition",
+      "meaning": "A valid authorization meets (a)(3)(ii), (a)(4)(ii), (c)(1) and (c)(2), as applicable. Preserve all four unresolved references and the applicability qualification.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:642333d8fa40e65d13b94121c43c891c8c1289cd4db3d05af1ca7ebf16b7576a",
+          "start": 0,
+          "end": 238,
+          "quote": "(b) Implementation specifications: General requirements—(1) Valid authorizations. (i) A valid authorization is a document that meets the requirements in paragraphs (a)(3)(ii), (a)(4)(ii), (c)(1), and (c)(2) of this section, as applicable."
+        }
+      ]
+    },
+    {
+      "id": "authorizations-02",
+      "kind": "permission",
+      "meaning": "A valid authorization may contain additional elements/information provided they are not inconsistent with required elements. This is qualified permission, not a mandatory extra-information requirement.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:642333d8fa40e65d13b94121c43c891c8c1289cd4db3d05af1ca7ebf16b7576a",
+          "start": 240,
+          "end": 475,
+          "quote": "(ii) A valid authorization may contain elements or information in addition to the elements required by this section, provided that such additional elements or information are not inconsistent with the elements required by this section."
+        }
+      ]
+    },
+    {
+      "id": "authorizations-03",
+      "kind": "condition",
+      "meaning": "ANY of five listed defects invalidates authorization; do not require all five. Preserve each leaf, the nested expiration-date OR known-expiration-event alternatives, and each knowledge/applicability qualifier.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:642333d8fa40e65d13b94121c43c891c8c1289cd4db3d05af1ca7ebf16b7576a",
+          "start": 477,
+          "end": 597,
+          "quote": "(2) Defective authorizations. An authorization is not valid, if the document submitted has any of the following defects:"
+        },
+        {
+          "source_id": "urn:rulespec:document-understanding:document:642333d8fa40e65d13b94121c43c891c8c1289cd4db3d05af1ca7ebf16b7576a",
+          "start": 599,
+          "end": 706,
+          "quote": "(i) The expiration date has passed or the expiration event is known by the covered entity to have occurred;"
+        },
+        {
+          "source_id": "urn:rulespec:document-understanding:document:642333d8fa40e65d13b94121c43c891c8c1289cd4db3d05af1ca7ebf16b7576a",
+          "start": 708,
+          "end": 852,
+          "quote": "(ii) The authorization has not been filled out completely, with respect to an element described by paragraph (c) of this section, if applicable;"
+        },
+        {
+          "source_id": "urn:rulespec:document-understanding:document:642333d8fa40e65d13b94121c43c891c8c1289cd4db3d05af1ca7ebf16b7576a",
+          "start": 854,
+          "end": 930,
+          "quote": "(iii) The authorization is known by the covered entity to have been revoked;"
+        },
+        {
+          "source_id": "urn:rulespec:document-understanding:document:642333d8fa40e65d13b94121c43c891c8c1289cd4db3d05af1ca7ebf16b7576a",
+          "start": 932,
+          "end": 1019,
+          "quote": "(iv) The authorization violates paragraph (b)(3) or (4) of this section, if applicable;"
+        },
+        {
+          "source_id": "urn:rulespec:document-understanding:document:642333d8fa40e65d13b94121c43c891c8c1289cd4db3d05af1ca7ebf16b7576a",
+          "start": 1021,
+          "end": 1114,
+          "quote": "(v) Any material information in the authorization is known by the covered entity to be false."
+        }
+      ]
+    },
+    {
+      "id": "authorizations-04",
+      "kind": "condition",
+      "meaning": "Authorization is invalid when its expiration date has passed OR the covered entity knows its expiration event occurred; knowledge applies to the event, not a new universal knowledge requirement for both branches.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:642333d8fa40e65d13b94121c43c891c8c1289cd4db3d05af1ca7ebf16b7576a",
+          "start": 477,
+          "end": 597,
+          "quote": "(2) Defective authorizations. An authorization is not valid, if the document submitted has any of the following defects:"
+        },
+        {
+          "source_id": "urn:rulespec:document-understanding:document:642333d8fa40e65d13b94121c43c891c8c1289cd4db3d05af1ca7ebf16b7576a",
+          "start": 599,
+          "end": 706,
+          "quote": "(i) The expiration date has passed or the expiration event is known by the covered entity to have occurred;"
+        }
+      ]
+    },
+    {
+      "id": "authorizations-05",
+      "kind": "condition",
+      "meaning": "Authorization is invalid when incomplete with respect to an element in paragraph (c), if applicable. Do not make any missing optional element fatal.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:642333d8fa40e65d13b94121c43c891c8c1289cd4db3d05af1ca7ebf16b7576a",
+          "start": 477,
+          "end": 597,
+          "quote": "(2) Defective authorizations. An authorization is not valid, if the document submitted has any of the following defects:"
+        },
+        {
+          "source_id": "urn:rulespec:document-understanding:document:642333d8fa40e65d13b94121c43c891c8c1289cd4db3d05af1ca7ebf16b7576a",
+          "start": 708,
+          "end": 852,
+          "quote": "(ii) The authorization has not been filled out completely, with respect to an element described by paragraph (c) of this section, if applicable;"
+        }
+      ]
+    },
+    {
+      "id": "authorizations-06",
+      "kind": "condition",
+      "meaning": "Authorization is invalid when known by the covered entity to have been revoked; preserve the knowledge predicate.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:642333d8fa40e65d13b94121c43c891c8c1289cd4db3d05af1ca7ebf16b7576a",
+          "start": 477,
+          "end": 597,
+          "quote": "(2) Defective authorizations. An authorization is not valid, if the document submitted has any of the following defects:"
+        },
+        {
+          "source_id": "urn:rulespec:document-understanding:document:642333d8fa40e65d13b94121c43c891c8c1289cd4db3d05af1ca7ebf16b7576a",
+          "start": 854,
+          "end": 930,
+          "quote": "(iii) The authorization is known by the covered entity to have been revoked;"
+        }
+      ]
+    },
+    {
+      "id": "authorizations-07",
+      "kind": "condition",
+      "meaning": "Authorization is invalid when it violates (b)(3) OR (b)(4), if applicable. The remote provisions remain unresolved.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:642333d8fa40e65d13b94121c43c891c8c1289cd4db3d05af1ca7ebf16b7576a",
+          "start": 477,
+          "end": 597,
+          "quote": "(2) Defective authorizations. An authorization is not valid, if the document submitted has any of the following defects:"
+        },
+        {
+          "source_id": "urn:rulespec:document-understanding:document:642333d8fa40e65d13b94121c43c891c8c1289cd4db3d05af1ca7ebf16b7576a",
+          "start": 932,
+          "end": 1019,
+          "quote": "(iv) The authorization violates paragraph (b)(3) or (4) of this section, if applicable;"
+        }
+      ]
+    },
+    {
+      "id": "authorizations-08",
+      "kind": "condition",
+      "meaning": "Authorization is invalid if ANY material information is known by the covered entity to be false. Retain both materiality and knowledge; no rule that all uncertainty invalidates it.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:642333d8fa40e65d13b94121c43c891c8c1289cd4db3d05af1ca7ebf16b7576a",
+          "start": 477,
+          "end": 597,
+          "quote": "(2) Defective authorizations. An authorization is not valid, if the document submitted has any of the following defects:"
+        },
+        {
+          "source_id": "urn:rulespec:document-understanding:document:642333d8fa40e65d13b94121c43c891c8c1289cd4db3d05af1ca7ebf16b7576a",
+          "start": 1021,
+          "end": 1114,
+          "quote": "(v) Any material information in the authorization is known by the covered entity to be false."
+        }
+      ]
+    }
+  ]
+}

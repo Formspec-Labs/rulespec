@@ -1,0 +1,3728 @@
+{
+  "schema": "bounded-source-coverage-claim-audit-v1",
+  "created_at_utc": "2026-09-07T16:26:03.411892+00:00",
+  "phase": 2,
+  "sealed_inventory_sha256": "953b97fd334d27da5e980dcf802f6c919c6850d0a445b246f364ca303ec5bb5c",
+  "sealed_inventory_unchanged": true,
+  "inventory_erratum": "photos-inventory-erratum.json",
+  "limits": "One selected document input and one development run, reviewed by AI against a blind source-only inventory. Not human gold, a general accuracy estimate, an executable-policy review or a release decision.",
+  "coordinates": "All input offsets are half-open Unicode code-point offsets in input.json.text. All candidate/raw indices are zero-based. C00 is candidates.json[0] and claims.json.accepted[0]. Raw extraction pointers apply to decoded text in response candidates[0].content.parts[0].text.",
+  "review_accounting": {
+    "inventory_annotations": 54,
+    "substantive_annotations": 47,
+    "context_scope_annotations_accounted_separately": 7,
+    "accepted_candidates_audited": 33,
+    "warning": "Annotations include guidance, definitions, conditions, explanations and overlapping branches. They are not 54 independently enforceable rules; no aggregate accuracy percentage is computed."
+  },
+  "stage_checks": {
+    "windows": [
+      {
+        "attempt": 0,
+        "start": 0,
+        "end": 1982,
+        "request_exactly_matches_input_slice": true,
+        "raw_text_matches_parsed_field": true,
+        "finish_reason": "STOP",
+        "extractions": 10,
+        "model": "gemini-3.8-flash"
+      },
+      {
+        "attempt": 1,
+        "start": 1982,
+        "end": 3393,
+        "request_exactly_matches_input_slice": true,
+        "raw_text_matches_parsed_field": true,
+        "finish_reason": "STOP",
+        "extractions": 12,
+        "model": "gemini-3.8-flash"
+      },
+      {
+        "attempt": 2,
+        "start": 3393,
+        "end": 4982,
+        "request_exactly_matches_input_slice": true,
+        "raw_text_matches_parsed_field": true,
+        "finish_reason": "STOP",
+        "extractions": 11,
+        "model": "gemini-3.8-flash"
+      }
+    ],
+    "exact_contiguous_input_coverage": true,
+    "raw_counts": [
+      10,
+      12,
+      11
+    ],
+    "candidate_count": 33,
+    "accepted_count": 33,
+    "rejected_count": 0,
+    "all_raw_fields_preserved_in_candidates": true,
+    "all_candidate_fields_preserved_in_accepted_claims": true,
+    "all_evidence_spans_exact": true,
+    "prompt_definition": "requirement (must do)",
+    "prompt_recommendation_kind_absent": true,
+    "no_observed_parser_or_claim_compilation_field_loss": true,
+    "qualification": "Exact evidence and field correspondence do not prove meaning or completeness. No implementation code or executable graph was inspected."
+  },
+  "findings": [
+    {
+      "id": "F01",
+      "severity": "high",
+      "title": "Explicit permissions and applicant signature exemption omitted",
+      "stage": "raw_model_output",
+      "unit_ids": [
+        "PH-003",
+        "PH-005",
+        "PH-012",
+        "PH-020",
+        "PH-021"
+      ],
+      "candidate_indices": [],
+      "neighbor_indices_for_omissions": [
+        0,
+        1,
+        6,
+        7,
+        8,
+        23
+      ],
+      "practical_effect": "Loses infant closed-eye/tilt acceptance, appearance-change acceptance, immaterial-damage acceptance and the applicant no-sign exemption.",
+      "counterargument": "Adjacent rules do not imply these omitted propositions. Equivalent grouped output would be acceptable, but none is present.",
+      "source_evidence": [
+        {
+          "unit_id": "PH-003",
+          "start": 104,
+          "end": 208,
+          "exact_text": "(1) It is acceptable if the infant's eyes, particularly a newborn's, are partially or completely closed;"
+        },
+        {
+          "unit_id": "PH-005",
+          "start": 330,
+          "end": 370,
+          "exact_text": "Head tilt is acceptable for infants; and"
+        },
+        {
+          "unit_id": "PH-012",
+          "start": 778,
+          "end": 941,
+          "exact_text": "A photograph showing a change in hairstyle or facial hair from the identification document submitted is acceptable if it still is a good likeness of the applicant;"
+        },
+        {
+          "unit_id": "PH-020",
+          "start": 1755,
+          "end": 1787,
+          "exact_text": "Immaterial damage is acceptable;"
+        },
+        {
+          "unit_id": "PH-021",
+          "start": 1789,
+          "end": 1889,
+          "exact_text": "(c) The applicant does not need to sign the photograph, as this often causes creases or smudges; and"
+        }
+      ],
+      "output_evidence": [],
+      "regression_ids": [
+        "R01",
+        "R02",
+        "R03",
+        "R04",
+        "R05"
+      ],
+      "omission_method": "All raw records and attributes inspected semantically; missing propositions were present in exact request windows. No candidate rejected or lost downstream."
+    },
+    {
+      "id": "F02",
+      "severity": "high",
+      "title": "DS-11 re-execution loses its inherited case",
+      "stage": "raw_model_output_preserved_downstream",
+      "unit_ids": [
+        "PH-051",
+        "PH-052"
+      ],
+      "candidate_indices": [
+        30,
+        31
+      ],
+      "neighbor_indices_for_omissions": [],
+      "practical_effect": "C31 reads as a general applicant re-execution duty; source limits it to no-photo DS-11 from an acceptance facility.",
+      "counterargument": "Nearby source and an unresolved IRL help a human reconstruct the case, but no field or relation carries it into C31.",
+      "source_evidence": [
+        {
+          "unit_id": "PH-051",
+          "start": 4673,
+          "end": 4782,
+          "exact_text": "(3) Passport specialists must suspend a form DS-11 received without a photograph from an acceptance facility."
+        },
+        {
+          "unit_id": "PH-052",
+          "start": 4783,
+          "end": 4849,
+          "exact_text": "The applicant must re-execute the form DS-11 (see IRL 975-04); and"
+        }
+      ],
+      "output_evidence": [
+        {
+          "candidate_index": 30,
+          "claim_id": "urn:rulespec:document-understanding:revision:0f961e7ca189f9c88a7c9cf55e6fbbf11d30882ac94bc73034f888c2d755847c",
+          "raw_response": "attempt-0002.response.json",
+          "raw_index": 8,
+          "quote": "Passport specialists must suspend a form DS-11 received without a photograph from an acceptance facility.",
+          "summary": "Passport specialists must suspend a Form DS-11 received from an acceptance facility without a photograph.",
+          "kind": "requirement",
+          "logic_text": "from an acceptance facility",
+          "relation": "none"
+        },
+        {
+          "candidate_index": 31,
+          "claim_id": "urn:rulespec:document-understanding:revision:c244cad1e84ea499f8aeaa85760628a14f442f4fec732f880bc17bc7f8557ae7",
+          "raw_response": "attempt-0002.response.json",
+          "raw_index": 9,
+          "quote": "The applicant must re-execute the form DS-11",
+          "summary": "The applicant must re-execute Form DS-11.",
+          "kind": "requirement",
+          "logic_text": "",
+          "relation": "none"
+        }
+      ],
+      "regression_ids": [
+        "R08"
+      ],
+      "omission_method": null
+    },
+    {
+      "id": "F03",
+      "severity": "high",
+      "title": "Photo standards and temporary-eyeglasses recommendation omitted",
+      "stage": "raw_model_output",
+      "unit_ids": [
+        "PH-009",
+        "PH-010",
+        "PH-011",
+        "PH-035",
+        "PH-036"
+      ],
+      "candidate_indices": [],
+      "neighbor_indices_for_omissions": [
+        2,
+        4,
+        5,
+        18,
+        20,
+        21
+      ],
+      "practical_effect": "Capture age, likeness, satisfactory identification, limited-validity endorsement-46 disposition and natural expression are not preserved.",
+      "counterargument": "Should is weaker than must, but is still guidance; other should statements were extracted. Remedy must preserve weak force.",
+      "source_evidence": [
+        {
+          "unit_id": "PH-009",
+          "start": 579,
+          "end": 777,
+          "exact_text": "(2) The photograph should be taken within six months of submitting the application, be a good likeness of and satisfactorily identify the applicant at the time of the application (see 22 CFR 51.26)."
+        },
+        {
+          "unit_id": "PH-010",
+          "start": 579,
+          "end": 777,
+          "exact_text": "(2) The photograph should be taken within six months of submitting the application, be a good likeness of and satisfactorily identify the applicant at the time of the application (see 22 CFR 51.26)."
+        },
+        {
+          "unit_id": "PH-011",
+          "start": 579,
+          "end": 777,
+          "exact_text": "(2) The photograph should be taken within six months of submitting the application, be a good likeness of and satisfactorily identify the applicant at the time of the application (see 22 CFR 51.26)."
+        },
+        {
+          "unit_id": "PH-035",
+          "start": 3000,
+          "end": 3189,
+          "exact_text": "NOTE: A limited-validity passport using endorsement 46 should be issued when the medical circumstance that requires eyeglasses is temporary and the applicant has urgent or emergency travel."
+        },
+        {
+          "unit_id": "PH-036",
+          "start": 3251,
+          "end": 3299,
+          "exact_text": "a. The applicant’s expression should be natural."
+        }
+      ],
+      "output_evidence": [],
+      "regression_ids": [
+        "R03",
+        "R06",
+        "R07"
+      ],
+      "omission_method": "All raw records and attributes inspected semantically; missing propositions were present in exact request windows. No candidate rejected or lost downstream."
+    },
+    {
+      "id": "F04",
+      "severity": "medium",
+      "title": "Should guidance typed under must-do requirement kind",
+      "stage": "prompt_taxonomy_and_raw_model_classification",
+      "unit_ids": [
+        "PH-042",
+        "PH-043",
+        "PH-045",
+        "PH-047"
+      ],
+      "candidate_indices": [
+        23,
+        26,
+        28
+      ],
+      "neighbor_indices_for_omissions": [],
+      "practical_effect": "Kind does not distinguish recommendation from obligation although summaries and quotes retain should.",
+      "counterargument": "No claim that prose was rewritten to must or executable policy deployed. A broad internal requirement category might be intended, but the actual prompt defines must do and has no recommendation kind.",
+      "source_evidence": [
+        {
+          "unit_id": "PH-042",
+          "start": 3731,
+          "end": 3859,
+          "exact_text": "Both of the applicant’s eyes should also be visible and open in the photograph (see the exception for infants in 8 FAM 402.1-1)."
+        },
+        {
+          "unit_id": "PH-043",
+          "start": 3731,
+          "end": 3859,
+          "exact_text": "Both of the applicant’s eyes should also be visible and open in the photograph (see the exception for infants in 8 FAM 402.1-1)."
+        },
+        {
+          "unit_id": "PH-045",
+          "start": 3975,
+          "end": 4185,
+          "exact_text": "In rare cases, if it is unlikely that the closed eye(s) or exaggerated expression are because of a medical condition, you should request a medical statement signed by a medical professional/health practitioner."
+        },
+        {
+          "unit_id": "PH-047",
+          "start": 4234,
+          "end": 4498,
+          "exact_text": "(1) Processing and communications/customer service personnel at passport agencies/centers or consular section personnel should refer applications without photographs to their supervisor for guidance on processing passport applications received without photographs;"
+        }
+      ],
+      "output_evidence": [
+        {
+          "candidate_index": 23,
+          "claim_id": "urn:rulespec:document-understanding:revision:6bd0f6b27e0fd18c8e8233b2a5150048eb28fcbc9849997c9e96f9ea34bbbca2",
+          "raw_response": "attempt-0002.response.json",
+          "raw_index": 1,
+          "quote": "Both of the applicant’s eyes should also be visible and open in the photograph",
+          "summary": "Both of the applicant's eyes should be open and visible in the photograph.",
+          "kind": "requirement",
+          "logic_text": "",
+          "relation": "none"
+        },
+        {
+          "candidate_index": 26,
+          "claim_id": "urn:rulespec:document-understanding:revision:9a749622ef50b5eb894dfc536f106eb9615fdcff31bc91779abb858842b41b04",
+          "raw_response": "attempt-0002.response.json",
+          "raw_index": 4,
+          "quote": "you should request a medical statement signed by a medical professional/health practitioner",
+          "summary": "You should request a signed medical statement if it is unlikely that closed eyes or exaggerated expression are due to a medical condition.",
+          "kind": "requirement",
+          "logic_text": "In rare cases, if it is unlikely that the closed eye(s) or exaggerated expression are because of a medical condition",
+          "relation": "none"
+        },
+        {
+          "candidate_index": 28,
+          "claim_id": "urn:rulespec:document-understanding:revision:660b14f4f5e3b0a1bfac7d7ce376f9a1b769d0b7c95b4e75a9b7be6081440898",
+          "raw_response": "attempt-0002.response.json",
+          "raw_index": 6,
+          "quote": "Processing and communications/customer service personnel at passport agencies/centers or consular section personnel should refer applications without photographs to their supervisor for guidance on processing passport applications received without photographs",
+          "summary": "Processing, communications/customer service, or consular personnel should refer applications lacking photos to their supervisor.",
+          "kind": "requirement",
+          "logic_text": "",
+          "relation": "none"
+        }
+      ],
+      "regression_ids": [
+        "R07",
+        "R11"
+      ],
+      "omission_method": null
+    },
+    {
+      "id": "F05",
+      "severity": "medium",
+      "title": "Material-damage summary broadens functional threshold",
+      "stage": "raw_model_summary_and_logic_fields",
+      "unit_ids": [
+        "PH-016",
+        "PH-017"
+      ],
+      "candidate_indices": [
+        6
+      ],
+      "neighbor_indices_for_omissions": [],
+      "practical_effect": "Affecting likeness is broader than making it no longer a good likeness; affecting recognition is broader than impeding it.",
+      "counterargument": "Full exact definition remains in evidence; this is summary/logic loss, not lost source quote or an objection to grouping.",
+      "source_evidence": [
+        {
+          "unit_id": "PH-016",
+          "start": 1381,
+          "end": 1633,
+          "exact_text": "(a) Material damage is any damage to the facial area that makes the photograph no longer a good likeness of the applicant (e.g., creases, large holes, and large smudges) or impedes the functioning of facial recognition (damage in the area of the eyes);"
+        },
+        {
+          "unit_id": "PH-017",
+          "start": 1381,
+          "end": 1633,
+          "exact_text": "(a) Material damage is any damage to the facial area that makes the photograph no longer a good likeness of the applicant (e.g., creases, large holes, and large smudges) or impedes the functioning of facial recognition (damage in the area of the eyes);"
+        }
+      ],
+      "output_evidence": [
+        {
+          "candidate_index": 6,
+          "claim_id": "urn:rulespec:document-understanding:revision:4d8d61bfc65cdfe557f0a3b3ee9fbac85a4bfa0223693453be5829accec81876",
+          "raw_response": "attempt-0000.response.json",
+          "raw_index": 6,
+          "quote": "Material damage is any damage to the facial area that makes the photograph no longer a good likeness of the applicant (e.g., creases, large holes, and large smudges) or impedes the functioning of facial recognition (damage in the area of the eyes);",
+          "summary": "Material damage is defined as damage to the facial area affecting likeness or facial recognition functioning.",
+          "kind": "definition",
+          "logic_text": "",
+          "relation": "none"
+        }
+      ],
+      "regression_ids": [
+        "R05"
+      ],
+      "omission_method": null
+    },
+    {
+      "id": "F06",
+      "severity": "medium",
+      "title": "Antecedents weakened and return object conflated",
+      "stage": "raw_model_fields",
+      "unit_ids": [
+        "PH-024",
+        "PH-025",
+        "PH-040",
+        "PH-041"
+      ],
+      "candidate_indices": [
+        10,
+        22
+      ],
+      "neighbor_indices_for_omissions": [],
+      "practical_effect": "Printing-defect return context is lost and application return is conflated with photograph request. Disability acceptance summary omits the expression-ability context.",
+      "counterargument": "Return summary still names application; may be returned is somewhat ambiguous. Source disability says may not be able, so no mandatory diagnosis/proof is inferred. Generic logic flags disclose uncertainty but do not restore antecedents.",
+      "source_evidence": [
+        {
+          "unit_id": "PH-024",
+          "start": 1982,
+          "end": 2115,
+          "exact_text": "(d) A photograph that appears acceptable and undamaged in the system may have a defect that is apparent when the passport is printed."
+        },
+        {
+          "unit_id": "PH-025",
+          "start": 2116,
+          "end": 2262,
+          "exact_text": "Consequently, the passport application may be returned to adjudication to request a new photograph even though the photograph appeared acceptable."
+        },
+        {
+          "unit_id": "PH-040",
+          "start": 3393,
+          "end": 3632,
+          "exact_text": "b. Applicants with physical or mental disabilities, including loss of muscle control (e.g., age-related degeneration or because of a medical condition such as Bell's Palsy), may not be able to produce a natural or unexaggerated expression."
+        },
+        {
+          "unit_id": "PH-041",
+          "start": 3633,
+          "end": 3730,
+          "exact_text": "You may accept a photograph without a natural or unexaggerated expression in these circumstances."
+        }
+      ],
+      "output_evidence": [
+        {
+          "candidate_index": 10,
+          "claim_id": "urn:rulespec:document-understanding:revision:72a2434e4105756bff09214e4ac580390e224116800c86c2990eecda01b9dcc2",
+          "raw_response": "attempt-0001.response.json",
+          "raw_index": 0,
+          "quote": "the passport application may be returned to adjudication to request a new photograph even though the photograph appeared acceptable",
+          "summary": "The passport application may be returned to adjudication to request a new photograph.",
+          "kind": "permission",
+          "logic_text": "even though the photograph appeared acceptable",
+          "relation": "none"
+        },
+        {
+          "candidate_index": 22,
+          "claim_id": "urn:rulespec:document-understanding:revision:7bb37223672b80442ddc01954ec325729380a5a401f1de5c2c019bca97e42926",
+          "raw_response": "attempt-0002.response.json",
+          "raw_index": 0,
+          "quote": "You may accept a photograph without a natural or unexaggerated expression in these circumstances.",
+          "summary": "You may accept a photograph lacking a natural or unexaggerated expression if the applicant has a physical or mental disability.",
+          "kind": "permission",
+          "logic_text": "in these circumstances",
+          "relation": "none"
+        }
+      ],
+      "regression_ids": [
+        "R10",
+        "R12"
+      ],
+      "omission_method": null
+    },
+    {
+      "id": "F07",
+      "severity": "medium",
+      "title": "Facial-expression baseline/exception relationships incomplete",
+      "stage": "window_preparation_and_raw_model_relation_omission",
+      "unit_ids": [
+        "PH-003",
+        "PH-036",
+        "PH-038",
+        "PH-041",
+        "PH-043",
+        "PH-044"
+      ],
+      "candidate_indices": [
+        21,
+        22,
+        23,
+        24,
+        25
+      ],
+      "neighbor_indices_for_omissions": [],
+      "practical_effect": "Permitted medical/disability cases are not related as exceptions to baseline claims; infant permission is absent and its reference unresolved.",
+      "counterargument": "No wrong emitted local target. Absent-window references may explicitly remain unresolved. Medical case remains present; a single run does not establish window splitting as cause.",
+      "source_evidence": [
+        {
+          "unit_id": "PH-003",
+          "start": 104,
+          "end": 208,
+          "exact_text": "(1) It is acceptable if the infant's eyes, particularly a newborn's, are partially or completely closed;"
+        },
+        {
+          "unit_id": "PH-036",
+          "start": 3251,
+          "end": 3299,
+          "exact_text": "a. The applicant’s expression should be natural."
+        },
+        {
+          "unit_id": "PH-038",
+          "start": 3300,
+          "end": 3391,
+          "exact_text": "Normal, unexaggerated smiles are acceptable, but unusual expressions and squinting are not."
+        },
+        {
+          "unit_id": "PH-041",
+          "start": 3633,
+          "end": 3730,
+          "exact_text": "You may accept a photograph without a natural or unexaggerated expression in these circumstances."
+        },
+        {
+          "unit_id": "PH-043",
+          "start": 3731,
+          "end": 3859,
+          "exact_text": "Both of the applicant’s eyes should also be visible and open in the photograph (see the exception for infants in 8 FAM 402.1-1)."
+        },
+        {
+          "unit_id": "PH-044",
+          "start": 3860,
+          "end": 3974,
+          "exact_text": "If the applicant is unable to open one or both eyes because of a medical condition, you may accept the photograph."
+        }
+      ],
+      "output_evidence": [
+        {
+          "candidate_index": 21,
+          "claim_id": "urn:rulespec:document-understanding:revision:2f0f95a0ceb2dbe2485d038902b9fead4db50b7ed03af426b8e1013fb518b83a",
+          "raw_response": "attempt-0001.response.json",
+          "raw_index": 11,
+          "quote": "unusual expressions and squinting are not",
+          "summary": "Unusual expressions and squinting are not acceptable.",
+          "kind": "prohibition",
+          "logic_text": "",
+          "relation": "none"
+        },
+        {
+          "candidate_index": 22,
+          "claim_id": "urn:rulespec:document-understanding:revision:7bb37223672b80442ddc01954ec325729380a5a401f1de5c2c019bca97e42926",
+          "raw_response": "attempt-0002.response.json",
+          "raw_index": 0,
+          "quote": "You may accept a photograph without a natural or unexaggerated expression in these circumstances.",
+          "summary": "You may accept a photograph lacking a natural or unexaggerated expression if the applicant has a physical or mental disability.",
+          "kind": "permission",
+          "logic_text": "in these circumstances",
+          "relation": "none"
+        },
+        {
+          "candidate_index": 23,
+          "claim_id": "urn:rulespec:document-understanding:revision:6bd0f6b27e0fd18c8e8233b2a5150048eb28fcbc9849997c9e96f9ea34bbbca2",
+          "raw_response": "attempt-0002.response.json",
+          "raw_index": 1,
+          "quote": "Both of the applicant’s eyes should also be visible and open in the photograph",
+          "summary": "Both of the applicant's eyes should be open and visible in the photograph.",
+          "kind": "requirement",
+          "logic_text": "",
+          "relation": "none"
+        },
+        {
+          "candidate_index": 24,
+          "claim_id": "urn:rulespec:document-understanding:revision:da8977ce3f22e837d997835d3238d4b449790cf60ca1566deadbeec41b5f71fc",
+          "raw_response": "attempt-0002.response.json",
+          "raw_index": 2,
+          "quote": "you may accept the photograph",
+          "summary": "You may accept the photograph if the applicant cannot open one or both eyes due to a medical condition.",
+          "kind": "permission",
+          "logic_text": "If the applicant is unable to open one or both eyes because of a medical condition",
+          "relation": "none"
+        },
+        {
+          "candidate_index": 25,
+          "claim_id": "urn:rulespec:document-understanding:revision:cf76a09bbf1e8df916a5c4a20991788059bae7ded7bfd521863429d826d50f95",
+          "raw_response": "attempt-0002.response.json",
+          "raw_index": 3,
+          "quote": "If the applicant is unable to open one or both eyes because of a medical condition",
+          "summary": "The applicant is unable to open one or both eyes due to a medical condition.",
+          "kind": "condition",
+          "logic_text": "If the applicant is unable to open one or both eyes because of a medical condition",
+          "relation": "trigger"
+        }
+      ],
+      "regression_ids": [
+        "R01",
+        "R09",
+        "R10",
+        "R11"
+      ],
+      "omission_method": null
+    },
+    {
+      "id": "F08",
+      "severity": "low",
+      "title": "Advisory and remote-reference topic context lost",
+      "stage": "raw_model_omission_or_label_only_reference",
+      "unit_ids": [
+        "PH-002",
+        "PH-014",
+        "PH-050"
+      ],
+      "candidate_indices": [
+        29
+      ],
+      "neighbor_indices_for_omissions": [],
+      "practical_effect": "Reasonableness goal and certificate photo-age caution absent; DS-5504 import association lost despite retaining 8 FAM 1001.2.",
+      "counterargument": "Guidance omission is weaker than missing explicit permissions. Unseen target contents are not obligations. Inventory actor erratum is not an output defect.",
+      "source_evidence": [
+        {
+          "unit_id": "PH-002",
+          "start": 40,
+          "end": 102,
+          "exact_text": "The goal is the best likeness that can reasonably be obtained:"
+        },
+        {
+          "unit_id": "PH-014",
+          "start": 1102,
+          "end": 1326,
+          "exact_text": "Be aware that even if the certificate itself was recently issued, because of U.S. Citizenship and Immigration Services processing times, the photograph may not have been taken within six months of submitting the application."
+        },
+        {
+          "unit_id": "PH-050",
+          "start": 4604,
+          "end": 4671,
+          "exact_text": "See 8 FAM 1001.2 regarding importing photographs for forms DS-5504;"
+        }
+      ],
+      "output_evidence": [
+        {
+          "candidate_index": 29,
+          "claim_id": "urn:rulespec:document-understanding:revision:b3dd3975c700a60d7aa0337bfb847c49b46b0ea1c9ee09d94aff7c5257fc84f7",
+          "raw_response": "attempt-0002.response.json",
+          "raw_index": 7,
+          "quote": "You must not accept a form DS-11 or form DS-82 received without a photograph at the public counter.",
+          "summary": "Personnel must not accept a Form DS-11 or DS-82 without a photograph at the public counter.",
+          "kind": "prohibition",
+          "logic_text": "at the public counter",
+          "relation": "none"
+        }
+      ],
+      "regression_ids": [
+        "R03",
+        "R13",
+        "R15"
+      ],
+      "omission_method": null
+    }
+  ],
+  "coverage": [
+    {
+      "unit_id": "PH-001",
+      "inventory_role": "context_only_not_a_standalone_duty",
+      "source_citation": "8 FAM 402.1-1(d)",
+      "source": {
+        "start": 0,
+        "end": 39,
+        "exact_text": "d. Infants pose a particular challenge."
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [],
+      "status": "context_not_required",
+      "finding_ids": [],
+      "judgment": "Infant difficulty is descriptive, so no standalone rule is needed."
+    },
+    {
+      "unit_id": "PH-002",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-1(d)",
+      "source": {
+        "start": 40,
+        "end": 102,
+        "exact_text": "The goal is the best likeness that can reasonably be obtained:"
+      },
+      "supporting_scope_ranges": [
+        [
+          0,
+          102
+        ]
+      ],
+      "candidate_indices": [],
+      "status": "omitted_advisory",
+      "finding_ids": [
+        "F08"
+      ],
+      "judgment": "Reasonableness-qualified infant-likeness goal is absent."
+    },
+    {
+      "unit_id": "PH-003",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-1(d)(1)",
+      "source": {
+        "start": 104,
+        "end": 208,
+        "exact_text": "(1) It is acceptable if the infant's eyes, particularly a newborn's, are partially or completely closed;"
+      },
+      "supporting_scope_ranges": [
+        [
+          0,
+          102
+        ]
+      ],
+      "candidate_indices": [],
+      "status": "omitted",
+      "finding_ids": [
+        "F01",
+        "F07"
+      ],
+      "judgment": "Infant partial or complete eye-closure permission is absent."
+    },
+    {
+      "unit_id": "PH-004",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-1(d)(2)",
+      "source": {
+        "start": 210,
+        "end": 329,
+        "exact_text": "(2) The infant's head may be discreetly supported, e.g., a car seat with a white or off-white blanket behind the child."
+      },
+      "supporting_scope_ranges": [
+        [
+          0,
+          102
+        ]
+      ],
+      "candidate_indices": [
+        0
+      ],
+      "status": "represented",
+      "finding_ids": [],
+      "judgment": "Discreet support retained; the car-seat example remains illustrative."
+    },
+    {
+      "unit_id": "PH-005",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-1(d)(2)",
+      "source": {
+        "start": 330,
+        "end": 370,
+        "exact_text": "Head tilt is acceptable for infants; and"
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [],
+      "status": "omitted",
+      "finding_ids": [
+        "F01"
+      ],
+      "judgment": "Separate infant head-tilt permission is absent."
+    },
+    {
+      "unit_id": "PH-006",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-1(d)(3)",
+      "source": {
+        "start": 372,
+        "end": 434,
+        "exact_text": "(3) A parent’s face cannot be in the photograph of the infant."
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [
+        1
+      ],
+      "status": "represented",
+      "finding_ids": [],
+      "judgment": "Parent face prohibition retained in summary/quote; no named duty holder is stated."
+    },
+    {
+      "unit_id": "PH-007",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-2 lead-in",
+      "source": {
+        "start": 436,
+        "end": 539,
+        "exact_text": "You must request a new photograph if the photograph submitted does not meet the following requirements:"
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [
+        2,
+        3
+      ],
+      "status": "represented_unresolved_list",
+      "finding_ids": [],
+      "judgment": "Must-request replacement and trigger retained; following requirements is an uninterpreted set."
+    },
+    {
+      "unit_id": "PH-008",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-2(1)",
+      "source": {
+        "start": 541,
+        "end": 577,
+        "exact_text": "(1) The photograph must be in color;"
+      },
+      "supporting_scope_ranges": [
+        [
+          436,
+          539
+        ]
+      ],
+      "candidate_indices": [
+        4
+      ],
+      "status": "represented",
+      "finding_ids": [],
+      "judgment": "Color requirement retained."
+    },
+    {
+      "unit_id": "PH-009",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-2(2)",
+      "source": {
+        "start": 579,
+        "end": 777,
+        "exact_text": "(2) The photograph should be taken within six months of submitting the application, be a good likeness of and satisfactorily identify the applicant at the time of the application (see 22 CFR 51.26)."
+      },
+      "supporting_scope_ranges": [
+        [
+          436,
+          539
+        ]
+      ],
+      "candidate_indices": [],
+      "status": "omitted",
+      "finding_ids": [
+        "F03"
+      ],
+      "judgment": "Six-month capture-age guidance absent."
+    },
+    {
+      "unit_id": "PH-010",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-2(2)",
+      "source": {
+        "start": 579,
+        "end": 777,
+        "exact_text": "(2) The photograph should be taken within six months of submitting the application, be a good likeness of and satisfactorily identify the applicant at the time of the application (see 22 CFR 51.26)."
+      },
+      "supporting_scope_ranges": [
+        [
+          436,
+          539
+        ]
+      ],
+      "candidate_indices": [],
+      "status": "omitted",
+      "finding_ids": [
+        "F03"
+      ],
+      "judgment": "General good-likeness-at-application standard absent; damage-definition references do not cover it."
+    },
+    {
+      "unit_id": "PH-011",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-2(2)",
+      "source": {
+        "start": 579,
+        "end": 777,
+        "exact_text": "(2) The photograph should be taken within six months of submitting the application, be a good likeness of and satisfactorily identify the applicant at the time of the application (see 22 CFR 51.26)."
+      },
+      "supporting_scope_ranges": [
+        [
+          436,
+          539
+        ]
+      ],
+      "candidate_indices": [],
+      "status": "omitted",
+      "finding_ids": [
+        "F03"
+      ],
+      "judgment": "Satisfactory identification at application time absent."
+    },
+    {
+      "unit_id": "PH-012",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-2(2)",
+      "source": {
+        "start": 778,
+        "end": 941,
+        "exact_text": "A photograph showing a change in hairstyle or facial hair from the identification document submitted is acceptable if it still is a good likeness of the applicant;"
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [],
+      "status": "omitted",
+      "finding_ids": [
+        "F01"
+      ],
+      "judgment": "Hairstyle/facial-hair change permission with good-likeness condition absent."
+    },
+    {
+      "unit_id": "PH-013",
+      "inventory_role": "context_only_not_a_standalone_permission",
+      "source_citation": "8 FAM 402.1-2 note after (2)",
+      "source": {
+        "start": 943,
+        "end": 1101,
+        "exact_text": "NOTE: Applicants may wish to re-use a passport photograph that is depicted on their submitted U.S Certificate of Citizenship or Certificate of Naturalization."
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [],
+      "status": "context_not_required",
+      "finding_ids": [],
+      "judgment": "May wish describes a preference, not unconditional permission to reuse a photograph."
+    },
+    {
+      "unit_id": "PH-014",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-2 note after (2)",
+      "source": {
+        "start": 1102,
+        "end": 1326,
+        "exact_text": "Be aware that even if the certificate itself was recently issued, because of U.S. Citizenship and Immigration Services processing times, the photograph may not have been taken within six months of submitting the application."
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [],
+      "status": "omitted_advisory",
+      "finding_ids": [
+        "F08"
+      ],
+      "judgment": "Certificate issue-date versus photograph capture-date caution absent; actor erratum applies."
+    },
+    {
+      "unit_id": "PH-015",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-2(6)",
+      "source": {
+        "start": 1328,
+        "end": 1379,
+        "exact_text": "(6) The photograph must be free of material damage:"
+      },
+      "supporting_scope_ranges": [
+        [
+          436,
+          539
+        ]
+      ],
+      "candidate_indices": [
+        5
+      ],
+      "status": "represented",
+      "finding_ids": [],
+      "judgment": "Material-damage duty retained."
+    },
+    {
+      "unit_id": "PH-016",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-2(6)(a)",
+      "source": {
+        "start": 1381,
+        "end": 1633,
+        "exact_text": "(a) Material damage is any damage to the facial area that makes the photograph no longer a good likeness of the applicant (e.g., creases, large holes, and large smudges) or impedes the functioning of facial recognition (damage in the area of the eyes);"
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [
+        6
+      ],
+      "status": "summary_drift",
+      "finding_ids": [
+        "F05"
+      ],
+      "judgment": "Full quote retains loss-of-good-likeness test; summary broadens it to affecting likeness."
+    },
+    {
+      "unit_id": "PH-017",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-2(6)(a)",
+      "source": {
+        "start": 1381,
+        "end": 1633,
+        "exact_text": "(a) Material damage is any damage to the facial area that makes the photograph no longer a good likeness of the applicant (e.g., creases, large holes, and large smudges) or impedes the functioning of facial recognition (damage in the area of the eyes);"
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [
+        6
+      ],
+      "status": "summary_drift",
+      "finding_ids": [
+        "F05"
+      ],
+      "judgment": "Full quote retains impeded-recognition alternative; summary says affecting functioning and logic_text is empty."
+    },
+    {
+      "unit_id": "PH-018",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-2(6)(b)",
+      "source": {
+        "start": 1635,
+        "end": 1754,
+        "exact_text": "(b) Immaterial damage is any damage to the background, and non-material damage to the facial area (e.g., staple holes)."
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [
+        7
+      ],
+      "status": "represented_grouped",
+      "finding_ids": [],
+      "judgment": "Background-damage definition retained with the facial category; grouping is acceptable."
+    },
+    {
+      "unit_id": "PH-019",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-2(6)(b)",
+      "source": {
+        "start": 1635,
+        "end": 1754,
+        "exact_text": "(b) Immaterial damage is any damage to the background, and non-material damage to the facial area (e.g., staple holes)."
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [
+        7
+      ],
+      "status": "represented_grouped",
+      "finding_ids": [],
+      "judgment": "Non-material facial-area category and staple-hole example retained in evidence."
+    },
+    {
+      "unit_id": "PH-020",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-2(6)(b)",
+      "source": {
+        "start": 1755,
+        "end": 1787,
+        "exact_text": "Immaterial damage is acceptable;"
+      },
+      "supporting_scope_ranges": [
+        [
+          1635,
+          1754
+        ]
+      ],
+      "candidate_indices": [],
+      "status": "omitted",
+      "finding_ids": [
+        "F01"
+      ],
+      "judgment": "Immaterial damage acceptance is not stated by the definition alone."
+    },
+    {
+      "unit_id": "PH-021",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-2(6)(c)",
+      "source": {
+        "start": 1789,
+        "end": 1889,
+        "exact_text": "(c) The applicant does not need to sign the photograph, as this often causes creases or smudges; and"
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [],
+      "status": "omitted",
+      "finding_ids": [
+        "F01"
+      ],
+      "judgment": "Applicant no-sign exemption absent; acceptance-agent signing does not substitute."
+    },
+    {
+      "unit_id": "PH-022",
+      "inventory_role": "context_only_not_a_standalone_duty",
+      "source_citation": "8 FAM 402.1-2(6)(c)",
+      "source": {
+        "start": 1845,
+        "end": 1885,
+        "exact_text": "as this often causes creases or smudges;"
+      },
+      "supporting_scope_ranges": [
+        [
+          1789,
+          1889
+        ]
+      ],
+      "candidate_indices": [],
+      "status": "context_not_required",
+      "finding_ids": [],
+      "judgment": "Signing-damage rationale does not require a separate normative candidate."
+    },
+    {
+      "unit_id": "PH-023",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-2(6) hand-carry note",
+      "source": {
+        "start": 1891,
+        "end": 1980,
+        "exact_text": "NOTE: For hand-carry applications, the acceptance agent signs the back of the photograph."
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [
+        8,
+        9
+      ],
+      "status": "represented",
+      "finding_ids": [],
+      "judgment": "Correct acceptance agent, signature location, hand-carry scope and target."
+    },
+    {
+      "unit_id": "PH-024",
+      "inventory_role": "context_only_not_a_standalone_permission",
+      "source_citation": "8 FAM 402.1-2(6)(d)",
+      "source": {
+        "start": 1982,
+        "end": 2115,
+        "exact_text": "(d) A photograph that appears acceptable and undamaged in the system may have a defect that is apparent when the passport is printed."
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [
+        10
+      ],
+      "status": "antecedent_not_carried",
+      "finding_ids": [
+        "F06"
+      ],
+      "judgment": "Factual defect possibility need not be a rule, but its context is needed by the return option."
+    },
+    {
+      "unit_id": "PH-025",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-2(6)(d)",
+      "source": {
+        "start": 2116,
+        "end": 2262,
+        "exact_text": "Consequently, the passport application may be returned to adjudication to request a new photograph even though the photograph appeared acceptable."
+      },
+      "supporting_scope_ranges": [
+        [
+          1982,
+          2115
+        ]
+      ],
+      "candidate_indices": [
+        10
+      ],
+      "status": "scope_and_event_loss",
+      "finding_ids": [
+        "F06"
+      ],
+      "judgment": "Return is retained, but print-defect context and primary returned object are missing from structured fields."
+    },
+    {
+      "unit_id": "PH-026",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-4(e)(1)",
+      "source": {
+        "start": 2295,
+        "end": 2497,
+        "exact_text": "(1) Eyeglasses are not acceptable unless they cannot be removed for medical reasons, e.g., the applicant has recently had ocular surgery and the eyeglasses are necessary to protect the applicant’s eyes."
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [
+        11,
+        12
+      ],
+      "status": "represented",
+      "finding_ids": [],
+      "judgment": "General eyeglasses prohibition paired with correctly resolved medical exception."
+    },
+    {
+      "unit_id": "PH-027",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-4(e)(1)",
+      "source": {
+        "start": 2295,
+        "end": 2497,
+        "exact_text": "(1) Eyeglasses are not acceptable unless they cannot be removed for medical reasons, e.g., the applicant has recently had ocular surgery and the eyeglasses are necessary to protect the applicant’s eyes."
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [
+        12
+      ],
+      "status": "represented",
+      "finding_ids": [],
+      "judgment": "Cannot remove for medical reasons and surgical example retained."
+    },
+    {
+      "unit_id": "PH-028",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-4(e)(1)",
+      "source": {
+        "start": 2498,
+        "end": 2617,
+        "exact_text": "A medical statement signed by a medical professional/health practitioner must be requested in these rare circumstances."
+      },
+      "supporting_scope_ranges": [
+        [
+          2295,
+          2497
+        ]
+      ],
+      "candidate_indices": [
+        13
+      ],
+      "status": "represented_deictic_scope",
+      "finding_ids": [],
+      "judgment": "Summary correctly resolves medical scope; in these rare circumstances remains deictic and flagged."
+    },
+    {
+      "unit_id": "PH-029",
+      "inventory_role": "scope_dependency",
+      "source_citation": "8 FAM 402.1-4(e)(1) medical acceptance lead-in",
+      "source": {
+        "start": 2618,
+        "end": 2669,
+        "exact_text": "If the eyeglasses are accepted for medical reasons:"
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [
+        14
+      ],
+      "status": "scope_dependency_represented",
+      "finding_ids": [],
+      "judgment": "All four children correctly linked; prerequisite versus applicability scope is taxonomy uncertainty."
+    },
+    {
+      "unit_id": "PH-030",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-4(e)(1)(a)",
+      "source": {
+        "start": 2671,
+        "end": 2730,
+        "exact_text": "(a) The frames of the eyeglasses must not cover the eye(s);"
+      },
+      "supporting_scope_ranges": [
+        [
+          2618,
+          2669
+        ]
+      ],
+      "candidate_indices": [
+        14,
+        15
+      ],
+      "status": "represented",
+      "finding_ids": [],
+      "judgment": "Frames prohibition retains medical applicability through inbound condition."
+    },
+    {
+      "unit_id": "PH-031",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-4(e)(1)(b)",
+      "source": {
+        "start": 2732,
+        "end": 2799,
+        "exact_text": "(b) There must not be glare on eyeglasses that obscures the eye(s);"
+      },
+      "supporting_scope_ranges": [
+        [
+          2618,
+          2669
+        ]
+      ],
+      "candidate_indices": [
+        14,
+        16
+      ],
+      "status": "represented",
+      "finding_ids": [],
+      "judgment": "Only eye-obscuring glare prohibited, with medical scope linked."
+    },
+    {
+      "unit_id": "PH-032",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-4(e)(1)(c)",
+      "source": {
+        "start": 2801,
+        "end": 2893,
+        "exact_text": "(c) There must not be shadows or refraction from the eyeglasses that obscure the eye(s); and"
+      },
+      "supporting_scope_ranges": [
+        [
+          2618,
+          2669
+        ]
+      ],
+      "candidate_indices": [
+        14,
+        17
+      ],
+      "status": "represented_grouped",
+      "finding_ids": [],
+      "judgment": "Eye-obscuring shadows retained as an OR alternative."
+    },
+    {
+      "unit_id": "PH-033",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-4(e)(1)(c)",
+      "source": {
+        "start": 2801,
+        "end": 2893,
+        "exact_text": "(c) There must not be shadows or refraction from the eyeglasses that obscure the eye(s); and"
+      },
+      "supporting_scope_ranges": [
+        [
+          2618,
+          2669
+        ]
+      ],
+      "candidate_indices": [
+        14,
+        17
+      ],
+      "status": "represented_grouped",
+      "finding_ids": [],
+      "judgment": "Eye-obscuring refraction retained as the other alternative."
+    },
+    {
+      "unit_id": "PH-034",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-4(e)(1)(d)",
+      "source": {
+        "start": 2895,
+        "end": 2998,
+        "exact_text": "(d) Dark or tinted lenses are permitted if the medical statement also indicates that they are required."
+      },
+      "supporting_scope_ranges": [
+        [
+          2618,
+          2669
+        ],
+        [
+          2295,
+          2497
+        ],
+        [
+          2498,
+          2617
+        ]
+      ],
+      "candidate_indices": [
+        14,
+        18,
+        19
+      ],
+      "status": "represented",
+      "finding_ids": [],
+      "judgment": "Dark/tinted alternatives, medical context and statement-required necessity linked correctly."
+    },
+    {
+      "unit_id": "PH-035",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-4(e)(1) limited-validity note",
+      "source": {
+        "start": 3000,
+        "end": 3189,
+        "exact_text": "NOTE: A limited-validity passport using endorsement 46 should be issued when the medical circumstance that requires eyeglasses is temporary and the applicant has urgent or emergency travel."
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [],
+      "status": "omitted",
+      "finding_ids": [
+        "F03"
+      ],
+      "judgment": "Temporary medical need AND urgent/emergency travel, limited-validity recommendation and endorsement 46 absent."
+    },
+    {
+      "unit_id": "PH-036",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-5(a)",
+      "source": {
+        "start": 3251,
+        "end": 3299,
+        "exact_text": "a. The applicant’s expression should be natural."
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [],
+      "status": "omitted",
+      "finding_ids": [
+        "F03",
+        "F07"
+      ],
+      "judgment": "Natural-expression recommendation absent."
+    },
+    {
+      "unit_id": "PH-037",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-5(a)",
+      "source": {
+        "start": 3300,
+        "end": 3391,
+        "exact_text": "Normal, unexaggerated smiles are acceptable, but unusual expressions and squinting are not."
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [
+        20
+      ],
+      "status": "represented",
+      "finding_ids": [],
+      "judgment": "Normal and unexaggerated jointly qualify acceptable smiles."
+    },
+    {
+      "unit_id": "PH-038",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-5(a)",
+      "source": {
+        "start": 3300,
+        "end": 3391,
+        "exact_text": "Normal, unexaggerated smiles are acceptable, but unusual expressions and squinting are not."
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [
+        21
+      ],
+      "status": "baseline_present_override_unlinked",
+      "finding_ids": [
+        "F07"
+      ],
+      "judgment": "General unusual-expression prohibition retained; disability override not connected."
+    },
+    {
+      "unit_id": "PH-039",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-5(a)",
+      "source": {
+        "start": 3300,
+        "end": 3391,
+        "exact_text": "Normal, unexaggerated smiles are acceptable, but unusual expressions and squinting are not."
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [
+        21
+      ],
+      "status": "represented_grouped",
+      "finding_ids": [],
+      "judgment": "Squinting retained; exact overlap with medical closed-eye exceptions is source-ambiguous."
+    },
+    {
+      "unit_id": "PH-040",
+      "inventory_role": "scope_dependency_and_explanation",
+      "source_citation": "8 FAM 402.1-5(b)",
+      "source": {
+        "start": 3393,
+        "end": 3632,
+        "exact_text": "b. Applicants with physical or mental disabilities, including loss of muscle control (e.g., age-related degeneration or because of a medical condition such as Bell's Palsy), may not be able to produce a natural or unexaggerated expression."
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [
+        22
+      ],
+      "status": "antecedent_reduced",
+      "finding_ids": [
+        "F06"
+      ],
+      "judgment": "Functional expression context reduced to disability labels; no separate descriptive rule required."
+    },
+    {
+      "unit_id": "PH-041",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-5(b)",
+      "source": {
+        "start": 3633,
+        "end": 3730,
+        "exact_text": "You may accept a photograph without a natural or unexaggerated expression in these circumstances."
+      },
+      "supporting_scope_ranges": [
+        [
+          3393,
+          3632
+        ]
+      ],
+      "candidate_indices": [
+        22
+      ],
+      "status": "scope_broadened_override_unlinked",
+      "finding_ids": [
+        "F06",
+        "F07"
+      ],
+      "judgment": "Permission retained, summary broadened to having any physical/mental disability; relation none."
+    },
+    {
+      "unit_id": "PH-042",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-5(b)",
+      "source": {
+        "start": 3731,
+        "end": 3859,
+        "exact_text": "Both of the applicant’s eyes should also be visible and open in the photograph (see the exception for infants in 8 FAM 402.1-1)."
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [
+        23
+      ],
+      "status": "force_conflict",
+      "finding_ids": [
+        "F04"
+      ],
+      "judgment": "Visibility and both eyes retained; should classified as requirement under must-do prompt definition."
+    },
+    {
+      "unit_id": "PH-043",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-5(b)",
+      "source": {
+        "start": 3731,
+        "end": 3859,
+        "exact_text": "Both of the applicant’s eyes should also be visible and open in the photograph (see the exception for infants in 8 FAM 402.1-1)."
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [
+        23,
+        24,
+        25
+      ],
+      "status": "force_and_exception_gaps",
+      "finding_ids": [
+        "F01",
+        "F04",
+        "F07"
+      ],
+      "judgment": "Open-eye guidance typed requirement; infant reference unresolved and medical permission not linked as baseline exception."
+    },
+    {
+      "unit_id": "PH-044",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-5(b)",
+      "source": {
+        "start": 3860,
+        "end": 3974,
+        "exact_text": "If the applicant is unable to open one or both eyes because of a medical condition, you may accept the photograph."
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [
+        24,
+        25
+      ],
+      "status": "permission_present_override_unlinked",
+      "finding_ids": [
+        "F07"
+      ],
+      "judgment": "One/both eyes and causal medical condition preserved; trigger targets acceptance, not baseline exception."
+    },
+    {
+      "unit_id": "PH-045",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-5(b)",
+      "source": {
+        "start": 3975,
+        "end": 4185,
+        "exact_text": "In rare cases, if it is unlikely that the closed eye(s) or exaggerated expression are because of a medical condition, you should request a medical statement signed by a medical professional/health practitioner."
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [
+        26,
+        27
+      ],
+      "status": "force_conflict",
+      "finding_ids": [
+        "F04"
+      ],
+      "judgment": "Unlikely, rare, alternatives and signed professional statement retained; should typed requirement."
+    },
+    {
+      "unit_id": "PH-046",
+      "inventory_role": "scope_dependency",
+      "source_citation": "8 FAM 402.1-8(a) lead-in",
+      "source": {
+        "start": 4187,
+        "end": 4232,
+        "exact_text": "a. Applications received without photographs:"
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [
+        28,
+        29,
+        30,
+        31,
+        32
+      ],
+      "status": "scope_heading_accounted",
+      "finding_ids": [
+        "F02"
+      ],
+      "judgment": "No heading-rule needed; missing-photo case retained in most children but lost for re-execution."
+    },
+    {
+      "unit_id": "PH-047",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-8(a)(1)",
+      "source": {
+        "start": 4234,
+        "end": 4498,
+        "exact_text": "(1) Processing and communications/customer service personnel at passport agencies/centers or consular section personnel should refer applications without photographs to their supervisor for guidance on processing passport applications received without photographs;"
+      },
+      "supporting_scope_ranges": [
+        [
+          4187,
+          4232
+        ]
+      ],
+      "candidate_indices": [
+        28
+      ],
+      "status": "force_conflict",
+      "finding_ids": [
+        "F04"
+      ],
+      "judgment": "Staff alternatives, missing-photo object and supervisor retained; should typed requirement with no issues."
+    },
+    {
+      "unit_id": "PH-048",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-8(a)(2)",
+      "source": {
+        "start": 4500,
+        "end": 4603,
+        "exact_text": "(2) You must not accept a form DS-11 or form DS-82 received without a photograph at the public counter."
+      },
+      "supporting_scope_ranges": [
+        [
+          4187,
+          4232
+        ]
+      ],
+      "candidate_indices": [
+        29
+      ],
+      "status": "represented_grouped",
+      "finding_ids": [],
+      "judgment": "DS-11 counter refusal retained as one form alternative."
+    },
+    {
+      "unit_id": "PH-049",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-8(a)(2)",
+      "source": {
+        "start": 4500,
+        "end": 4603,
+        "exact_text": "(2) You must not accept a form DS-11 or form DS-82 received without a photograph at the public counter."
+      },
+      "supporting_scope_ranges": [
+        [
+          4187,
+          4232
+        ]
+      ],
+      "candidate_indices": [
+        29
+      ],
+      "status": "represented_grouped",
+      "finding_ids": [],
+      "judgment": "DS-82 counter refusal retained as the other alternative."
+    },
+    {
+      "unit_id": "PH-050",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-8(a)(2)",
+      "source": {
+        "start": 4604,
+        "end": 4671,
+        "exact_text": "See 8 FAM 1001.2 regarding importing photographs for forms DS-5504;"
+      },
+      "supporting_scope_ranges": [],
+      "candidate_indices": [
+        29
+      ],
+      "status": "reference_label_only",
+      "finding_ids": [
+        "F08"
+      ],
+      "judgment": "Unresolved FAM reference retained; DS-5504 import topic lost. Actor erratum applies."
+    },
+    {
+      "unit_id": "PH-051",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-8(a)(3)",
+      "source": {
+        "start": 4673,
+        "end": 4782,
+        "exact_text": "(3) Passport specialists must suspend a form DS-11 received without a photograph from an acceptance facility."
+      },
+      "supporting_scope_ranges": [
+        [
+          4187,
+          4232
+        ]
+      ],
+      "candidate_indices": [
+        30
+      ],
+      "status": "represented",
+      "finding_ids": [],
+      "judgment": "Specialist, DS-11, missing photograph, acceptance facility and suspension retained."
+    },
+    {
+      "unit_id": "PH-052",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-8(a)(3)",
+      "source": {
+        "start": 4783,
+        "end": 4849,
+        "exact_text": "The applicant must re-execute the form DS-11 (see IRL 975-04); and"
+      },
+      "supporting_scope_ranges": [
+        [
+          4187,
+          4232
+        ],
+        [
+          4673,
+          4782
+        ]
+      ],
+      "candidate_indices": [
+        31
+      ],
+      "status": "inherited_scope_loss",
+      "finding_ids": [
+        "F02"
+      ],
+      "judgment": "Applicant re-execution loses the preceding no-photo acceptance-facility case."
+    },
+    {
+      "unit_id": "PH-053",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-8(a)(4)",
+      "source": {
+        "start": 4851,
+        "end": 4982,
+        "exact_text": "(4) Passport specialists must suspend a form DS-82 or form DS-5504 received without a photograph (see IRL 1000-05 and IRL 1018-14)."
+      },
+      "supporting_scope_ranges": [
+        [
+          4187,
+          4232
+        ]
+      ],
+      "candidate_indices": [
+        32
+      ],
+      "status": "represented_grouped",
+      "finding_ids": [],
+      "judgment": "DS-82 suspension retained without importing item 3 facility restriction."
+    },
+    {
+      "unit_id": "PH-054",
+      "inventory_role": "substantive",
+      "source_citation": "8 FAM 402.1-8(a)(4)",
+      "source": {
+        "start": 4851,
+        "end": 4982,
+        "exact_text": "(4) Passport specialists must suspend a form DS-82 or form DS-5504 received without a photograph (see IRL 1000-05 and IRL 1018-14)."
+      },
+      "supporting_scope_ranges": [
+        [
+          4187,
+          4232
+        ]
+      ],
+      "candidate_indices": [
+        32
+      ],
+      "status": "represented_grouped",
+      "finding_ids": [],
+      "judgment": "DS-5504 suspension retained; both IRLs jointly referenced and unresolved."
+    }
+  ],
+  "candidate_audit": [
+    {
+      "index": 0,
+      "label": "C00",
+      "claim_id": "urn:rulespec:document-understanding:revision:9dbb2c185240608675e3c7be2c08bb28823867f297d0104d1365d3d457c5e749",
+      "raw_response_file": "attempt-0000.response.json",
+      "raw_extraction_index": 0,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/0",
+      "source_range": [
+        214,
+        329
+      ],
+      "fields": {
+        "kind": "permission",
+        "quote": "The infant's head may be discreetly supported, e.g., a car seat with a white or off-white blanket behind the child.",
+        "summary": "The head of an infant may be supported discreetly.",
+        "actor": "",
+        "action": "be discreetly supported",
+        "object": "The infant's head",
+        "actor_quote": "",
+        "action_quote": "be discreetly supported",
+        "object_quote": "The infant's head",
+        "logic_text": "",
+        "relation": "none",
+        "applies_to": [],
+        "references": []
+      },
+      "target_indices": [],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "unknown_actor",
+          "field": "actor",
+          "message": "The actor needs review."
+        }
+      ],
+      "unit_ids": [
+        "PH-004"
+      ],
+      "finding_ids": [],
+      "judgment": "Permission and discreet support faithful; no photographer invented.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 1,
+      "label": "C01",
+      "claim_id": "urn:rulespec:document-understanding:revision:3301e14486b2317468ac3bc2d9c0194a4dbe1b3d64eaf545aa9da7f456fc43c1",
+      "raw_response_file": "attempt-0000.response.json",
+      "raw_extraction_index": 1,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/1",
+      "source_range": [
+        376,
+        434
+      ],
+      "fields": {
+        "kind": "prohibition",
+        "quote": "A parent’s face cannot be in the photograph of the infant.",
+        "summary": "A parent's face cannot appear in the infant's photograph.",
+        "actor": "",
+        "action": "be in",
+        "object": "the photograph of the infant",
+        "actor_quote": "",
+        "action_quote": "be in",
+        "object_quote": "the photograph of the infant",
+        "logic_text": "",
+        "relation": "none",
+        "applies_to": [],
+        "references": []
+      },
+      "target_indices": [],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "unknown_actor",
+          "field": "actor",
+          "message": "The actor needs review."
+        }
+      ],
+      "unit_ids": [
+        "PH-006"
+      ],
+      "finding_ids": [],
+      "judgment": "Parent-face summary faithful. Blank actor is appropriate; tuple alone lacks subject but no wrong person is assigned.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 2,
+      "label": "C02",
+      "claim_id": "urn:rulespec:document-understanding:revision:2ac613517ab640c7b6af29306597706552b5580b2a3cea19b88224f4aec0136f",
+      "raw_response_file": "attempt-0000.response.json",
+      "raw_extraction_index": 2,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/2",
+      "source_range": [
+        436,
+        539
+      ],
+      "fields": {
+        "kind": "requirement",
+        "quote": "You must request a new photograph if the photograph submitted does not meet the following requirements:",
+        "summary": "You must request a new photograph if the submitted photograph does not meet requirements.",
+        "actor": "You",
+        "action": "request",
+        "object": "a new photograph",
+        "actor_quote": "You",
+        "action_quote": "request",
+        "object_quote": "a new photograph",
+        "logic_text": "if the photograph submitted does not meet the following requirements:",
+        "relation": "none",
+        "applies_to": [],
+        "references": []
+      },
+      "target_indices": [],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "logic_requires_review",
+          "field": "logic_text",
+          "message": "Logical grouping, quantities or timing remain uninterpreted."
+        }
+      ],
+      "unit_ids": [
+        "PH-007"
+      ],
+      "finding_ids": [],
+      "judgment": "Replacement action and trigger retained; following-requirements set unresolved.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 3,
+      "label": "C03",
+      "claim_id": "urn:rulespec:document-understanding:revision:d5ff3d7a7161461a87794e613a53354a43e45feb554c9ab5af7c3d5b869274ed",
+      "raw_response_file": "attempt-0000.response.json",
+      "raw_extraction_index": 3,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/3",
+      "source_range": [
+        470,
+        539
+      ],
+      "fields": {
+        "kind": "condition",
+        "quote": "if the photograph submitted does not meet the following requirements:",
+        "summary": "Triggers requirement to request a new photograph when the submitted photograph does not meet specified requirements.",
+        "actor": "",
+        "action": "does not meet",
+        "object": "the following requirements",
+        "actor_quote": "",
+        "action_quote": "does not meet",
+        "object_quote": "the following requirements",
+        "logic_text": "if the photograph submitted does not meet the following requirements:",
+        "relation": "trigger",
+        "applies_to": [
+          "You must request a new photograph if the photograph submitted does not meet the following requirements:"
+        ],
+        "references": []
+      },
+      "target_indices": [
+        2
+      ],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "unknown_actor",
+          "field": "actor",
+          "message": "The actor needs review."
+        },
+        {
+          "code": "logic_requires_review",
+          "field": "logic_text",
+          "message": "Logical grouping, quantities or timing remain uninterpreted."
+        }
+      ],
+      "unit_ids": [
+        "PH-007"
+      ],
+      "finding_ids": [],
+      "judgment": "Correct trigger target C02.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 4,
+      "label": "C04",
+      "claim_id": "urn:rulespec:document-understanding:revision:9adb0cc1e1cf58e1225de6ff459f8ca680372a3ffa9c5fd4fb187c08f2467194",
+      "raw_response_file": "attempt-0000.response.json",
+      "raw_extraction_index": 4,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/4",
+      "source_range": [
+        545,
+        577
+      ],
+      "fields": {
+        "kind": "requirement",
+        "quote": "The photograph must be in color;",
+        "summary": "The photograph must be in color.",
+        "actor": "",
+        "action": "be in color",
+        "object": "The photograph",
+        "actor_quote": "",
+        "action_quote": "be in color",
+        "object_quote": "The photograph",
+        "logic_text": "",
+        "relation": "none",
+        "applies_to": [],
+        "references": []
+      },
+      "target_indices": [],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "unknown_actor",
+          "field": "actor",
+          "message": "The actor needs review."
+        }
+      ],
+      "unit_ids": [
+        "PH-008"
+      ],
+      "finding_ids": [],
+      "judgment": "Color duty faithful.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 5,
+      "label": "C05",
+      "claim_id": "urn:rulespec:document-understanding:revision:4494f8580e48262f609f294d58f57bc99ecb33be5536fb25208dd2f3caf39a74",
+      "raw_response_file": "attempt-0000.response.json",
+      "raw_extraction_index": 5,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/5",
+      "source_range": [
+        1332,
+        1379
+      ],
+      "fields": {
+        "kind": "requirement",
+        "quote": "The photograph must be free of material damage:",
+        "summary": "The photograph must be free of material damage.",
+        "actor": "",
+        "action": "be free of",
+        "object": "material damage",
+        "actor_quote": "",
+        "action_quote": "be free of",
+        "object_quote": "material damage",
+        "logic_text": "",
+        "relation": "none",
+        "applies_to": [],
+        "references": []
+      },
+      "target_indices": [],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "unknown_actor",
+          "field": "actor",
+          "message": "The actor needs review."
+        }
+      ],
+      "unit_ids": [
+        "PH-015"
+      ],
+      "finding_ids": [],
+      "judgment": "Material-damage duty faithful.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 6,
+      "label": "C06",
+      "claim_id": "urn:rulespec:document-understanding:revision:4d8d61bfc65cdfe557f0a3b3ee9fbac85a4bfa0223693453be5829accec81876",
+      "raw_response_file": "attempt-0000.response.json",
+      "raw_extraction_index": 6,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/6",
+      "source_range": [
+        1385,
+        1633
+      ],
+      "fields": {
+        "kind": "definition",
+        "quote": "Material damage is any damage to the facial area that makes the photograph no longer a good likeness of the applicant (e.g., creases, large holes, and large smudges) or impedes the functioning of facial recognition (damage in the area of the eyes);",
+        "summary": "Material damage is defined as damage to the facial area affecting likeness or facial recognition functioning.",
+        "actor": "",
+        "action": "is",
+        "object": "Material damage",
+        "actor_quote": "",
+        "action_quote": "is",
+        "object_quote": "Material damage",
+        "logic_text": "",
+        "relation": "none",
+        "applies_to": [],
+        "references": []
+      },
+      "target_indices": [],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "unknown_actor",
+          "field": "actor",
+          "message": "The actor needs review."
+        }
+      ],
+      "unit_ids": [
+        "PH-016",
+        "PH-017"
+      ],
+      "finding_ids": [
+        "F05"
+      ],
+      "judgment": "Definition quote correct; summary broadens impairment boundary and logic_text is empty.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 7,
+      "label": "C07",
+      "claim_id": "urn:rulespec:document-understanding:revision:e8c225c1cd688ee2b80f4e7026bce907262c0a72d5c3855f3e12fb60b9ee316e",
+      "raw_response_file": "attempt-0000.response.json",
+      "raw_extraction_index": 7,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/7",
+      "source_range": [
+        1639,
+        1754
+      ],
+      "fields": {
+        "kind": "definition",
+        "quote": "Immaterial damage is any damage to the background, and non-material damage to the facial area (e.g., staple holes).",
+        "summary": "Immaterial damage is defined as background damage and non-material damage to the facial area.",
+        "actor": "",
+        "action": "is",
+        "object": "Immaterial damage",
+        "actor_quote": "",
+        "action_quote": "is",
+        "object_quote": "Immaterial damage",
+        "logic_text": "",
+        "relation": "none",
+        "applies_to": [],
+        "references": []
+      },
+      "target_indices": [],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "unknown_actor",
+          "field": "actor",
+          "message": "The actor needs review."
+        }
+      ],
+      "unit_ids": [
+        "PH-018",
+        "PH-019"
+      ],
+      "finding_ids": [],
+      "judgment": "Both definition categories preserved. Conjunction lists categories; no cumulative-condition error inferred.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 8,
+      "label": "C08",
+      "claim_id": "urn:rulespec:document-understanding:revision:7bac9d224a9c56483cb997ff5e2c4bfc331327f2bb7e5379107ffb577b731bb8",
+      "raw_response_file": "attempt-0000.response.json",
+      "raw_extraction_index": 8,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/8",
+      "source_range": [
+        1897,
+        1980
+      ],
+      "fields": {
+        "kind": "requirement",
+        "quote": "For hand-carry applications, the acceptance agent signs the back of the photograph.",
+        "summary": "The acceptance agent signs the back of the photograph for hand-carry applications.",
+        "actor": "the acceptance agent",
+        "action": "signs",
+        "object": "the back of the photograph",
+        "actor_quote": "the acceptance agent",
+        "action_quote": "signs",
+        "object_quote": "the back of the photograph",
+        "logic_text": "For hand-carry applications",
+        "relation": "none",
+        "applies_to": [],
+        "references": []
+      },
+      "target_indices": [],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "logic_requires_review",
+          "field": "logic_text",
+          "message": "Logical grouping, quantities or timing remain uninterpreted."
+        }
+      ],
+      "unit_ids": [
+        "PH-023"
+      ],
+      "finding_ids": [],
+      "judgment": "Agent, back-of-photo location and hand-carry scope correct. Simple-present procedural duty is a reasonable interpretation.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 9,
+      "label": "C09",
+      "claim_id": "urn:rulespec:document-understanding:revision:20aa5fbc2074632e3dc3c6983399c0c3e5594ad799da98079c462dbafb0292b6",
+      "raw_response_file": "attempt-0000.response.json",
+      "raw_extraction_index": 9,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/9",
+      "source_range": [
+        1897,
+        1925
+      ],
+      "fields": {
+        "kind": "condition",
+        "quote": "For hand-carry applications,",
+        "summary": "Applies to hand-carry applications.",
+        "actor": "",
+        "action": "",
+        "object": "",
+        "actor_quote": "",
+        "action_quote": "",
+        "object_quote": "",
+        "logic_text": "For hand-carry applications",
+        "relation": "scope",
+        "applies_to": [
+          "For hand-carry applications, the acceptance agent signs the back of the photograph."
+        ],
+        "references": []
+      },
+      "target_indices": [
+        8
+      ],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "unknown_actor",
+          "field": "actor",
+          "message": "The actor needs review."
+        },
+        {
+          "code": "logic_requires_review",
+          "field": "logic_text",
+          "message": "Logical grouping, quantities or timing remain uninterpreted."
+        }
+      ],
+      "unit_ids": [
+        "PH-023"
+      ],
+      "finding_ids": [],
+      "judgment": "Correct hand-carry scope target C08.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 10,
+      "label": "C10",
+      "claim_id": "urn:rulespec:document-understanding:revision:72a2434e4105756bff09214e4ac580390e224116800c86c2990eecda01b9dcc2",
+      "raw_response_file": "attempt-0001.response.json",
+      "raw_extraction_index": 0,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/0",
+      "source_range": [
+        2130,
+        2261
+      ],
+      "fields": {
+        "kind": "permission",
+        "quote": "the passport application may be returned to adjudication to request a new photograph even though the photograph appeared acceptable",
+        "summary": "The passport application may be returned to adjudication to request a new photograph.",
+        "actor": "",
+        "action": "returned to adjudication to request",
+        "object": "a new photograph",
+        "actor_quote": "",
+        "action_quote": "returned to adjudication to request",
+        "object_quote": "a new photograph",
+        "logic_text": "even though the photograph appeared acceptable",
+        "relation": "none",
+        "applies_to": [],
+        "references": []
+      },
+      "target_indices": [],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "unknown_actor",
+          "field": "actor",
+          "message": "The actor needs review."
+        },
+        {
+          "code": "logic_requires_review",
+          "field": "logic_text",
+          "message": "Logical grouping, quantities or timing remain uninterpreted."
+        }
+      ],
+      "unit_ids": [
+        "PH-024",
+        "PH-025"
+      ],
+      "finding_ids": [
+        "F06"
+      ],
+      "judgment": "Print-defect antecedent omitted; returned application conflated with requested new photograph in action/object.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 11,
+      "label": "C11",
+      "claim_id": "urn:rulespec:document-understanding:revision:430a86267257a1b926b73c596d46940103790e765ccc90baa48bd58480319fe1",
+      "raw_response_file": "attempt-0001.response.json",
+      "raw_extraction_index": 1,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/1",
+      "source_range": [
+        2299,
+        2328
+      ],
+      "fields": {
+        "kind": "prohibition",
+        "quote": "Eyeglasses are not acceptable",
+        "summary": "Eyeglasses are not acceptable.",
+        "actor": "",
+        "action": "are not acceptable",
+        "object": "Eyeglasses",
+        "actor_quote": "",
+        "action_quote": "are not acceptable",
+        "object_quote": "Eyeglasses",
+        "logic_text": "",
+        "relation": "none",
+        "applies_to": [],
+        "references": []
+      },
+      "target_indices": [],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "unknown_actor",
+          "field": "actor",
+          "message": "The actor needs review."
+        }
+      ],
+      "unit_ids": [
+        "PH-026"
+      ],
+      "finding_ids": [],
+      "judgment": "General prohibition correctly qualified by C12.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 12,
+      "label": "C12",
+      "claim_id": "urn:rulespec:document-understanding:revision:b03a97cd528a857e43de6da3add610c977a0520281bef2968e2a672192706cc5",
+      "raw_response_file": "attempt-0001.response.json",
+      "raw_extraction_index": 2,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/2",
+      "source_range": [
+        2329,
+        2496
+      ],
+      "fields": {
+        "kind": "exception",
+        "quote": "unless they cannot be removed for medical reasons, e.g., the applicant has recently had ocular surgery and the eyeglasses are necessary to protect the applicant’s eyes",
+        "summary": "Eyeglasses are allowed if they cannot be removed for medical reasons.",
+        "actor": "",
+        "action": "cannot be removed",
+        "object": "they",
+        "actor_quote": "",
+        "action_quote": "cannot be removed",
+        "object_quote": "they",
+        "logic_text": "unless they cannot be removed for medical reasons, e.g., the applicant has recently had ocular surgery and the eyeglasses are necessary to protect the applicant’s eyes",
+        "relation": "exception",
+        "applies_to": [
+          "Eyeglasses are not acceptable"
+        ],
+        "references": []
+      },
+      "target_indices": [
+        11
+      ],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "unknown_actor",
+          "field": "actor",
+          "message": "The actor needs review."
+        },
+        {
+          "code": "logic_requires_review",
+          "field": "logic_text",
+          "message": "Logical grouping, quantities or timing remain uninterpreted."
+        }
+      ],
+      "unit_ids": [
+        "PH-026",
+        "PH-027"
+      ],
+      "finding_ids": [],
+      "judgment": "Correct medical inability exception target C11; object they remains an unresolved pronoun rather than a fabricated referent.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 13,
+      "label": "C13",
+      "claim_id": "urn:rulespec:document-understanding:revision:ee3d6fb1d38e609c1b29369b8beadbed504d6de8d495226605119b44236063d9",
+      "raw_response_file": "attempt-0001.response.json",
+      "raw_extraction_index": 3,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/3",
+      "source_range": [
+        2498,
+        2616
+      ],
+      "fields": {
+        "kind": "requirement",
+        "quote": "A medical statement signed by a medical professional/health practitioner must be requested in these rare circumstances",
+        "summary": "A medical statement signed by a medical professional or health practitioner must be requested when eyeglasses cannot be removed for medical reasons.",
+        "actor": "",
+        "action": "requested",
+        "object": "A medical statement signed by a medical professional/health practitioner",
+        "actor_quote": "",
+        "action_quote": "requested",
+        "object_quote": "A medical statement signed by a medical professional/health practitioner",
+        "logic_text": "in these rare circumstances",
+        "relation": "none",
+        "applies_to": [],
+        "references": []
+      },
+      "target_indices": [],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "unknown_actor",
+          "field": "actor",
+          "message": "The actor needs review."
+        },
+        {
+          "code": "logic_requires_review",
+          "field": "logic_text",
+          "message": "Logical grouping, quantities or timing remain uninterpreted."
+        }
+      ],
+      "unit_ids": [
+        "PH-028"
+      ],
+      "finding_ids": [],
+      "judgment": "Summary resolves medical antecedent correctly; logic evidence remains deictic and flagged. Passive requester appropriately blank.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 14,
+      "label": "C14",
+      "claim_id": "urn:rulespec:document-understanding:revision:a50fa0eaff129194a5f2d54bd720cae541875b0d8ec8d809d117aa6535ca3bd4",
+      "raw_response_file": "attempt-0001.response.json",
+      "raw_extraction_index": 4,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/4",
+      "source_range": [
+        2618,
+        2668
+      ],
+      "fields": {
+        "kind": "condition",
+        "quote": "If the eyeglasses are accepted for medical reasons",
+        "summary": "Conditions applying when eyeglasses are accepted for medical reasons.",
+        "actor": "",
+        "action": "are accepted",
+        "object": "the eyeglasses",
+        "actor_quote": "",
+        "action_quote": "are accepted",
+        "object_quote": "the eyeglasses",
+        "logic_text": "If the eyeglasses are accepted for medical reasons",
+        "relation": "prerequisite",
+        "applies_to": [
+          "The frames of the eyeglasses must not cover the eye(s)",
+          "There must not be glare on eyeglasses that obscures the eye(s)",
+          "There must not be shadows or refraction from the eyeglasses that obscure the eye(s)",
+          "Dark or tinted lenses are permitted if the medical statement also indicates that they are required"
+        ],
+        "references": []
+      },
+      "target_indices": [
+        16,
+        15,
+        18,
+        17
+      ],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "unknown_actor",
+          "field": "actor",
+          "message": "The actor needs review."
+        },
+        {
+          "code": "logic_requires_review",
+          "field": "logic_text",
+          "message": "Logical grouping, quantities or timing remain uninterpreted."
+        }
+      ],
+      "unit_ids": [
+        "PH-029",
+        "PH-030",
+        "PH-031",
+        "PH-032",
+        "PH-033",
+        "PH-034"
+      ],
+      "finding_ids": [],
+      "judgment": "Correct four targets; prerequisite versus scope taxonomy remains uncertain, not wrong target.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 15,
+      "label": "C15",
+      "claim_id": "urn:rulespec:document-understanding:revision:2d8367e427b0b7482e4176aa328b4f262b8794d39e504f3841d3d1a84b0e7a63",
+      "raw_response_file": "attempt-0001.response.json",
+      "raw_extraction_index": 5,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/5",
+      "source_range": [
+        2675,
+        2729
+      ],
+      "fields": {
+        "kind": "prohibition",
+        "quote": "The frames of the eyeglasses must not cover the eye(s)",
+        "summary": "Eyeglass frames must not cover the eyes.",
+        "actor": "",
+        "action": "cover",
+        "object": "the eye(s)",
+        "actor_quote": "",
+        "action_quote": "cover",
+        "object_quote": "the eye(s)",
+        "logic_text": "must not",
+        "relation": "none",
+        "applies_to": [],
+        "references": []
+      },
+      "target_indices": [],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "unknown_actor",
+          "field": "actor",
+          "message": "The actor needs review."
+        },
+        {
+          "code": "logic_requires_review",
+          "field": "logic_text",
+          "message": "Logical grouping, quantities or timing remain uninterpreted."
+        }
+      ],
+      "unit_ids": [
+        "PH-030"
+      ],
+      "finding_ids": [],
+      "judgment": "Frame prohibition faithful through inbound C14. Summary preserves frames while actor remains unspecified.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 16,
+      "label": "C16",
+      "claim_id": "urn:rulespec:document-understanding:revision:04f5942e45dbb42431e049fe4891ebf0dc58161f4b7ae09dfaf43eb1edaf50b1",
+      "raw_response_file": "attempt-0001.response.json",
+      "raw_extraction_index": 6,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/6",
+      "source_range": [
+        2736,
+        2798
+      ],
+      "fields": {
+        "kind": "prohibition",
+        "quote": "There must not be glare on eyeglasses that obscures the eye(s)",
+        "summary": "Glare on eyeglasses that obscures the eyes is prohibited.",
+        "actor": "",
+        "action": "obscures",
+        "object": "the eye(s)",
+        "actor_quote": "",
+        "action_quote": "obscures",
+        "object_quote": "the eye(s)",
+        "logic_text": "There must not be glare on eyeglasses that obscures the eye(s)",
+        "relation": "none",
+        "applies_to": [],
+        "references": []
+      },
+      "target_indices": [],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "unknown_actor",
+          "field": "actor",
+          "message": "The actor needs review."
+        },
+        {
+          "code": "logic_requires_review",
+          "field": "logic_text",
+          "message": "Logical grouping, quantities or timing remain uninterpreted."
+        }
+      ],
+      "unit_ids": [
+        "PH-031"
+      ],
+      "finding_ids": [],
+      "judgment": "Obscuring glare and medical applicability preserved.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 17,
+      "label": "C17",
+      "claim_id": "urn:rulespec:document-understanding:revision:92627577e8c792f211df51d1da7a2f2e35438bba4d55e6c160ba4e588a9e2ddd",
+      "raw_response_file": "attempt-0001.response.json",
+      "raw_extraction_index": 7,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/7",
+      "source_range": [
+        2805,
+        2888
+      ],
+      "fields": {
+        "kind": "prohibition",
+        "quote": "There must not be shadows or refraction from the eyeglasses that obscure the eye(s)",
+        "summary": "Shadows or refraction from eyeglasses that obscure the eyes are prohibited.",
+        "actor": "",
+        "action": "obscure",
+        "object": "the eye(s)",
+        "actor_quote": "",
+        "action_quote": "obscure",
+        "object_quote": "the eye(s)",
+        "logic_text": "There must not be shadows or refraction from the eyeglasses that obscure the eye(s)",
+        "relation": "none",
+        "applies_to": [],
+        "references": []
+      },
+      "target_indices": [],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "unknown_actor",
+          "field": "actor",
+          "message": "The actor needs review."
+        },
+        {
+          "code": "logic_requires_review",
+          "field": "logic_text",
+          "message": "Logical grouping, quantities or timing remain uninterpreted."
+        }
+      ],
+      "unit_ids": [
+        "PH-032",
+        "PH-033"
+      ],
+      "finding_ids": [],
+      "judgment": "Shadows OR refraction and obscuring effect correctly grouped.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 18,
+      "label": "C18",
+      "claim_id": "urn:rulespec:document-understanding:revision:8b6b7644ed7a0bf41c1e5e119a46782c52e095a24605adff56b7cbf95ab47b3b",
+      "raw_response_file": "attempt-0001.response.json",
+      "raw_extraction_index": 8,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/8",
+      "source_range": [
+        2899,
+        2997
+      ],
+      "fields": {
+        "kind": "permission",
+        "quote": "Dark or tinted lenses are permitted if the medical statement also indicates that they are required",
+        "summary": "Dark or tinted lenses are permitted if indicated as required by the medical statement.",
+        "actor": "",
+        "action": "are permitted",
+        "object": "Dark or tinted lenses",
+        "actor_quote": "",
+        "action_quote": "are permitted",
+        "object_quote": "Dark or tinted lenses",
+        "logic_text": "if the medical statement also indicates that they are required",
+        "relation": "none",
+        "applies_to": [],
+        "references": []
+      },
+      "target_indices": [],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "unknown_actor",
+          "field": "actor",
+          "message": "The actor needs review."
+        },
+        {
+          "code": "logic_requires_review",
+          "field": "logic_text",
+          "message": "Logical grouping, quantities or timing remain uninterpreted."
+        }
+      ],
+      "unit_ids": [
+        "PH-034"
+      ],
+      "finding_ids": [],
+      "judgment": "Dark OR tinted lenses and two applicable conditions preserved.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 19,
+      "label": "C19",
+      "claim_id": "urn:rulespec:document-understanding:revision:209662ee48ba847933be0a1dd37163e592cbc0beea602d4edc418b2fd1d2730c",
+      "raw_response_file": "attempt-0001.response.json",
+      "raw_extraction_index": 9,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/9",
+      "source_range": [
+        2935,
+        2997
+      ],
+      "fields": {
+        "kind": "condition",
+        "quote": "if the medical statement also indicates that they are required",
+        "summary": "The medical statement must indicate that dark or tinted lenses are required.",
+        "actor": "the medical statement",
+        "action": "indicates",
+        "object": "that they are required",
+        "actor_quote": "the medical statement",
+        "action_quote": "indicates",
+        "object_quote": "that they are required",
+        "logic_text": "if the medical statement also indicates that they are required",
+        "relation": "prerequisite",
+        "applies_to": [
+          "Dark or tinted lenses are permitted if the medical statement also indicates that they are required"
+        ],
+        "references": []
+      },
+      "target_indices": [
+        18
+      ],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "logic_requires_review",
+          "field": "logic_text",
+          "message": "Logical grouping, quantities or timing remain uninterpreted."
+        }
+      ],
+      "unit_ids": [
+        "PH-034"
+      ],
+      "finding_ids": [],
+      "judgment": "Correct lens-necessity prerequisite target C18. Medical statement is a condition subject, not an invented human decision maker.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 20,
+      "label": "C20",
+      "claim_id": "urn:rulespec:document-understanding:revision:2b44174fe3b1a14c78f834ba15620d19d20d8ae3d7404eb0e6f5825033156fb2",
+      "raw_response_file": "attempt-0001.response.json",
+      "raw_extraction_index": 10,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/10",
+      "source_range": [
+        3300,
+        3343
+      ],
+      "fields": {
+        "kind": "permission",
+        "quote": "Normal, unexaggerated smiles are acceptable",
+        "summary": "Normal, unexaggerated smiles are acceptable in passport photographs.",
+        "actor": "",
+        "action": "are acceptable",
+        "object": "Normal, unexaggerated smiles",
+        "actor_quote": "",
+        "action_quote": "are acceptable",
+        "object_quote": "Normal, unexaggerated smiles",
+        "logic_text": "",
+        "relation": "none",
+        "applies_to": [],
+        "references": []
+      },
+      "target_indices": [],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "unknown_actor",
+          "field": "actor",
+          "message": "The actor needs review."
+        }
+      ],
+      "unit_ids": [
+        "PH-037"
+      ],
+      "finding_ids": [],
+      "judgment": "Normal unexaggerated smile permission faithful.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 21,
+      "label": "C21",
+      "claim_id": "urn:rulespec:document-understanding:revision:2f0f95a0ceb2dbe2485d038902b9fead4db50b7ed03af426b8e1013fb518b83a",
+      "raw_response_file": "attempt-0001.response.json",
+      "raw_extraction_index": 11,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/11",
+      "source_range": [
+        3349,
+        3390
+      ],
+      "fields": {
+        "kind": "prohibition",
+        "quote": "unusual expressions and squinting are not",
+        "summary": "Unusual expressions and squinting are not acceptable.",
+        "actor": "",
+        "action": "are not [acceptable]",
+        "object": "unusual expressions and squinting",
+        "actor_quote": "",
+        "action_quote": "are not",
+        "object_quote": "unusual expressions and squinting",
+        "logic_text": "",
+        "relation": "none",
+        "applies_to": [],
+        "references": []
+      },
+      "target_indices": [],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "unknown_actor",
+          "field": "actor",
+          "message": "The actor needs review."
+        }
+      ],
+      "unit_ids": [
+        "PH-038",
+        "PH-039"
+      ],
+      "finding_ids": [
+        "F07"
+      ],
+      "judgment": "Both prohibitions preserved; acceptable reasonably inherited from sentence. Disability override not connected.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 22,
+      "label": "C22",
+      "claim_id": "urn:rulespec:document-understanding:revision:7bb37223672b80442ddc01954ec325729380a5a401f1de5c2c019bca97e42926",
+      "raw_response_file": "attempt-0002.response.json",
+      "raw_extraction_index": 0,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/0",
+      "source_range": [
+        3633,
+        3730
+      ],
+      "fields": {
+        "kind": "permission",
+        "quote": "You may accept a photograph without a natural or unexaggerated expression in these circumstances.",
+        "summary": "You may accept a photograph lacking a natural or unexaggerated expression if the applicant has a physical or mental disability.",
+        "actor": "You",
+        "action": "accept",
+        "object": "a photograph without a natural or unexaggerated expression",
+        "actor_quote": "You",
+        "action_quote": "accept",
+        "object_quote": "a photograph without a natural or unexaggerated expression",
+        "logic_text": "in these circumstances",
+        "relation": "none",
+        "applies_to": [],
+        "references": []
+      },
+      "target_indices": [],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "logic_requires_review",
+          "field": "logic_text",
+          "message": "Logical grouping, quantities or timing remain uninterpreted."
+        }
+      ],
+      "unit_ids": [
+        "PH-040",
+        "PH-041"
+      ],
+      "finding_ids": [
+        "F06",
+        "F07"
+      ],
+      "judgment": "Disability summary loses functional antecedent; in these circumstances remains deictic.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 23,
+      "label": "C23",
+      "claim_id": "urn:rulespec:document-understanding:revision:6bd0f6b27e0fd18c8e8233b2a5150048eb28fcbc9849997c9e96f9ea34bbbca2",
+      "raw_response_file": "attempt-0002.response.json",
+      "raw_extraction_index": 1,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/1",
+      "source_range": [
+        3731,
+        3809
+      ],
+      "fields": {
+        "kind": "requirement",
+        "quote": "Both of the applicant’s eyes should also be visible and open in the photograph",
+        "summary": "Both of the applicant's eyes should be open and visible in the photograph.",
+        "actor": "",
+        "action": "be visible and open",
+        "object": "Both of the applicant’s eyes",
+        "actor_quote": "",
+        "action_quote": "be visible and open",
+        "object_quote": "Both of the applicant’s eyes",
+        "logic_text": "",
+        "relation": "none",
+        "applies_to": [],
+        "references": [
+          "8 FAM 402.1-1"
+        ]
+      },
+      "target_indices": [],
+      "reference_links": [
+        {
+          "text": "8 FAM 402.1-1",
+          "status": "unresolved"
+        }
+      ],
+      "issues": [
+        {
+          "code": "unknown_actor",
+          "field": "actor",
+          "message": "The actor needs review."
+        }
+      ],
+      "unit_ids": [
+        "PH-042",
+        "PH-043"
+      ],
+      "finding_ids": [
+        "F04",
+        "F07"
+      ],
+      "judgment": "Should survives in prose but kind means must-do in prompt. Infant reference explicitly unresolved.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 24,
+      "label": "C24",
+      "claim_id": "urn:rulespec:document-understanding:revision:da8977ce3f22e837d997835d3238d4b449790cf60ca1566deadbeec41b5f71fc",
+      "raw_response_file": "attempt-0002.response.json",
+      "raw_extraction_index": 2,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/2",
+      "source_range": [
+        3944,
+        3973
+      ],
+      "fields": {
+        "kind": "permission",
+        "quote": "you may accept the photograph",
+        "summary": "You may accept the photograph if the applicant cannot open one or both eyes due to a medical condition.",
+        "actor": "you",
+        "action": "accept",
+        "object": "the photograph",
+        "actor_quote": "you",
+        "action_quote": "accept",
+        "object_quote": "the photograph",
+        "logic_text": "If the applicant is unable to open one or both eyes because of a medical condition",
+        "relation": "none",
+        "applies_to": [],
+        "references": []
+      },
+      "target_indices": [],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "logic_requires_review",
+          "field": "logic_text",
+          "message": "Logical grouping, quantities or timing remain uninterpreted."
+        }
+      ],
+      "unit_ids": [
+        "PH-043",
+        "PH-044"
+      ],
+      "finding_ids": [
+        "F07"
+      ],
+      "judgment": "Medical cause and one/both-eye permission preserved in logic; C25 correctly targets it, but baseline exception relation absent.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 25,
+      "label": "C25",
+      "claim_id": "urn:rulespec:document-understanding:revision:cf76a09bbf1e8df916a5c4a20991788059bae7ded7bfd521863429d826d50f95",
+      "raw_response_file": "attempt-0002.response.json",
+      "raw_extraction_index": 3,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/3",
+      "source_range": [
+        3860,
+        3942
+      ],
+      "fields": {
+        "kind": "condition",
+        "quote": "If the applicant is unable to open one or both eyes because of a medical condition",
+        "summary": "The applicant is unable to open one or both eyes due to a medical condition.",
+        "actor": "the applicant",
+        "action": "is unable to open",
+        "object": "one or both eyes",
+        "actor_quote": "the applicant",
+        "action_quote": "is unable to open",
+        "object_quote": "one or both eyes",
+        "logic_text": "If the applicant is unable to open one or both eyes because of a medical condition",
+        "relation": "trigger",
+        "applies_to": [
+          "you may accept the photograph"
+        ],
+        "references": []
+      },
+      "target_indices": [
+        24
+      ],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "logic_requires_review",
+          "field": "logic_text",
+          "message": "Logical grouping, quantities or timing remain uninterpreted."
+        }
+      ],
+      "unit_ids": [
+        "PH-043",
+        "PH-044"
+      ],
+      "finding_ids": [
+        "F07"
+      ],
+      "judgment": "Correct acceptance trigger; no wrong target. Does not represent exception to open-eye baseline.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 26,
+      "label": "C26",
+      "claim_id": "urn:rulespec:document-understanding:revision:9a749622ef50b5eb894dfc536f106eb9615fdcff31bc91779abb858842b41b04",
+      "raw_response_file": "attempt-0002.response.json",
+      "raw_extraction_index": 4,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/4",
+      "source_range": [
+        4093,
+        4184
+      ],
+      "fields": {
+        "kind": "requirement",
+        "quote": "you should request a medical statement signed by a medical professional/health practitioner",
+        "summary": "You should request a signed medical statement if it is unlikely that closed eyes or exaggerated expression are due to a medical condition.",
+        "actor": "you",
+        "action": "request",
+        "object": "a medical statement signed by a medical professional/health practitioner",
+        "actor_quote": "you",
+        "action_quote": "request",
+        "object_quote": "a medical statement signed by a medical professional/health practitioner",
+        "logic_text": "In rare cases, if it is unlikely that the closed eye(s) or exaggerated expression are because of a medical condition",
+        "relation": "none",
+        "applies_to": [],
+        "references": []
+      },
+      "target_indices": [],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "logic_requires_review",
+          "field": "logic_text",
+          "message": "Logical grouping, quantities or timing remain uninterpreted."
+        }
+      ],
+      "unit_ids": [
+        "PH-045"
+      ],
+      "finding_ids": [
+        "F04"
+      ],
+      "judgment": "Rare and unlikely retained; should misaligned with requirement kind.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 27,
+      "label": "C27",
+      "claim_id": "urn:rulespec:document-understanding:revision:c8ff26b3e4994857f0c84354638f246b3402a297f419afcfefd5e494fd123ead",
+      "raw_response_file": "attempt-0002.response.json",
+      "raw_extraction_index": 5,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/5",
+      "source_range": [
+        3990,
+        4091
+      ],
+      "fields": {
+        "kind": "condition",
+        "quote": "if it is unlikely that the closed eye(s) or exaggerated expression are because of a medical condition",
+        "summary": "It is unlikely that the closed eyes or exaggerated expression stem from a medical condition.",
+        "actor": "",
+        "action": "",
+        "object": "closed eye(s) or exaggerated expression",
+        "actor_quote": "",
+        "action_quote": "",
+        "object_quote": "closed eye(s) or exaggerated expression",
+        "logic_text": "if it is unlikely that the closed eye(s) or exaggerated expression are because of a medical condition",
+        "relation": "trigger",
+        "applies_to": [
+          "you should request a medical statement signed by a medical professional/health practitioner"
+        ],
+        "references": []
+      },
+      "target_indices": [
+        26
+      ],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "unknown_actor",
+          "field": "actor",
+          "message": "The actor needs review."
+        },
+        {
+          "code": "logic_requires_review",
+          "field": "logic_text",
+          "message": "Logical grouping, quantities or timing remain uninterpreted."
+        }
+      ],
+      "unit_ids": [
+        "PH-045"
+      ],
+      "finding_ids": [],
+      "judgment": "Unlikely trigger correctly targets C26; rare absent here but present in C26, so no aggregate rare loss claimed.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 28,
+      "label": "C28",
+      "claim_id": "urn:rulespec:document-understanding:revision:660b14f4f5e3b0a1bfac7d7ce376f9a1b769d0b7c95b4e75a9b7be6081440898",
+      "raw_response_file": "attempt-0002.response.json",
+      "raw_extraction_index": 6,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/6",
+      "source_range": [
+        4238,
+        4497
+      ],
+      "fields": {
+        "kind": "requirement",
+        "quote": "Processing and communications/customer service personnel at passport agencies/centers or consular section personnel should refer applications without photographs to their supervisor for guidance on processing passport applications received without photographs",
+        "summary": "Processing, communications/customer service, or consular personnel should refer applications lacking photos to their supervisor.",
+        "actor": "Processing and communications/customer service personnel at passport agencies/centers or consular section personnel",
+        "action": "refer",
+        "object": "applications without photographs",
+        "actor_quote": "Processing and communications/customer service personnel at passport agencies/centers or consular section personnel",
+        "action_quote": "refer",
+        "object_quote": "applications without photographs",
+        "logic_text": "",
+        "relation": "none",
+        "applies_to": [],
+        "references": []
+      },
+      "target_indices": [],
+      "reference_links": [],
+      "issues": [],
+      "unit_ids": [
+        "PH-046",
+        "PH-047"
+      ],
+      "finding_ids": [
+        "F04"
+      ],
+      "judgment": "All actor alternatives and supervisor referral retained; should typed requirement, issues empty.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 29,
+      "label": "C29",
+      "claim_id": "urn:rulespec:document-understanding:revision:b3dd3975c700a60d7aa0337bfb847c49b46b0ea1c9ee09d94aff7c5257fc84f7",
+      "raw_response_file": "attempt-0002.response.json",
+      "raw_extraction_index": 7,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/7",
+      "source_range": [
+        4504,
+        4603
+      ],
+      "fields": {
+        "kind": "prohibition",
+        "quote": "You must not accept a form DS-11 or form DS-82 received without a photograph at the public counter.",
+        "summary": "Personnel must not accept a Form DS-11 or DS-82 without a photograph at the public counter.",
+        "actor": "You",
+        "action": "accept",
+        "object": "a form DS-11 or form DS-82 received without a photograph",
+        "actor_quote": "You",
+        "action_quote": "accept",
+        "object_quote": "a form DS-11 or form DS-82 received without a photograph",
+        "logic_text": "at the public counter",
+        "relation": "none",
+        "applies_to": [],
+        "references": [
+          "8 FAM 1001.2"
+        ]
+      },
+      "target_indices": [],
+      "reference_links": [
+        {
+          "text": "8 FAM 1001.2",
+          "status": "unresolved"
+        }
+      ],
+      "issues": [
+        {
+          "code": "logic_requires_review",
+          "field": "logic_text",
+          "message": "Logical grouping, quantities or timing remain uninterpreted."
+        }
+      ],
+      "unit_ids": [
+        "PH-046",
+        "PH-048",
+        "PH-049",
+        "PH-050"
+      ],
+      "finding_ids": [
+        "F08"
+      ],
+      "judgment": "Both counter form alternatives and location preserved; adjacent DS-5504 import reference reduced to label.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 30,
+      "label": "C30",
+      "claim_id": "urn:rulespec:document-understanding:revision:0f961e7ca189f9c88a7c9cf55e6fbbf11d30882ac94bc73034f888c2d755847c",
+      "raw_response_file": "attempt-0002.response.json",
+      "raw_extraction_index": 8,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/8",
+      "source_range": [
+        4677,
+        4782
+      ],
+      "fields": {
+        "kind": "requirement",
+        "quote": "Passport specialists must suspend a form DS-11 received without a photograph from an acceptance facility.",
+        "summary": "Passport specialists must suspend a Form DS-11 received from an acceptance facility without a photograph.",
+        "actor": "Passport specialists",
+        "action": "suspend",
+        "object": "a form DS-11 received without a photograph",
+        "actor_quote": "Passport specialists",
+        "action_quote": "suspend",
+        "object_quote": "a form DS-11 received without a photograph",
+        "logic_text": "from an acceptance facility",
+        "relation": "none",
+        "applies_to": [],
+        "references": []
+      },
+      "target_indices": [],
+      "reference_links": [],
+      "issues": [
+        {
+          "code": "logic_requires_review",
+          "field": "logic_text",
+          "message": "Logical grouping, quantities or timing remain uninterpreted."
+        }
+      ],
+      "unit_ids": [
+        "PH-046",
+        "PH-051"
+      ],
+      "finding_ids": [],
+      "judgment": "Specialist suspension case fully preserved.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 31,
+      "label": "C31",
+      "claim_id": "urn:rulespec:document-understanding:revision:c244cad1e84ea499f8aeaa85760628a14f442f4fec732f880bc17bc7f8557ae7",
+      "raw_response_file": "attempt-0002.response.json",
+      "raw_extraction_index": 9,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/9",
+      "source_range": [
+        4783,
+        4827
+      ],
+      "fields": {
+        "kind": "requirement",
+        "quote": "The applicant must re-execute the form DS-11",
+        "summary": "The applicant must re-execute Form DS-11.",
+        "actor": "The applicant",
+        "action": "re-execute",
+        "object": "the form DS-11",
+        "actor_quote": "The applicant",
+        "action_quote": "re-execute",
+        "object_quote": "the form DS-11",
+        "logic_text": "",
+        "relation": "none",
+        "applies_to": [],
+        "references": [
+          "IRL 975-04"
+        ]
+      },
+      "target_indices": [],
+      "reference_links": [
+        {
+          "text": "IRL 975-04",
+          "status": "unresolved"
+        }
+      ],
+      "issues": [],
+      "unit_ids": [
+        "PH-046",
+        "PH-052"
+      ],
+      "finding_ids": [
+        "F02"
+      ],
+      "judgment": "Actor/action correct but inherited case absent from quote, summary, logic, relations, evidence and targets.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    },
+    {
+      "index": 32,
+      "label": "C32",
+      "claim_id": "urn:rulespec:document-understanding:revision:68b54b0584ba4235d2cde6943680f5e3e48cca70f03da69ff6e691a0ba3d9fe6",
+      "raw_response_file": "attempt-0002.response.json",
+      "raw_extraction_index": 10,
+      "raw_text_field": "/candidates/0/content/parts/0/text",
+      "decoded_pointer": "/extractions/10",
+      "source_range": [
+        4855,
+        4947
+      ],
+      "fields": {
+        "kind": "requirement",
+        "quote": "Passport specialists must suspend a form DS-82 or form DS-5504 received without a photograph",
+        "summary": "Passport specialists must suspend Form DS-82 or DS-5504 received without a photograph.",
+        "actor": "Passport specialists",
+        "action": "suspend",
+        "object": "a form DS-82 or form DS-5504 received without a photograph",
+        "actor_quote": "Passport specialists",
+        "action_quote": "suspend",
+        "object_quote": "a form DS-82 or form DS-5504 received without a photograph",
+        "logic_text": "",
+        "relation": "none",
+        "applies_to": [],
+        "references": [
+          "IRL 1000-05",
+          "IRL 1018-14"
+        ]
+      },
+      "target_indices": [],
+      "reference_links": [
+        {
+          "text": "IRL 1000-05",
+          "status": "unresolved"
+        },
+        {
+          "text": "IRL 1018-14",
+          "status": "unresolved"
+        }
+      ],
+      "issues": [],
+      "unit_ids": [
+        "PH-046",
+        "PH-053",
+        "PH-054"
+      ],
+      "finding_ids": [],
+      "judgment": "Both form alternatives and no-photo state preserved; no new facility restriction or invented IRL mapping.",
+      "all_fields_preserved_raw_to_candidate_to_claim": true,
+      "finding_assignment_note": "Finding IDs identify observations about this candidate; coverage rows separately link related source omissions."
+    }
+  ],
+  "condition_exception_target_audit": [
+    {
+      "candidate_index": 3,
+      "target_indices": [
+        2
+      ],
+      "exact_target_resolution_matches": true,
+      "meaning_assessment": "correct_trigger",
+      "reasoning": "Failure to meet following requirements triggers C02 replacement request. The membership of following requirements remains uninterpreted."
+    },
+    {
+      "candidate_index": 9,
+      "target_indices": [
+        8
+      ],
+      "exact_target_resolution_matches": true,
+      "meaning_assessment": "correct_scope",
+      "reasoning": "Hand-carry applications limit the acceptance-agent signing duty in C08."
+    },
+    {
+      "candidate_index": 12,
+      "target_indices": [
+        11
+      ],
+      "exact_target_resolution_matches": true,
+      "meaning_assessment": "correct_exception",
+      "reasoning": "Medical inability to remove eyeglasses is a carve-out from C11 eyeglasses unacceptability. Other medical-glasses conditions remain separately represented."
+    },
+    {
+      "candidate_index": 14,
+      "target_indices": [
+        15,
+        16,
+        17,
+        18
+      ],
+      "exact_target_resolution_matches": true,
+      "meaning_assessment": "correct_targets_taxonomy_uncertain",
+      "reasoning": "Medical acceptance lead-in belongs to all four following eyeglass provisions C15-C18. Target meaning is correct; prerequisite can be read as applicability, but scope would more directly match the lead-in. No executable relation semantics were inspected."
+    },
+    {
+      "candidate_index": 19,
+      "target_indices": [
+        18
+      ],
+      "exact_target_resolution_matches": true,
+      "meaning_assessment": "correct_prerequisite",
+      "reasoning": "Statement indicating dark/tinted lenses are required qualifies C18 lens permission. C14 supplies additional medical acceptance applicability."
+    },
+    {
+      "candidate_index": 25,
+      "target_indices": [
+        24
+      ],
+      "exact_target_resolution_matches": true,
+      "meaning_assessment": "correct_trigger_missing_second_relation",
+      "reasoning": "Medical inability to open one or both eyes triggers C24 discretionary acceptance. It does not express the separate exception role relative to C23 open-eye guidance."
+    },
+    {
+      "candidate_index": 27,
+      "target_indices": [
+        26
+      ],
+      "exact_target_resolution_matches": true,
+      "meaning_assessment": "correct_trigger",
+      "reasoning": "Unlikely medical cause qualifies the C26 statement request. Rare appears in C26 logic even though omitted from this shorter trigger record."
+    }
+  ],
+  "explicit_unresolved_references": [
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:6bd0f6b27e0fd18c8e8233b2a5150048eb28fcbc9849997c9e96f9ea34bbbca2",
+      "reference": "8 FAM 402.1-1",
+      "code": "section_reference_unresolved"
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:b3dd3975c700a60d7aa0337bfb847c49b46b0ea1c9ee09d94aff7c5257fc84f7",
+      "reference": "8 FAM 1001.2",
+      "code": "section_reference_unresolved"
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:c244cad1e84ea499f8aeaa85760628a14f442f4fec732f880bc17bc7f8557ae7",
+      "reference": "IRL 975-04",
+      "code": "section_reference_unresolved"
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:68b54b0584ba4235d2cde6943680f5e3e48cca70f03da69ff6e691a0ba3d9fe6",
+      "reference": "IRL 1000-05",
+      "code": "section_reference_unresolved"
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:68b54b0584ba4235d2cde6943680f5e3e48cca70f03da69ff6e691a0ba3d9fe6",
+      "reference": "IRL 1018-14",
+      "code": "section_reference_unresolved"
+    }
+  ],
+  "unresolved_reference_assessment": {
+    "8 FAM 402.1-1": "Absent from window 2 but present in selected input; infant permission was omitted from window 0 output. Explicit unresolved status is proper, not a false resolution.",
+    "8 FAM 1001.2": "Target absent; unresolved proper. Local DS-5504 import association lost separately.",
+    "IRL 975-04": "Target absent; cannot assume it restores C31 scope.",
+    "IRL 1000-05 and IRL 1018-14": "Both targets absent; preserve joint references without exclusive form mapping."
+  },
+  "regression_cases": [
+    {
+      "id": "R01",
+      "unit_ids": [
+        "PH-003",
+        "PH-043"
+      ],
+      "case": "Infant eyes and remote exception",
+      "expected": "Preserve partial OR complete closure for infants, newborn emphasis, and explicit exception role or unresolved exception relation.",
+      "negative_control": "Do not generalize to every adult or fabricate a resolved target."
+    },
+    {
+      "id": "R02",
+      "unit_ids": [
+        "PH-004",
+        "PH-005",
+        "PH-006"
+      ],
+      "case": "Adjacent infant propositions",
+      "expected": "Preserve support, tilt permission and parent-face prohibition independently, whether grouped or separate.",
+      "negative_control": "Do not require car seat, invent a tilt angle, or allow parent face because support is allowed."
+    },
+    {
+      "id": "R03",
+      "unit_ids": [
+        "PH-009",
+        "PH-010",
+        "PH-011",
+        "PH-012",
+        "PH-014"
+      ],
+      "case": "Coordinated standards and appearance/certificate qualifications",
+      "expected": "Keep six months, likeness, identification and application timing; should plus separate must-request consequence; hairstyle OR facial hair permitted if likeness remains; certificate timing caution.",
+      "negative_control": "No fixed day conversion, certificate issue-date substitution, lost identification predicate or blanket reuse permission."
+    },
+    {
+      "id": "R04",
+      "unit_ids": [
+        "PH-021",
+        "PH-023"
+      ],
+      "case": "Different signing actors",
+      "expected": "Applicant need not sign; acceptance agent signs back for hand-carry cases.",
+      "negative_control": "No applicant duty, prohibition of all signatures, or universal agent signing duty."
+    },
+    {
+      "id": "R05",
+      "unit_ids": [
+        "PH-015",
+        "PH-016",
+        "PH-017",
+        "PH-018",
+        "PH-019",
+        "PH-020"
+      ],
+      "case": "Damage boundary",
+      "expected": "Keep no-longer-good-likeness OR impeded recognition, facial area, both immaterial categories and explicit acceptance; retain examples as examples.",
+      "negative_control": "Do not classify harmless image effects as material or require both tests/categories simultaneously."
+    },
+    {
+      "id": "R06",
+      "unit_ids": [
+        "PH-035"
+      ],
+      "case": "Temporary glasses and urgent/emergency travel",
+      "expected": "Should issue limited-validity passport using endorsement 46 when temporary medical need AND urgent OR emergency travel.",
+      "negative_control": "No one-year import, missing endorsement, must upgrade, or travel-only condition."
+    },
+    {
+      "id": "R07",
+      "unit_ids": [
+        "PH-028",
+        "PH-042",
+        "PH-043",
+        "PH-045",
+        "PH-047"
+      ],
+      "case": "Soft versus hard force",
+      "expected": "Distinguish mandatory medical-glasses statement request from should for eyes, rare evidence and referral; explicitly preserve uncertain typing if vocabulary cannot express it.",
+      "negative_control": "Empty issues or kind requirement must not imply every should is mandatory."
+    },
+    {
+      "id": "R08",
+      "unit_ids": [
+        "PH-051",
+        "PH-052"
+      ],
+      "case": "Inherited DS-11 case",
+      "expected": "Carry no photograph AND acceptance facility from suspension sentence into applicant re-execution; retain distinct actors.",
+      "negative_control": "An otherwise complete DS-11 is not assigned this duty; nearby claims/IRL alone do not restore scope."
+    },
+    {
+      "id": "R09",
+      "unit_ids": [
+        "PH-026",
+        "PH-027",
+        "PH-028",
+        "PH-029",
+        "PH-030",
+        "PH-031",
+        "PH-032",
+        "PH-033",
+        "PH-034"
+      ],
+      "case": "Positive local relationship control",
+      "expected": "Retain medical glasses exception, signed statement, four child links and additional dark/tint necessity. Review scope/prerequisite taxonomy.",
+      "negative_control": "No fabricated target, false link-corruption claim, rejection of correct OR grouping or automatic acceptance without lens necessity."
+    },
+    {
+      "id": "R10",
+      "unit_ids": [
+        "PH-036",
+        "PH-038",
+        "PH-040",
+        "PH-041"
+      ],
+      "case": "Disability antecedent and window boundary",
+      "expected": "Preserve disability in described possible inability-to-produce-expression circumstances; connect available baseline or explicitly identify unresolved relation.",
+      "negative_control": "No any-disability broadening, mandatory diagnosis/proof or invented absent-window quotation."
+    },
+    {
+      "id": "R11",
+      "unit_ids": [
+        "PH-043",
+        "PH-044",
+        "PH-045"
+      ],
+      "case": "Medical eye closure and rare unlikely cause",
+      "expected": "Keep one OR both eyes with causal medical condition and discretionary acceptance; rare AND unlikely cause with should signed-statement request; distinguish trigger from baseline exception.",
+      "negative_control": "Do not flip unlikely, drop rare from aggregate representation, require statement universally, or make acceptance mandatory."
+    },
+    {
+      "id": "R12",
+      "unit_ids": [
+        "PH-024",
+        "PH-025"
+      ],
+      "case": "Return object and purpose",
+      "expected": "Return the application to adjudication for printing-defect context, to request a new photograph.",
+      "negative_control": "Do not make photograph the returned object or infer a separate must-request command from purpose."
+    },
+    {
+      "id": "R13",
+      "unit_ids": [
+        "PH-050",
+        "PH-054"
+      ],
+      "case": "Remote reference topic",
+      "expected": "Keep unresolved 8 FAM 1001.2 specifically about DS-5504 photo importing plus separate DS-5504 suspension duty.",
+      "negative_control": "No invented import procedures or permission to accept a missing-photo DS-5504 at counter."
+    },
+    {
+      "id": "R14",
+      "unit_ids": [
+        "PH-048",
+        "PH-049",
+        "PH-051",
+        "PH-053",
+        "PH-054"
+      ],
+      "case": "Forms and receipt location",
+      "expected": "Retain DS-11 OR DS-82 counter refusal, DS-11 facility suspension, DS-82 OR DS-5504 suspension and both IRLs.",
+      "negative_control": "No fixed row count, both-forms conjunction, imported facility restriction or exclusive IRL mapping."
+    },
+    {
+      "id": "R15",
+      "unit_ids": [
+        "PH-001",
+        "PH-002",
+        "PH-013",
+        "PH-014",
+        "PH-022",
+        "PH-024"
+      ],
+      "case": "Advisory versus descriptive language",
+      "expected": "Keep reasonableness/certificate guidance advisory while may wish and may have remain descriptive.",
+      "negative_control": "No invented duties from headings, revision dates, examples or preferences."
+    }
+  ],
+  "negative_controls": [
+    "Unknown actors on passive/photo-property statements are appropriate; no names should be invented from outside-window context.",
+    "Hand-carry agent/signing scope, medical glasses exception and all emitted local links resolve to semantically appropriate targets, subject to C14 relation-taxonomy uncertainty.",
+    "Dark/tinted necessity, one-or-both eyes, causal medical condition, and rare/unlikely polarity survive in the aggregate records.",
+    "Grouped definitions, shadows/refraction and form alternatives are not wrong solely for sharing a candidate.",
+    "All claims retain aiSuggested origin. No production adjudication, publication or execution is asserted.",
+    "No outside-input photo dimensions, contact-lens rules, one-year validity, remote reference contents or separate responsibilities are counted as omissions.",
+    "PH-014/PH-050 inventory actor descriptor correction is separate and not scored against output."
+  ],
+  "access_disclosure": {
+    "files_consulted": [
+      {
+        "path": "/Users/mikewolfd/Work/rulespec/.tools/blind-review-20260907/photos/source/input.json",
+        "sha256": "3495dbc79ab589f507abd0a9ba35dcbb40e090a86058dc3d5c7df6982bfa0a00"
+      },
+      {
+        "path": "/Users/mikewolfd/Work/rulespec/.tools/blind-review-20260907/photos/source/full-source-context.txt",
+        "sha256": "85aa13b82a694d3efba89bdb0f1073963cc2855afa8b1c95abe55e6cefdde3e9"
+      },
+      {
+        "path": "/Users/mikewolfd/Work/rulespec/.tools/blind-review-20260907/photos/source/responsibilities-context.txt",
+        "sha256": "aefd18ec6fbb253b77c69934770d7a30620ccae0ce492eead0eddfcb03e3df61"
+      },
+      {
+        "path": "/Users/mikewolfd/Work/rulespec/.tools/blind-review-20260907/photos/source/original.html",
+        "sha256": "fd4b22e96cbdc0422a521cbd8598b3ab59c49745e0e0b49910ad1c04a9626bd7"
+      },
+      {
+        "path": "/Users/mikewolfd/Work/rulespec/.tools/blind-review-20260907/photos/outputs/development-01/attempt-0000.request.json",
+        "sha256": "e89749fcbe25b581ebcfe90861013377e9c8bd665fd9c82d3da7a1e4ec051d2f"
+      },
+      {
+        "path": "/Users/mikewolfd/Work/rulespec/.tools/blind-review-20260907/photos/outputs/development-01/attempt-0000.response.json",
+        "sha256": "5d9c26522295fb273cea2285c0065db5c3a6656adb1ce5ca33aac43810dc697e"
+      },
+      {
+        "path": "/Users/mikewolfd/Work/rulespec/.tools/blind-review-20260907/photos/outputs/development-01/attempt-0001.request.json",
+        "sha256": "e1851b23415e7db2a73bbdc2c5ef63891049d29f9e9c181f12fbfb390a814da3"
+      },
+      {
+        "path": "/Users/mikewolfd/Work/rulespec/.tools/blind-review-20260907/photos/outputs/development-01/attempt-0001.response.json",
+        "sha256": "1d459cc50ea79b3c9a0bce5f67bac232eb0058a4e729727f7d817848fad0745b"
+      },
+      {
+        "path": "/Users/mikewolfd/Work/rulespec/.tools/blind-review-20260907/photos/outputs/development-01/attempt-0002.request.json",
+        "sha256": "8848f70066568c05ac3f5771ccacb190f22a7d6b8be97f3ec6947b126af8102c"
+      },
+      {
+        "path": "/Users/mikewolfd/Work/rulespec/.tools/blind-review-20260907/photos/outputs/development-01/attempt-0002.response.json",
+        "sha256": "8bea2ada6c0d14f9a2665971824c8cde17ebaa434c6936dd521a6710f18c5c6f"
+      },
+      {
+        "path": "/Users/mikewolfd/Work/rulespec/.tools/blind-review-20260907/photos/outputs/development-01/candidates.json",
+        "sha256": "78b2514cfaf4fe0e0e8086b3327075c142697a67c227a939cbdb3ec093e10fd0"
+      },
+      {
+        "path": "/Users/mikewolfd/Work/rulespec/.tools/blind-review-20260907/photos/outputs/development-01/claims.json",
+        "sha256": "1da3d09c4f35515a3349318db08e236042e025bd8127a31593c32b3e0b11dfd7"
+      },
+      {
+        "path": "/Users/mikewolfd/Work/rulespec/thoughts/reviews/2026-09-07-document-understanding-adversarial/photos-source-inventory.json",
+        "sha256": "953b97fd334d27da5e980dcf802f6c919c6850d0a445b246f364ca303ec5bb5c"
+      },
+      {
+        "path": "/Users/mikewolfd/Work/rulespec/thoughts/reviews/2026-09-07-document-understanding-adversarial/photos-inventory-erratum.json",
+        "sha256": "d2cbdb37f16404a00fd9bfcb9e936d1d55a42c5409cbde4dbd8a3c1209485dbb"
+      }
+    ],
+    "directory_listing_only_other_released_files": [
+      "run.json",
+      "document.json",
+      "refusals.json",
+      "attempt-0000.json",
+      "attempt-0001.json",
+      "attempt-0002.json"
+    ],
+    "not_read": [
+      "prior reports or labels",
+      "memories",
+      "other agents work",
+      "repository READMEs or implementation code"
+    ],
+    "provider_calls": 0,
+    "network_calls": 0,
+    "code_changes": 0,
+    "production_edits": 0,
+    "phase1_sealed_before_output_access": true
+  },
+  "uncertainty": [
+    "Should classification is a demonstrated prompt-kind/prose conflict, not evidence of automatic must enforcement.",
+    "Return may be returned is arguably descriptive procedure or permission; event object and antecedent observations do not depend on settling that force.",
+    "Disability source says may not be able; no formal proof requirement is inferred.",
+    "Baseline/exception window separation is observed, but causal attribution from one run is limited.",
+    "Severity reflects potential reliance on representations, not observed applicant outcomes."
+  ]
+}

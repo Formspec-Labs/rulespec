@@ -1,0 +1,136 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+        "AssertionEnvelope": {
+            "description": "The generic Assertion envelope, minus the JSON-LD `@type` discriminator.\nAssertion specializations embed this definition rather than restating it, so\nthe envelope has exactly one source and cannot drift between classes. The\nprojector flattens the composition into every target.\n\nThe envelope holds CONTEXT for a proposition — where it came from, what\ngrounds it, who may use it — never the proposition itself. It composes\n`#ConsumerDisposition` for the mutable half; `#AssertionProposition` is\ncomposed by the proposition-bearing forms, not by the envelope, because the\ngeneric `#Assertion` is an envelope-only carrier retained for v0.2\nbackward compatibility.",
+            "$ref": "#/$defs/ConsumerDisposition"
+        },
+        "AssertionPolarity": {
+            "description": "Whether the proposition is affirmed or denied. Part of the immutable\nproposition core, so it lives beside `#AssertionProposition` rather than in\none form's file: `#RelationshipAssertion` and `#ValueAssertion` both close\nover the same two values. Predicates stay affirmative; polarity records\nwhether the source-backed assertion affirms or denies that relationship.",
+            "enum": [
+                "rkaf:affirmed",
+                "rkaf:denied"
+            ]
+        },
+        "AssertionProposition": {
+            "type": "object",
+            "description": "Immutable proposition content: WHAT is claimed, and whether the claim is\naffirmed or denied (§2.3). Every proposition-bearing assertion form composes\nthis definition, so the two forms cannot drift on the shared half of the\nproposition.\n\nThis definition deliberately carries NOTHING else. Acceptance, disposition,\nconfidence, attestation, and consumer eligibility are separate records keyed\nto the assertion IRI — an assertion's identity never includes mutable state,\nso none of it may live here. `#ConsumerDisposition` below is the named\ncounterpart holding the mutable half; keeping both named makes the boundary\na structural fact of the source rather than a comment.\n\nThe object slot is form-specific and therefore NOT declared here:\n`#RelationshipAssertion` supplies an IRI-valued `rkaf:assertsObject`,\n`#ValueAssertion` a typed-literal `rkaf:assertsValue`.",
+            "additionalProperties": false,
+            "properties": {
+                "rkaf:assertionPolarity": {
+                    "$ref": "#/$defs/AssertionPolarity"
+                },
+                "rkaf:assertsPredicate": {
+                    "type": "string"
+                },
+                "rkaf:assertsSubject": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "rkaf:assertionPolarity",
+                "rkaf:assertsPredicate",
+                "rkaf:assertsSubject"
+            ]
+        },
+        "ConsumerDisposition": {
+            "type": "object",
+            "description": "Mutable, consumer-scoped disposition (§2.3). These are the L4 reducer's\ninputs and outputs; they change as consumers, scopes, and reviews change,\nwhile the proposition above does not. They are named separately so that no\nreader — and no future edit — can mistake them for proposition content.",
+            "additionalProperties": false,
+            "properties": {
+                "rkaf:consumerLifecycleState": {
+                    "$ref": "#/$defs/ConsumerLifecycleState"
+                },
+                "rkaf:hasAccessScope": {
+                    "type": "string"
+                },
+                "rkaf:usageEligibility": {
+                    "description": "L4 reducer inputs (rkaf-behavior.md §1.2). The reducer reads\nthese to compute effective usageEligibility per scope.",
+                    "$ref": "#/$defs/UsageEligibility"
+                }
+            }
+        },
+        "ConsumerLifecycleState": {
+            "description": "Cached lifecycle state on a generated work product. Closed enum.",
+            "enum": [
+                "rkaf:draft",
+                "rkaf:proposedForOperational",
+                "rkaf:operational",
+                "rkaf:staleForCurrentUse",
+                "rkaf:published"
+            ]
+        },
+        "DurableAssertionEnvelope": {
+            "type": "object",
+            "description": "Every durable Rulespec assertion form uses this definition. Keeping the\nrequirement here makes epistemic basis uniform across generic,\nrelationship, value, concept-assignment, concept-mapping, and analysis\nassertions while retaining `#AssertionEnvelope` as the one shared source\nfor fields and conditionals.",
+            "properties": {
+                "rkaf:epistemicBasis": {
+                    "$ref": "#/$defs/EpistemicBasis"
+                }
+            },
+            "$ref": "#/$defs/AssertionEnvelope",
+            "required": [
+                "rkaf:epistemicBasis"
+            ]
+        },
+        "EpistemicBasis": {
+            "description": "Why the proposition may be believed. This is deliberately independent of\n`rkaf:assertionOrigin`, which records what CONSTRUCTED the record. A model\nmay extract a source-explicit statement, a human may record a statistical\ninference, and review changes neither fact. See Core §2.5.",
+            "enum": [
+                "rkaf:sourceExplicit",
+                "rkaf:deterministicDerivation",
+                "rkaf:statisticalInference",
+                "rkaf:editorialAssertion",
+                "rkaf:userAssertion"
+            ]
+        },
+        "SafetyLabel": {
+            "description": "Safety labels (§1.3): D0 (display-only) through P4 (production-permitted),\nplus the \"permits-*\" family that authorizes a specific evidence gap on the\nEvidenceBinding a labeled Assertion carries (see\nconstraints/adversarial/conditional-silent-pass.cue and\nnested-noevidencereason.cue, and `rkaf:NoEvidenceReason` in\nspec/rkaf-core.md §2.4). Operational property of an artifact — what the\nconsumer may do with it. The published lettered scheme is D0 / S1 / R2 /\nA3 / P4 plus advisory and authority-critical refinements. Bound below via\n`#SafetyLabelCarrier`; the two adversarial modules above use literal\nsubsets of this same set, never their own vocabulary.",
+            "enum": [
+                "rkaf:D0DisplayOnly",
+                "rkaf:S1Suggestion",
+                "rkaf:R2Review",
+                "rkaf:A3Advisory",
+                "rkaf:A3AdvisoryAggregated",
+                "rkaf:A3AuthorityCritical",
+                "rkaf:P4Production",
+                "rkaf:permits-axiomatic",
+                "rkaf:permits-consensus-without-citation",
+                "rkaf:permits-all"
+            ]
+        },
+        "SafetyLabelCarrier": {
+            "type": "object",
+            "description": "Composed into the concrete assertion forms observed to carry\n`hasSafetyLabel` in live fixtures (the generic `#Assertion` and\n`#RelationshipAssertion`; see constraints/core/assertion.cue and\nrelationship-assertion.cue) rather than into the shared\n`#ConsumerDisposition`/`#AssertionEnvelope` every durable assertion form\ncomposes. `#ConceptAssignment` and `#ConceptMapping` also compose that\nshared envelope, and one of their compiled schemas is byte-pinned in a\nrelease-record fixture (release-records/fixtures/rulespec-core-release-m2.json)\nthat is itself pinned by digest from a vendored, external upstream\ndocument (release-records/fixtures/upstream/spicyregs-document-release-v1.json)\nthrough the whole self-certification chain. Adding this field there would\nchange that pinned digest and cascade into re-stamping vendored content\nthis repo does not own — out of scope here. If a future producer needs\n`hasSafetyLabel` on those forms too, promote this into the shared envelope\nAND re-stamp the release-record chain deliberately, as one decision.",
+            "additionalProperties": false,
+            "properties": {
+                "rkaf:hasSafetyLabel": {
+                    "$ref": "#/$defs/SafetyLabel"
+                }
+            }
+        },
+        "UsageEligibility": {
+            "description": "Closed lattice (§1.4): usage eligibility ascends from notEligible (lowest\nceiling) to officialUse (highest). The lattice ORDER is normative — consumers\nMAY narrow (move down), MUST NOT broaden (move up). Only LocalAdoption MAY\nbroaden within its declared scope.\n\nEffective `usageEligibility` for an artifact is computed by a reducer that\ncombines: assertion baseline, scoped LocalAdoption grants, lifecycle status,\napplicability constraints, consumer capabilities. The reducer is runtime\nbehavior; CUE only validates the closed enum membership.",
+            "enum": [
+                "rkaf:notEligible",
+                "rkaf:searchOnly",
+                "rkaf:reviewQueueOnly",
+                "rkaf:draftGenerationAllowed",
+                "rkaf:localOperationalUse",
+                "rkaf:publicationAllowed",
+                "rkaf:officialUse"
+            ]
+        }
+    },
+    "description": "RelationshipAssertion restores the proposition-bearing specialization from\nRulespec v0.1 without changing the backward-compatible generic Assertion\nenvelope. Expected and observed are comparison roles, not stored modes.\n\n`#AssertionPolarity` is declared in constraints/core/assertion.cue: polarity\nbelongs to the shared proposition core that `#ValueAssertion` closes over\ntoo, not to this one form.\n\nTwo definitions arrive by composition, and each carries a different half of\nthe contract:\n  #AssertionProposition — the immutable proposition core (subject,\n    predicate, polarity), shared with #ValueAssertion.\n  #DurableAssertionEnvelope — provenance, epistemic basis, grounding, and\n                              consumer disposition.\nBoth live in constraints/core/assertion.cue, so their properties and the\nAI-lineage conditionals have exactly one source and are projected here from\nit.\n\nThe restatements below are NOT duplication. They are deliberate\nRelationshipAssertion-specific NARROWINGS of the composed definitions: the\nshared definitions type their reference fields as plain `string`, while a\nRelationshipAssertion additionally requires each of them to be an absolute\nIRI. Narrowing is exactly what CUE unification does with an embedded\ndefinition; the projector unifies these facet by facet, so the compiled\nJSON Schema / SHACL / Rust / TypeScript carry the composed definition AND\nthe stricter pattern. Deleting them would loosen every generated target\nrelative to the CUE source.",
+    "allOf": [
+        {
+            "$ref": "#/$defs/AssertionProposition"
+        },
+        {
+            "$ref": "#/$defs/SafetyLabelCarrier"
+        },
+        {
+            "$ref": "#/$defs/DurableAssertionEnvelope"
+        }
+    ]
+}

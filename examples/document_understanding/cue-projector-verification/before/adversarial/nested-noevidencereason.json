@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/nested-noevidencereason.json",
+  "title": "nested-noevidencereason",
+  "$defs": {
+    "NestedNoEvidenceReasonShape": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:EvidenceBinding"
+        },
+        "rkaf:hasSafetyLabel": {
+          "type": "string",
+          "enum": [
+            "rkaf:permits-axiomatic",
+            "rkaf:permits-all"
+          ]
+        },
+        "rkaf:hasEvidenceBinding": {
+          "type": "string"
+        },
+        "rkaf:noEvidenceReason": {
+          "const": "rkaf:axiomatic"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:hasSafetyLabel",
+        "rkaf:hasEvidenceBinding"
+      ]
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "description": "One node represents one continuous public-comment interval. A reopening is\na second CommentPeriod node. It has at least one Proceeding or Docket anchor.\nThe disjunction projects the requirement into CUE, JSON Schema, generated\nSHACL, and the generated SDK validators; the hand-authored Pattern-C shape\nremains a graph-level defense in depth.",
+    "anyOf": [
+        {
+            "type": "object",
+            "properties": {
+                "rkaf:commentPeriodFor": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                    },
+                    "minItems": 1
+                }
+            },
+            "required": [
+                "rkaf:commentPeriodFor"
+            ]
+        },
+        {
+            "type": "object",
+            "properties": {
+                "rkaf:commentPeriodDocket": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                    },
+                    "minItems": 1
+                }
+            },
+            "required": [
+                "rkaf:commentPeriodDocket"
+            ]
+        }
+    ]
+}

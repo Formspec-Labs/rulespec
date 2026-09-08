@@ -1,0 +1,575 @@
+{
+  "candidates": [
+    {
+      "content": {
+        "parts": [
+          {
+            "media_resolution": null,
+            "code_execution_result": null,
+            "executable_code": null,
+            "file_data": null,
+            "function_call": null,
+            "function_response": null,
+            "inline_data": null,
+            "text": "{\n  \"cases\": [\n    {\n      \"id\": \"NREG-01\",\n      \"invariants\": [\n        {\n          \"index\": 0,\n          \"source_quotes\": [\n            \"Material discrepancies between the name recorded on the application, the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality, or the evidence of identity must be documented by submission of one or more of the documents listed in this section\"\n          ],\n          \"claim_ids\": [\"N002\"],\n          \"rationale\": \"Claim N002 accurately records the requirement using disjunctive logic ('one or more of the documents listed in this section') rather than requiring all categories.\",\n          \"status\": \"pass\"\n        },\n        {\n          \"index\": 1,\n          \"source_quotes\": [\n            \"(a) Name change orders; or\",\n            \"(b) Divorce decrees;\",\n            \"(2) Certificates of naturalization;\",\n            \"(3) Marriage certificates;\",\n            \"(4) Documentation demonstrating change of name by operation of state law; or\",\n            \"(5) Documentation of customary usage.\"\n          ],\n          \"claim_ids\": [\"N002\"],\n          \"rationale\": \"All six distinct leaf document options are retained in N002's choice structure and text.\",\n          \"status\": \"pass\"\n        },\n        {\n          \"index\": 2,\n          \"source_quotes\": [\n            \"(1) Court orders or decrees:\\n\\n(a) Name change orders; or\\n\\n(b) Divorce decrees;\"\n          ],\n          \"claim_ids\": [\"N002\"],\n          \"rationale\": \"N002 preserves Court orders or decrees as the parent category grouping the two sub-alternatives of name change orders and divorce decrees.\",\n          \"status\": \"pass\"\n        },\n        {\n          \"index\": 3,\n          \"source_quotes\": [\n            \"(see an exception for married names in 8 FAM 403.1-4(C))\"\n          ],\n          \"claim_ids\": [\"N002\"],\n          \"rationale\": \"N002 preserves the married-name exception reference as a cited remote reference without inferring a blanket exemption for all married applicants.\",\n          \"status\": \"pass\"\n        },\n        {\n          \"index\": 4,\n          \"source_quotes\": [\n            \"Acceptable means of documenting a material name change include (per 22 CFR 51.25):\"\n          ],\n          \"claim_ids\": [\"N002\"],\n          \"rationale\": \"22 CFR 51.25 is retained as an explicit legal reference and context citation governing the acceptable documentation options.\",\n          \"status\": \"pass\"\n        }\n      ],\n      \"negative_controls\": [\n        {\n          \"index\": 0,\n          \"source_quotes\": [\n            \"must be documented by submission of one or more of the documents listed in this section\"\n          ],\n          \"claim_ids\": [],\n          \"rationale\": \"The negative control incorrectly asserts that an applicant must submit documents across every listed category conjunctively, directly contradicting the source's 'one or more' standard.\",\n          \"status\": \"pass\"\n        }\n      ],\n      \"uncertainty\": \"Remote reference 8 FAM 403.1-4(C) is external to the excerpt and properly left unresolved.\"\n    },\n    {\n      \"id\": \"NREG-02\",\n      \"invariants\": [\n        {\n          \"index\": 0,\n          \"source_quotes\": [\n            \"If the applicant has had a material name change more than one year prior to applying on form DS-11 but has not updated her/his ID to reflect the material name change\"\n          ],\n          \"claim_ids\": [\"N007\", \"E006\"],\n          \"rationale\": \"The draft incorporates the parent clause regarding material name change more than one year prior to DS-11 with un-updated ID directly into the scope of the emergency issuance permission.\",\n          \"status\": \"pass\"\n        },\n        {\n          \"index\": 1,\n          \"source_quotes\": [\n            \"If there is insufficient time to request that the applicant submit acceptable ID prior to urgent or emergency travel\"\n          ],\n          \"claim_ids\": [\"N007\", \"E006\"],\n          \"rationale\": \"The permission requires insufficient time to request acceptable ID prior to urgent or emergency travel, which is faithfully captured with OR logic in choice_text and scope.\",\n          \"status\": \"pass\"\n        },\n        {\n          \"index\": 2,\n          \"source_quotes\": [\n            \"a limited-validity passport may be issued in the requested name;\"\n          ],\n          \"claim_ids\": [\"N007\", \"E006\"],\n          \"rationale\": \"The draft reflects discretionary modality ('may') for issuing a limited-validity passport specifically in the requested name.\",\n          \"status\": \"pass\"\n        },\n        {\n          \"index\": 3,\n          \"source_quotes\": [\n            \"you must suspend the application to request an acceptable ID in the new name.\"\n          ],\n          \"claim_ids\": [\"N006\", \"E005\"],\n          \"rationale\": \"The mandatory suspension duty is isolated into its own claim with 'must' modality.\",\n          \"status\": \"pass\"\n        }\n      ],\n      \"negative_controls\": [\n        {\n          \"index\": 0,\n          \"source_quotes\": [\n            \"If there is insufficient time to request that the applicant submit acceptable ID prior to urgent or emergency travel, a limited-validity passport may be issued in the requested name;\"\n          ],\n          \"claim_ids\": [],\n          \"rationale\": \"The negative control erroneously claims officials 'must' issue a passport whenever urgent travel is planned, ignoring the discretionary 'may', the limited-validity restriction, and the prerequisite condition of an un-updated name change over one year prior.\",\n          \"status\": \"pass\"\n        }\n      ],\n      \"uncertainty\": \"None observed.\"\n    },\n    {\n      \"id\": \"NREG-03\",\n      \"invariants\": [\n        {\n          \"index\": 0,\n          \"source_quotes\": [\n            \"Applicants who have had a material name change within one year of applying on a form DS-11 do not need to submit ID in the new name.\"\n          ],\n          \"claim_ids\": [\"N009\", \"E008\"],\n          \"rationale\": \"The draft accurately captures the absence of duty for applicants with a recent name change within one year using exemption kind and not_required modality.\",\n          \"status\": \"pass\"\n        },\n        {\n          \"index\": 1,\n          \"source_quotes\": [\n            \"However, if the ID has not yet been changed, they must submit their name change documentation.\"\n          ],\n          \"claim_ids\": [\"N010\", \"E009\"],\n          \"rationale\": \"The contingent requirement to submit name change documentation when ID has not yet been updated is retained as a distinct requirement claim with must modality.\",\n          \"status\": \"pass\"\n        },\n        {\n          \"index\": 2,\n          \"source_quotes\": [\n            \"do not need to submit ID in the new name.\"\n          ],\n          \"claim_ids\": [\"N009\", \"E008\"],\n          \"rationale\": \"The draft represents the rule as not_required, avoiding mischaracterization as a requirement, prohibition, or mere permission.\",\n          \"status\": \"pass\"\n        },\n        {\n          \"index\": 3,\n          \"source_quotes\": [\n            \"Applicants who have had a material name change within one year of applying on a form DS-11 do not need to submit ID in the new name.\"\n          ],\n          \"claim_ids\": [\"N009\", \"E008\"],\n          \"rationale\": \"The absence of duty is represented using standard exemption/not_required schema constructs without losing source content.\",\n          \"status\": \"pass\"\n        },\n        {\n          \"index\": 4,\n          \"source_quotes\": [\n            \"Applicants who have had a material name change within one year of applying on a form DS-11 do not need to submit ID in the new name. However, if the ID has not yet been changed, they must submit their name change documentation.\"\n          ],\n          \"claim_ids\": [\"N006\", \"N009\", \"N010\", \"E005\", \"E008\", \"E009\"],\n          \"rationale\": \"The exemption is segregated from the separate >1 year suspension rule and from the documentation requirement.\",\n          \"status\": \"pass\"\n        }\n      ],\n      \"negative_controls\": [],\n      \"uncertainty\": \"None observed.\"\n    },\n    {\n      \"id\": \"NREG-04\",\n      \"invariants\": [\n        {\n          \"index\": 0,\n          \"source_quotes\": [\n            \"The court order or decree must list both the applicant's current and former name(s).\"\n          ],\n          \"claim_ids\": [\"E014\"],\n          \"rationale\": \"E014 captures the mandatory requirement that the court order or decree list both current and former names.\",\n          \"status\": \"pass\"\n        },\n        {\n          \"index\": 1,\n          \"source_quotes\": [\n            \"EXCEPTION: You may receive a court order in which the applicant's former name is made confidential (e.g., California's Safe at Home program).\"\n          ],\n          \"claim_ids\": [\"E014\", \"E015\"],\n          \"rationale\": \"The draft fails to link or model the confidential former name provision as an exception qualifying the court document content rule in E014; E014 remains completely unqualified.\",\n          \"status\": \"fail\"\n        },\n        {\n          \"index\": 2,\n          \"source_quotes\": [\n            \"EXCEPTION: You may receive a court order in which the applicant's former name is made confidential (e.g., California's Safe at Home program).\"\n          ],\n          \"claim_ids\": [\"E015\"],\n          \"rationale\": \"The draft avoids creating an independent legal permission claim from the descriptive phrase 'You may receive'.\",\n          \"status\": \"pass\"\n        },\n        {\n          \"index\": 3,\n          \"source_quotes\": [\n            \"When this occurs, the applicant must provide both her/his current and former names on the application.\"\n          ],\n          \"claim_ids\": [\"E015\"],\n          \"rationale\": \"E015 models the application disclosure duty as a must requirement governing when this confidentiality scenario occurs.\",\n          \"status\": \"pass\"\n        },\n        {\n          \"index\": 4,\n          \"source_quotes\": [\n            \"You may request additional evidence of U.S. citizenship/non-citizen U.S. nationality or identity in accordance with 22 CFR 51.23 and 22 CFR 51.45.\"\n          ],\n          \"claim_ids\": [\"E016\"],\n          \"rationale\": \"E016 faithfully represents the permission to request additional evidence of citizenship/nationality or identity under both cited regulations.\",\n          \"status\": \"pass\"\n        },\n        {\n          \"index\": 5,\n          \"source_quotes\": [\n            \"The court order or decree must list both the applicant's current and former name(s).\\n\\nEXCEPTION: You may receive a court order in which the applicant's former name is made confidential (e.g., California's Safe at Home program).\"\n          ],\n          \"claim_ids\": [\"E014\", \"E015\"],\n          \"rationale\": \"There is no modifier/exception relation link pointing from the exception to the court-document rule E014 in the draft.\",\n          \"status\": \"fail\"\n        }\n      ],\n      \"negative_controls\": [],\n      \"uncertainty\": \"The draft fails to instantiate an exception claim targeting E014, placing the exception text only in context_quotes of E015.\"\n    },\n    {\n      \"id\": \"NREG-05\",\n      \"invariants\": [\n        {\n          \"index\": 0,\n          \"source_quotes\": [\n            \"The applicant may not continue to use a previous name after a material name change unless the name change documentation specifically permits the applicant to continue using that name\"\n          ],\n          \"claim_ids\": [\"E003\", \"E004\"],\n          \"rationale\": \"E004 is properly linked via target_ids to E003, correctly modifying the prohibition on continued use of a previous name.\",\n          \"status\": \"pass\"\n        },\n        {\n          \"index\": 1,\n          \"source_quotes\": [\n            \"You must clear the applicant's pending name even though the name change is not final and even if the passport is not being issued at this time.\"\n          ],\n          \"claim_ids\": [\"E004\", \"E013\"],\n          \"rationale\": \"E004 does not target or excuse E013 (the pending name clearance duty).\",\n          \"status\": \"pass\"\n        },\n        {\n          \"index\": 2,\n          \"source_quotes\": [\n            \"unless the name change documentation specifically permits the applicant to continue using that name\"\n          ],\n          \"claim_ids\": [\"E004\"],\n          \"rationale\": \"Target validation confirms semantic congruence between the exception and the prohibited action (continuing to use a previous name).\",\n          \"status\": \"pass\"\n        }\n      ],\n      \"negative_controls\": [\n        {\n          \"index\": 0,\n          \"source_quotes\": [\n            \"The applicant may not continue to use a previous name after a material name change unless the name change documentation specifically permits the applicant to continue using that name\",\n            \"You must clear the applicant's pending name even though the name change is not final and even if the passport is not being issued at this time.\"\n          ],\n          \"claim_ids\": [],\n          \"rationale\": \"The synthetic negative example incorrectly links the documentation exception to the pending-name clearance rule rather than the previous-name use prohibition.\",\n          \"status\": \"pass\"\n        }\n      ],\n      \"uncertainty\": \"None observed.\"\n    },\n    {\n      \"id\": \"NREG-06\",\n      \"invariants\": [\n        {\n          \"index\": 0,\n          \"source_quotes\": [\n            \"The court order or decree must be final:\"\n          ],\n          \"claim_ids\": [\"E010\"],\n          \"rationale\": \"E010 frames finality as a mandatory state constraint on the court order or decree.\",\n          \"status\": \"pass\"\n        },\n        {\n          \"index\": 1,\n          \"source_quotes\": [\n            \"An applicant with a pending name change must not be issued a passport in her/his new name.\",\n            \"An applicant with a pending name change must not be issued a form FS-240 in her/his new name.\"\n          ],\n          \"claim_ids\": [\"E011\", \"E012\"],\n          \"rationale\": \"Passport and FS-240 issuance prohibitions are captured as separate claims E011 and E012.\",\n          \"status\": \"pass\"\n        },\n        {\n          \"index\": 2,\n          \"source_quotes\": [\n            \"You must clear the applicant's pending name even though the name change is not final and even if the passport is not being issued at this time.\"\n          ],\n          \"claim_ids\": [\"E013\"],\n          \"rationale\": \"E013 preserves pending name clearance as a mandatory duty under modality 'must'.\",\n          \"status\": \"pass\"\n        },\n        {\n          \"index\": 3,\n          \"source_quotes\": [\n            \"even though the name change is not final and even if the passport is not being issued at this time.\"\n          ],\n          \"claim_ids\": [\"E013\"],\n          \"rationale\": \"The concessive 'even though' and 'even if' clauses are retained as reinforcing conditions within logic_text rather than negative exceptions.\",\n          \"status\": \"pass\"\n        },\n        {\n          \"index\": 4,\n          \"source_quotes\": [\n            \"An applicant with a pending name change must not be issued a passport in her/his new name.\"\n          ],\n          \"claim_ids\": [\"E011\"],\n          \"rationale\": \"E011 limits the prohibition strictly to issuance 'in her/his new name', avoiding an overbroad ban on all passport issuance.\",\n          \"status\": \"pass\"\n        }\n      ],\n      \"negative_controls\": [\n        {\n          \"index\": 0,\n          \"source_quotes\": [\n            \"You must clear the applicant's pending name even though the name change is not final and even if the passport is not being issued at this time.\"\n          ],\n          \"claim_ids\": [],\n          \"rationale\": \"The negative control misinterprets the concessive clause 'even if the passport is not being issued at this time' as an exception that carves out the clearance requirement.\",\n          \"status\": \"pass\"\n        }\n      ],\n      \"uncertainty\": \"None observed.\"\n    },\n    {\n      \"id\": \"NREG-07\",\n      \"invariants\": [\n        {\n          \"index\": 0,\n          \"source_quotes\": [\n            \"if the applicant has a name with multiple parts, you must determine how the name will appear:\"\n          ],\n          \"claim_ids\": [\"E017\"],\n          \"rationale\": \"E017 faithfully models determining the appearance of a multipart name as a mandatory requirement with modality 'must'.\",\n          \"status\": \"pass\"\n        },\n        {\n          \"index\": 1,\n          \"source_quotes\": [\n            \"If the applicant's previous passport had a space, you should add a space on the current application;\"\n          ],\n          \"claim_ids\": [\"E018\"],\n          \"rationale\": \"E018 models adding a space when a previous passport had a space as a recommendation with modality 'should'.\",\n          \"status\": \"pass\"\n        },\n        {\n          \"index\": 2,\n          \"source_quotes\": [\n            \"If the applicant does not have a previous passport and the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality or ID has a space, you should add a space on the current application;\"\n          ],\n          \"claim_ids\": [\"E019\"],\n          \"rationale\": \"E019 preserves the recommendation force ('should') for the no-prior-passport condition.\",\n          \"status\": \"pass\"\n        },\n        {\n          \"index\": 3,\n          \"source_quotes\": [\n            \"If the applicant does not have a previous passport and the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality or ID has a space\"\n          ],\n          \"claim_ids\": [\"E019\"],\n          \"rationale\": \"The compound logical condition (no previous passport AND [citizenship evidence OR ID has space]) is explicitly preserved in E019.\",\n          \"status\": \"pass\"\n        },\n        {\n          \"index\": 4,\n          \"source_quotes\": [\n            \"you should add a space on the current application;\"\n          ],\n          \"claim_ids\": [\"E018\", \"E019\"],\n          \"rationale\": \"The draft maintains the distinction between recommendation ('should') and requirement ('must') without upgrading guidance to mandatory duty.\",\n          \"status\": \"pass\"\n        }\n      ],\n      \"negative_controls\": [\n        {\n          \"index\": 0,\n          \"source_quotes\": [\n            \"If the applicant's previous passport had a space, you should add a space on the current application;\",\n            \"If the applicant does not have a previous passport and the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality or ID has a space, you should add a space on the current application;\"\n          ],\n          \"claim_ids\": [],\n          \"rationale\": \"The negative control improperly upgrades advisory guidance ('should') to a mandatory duty ('must') and collapses the conditional structure into an overbroad rule.\",\n          \"status\": \"pass\"\n        }\n      ],\n      \"uncertainty\": \"None observed.\"\n    }\n  ]\n}",
+            "thought": null,
+            "thought_signature": "EtTnAQrQ5wEBEU0yD0SE5iwSaYKWSMqpqDhHjBJrNoa6xCWAUb4QcO7tQLOHmh16q5eWSdRJ9leVTMoi34Pe0ebUn5AhWxRer-jJ9ZU1Jtqpco6sz5pBVkeeWLF2VOzLAfKxB64VEgtAtOiEHKSMdddial-WRG49kwlY-utNC_V0lXcLxWdXHo3u_m85eetYjwx9_nwKU3gKGDoJHMR9nBDmj0hAcTEcN2G-bNBX3EtfonTStxVD454q0_xLVfwXZ1y7_H7kJXXXutCuPDkDbcyxsfQdp0XM3oYMXhjjQ7N4MMVrI4tks9I2Lh8HgDSaoak76Z6QBbkMpf9VbpiIL_viaBIUh9SRybdwI4N5LWb82Qiu_XNCqJv0A2s2elDJWKw266V5pw8CeXGhu34KoH5taLdK5c-wIWqOMh29pSVAQIFe2UCDvm780H5wkRlmwJgKaxvXovmIwhBDSllxQyb52mofMJ85UNgz5JJGY-8zChPp5-ve9RriheMEXbCq4xr2ovsXI_srGlPkPgitkwLa7A-I8MndMTkf6YNE-0TdDvD3CpBql6Xl7OTw1nhIEMBGYDx0y5_m5vYjkzbai1gRnZXDFrdoc3_0oWJXVd3xxyCGBRc8oO_qvbsyz-fymFXIXrk3MIdDjlh-vHdnsbFiUqK3T8JPTWX1gTpiNTZc3P9al1CqutW_CECY6RN-LqVED8QQ4K8ztU5CSno56lns6WdDNvVvy-MfAMDB7K-5-QtSr8ynuaTZjF-E_xJYKRp3VCSRItoLy1BaGO9mrRitsBKyjyIRAUOT3DsEb9gs_uL7BQVXZcZ-c2OowvnOVDaFTZ8okUijPPwc3EVI9ERmW_D2rchRgzVCtIE7ZlCkj4a6YkiErUAgsCfVGqB1FInCw2DNOckYzR8BXB4JqOX3eKIViBp34iAwguEDHQhBYm8V8WBqmRYep7I-fQUl-ru3rRJ_o2fcbPSJx8EV_obVOGTQXf3HRaVuM31zwFHcQE7d4RgxYShpsZPvp9iR10RtLfWhu_lL2J613PKEiTlZIfXECyMR56vSxofSgiRDo4Xs1scw_sjgwTINIe7p_Grr8S2Gj70VLO_TqMHETd82JTDygygbUqOUPfEnKHg8annbmVoBSToSX-Fmj9QewVrldKBp3EhachnJ_KNRfvndFDTAR72T7m7DXZms-JIMXw9s7HDsnQrRU6nC_MpUvXJeYCgchRvcA9cdtklysx_iQAYDvM7NtZYpyP60PZwGtsSP3zUnuhppGAkl4Dry2xamNqAqwtn_KvFQlBFcGoUfvoxMHCPIBTb3uQeT_SXL_P8F4-HOET_Us_NV9Mk8jDeWFSrL3uikmAO6CfCz1v-Cgcx9iPr-6L4fw1YqekYsLsnkprNHMTrWTFiet6ZbdyuX-G2jCVL058KyJYsxRZHZXjTTwaDZrTg6weMS3DXdu_GYbQKzHO_7Q3oCsVI59u0OJNjFLRSaCqdbhs-N_OJsH11kvPuDF1H04pPkALTZt1wB_YwpA2DVHwRiqDlO7L7Fdebvcdcx1aUGs-k3aK56SjdjeXLiPS3F_cHcPEmkrN-5kGq8BZp2czcfnCuTgspQBSrtb-y4ATpZSVav_-RTzggQcfzwvCLViy6DLRaNOVjkmzxHE6KoP42shu_ABVcgcZo_zRfOp4NH_0_8tsexFzIi1TJ4JBV1yFnbX1udl7ZPzzfJH9BAXAMWqcJz-p2nCMAuOKvw4PQlOQLqqxcwQnx2aNqZ-48kMXMg5C_tD1RL0JM1HTXGLTyRi8PdlSl5rhMinDUFnHPESmz_Lysqo2va8oDEnUFNmUT_Jfv9jq2fLLzpPYDY2yKUgu8ybW4ZgE8moHioBPHNeCihoG43UNq9mWSjOV2Ih5i7PyPzOjyYPHnfCUUuPv0AFugDL10qKFARg4elFfZfp7HEr27f7qQgyDwfHJUcT-ut8UcuZlOcdsU-4eDzY6kSPKWI_bNCF3jpeCxZerB8Ui7uXzqrPACsRq_htrrNeyb2kNk7CxiAuB0guwweCZVTLWKy_u9P9z4cN7eLRXXa3ATbEmCkUUwf_slb2C40FwrmkzV5mo-M7bvro9YxhZ4FCXJgXjXqNHj-IrVKhiQZha5D_NBR5-ETDs5GxDtoTcBkJvsPx_jyuSCLO_pqgLCu6B_qYwz1bRAGaoGgfg-vTjGurUzmh7d0Xuu0mW8wbZfs50UUKa8jh_8NA-JBsmsiGYf_BncCKBu6_VFwSeIpCsX8hcPe-Fscke26awhuNoAy_yR7wcMnLcEaM5Rg88gx4lS2bi9IdcuJj8Y5yGnzrlilNTMGrDBvsnmIwxc4pNLi-yYWL38NwMohHfuOPlCvlBy20T4hnzejqUi-I7C_sl6-CxciwVtoerK-uwzu-kQ8iu0D85Viq6GRcdXvwRtsqE45qK2FaaGu30jP_FByQWI72uFxjdykPpTgM1SHPH6tXddm7_5BPrgamaqS5JY7M36UHEFCFXD5lQF9Tf_Cwa6DMYLuCJhucZo5LCpLyUIhu4UM1N1TLEcsffA1ujtR255RDC2_XQc9S0JjzSZKgw8-pFJE0UwxacF1oHoryXvCVlFTLflM4nQbPGlY2GFOfRsbLDUTyCNWoYi3Vw9LZp_LRkVYmOPpfzdUBGvq3ExxBhPyNiUXCk2kkI_3cKRpFDQqQGChM0JvbzZEkGrBtwotTi-abWysFCkWh3DZlV9FO02Kwl2hzG6LJ3hElTDqrA5eRAYqBPDWF3GA33T9xqHBF2MYmAqEND2jtvLkyCeHIXnypoxkIyi8qFIzQ0IY-PqN_hkGmTP_4GO03Caa93dYUS4GeIVK3Y0TAY5aSI8J-zzMk-fBTmB_35rFNxNlmCSUdj45FwcEvs0y-q-MAySWdHv0smnuzPz26ljpVdmrY_KSxnfSF0U6AOtu_s_r7cbXGWdlsDgv-p3gkE2Rv7zTG1YFVYrHT4OVXb6YrU3cgYGPsDFzXsNAuJy8L-sFe-Ig2tK4f5RWpDGDra3EGz_SRUKIr2cETzNrct2tXnqaZ63cOxZfAsyJA0r2Jy5fvwIW5dvTPxqsrMaAY87vPAngpDQGsP9CYrqcQ63_YqDJj7Qow7JZzLY5ruJUZwrOLWoUqwedLhY9vHKcNA0vBZtmNfSCD07Yw_zRmUsSGZmPyWcslf9Qn_BoXU_pPi1CeXe_freAyXnENhFtp6a15u_Ne3SXxUFEF3mGMC7zWLio1H5OrbQclLoyS0VoMNXMFGxpx_umQpDUJ5cjap9HByyrQfYK4nZiyBxba78pEzFqW6unc8Vkcr_IfphNh30Aaat69cAx3G7a8dTU0q53TVuCZVY_V8m-JqlplCypFopRPpl9jtAqyDljLU2Wrvo244wtnX5PXKwO4uCqZnryrwaaRvU-5cXDTw1tHj62FQWbGzcYY6YdrAxrFIU--ydcdsHOGX35DUJEFyVrfX3FG6Q6qrpr7AzGClk7X8ZRerawOW42inqN7hwc_0c5rtF5gXUGMLbflx9aQ4Wx0wHP0BV9LUAfUzpHlVhB8ywqLB5cAXjMV44ryVC3LFMLo9MaJ8DUIfz3ZNDJn37Rgfwc70Ok4MUMaz9vODjOvFth9PrgSVpP0B7T--FhxF7AkT8-XEgGymeCTtUt-X7za6X6Rg8ObjkHZNKhJPS4sbIHuMGmpiGx3v9vJiaVc6gpgxQGmnsKLsKPHdeu6Bxsl3zeklyw_4mdJMzxMYgtBAzWFTSPT8jDQ6_MDNbdCJ_cmbGVghfDC8RoFwse-8ZsLL3meEyD54xbaBOxkSSt3oDtHZalSpcMBRhgf7aDx-XMw8jHrKlhdWT0WvcfuSSdRwjx13I2i-dhIWhzjQO5WTtTut5mtyLxCFA6g01OEHz0CjRDqq89MnUYZa9u-HQ7euepskQI7oORmfEXmSDwTIX2zDsRszOOAxSRhTt_v_dxDeaIsHUuZ2oFh4E6kdXtUfR8aRG_y3GeXrVwLoUhcadPXSMNTY9BV7-G_VbBy8NG_Jstzm6zo_Md3ZNABwXM-xmbVvKzaTEWN22NGlyblI5o_imTK0pvbQZXpnDGR-c6vdC8a_kxixOrHFmoItMqRogmABsfENm2pV6mrVO6tb_JaOm4E-qd0XS85rsMsYkIV8p22-pdWjY31vviqtTe-cjP_78Qza_CPnsay2j5sRQfLg8iQBgm_FSxXz5Je57XXD3B1eo6ooFfdzAQpE3kCrUaGTv2KGDQzMVZp0mMiI45GmIKhKEV0nWOLInRWbNz1NjhOnVauuhzXfhnsK-_ry4cyO0qKEtZFLdk9bCwCOHg7V3rOdFTBek03Rg-VDKAVldU0ZU1WuLm4e-c6_MpuhGnp8hdE3WKfAq6XwJ17ko0fEUnWu018dZfqwuxZ2zjTkxkiiyTnI3PbcOMwgB0DDfNI5lO7MGns0wu_nHr8Jo731tfGGaZmUL0Ksp6NzYEG7WcA_97k-wNwDkDm4Ibk8FvJiHX11KFoMU_tWBSibyELKKZnvlHpS9I2Z8wCk3wHw5eM0gf9YEUu2CfdODS1t7CznVjSEBLas4MGsxlaaOWwiHdrjZXFpomijCSyFaUkHaHWxcnTdY-vFmI_D9bNJqPkrkWsXDRHA9A1E5AxxLDXT8PN4gVZQgCYOKtM_w9qVvthCwMbJUKY6fZeQfsEXfNejK58fa2NiQVelcEp5eZQOzgsHlPadZ_cFphTdLkBjQnhZAS6_WBdCqy1BMYU7UzNO5zcC-zRyeAQPGmmi3YzPfZzP2IwiqNUX-GiYvq52Sw0uSx-UFjSbpUxJmI7szDWG4U0DPtiIdk_wzcGWiahwVSXXM7Qs7MZ7A7pVttgxfiFFrSkxCy5J3NW-SHSd9V_FheaBmebnIfZLH3uzblS3UP_s_toIjF1rX0noNUGJVzW19mggLvEXxdyFKqkt9WK_cuaR54oTCK7gUIpTTtarWkG1jPplhzOy2-DIOi53sd6FXyZytpLJJ7SB0yIF7eLysEPsT7XEY5azny4ThZsTPc34x-P6JWnc9cQshgncokf6sj9xl7gctVnrrjJMWiJprVIt_5VV_UU0ZPYr1ohIh8sXN0xdx5-JJMyFW1JeB9SKfcpElUbB0Wrej2dUeLa0M0y2EGgbKXp6L7SUkBX6Pw7excNc3ZYRwPLXRUmKEXkFKgsvV2IKoPvXavNxvxPlcG8REKRltkrPELSCzXOVye0a-93mduNXvFmWqlA_30Mm8ZbTK2OK4iLu97W99giC9qFyY8KgTGvu-1NiIfinrh3ajw3qZlpZ70d8dFA30nKznHP8qD1KdmFyOoBWi6dPy-vkqYCHn4A0rZGFm2gD-fliDd5qX0bi2WlGrwGFob-9Jm_ik2qQTeN4AyLHUjU2dM6rqo__z4IlmOHxtpNAMVY5uYpV0tMV6vOXkvu6PRLg-GyTOlRCJ8pIJhTh3HqlXfnrNV-MiTwdDOk99yPQqyytTGA_Y6EkvOfn4JNLkU7xdkYIojetGYaH16jwz8IbdbKXZoVbdYhBm4OGZDcZ5-ZD8EgtClcv_E3ndoqHfrxZAad3i64OlFrpUQTagN9Ioqr__Z_sNmggZ66RJYGT--7t8UId6N61H5wlYbYYGEkCBEYPn9NwuNckMhxn7pSCarw41RiS38tDP1v40fZNfOVBXjlVCfwZpJ1i7M8hNRSdDZIDzJFDCGWD5nCMoGFylcjNom8NLgno9KXIvp4-0A7NmoW5isegcqtOzNrQxtw2mIIb6u87CL25eHcG5RO22iPWiogLfeX4dhwHBQmkL4DbTd74tto4ImDO6qX_tRHG1Du6PPCWi1DaqeahzfClFIGyTl53TROSbVtW2BnC7TClr8evj8CpoGUFTE7n-tdA42WXisRa-Is79Ehpl_x1_qGQcVwF0yN2Xq7rG7BTMoYKljqbZOuf4j-jRiXacYq_eAhzvWxQgj4OEhgZTeSkJIQapHygLJ63puO70weHxSYuVH5q9tUDgtDik-X9kkAxaDMGVRA-s3YW57NJWcVY2RvJkFLjl2K1c7-IrAjYOtX2tPoL2szSB_iuxJ_2yzz2pSBlTpzxsVG1r4RBg8H9-cjjnUiDRto31R_QLp4GlrtpeIwxhEYpfAiG-7xESzRrJrG4E6Voq4opgEgkYi4JGHXT9s-0YpGengWAhevtYsyYH5X-ee2FvAglXz7VEixjrtVnix9ILOZ7oD6b4E72IJB6vM9rvuL_xTn2sHd-T_cuA3gJx1LbawsVnJMOjeh6zS7mjWm_5cMIlmbb6MiSSo84o_6Lm4ogU5Xx17G6stX6nlH2cYZwHdHrFPkaGVNiw1ZBwL-44dqQIt6ldEIAi5AQ-NNfh4lGB7mZ-aqvAv5Bc4UZc4x2zCQOxAtJq4XKss-UNo1IEJojKPM829sTjsPYt1pjiv21JpWe9TP8xp9UnBOCPjsv0Xu3a5fkMG_huBWmB7HcOSwXkSrx_QyPO5x55gn5QrJLw6l_5OsH8uHrvMMHfuqnu483EUxCp1eeFUR6hW6ujGztsMYex9qw867w7ZSAD5kNd6RvpvAdYXl-AXPJcvrQ1aK4evYi4m3z9Nzo4yjgl3AVLYHJk1RmMTmvG9Uv0n-y_wmHsKc8QPZjTZLzFycL1A1BSZe0LFR17oqo1PODvWrvIMtBY5fm_Z_N45EhpURuE3dQlGifo2_B49laq2hlgOwPJ0N9Yec32TtRtXrcqFydkx103rFBZGy6th4At5OhqJaLwZlDkhqwCxSaM8ICjQGvOsFkCMw3LyIlqejohp4neR95rJi706TMs8JIwOqsc5-pKr9no3bBwJMzk3FTY9HpxJK-8dv-3crGgEi4HutWulnWFfhqYUUDPjQrKjdEkJg8GwXzoHDma3aoqG3VZqvUFHoXHr5hDbn07JWlSbwB3ivZWlnjth6YOHMgprmEK4vhWIpRkKv3tYC68mrQJCjDnvOkWice41hcnqoi4wtvHbr-Yhz-bZU10X6gi3YngWmXrn0sa30ytM5rxMH0dNzDFu17KbU7VLE42hZYKeJ0f4dOMRSADVW0B1YjGNECMQDt1O5uJMByxM6mwEmrf-mI0R41kw4rXyASyW9rwHFL1gSlXUc1L8267jx7z2cZXiP9hm5BjKVuW_ciQZO0xLNpOCBdkJp5g7Eljqm-IhWNBJvIVQhldWevNnyUmKdGGRKXxQUjKYtmyUf9eEq7bPw0NNrpnOyThrb29i-uu1Gxf9D9eeyodLVFruRtAClktmDc7ZdzBWElQ_7eIbRNxu9-NYNN5hsOZmHGO1g-oeQK4pqMrE4SWZ_IzdihJvpNNrdTAeq_Fw8NdxqCmkWYqBvqLjxN-AX1fgm_u2FxHxMzuumM_uQ3d7JTkPBuuyM8XjHdUytcHYBhylWVDUsZ3izTUbpeolid67DnIIik2iRGMc4k35F2jeNxVAgTus678JCS0Q-2T0kIxKVT-uPudnzdbTJwjFXFaZ9Nwtij9-iSgUdpGBak4WrXzoNccEoCiXB8822lQ5oAS-sl-1-KFQRRiJNt8LDseRalp30MOWzMy2dO6b_CLZYHMDK7p5WIV3POxoxPGpRffoEnYVOL-NtFT17ipVA7w5qayKUOURt-RZHLr-pBcZmt_KCngTza_Crp8kuEhzqoapk9IGeH8ps6NTDGFEFA3egOYJtQYWPb-N6RUyL9gDsSI28kyn6e4K7n7W6nZaaZquRw3w24K09yBrFjskRAOt1BrfAdvhu5mumVCehQCAgY4ElsFr1SFmUDKKvKJKlBVontGhnpMoHEIWojgkr0sE96Kn4DL1a7913C5j9oA3bxvSdaJ1qcYrBwPV89zAA9S9UJNrClenkmwpEGqi41PA3UezYtB0oEZGLVAeB27YUck25KISUcLLkEdyiSdPlOHDyUwrcS1cEeF52_-obPgKd56YlVYGwUk7MWcrDahCFMfa7n3jtELQsPzg_BcwTBDrBYunUXDB11oPhnWc5yKja-xjeGFA3IJLUQ2JkXuJNJ1I3kzeFi1iV8H_zk6xh8CuFmPUvvm5g7IHorAI1BccwsSCkbaVply_MaiY8av8W01vOqDLEX8q-9cSDlWmiWyBMpKdPAZKl8hzDqJICYIfU62CFg-quntv8pRDjV_yWP1ICMdR2MIVl1Ss5fHAvAqYrVSMwra1jsxJJFM8p7X8Tik6KFVxd4jpxuyH8ooqckGuw09l4F07ZVueA9R4y9QrZkkrrRxIUMWJnDqbvRVFFFQz20H0zuRz-XjYWJm4Q3fpusO-orZhYE2okzBRXgZrkJb2wQMdjv8rewDHfLO8eY_o6MPODPoVozdKR0d2zTNQVX1ND8OQ0sPtHnGxEkG2KgITj1dn3HzYejzn_t5Y5l-1qWp4zuh--_yza7n6RHP4Yu1l68DFPaSAgdQdPwb0mR_0mTma2coFdWJbJmyiq87Ee7LFEcM_C_5fu3atxNAh3Qj_rK-1msBz0WV9pdtryAzEEGLO6j5du_m_SBNosW0Tix7X1oAiz_2dwDFiu3Jp1W5BklPizHgQdv-S1ee06VDqltiVcmm_TIRY-pbGTxc0dgY-JvjNK1tEi05CpHOeBzSspvPpcPgtNjY7Z-biPQ8AoMmtpY-mu-touY1UAZ_W_5WhyguWz5uHFZr_04KLRSrvHuYs09Nj7DaO6IjntJ6QiyJizY09s70_wrKNXheM_tBJrM4BbUg5K8xjLSSQ13Azd4nGb6HiVjZtcf9Hv-rRKWYKMtd1kLIa8Fi2gOPYG09OqxfLusrd3At5g858vSrsQNSvtpDCT91E6SH0dDQBVy3rgp_RhF9GQk_UWTmWAXm6vkinioccZclfOlan4CvSOvYPezqdEymIjQNmWosJ28ws8VV4mct5Y2EFEWsUWtlrEheJLEFjurowQxWmMgcpBjpiCOxCVcuY7K_cznrGegva3tT7oTYcW9SWhZTbkTOsgkAH7YdbpvblPbcsMDFDAUgmmcSyTRnW_HV19hlSos9ewzNag7BbuMGU9XMIED3t-Zjgfo5mfAJyRIUPIs5djOLzThZ10yYXbZG8a1EMgr_OIBchqkBEfAAuOUQ4WMGDhLhO1iwMP7pSCQtwSTXDZ2YV_zLWMVL_TDJ-G6Zk38XH19G2p7EP-HVTzaaFe44YUAKe4ZOnsupIXzWteTLSodm3kT58esclSz1BZPOyAJTd39kQk20TtTUbJ8zJX_TDEjBkpYUKIWp4lIdq62dqx8k9uTMV1dzlNqt82--mC77Vu0D90FUExeqcUcLcH14s_09lQJD0YClZZ9SAb26Anq0Ro_so_lRzVYASmCPpnwgzBPSGsmqukpE-NGlgXt0cC-WDLlSRkTTKlAaTkWKaZNwV2Lr51x5ExNWnCrXRursoXGMRJsAsCve3kj4wrGzhInv8uBM8KzxqU0_DHmmlYqKFaQLCZ6q2nHvqrgAD3Smtk-NQQII1afY8JVBPq5pXr0poqoKDCFWBobeqB-uVi0IgotQLIowPtd3IEFIkJyL9ycsBGOFNsFVuD_VABiOQk3q0UO78z5nTtfabUAgk8TMjK5ZrJrjHZE7KktrcwU5_0rOPfLwx_qw66jpS6jVKxFXGlv-jS30dZdqBgeZ3hmMQ6kHnRe0zzTV1TrQqtQKeSXSs7m5Nc9Ny-CeSh3RhJFgH266GBLt36YipQPq2_A2oHM1sWAS2lPFQovjcHEHkdQOs1kHmqr3j2XQOagXsUrS6FlOHYhhQ8-21aAIoxMYoeX98uL7sb3yMtRWKh1LJc9p3V1sCfRHLvHvzkTlIrT7ET8lB52pHKuAoKq76NKfYFZhRJ8j4GiChERkRJprF38eOcxT_p5YXQ_jRNN7WsRM6wLRB1Fkt-5cgxBmV0rBzfg_4rl4xwLPCQL0pWd9iWRw7nsOzdCOPVpo7sRyR5QID5gqfqIbWgMFfFfEi1FzwtpxJQxntXS53If0w40XsNBp3ElzsOuYOa9M38YddryblIt308gby5xVKnFslmYFSECJVTaFgrLCFyiP-UtXxXWsp30No7UI5zsIcH3aTYvyaeWc_xlajgTBI6UqJkVgPSQ0kO3DBALww4M3vyeiWZ0Y_rlkYBaVdpXRkFvvxNasCPkiCJRAWluOMttcV25ZhHdd6GuaUraWXflNnFF26iREuGW7ico8mXvaAjSKBtbttXGcYUsN2zTyZUMpNpVggtkgTEbtBp4dBPAhVlVdEfKH8VU48qWKpz547wRoODrQZckKZ_sbpFCPdybGl8vgk0aXSRflSPXnwKtZExYzpKY-HPcJNTT8pXRnqWolGKZamKx07_yyx-6gtnOwu4o59mzVufeCOnuKF9nZlIbf8YGtc-ZzvkvOu7gjgfo5XTXid9yAWOzkQf_lEyl1gjtQkh-ThEssqvxZJ4OhbYp_CEX7TTVKVOWGMJbOyBInID9abaqDoIUkTL-ZFoNSa251MKfjbG5E5ymSMFxH8Ykb86ws2Vlo7n3Z_zBsgaRD94mtcGLUtLi5-UqyhgPiB4Sfke28jZYo0XVMYpSLhgqXpG_bEXXZXYkqUMPEoJcN-aQpk5U05xSHHHx5KTBE1Vtr2da4LC_KGXCg6OyCgt-gyqPmOmhGh-eCu_mhxw4TOsd9PV7ZVk70yiQCydxq0Gjgd4UITqCeVVqd_WiVP3M9JcuSIkQ8Ab6WgiSzH1vcbRQoPspXxp7J6NJkd-ueBzFPV83EUZUsHobqnaGxp4JZDGd83jtzb8lmA2ySW-OnS9dPvOzHYQ4riZoOWNl63c_0HdM4cVG0RrjkJY0d6bu21-0WLtQZwn8cI8gWdzPKZl7WEDhnNUJkZzbcEQ0PMjepQnvId2QvRJDOopjbKyy6NwBu5Q5Cy4seVF1LPC200KUlPb87CWh-bG-JXo75eLaDB6X8LPBTWg6vsVWYrJLa6Hl7DZERx_Run0JUDIimckr04K65s3kd7Rqg2i2aDuaFcyOU1uikGuVyeLyRJ6mGBFISfog5OIHRuFAdN_zPDYChWMRtBETJqXn9qm_STJnHXKdaRmjxdC4LCcx9bt9riPMiKcMME4JHTy5l2ctCi1m0CWFLLYjdoP9U2ZItIvy0SMktmSucpwHTNm25goCulfuTxqqXqFRaFg0_mouqDQ-soGimsq3-_H7rkJwhHgMufAuXVtahrwaAhG8EKW7Sp2mSt9bGjE2QNkdZ3nasOWx9zZn_BBSim7DA7Jgnelfpu4cL3gbllhmAPlR3rcMSxkADhL6yaJ_Ejh_cRBUZ_pCux5IcKLOlkbQUlutRdarZFJqV4nbFRu4_nvCUZjwf_xQu_Kvtn_VwBBkVpiaIf21dtH0imDA4-uECIlsN_ZYSL0WxJ2vAzASqcDMiz3ol8mruvXpspeRPNLS1Eov1qfubThQFvOXBWPSd0RNbxFndl2BeegbifNSvFQWbzO5mpHlHlxiBvo86hd67DPvMhrnGIZC3eunXL42SFMd1aNbBBNLQkeotXGR9jZGOzbXn7Jlm-fuLOXo5OJ6wbT81kNWPGO4IT8vnSCU8ew_-u8Su7A4ZsXBXe_3-4f171zLRfrZF4dLikWdfBPYMQgHdA-_rxBAxwX29SfPxElrgwX3dACHbA71SccsvUV_yPg_kuEuUM-MhgvxUape42YxQ3seCuqFZFAiyBd5FDpog6Ztudm0sH8E7UniWISu2RfwVdaGmXYmNb7T5HBdanEIkF8pKmEME4g6x6mvZV81VXFIfL_SoepPLBF4AuhBcvLLsIBaFLQSsSDZ0xijQZoCzKHgTMXg28MVwfOm21v-J0REdcxIQ-ZsKEy55cDEwImXa2KN5BcZkt6FAza-BpjPTQ1VHy6rqlcbKbKbfhpHEYUbomOK2iKBn0t-eu30oDACCNZ14BB452gY-SFIT3tPI5NBrXM_AEMGNxWuuU4xyJ2kwGSgCAuBDWHUKTS6fFxRncSFZiKu9uKa0QdjgoOm80S54Jlo709HX_OE5h_09w2w_RfJBIpntn4EiiHq363tm5tBL4HNU07yaz8pEnx0iPep9px-5vpa3Vqv6aNLL5vNfpMyHDuio0iFoGb23wyFr9ysYHo97Z-9TS54OkB6QZuvXgPwZizWv-uWuSoxG23F0ix-wV2uT4-pkk9V-75xvdHWA35nAlPYRfQELFN8zv8e5duTdVubIlN336X7VL5f9VU3bBUNqJy_JpJjSHKT2CaMxpnsEVDPQGEfYvJ49gso3QDs3m5WCG53-zlcFtCo_CerdVZnsY6QomVfgLH1hzqmYDfXdvL9gYJ8--FRkyKFCwN5lBqVa6ibmDx8fqtPzUj5Znq7ga3HhCE_N3r3Q_ybjVFpizdJA8vBEdunVdYCVPlSwpLduz5uge7RSf3caKy-8t2_xgWyxvnm2ScoxH6M6oxxQmkfm8vWtD2O5niIz_timbGsKouAbpW66vMmwAIQ8xRbbyr_X8MFRsFuYvWNserkoOLfE7GkT31kd86VjBSHAONbyyTjY_c7DuiS96zh7lvaUn_5TzdfazbOnBI5wx5Hxh-_B4wNgfybdoGzIAX6M7zTQo5pmYU56UX3q-LVenk-svybbgpPqJRCbre5bP2bCZVmCql4qiNFZTPFAP7P2UpHPFdQ1YTMi4x57JqazzCEG4Yy-WPo2fuoPSyv0W1o_D2CQ1qy-Ipg57-qKDwgAPHsaV47flVVHzTQeaRRKghNLZLwLXQ-BPiRoP7NXFYKQU1aPov8GAO55rgBatH96SRuRZwZUwgrbzBF_k6V6_ig9pj5uLomlJhdQ62np2Yx0g2Hp3fzEeeyCnDTsgoS8A-Muj4flPd6d97aZscnw4okHlr0cYihJQWLVFYy2zlSQ5_lckkg_VZnhVaTSO5aAA_qFtVuLcy5hWh3jaLm9N_NaP9iladxEpUOF6mh1rL4ZRVnrqURHDRHPCCZ4RnOv8aJX_1L-qmwSgBa3tzcfONCmGmIpGHNiTfYJuMAKHLdjURjvvENfcFNGnOz0Hr6Lyr6yjni7ZZMvZtWyujysqDNdqXaoPWhTSJF5e_xunUeUv75Is454261gugUq8e3H2tI94iUyfvOSVjmFgAE5JxybSpy1wKPrkilz3IRdAk4mxsdUDDhr3EKjwAWKO1UZNyVfPp8gFmm2YkcP2pgmBkwgIHDliP3qzd0Tr1teFOouxFhGlNcrRXXffuR6XZTbX892U_d7j1vNg_277jF0CsxlmSeFtigyJt35dNjmGEOZ1YW0MipU4lkamkSj1Bwg7Sdx5Rw74X2pCjDK3wdYw9QcBfAmSAlzG2_LiIPMek3eDDtbljCDPgEpxOOfvcPpjZM9J2P9LAFnzr-0GCS-WDpJb54Ky-wRCT6TuDQ7fOvGne0CwmQhuBCSrepp6vXfnLHHg-ynDGLdFC0D5k5oXfMD-jqQZ_nbiD75bVa-Hn_1zsj6GtI1vEcb99KfzJnftAbuT8CUIec20zaHY-Q7HMsH3pzZGrns0i7SmBK7KVxag1RGn8lwyNKFG2lCs1a7f3SUy2T_X8EF06jkPnPvdVSjW8GzT6TEx9OYKgTc8-CRoyWEmMS2Cq8ePSJ0ntIEiwa1kLGkp6EjrM_h5h2rG8CQQ6C_ZbkTsmGF47JSBuJLKlExdzgW3TgLIC8l4S04o44Ns_cWsnxAmgTi_L_fPpSfB4uFPdmewc4AKfUenM3ik32e652sr4U5BIMaDmsqAysCj3OJ-YF5Rercvef8xR8wd6S-nHE1zWfnaCmxIE6CWpgJ4h2dcAJm0fHoGxmS6upyM0O-3k5J_Uo_CFM9LxknU59DBMW4bGtzQAJEv4FUQewRXrS1PHb0e5J7UyK7S9wTMFHdMT8qau0ZlJDpEyql9n4383M6MIehYoU-0LooElFJdu7C4OxuWKMZ6RuTgvDFVnn0oC5TxVq0xb0wWA94xDrgkkm79U4unfWKw2lHUs_2Ijn8ttucmEr6B-JPa0AVUKyvaUsyc7hiXgteK_pRPtwh-MFTBQRp8EBzHljxBEtxM-9itoIXkx8YUpd6sIN2P0gZfgSR0TvIAEc1C0HT6p-hm2p5OyKAdkidI8k0hnL56C7lHlN_nDVr7NzPk4MRX97Qw8DF5afIRGkiV4_tTgq-dvAbf5vGnDcMkzwAclZhWP-VPM-xtBhWxw7OxCXzYNdm13ghIuqFSRcaL4Nsh3avqaOu-Fgv09x9PzhgweTJ8cdHzm7Z8CwxF2KNtmhyVUrcBBGEOcKfUNQVIb5G6sMfPJRilcgRMiNjqjb06jHsdCzD-g2uTVjpCPqRrzcYqTM6PreZ7TkPCW_jTmpQ4pJqOgINiSMCT7CLZ6_Ep_d7M0M8mxewtSMcsqKZdA1153f41F3l93TR7hsnnM8XIvMj3c0bMoUlGIelUOByfXVCqC4DTcDk83YJTJppSRNYSB6lju48Vk1ncQ2nHZRxRF-Cg-87-eRqNq-QFSEi4tR7axY75kljYl9l-qIj-TOasieI7dSMWYUEMVjdVUmF729OkQ70NcsbX1zBhnSJwYnU2ltBm03gul6xCxSP1WOgO5GTIzcp0Et_eMHlOKFou6bPrbUs0oE-VzbDlKFmxz3U8fireSmOPm5DVZR9SYHN08U4kURlnC6-YeCv-4qE2-Na6ekBd1cQoXc7DrCt47WeApmbWpe7cvamLP0ZTysCz8ZTkG7Qocmcj539l71m_anZhI5ElsKtXEZtpYLXZSgbA2GUxjBqQ2-85nv9_UK-Lxgd4SRliY7GRjxrOa2DS5ICOm4uZPi_XzY4lHRq89gMwdwEbvxAJNIof8M5XjVmG1M5lh0J-bv-oGnOKObsudenDKDVa0vICEaEuqLqEiTVpYejZYO0nIJWrltmrXqSM08c67zY5Q5ptir6KR7Qd3UFLbYIs3SqwOyvgTxhdv6gZqww8Wv7vS4_fAsjSIuwur6KjO1zy17VL81-ButAIBFQbx5J9V1s8f6c27TNuzUWkKkeBwa8B2dtw9zv2oVUJnNNixrVEK4UPeyJpgtccKcdB22D3oRZ_v6wWivkIEb4t4oQrPY6I5HqnMLDcunpvspl6Ra-sE2x0kRtH5dp3XDXe_3-X34a72gdZR5TFak-5faXTh-Bjdm6s8El8C6k5fqZQhQaDqzS6r_PzoTKYNm_P0uvUcmonCzyRV-rjYz5J4ojYYw33fBzxbXJNSUCFTNFn3fG8ei2tUyokFzMjVArk1WLeKH8a3jH4voI8e3mNL0jzqBAath1FSV0gvTP-Ax5IxeNv-cV5oInuPXZVu_SobTVNCfvlMhqd3f4Hbw9pG01M55BLGknTfoAll8HRKKF4iA8kr1698HGL_245ZWHBwE9xQMKw8f1VveqsWMrIRvtb7GxpIxF9AZMtANKzhdAHdTvj6fp2puoGWZeVpoZXtkq07lF637IT5frGdgWGXMDedrsiG1xYn0pfwSUmSmYsEeL9K7rZ5nwRP1sX_KjiTljal1qiSFBfOo9ToUc9wsAzGcq-gJSb1JcyH_VIGOhn9gxZHAAU8sM8Nayr7h8mKG4FlD9oVI32hzgfvLojYy70nXEq3K9Ri5a3q07yTW9vsnP4L0idg66YYz1YvLf8KDzCoVoeOXDPWpOyuhLtNzxiWkUEJeoWAzvUjKdPjW-Dt6WS9RU_lVQDGY-Rg0AdjUSxumyagNxAa_9VUA4U18nPszLMuf1rL3C22pDr7LnzdBJOaSQP76H6b8G6YXRUTvQDWKAEKRBjAL11_E27CcUIn7DyJwVpDaXrdOI0vZpbaR4K0fNDlWWedHFQj3WLSaplOpBLAMCwQLz2GhEczCP7Oku8WrbDaPjFstK9hhXwz6LzcZa4KHMpTtHDAcpbcXvlKyQ86iV__SO3uXOiyfdCsJci54ldrydQpU1oeaIFz3qhKtOr1DdPEIVUYXCHO3TtdJkuRBVeGnpQNgC2k1cKGdlI9vEZcwk1Z43QlxWkBL3iCup9jze5m9CdQLjaeaqWqKam0a01jnP8eGOnsImcktiHS-j4atyojp1OatPOmzk7eIFfh37iVtbsC_TRm6aSXYtcshFDJA1MxXiYRorfzZfyJSjPLA3B2YkuegB0S9cjCSBB3r5cS9EDGIk-JV3RKK-YsuM8mau6OlXGYjEtlJ3c61ey0rKkxNf7ljxupI_g8N9F0IeSZymBY1O2mXhuTyx7Ccwo4abhDnhwqcppeBha8fF1BY61yvl1ZZ9LXKaSYrBZVWMLcziF8fIryTi0EpcYOGLXRH8UvQSUYxIHUwm53AbIlWhKg2AiUr93EX08YYfudqAIlffsm6oJzQYKIx3MUqIb4j95ukzWf7XisJrAOkOF5V1KIHADz92saMzWZkGB2HDXaU3f9xd_BnayO3bGVHCoK9MUOqQ0elB8rg_WmXLF0Rw9SncfFtX3zEwF8zyEAZXjq3CW8A1158U7csip0L7a0ZmT7O1KVwJTqiy17aHlUbsnw_ep4ICgGp4wnYFSJAedVJg5UyHaF23ywXkbhKVJJD0lswIY2GPursQ3jnKx3zihUbqSSFcw9fnQP7ifAnDGuo8vdlJybkpkjfbxOlCe2f5tmkxqOfbAFaA2o4MX-6a9XoKyjRgiVjyWcg53EFFrCDxNXfJyJkcGVdzVQW9Qb902FyfMKP2o7ULa1Jw3jWa8sZGPQC4pjk9JUu_5JYZxUXXm3AV8Z4ydPylahDVQHdceSgzpre4AdzjEKFOzTcI4FB7LOkBJkAkrY7OWu9u15jCH39rowxLxLCd-0oTQjby4UkjGWTV_9W1OsH91lrNCRL99NZGuXsWeQ_Abh5hihEVoTzlx20I0Od-0ElFBgbXYDd_UMkGY4eQ3c4VUNLIxYAfYfkvCHx7tp-EEB_SBuMcJNU-QvMmUD3jXYjtYas9aEbO2RfIsBxhl3Tpfdk2Bc0-AAwJM2BaSqWtPUB3yNhMXPXe_3tua595e-WktZfe2NU7MqXJHhduyJRXoM4aEUzEFjDAP7hZHCB6hb8XoHWjthdyCm9B-uVgZePzdJT98GB2wSEYz2Wdy1zeyRcaxVz309kSF0VdmuRIjdbwgzd1U1RfcBoo3lCKYhDuDqa8DM09AIg3m9IeRJ7uTmj-HvE-zcDV2iCjjgj8-l4bVCL2s8XPAAhTHsvzQ7ZCQDC5ILf7pUyK9yDrDbMwv5vSyAgjoImJFCVE5CCDvJw1snBKaPyOCTBhkm0lwev-BLdq8rJXBKp9R-ln1lgMbgi115W1AjZY2Z3vblLxDgJ45lrjKm8LlKTchKxHmN7Hn6Lc5upwZyb5VABtIKJjbJeELdK474r_i_Ooyb5sTOe-iHL6LVNybmmqTa9ajfZ8UTonm-YgRiOhDxdIwg3ZC7JN1gZWeoeYjVe5DlYJC7bOUQBmtdJTWqNgEsHOO87QdY9L75m_XGCseBsB5DyQr8FVYDtbwswGy3tVcXhzUm__45VuzWiioIJ2sP-wnrzC8c-SoO5_eL-zPrUeLjySfKCti3Y6hbSKvt77pMjN5tO4Ds9-TOnCaV4hDE9yWW5esnRMMI3b7PgKFgVGK-N2L4zLvjzMFPYiO_rzvWbgheEuPvWPWIuKNYs1FSyr6X_EyXrsQnUTgqzFmPEVHiFaURzPQKEEWwipR0Y9mDh6VeU-plBgSVs1mKt6ylJ_jZxboCXubJ3k7H5TfWgUIGZbZ2kuvy_-7gNArhMA2Nj0SCH8jbfKRZGtZPe2O5AEIiKy2t3iBfO_6Se_Xek248fDlBSaY3xznHXzxfD9KdNwElw_qs3FtoOSiATQqtbk6tOno0eAdagZe0c4p6awqHf4UaPhCx_VVcqDtGHAsvcZy9XIjk4zFQ0deMOaD38_62egoIFMgqQTFbWBFxFgxCQUhsR9JsnRzpXFovvrcq4XOKO4QvxosSQJsUrYI060EenCkF7jtMLtCxPCRd6fdKSvzrW4oS0wJjz93onx0bWA_0U8t8rvXnimWWikWDLBmP55-G8l4LzdI_zpwVYMSOvStDndJrXfPXND1wAse4pn-oOhJMPoIp88GhTe145TMBqKvknqoRanjSTc5eH_KwA_lxcpTGYwGfNGLfod3hGTOgG_k4DIBFLNG1hhH_c04ZJ9x55OIDi6Y99BW8spp7cH0SeD-HlCLWRWnm-n6Gm7DeiFYqamWPC0TbxNDqS4wizqN-8yyyqMunJ8sMlmBzVh05SUU7azpBX6bpU3szMJvjUbBj-J-_KQ8ykYcrg1qi3ZYuKl7vfHgvHvCegAoAOP9A9XMSKUyme0Kbh4_VehGuJYvaE-cwkpL4aJigSbRnMw523xVgulTRLY1A1j5E8DVL1oSN-P90w5KHpWb1B-Uqs2MOjS8Nkb0o53liH4uUY4XwB71x92ccxXySwfuHeHUhiuUZdv20fd6tm0WWiBfO2Y-vPYPhcXLKIGxmTnIfDHnf_xvNolQkYlSX2ru7xFHOXMwzeMQTv9it3pyEwQTvd40PCgnZe0JC_eNEuD0UGflbezNd8yoQlg8nVZ1XWJPZkWdqheSIbe7EJU3rJ6hJAmUlvPog-NoMxLwHvzm1jNmei_yNRYkaB0MxhvlQU6q8ZfjtITiB4HyrtjthuoxDYD0vujH7ox_J8Ald4Wi58pedfK-wbu5YxpI8T-RIF0_bOWeuYOCnKj-36_-IqhrB1VoOAYAudaAgAqt8mVnOqKCeLKEHZoyMqGTR_REUQTAvm_x2iv_9sfjnTLz1lmDCc04F8gdj_AWlfOap6Unl2gvtzNJiXlW1WDBuxlAbt26kTblyKeGzVhlAdyDYbiUDzjZ_FQxgBllVSaIhtQ9FcQlUdgBj1_lmcMJJlYi1HaK0pFYjRmVKsDAcaxSiMlcuRYUImBYSSmbGLR5AlVwZ6j4Aa2C63J3NBZ-EtcIes78b_DHW1IFM-0P6fwLsOdd2TWauoJO-uHCbAENRZfHU1uQa_ZRY2bu7qR30ZmW_oCLboV5tATEVF4KfJ_8rDoEzWrYHEBhlhC7pOy5mbN2AuqODwRqR51SuLbCxa-vguDer9Umlhbd5iF7jrDc-oOfWju6f6FWU-jRgt8CqQaTML1d992BdCfnwLHJK9Yvz6FPe96Q9OcQZbtXCWNViDLNvxpFdE6hu6H8zogNeD962fVY4Hz9-6-Q4h_OXWNzcsmLs6dg0ANTNbsOmhuicQCv3XGeZztTN0enFdWU-YNUN5Ka3JG8Z7oo94TYD8gJREo4FbHRg9XAsZMB9eohQcOBui1dCn606Zsz3Lgujl0W7M9WfnvnpOrXjSlfsS6N-HmDNzYqPPW_A1txyW8vHpBL9aGrc3DZYMQaxUhtYntsOgIfEqjHbx1os28Hw4dnfOHVeM-RwvzvRXGIfLARaXnXSEQzjtMTUavlYBDjEvCuHmUOabt8x1no5YiGLLQr0auDbd2i66ITzZwGX3_EIGk4KDj3MtidmESqixfpmSInwKrlDaf5yTIp9MyOxwHu-LHvjsYckgeLaxhEl6Hh4qnLvyxiBb3Z29EK6cku0KGajjmzAXRSciEI5gB1AedLeuawy3b0ik5hZD4zLzfNH6CGtD7ivVAHITzwerGaA-PN8pCNqDEYu_4xlF2MDNuNb7OwZdZ1NPe74nlPq7iQfI0BBNf9Qo7MFdoyYVczMi9XkXTm9auNTUSGonI-KYKDpcYajLz0UAM4RQx801Fawmu2KFywEokSwPzTLXZxhdn3DEzgPEESuw1C7lLQWfgxXkAo1xY9vEK5Y_wzLFr-MyW-BLhKL4dc02-KFN1zniyS3WCP5wcEhD4jKo4qact9ulW5KvLtXu8INFY0hme_TFYF6ph0dMSXp4D0Pw9wUphuiAiKZxmNqwcDx8WcemQbJeL3NJHVsH0REBgZYeVqeaebM6i0cDwH1HQ-4jcdZTh2F6Cjzxss47QCT6QLXX49kF1Q8tFWcLlnW3Jh8DEfF9CQTwffqckdBBFcdAOsRsHZxrwho84tagTQNfp2IjL0Bk34oW7NAC6CUDQGNCzUCLRWE04aaXMp753167sVpJDXqxp8yiZ2-mXfj5Wixk4W1MzdAJft_FhhLJqosV9OHQHngBROAjv4z7M_1Ai6ljrURxaj_UQhOHNBUbKMuxBcBEas5haf4YxActom-bTQByNwTpbzHQopdQa-lEXYvLzBwAjdaWiN18_9_2sGVh81QjJ6RgW0HbIxzo7hC4R2wbFUYfOb7h-YSKJKTW0zkOYbwEY_ZtTyi9tFvfctPnzkhkuzg3uZcNMFBg1KjvpEr0Fu56Ue4O79SRPzrXBKlnCcFqU9yaiHu1sBzp_ZaAFqzwWlt99LH2X_2WMZaPQKUlruqIITIN8BOZwu-1AX50QY6g2hpMrU7E8IwztAXNk6xIUwunWMvf6nAKMAy-JNiEjiks82ltIQqRRBfWRyG7y14I4VwffXjEyJti5x0XynKuv2FIyUDKDagiXCS3jr6Faa_zpG6d8OqKFB83cGhRBRUwzvvj2E7818owWkf5yv6pKTZcMOHgSCS5xFGHUHgVAkLicQBtw4FOY0ZJnzWQ359tx9-NnijczRcIrsdNNExDJLQkrEV-zPD4ECQil_c88aK-2hGudAKy-nZmoJy5pWWzWz3iBbztUFX9MkU8AR8hznwIdc3MvEAKSsQrke7EjP-gXUGTDvv__2xafh5FxFr9iAL8BsUhblK6U-fmtSMczKPFp04yS8ZaNrgf3CnXpD1rvdx_SX5la7vpY2sMPgSH4gjdbkHU6jgwmZhgYR-Ob5ZC48hi-ZL2SlNsZiQ6ks89pcRrfqUvYPqDfkpiEAiaAs5EihI5MNoNSY9pk8nlxhN25o3CfL0QetCEtyzFzcn9daYIoi0GNFQKhHIccmVVfOQSJx9xPS-_kEyykxd-jSmZ859HJR7iwQcCDel8YrxW6z9hnI_cGRIW5EMVJ63BBKfXgfTm4RceR0OFAGSx-qVySMVFS7rCkNaOM_J7m6t1jxJPKG7xVC44c8-mrv6iUdLLgMH6iqpKap9CN2Gm5v20xFu4iA0enYwlQaNywblgXHM2BeSzshNdODE_1tv8I7vlbZPQrvSwFlN52ie2EWs91DjKnVwZVY4dM1XHs4JTVCGR7PI24YrgG1B4aWtgpyht1UPDKWWRXycNj1-ocBfAVSvbnVgkQ-ZJKzUSk-MDcCnD1jxspOZpEe3pGwEf9Rk261wr37HiUZhGsYHszCkKnjG93TZSIPQu8D5drsp5EszT42eh2ehOZWBXuMy7hVfflwqOcwA_udh_0QaKnCIJHQ7AYlTu_6oqq75-w6Rngux11X2Uv7bMtlxBiVTv69y-sVx9-xRyhu0U85gB3lfgdCnLID6ezUz0bQFZSnLokm7FOLKLnS6S6WRcBAXJ8H_4fyhcQiHt7OyOwhApZmA82wnp6I6X_4yLap7liArwNjtR1iqy04WjrEfTChSBsM4q6NepDcv_mPRsdn43l7vLtugLe_uAfFHRBnySUgjmyIpkZkNH1s05RY5oehIF_Yjttb0T2KX3Y-osWS-UemT4aIOiqXDqWSShmjgGHPVCY7-1ubxSXPcksciXQhM3cFgicAbavOR-kyUcfRVpsZHtAyHOadc6huUYTzl0-QLmxniTs38MoNsQI868lb9x2-AGm39JMmn3qPz-IHL48l2zBOaqvQQ1lLRPSY8WC3bozpXQGLZRZO2neE5I_CuOUoZu9B6U37FP6LjRsvOYZbRCZ4OH0xkZwEs3ZNuK3sF7ODqNYkaohmWSw613KuPjrlIXrxvkpA21qCrzRVaZU9fP5pFtKFglJmRIybTJbiNSXixS87ncuDxKK8OameNiyeRAVv-D50Dg8kVutlD8tm81snSkxbKQedt3ouVlOtDOEWSgQm24NKmTbdeXvjEoCmsoYxQrMXLKtp2ei-fdhO0wf_se1fIsai5hyMy1ZNKT9QTv7aI_anlsfX-eUId5miQL60_2vWN30rPaYM2P_ip8V80gbCsJQ8rlVrBm6kxekaF9BfMMpRHs6UMgFqv2_OHzNCgZtGH_UXk2mw_PleD8mIam5UcuSsLKx0hiSqG35iJM2htC6yfnFWwAmNqFV1S3KmD17qerrb9PMAoKHiudWjUQ-2al5CGqxuHzFfKBRIZBXmi6Li5HGX7_fS0xgx2qA4NF6mUSfS5Xg4RB-Q9dbcJc5qk2SXeElmVcoIeguq2Jkv0Z0iIpmhc-MC8pN8RCJe2oKTNHmdJNngMcILZ0_HZZuNhPU0LujPAcDC8DeQwijms-9ZxL0dE-TjLVn0COhNU4aFU7kwzwzryc_5mKjimawWBuqsN6aYJY_SKTe5Asip0LBiQVKPwVDD5hODo72DlR0DpHvwFRVG1LxVdRETA1QyrSReXKBrtKdX-y_n4-boBxeIjE-UTWxB64deu5_SBXz558DSIw8cEg0WEFdGkOWYLT2Kc6rDU3Ah_S9QeHYAtxz0lNVZ2YpczdNKPK9LfRyZZ5rMEfteX8n_CQ3a7rFOOEBJBfQLAJp_KP1WOMsPD7KQtjTROitjfsXQX_afwvbj1zkA2uom4CEl_vIpdReqFFn0-hzuYn5wkFYYU1H9eAOahmxc-6YMsuHaxRDGmivwp-f5jlPY8OC-QNdYmxkqYL_VnzzL95FuTRFJ7J3HOA-2n1v9Hj4qoRD1mUuh9xHFS4_yDtCh0VHBBc4yrg5CvF9Q-tyoNF_G12jBjzYTEHlHzAtM-OaO-n-ctwzz1GtcNHKM6k6NSuJrwN3icV5PeUmYU6IWPXWOq_GQJwlbPWWeNu1hoKVHvj99i8v8xxDuPa2aT2Sk5MN5ToQs_74symn4WgefYPkJOqRrwh6Y4F5yd_igYZxc9gSrPI1yRxWIIRwLXI9iJCs48Kt4PWSDCZAgpOO1v3X41sBTe-gbHp3wgSGnzx7m5RFUWKgnH9xyK_s77vXpvPfB_Am_BzPeMEjr8TOH_sDImaUWYng1JYMGCDeS7DZoowJpzi0qz9SBpPv2UQzJWtepL4xggeFk_4cy-xX7ABZ0NhRUu8vKFBxBwdrxg70SXiVqsx9vyt5yV3qInct_rIgoIXN3BByozaedo_cHuOvjTg2XJDif2LYjThlAh9zGP0qKlHdk1ZqP_jngXYylBhNKE32H_LgwcnJAt7VPedJNymTe4ge5O6L8YmgYl19FGB0L1E-FAWqz_9X6v2TyYDcd6PKQW0_52kJavuFA5I91bsD26HeUKmQHzzd155Np9TnvxgwO1R2mu-KzR9XBfmSUrMzXDe5_-2yExFbSuBsJQrl8wF5FCqLVZdSuzIqYHKkW4uSVYaGcPJYhmmehoMM8foQ6xI0agbLI52kLF_-mXAIl3MBVe1uUbJ_3g72hKMSeMiCASp8MfS3JSkzKSFxIe2W_jTuVEPtAuKnWMMM3AnMd8j02EOvun9h2cZj0GLhR_b3ySxmGylSd04as5Q0zO3bdOdAfGvOCw5RCQsBk6YFRVfMWi_yMM5r23kCGOAJxDtU6-3t8rb9wVU_ncAVomCX3jJn7ZPqP70Un3nmIFdyzoRSJCKEmYZQmxo_UG7-czNwG-vsupJJvcjcVxoOXAUzZ2HsOyJ9D78kAlnJgnYNozTgzdHiySVISCzMz5tmFZP3S8xZxo_GR0CjriVnUix3Obn6GA82FquX8ZR6OIo_hQpkfilEwXl0SL4YgCQpjsMHHjvP9KeUTaYvRB84b2ssb1BYE7fsshSEZ-h4moC5rLy98e87iCdmfygw-P3g6Z2tHq3y_W1AZiXP0O0aVt4I-Kypg1n7IERxXB_HvvSISNpNoRhy6plt7xzc3yMm6V23iDwiMT8c2ElYEa1Gr6Na_rBjfZH-IcI2g5cfLnEvuxLeBMkzpmkkmNWNTYhQ5X7FjJMlHrztG5GnTpgUKRg3CO4acAI2EN2rtuD4T_JGvqPtbU0ijFCCE1s-tmD89jlng7ixlPglTNl9YLq2JXkYTWgt0iOxxiGPyCrUAeKXwyjOWjQf4ggCvgM6CrAE3-Rlu-11sGDK49NvSPBX9G8qyBNPeyyrC9eQ50dAf1cSnGriv6n0PT24Wb0XB3ZeOlvljiPktlF9wW_YHJAcPvWKDJDcCrlWVYeVMx_8gwDKrWgLEnrqmcYwGTTALf7GV0oW1hlLmJtDnAKdp-ByUCXetGrRQdaBeW3Ocp-lNi_9NE3aNpDQ48hF2pcN98dmHiXirWpnmv7qtpPyse0RSs0i-_GwGmaMkb4_8SGjhgD55yZ2h1-JkFFiUuwpLtXL2dRIaz-WwXtrrmOS8nIfabfpldfjAI7nisGRQiBKxxUY972nkPY92qwbWd3OY7uJEFxUdJAzC3wMd35pyLTHod49g6vlVI5mGvK8WHkLQ965yc__INoUmXO1n-tob5nGp0KOsqA4QJtYzhKRwHS0fusnoP66ZP27d3jB_S-bw__nZ0L7v0jTGVPa6JXFWIN8Uk1LQ6JJXDB_CbCYqaN12fIq-dhArjJbMju0od0SMnhEO2nMpbBIywxO1LoZ-M7wRdcelktyIDyFyww6MZdvUJICJ6LYKp8DpFIZIbbucY-gwFVgHFnVQza5lm2x51YQIERvnGbtdgsuIZZ0iwWshVHExmEg0BIztGGAvvKNFZwuLxVcViQAQY6e8rfxNIcpNsOLvnwUhlZeboxnNU6egFEPJGCH2vyGgGwviEnIv_jAwlskMdLiEzyRqoYQl2VpEht4Y-Ql1j5BIvvdh9unscdd9JauAHg-Q5RtWF_KePT_qs5OuwmnYhlr0F0Yy6EfBAND4AF_af97guDVwMLQl0pDXeaU8ogBW9a-X07QBTI_8M_uDIubrJydKhostS04AFIymz5MiF-Im-tq4EBSnw3flHaySFZTR1-2vDmL_-qTr21SHnnTCHhdvyrRkR7AWU8zYRRRIeIBG4TT5TuNUo11rzK94lYZR5We0B4xX_rUUMIaNU7NzzlvykeuEx7RFafB5dM77hqI_DFLQnOOfXGre6noD_TrNIS7OZr08ipmnaiiy64kstbdNibXRw1k5fNPUzb49wzc4THlwYzShjcq71FycaCGMkeFihBsqM7opuOrUD0P4E22OOD4DL-4Q8VZhbNAjhzh1Hc0dbAZP1vjdh_HWT6kaN0Yp8UMHch6lhlDlB7ufI0zInKmVaXe1zotxIbxaxuUC5we1VduxeRwUOG3mSHK9RA5m5dEJeRcvwhmVXPKER646c3F-e-ELHYJcxQrEjE0MGnlTYuNVYv8HQBZunnvmygmP28UWAvofXnmqEA44oPiGHAfV2yjDE6nG-L2eIKF7dZd67-TFs-R9QOD23dS_cBxoKEaU-PC4OKY8PVSmzLwLrOe3PG2q2wjNp0mx69uqkfTdIhjoZ_In5cf2lJzBiPPsvACN7fbORQsiVXJDFy_C0CRAHTN129jWbDY1-kROstbxmWPER2da4noQ0gj2RtSznfd9nD6AGE1h242-k-aydz_qPqBBW2NdXJnZllyYUJ9-hQE2BjyvVWFWLnoHxBv2MWhauaebbYDia9RIMUy3kDJBckUKS0xvzR5CuNN4jl9CSMOBL8bfzRDjZcSd3JgjitaMcQSUCz7evjGD-EdQd5rmGfW6sBvRJJGf1drTkyGLaD9IRWd53bVBqVMziG1nmSJbk7im2Nk5-h_URodqlpSWlnqxnFw5lSfOmBGVyNht3HcpqMq2pkztzBOEKfY9sBD9CmwI6yyRh4uV9yiOe2QeSs1Za5J1UsJKcVPp3nV1zC7dG8IrL207vLD0a-dddmd2_9OtjiT9Md5htBatSVBqX4bcKoOlzZxGaBXGOVIzZroEVVyuwCCHIrZbJoT_6ljK5QC2sm0MO1fvs5KU0tjOwDhHpYrVcAiX0EzLk5IriSfPbgRsb3UnZMqIIww2SVjj6AVUaI2cbCsYW1jPdJ_y0BfVSlJLORQLPAQBQOjY-_NirdNnbAnA_qMW6If3nQ7aIvFjupDQEqk-PC4QmaG_WarwHjCvg8ZyF-BaAZaGvKfLHs5luf9GNcn1tlnc_QmAOUeSYyAlm1pK-E8n8Tvt2TTnda-omc3GZS1lByj0hvts2tzZwhyLHBgqS0qX-MZn5jyNkqv2IxWzkFH_B-otGWSx0964XCRUvWgCXhxz1pKVbe9s7NfVSBHU225uYsVizTa7_UoOUuWGLrvgtjDeZFCj28T035K6xD8qKi46bYEpVui6tAmUUg1c7O4A9T0C4VJULJhiGf8Rq5FWav2jo5SWMnaK6kDcpSl9CbnEuN8YPsuIIg_RkGAMGFBZj5RDaMcDcDpp3XSaHfr6wvVduDGN6sfwrHnTN5T7bSxNbuyUByrYIMizvhpOxNx45ab001eqCzM2g87zgpW0xZsnNAAo9-k38naLf7Whblas8qpot70FidYczuX1mFuE93eNsalDVkubDKfnEfsRld1sqyT0_jkMwSMVEmJTD3c2Ut0ja508uN1IoyL83TjgTP6DxBAdvLlD4HMGrSq0D9JTH4UR-nO0Sh7H9xcHexWoq0berklV9jIQFuapZ_X5Z4FvFpzlnLuhOfk2kQ5dgZGws3ivM60i6pNWWdz_r2Zuz_5P7DIWXjvvUXw2CWtxLgzywhihGhDKeq5VE4Lgx24unSfLlYROLvt9pgV6UgdHXv_0Gm7zmuskaoO-_zY7IrfX4Tyq23_8Ztjby55caVbDLR9gMBEBSou6oX70UvW7MW08cC_bSSlPGzfIlX1danzF1zZrqZeqj2FQknlVeArKTmg-SHPh2_9dIHjpwzUeLkNdImeQRJd8XUsCa0dNIyhoXptl0uFnPtXP6YKSPltDz5pqKpkyP5qXSNrQ0x4ML0nm9XNLYtDwzp1H1dqvJyzA9Y6SvR_NaJxZuvb981-5_8HPjrPueh--69uaMy46dLgI06wq6WqawRIrrVn-i3sOwrqHEc9dEzeYfw9CP0u95kMzPmEUzHofSQ5BlfgT72p99-HA-1K6IFZ5YlnJuQvy-nE2ttIPrL-mJwZWhvITicYf6zZy2OQK3TboV7p-Sm4Y58aVQTnQIW-wiPjcMySYyP31F_3Kv6EXw1Q72R9fFQfM9lC6Fo7hQ_GjG2IUfIrWPQk7Mlyct7h8BDKsaHSJAAQeaowP-ORl1n6hUvGaXgIzIZZ64ImyZuYzxkBa3drcSa0swq6CDZn4Ls6g6vrbdB6ZSbmRSpcE5Xyo0OIwVHwgOjqReyy5QxhqHXo7cpCv-nG7-US8ivGkfaqp0cZCXE9HG8FtgT84toi11kA121POxZ38BubNTeDEW7sjmb7IGTBmyd73L6AgXXwZIksgHJyebVWqTQUaSVG7d2zfzgTL0V9trKgh_ZX81-oH1XNrL9waRnWpQqL_V4oEKqev2CD2350YHwkEqb8y7BbWTwvSiNd4Gwu0eZWy7JdQIo7_mBcX941oZB9v9OYftn1pZT3u9wpp-Kccfws7R5l3iM8WyvWyVwsVIwKWV-0jNZLYr44mcNMM1yzwEibRYV-uOgieGD57PIn7JqHqira4scJuNH5eVq1U9MQKKdohXP3Z9qiGL2JZ8Z04KndT9v6qkV8K9tXJZpGUd8Vt6RExKbyl4YE-D_GS3rmn-X6-58LH_nMoUOjvPE35Yw-8AwAG1IfSvU6UHcgI2yxyLdNDFZCd8OXPSL5HPYoREPGBEOkiAVS9u8GicOI-D0s3W8zCkGnrCgUHmzgW78tkJExSkDIiDDdZoM1bJseXCGuA2Yphyn2bK6kIYw4UFMWutKngjdvRvfLiFb-dn0BIYpxA4oiNx-i8ZINLpZ9PE1OeL1GXSXOAggqaDkKjwXj9EvUFWJ-rGyHx9D_ifLPSNwJCkeNFxuAzsJXzEZoUALWicHpTc-GTLJI-Fir7Mh6UBQghHJqlBqebiukjIq8qzh_AP1m9oi7txzIl4e5zGtWvLNbPTGOomNK7myxwyd5JZzwHxVz_XWEhF0L5QIEU3W4cplDilV0QwcaztclJKGD-SyNtMHaujJJn2F9GYDwM27OdyYz7Y7Atip4Ae59njkB7Us3iF17WcXBAs9Bpz9zzLdjvD0cYSzGOyEYH4-OmrqIipmPf7HF3gCqwTJEv1vV_6YC_QSiM9Q3qxSlclyGiSsX1cbNEXIKNs_V1ToOau_SAJ_pEQ22yltwXjmcD7SnudwKJ5XN2gCd7l-71eP4kKTMRyFICFEcKsFe3jKWmFwE4V0cEMkfTJ_R3gEwHWFsMp-gx0L5TFk6dOYI1Q1wo0vqLbV-HZkBNlKOnseKzCHMwzNyDM0hAzw2sPavcGtknG-3WOGbRVrhHIphk14F_NfIQvSMj6i8AjUExNuVJZrhooHe5Xfte73uJLOMdKhOKyWL45E1WmxPjefs0npYAZTa7oGYCJ7M8xm76XV21DC46mx0zGYCvgyfJpq8egaK6_gK9KK_o70UcMBRX1sEmNNklTPtBlgkjS9_eNK-SYz2GdxSlBJ_jE7legRQFFSYx_bjhy75HPXX4tNbye6afNJPGF4bHR7MojzGcroDjPjdRoRtZ8QWngpIL6lJ_k3gVQaGJOwhBVI_dko8g08OqN8EKP_JTXq4doMEgZb-bqC6zrzl3I4t-d2bBmp4I57GZ7s6SiYqpijjAlyeJeWmYYh1Mscxi_9JIIe2zLJpw3J4Z7spZWe6VMY7LFeZ6RS2XOOnH8On7pdz-ZnW_tfWMq5C_NxNslH22oAk0f4FYAtGmvXhIagx7mqZqDMjTLmw6J1RzCpbLVvVbYkpPMJW-2saOQu_InSATHPYD6ErsDhemm5SNvWxRYXHDm4UF6HDX8mCjSiJ7z28P1XJ7fhP4PY5qhezvq_kdMpagVWLFgV6w1U79nFmHRUTU9xlRZsW_C7dlR8qWnAo5KLKnRjaW8YQNhF0M0XV_GS-DRA7UNxtJQgn6iddBEQ_VyKdPGRreRl36Z3DvonhkI-cDvUsrufAW-imW4lsjiUxFDYF6Ld3tc0tQBGRn0ACy4fBbysvjnLl6h2uIwgfLwd31rHMLhOjPFbsK93Wj6UDUBmN1_LZo8-FQN8OMrJh2GXbLbuvkFoXS446ngrEEJj3KDCB1tLWsXhxWcA1CjmkstwS0y_xksb194w4I-5xaJP7DH-TDGUUkle6qHc5dgTYuiwNIqGdEQeJgUv4lj73jgVBmmdGbKOZOUH1eFWCEYzg3ZAYbxjS4Lk4qvTynvmmwJoXdIzeOYg5z99LqGw48poAaTeZ-zVzr1JiSURMTVTUq5_F98gQFg23n13m1NPhPwORLX63PXwWJE4A9omJZoJCPic34--hyHAD95yiw5KG8kZ9glV48LXv9X5CsIoDB_VR4BSrulVC0Kgv7ricSPUzrgk-KSA_BPEfKyVpvvXpeZWfexxzRs-7RorJLInQh9Segney1Tfg8SVUFEvhVTbeIzsfYAOUTzRwRZyV_5icMAOp3nu6Jzqe8RXdThPbl-zBiNYu8oyZBL37PdM7BckKrnFyMX0sZk6RcfMqDFflf5z0Zosq5Ff1ZD7NMM1Cb0I-MB7L9F0nArUyC575KBTpt4xxg5FQ2x6VhpEP_dRcjJGTzdAQR9GKFgk1prFoJZFkHQyVC2PrF3zEABwvRocQJMY40rtop8eERRbE2gH9wcsAG1vh-BGUZVVsdNgU8djU0LZvTATPy-RnPY3mqQfmH5gpRvztgAVTxODslWWBGcD1LBH0w7L0kgsOqhec1fWcbtQITXB3aG3nc7CdgrhQG1bUu4Rp91D4yjmUgm7s9dIhLd3CQ4PcS_ccfx6mRQ3BN6nWvX7jLOZYdYAV5yW_q0cJBAKrtQbSHf3MG3rCTgQ1gF0v1X7FgqD7nZtBc59UnRMMtZdoY7joEP6GFhsbiFvOSPxcNKPzT_bTALSde8-rAf5S9c4jiLZPa5hyulvFqHQpFKqF-Hm9Juntl0KkA72XBmV05s3H_q5cuVmMldWn1je7gSHsU4n3NgtO00CSP42sIYxnS1AVOLIF4m8n_6IuXey1bBe1YELbgYNQSQpKiqD6EVYrZGa273iAAZindu3oCHkjVu02aIyDSiwcYdQvVSMFM0yYECYCWfvT5VUrAsBQh2JrHzdrX-9R0Q3d7B6z49BQt0a0aj-uZK69DxoruJUN6fUwGdu0KvQpyjfeY2NfYv2oC-NEiys-VW2oTcVg6i0JfqYyeGXE6yhCBPz3FljceAwhMWGG38nYYyq3firuPIqyNqP4NWmMYn9F9YHjDyYgkfsqOJM586aXQV6Qa47E2-RwkeDjZFrcfmZ5qA6dl24WuORbinrZEk23imGil729NxiA9fMCTrIn4nEtRlOJcy-eMYSP6Kk4AUYMZGh2hhU7B07W-ewf_ISoPKaj0pMVuEbN_Q_3abINHJCGdC2kOj5nNDaXXRM6H7okRKCUibFpzAMujZhKzoIzBf84b7BsyspjAoY7em14Hr4R0FJVCwthMTltNTeM6C5wzcvT8C7jv2xKc8qyZv5mC8fll7EJXGhIsZV37JxWj0ZAVu4-rjZ8Z3_Zzz4IyST1F5e1q0pOm0cbFNtndw4hjsknU9981zUTIEjPB9wU25saP_QGRSvUesXy-UI8HHK61-A_VDIKLNq6gCp60zjlt_3LpyErBcHOXjat-mzji-3pZxnJlGejS_tyswzxleMb-0-V4YfJdGSYSoW4K2x7-L-VhBhIIQjyc_fUNDYeWgB0VlzE3xxLQMJtsV5SiqXrcQpW00UGePe5ioZo_dcK9ZLhuMVCgmRWNJeJ8Y04BzvMcQd0fplIRbYaoSsh8JIztz4hhwiBkU9VVhp3TnAwvBw7KD7Gik3YEpstcm5bn86Y2FoVcBJOOwZTb3AV-Avb5YOsWGeHIgxsSiVfGA-TJcxotYaTVtyNjzDRS3tr_lYRIhwQkJqMg3_rngOMJ2VrgewxZmQmftrkf20y-yAdT5oYE03Wc0WJLQj6uKVSMwQpGZYMNx2p00md7GvjBJ9pbcnyyepEciloP1X5w5plGgnX88KmCk4tjeiAr1-xdnzLhfR7FCD_LI_S95XUECNpDOVGjBPUgvAlI710LebiarUbw45wZuyIDxipQ-tuoQ-qal_2QaKKP5dNbPD1rViSQhJGFTLOzFcnPMRcCdzESqxjZdpqcUzdBkTn12mtVHOz8cwXl1AyNiIDvScQmo2EU4kAqFv_O4znIiTG5p2gFGddXW6yvulb4cgsplv2I48pS0Aorfi4UGe9JWnPAVxUI9y-ndEY68zbOx0CbUMtwrKm8ZSncwGhgNcrBmOEhBxalJ8t3E9ae9ngoWA5OHbqO4nSPAfx7w6aORxnrZOnGVuFmz5pXRzXVLqK2APDp-krW_WsMTAoL06k_lPGOvuEohla3eDHHzwjR9cim4SsYqdKSb5M6ZfFH1tsmvFRkTHubNM6toNEJmGej0WsrUrb2jMmU5HBjz5sj156P4ajuOAKQBubwlUbiKoO_jg0oYB_ZSwy1F1Aruy27iSjVc7BBujfufMRnochgmM7r4-XsZ45B_CGaaigoqh7YTqDE5BM09TjotM4oaBv_imGU2WeujoDJW99X47X5l9zsSkCz4xAJK5QT30vxxgqyNdJ872t0qCFLht6uSvXAgENG26v9zSqsD-irjsII266lwI7yBNVTHLfTFt3k266yw9ALoui_G2MJAb3WWIm15q-7SCarBV54D4noESebYLzYcjiKR_oWBfeBgOX7a1h8fKyEFf8SFOWUP33CAGdLqtybz5ik9NW9tJ6WimLOY9zUbxj9BjUg889JhNbbkuzdwvFTOxdukVrgc_QPkEyQ3IsQ6lQTlZD7RfyKhBMg7jY7RdPJREh3MzlummovMJw8vlvUb2v-Yuin4JP8JsDnhCShUQoixHv0aBR0U24Z-OA-vhAnc0d2kUpj2pxLeL2twFer_-MKSJo2ganvqD2074TiRNEs9TEaWtkXxFaClrDMTLhgSLXSa71rBCNhsjmNrmFgJi-YMWs1UaNmMAy6yFIBH0tAqWmkBhtiKFmTiD2rx0lkKnG-IyZNcCZv8JlwebPegXNEnEmBuNDHxbTvLKPKBagP0RzXr5rQak_TXVvXFAhGIQyd10RUxoPTH9FD-SUQbpVGV0qDcNy6qHTPGb5EVY8NCWgIqIt1bcHyApGq-UFmOeA2wnNbCEn_nPmdv7-aKi4jOaC54u8UwiSElg2oIvS5lx_s0VqpEghVXqj0whLYJkxsWNUv-9h-RVi0HEXKIQs4Ur2pNR-QsreoVezNsTWEs3AspPtB_Tnbql_G6M8Lpr4vFzFk0SrYNZduaYz5NNUPe29_16lcew1KxVowL4dqs2vA_hVnKvVwMUsdv53tRE5p_YiOY_GH3YhgLOHwnhKByRAkWNcqT_6G3SfENex9nU91UzCvjy2kBk3GT3WImBxrEj4XXC_Y-o5-1IjPUhRi6QztwYjI-xjxa7MVvd_zq8h6j2xaZF_BQwKPzt9voG7ryU-87w5nHta4YvDnbCbMrJfMwgqjCsT2tk9wxe5tQ3_DWVLJNj9iaPkRslCUcxZe-4tgNfdWfoeXdLtUEP9hfdhA9qp6UHlbGiYTp_Kkl-H0ht0fEDifB0aGUZh5zY7BrVbqAxAv2K_2-ZC5dYWHY0MtFetdnU4tdzutNyizH8CTgf8olHtLYGxJ7XuJxVdhP1LCZssBK8BqfmuO5zpq-Wchr3714gD5MWw6RRi57e6-QVPoGCtnvrd9pwiNsajXpvqmKlNGVjprF3zFQsLhtinTiKD3p4aW5uDEB4ljRnnn7ve_duaNXdG10PWmNtui_7pkSj5wa_oVgLgFOKVtKuwSLVUh2XV3kxbHWYn6dqhS_tZMy9HWt_5iX1vRTWKcGwrgh5-bw-dcQZswAO7zkSvP4_YI-B-4drrrzM7up7SMcMpF8UFZeObzv2paohmlry-tXMJxcsXH-lzRfBTVL7Yy6pNEz2SIPOPdz7mQd96jXCZunBkqtJ0FJys0_IgzBOmHQGETmRHW3d0rYY5wqpw7RuRuGuOmAQk73A3mifIEsOTCsXgGXpPwA32aZhdhQDmFCCs0bFdAUivPyr8K3n8eRA_8uFWvyrtNgFQG_gXQ0uHq9SJBJ-73XyRTTXgEQNLsvPo8JGYnBf2WC8v4yle3kb_9gxDbHOvuVm6lzxZrNsvVDC6MYcmAss8ZUIzbcW5UBxMrMFHYWqESAclAiTgH34TzSxLwV0RA0W95HDKTdTGDNm6PZl5VNsYJBWBzCafGH2i_OjFyW_AHrYALOpgsxjQIKbrkYQzMKHPt7PqXS_DU2Hu_Z5lHLhkanRAyeskKY5jgIBVQhc9OetWwuUlnEUT0X4sAPamjObK3QXg0zUuL-DA7PUjWmSrn5ZWR5hVwHrZMJ5NRNySUrN770egRjKqMS_OOOtI9ZI3UId_gty_hwR_cgCSrZdu8xTZo1dk-aDw7B47WM1wS5s3675YEIzadigrgvxhAe1AVBG0mys175WkIfMToKRG9s4zTAH6rHyxAcaJ5KG6nsGkApnl_0dXQTfL3kjxcL1nWPQlArKCPIJDVgt8F5G4VBoFIkudkc27xBHZ9gtV5DYwN40rxSn1VjUW-uR8L7hooPglx7wqM8cqv-ObiCooLbK-Rof4FQSO1RiH1GqWD6d_C0BY4Lu5CD-KcqoRHoHA7QoE__kDYzjtVeLOW_0a3SoFyMdTpt4Z91TMD7uOaUoDDqXdurfBbJHxnL7eY3il1av7PsfDd0K4HiTshi0ZwEGDRsZcLtA7oesvJzOETQqg1bKdnZ9ONCLbhkk67Q71FNGmaXf6-MWx692QYKmu5I3NWYYg89GmZtx_0ZRUoBgv6JwMD_QWeAqn9HpbnKwOTnpRDs2Vp9rsV9wJTHrFi8IZCZ9wnTty6ahyBxCaLAD7UZx2ZjUUG7CrtSLciDwaQ4ce1fYqtd7oJO6k9AJ9vFAPDUi7Vievw-X8AvGKLJUe0a5KpwlNmR8pQI4ZzElDAYS1DlAfXoFrcGTIun7Njy6Wb26wNIyHw-0YR7Kj7tUm0fNSfxVbCe-88DhXCCAIVNTNgSbZ-PqZsXiEs07HLfSeu_1CK-32wu4GJQ25O3vPj5Q1I-Gi-7Rov30swdXYhNPdbfycL3RGVJttFdohxO5fwvYD_j9V2j1iyocMnoH3ALljnUR28CO7jcnRxNsFM3cvnVKyWLzdp_Ghpe5ZmMzLCoG8Hlb2-1exukyj_2783K3_yGYZzylmxTmfhLj6k7g82-lcAxkI6vrjn-qyzMnjbFCIhmTOn2ip_GbZ2HRAoot--JKen-D-WKxUIkEJTvlhrfYoRyXxOC5h2kv-929s5J-m41z5MH0u6FLB4R3tItpzzJv2VG363isu9IugLLzmS5pt56jPdi96T5tw4E8-5opCGCtab8obT6MQjPar82D6HI3eZDkJuqBQ4pGlRpgabtgwyQx24GMImDUFS1zSLburaOHY60YdH8cXOJgtbMmVyFW691PnbIU-8Xpg2NbswBK2BP9Hx1ebXyW-EvAtQI7zdN531ztxOCN6V3h0e2oAb8caNKiICAVC4AR0fT5uwidwJTKlsnhpNyf-oXapzxgB3V2RYZv0tlrjPHHbjXp9nuCH4WfD91S_UkXHxfOkHXHlnlQYGz9fDiAzhD02hyTOlkQ-peJTd2gqeryBGHecTQ8I8n8xhCWLXGSC6c1vNYPbS2itqjJRWaiVyepXK8DaJBomYEPOExmbEfR2lKs1R4Dq3sJhxQdgFoyHXiH0z7MHMxGJ7IGZTHvReGNpAL4bbNjRq_fuABkVLGeLS9yoR2fGfB8SJrcR8OHXFt3DZWnKAsQS4tAtcQw9GvYhF20NJVQ_lEr6j4xTdC9EsqMiHoPYVkMkz0-wjF3TclfKcCNj7uLgBYdr17QynjrcfVH_MWDWMfZGzRxGl9J9Pn1j3HbMUnGUbDR-Ly2RG3tLffOayAu_V5xXhXcU1jLA4c9XNT7aHvXRFS6nlCrxpDx2gLQHIUg-gW3vQRp2-MXrGZQzPGtrtWArnu7_EZn3zhwilBTN5HfoagcRgw1K8jOLHT9-zoeA7IRa5iphZlpcNHZMnZIi5A1owlc20bQ3IW9ZoSC8EwQ5l27p7tPL2Pob_CiikdPbmvR2WM591yWAQ2oUbPyOvNRc8rh1e4asfeGroVMowrcrO9JauyEigpEKC-UjDpyIc4YBFwF3sNGCpiYUQ0DetAHMiUppmD3UVINXcwUiABVhnl_thtWq-8eznHN_mQhPD9zeEBESDcqzci6aHSngjNo2JX-VjzOMk4V14JeZ5rgZ0PT-DviRYCzghfpF_5yIGbIf-L6l89BxB9MlZbxkCqRvpaEfwOGuMMEJG7J_tv1xKiA67tgb2kM16aQivUvp66tp_qUEeZFg9qunsn9qy0KLGLbur-prYBge4SvIzOhh7FSmYC92LvM3vRV3jn8YIYyHBppgkxbKkLAwP5BZDcgW8rVIoF1uDE9stIeF4AxcZESTQRzXsmAZa6HvH2XT0oSXGxb17z7OV7XpzBnxtIfSfAR6vVes8KfZMP92a7nzzMn1e6bPlH1GF00JgWPvSFqE7RQ4e6P07jszjTprVWYwwqqU3FawCMMwTnzicrCJNwM8ln_M5WUj5UyIA_RBOW0UYgUmRpWLrozzCNmsC8oohs3MzFm2deAihgxXCcglXyUEg26zhiNBoG0bPpNiZG0N7nYMCtXwhK0FfzAUW4wnRkTzM7gKUyRmcPWyaoQ-0-GoQI4XhBVBA6CAszVliqLgQGQUZgooLQEAcwh1c1nBdIpSM-bz4J7XrPNbJzNABV-feo9O5i_37azJq-i1oHKmqnxW3OT_pi88e3eZmY53E47yo38Na_15SGKafOzW9cB6Ep8iMDL3B8hXJqBHj1_1X5QpRJpkHNc481GKx7vQ7kJlPug4YsnugKpQjtcY_vxKjlhslK8cR-jaZNPKo9O3W20qqlBM2gSJwAFdB44R3bAYk_V6R44qjaxbqAQpM1Sw5MlXo1b5rSBpBTIKn07TU-zBYwsSsWNCAd-jDsQTcXCyBclMUcUaWQf0hQMBX_oDO0SZxH0SLkHkTtR_QDebdWPOAGlfUqVy0cIJCSo2Px_vkSEUbc2GNmD7CpKsZsW48UWLj3MLWyKPgGPecRWHtBiu1D45L7R-XkqmlDnuJB4dCQ8vxm3q0FzWEsZcfqp9uSrvmVY1hCr686j6N58iv5Y5voLOrztkvgLElqYPD8SH4KwQompRkGwDms-vVYrIm6GcGQ_8yzqv3OqNKcv3dyvjjkf-Lkj5te-5huDoGCqpfnAhFJgK9OlsAsS0ueKHlmRrgX2EA6BiTKmVchjblxfFrucENR_Xw-I258gMTUKdZnOAf0G88Mw8xjXsjrsGT4PnTXKoULcauf4NHSYvvHF2LDNf9ZRF7mHjibzUvwWdHbXf7YB5327-GGXrID3QUdESpg1zElfcK6VTqKwjL7R3np62UaY7Vt5Q5xnIVCvXSZUZ42LgpdZfNb8qa67LVDQOoNkLPJ-tsdUfRTlcbPU2aX1mpAN0hnX_r-1s0GnPtvXW9_RsyNeVKLGlxq7AfAOq0td4KyuJkDeTSN2aRDtSbF0mlH2SfhqoFi_lQ8xgkrFX7J9JyszDcXWGC2g1vGaGBktyAACLgaKQYlnJq9yqOxvnawCuMvDit-MiamsEZHXcby8OjOjb2UBa4Z5xfDuBf-NWCG4N6WD7YrZ_MZ581UizPr6SawYKb7wHcitzqTG6FpUZ8rx3VOnqS9CI7o5h7MxV7-qA1k8W-9pO4HEYvRXoRMlfNpgRzi35aQDUVBSJJO756CpUP5cItkpNctQFmzIKT47asJ8kQ3htbaarxnMWlvCIXr0qNozj6BKOme7828wnyQB5C5iI2haJxOOL2qqnF511wzmQElol2J2DezFANtKd3_W9NnDQLNqtoSENlp4hqbr9VjviH5Ua5gXpZOqO22Wd39dYzP2aznX1__rRMXFwjSQ6InBI2x4JWZTj1aD2XN9KpxeTGZUiaMBIqP9gQvpUoUK3sFav-bTnSK3Y5JYNfRedx60fcJyPQBPFRAZFB5kp-48iL6rZVwZEfy0BqURkD9mUuuLmHtShwhMNjyagNBgdygopGbvdfLwp9pCNezOCiOkFNvQAbsMul2DwsgixynP2-QNIRALDTk26E-BQLEe8wOAglUr7xruuLCqqx9rvWFVbKpICcVOf1X2lX1OG7wGqQFDEI2tT87coWYtrgzd5B3F97SLo9nSfm4WCOOgxxPb8a6X4cmoscFmNYI8HlpjR1db0eQhpeRIX1KCg319OEOQF1uAgz9UhiqjSpa10Hoj1Mzilu6nqLu9DXC9GpBovkhbboPsWB0ahuO6301Rq2JbX7I6UtHw8L1DRqheeBR4Hs2l--EgszfoTJuIgIe1cNOsPPMcz6ESCT6YinjvKn30uGbkGqs51kNUQwiyiruLXfNmG8Y5fIUDE6PTh0on_go7kviWSxuAoA3T2OZTRvqH8Sax-MZAB0p570YzOYSkev8InfkT38d1apU6xm4hUkPeRPOHccTihtJyBHDo8KPoZeVR-2Z6RTFAzdirGgLKxEKDWPYCn_jBH1AEOGlnWoUGwQthmDuu7qY1-V0t10LETuEgFRXTbqHWEAX_Z9_q5mgxNUQcl9KKjK-KzV8SbZb1GuerY6kP8HOzoNnbKWFSzCTaSxTnuUe1AqabElsTvPEVF9Mv-2SVwHTDxXvzGKqaEReLqybtX0YYXDFnjQWKgCtyGtzTpSnAY1RD78ielRawVxyQNyFe34ko_r01Ltm5W7OHHWVFICbjpXpl3OIRdd3y15ZuwnSqDqhmX5Ya-oAxwQR9dnNED8kGAz9wGxNPwaFR1W-p-cmpOVpOjeFcKFiehC-6rx07vjzL5sOKYL7g6ZqorQq4NmGv-xW7EI3QxFkw_M982fy7tamwWhIQ-r3oG3kxFYZhvZFMmBEXNfqyxlg_dfjmQt9i_bCtmHUHFGE7VpinhNUUHZ1I_WLNWqwKmZcYRYzx9nimtvCdUWrS5CMveI4cNpoOPnsHjsnJFS9oMI2hpTx8qJ1AYMX9S0HNpRmNm7r5BD4oV2B7N9TKBCNUNXAVH2T3FSKdcLgnkg-0Pw8sVLmQL0pVg6grdEQQU39T0udmLke7zp7o-j7kY_VeYEUMKqRL6RdglgqD1Y-rkmTxYHEsh6tpWHG_z0BVU9s7L52OD0WgOeFEqBwXkIJ4q6uHHwDMG8GLjnIV8XtWhnFqsLj-WBpLPjN6PRt7ehYhh1-vl0XYW5BexY8UlzFc0Hv33ZNn9l3j5mBJY0Jr2U2fbOJ-O12X6zNFm38Iaf3Itveozn-Hn3y68D2RH0EMPO7iF3fk_jlHWCrxwAJPJdyHyt2F1twm42KXoSFEQhiWglhmsBzH4bEJKonOuPBF-wVOivJZKoibUBiVwoAfRUFTTcxawqn7hp_qqc7sK7GVegnsry25tfQWKD316SxgEsChcl-R18aRdkyFCesaQ1YIQjldUXcOxUN-tuqI6Cb73E_m9hD3apbrkH1S4UgVjzVSf-yFTpPrbXgXmlcwxgx_VuFze7jNHvRp1IHcO_KmDpFvWzbGvidYhTNZHZdMDn4MJ1TNDcKTH2D5X2hXTVOap-de6JkHtZJOvljnI2BB9F2VOX4umQ-_roALa1XaXr_tSZSa8eFG8Z_izmHCTZlPvKrzXh0VsmbBOOEr54r8R8TF_EN7ISwHA7eNhHyPJAXe8FN-eRsdYpwZfpE0GTmrrLAX6bkDJ6In_2t0izBt5MIZt5I1SHqPJk76Gbf7qeU7ZXruW17qR6PI9vh3aRQoGZ4WIQmasKrUXQW1aSOGzytZe4ZsBQi7jGj6S2L6xRZntgU1l5gicuitbfLoklSrDTjRLgBCR2jD2j2dqD75e_6AhFA0j0tkzFlzCK05pSrHdyzAF4CzX-69RmUNnVWerVQX1zwwB_RqNM1WQ34913tbjQ51efrl5DaxEFlo8kaqwTmJKQ0BfhKgKYVIa4m3B32FW9c_IzhPq7C-iFd3vMQutvm7BjGp4nNf_hTHhoRJDYjrB49SQH6OoSTzu2VE-Iw2wlt5pOUb92z6mO1VuPcS6Cb6YkxsB1QaxUL8WDiCzvfsy1zpeDoy5urow3xqNP2mMmWHis-mVhUrCQ4_YKjPXgSfxmYKtvxDIKm_kVq_arDkPVJQjINd_kiIViueM-dYzYxhMe6S9e63awdKvaHlfZI7Kg_QmXIFfLzyflCY7UJmerucZMp7jjt9BhuBDNcYc9ifpqfY2lIh20WuYcfdDCrzFwuobYvYDDZJiYJfqpE290xPnoYbguYhKW2aBl41mrSCS3cZFzxf65HwFdFsnUjl5a4kFnNKL9My2wPSaoZMdwXD7F__YMGM9dU70QMkL-IBAZ9s5rTw4Za-Aw_yuN3bFXHrFIxTT2qKDR0j5tuUPsKfYEsYP3q3zoDHY4cgR1CsKPT656esvVhsGyUjbsW1rfVJXORvuHgWHtYq8u9STsAIYv7NcdaVtw_Q==",
+            "video_metadata": null,
+            "tool_call": null,
+            "tool_response": null,
+            "part_metadata": null,
+            "audio_transcription": null,
+            "media_processing": null
+          }
+        ],
+        "role": "model"
+      },
+      "citation_metadata": {
+        "citations": [
+          {
+            "end_index": 392,
+            "license": "",
+            "publication_date": null,
+            "start_index": 140,
+            "title": null,
+            "uri": "https://www.reddit.com/r/Passports/comments/ovk9o2"
+          },
+          {
+            "end_index": 1047,
+            "license": "",
+            "publication_date": null,
+            "start_index": 750,
+            "title": null,
+            "uri": "https://fam.state.gov/FAM/08FAM/08FAM040301.html"
+          }
+        ]
+      },
+      "finish_message": null,
+      "token_count": null,
+      "finish_reason": "STOP",
+      "grounding_metadata": null,
+      "avg_logprobs": null,
+      "index": 0,
+      "logprobs_result": null,
+      "safety_ratings": null,
+      "url_context_metadata": null
+    }
+  ],
+  "create_time": null,
+  "model_version": "gemini-3.8-flash",
+  "prompt_feedback": null,
+  "response_id": "ExqfatOBB4S9sOIPjM7v6Qw",
+  "usage_metadata": {
+    "cache_tokens_details": null,
+    "cached_content_token_count": null,
+    "candidates_token_count": 4747,
+    "candidates_tokens_details": null,
+    "prompt_token_count": 16082,
+    "prompt_tokens_details": [
+      {
+        "modality": "TEXT",
+        "token_count": 16082
+      }
+    ],
+    "thoughts_token_count": 7795,
+    "tool_use_prompt_token_count": null,
+    "tool_use_prompt_tokens_details": null,
+    "total_token_count": 28624,
+    "traffic_type": null
+  },
+  "model_status": null,
+  "automatic_function_calling_history": [],
+  "parsed": {
+    "cases": [
+      {
+        "id": "NREG-01",
+        "invariants": [
+          {
+            "index": 0,
+            "source_quotes": [
+              "Material discrepancies between the name recorded on the application, the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality, or the evidence of identity must be documented by submission of one or more of the documents listed in this section"
+            ],
+            "claim_ids": [
+              "N002"
+            ],
+            "rationale": "Claim N002 accurately records the requirement using disjunctive logic ('one or more of the documents listed in this section') rather than requiring all categories.",
+            "status": "pass"
+          },
+          {
+            "index": 1,
+            "source_quotes": [
+              "(a) Name change orders; or",
+              "(b) Divorce decrees;",
+              "(2) Certificates of naturalization;",
+              "(3) Marriage certificates;",
+              "(4) Documentation demonstrating change of name by operation of state law; or",
+              "(5) Documentation of customary usage."
+            ],
+            "claim_ids": [
+              "N002"
+            ],
+            "rationale": "All six distinct leaf document options are retained in N002's choice structure and text.",
+            "status": "pass"
+          },
+          {
+            "index": 2,
+            "source_quotes": [
+              "(1) Court orders or decrees:\n\n(a) Name change orders; or\n\n(b) Divorce decrees;"
+            ],
+            "claim_ids": [
+              "N002"
+            ],
+            "rationale": "N002 preserves Court orders or decrees as the parent category grouping the two sub-alternatives of name change orders and divorce decrees.",
+            "status": "pass"
+          },
+          {
+            "index": 3,
+            "source_quotes": [
+              "(see an exception for married names in 8 FAM 403.1-4(C))"
+            ],
+            "claim_ids": [
+              "N002"
+            ],
+            "rationale": "N002 preserves the married-name exception reference as a cited remote reference without inferring a blanket exemption for all married applicants.",
+            "status": "pass"
+          },
+          {
+            "index": 4,
+            "source_quotes": [
+              "Acceptable means of documenting a material name change include (per 22 CFR 51.25):"
+            ],
+            "claim_ids": [
+              "N002"
+            ],
+            "rationale": "22 CFR 51.25 is retained as an explicit legal reference and context citation governing the acceptable documentation options.",
+            "status": "pass"
+          }
+        ],
+        "negative_controls": [
+          {
+            "index": 0,
+            "source_quotes": [
+              "must be documented by submission of one or more of the documents listed in this section"
+            ],
+            "claim_ids": [],
+            "rationale": "The negative control incorrectly asserts that an applicant must submit documents across every listed category conjunctively, directly contradicting the source's 'one or more' standard.",
+            "status": "pass"
+          }
+        ],
+        "uncertainty": "Remote reference 8 FAM 403.1-4(C) is external to the excerpt and properly left unresolved."
+      },
+      {
+        "id": "NREG-02",
+        "invariants": [
+          {
+            "index": 0,
+            "source_quotes": [
+              "If the applicant has had a material name change more than one year prior to applying on form DS-11 but has not updated her/his ID to reflect the material name change"
+            ],
+            "claim_ids": [
+              "N007",
+              "E006"
+            ],
+            "rationale": "The draft incorporates the parent clause regarding material name change more than one year prior to DS-11 with un-updated ID directly into the scope of the emergency issuance permission.",
+            "status": "pass"
+          },
+          {
+            "index": 1,
+            "source_quotes": [
+              "If there is insufficient time to request that the applicant submit acceptable ID prior to urgent or emergency travel"
+            ],
+            "claim_ids": [
+              "N007",
+              "E006"
+            ],
+            "rationale": "The permission requires insufficient time to request acceptable ID prior to urgent or emergency travel, which is faithfully captured with OR logic in choice_text and scope.",
+            "status": "pass"
+          },
+          {
+            "index": 2,
+            "source_quotes": [
+              "a limited-validity passport may be issued in the requested name;"
+            ],
+            "claim_ids": [
+              "N007",
+              "E006"
+            ],
+            "rationale": "The draft reflects discretionary modality ('may') for issuing a limited-validity passport specifically in the requested name.",
+            "status": "pass"
+          },
+          {
+            "index": 3,
+            "source_quotes": [
+              "you must suspend the application to request an acceptable ID in the new name."
+            ],
+            "claim_ids": [
+              "N006",
+              "E005"
+            ],
+            "rationale": "The mandatory suspension duty is isolated into its own claim with 'must' modality.",
+            "status": "pass"
+          }
+        ],
+        "negative_controls": [
+          {
+            "index": 0,
+            "source_quotes": [
+              "If there is insufficient time to request that the applicant submit acceptable ID prior to urgent or emergency travel, a limited-validity passport may be issued in the requested name;"
+            ],
+            "claim_ids": [],
+            "rationale": "The negative control erroneously claims officials 'must' issue a passport whenever urgent travel is planned, ignoring the discretionary 'may', the limited-validity restriction, and the prerequisite condition of an un-updated name change over one year prior.",
+            "status": "pass"
+          }
+        ],
+        "uncertainty": "None observed."
+      },
+      {
+        "id": "NREG-03",
+        "invariants": [
+          {
+            "index": 0,
+            "source_quotes": [
+              "Applicants who have had a material name change within one year of applying on a form DS-11 do not need to submit ID in the new name."
+            ],
+            "claim_ids": [
+              "N009",
+              "E008"
+            ],
+            "rationale": "The draft accurately captures the absence of duty for applicants with a recent name change within one year using exemption kind and not_required modality.",
+            "status": "pass"
+          },
+          {
+            "index": 1,
+            "source_quotes": [
+              "However, if the ID has not yet been changed, they must submit their name change documentation."
+            ],
+            "claim_ids": [
+              "N010",
+              "E009"
+            ],
+            "rationale": "The contingent requirement to submit name change documentation when ID has not yet been updated is retained as a distinct requirement claim with must modality.",
+            "status": "pass"
+          },
+          {
+            "index": 2,
+            "source_quotes": [
+              "do not need to submit ID in the new name."
+            ],
+            "claim_ids": [
+              "N009",
+              "E008"
+            ],
+            "rationale": "The draft represents the rule as not_required, avoiding mischaracterization as a requirement, prohibition, or mere permission.",
+            "status": "pass"
+          },
+          {
+            "index": 3,
+            "source_quotes": [
+              "Applicants who have had a material name change within one year of applying on a form DS-11 do not need to submit ID in the new name."
+            ],
+            "claim_ids": [
+              "N009",
+              "E008"
+            ],
+            "rationale": "The absence of duty is represented using standard exemption/not_required schema constructs without losing source content.",
+            "status": "pass"
+          },
+          {
+            "index": 4,
+            "source_quotes": [
+              "Applicants who have had a material name change within one year of applying on a form DS-11 do not need to submit ID in the new name. However, if the ID has not yet been changed, they must submit their name change documentation."
+            ],
+            "claim_ids": [
+              "N006",
+              "N009",
+              "N010",
+              "E005",
+              "E008",
+              "E009"
+            ],
+            "rationale": "The exemption is segregated from the separate >1 year suspension rule and from the documentation requirement.",
+            "status": "pass"
+          }
+        ],
+        "negative_controls": [],
+        "uncertainty": "None observed."
+      },
+      {
+        "id": "NREG-04",
+        "invariants": [
+          {
+            "index": 0,
+            "source_quotes": [
+              "The court order or decree must list both the applicant's current and former name(s)."
+            ],
+            "claim_ids": [
+              "E014"
+            ],
+            "rationale": "E014 captures the mandatory requirement that the court order or decree list both current and former names.",
+            "status": "pass"
+          },
+          {
+            "index": 1,
+            "source_quotes": [
+              "EXCEPTION: You may receive a court order in which the applicant's former name is made confidential (e.g., California's Safe at Home program)."
+            ],
+            "claim_ids": [
+              "E014",
+              "E015"
+            ],
+            "rationale": "The draft fails to link or model the confidential former name provision as an exception qualifying the court document content rule in E014; E014 remains completely unqualified.",
+            "status": "fail"
+          },
+          {
+            "index": 2,
+            "source_quotes": [
+              "EXCEPTION: You may receive a court order in which the applicant's former name is made confidential (e.g., California's Safe at Home program)."
+            ],
+            "claim_ids": [
+              "E015"
+            ],
+            "rationale": "The draft avoids creating an independent legal permission claim from the descriptive phrase 'You may receive'.",
+            "status": "pass"
+          },
+          {
+            "index": 3,
+            "source_quotes": [
+              "When this occurs, the applicant must provide both her/his current and former names on the application."
+            ],
+            "claim_ids": [
+              "E015"
+            ],
+            "rationale": "E015 models the application disclosure duty as a must requirement governing when this confidentiality scenario occurs.",
+            "status": "pass"
+          },
+          {
+            "index": 4,
+            "source_quotes": [
+              "You may request additional evidence of U.S. citizenship/non-citizen U.S. nationality or identity in accordance with 22 CFR 51.23 and 22 CFR 51.45."
+            ],
+            "claim_ids": [
+              "E016"
+            ],
+            "rationale": "E016 faithfully represents the permission to request additional evidence of citizenship/nationality or identity under both cited regulations.",
+            "status": "pass"
+          },
+          {
+            "index": 5,
+            "source_quotes": [
+              "The court order or decree must list both the applicant's current and former name(s).\n\nEXCEPTION: You may receive a court order in which the applicant's former name is made confidential (e.g., California's Safe at Home program)."
+            ],
+            "claim_ids": [
+              "E014",
+              "E015"
+            ],
+            "rationale": "There is no modifier/exception relation link pointing from the exception to the court-document rule E014 in the draft.",
+            "status": "fail"
+          }
+        ],
+        "negative_controls": [],
+        "uncertainty": "The draft fails to instantiate an exception claim targeting E014, placing the exception text only in context_quotes of E015."
+      },
+      {
+        "id": "NREG-05",
+        "invariants": [
+          {
+            "index": 0,
+            "source_quotes": [
+              "The applicant may not continue to use a previous name after a material name change unless the name change documentation specifically permits the applicant to continue using that name"
+            ],
+            "claim_ids": [
+              "E003",
+              "E004"
+            ],
+            "rationale": "E004 is properly linked via target_ids to E003, correctly modifying the prohibition on continued use of a previous name.",
+            "status": "pass"
+          },
+          {
+            "index": 1,
+            "source_quotes": [
+              "You must clear the applicant's pending name even though the name change is not final and even if the passport is not being issued at this time."
+            ],
+            "claim_ids": [
+              "E004",
+              "E013"
+            ],
+            "rationale": "E004 does not target or excuse E013 (the pending name clearance duty).",
+            "status": "pass"
+          },
+          {
+            "index": 2,
+            "source_quotes": [
+              "unless the name change documentation specifically permits the applicant to continue using that name"
+            ],
+            "claim_ids": [
+              "E004"
+            ],
+            "rationale": "Target validation confirms semantic congruence between the exception and the prohibited action (continuing to use a previous name).",
+            "status": "pass"
+          }
+        ],
+        "negative_controls": [
+          {
+            "index": 0,
+            "source_quotes": [
+              "The applicant may not continue to use a previous name after a material name change unless the name change documentation specifically permits the applicant to continue using that name",
+              "You must clear the applicant's pending name even though the name change is not final and even if the passport is not being issued at this time."
+            ],
+            "claim_ids": [],
+            "rationale": "The synthetic negative example incorrectly links the documentation exception to the pending-name clearance rule rather than the previous-name use prohibition.",
+            "status": "pass"
+          }
+        ],
+        "uncertainty": "None observed."
+      },
+      {
+        "id": "NREG-06",
+        "invariants": [
+          {
+            "index": 0,
+            "source_quotes": [
+              "The court order or decree must be final:"
+            ],
+            "claim_ids": [
+              "E010"
+            ],
+            "rationale": "E010 frames finality as a mandatory state constraint on the court order or decree.",
+            "status": "pass"
+          },
+          {
+            "index": 1,
+            "source_quotes": [
+              "An applicant with a pending name change must not be issued a passport in her/his new name.",
+              "An applicant with a pending name change must not be issued a form FS-240 in her/his new name."
+            ],
+            "claim_ids": [
+              "E011",
+              "E012"
+            ],
+            "rationale": "Passport and FS-240 issuance prohibitions are captured as separate claims E011 and E012.",
+            "status": "pass"
+          },
+          {
+            "index": 2,
+            "source_quotes": [
+              "You must clear the applicant's pending name even though the name change is not final and even if the passport is not being issued at this time."
+            ],
+            "claim_ids": [
+              "E013"
+            ],
+            "rationale": "E013 preserves pending name clearance as a mandatory duty under modality 'must'.",
+            "status": "pass"
+          },
+          {
+            "index": 3,
+            "source_quotes": [
+              "even though the name change is not final and even if the passport is not being issued at this time."
+            ],
+            "claim_ids": [
+              "E013"
+            ],
+            "rationale": "The concessive 'even though' and 'even if' clauses are retained as reinforcing conditions within logic_text rather than negative exceptions.",
+            "status": "pass"
+          },
+          {
+            "index": 4,
+            "source_quotes": [
+              "An applicant with a pending name change must not be issued a passport in her/his new name."
+            ],
+            "claim_ids": [
+              "E011"
+            ],
+            "rationale": "E011 limits the prohibition strictly to issuance 'in her/his new name', avoiding an overbroad ban on all passport issuance.",
+            "status": "pass"
+          }
+        ],
+        "negative_controls": [
+          {
+            "index": 0,
+            "source_quotes": [
+              "You must clear the applicant's pending name even though the name change is not final and even if the passport is not being issued at this time."
+            ],
+            "claim_ids": [],
+            "rationale": "The negative control misinterprets the concessive clause 'even if the passport is not being issued at this time' as an exception that carves out the clearance requirement.",
+            "status": "pass"
+          }
+        ],
+        "uncertainty": "None observed."
+      },
+      {
+        "id": "NREG-07",
+        "invariants": [
+          {
+            "index": 0,
+            "source_quotes": [
+              "if the applicant has a name with multiple parts, you must determine how the name will appear:"
+            ],
+            "claim_ids": [
+              "E017"
+            ],
+            "rationale": "E017 faithfully models determining the appearance of a multipart name as a mandatory requirement with modality 'must'.",
+            "status": "pass"
+          },
+          {
+            "index": 1,
+            "source_quotes": [
+              "If the applicant's previous passport had a space, you should add a space on the current application;"
+            ],
+            "claim_ids": [
+              "E018"
+            ],
+            "rationale": "E018 models adding a space when a previous passport had a space as a recommendation with modality 'should'.",
+            "status": "pass"
+          },
+          {
+            "index": 2,
+            "source_quotes": [
+              "If the applicant does not have a previous passport and the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality or ID has a space, you should add a space on the current application;"
+            ],
+            "claim_ids": [
+              "E019"
+            ],
+            "rationale": "E019 preserves the recommendation force ('should') for the no-prior-passport condition.",
+            "status": "pass"
+          },
+          {
+            "index": 3,
+            "source_quotes": [
+              "If the applicant does not have a previous passport and the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality or ID has a space"
+            ],
+            "claim_ids": [
+              "E019"
+            ],
+            "rationale": "The compound logical condition (no previous passport AND [citizenship evidence OR ID has space]) is explicitly preserved in E019.",
+            "status": "pass"
+          },
+          {
+            "index": 4,
+            "source_quotes": [
+              "you should add a space on the current application;"
+            ],
+            "claim_ids": [
+              "E018",
+              "E019"
+            ],
+            "rationale": "The draft maintains the distinction between recommendation ('should') and requirement ('must') without upgrading guidance to mandatory duty.",
+            "status": "pass"
+          }
+        ],
+        "negative_controls": [
+          {
+            "index": 0,
+            "source_quotes": [
+              "If the applicant's previous passport had a space, you should add a space on the current application;",
+              "If the applicant does not have a previous passport and the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality or ID has a space, you should add a space on the current application;"
+            ],
+            "claim_ids": [],
+            "rationale": "The negative control improperly upgrades advisory guidance ('should') to a mandatory duty ('must') and collapses the conditional structure into an overbroad rule.",
+            "status": "pass"
+          }
+        ],
+        "uncertainty": "None observed."
+      }
+    ]
+  }
+}

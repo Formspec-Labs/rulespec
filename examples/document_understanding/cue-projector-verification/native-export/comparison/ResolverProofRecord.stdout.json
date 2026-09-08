@@ -1,0 +1,15 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+        "ResolverProofFields": {
+            "description": "#ResolverProofFields carries every property a resolver decision reports,\nminus the JSON-LD `@type` discriminator — the same split `#AssertionEnvelope`\nuses in assertion.cue, and for the same reason: it lets a narrower shape\ncompose these fields under a discriminator of its own without CUE trying to\nunify two different `@type` literals.\n\nA MACHINE-ADJUDICATION PROOF (machine-adjudication.cue,\n`#MachineAdjudicationProof`) is deliberately NOT a second `@type`. Two\nmechanical reasons, not merely style:\n\n  1. `tools/conformance_lib.py::schema_bindings()` binds exactly one\n     compiled schema per `@type` IRI. A second class declaring the same\n     literal `rkaf:ResolverProofRecord` would either fail to compile or\n     silently steal the dispatch from the base proof record for every OTHER\n     proof kind, depending on file sort order.\n  2. A distinct `@type` related by `rdfs:subClassOf` does not help: the\n     SHACL suite's `sh:class` constraint component does not apply RDFS\n     subclass entailment the way `sh:targetClass` does without an\n     explicitly supplied `ont_graph`, and `tools/ci_validate.py` /\n     `tools/validate_negatives.py` never supply one. A subclassed proof\n     would silently fail every `sh:class rkaf:ResolverProofRecord` check on\n     `rkaf:comparisonProofRecord` and `rkaf:findingProofRecord` — exactly\n     the citation slots a machine-adjudication proof MUST be usable from.\n\nSo a machine-adjudication proof IS an `rkaf:ResolverProofRecord`, plainly,\nwith `rkaf:proofType` narrowed to the literal `rkaf:machineAdjudicationProof`\nand five additional properties the conditional below requires exactly when\nthat literal is present. `rkaf:MachineAdjudicationIndependentPairShape` and\n`rkaf:MachineAdjudicationCompleteSupportShape`\n(`shapes/rkaf-shapes-analysis.ttl`) find these proofs the same way: by\nreading `rkaf:proofType`, never by a second `rdf:type`."
+        }
+    },
+    "type": "object",
+    "properties": {
+        "@type": {
+            "const": "rkaf:ResolverProofRecord"
+        }
+    },
+    "$ref": "#/$defs/ResolverProofFields"
+}

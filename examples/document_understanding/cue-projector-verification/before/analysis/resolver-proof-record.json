@@ -1,0 +1,419 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/resolver-proof-record.json",
+  "title": "resolver-proof-record",
+  "$defs": {
+    "ResolverProofType": {
+      "type": "string",
+      "enum": [
+        "rkaf:predicateCatalogProof",
+        "rkaf:assertionStateProof",
+        "rkaf:evidenceBindingProof",
+        "rkaf:baselineWarrantProof",
+        "rkaf:artifactPairingProof",
+        "rkaf:scopeComparisonProof",
+        "rkaf:machineAdjudicationProof"
+      ]
+    },
+    "GateStatus": {
+      "type": "string",
+      "enum": [
+        "rkaf:gatePass",
+        "rkaf:gateFail",
+        "rkaf:gateUnknown"
+      ]
+    },
+    "ScopeRelation": {
+      "type": "string",
+      "enum": [
+        "rkaf:scopeEquivalent",
+        "rkaf:scopeObservedSubsumesExpected",
+        "rkaf:scopeObservedNarrowsExpected",
+        "rkaf:scopeOverlaps",
+        "rkaf:scopeDisjoint",
+        "rkaf:scopeUnknown"
+      ]
+    },
+    "ResolverProofOutcome": {
+      "type": "string",
+      "enum": [
+        "rkaf:gatePass",
+        "rkaf:gateFail",
+        "rkaf:gateUnknown",
+        "rkaf:scopeEquivalent",
+        "rkaf:scopeObservedSubsumesExpected",
+        "rkaf:scopeObservedNarrowsExpected",
+        "rkaf:scopeOverlaps",
+        "rkaf:scopeDisjoint",
+        "rkaf:scopeUnknown"
+      ]
+    },
+    "MachineAdjudicationVerdict": {
+      "type": "string",
+      "enum": [
+        "rkaf:verdictSame",
+        "rkaf:verdictNearSame",
+        "rkaf:verdictTargetBroader",
+        "rkaf:verdictTargetNarrower",
+        "rkaf:verdictRelated"
+      ]
+    },
+    "ResolverProofIssuer": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:ResolverProofIssuer"
+        },
+        "rkaf:proofResolver": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:proofResolverVersion": {
+          "type": "string"
+        },
+        "rkaf:proofPolicy": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:proofPolicyVersion": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:proofResolver",
+        "rkaf:proofResolverVersion",
+        "rkaf:proofPolicy",
+        "rkaf:proofPolicyVersion"
+      ]
+    },
+    "ResolverProofFields": {
+      "type": "object",
+      "properties": {
+        "rkaf:proofType": {
+          "$ref": "#/$defs/ResolverProofType"
+        },
+        "rkaf:proofIssuer": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:proofComparisonContext": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:proofOutcome": {
+          "$ref": "#/$defs/ResolverProofOutcome"
+        },
+        "rkaf:proofRationale": {
+          "type": "string"
+        },
+        "rkaf:proofInput": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "rkaf:proofInputDigest": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^sha256:[0-9a-f]{64}$"
+              }
+            }
+          ]
+        },
+        "rkaf:proofSupportingRecord": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            }
+          ]
+        },
+        "rkaf:proofEvaluatedAt": {
+          "type": "string"
+        },
+        "rkaf:proofSnapshot": {
+          "type": "string"
+        },
+        "rkaf:proofRecordDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "rkaf:hasAILineage": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:independenceGroup": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:adjudicationVerdict": {
+          "$ref": "#/$defs/MachineAdjudicationVerdict"
+        },
+        "rkaf:sealedRequestDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "rkaf:sealedResponseArtifact": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        }
+      },
+      "required": [
+        "rkaf:proofType",
+        "rkaf:proofIssuer",
+        "rkaf:proofComparisonContext",
+        "rkaf:proofOutcome",
+        "rkaf:proofRationale",
+        "rkaf:proofInput",
+        "rkaf:proofEvaluatedAt",
+        "rkaf:proofSnapshot",
+        "rkaf:proofRecordDigest"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "rkaf:proofType": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:machineAdjudicationProof"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:machineAdjudicationProof"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:proofType"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:hasAILineage": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "rkaf:independenceGroup": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "rkaf:adjudicationVerdict": {
+                "$ref": "#/$defs/MachineAdjudicationVerdict"
+              },
+              "rkaf:sealedRequestDigest": {
+                "type": "string",
+                "pattern": "^sha256:[0-9a-f]{64}$"
+              },
+              "rkaf:sealedResponseArtifact": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            },
+            "required": [
+              "rkaf:hasAILineage",
+              "rkaf:independenceGroup",
+              "rkaf:adjudicationVerdict",
+              "rkaf:sealedRequestDigest",
+              "rkaf:sealedResponseArtifact"
+            ]
+          }
+        }
+      ]
+    },
+    "ResolverProofRecord": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:ResolverProofRecord"
+        },
+        "rkaf:proofType": {
+          "$ref": "#/$defs/ResolverProofType"
+        },
+        "rkaf:proofIssuer": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:proofComparisonContext": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:proofOutcome": {
+          "$ref": "#/$defs/ResolverProofOutcome"
+        },
+        "rkaf:proofRationale": {
+          "type": "string"
+        },
+        "rkaf:proofInput": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "rkaf:proofInputDigest": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^sha256:[0-9a-f]{64}$"
+              }
+            }
+          ]
+        },
+        "rkaf:proofSupportingRecord": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            }
+          ]
+        },
+        "rkaf:proofEvaluatedAt": {
+          "type": "string"
+        },
+        "rkaf:proofSnapshot": {
+          "type": "string"
+        },
+        "rkaf:proofRecordDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "rkaf:hasAILineage": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:independenceGroup": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:adjudicationVerdict": {
+          "$ref": "#/$defs/MachineAdjudicationVerdict"
+        },
+        "rkaf:sealedRequestDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "rkaf:sealedResponseArtifact": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:proofType",
+        "rkaf:proofIssuer",
+        "rkaf:proofComparisonContext",
+        "rkaf:proofOutcome",
+        "rkaf:proofRationale",
+        "rkaf:proofInput",
+        "rkaf:proofEvaluatedAt",
+        "rkaf:proofSnapshot",
+        "rkaf:proofRecordDigest"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "rkaf:proofType": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:machineAdjudicationProof"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:machineAdjudicationProof"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:proofType"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:hasAILineage": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "rkaf:independenceGroup": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "rkaf:adjudicationVerdict": {
+                "$ref": "#/$defs/MachineAdjudicationVerdict"
+              },
+              "rkaf:sealedRequestDigest": {
+                "type": "string",
+                "pattern": "^sha256:[0-9a-f]{64}$"
+              },
+              "rkaf:sealedResponseArtifact": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            },
+            "required": [
+              "rkaf:hasAILineage",
+              "rkaf:independenceGroup",
+              "rkaf:adjudicationVerdict",
+              "rkaf:sealedRequestDigest",
+              "rkaf:sealedResponseArtifact"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

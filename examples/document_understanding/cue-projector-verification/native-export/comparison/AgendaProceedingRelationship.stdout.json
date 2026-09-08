@@ -1,0 +1,44 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "description": "A provenance-bearing, action-specific association. The DCAT qualified\nrelation pattern is general; this subclass fixes the target and role used by\nthe US rulemaking profile.",
+    "additionalProperties": false,
+    "properties": {
+        "@type": {
+            "const": "rkaf:AgendaProceedingRelationship"
+        },
+        "dcat:hadRole": {
+            "const": "rkaf:agendaTracksProceeding"
+        },
+        "dcterms:relation": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "prov:generatedAtTime": {
+            "type": "string"
+        },
+        "prov:wasAttributedTo": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "prov:wasDerivedFrom": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            "minItems": 1
+        },
+        "prov:wasGeneratedBy": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        }
+    },
+    "required": [
+        "dcterms:relation",
+        "prov:generatedAtTime",
+        "prov:wasAttributedTo",
+        "prov:wasDerivedFrom",
+        "prov:wasGeneratedBy"
+    ]
+}

@@ -1,0 +1,161 @@
+{
+  "schema_version": "rulespec-evaluation-judgments/1",
+  "rulebook_sha256": "7b69dccdf05eaca8d7ae83fec29ff00edf6cbff877c93c96522b3db9e8b92eca",
+  "labels_sha256": "ba7cbad7352bcd908a91abb8bd32f3efb9abf939d6fd6a62780d64c6a23f96e6",
+  "review_provenance": {
+    "reviewer": "gemini-3.8-flash claim-first checker",
+    "reviewer_kind": "aiAgent",
+    "method": "source_review"
+  },
+  "claim_judgments": [
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:1f571c843624585cf99083af904645d86dfc01faf94777202e365192962efc09",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:9bff2e3a486ea405cf03ad79d914e4115757afc8d3abb47245c95b3c25c0b424"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:18f4bf274ad4685c447ed7ae4d32c7ebeca3c32803bc29a9a7e037e484ff62c9",
+          "quote": "c. The applicant may not continue to use a previous name after a material name change unless the name change documentation specifically permits the applicant to continue using that name (see 8 FAM 403.1-6 regarding “known as” names).",
+          "start": 0,
+          "end": 233
+        }
+      ],
+      "rationale": "Claim C0000 accurately summarizes the source rule prohibiting an applicant from continuing to use a previous name after a material name change unless authorized by documentation. The modality ('may not' as prohibition), actor (the applicant), action (continue to use), object (previous name), and temporal scope ('after a material name change') are all correctly represented.",
+      "claim_sha256": "f0a0c4c97e155790fde4ba7c7f2a55d6f852ef259bb46e710151ac194bab7f5a",
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      }
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:f746c2041f7cea6c8f44e6386beb30b02fe10a97fc74ffe2e53ce70bbf5a58a2",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:c1c14e3776d3a382e6555be66d8bf367fc90097cf4ce1b17aa3c63ef107c4f47"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:18f4bf274ad4685c447ed7ae4d32c7ebeca3c32803bc29a9a7e037e484ff62c9",
+          "quote": "(3) You must clear the applicant's pending name even though the name change is not final and even if the passport is not being issued at this time.",
+          "start": 235,
+          "end": 382
+        }
+      ],
+      "rationale": "Claim C0001 faithfully extracts the mandatory requirement to clear the applicant's pending name regardless of whether the name change is final or the passport is being issued at this time. The actor ('You'), action ('clear'), object ('applicant's pending name'), modality ('must'), and non-conditional clauses are properly captured.",
+      "claim_sha256": "814c1c88d78dfb2b767ce39fe2c24ef1d4cdaa85b7106de34a7db03ba67c0d6e",
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      }
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:010f2b7f005dfd2f5cb7b77c20ede83af1712e582581c7ac281d3f0eae03cc20",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:02b112d16ee110b1ec8e5b767e85bfce7fd8d73cb02a5af572c709639dbb9aff"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:18f4bf274ad4685c447ed7ae4d32c7ebeca3c32803bc29a9a7e037e484ff62c9",
+          "quote": "unless the name change documentation specifically permits the applicant to continue using that name",
+          "start": 86,
+          "end": 185
+        },
+        {
+          "source_id": "urn:rulespec:document-understanding:document:18f4bf274ad4685c447ed7ae4d32c7ebeca3c32803bc29a9a7e037e484ff62c9",
+          "quote": "The applicant may not continue to use a previous name after a material name change",
+          "start": 3,
+          "end": 85
+        }
+      ],
+      "rationale": "Claim C0002 represents an exception clause but erroneously targets C0001 ('You must clear...') instead of C0000 (the prohibition against using a previous name after a material name change). Consequently, its relational links are erroneous. Because it fails to link to C0000 or incorporate the governing condition from the inventory spans ('after a material name change'), its scope is overbroad and missing necessary prerequisites. In addition, the summary fails to specify the applicant as the actor permitted to continue using the name.",
+      "claim_sha256": "8ea6666f124dccaf0ce9640a3a2e50fb17896e047b71fbfdecfd8bf3e0c429ab",
+      "dimensions": {
+        "summary": "correct",
+        "actor": "error",
+        "support": "correct",
+        "scope": "error",
+        "links": "error",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      }
+    }
+  ],
+  "unit_judgments": [
+    {
+      "unit_id": "urn:rulespec:audit-unit:9bff2e3a486ea405cf03ad79d914e4115757afc8d3abb47245c95b3c25c0b424",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:1f571c843624585cf99083af904645d86dfc01faf94777202e365192962efc09"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:18f4bf274ad4685c447ed7ae4d32c7ebeca3c32803bc29a9a7e037e484ff62c9",
+          "quote": "The applicant may not continue to use a previous name after a material name change",
+          "start": 3,
+          "end": 85
+        }
+      ],
+      "rationale": "Unit U0000 is fully covered by claim C0000, which captures the prohibition against an applicant continuing to use a previous name after a material name change unless permitted by documentation.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:02b112d16ee110b1ec8e5b767e85bfce7fd8d73cb02a5af572c709639dbb9aff",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:010f2b7f005dfd2f5cb7b77c20ede83af1712e582581c7ac281d3f0eae03cc20"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:18f4bf274ad4685c447ed7ae4d32c7ebeca3c32803bc29a9a7e037e484ff62c9",
+          "quote": "unless the name change documentation specifically permits the applicant to continue using that name",
+          "start": 86,
+          "end": 185
+        },
+        {
+          "source_id": "urn:rulespec:document-understanding:document:18f4bf274ad4685c447ed7ae4d32c7ebeca3c32803bc29a9a7e037e484ff62c9",
+          "quote": "The applicant may not continue to use a previous name after a material name change",
+          "start": 3,
+          "end": 85
+        }
+      ],
+      "rationale": "Unit U0001 is only partially covered by claim C0002. While C0002 captures the core exception allowing continued use when documented, it misdirects its target link to C0001 rather than C0000, drops the governing timing prerequisite ('after a material name change'), and omits the applicant as the actor.",
+      "status": "partial"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:c1c14e3776d3a382e6555be66d8bf367fc90097cf4ce1b17aa3c63ef107c4f47",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:f746c2041f7cea6c8f44e6386beb30b02fe10a97fc74ffe2e53ce70bbf5a58a2"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:18f4bf274ad4685c447ed7ae4d32c7ebeca3c32803bc29a9a7e037e484ff62c9",
+          "quote": "You must clear the applicant's pending name even though the name change is not final and even if the passport is not being issued at this time.",
+          "start": 239,
+          "end": 382
+        }
+      ],
+      "rationale": "Unit U0002 is completely covered by claim C0001, which accurately preserves the obligation to clear the applicant's pending name notwithstanding the lack of finality of the name change or passport issuance.",
+      "status": "covered"
+    }
+  ]
+}

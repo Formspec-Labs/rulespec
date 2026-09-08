@@ -1,0 +1,4189 @@
+{
+  "@context": {
+    "rkaf": "https://rulespec.org/ns/v1#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "oa": "http://www.w3.org/ns/oa#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "cito": "http://purl.org/spar/cito/",
+    "wos": "https://w3id.org/wos/ns/v1#",
+    "formspec": "https://w3id.org/formspec/ns/v1#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "eli": "http://data.europa.eu/eli/ontology#",
+    "aknt": "http://docs.oasis-open.org/legaldocml/ns/akn/3.0/",
+    "uslm": "https://uslm.gov/2.1.0/",
+    "lrml": "http://docs.oasis-open.org/legalruleml/ns/v1.0/",
+    "rrmv": "http://data.europa.eu/m8g/rrmv/",
+    "eco": "http://purl.obolibrary.org/obo/ECO_",
+    "sepio": "http://purl.obolibrary.org/obo/SEPIO_",
+    "dpv": "https://w3id.org/dpv#",
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "rkaf:Artifact": {
+      "@type": "@id"
+    },
+    "rkaf:hasArtifactIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:artifactIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasRegulatoryIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:regulatoryIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:publishedInProceeding": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:publishedInDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:hasFormat": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:format": {
+      "@type": "xsd:string"
+    },
+    "dcterms:isFormatOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:isVersionOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "prov:wasRevisionOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasContentDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:versionLineageEvidence": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:SourceFragment": {
+      "@type": "@id"
+    },
+    "oa:hasSource": {
+      "@type": "@id"
+    },
+    "oa:hasSelector": {
+      "@type": "@id"
+    },
+    "oa:TextQuoteSelector": {
+      "@type": "@id"
+    },
+    "oa:TextPositionSelector": {
+      "@type": "@id"
+    },
+    "oa:exact": {
+      "@type": "xsd:string"
+    },
+    "oa:prefix": {
+      "@type": "xsd:string"
+    },
+    "oa:suffix": {
+      "@type": "xsd:string"
+    },
+    "oa:start": {
+      "@type": "xsd:integer"
+    },
+    "oa:end": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:selectorKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:coordinateSystem": {
+      "@type": "@vocab"
+    },
+    "rkaf:sourceArtifactDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:fragmentContentDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:EvidenceBinding": {
+      "@type": "@id"
+    },
+    "rkaf:bindsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:bindsSourceFragment": {
+      "@type": "@id"
+    },
+    "rkaf:noEvidenceReason": {
+      "@type": "@id"
+    },
+    "rkaf:Warrant": {
+      "@type": "@id"
+    },
+    "rkaf:hasWarrant": {
+      "@type": "@id"
+    },
+    "rkaf:warrantKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:warrantFamily": {
+      "@type": "@vocab"
+    },
+    "rkaf:defeasible": {
+      "@type": "xsd:boolean"
+    },
+    "rkaf:ConfidenceRecord": {
+      "@type": "@id"
+    },
+    "rkaf:hasConfidence": {
+      "@type": "@id"
+    },
+    "rkaf:confidenceMethod": {
+      "@type": "@vocab"
+    },
+    "rkaf:calibrationStatus": {
+      "@type": "@vocab"
+    },
+    "rkaf:confidenceBasis": {
+      "@type": "@id"
+    },
+    "rkaf:evaluatedAgainst": {
+      "@type": "@id"
+    },
+    "rkaf:generatedBy": {
+      "@type": "@id"
+    },
+    "rkaf:score": {
+      "@type": "xsd:float"
+    },
+    "rkaf:scoreCategorical": {
+      "@type": "@vocab"
+    },
+    "rkaf:AccessScope": {
+      "@type": "@id"
+    },
+    "rkaf:hasAccessScope": {
+      "@type": "@id"
+    },
+    "rkaf:accessScopeKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:regulatoryClass": {
+      "@type": "@vocab"
+    },
+    "rkaf:embargoUntil": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:permittedRole": {
+      "@type": "@id"
+    },
+    "rkaf:AILineage": {
+      "@type": "@id"
+    },
+    "rkaf:hasAILineage": {
+      "@type": "@id"
+    },
+    "rkaf:modelId": {
+      "@type": "xsd:string"
+    },
+    "rkaf:modelVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:promptTemplateRef": {
+      "@type": "@id"
+    },
+    "rkaf:temperature": {
+      "@type": "xsd:float"
+    },
+    "rkaf:seed": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:inputContextHash": {
+      "@type": "xsd:string"
+    },
+    "rkaf:humanApprover": {
+      "@type": "@id"
+    },
+    "rkaf:humanRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:MappingState": {
+      "@type": "@id"
+    },
+    "rkaf:mappingState": {
+      "@type": "@vocab"
+    },
+    "rkaf:RetentionPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:hasRetentionPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:retentionDurationDays": {
+      "@type": "xsd:int"
+    },
+    "rkaf:retentionTrigger": {
+      "@type": "@vocab"
+    },
+    "rkaf:retentionPostExpiry": {
+      "@type": "@vocab"
+    },
+    "rkaf:Workspace": {
+      "@type": "@id"
+    },
+    "rkaf:scopedToWorkspace": {
+      "@type": "@id"
+    },
+    "rkaf:workspaceId": {
+      "@type": "xsd:string"
+    },
+    "rkaf:workspaceTrustList": {
+      "@type": "@id"
+    },
+    "rkaf:projectsTo": {
+      "@type": "@id"
+    },
+    "rkaf:llmHint": {
+      "@type": "@id"
+    },
+    "rkaf:Authority": {
+      "@type": "@id"
+    },
+    "rkaf:Attestation": {
+      "@type": "@id"
+    },
+    "rkaf:LocalAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:ApplicabilityScope": {
+      "@type": "@id"
+    },
+    "rkaf:EffectivePeriod": {
+      "@type": "@id"
+    },
+    "rkaf:LifecycleEvent": {
+      "@type": "@id"
+    },
+    "rkaf:Proceeding": {
+      "@type": "@id"
+    },
+    "rkaf:RegulatoryAgendaItem": {
+      "@type": "@id"
+    },
+    "rkaf:RegulatoryAgendaObservation": {
+      "@type": "@id"
+    },
+    "rkaf:AgendaProceedingRelationship": {
+      "@type": "@id"
+    },
+    "dcat:Resource": {
+      "@type": "@id"
+    },
+    "dcat:CatalogRecord": {
+      "@type": "@id"
+    },
+    "dcat:Relationship": {
+      "@type": "@id"
+    },
+    "rkaf:CommentPeriod": {
+      "@type": "@id"
+    },
+    "rkaf:Docket": {
+      "@type": "@id"
+    },
+    "prov:Entity": {
+      "@type": "@id"
+    },
+    "rkaf:hasDocketIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:docketIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasProceedingIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:proceedingIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasAgendaItemIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:agendaItemIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaScopeStatus": {
+      "@type": "@vocab"
+    },
+    "dcat:qualifiedRelation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "foaf:primaryTopic": {
+      "@type": "@id"
+    },
+    "rkaf:agendaStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaPriority": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaAffectsCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:agendaAuthorityCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:relation": {
+      "@type": "@id"
+    },
+    "dcat:hadRole": {
+      "@type": "@vocab"
+    },
+    "rkaf:identifierRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:proceedingStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:proceedingTerminationCause": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasAuthority": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingAffects": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingAffectsCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingProduces": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasProceedingEvidenceIdentifier": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingEvidenceIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:proceedingSupersedes": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodFor": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodOpenedBy": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodStart": {
+      "@type": "xsd:date"
+    },
+    "rkaf:commentPeriodEnd": {
+      "@type": "xsd:date"
+    },
+    "rkaf:RegisteredConcept": {
+      "@type": "@id"
+    },
+    "rkaf:LocalConcept": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptMapping": {
+      "@type": "@id"
+    },
+    "rkaf:ReferenceResourceRelease": {
+      "@type": "@id"
+    },
+    "rkaf:MappingApplicabilityContext": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptResolutionResult": {
+      "@type": "@id"
+    },
+    "rkaf:BridgeValidationResult": {
+      "@type": "@id"
+    },
+    "rkaf:BridgeConsumerRegistration": {
+      "@type": "@id"
+    },
+    "rkaf:RegistryConflict": {
+      "@type": "@id"
+    },
+    "rkaf:Finding": {
+      "@type": "@id"
+    },
+    "rkaf:Justification": {
+      "@type": "@id"
+    },
+    "rkaf:hasJustification": {
+      "@type": "@id"
+    },
+    "rkaf:PointInTimeException": {
+      "@type": "@id"
+    },
+    "rkaf:evaluationAnchor": {
+      "@type": "@id"
+    },
+    "rkaf:retainsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:retainsWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:GeneratedWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:justifiedByAssertion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:consumerLifecycleState": {
+      "@type": "@id"
+    },
+    "rkaf:proposedUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:RevalidationEvent": {
+      "@type": "@id"
+    },
+    "rkaf:RevalidationClosureEvent": {
+      "@type": "@id"
+    },
+    "rkaf:revalidationFor": {
+      "@type": "@id"
+    },
+    "rkaf:triggeredBy": {
+      "@type": "@id"
+    },
+    "rkaf:closesRevalidation": {
+      "@type": "@id"
+    },
+    "rkaf:openedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:closedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:closureDecision": {
+      "@type": "@id"
+    },
+    "rkaf:successorAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:successorWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:ConsumerEffectiveDeclaration": {
+      "@type": "@id"
+    },
+    "rkaf:forAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:declaredEffective": {
+      "@type": "@vocab"
+    },
+    "rkaf:declaredScope": {
+      "@type": "@id"
+    },
+    "rkaf:declaredAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:BridgeIssueAttestationContract": {
+      "@type": "@id"
+    },
+    "rkaf:attestedIssueKinds": {
+      "@type": "@vocab"
+    },
+    "rkaf:usedAsAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:detectedIssues": {
+      "@type": "@id"
+    },
+    "rkaf:derivesAuthorityFrom": {
+      "@type": "@id"
+    },
+    "rkaf:hasApplicability": {
+      "@type": "@id"
+    },
+    "rkaf:hasEffectivePeriod": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:adoptedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:attestationScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:attestorKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:targets": {
+      "@type": "@id"
+    },
+    "rkaf:attestedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:revokedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:rationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:lifecycleEventKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:bridgeContractVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:maxAttestationStalenessDays": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:evaluationTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectivePeriodStart": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectivePeriodEnd": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:retroactiveFrom": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:sunsetAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:resolvedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:validatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:anchoredBy": {
+      "@type": "@id"
+    },
+    "rkaf:anchorType": {
+      "@type": "@id"
+    },
+    "rkaf:Assertion": {
+      "@type": "@id"
+    },
+    "rkaf:RelationshipAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:ValueAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:assertsSubject": {
+      "@type": "@id"
+    },
+    "rkaf:assertsPredicate": {
+      "@type": "@id"
+    },
+    "rkaf:assertsObject": {
+      "@type": "@id"
+    },
+    "rkaf:assertsValue": {
+      "@id": "https://rulespec.org/ns/v1#assertsValue"
+    },
+    "rkaf:assertionPolarity": {
+      "@type": "@vocab"
+    },
+    "rkaf:assertedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:hasSourceClaimant": {
+      "@type": "@id"
+    },
+    "rkaf:hasExtractionProvenance": {
+      "@type": "@id"
+    },
+    "rkaf:SourceClaimant": {
+      "@type": "@id"
+    },
+    "rkaf:claimsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:claimantAttribution": {
+      "@type": "@vocab"
+    },
+    "rkaf:claimantText": {
+      "@type": "xsd:string"
+    },
+    "rkaf:claimantIdentity": {
+      "@type": "@id"
+    },
+    "rkaf:attributedInFragment": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ExtractionActivity": {
+      "@type": "@id"
+    },
+    "rkaf:extractionMethod": {
+      "@type": "@vocab"
+    },
+    "rkaf:extractionRun": {
+      "@type": "@id"
+    },
+    "rkaf:extractedBy": {
+      "@type": "@id"
+    },
+    "rkaf:extractorVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:requestContractDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:extractionModelRef": {
+      "@type": "@id"
+    },
+    "rkaf:extractionPromptRef": {
+      "@type": "@id"
+    },
+    "rkaf:inputDigest": {
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "rkaf:extractionAttempt": {
+      "@type": "xsd:integer"
+    },
+    "prov:startedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "prov:endedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:hasSafetyLabel": {
+      "@type": "@id"
+    },
+    "rkaf:usageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:capabilityCap": {
+      "@type": "@id"
+    },
+    "rkaf:assertionOrigin": {
+      "@type": "@id"
+    },
+    "rkaf:epistemicBasis": {
+      "@type": "@vocab"
+    },
+    "rkaf:authorityKind": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionAuthorityKind": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionStatus": {
+      "@type": "@id"
+    },
+    "rkaf:result": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionStatus": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionMethod": {
+      "@type": "@id"
+    },
+    "rkaf:cacheStatus": {
+      "@type": "@id"
+    },
+    "rkaf:usageCeiling": {
+      "@type": "@id"
+    },
+    "rkaf:lifecycleEvent": {
+      "@type": "@id"
+    },
+    "rkaf:cascadeAlgorithm": {
+      "@type": "@id"
+    },
+    "rkaf:evidenceRole": {
+      "@type": "@id"
+    },
+    "rkaf:evidentiaryFunction": {
+      "@type": "@vocab"
+    },
+    "rkaf:warningCode": {
+      "@type": "@id"
+    },
+    "rkaf:errorCode": {
+      "@type": "@id"
+    },
+    "rkaf:decision": {
+      "@type": "@id"
+    },
+    "rkaf:scope": {
+      "@type": "@id"
+    },
+    "rkaf:visibility": {
+      "@type": "@id"
+    },
+    "rkaf:attestorType": {
+      "@type": "@id"
+    },
+    "rkaf:role": {
+      "@type": "@id"
+    },
+    "rkaf:transitionTo": {
+      "@type": "@id"
+    },
+    "rkaf:status": {
+      "@type": "@id"
+    },
+    "rkaf:predicate": {
+      "@type": "@id"
+    },
+    "rkaf:conceptScope": {
+      "@type": "@id"
+    },
+    "rkaf:governanceModel": {
+      "@type": "@id"
+    },
+    "rkaf:revisedUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:effectiveUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:safeAutomaticMigration": {
+      "@type": "@id"
+    },
+    "rkaf:resourceKind": {
+      "@type": "@id"
+    },
+    "rkaf:officialStatus": {
+      "@type": "@id"
+    },
+    "rkaf:legalValue": {
+      "@type": "@id"
+    },
+    "rkaf:publicationStatus": {
+      "@type": "@id"
+    },
+    "rkaf:remediationAction": {
+      "@type": "@id"
+    },
+    "rkaf:requiredPredicate": {
+      "@type": "@id"
+    },
+    "rkaf:minimumUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:noRemediationReason": {
+      "@type": "@id"
+    },
+    "rkaf:authorityChainStatus": {
+      "@type": "@id"
+    },
+    "rkaf:chainTerminusKind": {
+      "@type": "@id"
+    },
+    "rkaf:fragmentType": {
+      "@type": "@id"
+    },
+    "rkaf:reviewStatus": {
+      "@type": "@id"
+    },
+    "rkaf:newWorkProductStatus": {
+      "@type": "@id"
+    },
+    "rkaf:newUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:newAssertionState": {
+      "@type": "@id"
+    },
+    "rkaf:resourceFamily": {
+      "@type": "@id"
+    },
+    "rkaf:assertedBy": {
+      "@type": "@id"
+    },
+    "rkaf:attestor": {
+      "@type": "@id"
+    },
+    "rkaf:targetAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:targetWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:targetPacket": {
+      "@type": "@id"
+    },
+    "rkaf:sourceConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:targetConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:targetMappingConflict": {
+      "@type": "@id"
+    },
+    "rkaf:targetBridgeValidation": {
+      "@type": "@id"
+    },
+    "rkaf:targetRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:targetAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:authorizedBy": {
+      "@type": "@id"
+    },
+    "rkaf:organization": {
+      "@type": "@id"
+    },
+    "rkaf:packetId": {
+      "@type": "@id"
+    },
+    "rkaf:consumer": {
+      "@type": "@id"
+    },
+    "rkaf:emittedBy": {
+      "@type": "@id"
+    },
+    "rkaf:triggeredByPacket": {
+      "@type": "@id"
+    },
+    "rkaf:closesRevalidationEvent": {
+      "@type": "@id"
+    },
+    "rkaf:successorAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:closedBy": {
+      "@type": "@id"
+    },
+    "rkaf:queuedFor": {
+      "@type": "@id"
+    },
+    "rkaf:supersedesAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:supersedesWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:revalidationOf": {
+      "@type": "@id"
+    },
+    "rkaf:precedingArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:precedingVersion": {
+      "@type": "@id"
+    },
+    "rkaf:supportingEvent": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnClassification": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnEvent": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnAttestation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:basedOnAttestations": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:artifactId": {
+      "@type": "@id"
+    },
+    "rkaf:realizedByArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:resourceLineage": {
+      "@type": "@id"
+    },
+    "rkaf:sourceAuthorityHint": {
+      "@type": "@id"
+    },
+    "rkaf:capturedBy": {
+      "@type": "@id"
+    },
+    "rkaf:subjectArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:priorArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:classifiedBy": {
+      "@type": "@id"
+    },
+    "rkaf:classification": {
+      "@type": "@id"
+    },
+    "rkaf:managedByRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:referenceReleaseDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:versionBasis": {
+      "@type": "@vocab"
+    },
+    "rkaf:membershipMode": {
+      "@type": "@vocab"
+    },
+    "rkaf:hostedByRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:mintingAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionEndpoint": {
+      "@type": "@id"
+    },
+    "rkaf:registeredVia": {
+      "@type": "@id"
+    },
+    "rkaf:replacedBy": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:absorbedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:splitInto": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:conceptLifecycleOperation": {
+      "@type": "@vocab"
+    },
+    "rkaf:predecessorConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:successorConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:predecessorConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:successorConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:subjectConcept": {
+      "@type": "@id"
+    },
+    "rkaf:relatedConcept": {
+      "@type": "@id"
+    },
+    "rkaf:sharedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:relatedPublishedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:conflictingMappings": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:concept": {
+      "@type": "@id"
+    },
+    "rkaf:inputConcept": {
+      "@type": "@id"
+    },
+    "rkaf:resolvedConcept": {
+      "@type": "@id"
+    },
+    "rkaf:mappingAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:openLabelFacet": {
+      "@type": "@id"
+    },
+    "rkaf:openLabelRole": {
+      "@type": "@vocab"
+    },
+    "rkaf:resolutionTrustedVia": {
+      "@type": "@id"
+    },
+    "rkaf:registry": {
+      "@type": "@id"
+    },
+    "rkaf:resolvedToConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:assertion": {
+      "@type": "@id"
+    },
+    "rkaf:object": {
+      "@type": "@id"
+    },
+    "rkaf:dataConcept": {
+      "@type": "@id"
+    },
+    "rkaf:proposedFromLocalConcept": {
+      "@type": "@id"
+    },
+    "rkaf:registeredConcept": {
+      "@type": "@id"
+    },
+    "rkaf:registrationAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:proposedBy": {
+      "@type": "@id"
+    },
+    "rkaf:delegatingAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:delegatedTo": {
+      "@type": "@id"
+    },
+    "rkaf:publisher": {
+      "@type": "@id"
+    },
+    "rkaf:appliesTo": {
+      "@type": "@id"
+    },
+    "rkaf:affectedAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedAuthorityAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedImplementationAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedWorkProducts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedAdoptions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedFragments": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:affectedAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:affectedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:staleDependencies": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:unresolvedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:registryUnavailable": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:staleConceptCache": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedEvaluationAnchors": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedAutomaticMigrations": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedAuthorityKinds": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:justificationBackedBy": {
+      "@type": "@id"
+    },
+    "rkaf:derivedFromFragment": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:associatedWorkflowStep": {
+      "@type": "@id"
+    },
+    "rkaf:generationRun": {
+      "@type": "@id"
+    },
+    "rkaf:fromConcept": {
+      "@type": "@id"
+    },
+    "rkaf:toConcept": {
+      "@type": "@id"
+    },
+    "rkaf:requiredAdoptionScope": {
+      "@type": "@id"
+    },
+    "rkaf:collectsEvidenceType": {
+      "@type": "@id"
+    },
+    "rkaf:requiresEvidenceType": {
+      "@type": "@id"
+    },
+    "rkaf:acceptedDocumentTypes": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:excludesCategory": {
+      "@container": "@set"
+    },
+    "rkaf:evidencePurpose": {
+      "@container": "@set"
+    },
+    "rkaf:excludesPurposes": {
+      "@container": "@set"
+    },
+    "rkaf:jurisdiction": {
+      "@container": "@set"
+    },
+    "prov:wasGeneratedBy": {
+      "@type": "@id"
+    },
+    "prov:wasAttributedTo": {
+      "@type": "@id"
+    },
+    "prov:wasDerivedFrom": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "prov:generatedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "eli:consolidates": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "eli:consolidated_by": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dpv:hasPersonalDataCategory": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dpv:hasLegalBasis": {
+      "@type": "@id"
+    },
+    "dpv:hasPurpose": {
+      "@type": "@id"
+    },
+    "skos:prefLabel": {
+      "@container": "@language"
+    },
+    "skos:altLabel": {
+      "@container": "@language"
+    },
+    "skos:hiddenLabel": {
+      "@container": "@language"
+    },
+    "skos:definition": {
+      "@container": "@language"
+    },
+    "skos:example": {
+      "@container": "@language"
+    },
+    "skos:note": {
+      "@container": "@language"
+    },
+    "skos:scopeNote": {
+      "@container": "@language"
+    },
+    "skos:changeNote": {
+      "@container": "@language"
+    },
+    "skos:editorialNote": {
+      "@container": "@language"
+    },
+    "skos:historyNote": {
+      "@container": "@language"
+    },
+    "skos:notation": {
+      "@id": "http://www.w3.org/2004/02/skos/core#notation"
+    },
+    "skos:broader": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:narrower": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:related": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:inScheme": {
+      "@type": "@id"
+    },
+    "skos:hasTopConcept": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ConceptScheme": {
+      "@type": "@id"
+    },
+    "rkaf:schemeFacet": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptAssignment": {
+      "@type": "@id"
+    },
+    "rkaf:assignedConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:fragmentIdentityScheme": {
+      "@type": "@vocab"
+    },
+    "prov:hadMember": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcat:distribution": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcat:version": {
+      "@type": "xsd:string"
+    },
+    "dcterms:type": {
+      "@type": "@id"
+    },
+    "dcterms:issued": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:capturedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:registeredAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectiveDate": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:exceptionEffectivePeriodEnd": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:exceptionEffectivePeriodStart": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:cachedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:deprecatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:rescissionEffectiveDate": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:detectedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:definedInScope": {
+      "@type": "@id"
+    },
+    "rkaf:findingKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:severity": {
+      "@type": "@vocab"
+    },
+    "rkaf:subject": {
+      "@type": "@id"
+    },
+    "rkaf:detectedBy": {
+      "@type": "@id"
+    },
+    "rkaf:lastVerifiedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:verifiedBy": {
+      "@type": "@id"
+    },
+    "rkaf:targetFinding": {
+      "@type": "@id"
+    },
+    "rkaf:findings": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:RelationChangeEvent": {
+      "@type": "@id"
+    },
+    "rkaf:changeSubject": {
+      "@type": "@id"
+    },
+    "rkaf:changePredicate": {
+      "@type": "@id"
+    },
+    "rkaf:changeObject": {
+      "@type": "@id"
+    },
+    "rkaf:relationChangeOperation": {
+      "@type": "@vocab"
+    },
+    "rkaf:relationChangeStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:relationChangeTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:changeIntendedEffectiveTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:changeEvidence": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:replacementRelationObject": {
+      "@type": "@id"
+    },
+    "rkaf:RelationComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonBaselineArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonObservedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonExpectedAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonConsumer": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonScope": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonEvaluationTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:comparisonPolicyVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonDetector": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonDetectorVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonSnapshot": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonOutcome": {
+      "@type": "@vocab"
+    },
+    "rkaf:comparisonProofRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ResolverProofIssuer": {
+      "@type": "@id"
+    },
+    "rkaf:proofResolver": {
+      "@type": "@id"
+    },
+    "rkaf:proofResolverVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:proofPolicyVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:ResolverProofRecord": {
+      "@type": "@id"
+    },
+    "rkaf:proofType": {
+      "@type": "@vocab"
+    },
+    "rkaf:proofIssuer": {
+      "@type": "@id"
+    },
+    "rkaf:proofComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:proofOutcome": {
+      "@type": "@vocab"
+    },
+    "rkaf:proofRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofInput": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proofInputDigest": {
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "rkaf:proofSupportingRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proofEvaluatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:proofSnapshot": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofRecordDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:independenceGroup": {
+      "@type": "@id"
+    },
+    "rkaf:adjudicationVerdict": {
+      "@type": "@vocab"
+    },
+    "rkaf:sealedRequestDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:sealedResponseArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:RelationFinding": {
+      "@type": "@id"
+    },
+    "rkaf:relationFindingKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:findingComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:findingComparedAssertion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:findingProofRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:findingDetectedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:findingRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:findingFingerprint": {
+      "@type": "xsd:string"
+    },
+    "rkaf:ClosureClaim": {
+      "@type": "@id"
+    },
+    "rkaf:closureClaimStatus": {
+      "@type": "@vocab"
+    },
+    "rkaf:closureArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:closureRegion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:closurePredicateFamily": {
+      "@type": "@id"
+    },
+    "rkaf:closureProfileVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:closureMemberDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:closureReviewedAt": {
+      "@type": "xsd:dateTime"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:artifactIdentifierScheme": "rkaf:hash-sha256",
+      "rkaf:hasContentDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "dcterms:format": "text/plain"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "@type": "rkaf:AILineage",
+      "rkaf:modelId": "gemini-3.8-flash",
+      "rkaf:modelVersion": "gemini-3.8-flash",
+      "rkaf:temperature": 0.0,
+      "rkaf:promptTemplateRef": "urn:rulespec:document-understanding:prompt:40aacb96add175ac43729a8119d6a5877af5d1560ee163f05e29dada1a3526bd",
+      "rkaf:inputContextHash": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "@type": "rkaf:ExtractionActivity",
+      "rkaf:extractionMethod": "rkaf:modelExtraction",
+      "rkaf:extractionRun": "urn:rulespec:document-understanding:run:a58e76b9-9d66-432c-9898-5867a7a48d65",
+      "rkaf:extractedBy": "urn:rulespec:document-understanding:extractor:langextract",
+      "rkaf:extractorVersion": "document-understanding/1",
+      "rkaf:requestContractDigest": "sha256:c86e807f5acb8c2f0230a233148f47704f87441c7231d5a7e58fe5a479eb59ff",
+      "rkaf:extractionModelRef": "urn:rulespec:document-understanding:model:319034f3e25d0d9bd6b3a46b1def7a01b7689f0d51384c63da1f6e0b464af810",
+      "rkaf:extractionPromptRef": "urn:rulespec:document-understanding:prompt:40aacb96add175ac43729a8119d6a5877af5d1560ee163f05e29dada1a3526bd",
+      "rkaf:inputDigest": [
+        "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc"
+      ],
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f"
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:89:182:sha256-5602d44385cd415774969d0e2887a0c50302266165110bee3fb1281358e162c1",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:5602d44385cd415774969d0e2887a0c50302266165110bee3fb1281358e162c1",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "A material discrepancy is any name change that is not defined as immaterial in 8 FAM 403.1-5."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 89,
+          "oa:end": 182,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:91:111:sha256-405c38726c4644121a3f0bac66204098d85ed7956a7c1796fa8cc05cebea6b6f",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:405c38726c4644121a3f0bac66204098d85ed7956a7c1796fa8cc05cebea6b6f",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "material discrepancy"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 91,
+          "oa:end": 111,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:be20f883b92f4006796222fead76b5e2df3afc268068da77be74771e6a392023",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:ccd6665a6c577a7d3ee6a1bfdbdd088c0501ce3041eee4602245b088739e8b0a",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-definition",
+      "rkaf:assertsValue": {
+        "@value": "A material discrepancy is any name change not defined as immaterial in 8 FAM 403.1-5.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:e0a4c9118b616fb76c4b8e4c1bdeb7594960bbaa57c7dbbc296a6d98fdafc3a0",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:be20f883b92f4006796222fead76b5e2df3afc268068da77be74771e6a392023",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:89:182:sha256-5602d44385cd415774969d0e2887a0c50302266165110bee3fb1281358e162c1"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:8cb9d471117cb0698e176f841d909d7a16d0f92047a6bbc8349c926d4ea252f9",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:ccd6665a6c577a7d3ee6a1bfdbdd088c0501ce3041eee4602245b088739e8b0a",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:action",
+      "rkaf:assertsValue": {
+        "@value": "is",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:10654f0de6b014eca8f5aee74f67745417174c24ca7cdf6169ed5d3368496194",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:8cb9d471117cb0698e176f841d909d7a16d0f92047a6bbc8349c926d4ea252f9",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:noEvidenceReason": "rkaf:declared-hypothesis"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:7e38bcb15a24aa2851413774da4425825c08ec84c637efd271e111964e42079e",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:ccd6665a6c577a7d3ee6a1bfdbdd088c0501ce3041eee4602245b088739e8b0a",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:object",
+      "rkaf:assertsValue": {
+        "@value": "material discrepancy",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:a9318659ad55471866372ac67144f646d9ba6f2195b1550245de6d9ea6663f87",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:7e38bcb15a24aa2851413774da4425825c08ec84c637efd271e111964e42079e",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:91:111:sha256-405c38726c4644121a3f0bac66204098d85ed7956a7c1796fa8cc05cebea6b6f"
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:183:408:sha256-46eeccae8347ce1f970113b9b5f9dda6c260590b05f83769a083b48db312e980",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:46eeccae8347ce1f970113b9b5f9dda6c260590b05f83769a083b48db312e980",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "The applicant must explain any material discrepancies between the name on the application and the name recorded in the evidence of U.S. citizenship/non-citizen U.S. nationality and the evidence of identity (see 22 CFR 51.25)."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 183,
+          "oa:end": 408,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:183:196:sha256-0f777c78e109bfd992e4738f9d4d8da5da9433ec4dfe2e094c19036a252cb830",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:0f777c78e109bfd992e4738f9d4d8da5da9433ec4dfe2e094c19036a252cb830",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "The applicant"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 183,
+          "oa:end": 196,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:202:209:sha256-0818ab2593f5cb6c2daa8ffdd20578aae920bb1ed1f3feecf0cdf09a8b1e1213",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:0818ab2593f5cb6c2daa8ffdd20578aae920bb1ed1f3feecf0cdf09a8b1e1213",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "explain"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 202,
+          "oa:end": 209,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:210:388:sha256-0dbb0fce4ef2a9cca4904837d0cac8f5cc73af8fae1a0010855d82cd42c4c36a",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:0dbb0fce4ef2a9cca4904837d0cac8f5cc73af8fae1a0010855d82cd42c4c36a",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "any material discrepancies between the name on the application and the name recorded in the evidence of U.S. citizenship/non-citizen U.S. nationality and the evidence of identity"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 210,
+          "oa:end": 388,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:0e5b7d9a0d9b4cf9807332e0309ba250f96a5cc590e6ca053432ad81e1a5d655",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:ebecc7f0b83b00a82e6d8d1556337e964e03b28beb9dcf0226dca6135c708983",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-requirement",
+      "rkaf:assertsValue": {
+        "@value": "The applicant must explain material discrepancies between the name on the application and evidence of citizenship/nationality and identity.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:3dbb84fc405330f8b09dd3735f31ef22bc845014c642fcc5f367906306fb577a",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:0e5b7d9a0d9b4cf9807332e0309ba250f96a5cc590e6ca053432ad81e1a5d655",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:183:408:sha256-46eeccae8347ce1f970113b9b5f9dda6c260590b05f83769a083b48db312e980"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:1768ba357709b53327cfbcb3348c31cf01f6bd3e9488b46d14523cd920d58a85",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:ebecc7f0b83b00a82e6d8d1556337e964e03b28beb9dcf0226dca6135c708983",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:actor",
+      "rkaf:assertsValue": {
+        "@value": "The applicant",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:07d2657c1eedfdc39f9b3ffbe5f927c71455b0ce454ad54084199bec2050a6f8",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:1768ba357709b53327cfbcb3348c31cf01f6bd3e9488b46d14523cd920d58a85",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:183:196:sha256-0f777c78e109bfd992e4738f9d4d8da5da9433ec4dfe2e094c19036a252cb830"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:e7b7df629a864885fa3e7cb12452806ef689f169e421ba62dcb06cfc13bd6a2a",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:ebecc7f0b83b00a82e6d8d1556337e964e03b28beb9dcf0226dca6135c708983",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:action",
+      "rkaf:assertsValue": {
+        "@value": "explain",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:236dfa6536da9603f3ce12db517a5e7e8b99a8e58dfda84613bb34432aefe923",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:e7b7df629a864885fa3e7cb12452806ef689f169e421ba62dcb06cfc13bd6a2a",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:202:209:sha256-0818ab2593f5cb6c2daa8ffdd20578aae920bb1ed1f3feecf0cdf09a8b1e1213"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:ff74d2aeafe37e993035ab12175bd32a101daafb6da0b4ee857cd168efad7eeb",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:ebecc7f0b83b00a82e6d8d1556337e964e03b28beb9dcf0226dca6135c708983",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:object",
+      "rkaf:assertsValue": {
+        "@value": "any material discrepancies between the name on the application and the name recorded in the evidence of U.S. citizenship/non-citizen U.S. nationality and the evidence of identity",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:491e95293e715d1fe7ca4c7dc558d6d2bb47115d56336b0320ac52711fb319dd",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:ff74d2aeafe37e993035ab12175bd32a101daafb6da0b4ee857cd168efad7eeb",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:210:388:sha256-0dbb0fce4ef2a9cca4904837d0cac8f5cc73af8fae1a0010855d82cd42c4c36a"
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:413:730:sha256-f5c50ee630319381829f3f686765da81dc46b5e12ebd9229ccadc6ef099e2723",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:f5c50ee630319381829f3f686765da81dc46b5e12ebd9229ccadc6ef099e2723",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "Material discrepancies between the name recorded on the application, the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality, or the evidence of identity must be documented by submission of one or more of the documents listed in this section (see an exception for married names in 8 FAM 403.1-4(C))."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 413,
+          "oa:end": 730,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:590:620:sha256-430609b8605456f3da603afa2a00e1f7ff34e7a7e010b169a0206f68f7671a4a",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:430609b8605456f3da603afa2a00e1f7ff34e7a7e010b169a0206f68f7671a4a",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "be documented by submission of"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 590,
+          "oa:end": 620,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:413:584:sha256-cb40404d70d90218b38e38b5d38aea0168c012097c2d557a928d6edea4eed5fa",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:cb40404d70d90218b38e38b5d38aea0168c012097c2d557a928d6edea4eed5fa",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "Material discrepancies between the name recorded on the application, the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality, or the evidence of identity"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 413,
+          "oa:end": 584,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:607:672:sha256-716fe3071f83e27c5129bb8490a4eec273130dae64fe9ec05642b35b05db925f",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:716fe3071f83e27c5129bb8490a4eec273130dae64fe9ec05642b35b05db925f",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "submission of one or more of the documents listed in this section"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 607,
+          "oa:end": 672,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:43a9ee4d7f7420b49e255ca0acf527c822b605d0a63b641963008d25fef52d36",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:144c3b1f5815340627f3ad695a7f942728dd5c8641f976dca127f8b2ff256ca0",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-requirement",
+      "rkaf:assertsValue": {
+        "@value": "Material discrepancies between names must be documented by submitting one or more listed documents.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:c78353bbfeee82b4d4f974df7a7fe9b117364118c4341fad0f22cad2ba5ad0fa",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:43a9ee4d7f7420b49e255ca0acf527c822b605d0a63b641963008d25fef52d36",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:413:730:sha256-f5c50ee630319381829f3f686765da81dc46b5e12ebd9229ccadc6ef099e2723"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:e05354a4d119f304ec80b66b049a05013cb3fbc39437812ee6bde4b3d0a3e74a",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:144c3b1f5815340627f3ad695a7f942728dd5c8641f976dca127f8b2ff256ca0",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:action",
+      "rkaf:assertsValue": {
+        "@value": "be documented by submission of",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:966cfcc84b6ecb64a6ab5f1478e4f45648da2c0b7a5bf2f9d969f0cd9d147495",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:e05354a4d119f304ec80b66b049a05013cb3fbc39437812ee6bde4b3d0a3e74a",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:590:620:sha256-430609b8605456f3da603afa2a00e1f7ff34e7a7e010b169a0206f68f7671a4a"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:5d9c8b226f0017675a510d84d25f04fbdc41b78d00f204bc2f5af204ce0ca8eb",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:144c3b1f5815340627f3ad695a7f942728dd5c8641f976dca127f8b2ff256ca0",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:object",
+      "rkaf:assertsValue": {
+        "@value": "Material discrepancies between the name recorded on the application, the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality, or the evidence of identity",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:4f65d24c6357336a440e3f3b8bf0b7adf71b561e311d3c8d70e4086a7a9a8ab1",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:5d9c8b226f0017675a510d84d25f04fbdc41b78d00f204bc2f5af204ce0ca8eb",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:413:584:sha256-cb40404d70d90218b38e38b5d38aea0168c012097c2d557a928d6edea4eed5fa"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:7eb045d3f4d0c5817b2bcc1c7596786b96fbfb4fead6ecee2cd0e5776d1948c5",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:144c3b1f5815340627f3ad695a7f942728dd5c8641f976dca127f8b2ff256ca0",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:logic_text",
+      "rkaf:assertsValue": {
+        "@value": "submission of one or more of the documents listed in this section",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:23d7d8d42a5e97afc25a69563eedb0974b0abd9e27bc8a363f718482e6b13f20",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:7eb045d3f4d0c5817b2bcc1c7596786b96fbfb4fead6ecee2cd0e5776d1948c5",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:607:672:sha256-716fe3071f83e27c5129bb8490a4eec273130dae64fe9ec05642b35b05db925f"
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1083:1196:sha256-f96f014046aeb0c10c3a20c06e7103b23b61a7c28c49c815072234d30cb9b861",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:f96f014046aeb0c10c3a20c06e7103b23b61a7c28c49c815072234d30cb9b861",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "Evidence of material name changes must be reviewed for evidence of counterfeiting or alteration (see 8 FAM 201.1)"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1083,
+          "oa:end": 1196,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1122:1137:sha256-c452dbf861adf77fd5854ef7e4f5f6107308901998994b6f85fe76e548792622",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:c452dbf861adf77fd5854ef7e4f5f6107308901998994b6f85fe76e548792622",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "be reviewed for"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1122,
+          "oa:end": 1137,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1138:1178:sha256-8a8365496ae09ff4aa67a249edd0c50bb31561d26ea77eaa47e8654110ea1cf8",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:8a8365496ae09ff4aa67a249edd0c50bb31561d26ea77eaa47e8654110ea1cf8",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "evidence of counterfeiting or alteration"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1138,
+          "oa:end": 1178,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:327d57bd907775f01f463b91a01cd06d067fe6ed92c4163c82237a042b8c447a",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:4c461f6fb36df25042f7cc0730abbd47fe768e545a37d714d6d0ec0e71a6ca3b",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-requirement",
+      "rkaf:assertsValue": {
+        "@value": "Evidence of material name changes must be reviewed for counterfeiting or alteration.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:24ff6322942ca380ee58123ae19d048a2577050c3b1d2ab87398718d43cd0e5b",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:327d57bd907775f01f463b91a01cd06d067fe6ed92c4163c82237a042b8c447a",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1083:1196:sha256-f96f014046aeb0c10c3a20c06e7103b23b61a7c28c49c815072234d30cb9b861"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:60f1940ad8babcca12260496a59bd77e053e5358fef4f6f5535ca5adcf610966",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:4c461f6fb36df25042f7cc0730abbd47fe768e545a37d714d6d0ec0e71a6ca3b",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:action",
+      "rkaf:assertsValue": {
+        "@value": "be reviewed for",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:c29004b74b85a1da60c1700e26e5433495b815c5470cafe4a8a7a6c6e1e9cdd8",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:60f1940ad8babcca12260496a59bd77e053e5358fef4f6f5535ca5adcf610966",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1122:1137:sha256-c452dbf861adf77fd5854ef7e4f5f6107308901998994b6f85fe76e548792622"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:4a27e3c248c7aa105d4b7266adbb7d57571858eba8ecbddaa0e323d7c5332e20",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:4c461f6fb36df25042f7cc0730abbd47fe768e545a37d714d6d0ec0e71a6ca3b",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:object",
+      "rkaf:assertsValue": {
+        "@value": "evidence of counterfeiting or alteration",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:ee2b5cb7bfe84a6fdc62a2a32f460c4b8c8fd0710a49d6143727d1a20fae2d23",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:4a27e3c248c7aa105d4b7266adbb7d57571858eba8ecbddaa0e323d7c5332e20",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1138:1178:sha256-8a8365496ae09ff4aa67a249edd0c50bb31561d26ea77eaa47e8654110ea1cf8"
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1201:1431:sha256-1e03849b190469b22adcf702ba9debb1dd53ad92d074f3937269f2c07b2befee",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:1e03849b190469b22adcf702ba9debb1dd53ad92d074f3937269f2c07b2befee",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "The applicant may not continue to use a previous name after a material name change unless the name change documentation specifically permits the applicant to continue using that name (see 8 FAM 403.1-6 regarding “known as” names)."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1201,
+          "oa:end": 1431,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1201:1214:sha256-0f777c78e109bfd992e4738f9d4d8da5da9433ec4dfe2e094c19036a252cb830",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:0f777c78e109bfd992e4738f9d4d8da5da9433ec4dfe2e094c19036a252cb830",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "The applicant"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1201,
+          "oa:end": 1214,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1223:1238:sha256-7a79ca74d197263cd5f1f8ca314f8d02f068caf91019268aac6b37dbf2ff1401",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:7a79ca74d197263cd5f1f8ca314f8d02f068caf91019268aac6b37dbf2ff1401",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "continue to use"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1223,
+          "oa:end": 1238,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1239:1254:sha256-e7b2d8d6c605f4ab427e4e67867f70e0749b5b453991adcb45fc262de60fab00",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:e7b2d8d6c605f4ab427e4e67867f70e0749b5b453991adcb45fc262de60fab00",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "a previous name"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1239,
+          "oa:end": 1254,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1284:1383:sha256-f57ab2ae299ae1599f61bdd5fdebda4207f2400019f0ed106c9e5c70420409d2",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:f57ab2ae299ae1599f61bdd5fdebda4207f2400019f0ed106c9e5c70420409d2",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "unless the name change documentation specifically permits the applicant to continue using that name"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1284,
+          "oa:end": 1383,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:37e459935713d397925925d6e37b412cbe13579fcce838e7ebf5ec5e2fe4dfec",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:7bec387345a1dfa58f35d7ea27278edace1a4fc3565359cc1af974341502f529",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-prohibition",
+      "rkaf:assertsValue": {
+        "@value": "The applicant cannot continue using a previous name after a material name change unless documentation explicitly allows it.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:6d6605ec319e35c8e7e71b8be67f54dc224bab46de7428044503132d28a81449",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:37e459935713d397925925d6e37b412cbe13579fcce838e7ebf5ec5e2fe4dfec",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1201:1431:sha256-1e03849b190469b22adcf702ba9debb1dd53ad92d074f3937269f2c07b2befee"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:6ac700ea9947515d42587daf668f380ba63f39dbf60756f456ef750f4aa4f062",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:7bec387345a1dfa58f35d7ea27278edace1a4fc3565359cc1af974341502f529",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:actor",
+      "rkaf:assertsValue": {
+        "@value": "The applicant",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:97b16f67d1aaa936690db30d5ed9abaec73320ddc2218c4fe130a450c46ebe9e",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:6ac700ea9947515d42587daf668f380ba63f39dbf60756f456ef750f4aa4f062",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1201:1214:sha256-0f777c78e109bfd992e4738f9d4d8da5da9433ec4dfe2e094c19036a252cb830"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:fa232cd7935349e2eaaeb1b77f2f0a55e17ad55c0a27ba444252b58255e4238d",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:7bec387345a1dfa58f35d7ea27278edace1a4fc3565359cc1af974341502f529",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:action",
+      "rkaf:assertsValue": {
+        "@value": "continue to use",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:3607fb2258d0328c2deadeed4c3894d790ef9558ebcf1b3e0ef8d7c5a8554c58",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:fa232cd7935349e2eaaeb1b77f2f0a55e17ad55c0a27ba444252b58255e4238d",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1223:1238:sha256-7a79ca74d197263cd5f1f8ca314f8d02f068caf91019268aac6b37dbf2ff1401"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:46f1e1516a57685ca961742b972e0109b009caa56668c5567cf55a660e110c3b",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:7bec387345a1dfa58f35d7ea27278edace1a4fc3565359cc1af974341502f529",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:object",
+      "rkaf:assertsValue": {
+        "@value": "a previous name",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:4c025d91233562344104193a689b0369d84e6e24744cc3dd5b6996f9f49d28f5",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:46f1e1516a57685ca961742b972e0109b009caa56668c5567cf55a660e110c3b",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1239:1254:sha256-e7b2d8d6c605f4ab427e4e67867f70e0749b5b453991adcb45fc262de60fab00"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:57632f0bd7763b99001e1e02e0ceb0ac08375378ae0b161b46321895bb0a24d2",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:7bec387345a1dfa58f35d7ea27278edace1a4fc3565359cc1af974341502f529",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:logic_text",
+      "rkaf:assertsValue": {
+        "@value": "unless the name change documentation specifically permits the applicant to continue using that name",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:92a5c55f888084423be0a5ae565634f3bdda62706f2d3f9443ac640876a434cf",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:57632f0bd7763b99001e1e02e0ceb0ac08375378ae0b161b46321895bb0a24d2",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1284:1383:sha256-f57ab2ae299ae1599f61bdd5fdebda4207f2400019f0ed106c9e5c70420409d2"
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1342:1355:sha256-8ef9d27a07ce0795981ff451394777b4334f90b19415a9fa97bf254305ab328e",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:8ef9d27a07ce0795981ff451394777b4334f90b19415a9fa97bf254305ab328e",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "the applicant"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1342,
+          "oa:end": 1355,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1359:1373:sha256-ba462b68067fd22f66870ba86a3e7951bd139c28dc9f9f9f60dd30885dea92e1",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:ba462b68067fd22f66870ba86a3e7951bd139c28dc9f9f9f60dd30885dea92e1",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "continue using"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1359,
+          "oa:end": 1373,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1374:1383:sha256-04a703b97b26d465604e470e9bc5f5a418ad467d36e972a67827eda3b23f21b5",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:04a703b97b26d465604e470e9bc5f5a418ad467d36e972a67827eda3b23f21b5",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "that name"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1374,
+          "oa:end": 1383,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:5e253cfaf1f50c7062f5c995ba05b8be70cfd6cbaddfd7fee5589b5eef7e5585",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:7f235af180a216e0db4b9a480c0b04fbd8a34ad28dc046eee9bec4f42bfeb002",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-exception",
+      "rkaf:assertsValue": {
+        "@value": "A previous name may be used if the name change documentation specifically permits it.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:148c203e755772d5e612032a3574904ae51c17f7edfb57eb0f0c92a7d2c16aa7",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:5e253cfaf1f50c7062f5c995ba05b8be70cfd6cbaddfd7fee5589b5eef7e5585",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1284:1383:sha256-f57ab2ae299ae1599f61bdd5fdebda4207f2400019f0ed106c9e5c70420409d2"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:ad574ae41d27e6725a73d24824dff352d83c7b3cd6f719b5864bc77a2f43352c",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:7f235af180a216e0db4b9a480c0b04fbd8a34ad28dc046eee9bec4f42bfeb002",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:actor",
+      "rkaf:assertsValue": {
+        "@value": "the applicant",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:09326773a492197994ebbb457a7262907f0541aa4b9527de346ef1bce7b84d96",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:ad574ae41d27e6725a73d24824dff352d83c7b3cd6f719b5864bc77a2f43352c",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1342:1355:sha256-8ef9d27a07ce0795981ff451394777b4334f90b19415a9fa97bf254305ab328e"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:1016d2b6d42a5028ba29da43e387ee40737d633eb0065117582e64eb30375422",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:7f235af180a216e0db4b9a480c0b04fbd8a34ad28dc046eee9bec4f42bfeb002",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:action",
+      "rkaf:assertsValue": {
+        "@value": "continue using",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:c63ee2f3a4cd6c40b01418861e8d7672f666d7a0e4aa1dcb3c5a5277fd64cf0d",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:1016d2b6d42a5028ba29da43e387ee40737d633eb0065117582e64eb30375422",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1359:1373:sha256-ba462b68067fd22f66870ba86a3e7951bd139c28dc9f9f9f60dd30885dea92e1"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:81daf06b4ffa97d2834c444d71bf156b0b3f9e2c04ea607579a8b028b08e80c0",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:7f235af180a216e0db4b9a480c0b04fbd8a34ad28dc046eee9bec4f42bfeb002",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:object",
+      "rkaf:assertsValue": {
+        "@value": "that name",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:6b0080c8606caa63828664d05c5742c0d18f40c6e51fd4d43e962ef9476a3c86",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:81daf06b4ffa97d2834c444d71bf156b0b3f9e2c04ea607579a8b028b08e80c0",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1374:1383:sha256-04a703b97b26d465604e470e9bc5f5a418ad467d36e972a67827eda3b23f21b5"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:a4e19f28b61293a381da9a879aa4f72276a5fc8bf4b847bea4eaf7da3f4b0290",
+      "@type": "rkaf:RelationshipAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:revision:01629e4a6c15fd34484f97ba0103332407ec9d73b3a9235e16a4b22e5608f147",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:exception",
+      "rkaf:assertsObject": "urn:rulespec:document-understanding:revision:6bd614cc39ac862e360556da21b6f88b69b7efb23a1e0905c9e315bfd2fa4c9d",
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:ea3338b11bc3d3afb424019800be507c4c8bc9e3b7f68aee929f5f7c625041aa",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:a4e19f28b61293a381da9a879aa4f72276a5fc8bf4b847bea4eaf7da3f4b0290",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1284:1383:sha256-f57ab2ae299ae1599f61bdd5fdebda4207f2400019f0ed106c9e5c70420409d2"
+      ],
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:qualifies"
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1676:1920:sha256-2565638f681c03203d7355f09b257b887e0cb9925bad1611c09720d91cf3dd00",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:2565638f681c03203d7355f09b257b887e0cb9925bad1611c09720d91cf3dd00",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "If the applicant has had a material name change more than one year prior to applying on form DS-11 but has not updated her/his ID to reflect the material name change, you must suspend the application to request an acceptable ID in the new name."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1676,
+          "oa:end": 1920,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1843:1846:sha256-bb0347a468d97e98a9c00e37cebec1ab930f6f1221cae0f1fbb92b07e1900ba2",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:bb0347a468d97e98a9c00e37cebec1ab930f6f1221cae0f1fbb92b07e1900ba2",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "you"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1843,
+          "oa:end": 1846,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1852:1859:sha256-f516e6c26493093647485274a45fd4a485a04632be8924c2769f885ee58f9da8",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:f516e6c26493093647485274a45fd4a485a04632be8924c2769f885ee58f9da8",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "suspend"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1852,
+          "oa:end": 1859,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1860:1919:sha256-68f0916ff43bf05438376b67fbb27a03c6b9a0919061ad3b81e94faf724bbe12",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:68f0916ff43bf05438376b67fbb27a03c6b9a0919061ad3b81e94faf724bbe12",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "the application to request an acceptable ID in the new name"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1860,
+          "oa:end": 1919,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1676:1841:sha256-8d6e9a2e653ca62614166aac8953994fa3ed5eaadb3fe7d2c0dd5978ab49c209",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:8d6e9a2e653ca62614166aac8953994fa3ed5eaadb3fe7d2c0dd5978ab49c209",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "If the applicant has had a material name change more than one year prior to applying on form DS-11 but has not updated her/his ID to reflect the material name change"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1676,
+          "oa:end": 1841,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:e7fde7b37acad9497d7d3d9c45c8bd0e04cf6b110293cfe352fcf9857f983cc4",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:21bb6e71aeca81b15c7f90915b96c6eb8efce1d2bb9d1834497353ae9310de31",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-requirement",
+      "rkaf:assertsValue": {
+        "@value": "You must suspend the application to request an acceptable ID in the new name if the applicant had a material name change more than one year prior to applying on form DS-11 without updating ID.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:81a3b989f75bc714d1a68de4da1667b480d3dc00507e59fa8ada40bb4855cd0b",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:e7fde7b37acad9497d7d3d9c45c8bd0e04cf6b110293cfe352fcf9857f983cc4",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1676:1920:sha256-2565638f681c03203d7355f09b257b887e0cb9925bad1611c09720d91cf3dd00"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:4dcf74c6fe7c4b1ce5ed2716580444aa2f9086608bc760860e572a279aa456a1",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:21bb6e71aeca81b15c7f90915b96c6eb8efce1d2bb9d1834497353ae9310de31",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:actor",
+      "rkaf:assertsValue": {
+        "@value": "you",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:0e1494515c2213e505b9bc8e4a57f99ccae41718110b14a8a88e919b9d11b717",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:4dcf74c6fe7c4b1ce5ed2716580444aa2f9086608bc760860e572a279aa456a1",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1843:1846:sha256-bb0347a468d97e98a9c00e37cebec1ab930f6f1221cae0f1fbb92b07e1900ba2"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:eccd7446729ab6456a7798e55446ef5047fc42db293b11131087120fea2d8069",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:21bb6e71aeca81b15c7f90915b96c6eb8efce1d2bb9d1834497353ae9310de31",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:action",
+      "rkaf:assertsValue": {
+        "@value": "suspend",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:3b063faeea34b3cc4060b623799597d9d469f0dd31ba1c36cc5818f3f1df10b4",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:eccd7446729ab6456a7798e55446ef5047fc42db293b11131087120fea2d8069",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1852:1859:sha256-f516e6c26493093647485274a45fd4a485a04632be8924c2769f885ee58f9da8"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:d3f351f574cecc6ade813862760e2b85be2bab29c362b8c96ce87d719de1835a",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:21bb6e71aeca81b15c7f90915b96c6eb8efce1d2bb9d1834497353ae9310de31",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:object",
+      "rkaf:assertsValue": {
+        "@value": "the application to request an acceptable ID in the new name",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:41dc4c1523939691b4f86b28d8e2905e9326fbe33c8dde13af071ed7588e9b67",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:d3f351f574cecc6ade813862760e2b85be2bab29c362b8c96ce87d719de1835a",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1860:1919:sha256-68f0916ff43bf05438376b67fbb27a03c6b9a0919061ad3b81e94faf724bbe12"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:0d7ba8e9314898d09b944680499a376e99cc09be0ff0c6066cf8e9244ebd8eb1",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:21bb6e71aeca81b15c7f90915b96c6eb8efce1d2bb9d1834497353ae9310de31",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:logic_text",
+      "rkaf:assertsValue": {
+        "@value": "If the applicant has had a material name change more than one year prior to applying on form DS-11 but has not updated her/his ID to reflect the material name change",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:468b5c8aa26a4c0f1c6ddc0f64db951e700b44c1081246ecb226ecf4743f9a5c",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:0d7ba8e9314898d09b944680499a376e99cc09be0ff0c6066cf8e9244ebd8eb1",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1676:1841:sha256-8d6e9a2e653ca62614166aac8953994fa3ed5eaadb3fe7d2c0dd5978ab49c209"
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1679:1692:sha256-8ef9d27a07ce0795981ff451394777b4334f90b19415a9fa97bf254305ab328e",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:8ef9d27a07ce0795981ff451394777b4334f90b19415a9fa97bf254305ab328e",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "the applicant"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1679,
+          "oa:end": 1692,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1693:1700:sha256-ea2d9bd858f94e78d4f67b0dccf5d7f34244ec893b922a39ed4a370f7ff3ef38",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:ea2d9bd858f94e78d4f67b0dccf5d7f34244ec893b922a39ed4a370f7ff3ef38",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "has had"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1693,
+          "oa:end": 1700,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1701:1774:sha256-ee30d564a218c899119b573aff41d8bf654c44b3f296c2db702bfa7758bdfb1c",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:ee30d564a218c899119b573aff41d8bf654c44b3f296c2db702bfa7758bdfb1c",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "a material name change more than one year prior to applying on form DS-11"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1701,
+          "oa:end": 1774,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:690d429b7d2b29446712fb576cd2187e3a217e45f63fafbb9f4db764546be90f",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:0e4200a222354d7514bd9eadc032f1980e8523a13f5d978692a3cd3cf04d9e37",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-condition",
+      "rkaf:assertsValue": {
+        "@value": "Applicant had a material name change over a year before applying on form DS-11 and has not updated their ID.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:bf4121078e1a79017b9a12038bfd6e3a313b57c40495094c9010eb49a84f0634",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:690d429b7d2b29446712fb576cd2187e3a217e45f63fafbb9f4db764546be90f",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1676:1841:sha256-8d6e9a2e653ca62614166aac8953994fa3ed5eaadb3fe7d2c0dd5978ab49c209"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:95d25dacbabc313f9a56f9c72129c69f9ce0f19950abfc52affcc966594ae73a",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:0e4200a222354d7514bd9eadc032f1980e8523a13f5d978692a3cd3cf04d9e37",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:actor",
+      "rkaf:assertsValue": {
+        "@value": "the applicant",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:a28d3f702b6d185548d96b2e19d793d2a9479747120d2f9e59bd4831d884402f",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:95d25dacbabc313f9a56f9c72129c69f9ce0f19950abfc52affcc966594ae73a",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1679:1692:sha256-8ef9d27a07ce0795981ff451394777b4334f90b19415a9fa97bf254305ab328e"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:ed640b47fe4e43df8b1b63adf5758f77c8796ec618d3b8386966c7fce7da1a3d",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:0e4200a222354d7514bd9eadc032f1980e8523a13f5d978692a3cd3cf04d9e37",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:action",
+      "rkaf:assertsValue": {
+        "@value": "has had",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:4a77c7d5c1e70756cdbcefcbf279ae3dc809df9cf736a974c67d6a20fed11a57",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:ed640b47fe4e43df8b1b63adf5758f77c8796ec618d3b8386966c7fce7da1a3d",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1693:1700:sha256-ea2d9bd858f94e78d4f67b0dccf5d7f34244ec893b922a39ed4a370f7ff3ef38"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:eaba19e42cc6272ea23036c97647942b78461b1072028854f2ac927cc4631567",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:0e4200a222354d7514bd9eadc032f1980e8523a13f5d978692a3cd3cf04d9e37",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:object",
+      "rkaf:assertsValue": {
+        "@value": "a material name change more than one year prior to applying on form DS-11",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:8d946a36e4b4db2ea5cc684e8ea012e1ea84202898383231b16130b769030524",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:eaba19e42cc6272ea23036c97647942b78461b1072028854f2ac927cc4631567",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1701:1774:sha256-ee30d564a218c899119b573aff41d8bf654c44b3f296c2db702bfa7758bdfb1c"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:3a73d8341bb81787fec537a8f8c2004eb741dcf3601927ab550a7ab7f23784a9",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:0e4200a222354d7514bd9eadc032f1980e8523a13f5d978692a3cd3cf04d9e37",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:logic_text",
+      "rkaf:assertsValue": {
+        "@value": "If the applicant has had a material name change more than one year prior to applying on form DS-11 but has not updated her/his ID to reflect the material name change",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:41eaaec519565e0d935b72a7b837068b7ec44b5cbddf5f5874b93c5ac90b57d7",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:3a73d8341bb81787fec537a8f8c2004eb741dcf3601927ab550a7ab7f23784a9",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1676:1841:sha256-8d6e9a2e653ca62614166aac8953994fa3ed5eaadb3fe7d2c0dd5978ab49c209"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:3dfd8743f5119b6d06c1983a3d2761326a1275e1ae487aea4729148123847934",
+      "@type": "rkaf:RelationshipAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:revision:86f5644e22184720780d5789c1db2875ef574a854ba37f13de8a269b5f53c780",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:trigger",
+      "rkaf:assertsObject": "urn:rulespec:document-understanding:revision:066813d48aa03a3aeab583a0ce03188ae88c6d97521b914f0eebb13c29220755",
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:cded5c2302519efe5b4d7300fda29f4939f7e079ce1288f0befe1e462f15b220",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:3dfd8743f5119b6d06c1983a3d2761326a1275e1ae487aea4729148123847934",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1676:1841:sha256-8d6e9a2e653ca62614166aac8953994fa3ed5eaadb3fe7d2c0dd5978ab49c209"
+      ],
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:qualifies"
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1921:2103:sha256-0fdbf8386267c11baca8f4259546dc39828a560aa3cc96c2b0d436c3602b72a9",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:0fdbf8386267c11baca8f4259546dc39828a560aa3cc96c2b0d436c3602b72a9",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "If there is insufficient time to request that the applicant submit acceptable ID prior to urgent or emergency travel, a limited-validity passport may be issued in the requested name;"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1921,
+          "oa:end": 2103,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2071:2080:sha256-ed10f5396e75d899b20e9ced304978e02860db2e9659c5231242cd859a40580f",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:ed10f5396e75d899b20e9ced304978e02860db2e9659c5231242cd859a40580f",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "be issued"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 2071,
+          "oa:end": 2080,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2039:2066:sha256-7c5242f452273d58b648473e49efef79268657cee618c30d4574f93e3a075b57",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:7c5242f452273d58b648473e49efef79268657cee618c30d4574f93e3a075b57",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "a limited-validity passport"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 2039,
+          "oa:end": 2066,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1921:2037:sha256-69672abdd23b79c9ab53977f6c04fc575dfcf5ce9f86af983bd20b44baa19026",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:69672abdd23b79c9ab53977f6c04fc575dfcf5ce9f86af983bd20b44baa19026",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "If there is insufficient time to request that the applicant submit acceptable ID prior to urgent or emergency travel"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1921,
+          "oa:end": 2037,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:ac0a5ecd037235878595472ff04f01aade3211daa65cc6d46e367af103b97f47",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:1f135b11c6b1844991b3cea56aa01296c46a3c777651af620f6eee43ab26240f",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-permission",
+      "rkaf:assertsValue": {
+        "@value": "A limited-validity passport may be issued in the requested name if there is insufficient time to request acceptable ID before urgent or emergency travel.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:555b5b69f2fc068c48dc12e5ed6135a07381090f19f29f29a3791fb7554e6089",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:ac0a5ecd037235878595472ff04f01aade3211daa65cc6d46e367af103b97f47",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1921:2103:sha256-0fdbf8386267c11baca8f4259546dc39828a560aa3cc96c2b0d436c3602b72a9"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:519e7161fff400e97b7ca291dbcac13246b3fb83def3216a129082a2e83d2905",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:1f135b11c6b1844991b3cea56aa01296c46a3c777651af620f6eee43ab26240f",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:action",
+      "rkaf:assertsValue": {
+        "@value": "be issued",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:6322a22303a713102342cdafc0db87f25efa576727647c9caf0494dc641cb7ad",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:519e7161fff400e97b7ca291dbcac13246b3fb83def3216a129082a2e83d2905",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2071:2080:sha256-ed10f5396e75d899b20e9ced304978e02860db2e9659c5231242cd859a40580f"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:540d65fe33f2b555b5c6c66cd92306fde9c8252c412a825dc3959def9ea491c8",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:1f135b11c6b1844991b3cea56aa01296c46a3c777651af620f6eee43ab26240f",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:object",
+      "rkaf:assertsValue": {
+        "@value": "a limited-validity passport",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:914765e44f4a97fc855a94fcefe2129606267a36bc420b22784e50a34bdf9fcc",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:540d65fe33f2b555b5c6c66cd92306fde9c8252c412a825dc3959def9ea491c8",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2039:2066:sha256-7c5242f452273d58b648473e49efef79268657cee618c30d4574f93e3a075b57"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:49aeef7697bef35636fe3252fae4e294d4b863394077fab17cf82c8a07ebe26f",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:1f135b11c6b1844991b3cea56aa01296c46a3c777651af620f6eee43ab26240f",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:logic_text",
+      "rkaf:assertsValue": {
+        "@value": "If there is insufficient time to request that the applicant submit acceptable ID prior to urgent or emergency travel",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:487ddcb01cb7d168793b47ba59e6dd02584ed81b7005057842648714fdd66396",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:49aeef7697bef35636fe3252fae4e294d4b863394077fab17cf82c8a07ebe26f",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1921:2037:sha256-69672abdd23b79c9ab53977f6c04fc575dfcf5ce9f86af983bd20b44baa19026"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:451ba73bbc901e3c7bb101099a6a19e986afed22f5f3464fb15411b1c07c0833",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:c74f91ceb38e0d222bf98f683db2a30070c3cc522ce51ea0f4d675d1d44c7f47",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-condition",
+      "rkaf:assertsValue": {
+        "@value": "Insufficient time exists to request acceptable ID prior to urgent or emergency travel.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:10413e80cc5b6b9b65efab04d34c1b6bd4a399c0d15941257d1c49bd753817e4",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:451ba73bbc901e3c7bb101099a6a19e986afed22f5f3464fb15411b1c07c0833",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1921:2037:sha256-69672abdd23b79c9ab53977f6c04fc575dfcf5ce9f86af983bd20b44baa19026"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:a9c658d978f17d9dce3b7769633b6696dd5dad3cf822858cbab436b1bf914878",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:c74f91ceb38e0d222bf98f683db2a30070c3cc522ce51ea0f4d675d1d44c7f47",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:logic_text",
+      "rkaf:assertsValue": {
+        "@value": "If there is insufficient time to request that the applicant submit acceptable ID prior to urgent or emergency travel",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:941eec18d75539ec60a9e691f4d32c2b31706713594fb7d13ff6048203669ae5",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:a9c658d978f17d9dce3b7769633b6696dd5dad3cf822858cbab436b1bf914878",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1921:2037:sha256-69672abdd23b79c9ab53977f6c04fc575dfcf5ce9f86af983bd20b44baa19026"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:0cc5284858977920a276c1357cc2820fa9d836987de1aa05cf2eb69977aaaa8c",
+      "@type": "rkaf:RelationshipAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:revision:25caa5420a22084fcbb9cf226e004af10d8b2e7bccf94a2f66d2d787e54586b6",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:trigger",
+      "rkaf:assertsObject": "urn:rulespec:document-understanding:revision:4579f8b0fadcd50ba90d593354db6c9928a73c5bd138582bc4bc092a00583184",
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:928345a3bb4361c098cae2b5dc43cfc49b1581531f4f788a2d1275f19d2b8466",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:0cc5284858977920a276c1357cc2820fa9d836987de1aa05cf2eb69977aaaa8c",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:1921:2037:sha256-69672abdd23b79c9ab53977f6c04fc575dfcf5ce9f86af983bd20b44baa19026"
+      ],
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:qualifies"
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2207:2413:sha256-89e612a897e348fb21703a62fccc136f6001ee4adc4e23c69be4ffb5f6547a5e",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:89e612a897e348fb21703a62fccc136f6001ee4adc4e23c69be4ffb5f6547a5e",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "You must fully notate the name change documentation prior to returning the documentation, including that the documentation was \"seen and returned,\" to the applicant with the information request letter (IRL)"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 2207,
+          "oa:end": 2413,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2207:2210:sha256-08b041935798fbf6fd6ff51099ffedb140a475889986d14f5559ff8e7fc571dd",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:08b041935798fbf6fd6ff51099ffedb140a475889986d14f5559ff8e7fc571dd",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "You"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 2207,
+          "oa:end": 2210,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2216:2228:sha256-27bc7739708453492a4654c63b2a8e9935003ae2368468c4e00ed8324c7f91bf",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:27bc7739708453492a4654c63b2a8e9935003ae2368468c4e00ed8324c7f91bf",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "fully notate"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 2216,
+          "oa:end": 2228,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2229:2258:sha256-7020f2cd2a6b461629e410ade125f7da62d2afc0ccaf54c39109db534757f868",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:7020f2cd2a6b461629e410ade125f7da62d2afc0ccaf54c39109db534757f868",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "the name change documentation"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 2229,
+          "oa:end": 2258,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2259:2413:sha256-92870edc32e366c9248d64f32f2dde47365f2424d16616883e116ff2a5661e4e",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:92870edc32e366c9248d64f32f2dde47365f2424d16616883e116ff2a5661e4e",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "prior to returning the documentation, including that the documentation was \"seen and returned,\" to the applicant with the information request letter (IRL)"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 2259,
+          "oa:end": 2413,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:6f7e0210c8c4ffaed89c3e2876f15d6cbfebb19a45f51859f82641e1d33093e0",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:5487b9f0cf541968fcd0494001a23e3237769418767cb5157f638266a95ae00d",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-requirement",
+      "rkaf:assertsValue": {
+        "@value": "You must fully notate the name change documentation before returning it to the applicant with the IRL.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:9d74b015515e660c81bac688cc886a74326dff2688d84586abe4931ecc43f558",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:6f7e0210c8c4ffaed89c3e2876f15d6cbfebb19a45f51859f82641e1d33093e0",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2207:2413:sha256-89e612a897e348fb21703a62fccc136f6001ee4adc4e23c69be4ffb5f6547a5e"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:aaedd18809de6f79c1cc88587036d4b79cd8c458ab91abf3c03bd7ff8e72de96",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:5487b9f0cf541968fcd0494001a23e3237769418767cb5157f638266a95ae00d",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:actor",
+      "rkaf:assertsValue": {
+        "@value": "You",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:b61f50aa570b846e9f5ffe3c6fb377838213bfbb479f9f13808738c336c9da64",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:aaedd18809de6f79c1cc88587036d4b79cd8c458ab91abf3c03bd7ff8e72de96",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2207:2210:sha256-08b041935798fbf6fd6ff51099ffedb140a475889986d14f5559ff8e7fc571dd"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:cec6ec84e3a1cffbc2a6dd9a6a357ed2550febf1ccb094118570a26e710c730e",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:5487b9f0cf541968fcd0494001a23e3237769418767cb5157f638266a95ae00d",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:action",
+      "rkaf:assertsValue": {
+        "@value": "fully notate",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:9744306e0738516bf347a4843aad850c48bdd72ba28d6d6e5c369f4a7984fbd0",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:cec6ec84e3a1cffbc2a6dd9a6a357ed2550febf1ccb094118570a26e710c730e",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2216:2228:sha256-27bc7739708453492a4654c63b2a8e9935003ae2368468c4e00ed8324c7f91bf"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:64119811330c3da1ad2c20355959264804564c8356fca9d8ac4728ac20891234",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:5487b9f0cf541968fcd0494001a23e3237769418767cb5157f638266a95ae00d",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:object",
+      "rkaf:assertsValue": {
+        "@value": "the name change documentation",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:908a2edce0a07d72da8b938cf1977f69e9afe0dd73d813d3b9ec66539e322630",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:64119811330c3da1ad2c20355959264804564c8356fca9d8ac4728ac20891234",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2229:2258:sha256-7020f2cd2a6b461629e410ade125f7da62d2afc0ccaf54c39109db534757f868"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:634322925cfb726e255672e90eec7320cd8017883ce06345991b534150811d52",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:5487b9f0cf541968fcd0494001a23e3237769418767cb5157f638266a95ae00d",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:logic_text",
+      "rkaf:assertsValue": {
+        "@value": "prior to returning the documentation, including that the documentation was \"seen and returned,\" to the applicant with the information request letter (IRL)",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:21016c83142cda38496ed1caf7d29fcc5b08735ab4935e5d3a6316681032fb9f",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:634322925cfb726e255672e90eec7320cd8017883ce06345991b534150811d52",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2259:2413:sha256-92870edc32e366c9248d64f32f2dde47365f2424d16616883e116ff2a5661e4e"
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2557:2651:sha256-b3e08f19ac8e2217ab0989dd3305951e67b008f16213fc1bc92d670f02febedd",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:b3e08f19ac8e2217ab0989dd3305951e67b008f16213fc1bc92d670f02febedd",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "However, if the ID has not yet been changed, they must submit their name change documentation."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 2557,
+          "oa:end": 2651,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2602:2606:sha256-151e58a831306903b282edb477bb6c4b713887cdd2b0353c84aff6f43da8e95d",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:151e58a831306903b282edb477bb6c4b713887cdd2b0353c84aff6f43da8e95d",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "they"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 2602,
+          "oa:end": 2606,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2612:2618:sha256-75490bd7b93e6fa7d18cfdea90cc6bcb983d5f3ea326249d2709ca6c94bc07ba",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:75490bd7b93e6fa7d18cfdea90cc6bcb983d5f3ea326249d2709ca6c94bc07ba",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "submit"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 2612,
+          "oa:end": 2618,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2619:2650:sha256-224a6df778a819adadb0258079a93cc04d75a37ed839d512315d50b89f388cde",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:224a6df778a819adadb0258079a93cc04d75a37ed839d512315d50b89f388cde",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "their name change documentation"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 2619,
+          "oa:end": 2650,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2566:2600:sha256-ca00d2b7e7bd4b54e1a8aa4a5b34000fbc725517113a7656966a4be9a73e5a86",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:ca00d2b7e7bd4b54e1a8aa4a5b34000fbc725517113a7656966a4be9a73e5a86",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "if the ID has not yet been changed"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 2566,
+          "oa:end": 2600,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:980e96d3ad61a0aa792efbcde704c3aca77d1ded915ada49c0491f0c5616ec4f",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:1e610e00857c8cdc237f4e9a3902a487c04c5b187150c1c7bdab71ccf7bd7f0b",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-requirement",
+      "rkaf:assertsValue": {
+        "@value": "Applicants whose ID has not yet been changed must submit their name change documentation.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:f09ffb88f342c5de33c2092f7f84f6e846dd6e2f9344aefabbf04c00831a2a61",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:980e96d3ad61a0aa792efbcde704c3aca77d1ded915ada49c0491f0c5616ec4f",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2557:2651:sha256-b3e08f19ac8e2217ab0989dd3305951e67b008f16213fc1bc92d670f02febedd"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:a339d8ffa76c5cf17bfde713bc169de0339617ada0fd802d6c26ec2384ec4079",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:1e610e00857c8cdc237f4e9a3902a487c04c5b187150c1c7bdab71ccf7bd7f0b",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:actor",
+      "rkaf:assertsValue": {
+        "@value": "they",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:997e58595242c7c972c5acfc4f32e1c12f1d9d3d4d3755157152097157c095d0",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:a339d8ffa76c5cf17bfde713bc169de0339617ada0fd802d6c26ec2384ec4079",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2602:2606:sha256-151e58a831306903b282edb477bb6c4b713887cdd2b0353c84aff6f43da8e95d"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:51323afad2e7dacc8779044e332aa9213c94202925b6b390f4e9dd385e24bc30",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:1e610e00857c8cdc237f4e9a3902a487c04c5b187150c1c7bdab71ccf7bd7f0b",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:action",
+      "rkaf:assertsValue": {
+        "@value": "submit",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:ddeb1ff48ae363f470a0e4143766e0b7c138a5fa38f69919cdcd4e6a28082899",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:51323afad2e7dacc8779044e332aa9213c94202925b6b390f4e9dd385e24bc30",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2612:2618:sha256-75490bd7b93e6fa7d18cfdea90cc6bcb983d5f3ea326249d2709ca6c94bc07ba"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:702a13f2c645144f3ad9b37642f9f32a8a347de6e5a67f22b8e64616412a0c0c",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:1e610e00857c8cdc237f4e9a3902a487c04c5b187150c1c7bdab71ccf7bd7f0b",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:object",
+      "rkaf:assertsValue": {
+        "@value": "their name change documentation",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:b954de2f3d36bfe4c7fa47edbbcc8314a21418d250973a8cddc21425aeca87d6",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:702a13f2c645144f3ad9b37642f9f32a8a347de6e5a67f22b8e64616412a0c0c",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2619:2650:sha256-224a6df778a819adadb0258079a93cc04d75a37ed839d512315d50b89f388cde"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:61394837405baa0ff59a54687bc99144142ae323fe414731f229eb02ee241265",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:1e610e00857c8cdc237f4e9a3902a487c04c5b187150c1c7bdab71ccf7bd7f0b",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:logic_text",
+      "rkaf:assertsValue": {
+        "@value": "if the ID has not yet been changed",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:be0bc4db1322e2829b6875fb49f097e87ca8f181a4105abe698ec4521c3fe89e",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:61394837405baa0ff59a54687bc99144142ae323fe414731f229eb02ee241265",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2566:2600:sha256-ca00d2b7e7bd4b54e1a8aa4a5b34000fbc725517113a7656966a4be9a73e5a86"
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2588:2600:sha256-3ca80432b1b4e95d751bb9df62868f03bd9c05e308cc6dad54efcc774e6cc876",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:3ca80432b1b4e95d751bb9df62868f03bd9c05e308cc6dad54efcc774e6cc876",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "been changed"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 2588,
+          "oa:end": 2600,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2569:2575:sha256-5a10338d3528714e1884ed3bbc02465ff102e8241561d5c06c509f4d4ea2a913",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:aa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc",
+      "rkaf:fragmentContentDigest": "sha256:5a10338d3528714e1884ed3bbc02465ff102e8241561d5c06c509f4d4ea2a913",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "the ID"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 2569,
+          "oa:end": 2575,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:08ac52ea9aaacb3efaea88736c27b96c58ad9850cbe4a5efb49f1a4bee8a4faa",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:938b7ff99d69ae0869e27a52e339a191ec1888b02f5745c54c88dc2c05d00413",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-condition",
+      "rkaf:assertsValue": {
+        "@value": "If the ID has not yet been changed.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:2f730e6510d23116b8b3919271ddb966e527a1194aedb6298aa00dbe785c7c71",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:08ac52ea9aaacb3efaea88736c27b96c58ad9850cbe4a5efb49f1a4bee8a4faa",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2566:2600:sha256-ca00d2b7e7bd4b54e1a8aa4a5b34000fbc725517113a7656966a4be9a73e5a86"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:e3e6ee5fddad7f864c7c026cca256a3f4b8694e22f3f8faf878b3f1cbb07ac4f",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:938b7ff99d69ae0869e27a52e339a191ec1888b02f5745c54c88dc2c05d00413",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:action",
+      "rkaf:assertsValue": {
+        "@value": "been changed",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:336aa262cbe43bfe735d3f8de18af41041d57a49ef1445a277dc26b13f5febe7",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:e3e6ee5fddad7f864c7c026cca256a3f4b8694e22f3f8faf878b3f1cbb07ac4f",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2588:2600:sha256-3ca80432b1b4e95d751bb9df62868f03bd9c05e308cc6dad54efcc774e6cc876"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:66edbc36ef37eed47c687b16fb26ffbc040678a2a207b94b67db3982d56c718f",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:938b7ff99d69ae0869e27a52e339a191ec1888b02f5745c54c88dc2c05d00413",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:object",
+      "rkaf:assertsValue": {
+        "@value": "the ID",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:068fb45dc8b51f58b2e2af222f08280bee3e080e4db7578557f0ef61e929c070",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:66edbc36ef37eed47c687b16fb26ffbc040678a2a207b94b67db3982d56c718f",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2569:2575:sha256-5a10338d3528714e1884ed3bbc02465ff102e8241561d5c06c509f4d4ea2a913"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:d278eda7f382a4d1837710838515b8d843e4a184c83f6b7926ae6e13568f3cb5",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:938b7ff99d69ae0869e27a52e339a191ec1888b02f5745c54c88dc2c05d00413",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:logic_text",
+      "rkaf:assertsValue": {
+        "@value": "if the ID has not yet been changed",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:8455b879e515ad5e50a21a323bf5b0d76987944a879fe76dbd5643c68463c81a",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:d278eda7f382a4d1837710838515b8d843e4a184c83f6b7926ae6e13568f3cb5",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2566:2600:sha256-ca00d2b7e7bd4b54e1a8aa4a5b34000fbc725517113a7656966a4be9a73e5a86"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:bdd22a25a6fb1589487015da145129b836b21ae7e309e16bbafb6031ffa06dfc",
+      "@type": "rkaf:RelationshipAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b37c20aacd1e0cdc93f05b5afd3689b4b216c38bcaa2339a26c9a7828ac82e7f",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:6bd16e1ff3706fe71ae9bf22f85b401881b243a413a5048ab6e09402f4521060",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:revision:3c3f892627530aa7fb80f1d9886aa8385eb08dffe4d7717bc7772c23c4d29c55",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:prerequisite",
+      "rkaf:assertsObject": "urn:rulespec:document-understanding:revision:8be4e5f6da189448daa39d4c1795f38ae51786c6124f72999c39a37dd4808527",
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:49a11dad94604fa7ab3e52b128211fff625595639f1a32200438d4e8375e3778",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:bdd22a25a6fb1589487015da145129b836b21ae7e309e16bbafb6031ffa06dfc",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aaa23cc4bc9758753066c6a970bc4e4d08f001f9fb228a7ab60b296a5ade86fdc:2566:2600:sha256-ca00d2b7e7bd4b54e1a8aa4a5b34000fbc725517113a7656966a4be9a73e5a86"
+      ],
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:qualifies"
+    }
+  ]
+}

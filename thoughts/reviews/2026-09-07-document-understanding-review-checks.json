@@ -1,0 +1,48 @@
+{
+  "review_date": "2026-09-07",
+  "scope": "Offline in-memory diagnostic probes. No provider calls or mutations to recorded run files.",
+  "evaluator_caveat": "The added invented quote probes only evaluate_semantics.evaluate. It bypasses grounding; this is not evidence that the end-to-end compiler accepts an out-of-source quote.",
+  "inputs_sha256": {
+    "examples/document_understanding/poc.py": "212de2bfc9ded3b718c37c6bc4fdf9445391ddeb1c3d7e4123603366d8bd4b61",
+    "examples/document_understanding/evaluate_semantics.py": "9bc8331887d0187b85ca4fe99701bc6ddc2bf1f21b4a33c3ed201e824ebf8763",
+    "examples/document_understanding/semantic_profile.py": "38fc81ef1fa47e3e48e9908306b0029da1070c291efd3df913197ba73abef55f",
+    "examples/document_understanding/semantic_expectations.json": "fd5f8801d9dfe72bc0e117cb8bf48a01de432ea3bbc150bfabbde60123d49eb7",
+    "examples/document_understanding/runs/gemini-3.8-flash-v2-constitution/rulebook.json": "4f2be903ca75d765140427b65703bb5c20232e66f1a73b487decc09f0eb3c7d6",
+    "examples/document_understanding/runs/gemini-3.8-flash-v2-constitution/candidates.json": "f83913c430fb0cbbdd52f3130b9e0ce28b853a365a5df261d3c74265308396ac",
+    "examples/document_understanding/runs/gemini-3.8-flash-v2-constitution/run.json": "dd18b196f04bf1b5816c95b2e0247f25b3ab873cc87acec11eb7ccffc191958f",
+    "examples/document_understanding/runs/gemini-3.8-flash-v2-constitution/source.txt": "1b2e2776a1c22a6da9f51919db10baa6776b53111a3da1afb7b6d3678c61b17b"
+  },
+  "semantic_evaluator_probes": [
+    {
+      "probe": "baseline",
+      "passed": 20,
+      "total": 20
+    },
+    {
+      "probe": "contradictory_summaries",
+      "passed": 20,
+      "total": 20
+    },
+    {
+      "probe": "wrong_actors",
+      "passed": 20,
+      "total": 20
+    },
+    {
+      "probe": "extra_unsupported_claim",
+      "passed": 20,
+      "total": 20
+    }
+  ],
+  "assertion_identity_probe": {
+    "probe": "change_only_candidate_actor",
+    "core_proposition_unchanged": true,
+    "assertion_id_changed": true,
+    "before_assertion_id": "urn:rulespec:document-poc:claim:2700dfb1698d7868242d5fc5f8e5d72a783c6e37b07dd2471fc224ba4a868a80",
+    "after_assertion_id": "urn:rulespec:document-poc:claim:641b6ad7ba99b406180d81202a7525601c5f53dce472a9f31ef40a59429fd21c"
+  },
+  "test_results": {
+    "poc": "20 passed; 2 rdflib deprecation warnings",
+    "projection": "30 passed; 101 subtests passed"
+  }
+}

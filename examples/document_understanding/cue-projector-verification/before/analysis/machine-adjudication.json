@@ -1,0 +1,210 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/machine-adjudication.json",
+  "title": "machine-adjudication",
+  "$defs": {
+    "MachineAdjudicationVerdict": {
+      "type": "string",
+      "enum": [
+        "rkaf:verdictSame",
+        "rkaf:verdictNearSame",
+        "rkaf:verdictTargetBroader",
+        "rkaf:verdictTargetNarrower",
+        "rkaf:verdictRelated"
+      ]
+    },
+    "ResolverProofType": {
+      "type": "string",
+      "enum": [
+        "rkaf:predicateCatalogProof",
+        "rkaf:assertionStateProof",
+        "rkaf:evidenceBindingProof",
+        "rkaf:baselineWarrantProof",
+        "rkaf:artifactPairingProof",
+        "rkaf:scopeComparisonProof",
+        "rkaf:machineAdjudicationProof"
+      ]
+    },
+    "ResolverProofOutcome": {
+      "type": "string",
+      "enum": [
+        "rkaf:gatePass",
+        "rkaf:gateFail",
+        "rkaf:gateUnknown",
+        "rkaf:scopeEquivalent",
+        "rkaf:scopeObservedSubsumesExpected",
+        "rkaf:scopeObservedNarrowsExpected",
+        "rkaf:scopeOverlaps",
+        "rkaf:scopeDisjoint",
+        "rkaf:scopeUnknown"
+      ]
+    },
+    "MachineAdjudicationProof": {
+      "type": "object",
+      "properties": {
+        "rkaf:proofType": {
+          "const": "rkaf:machineAdjudicationProof"
+        },
+        "rkaf:proofIssuer": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:proofComparisonContext": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:proofOutcome": {
+          "$ref": "#/$defs/ResolverProofOutcome"
+        },
+        "rkaf:proofRationale": {
+          "type": "string"
+        },
+        "rkaf:proofInput": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "rkaf:proofInputDigest": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^sha256:[0-9a-f]{64}$"
+              }
+            }
+          ]
+        },
+        "rkaf:proofSupportingRecord": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            }
+          ]
+        },
+        "rkaf:proofEvaluatedAt": {
+          "type": "string"
+        },
+        "rkaf:proofSnapshot": {
+          "type": "string"
+        },
+        "rkaf:proofRecordDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "rkaf:hasAILineage": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:independenceGroup": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:adjudicationVerdict": {
+          "$ref": "#/$defs/MachineAdjudicationVerdict"
+        },
+        "rkaf:sealedRequestDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "rkaf:sealedResponseArtifact": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        }
+      },
+      "required": [
+        "rkaf:proofType",
+        "rkaf:proofIssuer",
+        "rkaf:proofComparisonContext",
+        "rkaf:proofOutcome",
+        "rkaf:proofRationale",
+        "rkaf:proofInput",
+        "rkaf:proofEvaluatedAt",
+        "rkaf:proofSnapshot",
+        "rkaf:proofRecordDigest",
+        "rkaf:hasAILineage",
+        "rkaf:independenceGroup",
+        "rkaf:adjudicationVerdict",
+        "rkaf:sealedRequestDigest",
+        "rkaf:sealedResponseArtifact"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "rkaf:proofType": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:machineAdjudicationProof"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:machineAdjudicationProof"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:proofType"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:hasAILineage": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "rkaf:independenceGroup": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "rkaf:adjudicationVerdict": {
+                "$ref": "#/$defs/MachineAdjudicationVerdict"
+              },
+              "rkaf:sealedRequestDigest": {
+                "type": "string",
+                "pattern": "^sha256:[0-9a-f]{64}$"
+              },
+              "rkaf:sealedResponseArtifact": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            },
+            "required": [
+              "rkaf:hasAILineage",
+              "rkaf:independenceGroup",
+              "rkaf:adjudicationVerdict",
+              "rkaf:sealedRequestDigest",
+              "rkaf:sealedResponseArtifact"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

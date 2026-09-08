@@ -1,0 +1,276 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/relation-comparison-context.json",
+  "title": "relation-comparison-context",
+  "$defs": {
+    "RelationComparisonOutcome": {
+      "type": "string",
+      "enum": [
+        "rkaf:comparisonSatisfied",
+        "rkaf:comparisonAffirmedDeniedDiscrepancy",
+        "rkaf:comparisonConflict",
+        "rkaf:comparisonNotComparable",
+        "rkaf:comparisonUnknown"
+      ]
+    },
+    "RelationComparisonContext": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:RelationComparisonContext"
+        },
+        "rkaf:comparisonBaselineArtifact": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:comparisonObservedArtifact": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:comparisonExpectedAssertion": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:comparisonConsumer": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:comparisonScope": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:comparisonEvaluationTime": {
+          "type": "string"
+        },
+        "rkaf:comparisonPolicyVersion": {
+          "type": "string"
+        },
+        "rkaf:comparisonDetector": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:comparisonDetectorVersion": {
+          "type": "string"
+        },
+        "rkaf:comparisonSnapshot": {
+          "type": "string"
+        },
+        "rkaf:comparisonOutcome": {
+          "$ref": "#/$defs/RelationComparisonOutcome"
+        },
+        "rkaf:comparisonProofRecord": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "minItems": 1
+            }
+          ]
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:comparisonBaselineArtifact",
+        "rkaf:comparisonObservedArtifact",
+        "rkaf:comparisonExpectedAssertion",
+        "rkaf:comparisonConsumer",
+        "rkaf:comparisonScope",
+        "rkaf:comparisonEvaluationTime",
+        "rkaf:comparisonPolicyVersion",
+        "rkaf:comparisonDetector",
+        "rkaf:comparisonDetectorVersion",
+        "rkaf:comparisonSnapshot",
+        "rkaf:comparisonOutcome"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "rkaf:comparisonOutcome": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:comparisonSatisfied"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:comparisonSatisfied"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:comparisonOutcome"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:comparisonProofRecord": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                    },
+                    "minItems": 1
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:comparisonProofRecord"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:comparisonOutcome": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:comparisonAffirmedDeniedDiscrepancy"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:comparisonAffirmedDeniedDiscrepancy"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:comparisonOutcome"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:comparisonProofRecord": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                    },
+                    "minItems": 1
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:comparisonProofRecord"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:comparisonOutcome": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:comparisonConflict"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:comparisonConflict"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:comparisonOutcome"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:comparisonProofRecord": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                    },
+                    "minItems": 1
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:comparisonProofRecord"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:comparisonOutcome": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:comparisonNotComparable"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:comparisonNotComparable"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:comparisonOutcome"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:comparisonProofRecord": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                    },
+                    "minItems": 1
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:comparisonProofRecord"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

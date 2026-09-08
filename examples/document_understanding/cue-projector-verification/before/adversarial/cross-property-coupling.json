@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/cross-property-coupling.json",
+  "title": "cross-property-coupling",
+  "$defs": {
+    "ModelInferenceCoupling": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:ConfidenceRecord"
+        },
+        "rkaf:confidenceMethod": {
+          "const": "rkaf:model-inference"
+        },
+        "rkaf:generatedBy": {
+          "type": "string",
+          "pattern": "^urn:rkaf:actor:model:"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:confidenceMethod",
+        "rkaf:generatedBy"
+      ]
+    }
+  }
+}

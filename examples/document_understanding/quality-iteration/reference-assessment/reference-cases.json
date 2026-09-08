@@ -1,0 +1,995 @@
+{
+  "schema_version": "document-understanding-reference-assessment/1",
+  "created_at": "2026-09-07T20:44:02.953230+00:00",
+  "reference_status": "adjudicated",
+  "actor": "Codex source adjudication",
+  "actor_kind": "aiAgent",
+  "purpose": "Project gold reference set for these known development cases. Reference answers are versioned and correctable, not an assertion of infallibility or general extraction accuracy.",
+  "judgment_boundary": "A pass establishes the named meaning invariants. It does not certify every component anchor, remote rule, schema-semantic equivalence or executable logic. Inspected records can include nearby records that demonstrate an omission.",
+  "temperature_boundary": "Three source pairs have identical recorded requests except temperature 0 versus 0.2. One sample per source/temperature; cases overlap. NREG-15 is a separate process demonstration, not another extraction sample.",
+  "inputs_sha256": {
+    "runs/photos-03/rulebook.json": "5cd9274419400ac93be320e4fdfc434771a3b040021ad1095336868765ba3aed",
+    "runs/names-05/rulebook.json": "97afa979ecf77846efe0ed9b6c17f4f51f6f8a99f4992d5d2d0bc1beba77616a",
+    "runs/names-excerpts-03/rulebook.json": "659e0bfae5108485ab4399bb6b7b054d8cdbb4dee41faaca6c0d5d85a6e18238",
+    "runs/photos-t02/rulebook.json": "039c1d4f385fd12ac55249b4fe4709ad8cf0c819bcb65927c714e36958eb04e9",
+    "runs/names-t02/rulebook.json": "c843f043ccd612f100420dfba462432ce5cb6f81336cd3d82a5e3ce847c23c2d",
+    "runs/names-excerpts-t02/rulebook.json": "d1fa26c4438220727509db734213eff81907423597ea40685c85b98cd520318f"
+  },
+  "negative_control_boundary": "Retained synthetic examples define expected defects. Their presence is not proof of application detection. negative-controls/ contains the separate live checker demonstrations.",
+  "cases": [
+    {
+      "case_id": "R01",
+      "name": "Infant eyes and remote exception",
+      "expected_invariants": [
+        "Preserve partial OR complete closure for infants, newborn emphasis, and explicit exception role or unresolved exception relation."
+      ],
+      "source_evidence": [
+        {
+          "start": 104,
+          "end": 208,
+          "exact_text": "(1) It is acceptable if the infant's eyes, particularly a newborn's, are partially or completely closed;"
+        },
+        {
+          "start": 3731,
+          "end": 3859,
+          "exact_text": "Both of the applicant’s eyes should also be visible and open in the photograph (see the exception for infants in 8 FAM 402.1-1)."
+        }
+      ],
+      "negative_controls": [
+        {
+          "criterion": "Do not generalize to every adult or fabricate a resolved target."
+        }
+      ],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "R02",
+      "name": "Adjacent infant propositions",
+      "expected_invariants": [
+        "Preserve support, tilt permission and parent-face prohibition independently, whether grouped or separate."
+      ],
+      "source_evidence": [
+        {
+          "start": 210,
+          "end": 329,
+          "exact_text": "(2) The infant's head may be discreetly supported, e.g., a car seat with a white or off-white blanket behind the child."
+        },
+        {
+          "start": 330,
+          "end": 370,
+          "exact_text": "Head tilt is acceptable for infants; and"
+        },
+        {
+          "start": 372,
+          "end": 434,
+          "exact_text": "(3) A parent’s face cannot be in the photograph of the infant."
+        }
+      ],
+      "negative_controls": [
+        {
+          "criterion": "Do not require car seat, invent a tilt angle, or allow parent face because support is allowed."
+        }
+      ],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "R03",
+      "name": "Coordinated standards and appearance/certificate qualifications",
+      "expected_invariants": [
+        "Keep six months, likeness, identification and application timing; should plus separate must-request consequence; hairstyle OR facial hair permitted if likeness remains; certificate timing caution."
+      ],
+      "source_evidence": [
+        {
+          "start": 579,
+          "end": 777,
+          "exact_text": "(2) The photograph should be taken within six months of submitting the application, be a good likeness of and satisfactorily identify the applicant at the time of the application (see 22 CFR 51.26)."
+        },
+        {
+          "start": 579,
+          "end": 777,
+          "exact_text": "(2) The photograph should be taken within six months of submitting the application, be a good likeness of and satisfactorily identify the applicant at the time of the application (see 22 CFR 51.26)."
+        },
+        {
+          "start": 579,
+          "end": 777,
+          "exact_text": "(2) The photograph should be taken within six months of submitting the application, be a good likeness of and satisfactorily identify the applicant at the time of the application (see 22 CFR 51.26)."
+        },
+        {
+          "start": 778,
+          "end": 941,
+          "exact_text": "A photograph showing a change in hairstyle or facial hair from the identification document submitted is acceptable if it still is a good likeness of the applicant;"
+        },
+        {
+          "start": 1102,
+          "end": 1326,
+          "exact_text": "Be aware that even if the certificate itself was recently issued, because of U.S. Citizenship and Immigration Services processing times, the photograph may not have been taken within six months of submitting the application."
+        }
+      ],
+      "negative_controls": [
+        {
+          "criterion": "No fixed day conversion, certificate issue-date substitution, lost identification predicate or blanket reuse permission."
+        }
+      ],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "R04",
+      "name": "Different signing actors",
+      "expected_invariants": [
+        "Applicant need not sign; acceptance agent signs back for hand-carry cases."
+      ],
+      "source_evidence": [
+        {
+          "start": 1789,
+          "end": 1889,
+          "exact_text": "(c) The applicant does not need to sign the photograph, as this often causes creases or smudges; and"
+        },
+        {
+          "start": 1891,
+          "end": 1980,
+          "exact_text": "NOTE: For hand-carry applications, the acceptance agent signs the back of the photograph."
+        }
+      ],
+      "negative_controls": [
+        {
+          "criterion": "No applicant duty, prohibition of all signatures, or universal agent signing duty."
+        }
+      ],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "R05",
+      "name": "Damage boundary",
+      "expected_invariants": [
+        "Keep no-longer-good-likeness OR impeded recognition, facial area, both immaterial categories and explicit acceptance; retain examples as examples."
+      ],
+      "source_evidence": [
+        {
+          "start": 1328,
+          "end": 1379,
+          "exact_text": "(6) The photograph must be free of material damage:"
+        },
+        {
+          "start": 1381,
+          "end": 1633,
+          "exact_text": "(a) Material damage is any damage to the facial area that makes the photograph no longer a good likeness of the applicant (e.g., creases, large holes, and large smudges) or impedes the functioning of facial recognition (damage in the area of the eyes);"
+        },
+        {
+          "start": 1381,
+          "end": 1633,
+          "exact_text": "(a) Material damage is any damage to the facial area that makes the photograph no longer a good likeness of the applicant (e.g., creases, large holes, and large smudges) or impedes the functioning of facial recognition (damage in the area of the eyes);"
+        },
+        {
+          "start": 1635,
+          "end": 1754,
+          "exact_text": "(b) Immaterial damage is any damage to the background, and non-material damage to the facial area (e.g., staple holes)."
+        },
+        {
+          "start": 1635,
+          "end": 1754,
+          "exact_text": "(b) Immaterial damage is any damage to the background, and non-material damage to the facial area (e.g., staple holes)."
+        },
+        {
+          "start": 1755,
+          "end": 1787,
+          "exact_text": "Immaterial damage is acceptable;"
+        }
+      ],
+      "negative_controls": [
+        {
+          "criterion": "Do not classify harmless image effects as material or require both tests/categories simultaneously."
+        }
+      ],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "R06",
+      "name": "Temporary glasses and urgent/emergency travel",
+      "expected_invariants": [
+        "Should issue limited-validity passport using endorsement 46 when temporary medical need AND urgent OR emergency travel."
+      ],
+      "source_evidence": [
+        {
+          "start": 3000,
+          "end": 3189,
+          "exact_text": "NOTE: A limited-validity passport using endorsement 46 should be issued when the medical circumstance that requires eyeglasses is temporary and the applicant has urgent or emergency travel."
+        }
+      ],
+      "negative_controls": [
+        {
+          "criterion": "No one-year import, missing endorsement, must upgrade, or travel-only condition."
+        }
+      ],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "R07",
+      "name": "Soft versus hard force",
+      "expected_invariants": [
+        "Distinguish mandatory medical-glasses statement request from should for eyes, rare evidence and referral; explicitly preserve uncertain typing if vocabulary cannot express it."
+      ],
+      "source_evidence": [
+        {
+          "start": 2498,
+          "end": 2617,
+          "exact_text": "A medical statement signed by a medical professional/health practitioner must be requested in these rare circumstances."
+        },
+        {
+          "start": 3731,
+          "end": 3859,
+          "exact_text": "Both of the applicant’s eyes should also be visible and open in the photograph (see the exception for infants in 8 FAM 402.1-1)."
+        },
+        {
+          "start": 3731,
+          "end": 3859,
+          "exact_text": "Both of the applicant’s eyes should also be visible and open in the photograph (see the exception for infants in 8 FAM 402.1-1)."
+        },
+        {
+          "start": 3975,
+          "end": 4185,
+          "exact_text": "In rare cases, if it is unlikely that the closed eye(s) or exaggerated expression are because of a medical condition, you should request a medical statement signed by a medical professional/health practitioner."
+        },
+        {
+          "start": 4234,
+          "end": 4498,
+          "exact_text": "(1) Processing and communications/customer service personnel at passport agencies/centers or consular section personnel should refer applications without photographs to their supervisor for guidance on processing passport applications received without photographs;"
+        }
+      ],
+      "negative_controls": [
+        {
+          "criterion": "Empty issues or kind requirement must not imply every should is mandatory."
+        }
+      ],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "R08",
+      "name": "Inherited DS-11 case",
+      "expected_invariants": [
+        "Carry no photograph AND acceptance facility from suspension sentence into applicant re-execution; retain distinct actors."
+      ],
+      "source_evidence": [
+        {
+          "start": 4673,
+          "end": 4782,
+          "exact_text": "(3) Passport specialists must suspend a form DS-11 received without a photograph from an acceptance facility."
+        },
+        {
+          "start": 4783,
+          "end": 4849,
+          "exact_text": "The applicant must re-execute the form DS-11 (see IRL 975-04); and"
+        }
+      ],
+      "negative_controls": [
+        {
+          "criterion": "An otherwise complete DS-11 is not assigned this duty; nearby claims/IRL alone do not restore scope."
+        }
+      ],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "R09",
+      "name": "Positive local relationship control",
+      "expected_invariants": [
+        "Retain medical glasses exception, signed statement, four child links and additional dark/tint necessity. Review scope/prerequisite taxonomy."
+      ],
+      "source_evidence": [
+        {
+          "start": 2295,
+          "end": 2497,
+          "exact_text": "(1) Eyeglasses are not acceptable unless they cannot be removed for medical reasons, e.g., the applicant has recently had ocular surgery and the eyeglasses are necessary to protect the applicant’s eyes."
+        },
+        {
+          "start": 2295,
+          "end": 2497,
+          "exact_text": "(1) Eyeglasses are not acceptable unless they cannot be removed for medical reasons, e.g., the applicant has recently had ocular surgery and the eyeglasses are necessary to protect the applicant’s eyes."
+        },
+        {
+          "start": 2498,
+          "end": 2617,
+          "exact_text": "A medical statement signed by a medical professional/health practitioner must be requested in these rare circumstances."
+        },
+        {
+          "start": 2618,
+          "end": 2669,
+          "exact_text": "If the eyeglasses are accepted for medical reasons:"
+        },
+        {
+          "start": 2671,
+          "end": 2730,
+          "exact_text": "(a) The frames of the eyeglasses must not cover the eye(s);"
+        },
+        {
+          "start": 2732,
+          "end": 2799,
+          "exact_text": "(b) There must not be glare on eyeglasses that obscures the eye(s);"
+        },
+        {
+          "start": 2801,
+          "end": 2893,
+          "exact_text": "(c) There must not be shadows or refraction from the eyeglasses that obscure the eye(s); and"
+        },
+        {
+          "start": 2801,
+          "end": 2893,
+          "exact_text": "(c) There must not be shadows or refraction from the eyeglasses that obscure the eye(s); and"
+        },
+        {
+          "start": 2895,
+          "end": 2998,
+          "exact_text": "(d) Dark or tinted lenses are permitted if the medical statement also indicates that they are required."
+        }
+      ],
+      "negative_controls": [
+        {
+          "criterion": "No fabricated target, false link-corruption claim, rejection of correct OR grouping or automatic acceptance without lens necessity."
+        }
+      ],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "R10",
+      "name": "Disability antecedent and window boundary",
+      "expected_invariants": [
+        "Preserve disability in described possible inability-to-produce-expression circumstances; connect available baseline or explicitly identify unresolved relation."
+      ],
+      "source_evidence": [
+        {
+          "start": 3251,
+          "end": 3299,
+          "exact_text": "a. The applicant’s expression should be natural."
+        },
+        {
+          "start": 3300,
+          "end": 3391,
+          "exact_text": "Normal, unexaggerated smiles are acceptable, but unusual expressions and squinting are not."
+        },
+        {
+          "start": 3393,
+          "end": 3632,
+          "exact_text": "b. Applicants with physical or mental disabilities, including loss of muscle control (e.g., age-related degeneration or because of a medical condition such as Bell's Palsy), may not be able to produce a natural or unexaggerated expression."
+        },
+        {
+          "start": 3633,
+          "end": 3730,
+          "exact_text": "You may accept a photograph without a natural or unexaggerated expression in these circumstances."
+        }
+      ],
+      "negative_controls": [
+        {
+          "criterion": "No any-disability broadening, mandatory diagnosis/proof or invented absent-window quotation."
+        }
+      ],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "R11",
+      "name": "Medical eye closure and rare unlikely cause",
+      "expected_invariants": [
+        "Keep one OR both eyes with causal medical condition and discretionary acceptance; rare AND unlikely cause with should signed-statement request; distinguish trigger from baseline exception."
+      ],
+      "source_evidence": [
+        {
+          "start": 3731,
+          "end": 3859,
+          "exact_text": "Both of the applicant’s eyes should also be visible and open in the photograph (see the exception for infants in 8 FAM 402.1-1)."
+        },
+        {
+          "start": 3860,
+          "end": 3974,
+          "exact_text": "If the applicant is unable to open one or both eyes because of a medical condition, you may accept the photograph."
+        },
+        {
+          "start": 3975,
+          "end": 4185,
+          "exact_text": "In rare cases, if it is unlikely that the closed eye(s) or exaggerated expression are because of a medical condition, you should request a medical statement signed by a medical professional/health practitioner."
+        }
+      ],
+      "negative_controls": [
+        {
+          "criterion": "Do not flip unlikely, drop rare from aggregate representation, require statement universally, or make acceptance mandatory."
+        }
+      ],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "R12",
+      "name": "Return object and purpose",
+      "expected_invariants": [
+        "Return the application to adjudication for printing-defect context, to request a new photograph."
+      ],
+      "source_evidence": [
+        {
+          "start": 1982,
+          "end": 2115,
+          "exact_text": "(d) A photograph that appears acceptable and undamaged in the system may have a defect that is apparent when the passport is printed."
+        },
+        {
+          "start": 2116,
+          "end": 2262,
+          "exact_text": "Consequently, the passport application may be returned to adjudication to request a new photograph even though the photograph appeared acceptable."
+        }
+      ],
+      "negative_controls": [
+        {
+          "criterion": "Do not make photograph the returned object or infer a separate must-request command from purpose."
+        }
+      ],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "R13",
+      "name": "Remote reference topic",
+      "expected_invariants": [
+        "Keep unresolved 8 FAM 1001.2 specifically about DS-5504 photo importing plus separate DS-5504 suspension duty."
+      ],
+      "source_evidence": [
+        {
+          "start": 4604,
+          "end": 4671,
+          "exact_text": "See 8 FAM 1001.2 regarding importing photographs for forms DS-5504;"
+        },
+        {
+          "start": 4851,
+          "end": 4982,
+          "exact_text": "(4) Passport specialists must suspend a form DS-82 or form DS-5504 received without a photograph (see IRL 1000-05 and IRL 1018-14)."
+        }
+      ],
+      "negative_controls": [
+        {
+          "criterion": "No invented import procedures or permission to accept a missing-photo DS-5504 at counter."
+        }
+      ],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "R14",
+      "name": "Forms and receipt location",
+      "expected_invariants": [
+        "Retain DS-11 OR DS-82 counter refusal, DS-11 facility suspension, DS-82 OR DS-5504 suspension and both IRLs."
+      ],
+      "source_evidence": [
+        {
+          "start": 4500,
+          "end": 4603,
+          "exact_text": "(2) You must not accept a form DS-11 or form DS-82 received without a photograph at the public counter."
+        },
+        {
+          "start": 4500,
+          "end": 4603,
+          "exact_text": "(2) You must not accept a form DS-11 or form DS-82 received without a photograph at the public counter."
+        },
+        {
+          "start": 4673,
+          "end": 4782,
+          "exact_text": "(3) Passport specialists must suspend a form DS-11 received without a photograph from an acceptance facility."
+        },
+        {
+          "start": 4851,
+          "end": 4982,
+          "exact_text": "(4) Passport specialists must suspend a form DS-82 or form DS-5504 received without a photograph (see IRL 1000-05 and IRL 1018-14)."
+        },
+        {
+          "start": 4851,
+          "end": 4982,
+          "exact_text": "(4) Passport specialists must suspend a form DS-82 or form DS-5504 received without a photograph (see IRL 1000-05 and IRL 1018-14)."
+        }
+      ],
+      "negative_controls": [
+        {
+          "criterion": "No fixed row count, both-forms conjunction, imported facility restriction or exclusive IRL mapping."
+        }
+      ],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "R15",
+      "name": "Advisory versus descriptive language",
+      "expected_invariants": [
+        "Keep reasonableness/certificate guidance advisory while may wish and may have remain descriptive."
+      ],
+      "source_evidence": [
+        {
+          "start": 0,
+          "end": 39,
+          "exact_text": "d. Infants pose a particular challenge."
+        },
+        {
+          "start": 40,
+          "end": 102,
+          "exact_text": "The goal is the best likeness that can reasonably be obtained:"
+        },
+        {
+          "start": 943,
+          "end": 1101,
+          "exact_text": "NOTE: Applicants may wish to re-use a passport photograph that is depicted on their submitted U.S Certificate of Citizenship or Certificate of Naturalization."
+        },
+        {
+          "start": 1102,
+          "end": 1326,
+          "exact_text": "Be aware that even if the certificate itself was recently issued, because of U.S. Citizenship and Immigration Services processing times, the photograph may not have been taken within six months of submitting the application."
+        },
+        {
+          "start": 1845,
+          "end": 1885,
+          "exact_text": "as this often causes creases or smudges;"
+        },
+        {
+          "start": 1982,
+          "end": 2115,
+          "exact_text": "(d) A photograph that appears acceptable and undamaged in the system may have a defect that is apparent when the passport is printed."
+        }
+      ],
+      "negative_controls": [
+        {
+          "criterion": "No invented duties from headings, revision dates, examples or preferences."
+        }
+      ],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "NREG-01",
+      "name": "Preserve acceptable alternatives and one-or-more logic",
+      "expected_invariants": [
+        "Document material discrepancies through one or more listed acceptable documents; do not require every category.",
+        "Retain six leaf options: name change orders, divorce decrees, naturalization certificates, marriage certificates, state-law-change documentation, and customary-usage documentation.",
+        "Retain the court orders/decrees parent grouping and its name-change-order/divorce-decree alternatives.",
+        "Preserve the married-name exception reference as unresolved; do not assume every married applicant is exempt.",
+        "Retain 22 CFR 51.25 as the cited basis for the acceptable means. A grouped faithful claim may cover all options."
+      ],
+      "source_evidence": [
+        {
+          "source_input": "contiguous",
+          "start": 413,
+          "end": 1075,
+          "text": "Material discrepancies between the name recorded on the application, the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality, or the evidence of identity must be documented by submission of one or more of the documents listed in this section (see an exception for married names in 8 FAM 403.1-4(C)). Acceptable means of documenting a material name change include (per 22 CFR 51.25):\n\n(1) Court orders or decrees:\n\n(a) Name change orders; or\n\n(b) Divorce decrees;\n\n(2) Certificates of naturalization;\n\n(3) Marriage certificates;\n\n(4) Documentation demonstrating change of name by operation of state law; or\n\n(5) Documentation of customary usage.",
+          "section_label": "8 FAM 403.1-4(b)",
+          "full_source_start": 15015,
+          "full_source_end": 15677
+        }
+      ],
+      "negative_controls": [
+        {
+          "origin": "synthetic",
+          "summary": "The applicant must submit a court order, a naturalization certificate, a marriage certificate, state-law evidence, and customary-usage evidence.",
+          "expected_result": "Reject or flag the invented all-of obligation and explicit actor assignment unsupported by the passive source clause."
+        }
+      ],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "NREG-02",
+      "name": "Keep the emergency permission within its parent case",
+      "expected_invariants": [
+        "Retain material name change, more than one year before the DS-11 application, and unchanged ID as inherited context for the local emergency permission.",
+        "Retain insufficient time to request acceptable ID before urgent OR emergency travel, not merely travel urgency.",
+        "Issuance remains discretionary, limited-validity, and in the requested name.",
+        "The separate suspension/request duty remains represented with its own force."
+      ],
+      "source_evidence": [
+        {
+          "source_input": "contiguous",
+          "start": 1676,
+          "end": 2103,
+          "text": "If the applicant has had a material name change more than one year prior to applying on form DS-11 but has not updated her/his ID to reflect the material name change, you must suspend the application to request an acceptable ID in the new name. If there is insufficient time to request that the applicant submit acceptable ID prior to urgent or emergency travel, a limited-validity passport may be issued in the requested name;",
+          "section_label": "8 FAM 403.1-4(d)(1)",
+          "full_source_start": 16278,
+          "full_source_end": 16705
+        }
+      ],
+      "negative_controls": [
+        {
+          "origin": "synthetic",
+          "kind": "requirement",
+          "summary": "Officials must issue a passport whenever urgent travel is planned.",
+          "expected_result": "Reject changed force, widened scope, lost time-shortage condition and lost limited-validity constraint."
+        }
+      ],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "NREG-03",
+      "name": "Recent DS-11 branch preserves both no-new-ID duty and documentation duty",
+      "expected_invariants": [
+        "Applicants with a material name change within one year of DS-11 application need not submit ID in the new name.",
+        "If their ID is unchanged, those same applicants must submit name-change documentation.",
+        "Do not convert no obligation to submit new-name ID into a requirement to submit it, a prohibition on submitting it, or merely positive permission to submit it.",
+        "If the schema cannot represent a standalone absence of duty, expose the limitation; do not silently delete source content.",
+        "Do not attach the recent-change exemption to the older-than-one-year suspension rule or to the separate duty to submit name-change documentation."
+      ],
+      "source_evidence": [
+        {
+          "source_input": "contiguous",
+          "start": 2424,
+          "end": 2651,
+          "text": "Applicants who have had a material name change within one year of applying on a form DS-11 do not need to submit ID in the new name. However, if the ID has not yet been changed, they must submit their name change documentation.",
+          "section_label": "8 FAM 403.1-4(d)(3)",
+          "full_source_start": 17026,
+          "full_source_end": 17253
+        }
+      ],
+      "negative_controls": [],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "NREG-04",
+      "name": "Confidential former name is an exception, not a receipt power",
+      "expected_invariants": [
+        "The normal court-document content rule requires both current and former names.",
+        "The confidential-former-name branch qualifies that document-content rule.",
+        "You may receive describes a possible court order; do not create an independent legal permission solely from that phrase.",
+        "The applicant must still put both names on the application when the confidentiality case occurs.",
+        "Additional nationality OR identity evidence may be requested in that case under both 22 CFR 51.23 and 51.45.",
+        "A modifier link must point to the court-document both-names rule, not to the application-disclosure duty or the pending-name clearance duty."
+      ],
+      "source_evidence": [
+        {
+          "source_input": "selected",
+          "start": 3432,
+          "end": 3912,
+          "text": "d. The court order or decree must list both the applicant's current and former name(s).\n\nEXCEPTION: You may receive a court order in which the applicant's former name is made confidential (e.g., California's Safe at Home program). When this occurs, the applicant must provide both her/his current and former names on the application. You may request additional evidence of U.S. citizenship/non-citizen U.S. nationality or identity in accordance with 22 CFR 51.23 and 22 CFR 51.45.",
+          "section_label": "8 FAM 403.1-4(A)(d) and exception",
+          "full_source_start": 21731,
+          "full_source_end": 22211
+        }
+      ],
+      "negative_controls": [],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "NREG-05",
+      "name": "Exact exception wording does not make an unrelated target correct",
+      "expected_invariants": [
+        "The specific-documentation permission exception modifies continued previous-name use after a material name change.",
+        "It does not excuse clearance of a pending name.",
+        "Validate semantic target identity in addition to an exact applies_to quotation and existing target ID."
+      ],
+      "source_evidence": [
+        {
+          "source_input": "selected",
+          "start": 1455,
+          "end": 1688,
+          "text": "c. The applicant may not continue to use a previous name after a material name change unless the name change documentation specifically permits the applicant to continue using that name (see 8 FAM 403.1-6 regarding “known as” names).",
+          "section_label": "8 FAM 403.1-4(c)",
+          "full_source_start": 15800,
+          "full_source_end": 16033
+        },
+        {
+          "source_input": "selected",
+          "start": 3283,
+          "end": 3430,
+          "text": "(3) You must clear the applicant's pending name even though the name change is not final and even if the passport is not being issued at this time.",
+          "section_label": "8 FAM 403.1-4(A)(c)(3)",
+          "full_source_start": 21582,
+          "full_source_end": 21729
+        }
+      ],
+      "negative_controls": [
+        {
+          "origin": "synthetic",
+          "kind": "exception",
+          "quote": "unless the name change documentation specifically permits the applicant to continue using that name",
+          "relation": "exception",
+          "applies_to": [
+            "You must clear the applicant's pending name even though the name change is not final and even if the passport is not being issued at this time."
+          ],
+          "expected_result": "Flag wrong semantic target even though both strings occur exactly in the fixture."
+        }
+      ],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "NREG-06",
+      "name": "Despite-clauses preserve clearance instead of carving it out",
+      "expected_invariants": [
+        "Finality is a state constraint on the court order/decree.",
+        "Keep passport and FS-240 new-name issuance prohibitions distinct.",
+        "Pending-name clearance is mandatory even though the change is not final and even if no passport is issued now.",
+        "Do not interpret either despite-clause as an exception that removes the clearance duty.",
+        "Do not prohibit all passport issuance in every name."
+      ],
+      "source_evidence": [
+        {
+          "source_input": "selected",
+          "start": 2910,
+          "end": 3430,
+          "text": "c. The court order or decree must be final:\n\n(1) An applicant with a pending name change must not be issued a passport in her/his new name. See 8 FAM 1001.5 regarding applying for a replacement passport in a new name;\n\n(2) An applicant with a pending name change must not be issued a form FS-240 in her/his new name. See 8 FAM 1001.3 regarding amending a form FS-240; and\n\n(3) You must clear the applicant's pending name even though the name change is not final and even if the passport is not being issued at this time.",
+          "section_label": "8 FAM 403.1-4(A)(c)",
+          "full_source_start": 21209,
+          "full_source_end": 21729
+        }
+      ],
+      "negative_controls": [
+        {
+          "origin": "synthetic",
+          "kind": "exception",
+          "quote": "even if the passport is not being issued at this time",
+          "relation": "exception",
+          "applies_to": [
+            "You must clear the applicant's pending name even though the name change is not final and even if the passport is not being issued at this time."
+          ],
+          "summary": "Pending names need not be cleared when no passport is being issued.",
+          "expected_result": "Reject inversion of a preserved duty despite exact source support."
+        }
+      ],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "NREG-07",
+      "name": "Should spacing branches do not become must branches",
+      "expected_invariants": [
+        "Determine appearance for a multipart name as a mandatory duty.",
+        "If the previous passport has a space, adding a space on the current application is should guidance.",
+        "If no previous passport exists AND citizenship/non-citizen nationality evidence OR ID has a space, adding a space is should guidance.",
+        "Keep the no-prior-passport condition and OR between evidence sources.",
+        "If the taxonomy lacks guidance, retain the statement with explicit unresolved force or report an unsupported-kind/coverage limitation; do not silently erase it or upgrade should to must."
+      ],
+      "source_evidence": [
+        {
+          "source_input": "selected",
+          "start": 3971,
+          "end": 4702,
+          "text": "a. In accordance with International Civil Aviation Organization (ICAO) recommendations, U.S. passports, form FS-240, and form DS-2060 are printed in all uppercase letters. Printing a name with multiple parts in uppercase letters causes the name to appear as one word unless the parts are separated with spaces. Consequently, if the applicant has a name with multiple parts, you must determine how the name will appear:\n\n(1) If the applicant's previous passport had a space, you should add a space on the current application;\n\n(2) If the applicant does not have a previous passport and the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality or ID has a space, you should add a space on the current application; or",
+          "section_label": "8 FAM 403.1-3(B)(a)(1)-(2)",
+          "full_source_start": 6908,
+          "full_source_end": 7639
+        }
+      ],
+      "negative_controls": [
+        {
+          "origin": "synthetic",
+          "kind": "requirement",
+          "summary": "Officials must add a space whenever either a previous passport or any identification exists.",
+          "expected_result": "Reject force promotion and invented conditions."
+        }
+      ],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "NREG-08",
+      "name": "Verbal or written preference and add or remove remain alternatives",
+      "expected_invariants": [
+        "Clear preference may be expressed verbally OR in writing.",
+        "The allowed action is to add OR remove space according to that preference.",
+        "The official may make the change; no unconditional must follows.",
+        "The object it refers to spacing; a pronoun may remain unresolved, but must not be silently assigned another object."
+      ],
+      "source_evidence": [
+        {
+          "source_input": "selected",
+          "start": 4704,
+          "end": 4865,
+          "text": "(3) If the applicant expresses a clear preference to add or remove space, either verbally or in writing, you may add or remove it per the applicant's preference.",
+          "section_label": "8 FAM 403.1-3(B)(a)(3)",
+          "full_source_start": 7641,
+          "full_source_end": 7802
+        }
+      ],
+      "negative_controls": [
+        {
+          "origin": "synthetic",
+          "kind": "requirement",
+          "summary": "The applicant must request added spaces in writing.",
+          "expected_result": "Reject loss of verbal communication, removal option and discretionary force."
+        }
+      ],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "NREG-09",
+      "name": "Family preference and special-issuance sponsor note remain distinct",
+      "expected_invariants": [
+        "For several family applications, last-name spacing should be consistent unless a family member clearly prefers different spacing.",
+        "For special-issuance passports, an eligible family member's last-name spacing should match the sponsor's.",
+        "The explicit preference exception targets the general-family consistency recommendation.",
+        "Do not invent a must rule or resolve unstated precedence between the two notes."
+      ],
+      "source_evidence": [
+        {
+          "source_input": "selected",
+          "start": 4867,
+          "end": 5202,
+          "text": "NOTE: If you receive applications from several family members, you should space the last names consistently, unless a family member expresses a clear preference for a different spacing.\n\nNOTE: For special-issuance passports, the spacing of an eligible family member's last name should match the spacing of the last name of the sponsor.",
+          "section_label": "8 FAM 403.1-3(B)(a), family notes",
+          "full_source_start": 7804,
+          "full_source_end": 8139
+        }
+      ],
+      "negative_controls": [
+        {
+          "origin": "synthetic",
+          "summary": "All family members must use the sponsor's spacing regardless of preference.",
+          "expected_result": "Reject force promotion, widened special-issuance scope and elimination of the general preference exception."
+        }
+      ],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "NREG-10",
+      "name": "Generally insufficient rewrite grounds are not absolute or mandatory exceptions",
+      "expected_invariants": [
+        "Retain separate rules for spacing and suffix issues.",
+        "Generally not sufficient is weaker than an absolute prohibition.",
+        "Department disregard of a clear preference is an exception to the stated general rule.",
+        "The exception alone does not mandate or guarantee rewriting.",
+        "Retain 8 FAM 1001.2 as unresolved further guidance."
+      ],
+      "source_evidence": [
+        {
+          "source_input": "selected",
+          "start": 5204,
+          "end": 5371,
+          "text": "b. Name spacing issues are generally not sufficient cause to rewrite a passport, unless the Department disregarded the applicant's clear preference (see 8 FAM 1001.2).",
+          "section_label": "8 FAM 403.1-3(B)(b)",
+          "full_source_start": 8141,
+          "full_source_end": 8308
+        },
+        {
+          "source_input": "selected",
+          "start": 5708,
+          "end": 5874,
+          "text": "e. Name suffix issues are generally not sufficient cause to rewrite a passport, unless the Department disregarded the applicant's clear preference (see 8 FAM 1001.2).",
+          "section_label": "8 FAM 403.1-5(B)(e)",
+          "full_source_start": 59822,
+          "full_source_end": 59988
+        }
+      ],
+      "negative_controls": [
+        {
+          "origin": "synthetic",
+          "kind": "prohibition",
+          "summary": "A passport must never be rewritten for spacing or suffix issues.",
+          "expected_result": "Reject absolute force and missing exception."
+        },
+        {
+          "origin": "synthetic",
+          "kind": "requirement",
+          "summary": "The Department must rewrite every passport whenever it disregarded a preference.",
+          "expected_result": "Reject automatic rewrite mandate and loss of clear-preference qualification."
+        }
+      ],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "NREG-11",
+      "name": "Might and generally survive without becoming universal duties",
+      "expected_invariants": [
+        "Retain the possible identity-evidence requirement under 22 CFR 51.23(c) and Department guidance.",
+        "Retain its purpose: establishing the name that best identifies the applicant.",
+        "Retain generally needing documentation to update the name on ID as practical qualified guidance.",
+        "Do not emit universal new-name-ID submission from might be required, and do not drop the weaker statements solely because they lack must."
+      ],
+      "source_evidence": [
+        {
+          "source_input": "contiguous",
+          "start": 1433,
+          "end": 1670,
+          "text": "d. The applicant's name is an integral part of her/his identity. Consequently, under 22 CFR 51.23(c), evidence of identity might be required in accordance with Department guidance to establish the name that best identifies the applicant:",
+          "section_label": "8 FAM 403.1-4(d) introduction",
+          "full_source_start": 16035,
+          "full_source_end": 16272
+        },
+        {
+          "source_input": "contiguous",
+          "start": 2105,
+          "end": 2206,
+          "text": "(2) The applicant generally will need the name change documentation to change the name on her/his ID.",
+          "section_label": "8 FAM 403.1-4(d)(2), first sentence",
+          "full_source_start": 16707,
+          "full_source_end": 16808
+        }
+      ],
+      "negative_controls": [
+        {
+          "origin": "synthetic",
+          "kind": "requirement",
+          "summary": "All applicants must submit ID in their new name under 22 CFR 51.23.",
+          "expected_result": "Reject force and scope promotion and loss of subsection (c)."
+        }
+      ],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "NREG-12",
+      "name": "Source-supported tokens can still form a wrong semantic object",
+      "expected_invariants": [
+        "The applicant has had a material name change; DS-11 is the application form in the timing context.",
+        "Do not pair action has had a material name change with object form DS-11 as though the form were what changed.",
+        "A complex clause may retain full unresolved logic and omit uncertain component fields rather than inventing semantic structure.",
+        "The condition points to the suspension rule and does not itself order filing DS-11."
+      ],
+      "source_evidence": [
+        {
+          "source_input": "contiguous",
+          "start": 1676,
+          "end": 1841,
+          "text": "If the applicant has had a material name change more than one year prior to applying on form DS-11 but has not updated her/his ID to reflect the material name change",
+          "section_label": "8 FAM 403.1-4(d)(1), condition",
+          "full_source_start": 16278,
+          "full_source_end": 16443
+        }
+      ],
+      "negative_controls": [],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "NREG-13",
+      "name": "Definitions retain chapter, DS-2060, age and emancipation scope",
+      "expected_invariants": [
+        "Applicant includes the individual whose citizenship and identity are adjudicated, explicitly including DS-2060.",
+        "Minor applicants means un-emancipated applicants under 18, for purposes of this chapter.",
+        "Retain both emancipation and age predicates and the chapter limitation.",
+        "Definitions need not invent an actor/duty bearer."
+      ],
+      "source_evidence": [
+        {
+          "source_input": "selected",
+          "start": 0,
+          "end": 255,
+          "text": "NOTE: The term “applicant” is used hereinafter for the individual whose citizenship and identity is being adjudicated, including for form DS-2060. For purposes of this chapter, minor applicants are defined as un-emancipated applicants under the age of 18.",
+          "section_label": "8 FAM 403.1-1(b)(1), note",
+          "full_source_start": 852,
+          "full_source_end": 1107
+        }
+      ],
+      "negative_controls": [
+        {
+          "origin": "synthetic",
+          "kind": "definition",
+          "summary": "All persons under 18 are minor applicants in every passport-related context.",
+          "expected_result": "Reject lost emancipation predicate and widened scope."
+        }
+      ],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "NREG-14",
+      "name": "Suffix section boundaries and Sr. sense remain grounded",
+      "expected_invariants": [
+        "Convert Arabic ordinal name suffixes to Roman numerals; examples 2nd to II and 3rd to III are illustrative.",
+        "Do not generalize the conversion to every numeral on an application or assign the fragment to the preceding Name Spacing section.",
+        "Sr. may describe a prefix meaning Señor/Mr./Mister; this is descriptive possibility, not permission to print all ranks or titles.",
+        "If that sense is determined, follow referenced ranks-and-titles guidance, preserving the antecedent and 8 FAM 403.1-5(C) reference.",
+        "Do not infer unconditional removal or the unresolved target guidance's exceptions."
+      ],
+      "source_evidence": [
+        {
+          "source_input": "selected",
+          "start": 5373,
+          "end": 5874,
+          "text": "c. Arabic ordinal numbers must be changed to Roman numerals, for example, 2nd to II, 3rd to III:\n\nd. Some applicants may include the prefix “Sr.” as an abbreviation for “Señor” in Spanish meaning “Mr.” or “Mister” in English. If you determine that this is the case, follow the guidance in 8 FAM 403.1-5(C) regarding ranks and titles.\n\ne. Name suffix issues are generally not sufficient cause to rewrite a passport, unless the Department disregarded the applicant's clear preference (see 8 FAM 1001.2).",
+          "section_label": "8 FAM 403.1-5(B)(c)-(e), Name Suffixes",
+          "full_source_start": 59487,
+          "full_source_end": 59988
+        }
+      ],
+      "negative_controls": [],
+      "scope": "automatic_extraction"
+    },
+    {
+      "case_id": "NREG-15",
+      "name": "Saved corrections preserve neighboring duties and the recent-ID exemption",
+      "expected_invariants": [
+        "Action 0 restores all acceptable-document categories and one-or-more grouping while preserving the unresolved married-name reference.",
+        "Action 1 restores complete older-change/DS-11/unchanged-ID scope to discretionary emergency issuance.",
+        "Action 2 restores the recent-change/DS-11 applicant class to conditional documentation submission.",
+        "The pre-existing suspension duty and the pre-existing no-new-name-ID exemption remain current; neither is silently erased by the merges.",
+        "Current target IDs resolve to current records; superseded records remain in revision history without becoming current targets.",
+        "A successful correction action must not be reported as complete source coverage while N019 and N022 remain absent."
+      ],
+      "source_evidence": [
+        {
+          "source_input": "contiguous",
+          "start": 410,
+          "end": 2651,
+          "text": "b. Material discrepancies between the name recorded on the application, the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality, or the evidence of identity must be documented by submission of one or more of the documents listed in this section (see an exception for married names in 8 FAM 403.1-4(C)). Acceptable means of documenting a material name change include (per 22 CFR 51.25):\n\n(1) Court orders or decrees:\n\n(a) Name change orders; or\n\n(b) Divorce decrees;\n\n(2) Certificates of naturalization;\n\n(3) Marriage certificates;\n\n(4) Documentation demonstrating change of name by operation of state law; or\n\n(5) Documentation of customary usage.\n\nNOTE: Evidence of material name changes must be reviewed for evidence of counterfeiting or alteration (see 8 FAM 201.1)\n\nc. The applicant may not continue to use a previous name after a material name change unless the name change documentation specifically permits the applicant to continue using that name (see 8 FAM 403.1-6 regarding “known as” names).\n\nd. The applicant's name is an integral part of her/his identity. Consequently, under 22 CFR 51.23(c), evidence of identity might be required in accordance with Department guidance to establish the name that best identifies the applicant:\n\n(1) If the applicant has had a material name change more than one year prior to applying on form DS-11 but has not updated her/his ID to reflect the material name change, you must suspend the application to request an acceptable ID in the new name. If there is insufficient time to request that the applicant submit acceptable ID prior to urgent or emergency travel, a limited-validity passport may be issued in the requested name;\n\n(2) The applicant generally will need the name change documentation to change the name on her/his ID. You must fully notate the name change documentation prior to returning the documentation, including that the documentation was \"seen and returned,\" to the applicant with the information request letter (IRL); and\n\n(3) Applicants who have had a material name change within one year of applying on a form DS-11 do not need to submit ID in the new name. However, if the ID has not yet been changed, they must submit their name change documentation.",
+          "section_label": "8 FAM 403.1-4(b)-(d)",
+          "full_source_start": 15012,
+          "full_source_end": 17253
+        }
+      ],
+      "negative_controls": [],
+      "scope": "correction_process"
+    }
+  ]
+}

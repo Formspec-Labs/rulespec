@@ -1,0 +1,581 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/us-regulatory-artifact.json",
+  "title": "us-regulatory-artifact",
+  "$defs": {
+    "USRegulatoryIdentifierScheme": {
+      "type": "string",
+      "enum": [
+        "rkaf:us-cfr",
+        "rkaf:us-usc",
+        "rkaf:us-frdoc",
+        "rkaf:us-frdoc-legacy",
+        "rkaf:us-frdoc-x",
+        "rkaf:us-regsgov",
+        "rkaf:us-pl",
+        "rkaf:us-eo"
+      ]
+    },
+    "ArtifactIdentifierScheme": {
+      "type": "string",
+      "enum": [
+        "rkaf:eli",
+        "rkaf:eli-dl",
+        "rkaf:eli-i",
+        "rkaf:uslm",
+        "rkaf:aknt-eId",
+        "rkaf:doi",
+        "rkaf:isbn",
+        "rkaf:issn",
+        "rkaf:cid",
+        "rkaf:hash-sha256",
+        "rkaf:urn-persistent",
+        "rkaf:formspec-need",
+        "rkaf:partner-defined"
+      ]
+    },
+    "USRegulatoryArtifact": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:Artifact"
+        },
+        "rkaf:hasArtifactIdentifier": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "rkaf:artifactIdentifierScheme": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ArtifactIdentifierScheme"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/ArtifactIdentifierScheme"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "foaf:primaryTopic": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "dcterms:format": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9!#$&^_.+-]+/[A-Za-z0-9!#$&^_.+-]+(?:\\s*;.*)?$"
+        },
+        "dcterms:hasFormat": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "dcterms:isFormatOf": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "dcterms:isVersionOf": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "prov:wasRevisionOf": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "rkaf:hasContentDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "rkaf:hasAccessScope": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasRetentionPolicy": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:versionLineageEvidence": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "rkaf:hasRegulatoryIdentifier": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:regulatoryIdentifierScheme": {
+          "$ref": "#/$defs/USRegulatoryIdentifierScheme"
+        },
+        "rkaf:publishedInProceeding": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "rkaf:publishedInDocket": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "minItems": 1
+            }
+          ]
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:hasArtifactIdentifier",
+        "rkaf:artifactIdentifierScheme"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "dcterms:isVersionOf"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:versionLineageEvidence": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                    },
+                    "minItems": 1
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:versionLineageEvidence"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "prov:wasRevisionOf"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:versionLineageEvidence": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                    },
+                    "minItems": 1
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:versionLineageEvidence"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "rkaf:versionLineageEvidence"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:hasContentDigest": {
+                "type": "string",
+                "pattern": "^sha256:[0-9a-f]{64}$"
+              }
+            },
+            "required": [
+              "rkaf:hasContentDigest"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "rkaf:hasRegulatoryIdentifier"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:regulatoryIdentifierScheme": {
+                "$ref": "#/$defs/USRegulatoryIdentifierScheme"
+              }
+            },
+            "required": [
+              "rkaf:regulatoryIdentifierScheme"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:regulatoryIdentifierScheme": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:us-cfr"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:us-cfr"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:regulatoryIdentifierScheme"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:hasRegulatoryIdentifier": {
+                "type": "string",
+                "pattern": "^urn:rkaf:us:cfr:[1-9][0-9]*:[0-9]+([a-z]|-[0-9]+)?(\\.[0-9]+[a-z]{0,3}(-[0-9a-z]+)*)?$"
+              }
+            },
+            "required": [
+              "rkaf:hasRegulatoryIdentifier"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:regulatoryIdentifierScheme": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:us-usc"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:us-usc"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:regulatoryIdentifierScheme"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:hasRegulatoryIdentifier": {
+                "type": "string",
+                "pattern": "^urn:rkaf:us:usc:[1-9][0-9]*:[1-9][0-9]*[a-z]*(-[0-9a-z]+)*$"
+              }
+            },
+            "required": [
+              "rkaf:hasRegulatoryIdentifier"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:regulatoryIdentifierScheme": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:us-frdoc"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:us-frdoc"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:regulatoryIdentifierScheme"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:hasRegulatoryIdentifier": {
+                "type": "string",
+                "pattern": "^urn:rkaf:us:frdoc:[0-9]{4}-[0-9]{3,5}$"
+              }
+            },
+            "required": [
+              "rkaf:hasRegulatoryIdentifier"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:regulatoryIdentifierScheme": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:us-frdoc-legacy"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:us-frdoc-legacy"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:regulatoryIdentifierScheme"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:hasRegulatoryIdentifier": {
+                "type": "string",
+                "pattern": "^urn:rkaf:us:frdoc-legacy:[0-9]{2}-[0-9]{1,6}:[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+              }
+            },
+            "required": [
+              "rkaf:hasRegulatoryIdentifier"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:regulatoryIdentifierScheme": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:us-frdoc-x"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:us-frdoc-x"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:regulatoryIdentifierScheme"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:hasRegulatoryIdentifier": {
+                "type": "string",
+                "pattern": "^urn:rkaf:us:frdoc-x:X[0-9]{2}-[0-9]{5,7}$"
+              }
+            },
+            "required": [
+              "rkaf:hasRegulatoryIdentifier"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:regulatoryIdentifierScheme": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:us-regsgov"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:us-regsgov"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:regulatoryIdentifierScheme"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:hasRegulatoryIdentifier": {
+                "type": "string",
+                "pattern": "^urn:rkaf:us:regsgov:[A-Z0-9]+([-_][A-Z0-9]+)*$"
+              }
+            },
+            "required": [
+              "rkaf:hasRegulatoryIdentifier"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:regulatoryIdentifierScheme": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:us-pl"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:us-pl"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:regulatoryIdentifierScheme"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:hasRegulatoryIdentifier": {
+                "type": "string",
+                "pattern": "^urn:rkaf:us:pl:[1-9][0-9]*-[1-9][0-9]*$"
+              }
+            },
+            "required": [
+              "rkaf:hasRegulatoryIdentifier"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:regulatoryIdentifierScheme": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:us-eo"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:us-eo"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:regulatoryIdentifierScheme"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:hasRegulatoryIdentifier": {
+                "type": "string",
+                "pattern": "^urn:rkaf:us:eo:[1-9][0-9]*$"
+              }
+            },
+            "required": [
+              "rkaf:hasRegulatoryIdentifier"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

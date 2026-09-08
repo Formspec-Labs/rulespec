@@ -1,0 +1,70 @@
+{
+  "schema_version": "rulespec-evaluation-labels/1",
+  "dataset_id": "automatic-inventory:5f0518c42dc0b6d6f862505baa670890c8e8b68ac66f7e1e7b6a50edd5d1bf05",
+  "split": "production-assessment",
+  "label_provenance": {
+    "reviewer": "gemini-3.8-flash source-first checker",
+    "reviewer_kind": "aiAgent",
+    "method": "source_review"
+  },
+  "sources": [
+    {
+      "id": "urn:rulespec:document-understanding:document:18f4bf274ad4685c447ed7ae4d32c7ebeca3c32803bc29a9a7e037e484ff62c9",
+      "text": "c. The applicant may not continue to use a previous name after a material name change unless the name change documentation specifically permits the applicant to continue using that name (see 8 FAM 403.1-6 regarding “known as” names).\n\n(3) You must clear the applicant's pending name even though the name change is not final and even if the passport is not being issued at this time.",
+      "sha256": "18f4bf274ad4685c447ed7ae4d32c7ebeca3c32803bc29a9a7e037e484ff62c9"
+    }
+  ],
+  "expected_units": [
+    {
+      "id": "urn:rulespec:audit-unit:7ca0c27a947a4f7c882007538b7ddfd81b99d41b9febd033c8ad6e743f231ce3",
+      "meaning": "An applicant is prohibited from continuing to use a previous name following a material name change, unless an exception applies.",
+      "kind": "prohibition",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:18f4bf274ad4685c447ed7ae4d32c7ebeca3c32803bc29a9a7e037e484ff62c9",
+          "quote": "The applicant may not continue to use a previous name after a material name change",
+          "start": 3,
+          "end": 85
+        }
+      ],
+      "window_id": "window-ed7fba00bc5b787be942",
+      "excerpt_id": "window-ed7fba00bc5b787be942"
+    },
+    {
+      "id": "urn:rulespec:audit-unit:bf22c6ea312b939e5b597a4ffc4117ce4265ebba865341fa01d45f4984450e7e",
+      "meaning": "An applicant is permitted to continue using a previous name after a material name change if the documentation of the name change expressly permits continuing use of that name.",
+      "kind": "exception",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:18f4bf274ad4685c447ed7ae4d32c7ebeca3c32803bc29a9a7e037e484ff62c9",
+          "quote": "unless the name change documentation specifically permits the applicant to continue using that name",
+          "start": 86,
+          "end": 185
+        },
+        {
+          "source_id": "urn:rulespec:document-understanding:document:18f4bf274ad4685c447ed7ae4d32c7ebeca3c32803bc29a9a7e037e484ff62c9",
+          "quote": "The applicant may not continue to use a previous name after a material name change",
+          "start": 3,
+          "end": 85
+        }
+      ],
+      "window_id": "window-ed7fba00bc5b787be942",
+      "excerpt_id": "window-ed7fba00bc5b787be942"
+    },
+    {
+      "id": "urn:rulespec:audit-unit:5ab2eb61ee9ee25acafa2c891a93a62702e95906f8a3b43508453629f614f451",
+      "meaning": "You are mandatory required to clear the applicant's pending name, and this duty applies even if the name change is not final and regardless of whether the passport is currently being issued.",
+      "kind": "requirement",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:18f4bf274ad4685c447ed7ae4d32c7ebeca3c32803bc29a9a7e037e484ff62c9",
+          "quote": "You must clear the applicant's pending name even though the name change is not final and even if the passport is not being issued at this time.",
+          "start": 239,
+          "end": 382
+        }
+      ],
+      "window_id": "window-ed7fba00bc5b787be942",
+      "excerpt_id": "window-ed7fba00bc5b787be942"
+    }
+  ]
+}

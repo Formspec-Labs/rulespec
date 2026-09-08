@@ -1,0 +1,4428 @@
+{
+  "status": "passed",
+  "provider_calls": 0,
+  "exact_model_schema_including_order": true,
+  "controls": [
+    {
+      "definition": "Candidate",
+      "name": "minimal",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests."
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "missing-kind",
+      "payload": {
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests."
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "kind: field is required but not present:\n    ./document-understanding.cue:128:2\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "missing-summary",
+      "payload": {
+        "kind": "requirement",
+        "actor": "Staff",
+        "quote": "Staff must log requests."
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "summary: field is required but not present:\n    ./document-understanding.cue:129:2\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "missing-actor",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "quote": "Staff must log requests."
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "actor: field is required but not present:\n    ./document-understanding.cue:130:2\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "missing-quote",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff"
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "quote: field is required but not present:\n    ./document-understanding.cue:131:2\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "extra-property",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "extra": true
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extra: field not allowed:\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/5.json:1:120\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-kind",
+      "payload": {
+        "kind": {},
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests."
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "kind: 11 errors in empty disjunction:\nkind: conflicting values {} and \"authority\" (mismatched types struct and string):\n    ./document-understanding.cue:14:55\n    ./document-understanding.cue:128:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/6.json:1:10\nkind: conflicting values {} and \"condition\" (mismatched types struct and string):\n    ./document-understanding.cue:14:98\n    ./document-understanding.cue:128:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/6.json:1:10\nkind: conflicting values {} and \"definition\" (mismatched types struct and string):\n    ./document-understanding.cue:14:83\n    ./document-understanding.cue:128:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/6.json:1:10\nkind: conflicting values {} and \"exception\" (mismatched types struct and string):\n    ./document-understanding.cue:14:112\n    ./document-understanding.cue:128:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/6.json:1:10\nkind: conflicting values {} and \"exemption\" (mismatched types struct and string):\n    ./document-understanding.cue:14:145\n    ./document-understanding.cue:128:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/6.json:1:10\nkind: conflicting values {} and \"permission\" (mismatched types struct and string):\n    ./document-understanding.cue:14:24\n    ./document-understanding.cue:128:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/6.json:1:10\nkind: conflicting values {} and \"prohibition\" (mismatched types struct and string):\n    ./document-understanding.cue:14:39\n    ./document-understanding.cue:128:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/6.json:1:10\nkind: conflicting values {} and \"recommendation\" (mismatched types struct and string):\n    ./document-understanding.cue:14:126\n    ./document-understanding.cue:128:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/6.json:1:10\nkind: conflicting values {} and \"requirement\" (mismatched types struct and string):\n    ./document-understanding.cue:14:8\n    ./document-understanding.cue:128:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/6.json:1:10\nkind: conflicting values {} and \"statement\" (mismatched types struct and string):\n    ./document-understanding.cue:14:159\n    ./document-understanding.cue:128:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/6.json:1:10\nkind: conflicting values {} and \"threshold\" (mismatched types struct and string):\n    ./document-understanding.cue:14:69\n    ./document-understanding.cue:128:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/6.json:1:10\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "kind-requirement",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests."
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "kind-permission",
+      "payload": {
+        "kind": "permission",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests."
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "kind-prohibition",
+      "payload": {
+        "kind": "prohibition",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests."
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "kind-authority",
+      "payload": {
+        "kind": "authority",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests."
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "kind-threshold",
+      "payload": {
+        "kind": "threshold",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests."
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "kind-definition",
+      "payload": {
+        "kind": "definition",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests."
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "kind-condition",
+      "payload": {
+        "kind": "condition",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests."
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "kind-exception",
+      "payload": {
+        "kind": "exception",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests."
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "kind-recommendation",
+      "payload": {
+        "kind": "recommendation",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests."
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "kind-exemption",
+      "payload": {
+        "kind": "exemption",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests."
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "kind-statement",
+      "payload": {
+        "kind": "statement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests."
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "unknown-kind",
+      "payload": {
+        "kind": "not-a-profile-value",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests."
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "kind: 11 errors in empty disjunction:\nkind: conflicting values \"authority\" and \"not-a-profile-value\":\n    ./document-understanding.cue:14:55\n    ./document-understanding.cue:128:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/18.json:1:10\nkind: conflicting values \"condition\" and \"not-a-profile-value\":\n    ./document-understanding.cue:14:98\n    ./document-understanding.cue:128:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/18.json:1:10\nkind: conflicting values \"definition\" and \"not-a-profile-value\":\n    ./document-understanding.cue:14:83\n    ./document-understanding.cue:128:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/18.json:1:10\nkind: conflicting values \"exception\" and \"not-a-profile-value\":\n    ./document-understanding.cue:14:112\n    ./document-understanding.cue:128:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/18.json:1:10\nkind: conflicting values \"exemption\" and \"not-a-profile-value\":\n    ./document-understanding.cue:14:145\n    ./document-understanding.cue:128:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/18.json:1:10\nkind: conflicting values \"permission\" and \"not-a-profile-value\":\n    ./document-understanding.cue:14:24\n    ./document-understanding.cue:128:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/18.json:1:10\nkind: conflicting values \"prohibition\" and \"not-a-profile-value\":\n    ./document-understanding.cue:14:39\n    ./document-understanding.cue:128:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/18.json:1:10\nkind: conflicting values \"recommendation\" and \"not-a-profile-value\":\n    ./document-understanding.cue:14:126\n    ./document-understanding.cue:128:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/18.json:1:10\nkind: conflicting values \"requirement\" and \"not-a-profile-value\":\n    ./document-understanding.cue:14:8\n    ./document-understanding.cue:128:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/18.json:1:10\nkind: conflicting values \"statement\" and \"not-a-profile-value\":\n    ./document-understanding.cue:14:159\n    ./document-understanding.cue:128:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/18.json:1:10\nkind: conflicting values \"threshold\" and \"not-a-profile-value\":\n    ./document-understanding.cue:14:69\n    ./document-understanding.cue:128:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/18.json:1:10\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-summary",
+      "payload": {
+        "kind": "requirement",
+        "summary": {},
+        "actor": "Staff",
+        "quote": "Staff must log requests."
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "summary: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:77:11\n    ./document-understanding.cue:129:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/19.json:1:36\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-summary",
+      "payload": {
+        "kind": "requirement",
+        "summary": "",
+        "actor": "Staff",
+        "quote": "Staff must log requests."
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "summary: invalid value \"\" (does not satisfy strings.MinRunes(1)):\n    ./document-understanding.cue:79:25\n    ./document-understanding.cue:79:42\n    ./document-understanding.cue:129:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/20.json:1:36\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "unicode-summary",
+      "payload": {
+        "kind": "requirement",
+        "summary": "é🪪",
+        "actor": "Staff",
+        "quote": "Staff must log requests."
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-actor",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": {},
+        "quote": "Staff must log requests."
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "actor: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:47:9\n    ./document-understanding.cue:130:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/22.json:1:73\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-actor",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "",
+        "quote": "Staff must log requests."
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "unicode-actor",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "é🪪",
+        "quote": "Staff must log requests."
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-quote",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": {}
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "quote: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:79:16\n    ./document-understanding.cue:131:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/25.json:1:91\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-quote",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": ""
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "quote: invalid value \"\" (does not satisfy strings.MinRunes(1)):\n    ./document-understanding.cue:79:25\n    ./document-understanding.cue:79:42\n    ./document-understanding.cue:131:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/26.json:1:91\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "unicode-quote",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "é🪪"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-action",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "action": {}
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "action: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:53:10\n    ./document-understanding.cue:132:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/28.json:1:129\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-action",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "action": ""
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "unicode-action",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "action": "é🪪"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-object",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "object": {}
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "object: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:59:10\n    ./document-understanding.cue:133:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/31.json:1:129\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-object",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "object": ""
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "unicode-object",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "object": "é🪪"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-actor_quote",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "actor_quote": {}
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "actor_quote: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:44:14\n    ./document-understanding.cue:134:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/34.json:1:134\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-actor_quote",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "actor_quote": ""
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "unicode-actor_quote",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "actor_quote": "é🪪"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-action_quote",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "action_quote": {}
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "action_quote: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:50:15\n    ./document-understanding.cue:135:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/37.json:1:135\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-action_quote",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "action_quote": ""
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "unicode-action_quote",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "action_quote": "é🪪"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-object_quote",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "object_quote": {}
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "object_quote: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:56:15\n    ./document-understanding.cue:136:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/40.json:1:135\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-object_quote",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "object_quote": ""
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "unicode-object_quote",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "object_quote": "é🪪"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-logic_text",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "logic_text": {}
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "logic_text: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:41:13\n    ./document-understanding.cue:137:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/43.json:1:133\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-logic_text",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "logic_text": ""
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "unicode-logic_text",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "logic_text": "é🪪"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-relation",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "relation": {}
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "relation: 5 errors in empty disjunction:\nrelation: conflicting values {} and \"exception\" (mismatched types struct and string):\n    ./document-understanding.cue:68:60\n    ./document-understanding.cue:138:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/46.json:1:131\nrelation: conflicting values {} and \"none\" (mismatched types struct and string):\n    ./document-understanding.cue:68:12\n    ./document-understanding.cue:138:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/46.json:1:131\nrelation: conflicting values {} and \"prerequisite\" (mismatched types struct and string):\n    ./document-understanding.cue:68:31\n    ./document-understanding.cue:138:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/46.json:1:131\nrelation: conflicting values {} and \"scope\" (mismatched types struct and string):\n    ./document-understanding.cue:68:21\n    ./document-understanding.cue:138:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/46.json:1:131\nrelation: conflicting values {} and \"trigger\" (mismatched types struct and string):\n    ./document-understanding.cue:68:48\n    ./document-understanding.cue:138:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/46.json:1:131\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "relation-none",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "relation": "none"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "relation-scope",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "relation": "scope"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "relation-prerequisite",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "relation": "prerequisite"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "relation-trigger",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "relation": "trigger"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "relation-exception",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "relation": "exception"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "unknown-relation",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "relation": "not-a-profile-value"
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "relation: 5 errors in empty disjunction:\nrelation: conflicting values \"exception\" and \"not-a-profile-value\":\n    ./document-understanding.cue:68:60\n    ./document-understanding.cue:138:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/52.json:1:131\nrelation: conflicting values \"none\" and \"not-a-profile-value\":\n    ./document-understanding.cue:68:12\n    ./document-understanding.cue:138:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/52.json:1:131\nrelation: conflicting values \"prerequisite\" and \"not-a-profile-value\":\n    ./document-understanding.cue:68:31\n    ./document-understanding.cue:138:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/52.json:1:131\nrelation: conflicting values \"scope\" and \"not-a-profile-value\":\n    ./document-understanding.cue:68:21\n    ./document-understanding.cue:138:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/52.json:1:131\nrelation: conflicting values \"trigger\" and \"not-a-profile-value\":\n    ./document-understanding.cue:68:48\n    ./document-understanding.cue:138:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/52.json:1:131\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-section_id",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "section_id": {}
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "section_id: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:139:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/53.json:1:133\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-section_id",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "section_id": ""
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "unicode-section_id",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "section_id": "é🪪"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-window_id",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "window_id": {}
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "window_id: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:140:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/56.json:1:132\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-window_id",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "window_id": ""
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "unicode-window_id",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "window_id": "é🪪"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-modality",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "modality": {}
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "modality: 8 errors in empty disjunction:\nmodality: conflicting values {} and \"may\" (mismatched types struct and string):\n    ./document-understanding.cue:29:32\n    ./document-understanding.cue:141:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/59.json:1:131\nmodality: conflicting values {} and \"must\" (mismatched types struct and string):\n    ./document-understanding.cue:29:12\n    ./document-understanding.cue:141:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/59.json:1:131\nmodality: conflicting values {} and \"must_not\" (mismatched types struct and string):\n    ./document-understanding.cue:29:40\n    ./document-understanding.cue:141:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/59.json:1:131\nmodality: conflicting values {} and \"not_required\" (mismatched types struct and string):\n    ./document-understanding.cue:29:53\n    ./document-understanding.cue:141:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/59.json:1:131\nmodality: conflicting values {} and \"not_stated\" (mismatched types struct and string):\n    ./document-understanding.cue:29:83\n    ./document-understanding.cue:141:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/59.json:1:131\nmodality: conflicting values {} and \"possible\" (mismatched types struct and string):\n    ./document-understanding.cue:29:70\n    ./document-understanding.cue:141:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/59.json:1:131\nmodality: conflicting values {} and \"should\" (mismatched types struct and string):\n    ./document-understanding.cue:29:21\n    ./document-understanding.cue:141:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/59.json:1:131\nmodality: conflicting values {} and \"uncertain\" (mismatched types struct and string):\n    ./document-understanding.cue:29:98\n    ./document-understanding.cue:141:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/59.json:1:131\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "modality-must",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "modality": "must"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "modality-should",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "modality": "should"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "modality-may",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "modality": "may"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "modality-must_not",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "modality": "must_not"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "modality-not_required",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "modality": "not_required"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "modality-possible",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "modality": "possible"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "modality-not_stated",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "modality": "not_stated"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "modality-uncertain",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "modality": "uncertain"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "unknown-modality",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "modality": "not-a-profile-value"
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "modality: 8 errors in empty disjunction:\nmodality: conflicting values \"may\" and \"not-a-profile-value\":\n    ./document-understanding.cue:29:32\n    ./document-understanding.cue:141:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/68.json:1:131\nmodality: conflicting values \"must\" and \"not-a-profile-value\":\n    ./document-understanding.cue:29:12\n    ./document-understanding.cue:141:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/68.json:1:131\nmodality: conflicting values \"must_not\" and \"not-a-profile-value\":\n    ./document-understanding.cue:29:40\n    ./document-understanding.cue:141:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/68.json:1:131\nmodality: conflicting values \"not_required\" and \"not-a-profile-value\":\n    ./document-understanding.cue:29:53\n    ./document-understanding.cue:141:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/68.json:1:131\nmodality: conflicting values \"not_stated\" and \"not-a-profile-value\":\n    ./document-understanding.cue:29:83\n    ./document-understanding.cue:141:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/68.json:1:131\nmodality: conflicting values \"possible\" and \"not-a-profile-value\":\n    ./document-understanding.cue:29:70\n    ./document-understanding.cue:141:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/68.json:1:131\nmodality: conflicting values \"should\" and \"not-a-profile-value\":\n    ./document-understanding.cue:29:21\n    ./document-understanding.cue:141:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/68.json:1:131\nmodality: conflicting values \"uncertain\" and \"not-a-profile-value\":\n    ./document-understanding.cue:29:98\n    ./document-understanding.cue:141:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/68.json:1:131\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-modality_quote",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "modality_quote": {}
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "modality_quote: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:26:17\n    ./document-understanding.cue:142:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/69.json:1:137\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-modality_quote",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "modality_quote": ""
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "unicode-modality_quote",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "modality_quote": "é🪪"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-scope_text",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "scope_text": {}
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "scope_text: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:20:13\n    ./document-understanding.cue:143:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/72.json:1:133\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-scope_text",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "scope_text": ""
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "unicode-scope_text",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "scope_text": "é🪪"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-choice_text",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "choice_text": {}
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "choice_text: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:38:14\n    ./document-understanding.cue:144:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/75.json:1:134\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-choice_text",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "choice_text": ""
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "unicode-choice_text",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "choice_text": "é🪪"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-choice_quote",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "choice_quote": {}
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "choice_quote: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:35:15\n    ./document-understanding.cue:145:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/78.json:1:135\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-choice_quote",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "choice_quote": ""
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "unicode-choice_quote",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "choice_quote": "é🪪"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-jurisdiction",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "jurisdiction": {}
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "jurisdiction: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:65:16\n    ./document-understanding.cue:146:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/81.json:1:135\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-jurisdiction",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "jurisdiction": ""
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "unicode-jurisdiction",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "jurisdiction": "é🪪"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-jurisdiction_quote",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "jurisdiction_quote": {}
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "jurisdiction_quote: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:62:21\n    ./document-understanding.cue:147:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/84.json:1:141\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-jurisdiction_quote",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "jurisdiction_quote": ""
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "unicode-jurisdiction_quote",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "jurisdiction_quote": "é🪪"
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-scope_quotes",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "scope_quotes": {}
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "scope_quotes: conflicting values {} and [...string] (mismatched types struct and list):\n    ./document-understanding.cue:17:15\n    ./document-understanding.cue:148:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/87.json:1:135\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-list-scope_quotes",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "scope_quotes": []
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-item-scope_quotes",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "scope_quotes": [
+          ""
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "scope_quotes.0: invalid value \"\" (does not satisfy strings.MinRunes(1)):\n    ./document-understanding.cue:79:25\n    ./document-understanding.cue:17:19\n    ./document-understanding.cue:79:42\n    ./document-understanding.cue:80:22\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/89.json:1:136\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "repeated-item-scope_quotes",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "scope_quotes": [
+          "exact",
+          "exact"
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "scope_quotes: invalid value [\"exact\",\"exact\"] (does not satisfy list.UniqueItems): equal value (\"exact\") at position 0 and 1:\n    ./document-understanding.cue:80:39\n    ./document-understanding.cue:148:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/90.json:1:135\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "valid-list-scope_quotes",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "scope_quotes": [
+          "exact",
+          "other"
+        ]
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-context_quotes",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "context_quotes": {}
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "context_quotes: conflicting values {} and [...string] (mismatched types struct and list):\n    ./document-understanding.cue:23:17\n    ./document-understanding.cue:149:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/92.json:1:137\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-list-context_quotes",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "context_quotes": []
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-item-context_quotes",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "context_quotes": [
+          ""
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "context_quotes.0: invalid value \"\" (does not satisfy strings.MinRunes(1)):\n    ./document-understanding.cue:79:25\n    ./document-understanding.cue:23:21\n    ./document-understanding.cue:79:42\n    ./document-understanding.cue:80:22\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/94.json:1:138\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "repeated-item-context_quotes",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "context_quotes": [
+          "exact",
+          "exact"
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "context_quotes: invalid value [\"exact\",\"exact\"] (does not satisfy list.UniqueItems): equal value (\"exact\") at position 0 and 1:\n    ./document-understanding.cue:80:39\n    ./document-understanding.cue:149:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/95.json:1:137\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "valid-list-context_quotes",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "context_quotes": [
+          "exact",
+          "other"
+        ]
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-alternative_quotes",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "alternative_quotes": {}
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "alternative_quotes: conflicting values {} and [...string] (mismatched types struct and list):\n    ./document-understanding.cue:32:21\n    ./document-understanding.cue:150:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/97.json:1:141\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-list-alternative_quotes",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "alternative_quotes": []
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-item-alternative_quotes",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "alternative_quotes": [
+          ""
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "alternative_quotes.0: invalid value \"\" (does not satisfy strings.MinRunes(1)):\n    ./document-understanding.cue:79:25\n    ./document-understanding.cue:32:25\n    ./document-understanding.cue:79:42\n    ./document-understanding.cue:80:22\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/99.json:1:142\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "repeated-item-alternative_quotes",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "alternative_quotes": [
+          "exact",
+          "exact"
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "alternative_quotes: invalid value [\"exact\",\"exact\"] (does not satisfy list.UniqueItems): equal value (\"exact\") at position 0 and 1:\n    ./document-understanding.cue:80:39\n    ./document-understanding.cue:150:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/100.json:1:141\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "valid-list-alternative_quotes",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "alternative_quotes": [
+          "exact",
+          "other"
+        ]
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-start",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "start": {}
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "start: 2 errors in empty disjunction:\nstart: conflicting values {} and int (mismatched types struct and int):\n    ./document-understanding.cue:151:31\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/102.json:1:128\nstart: conflicting values {} and null (mismatched types struct and null):\n    ./document-understanding.cue:151:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/102.json:1:128\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-end",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "end": {}
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "end: 2 errors in empty disjunction:\nend: conflicting values {} and int (mismatched types struct and int):\n    ./document-understanding.cue:152:31\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/103.json:1:126\nend: conflicting values {} and null (mismatched types struct and null):\n    ./document-understanding.cue:152:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/103.json:1:126\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-applies_to",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "applies_to": {}
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "applies_to: conflicting values {} and [...#NonemptyText] (mismatched types struct and list):\n    ./document-understanding.cue:153:28\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/104.json:1:133\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-list-applies_to",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "applies_to": []
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-item-applies_to",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "applies_to": [
+          ""
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "applies_to.0: invalid value \"\" (does not satisfy strings.MinRunes(1)):\n    ./document-understanding.cue:79:25\n    ./document-understanding.cue:71:17\n    ./document-understanding.cue:79:42\n    ./document-understanding.cue:153:32\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/106.json:1:134\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "repeated-item-applies_to",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "applies_to": [
+          "exact",
+          "exact"
+        ]
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "valid-list-applies_to",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "applies_to": [
+          "exact",
+          "other"
+        ]
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "wrong-type-references",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "references": {}
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "references: conflicting values {} and [...#NonemptyText] (mismatched types struct and list):\n    ./document-understanding.cue:154:29\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/109.json:1:133\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-list-references",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "references": []
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "empty-item-references",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "references": [
+          ""
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "references.0: invalid value \"\" (does not satisfy strings.MinRunes(1)):\n    ./document-understanding.cue:79:25\n    ./document-understanding.cue:74:18\n    ./document-understanding.cue:79:42\n    ./document-understanding.cue:154:33\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/111.json:1:134\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "repeated-item-references",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "references": [
+          "exact",
+          "exact"
+        ]
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "valid-list-references",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "references": [
+          "exact",
+          "other"
+        ]
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "start-None",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "start": null
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "start-0",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "start": 0
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "start-5",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "start": 5
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "start--1",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "start": -1
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "start: 2 errors in empty disjunction:\nstart: conflicting values -1 and null (mismatched types int and null):\n    ./document-understanding.cue:151:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/117.json:1:128\nstart: invalid value -1 (out of bound >=0):\n    ./document-understanding.cue:151:37\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/117.json:1:128\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "start-0.5",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "start": 0.5
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "start: 2 errors in empty disjunction:\nstart: conflicting values 0.5 and int (mismatched types float and int):\n    ./document-understanding.cue:151:31\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/118.json:1:128\nstart: conflicting values 0.5 and null (mismatched types float and null):\n    ./document-understanding.cue:151:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/118.json:1:128\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "start-False",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "start": false
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "start: 2 errors in empty disjunction:\nstart: conflicting values false and int (mismatched types bool and int):\n    ./document-understanding.cue:151:31\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/119.json:1:128\nstart: conflicting values false and null (mismatched types bool and null):\n    ./document-understanding.cue:151:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/119.json:1:128\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "start-'0'",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "start": "0"
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "start: 2 errors in empty disjunction:\nstart: conflicting values \"0\" and int (mismatched types string and int):\n    ./document-understanding.cue:151:31\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/120.json:1:128\nstart: conflicting values \"0\" and null (mismatched types string and null):\n    ./document-understanding.cue:151:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/120.json:1:128\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "end-None",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "end": null
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "end-0",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "end": 0
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "end-5",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "end": 5
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "Candidate",
+      "name": "end--1",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "end": -1
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "end: 2 errors in empty disjunction:\nend: conflicting values -1 and null (mismatched types int and null):\n    ./document-understanding.cue:152:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/124.json:1:126\nend: invalid value -1 (out of bound >=0):\n    ./document-understanding.cue:152:37\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/124.json:1:126\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "end-0.5",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "end": 0.5
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "end: 2 errors in empty disjunction:\nend: conflicting values 0.5 and int (mismatched types float and int):\n    ./document-understanding.cue:152:31\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/125.json:1:126\nend: conflicting values 0.5 and null (mismatched types float and null):\n    ./document-understanding.cue:152:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/125.json:1:126\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "end-False",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "end": false
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "end: 2 errors in empty disjunction:\nend: conflicting values false and int (mismatched types bool and int):\n    ./document-understanding.cue:152:31\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/126.json:1:126\nend: conflicting values false and null (mismatched types bool and null):\n    ./document-understanding.cue:152:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/126.json:1:126\n"
+    },
+    {
+      "definition": "Candidate",
+      "name": "end-'0'",
+      "payload": {
+        "kind": "requirement",
+        "summary": "Staff must log requests.",
+        "actor": "Staff",
+        "quote": "Staff must log requests.",
+        "end": "0"
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "end: 2 errors in empty disjunction:\nend: conflicting values \"0\" and int (mismatched types string and int):\n    ./document-understanding.cue:152:31\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/127.json:1:126\nend: conflicting values \"0\" and null (mismatched types string and null):\n    ./document-understanding.cue:152:23\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/127.json:1:126\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "empty-results",
+      "payload": {
+        "extractions": []
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "missing-results",
+      "payload": {},
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions: field is required but not present:\n    ./document-understanding.cue:122:2\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "extra-property",
+      "payload": {
+        "extractions": [],
+        "extra": true
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extra: field not allowed:\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/130.json:1:22\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "empty-placeholders",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "missing-unit",
+      "payload": {
+        "extractions": [
+          {
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit: field is required but not present:\n    ./document-understanding.cue:115:2\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "missing-unit_attributes",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text"
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes: field is required but not present:\n    ./document-understanding.cue:116:2\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "missing-kind",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.kind: field is required but not present:\n    ./document-understanding.cue:86:2\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "wrong-type-kind",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": {},
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.kind: 11 errors in empty disjunction:\nextractions.0.unit_attributes.kind: conflicting values {} and \"authority\" (mismatched types struct and string):\n    ./document-understanding.cue:14:55\n    ./document-understanding.cue:86:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/135.json:1:70\nextractions.0.unit_attributes.kind: conflicting values {} and \"condition\" (mismatched types struct and string):\n    ./document-understanding.cue:14:98\n    ./document-understanding.cue:86:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/135.json:1:70\nextractions.0.unit_attributes.kind: conflicting values {} and \"definition\" (mismatched types struct and string):\n    ./document-understanding.cue:14:83\n    ./document-understanding.cue:86:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/135.json:1:70\nextractions.0.unit_attributes.kind: conflicting values {} and \"exception\" (mismatched types struct and string):\n    ./document-understanding.cue:14:112\n    ./document-understanding.cue:86:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/135.json:1:70\nextractions.0.unit_attributes.kind: conflicting values {} and \"exemption\" (mismatched types struct and string):\n    ./document-understanding.cue:14:145\n    ./document-understanding.cue:86:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/135.json:1:70\nextractions.0.unit_attributes.kind: conflicting values {} and \"permission\" (mismatched types struct and string):\n    ./document-understanding.cue:14:24\n    ./document-understanding.cue:86:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/135.json:1:70\nextractions.0.unit_attributes.kind: conflicting values {} and \"prohibition\" (mismatched types struct and string):\n    ./document-understanding.cue:14:39\n    ./document-understanding.cue:86:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/135.json:1:70\nextractions.0.unit_attributes.kind: conflicting values {} and \"recommendation\" (mismatched types struct and string):\n    ./document-understanding.cue:14:126\n    ./document-understanding.cue:86:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/135.json:1:70\nextractions.0.unit_attributes.kind: conflicting values {} and \"requirement\" (mismatched types struct and string):\n    ./document-understanding.cue:14:8\n    ./document-understanding.cue:86:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/135.json:1:70\nextractions.0.unit_attributes.kind: conflicting values {} and \"statement\" (mismatched types struct and string):\n    ./document-understanding.cue:14:159\n    ./document-understanding.cue:86:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/135.json:1:70\nextractions.0.unit_attributes.kind: conflicting values {} and \"threshold\" (mismatched types struct and string):\n    ./document-understanding.cue:14:69\n    ./document-understanding.cue:86:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/135.json:1:70\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "missing-scope_quotes",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.scope_quotes: field is required but not present:\n    ./document-understanding.cue:87:2\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "wrong-type-scope_quotes",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": {},
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.scope_quotes: conflicting values {} and [...string] (mismatched types struct and list):\n    ./document-understanding.cue:17:15\n    ./document-understanding.cue:87:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/137.json:1:99\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "missing-scope_text",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.scope_text: field is required but not present:\n    ./document-understanding.cue:88:2\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "wrong-type-scope_text",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": {},
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.scope_text: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:20:13\n    ./document-understanding.cue:88:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/139.json:1:117\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "missing-context_quotes",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.context_quotes: field is required but not present:\n    ./document-understanding.cue:89:2\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "wrong-type-context_quotes",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": {},
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.context_quotes: conflicting values {} and [...string] (mismatched types struct and list):\n    ./document-understanding.cue:23:17\n    ./document-understanding.cue:89:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/141.json:1:139\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "missing-modality_quote",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.modality_quote: field is required but not present:\n    ./document-understanding.cue:90:2\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "wrong-type-modality_quote",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": {},
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.modality_quote: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:26:17\n    ./document-understanding.cue:90:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/143.json:1:161\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "missing-modality",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.modality: field is required but not present:\n    ./document-understanding.cue:91:2\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "wrong-type-modality",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": {},
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.modality: 8 errors in empty disjunction:\nextractions.0.unit_attributes.modality: conflicting values {} and \"may\" (mismatched types struct and string):\n    ./document-understanding.cue:29:32\n    ./document-understanding.cue:91:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/145.json:1:177\nextractions.0.unit_attributes.modality: conflicting values {} and \"must\" (mismatched types struct and string):\n    ./document-understanding.cue:29:12\n    ./document-understanding.cue:91:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/145.json:1:177\nextractions.0.unit_attributes.modality: conflicting values {} and \"must_not\" (mismatched types struct and string):\n    ./document-understanding.cue:29:40\n    ./document-understanding.cue:91:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/145.json:1:177\nextractions.0.unit_attributes.modality: conflicting values {} and \"not_required\" (mismatched types struct and string):\n    ./document-understanding.cue:29:53\n    ./document-understanding.cue:91:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/145.json:1:177\nextractions.0.unit_attributes.modality: conflicting values {} and \"not_stated\" (mismatched types struct and string):\n    ./document-understanding.cue:29:83\n    ./document-understanding.cue:91:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/145.json:1:177\nextractions.0.unit_attributes.modality: conflicting values {} and \"possible\" (mismatched types struct and string):\n    ./document-understanding.cue:29:70\n    ./document-understanding.cue:91:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/145.json:1:177\nextractions.0.unit_attributes.modality: conflicting values {} and \"should\" (mismatched types struct and string):\n    ./document-understanding.cue:29:21\n    ./document-understanding.cue:91:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/145.json:1:177\nextractions.0.unit_attributes.modality: conflicting values {} and \"uncertain\" (mismatched types struct and string):\n    ./document-understanding.cue:29:98\n    ./document-understanding.cue:91:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/145.json:1:177\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "missing-alternative_quotes",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.alternative_quotes: field is required but not present:\n    ./document-understanding.cue:92:2\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "wrong-type-alternative_quotes",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": {},
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.alternative_quotes: conflicting values {} and [...string] (mismatched types struct and list):\n    ./document-understanding.cue:32:21\n    ./document-understanding.cue:92:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/147.json:1:213\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "missing-choice_quote",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.choice_quote: field is required but not present:\n    ./document-understanding.cue:93:2\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "wrong-type-choice_quote",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": {},
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.choice_quote: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:35:15\n    ./document-understanding.cue:93:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/149.json:1:233\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "missing-choice_text",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.choice_text: field is required but not present:\n    ./document-understanding.cue:94:2\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "wrong-type-choice_text",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": {},
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.choice_text: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:38:14\n    ./document-understanding.cue:94:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/151.json:1:252\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "missing-logic_text",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.logic_text: field is required but not present:\n    ./document-understanding.cue:95:2\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "wrong-type-logic_text",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": {},
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.logic_text: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:41:13\n    ./document-understanding.cue:95:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/153.json:1:270\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "missing-actor_quote",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.actor_quote: field is required but not present:\n    ./document-understanding.cue:96:2\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "wrong-type-actor_quote",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": {},
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.actor_quote: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:44:14\n    ./document-understanding.cue:96:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/155.json:1:289\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "missing-actor",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.actor: field is required but not present:\n    ./document-understanding.cue:97:2\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "wrong-type-actor",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": {},
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.actor: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:47:9\n    ./document-understanding.cue:97:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/157.json:1:302\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "missing-action_quote",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.action_quote: field is required but not present:\n    ./document-understanding.cue:98:2\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "wrong-type-action_quote",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": {},
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.action_quote: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:50:15\n    ./document-understanding.cue:98:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/159.json:1:322\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "missing-action",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.action: field is required but not present:\n    ./document-understanding.cue:99:2\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "wrong-type-action",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": {},
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.action: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:53:10\n    ./document-understanding.cue:99:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/161.json:1:336\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "missing-object_quote",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.object_quote: field is required but not present:\n    ./document-understanding.cue:100:2\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "wrong-type-object_quote",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": {},
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.object_quote: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:56:15\n    ./document-understanding.cue:100:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/163.json:1:356\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "missing-object",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.object: field is required but not present:\n    ./document-understanding.cue:101:2\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "wrong-type-object",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": {},
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.object: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:59:10\n    ./document-understanding.cue:101:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/165.json:1:370\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "missing-jurisdiction_quote",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.jurisdiction_quote: field is required but not present:\n    ./document-understanding.cue:102:2\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "wrong-type-jurisdiction_quote",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": {},
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.jurisdiction_quote: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:62:21\n    ./document-understanding.cue:102:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/167.json:1:396\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "missing-jurisdiction",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.jurisdiction: field is required but not present:\n    ./document-understanding.cue:103:2\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "wrong-type-jurisdiction",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": {},
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.jurisdiction: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:65:16\n    ./document-understanding.cue:103:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/169.json:1:416\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "missing-relation",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.relation: field is required but not present:\n    ./document-understanding.cue:104:2\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "wrong-type-relation",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": {},
+              "applies_to": [],
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.relation: 5 errors in empty disjunction:\nextractions.0.unit_attributes.relation: conflicting values {} and \"exception\" (mismatched types struct and string):\n    ./document-understanding.cue:68:60\n    ./document-understanding.cue:104:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/171.json:1:432\nextractions.0.unit_attributes.relation: conflicting values {} and \"none\" (mismatched types struct and string):\n    ./document-understanding.cue:68:12\n    ./document-understanding.cue:104:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/171.json:1:432\nextractions.0.unit_attributes.relation: conflicting values {} and \"prerequisite\" (mismatched types struct and string):\n    ./document-understanding.cue:68:31\n    ./document-understanding.cue:104:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/171.json:1:432\nextractions.0.unit_attributes.relation: conflicting values {} and \"scope\" (mismatched types struct and string):\n    ./document-understanding.cue:68:21\n    ./document-understanding.cue:104:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/171.json:1:432\nextractions.0.unit_attributes.relation: conflicting values {} and \"trigger\" (mismatched types struct and string):\n    ./document-understanding.cue:68:48\n    ./document-understanding.cue:104:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/171.json:1:432\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "missing-applies_to",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.applies_to: field is required but not present:\n    ./document-understanding.cue:105:2\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "wrong-type-applies_to",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": {},
+              "references": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.applies_to: conflicting values {} and [...string] (mismatched types struct and list):\n    ./document-understanding.cue:71:13\n    ./document-understanding.cue:105:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/173.json:1:454\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "missing-references",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.references: field is required but not present:\n    ./document-understanding.cue:106:2\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "wrong-type-references",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": {},
+              "summary": ""
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.references: conflicting values {} and [...string] (mismatched types struct and list):\n    ./document-understanding.cue:74:14\n    ./document-understanding.cue:106:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/175.json:1:472\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "missing-summary",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": []
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.summary: field is required but not present:\n    ./document-understanding.cue:107:2\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "wrong-type-summary",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": {}
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.summary: conflicting values {} and string (mismatched types struct and string):\n    ./document-understanding.cue:77:11\n    ./document-understanding.cue:107:23\n    ./document-understanding.cue:116:20\n    ./document-understanding.cue:122:20\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/177.json:1:487\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "unknown-meaning-field",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Source text",
+            "unit_attributes": {
+              "kind": "statement",
+              "scope_quotes": [],
+              "scope_text": "",
+              "context_quotes": [],
+              "modality_quote": "",
+              "modality": "not_stated",
+              "alternative_quotes": [],
+              "choice_quote": "",
+              "choice_text": "",
+              "logic_text": "",
+              "actor_quote": "",
+              "actor": "",
+              "action_quote": "",
+              "action": "",
+              "object_quote": "",
+              "object": "",
+              "jurisdiction_quote": "",
+              "jurisdiction": "",
+              "relation": "none",
+              "applies_to": [],
+              "references": [],
+              "summary": "",
+              "extra": true
+            }
+          }
+        ]
+      },
+      "expected": false,
+      "old_accepts": false,
+      "generated_accepts": false,
+      "cue_accepts": false,
+      "cue_stderr": "extractions.0.unit_attributes.extra: field not allowed:\n    ../../../../../../../../../var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/rulespec-native-controls-qxevrh16/178.json:1:492\n"
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "invented-example-0",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "Visitors must wear badges",
+            "unit_attributes": {
+              "kind": "requirement",
+              "summary": "Visitors must wear badges",
+              "actor": "Visitors",
+              "action": "wear",
+              "object": "badges",
+              "actor_quote": "Visitors",
+              "action_quote": "wear",
+              "object_quote": "badges",
+              "logic_text": "",
+              "relation": "none",
+              "modality": "must",
+              "modality_quote": "Visitors must wear badges",
+              "scope_text": "",
+              "choice_text": "",
+              "choice_quote": "",
+              "jurisdiction": "",
+              "jurisdiction_quote": "",
+              "applies_to": [],
+              "references": [],
+              "scope_quotes": [],
+              "context_quotes": [],
+              "alternative_quotes": []
+            }
+          },
+          {
+            "unit": "except infants",
+            "unit_attributes": {
+              "kind": "exception",
+              "summary": "Infants are exempt from the badge requirement",
+              "actor": "infants",
+              "action": "",
+              "object": "badges",
+              "actor_quote": "infants",
+              "action_quote": "",
+              "object_quote": "badges",
+              "logic_text": "",
+              "relation": "exception",
+              "modality": "not_stated",
+              "modality_quote": "",
+              "scope_text": "",
+              "choice_text": "",
+              "choice_quote": "",
+              "jurisdiction": "",
+              "jurisdiction_quote": "",
+              "applies_to": [
+                "Visitors must wear badges"
+              ],
+              "references": [],
+              "scope_quotes": [],
+              "context_quotes": [],
+              "alternative_quotes": []
+            }
+          },
+          {
+            "unit": "Guides may lend maps",
+            "unit_attributes": {
+              "kind": "permission",
+              "summary": "Guides may lend maps",
+              "actor": "Guides",
+              "action": "lend",
+              "object": "maps",
+              "actor_quote": "Guides",
+              "action_quote": "lend",
+              "object_quote": "maps",
+              "logic_text": "",
+              "relation": "none",
+              "modality": "may",
+              "modality_quote": "Guides may lend maps",
+              "scope_text": "",
+              "choice_text": "",
+              "choice_quote": "",
+              "jurisdiction": "",
+              "jurisdiction_quote": "",
+              "applies_to": [],
+              "references": [],
+              "scope_quotes": [],
+              "context_quotes": [],
+              "alternative_quotes": []
+            }
+          },
+          {
+            "unit": "Staff must not lend keys",
+            "unit_attributes": {
+              "kind": "prohibition",
+              "summary": "Staff must not lend keys",
+              "actor": "Staff",
+              "action": "lend",
+              "object": "keys",
+              "actor_quote": "Staff",
+              "action_quote": "lend",
+              "object_quote": "keys",
+              "logic_text": "",
+              "relation": "none",
+              "modality": "must_not",
+              "modality_quote": "Staff must not lend keys",
+              "scope_text": "",
+              "choice_text": "",
+              "choice_quote": "",
+              "jurisdiction": "",
+              "jurisdiction_quote": "",
+              "applies_to": [],
+              "references": [],
+              "scope_quotes": [],
+              "context_quotes": [],
+              "alternative_quotes": []
+            }
+          },
+          {
+            "unit": "The registrar has authority to issue passes",
+            "unit_attributes": {
+              "kind": "authority",
+              "summary": "The registrar has authority to issue passes",
+              "actor": "The registrar",
+              "action": "issue",
+              "object": "passes",
+              "actor_quote": "The registrar",
+              "action_quote": "issue",
+              "object_quote": "passes",
+              "logic_text": "",
+              "relation": "none",
+              "modality": "not_stated",
+              "modality_quote": "",
+              "scope_text": "",
+              "choice_text": "",
+              "choice_quote": "",
+              "jurisdiction": "",
+              "jurisdiction_quote": "",
+              "applies_to": [],
+              "references": [],
+              "scope_quotes": [],
+              "context_quotes": [],
+              "alternative_quotes": []
+            }
+          },
+          {
+            "unit": "A quorum is four members",
+            "unit_attributes": {
+              "kind": "threshold",
+              "summary": "Four members form a quorum",
+              "actor": "",
+              "action": "",
+              "object": "quorum",
+              "actor_quote": "",
+              "action_quote": "",
+              "object_quote": "quorum",
+              "logic_text": "A quorum is four members",
+              "relation": "none",
+              "modality": "not_stated",
+              "modality_quote": "",
+              "scope_text": "",
+              "choice_text": "",
+              "choice_quote": "",
+              "jurisdiction": "",
+              "jurisdiction_quote": "",
+              "applies_to": [],
+              "references": [],
+              "scope_quotes": [],
+              "context_quotes": [],
+              "alternative_quotes": []
+            }
+          },
+          {
+            "unit": "A guest means a person invited by a member",
+            "unit_attributes": {
+              "kind": "definition",
+              "summary": "A guest is a person invited by a member",
+              "actor": "",
+              "action": "means",
+              "object": "guest",
+              "actor_quote": "",
+              "action_quote": "means",
+              "object_quote": "guest",
+              "logic_text": "",
+              "relation": "none",
+              "modality": "not_stated",
+              "modality_quote": "",
+              "scope_text": "",
+              "choice_text": "",
+              "choice_quote": "",
+              "jurisdiction": "",
+              "jurisdiction_quote": "",
+              "applies_to": [],
+              "references": [],
+              "scope_quotes": [],
+              "context_quotes": [],
+              "alternative_quotes": []
+            }
+          },
+          {
+            "unit": "Guides may open the archive if two curators agree and a guard is present",
+            "unit_attributes": {
+              "kind": "permission",
+              "summary": "Guides may open the archive if two curators agree and a guard is present",
+              "actor": "Guides",
+              "action": "open",
+              "object": "the archive",
+              "actor_quote": "Guides",
+              "action_quote": "open",
+              "object_quote": "the archive",
+              "logic_text": "if two curators agree and a guard is present",
+              "relation": "none",
+              "modality": "may",
+              "modality_quote": "Guides may open the archive if two curators agree and a guard is present",
+              "scope_text": "",
+              "choice_text": "",
+              "choice_quote": "",
+              "jurisdiction": "",
+              "jurisdiction_quote": "",
+              "applies_to": [],
+              "references": [],
+              "scope_quotes": [],
+              "context_quotes": [],
+              "alternative_quotes": []
+            }
+          },
+          {
+            "unit": "if two curators agree and a guard is present",
+            "unit_attributes": {
+              "kind": "condition",
+              "summary": "Archive opening requires two curators' agreement and a guard",
+              "actor": "Guides",
+              "action": "open",
+              "object": "the archive",
+              "actor_quote": "Guides",
+              "action_quote": "open",
+              "object_quote": "the archive",
+              "logic_text": "if two curators agree and a guard is present",
+              "relation": "prerequisite",
+              "modality": "not_stated",
+              "modality_quote": "",
+              "scope_text": "",
+              "choice_text": "",
+              "choice_quote": "",
+              "jurisdiction": "",
+              "jurisdiction_quote": "",
+              "applies_to": [
+                "Guides may open the archive if two curators agree and a guard is present"
+              ],
+              "references": [],
+              "scope_quotes": [],
+              "context_quotes": [],
+              "alternative_quotes": []
+            }
+          },
+          {
+            "unit": "For the archive permission in section 4, a written request is required",
+            "unit_attributes": {
+              "kind": "condition",
+              "summary": "The archive permission in section 4 requires a written request",
+              "actor": "",
+              "action": "",
+              "object": "a written request",
+              "actor_quote": "",
+              "action_quote": "",
+              "object_quote": "a written request",
+              "logic_text": "",
+              "relation": "prerequisite",
+              "modality": "not_stated",
+              "modality_quote": "",
+              "scope_text": "",
+              "choice_text": "",
+              "choice_quote": "",
+              "jurisdiction": "",
+              "jurisdiction_quote": "",
+              "applies_to": [],
+              "references": [
+                "section 4"
+              ],
+              "scope_quotes": [],
+              "context_quotes": [],
+              "alternative_quotes": []
+            }
+          }
+        ]
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    },
+    {
+      "definition": "ExtractionResponse",
+      "name": "invented-example-1",
+      "payload": {
+        "extractions": [
+          {
+            "unit": "visitors should request a replacement.",
+            "unit_attributes": {
+              "kind": "recommendation",
+              "summary": "If a library card is lost, visitors should request a replacement.",
+              "actor": "visitors",
+              "action": "request",
+              "object": "a replacement",
+              "actor_quote": "visitors",
+              "action_quote": "request",
+              "object_quote": "a replacement",
+              "logic_text": "",
+              "relation": "none",
+              "modality": "should",
+              "modality_quote": "should",
+              "scope_text": "If a library card is lost",
+              "choice_text": "",
+              "choice_quote": "",
+              "jurisdiction": "",
+              "jurisdiction_quote": "",
+              "applies_to": [],
+              "references": [],
+              "scope_quotes": [
+                "If a library card is lost"
+              ],
+              "context_quotes": [],
+              "alternative_quotes": []
+            }
+          },
+          {
+            "unit": "They must present one or more of: a receipt; or an invoice bearing the account number.",
+            "unit_attributes": {
+              "kind": "requirement",
+              "summary": "Visitors whose library card is lost must present one or more of a receipt or an invoice bearing the account number.",
+              "actor": "visitors",
+              "action": "present",
+              "object": "one or more of: a receipt; or an invoice bearing the account number",
+              "actor_quote": "visitors should request a replacement.",
+              "action_quote": "present",
+              "object_quote": "one or more of: a receipt; or an invoice bearing the account number",
+              "logic_text": "",
+              "relation": "none",
+              "modality": "must",
+              "modality_quote": "must",
+              "scope_text": "If a library card is lost",
+              "choice_text": "one or more of: a receipt; or an invoice bearing the account number",
+              "choice_quote": "one or more of: a receipt; or an invoice bearing the account number",
+              "jurisdiction": "",
+              "jurisdiction_quote": "",
+              "applies_to": [],
+              "references": [],
+              "scope_quotes": [
+                "If a library card is lost"
+              ],
+              "context_quotes": [],
+              "alternative_quotes": [
+                "a receipt",
+                "an invoice bearing the account number"
+              ]
+            }
+          },
+          {
+            "unit": "visitors do not need to pay a fee.",
+            "unit_attributes": {
+              "kind": "exemption",
+              "summary": "Visitors whose card is damaged do not need to pay a fee.",
+              "actor": "visitors",
+              "action": "pay",
+              "object": "a fee",
+              "actor_quote": "visitors",
+              "action_quote": "pay",
+              "object_quote": "a fee",
+              "logic_text": "",
+              "relation": "none",
+              "modality": "not_required",
+              "modality_quote": "do not need to",
+              "scope_text": "If a card is damaged",
+              "choice_text": "",
+              "choice_quote": "",
+              "jurisdiction": "",
+              "jurisdiction_quote": "",
+              "applies_to": [],
+              "references": [],
+              "scope_quotes": [
+                "If a card is damaged"
+              ],
+              "context_quotes": [],
+              "alternative_quotes": []
+            }
+          },
+          {
+            "unit": "A delay may occur.",
+            "unit_attributes": {
+              "kind": "statement",
+              "summary": "A delay may occur when a card is damaged.",
+              "actor": "",
+              "action": "occur",
+              "object": "",
+              "actor_quote": "",
+              "action_quote": "occur",
+              "object_quote": "",
+              "logic_text": "",
+              "relation": "none",
+              "modality": "possible",
+              "modality_quote": "may",
+              "scope_text": "If a card is damaged",
+              "choice_text": "",
+              "choice_quote": "",
+              "jurisdiction": "",
+              "jurisdiction_quote": "",
+              "applies_to": [],
+              "references": [],
+              "scope_quotes": [
+                "If a card is damaged"
+              ],
+              "context_quotes": [],
+              "alternative_quotes": []
+            }
+          }
+        ]
+      },
+      "expected": true,
+      "old_accepts": true,
+      "generated_accepts": true,
+      "cue_accepts": true,
+      "cue_stderr": ""
+    }
+  ],
+  "control_count": 181,
+  "failed_controls": [],
+  "runtime_schemas_generated": true,
+  "refinement_schema_unchanged": true,
+  "prompt_and_examples_unchanged": true,
+  "unchanged_captures": [
+    "runs/names/current/01",
+    "runs/names/current/02",
+    "runs/names/definitions_first/01",
+    "runs/names/definitions_first/02",
+    "runs/names/references_first/01",
+    "runs/names/references_first/02",
+    "runs/names/rich/01",
+    "runs/names/rich/02",
+    "runs/names-excerpts/current/01",
+    "runs/names-excerpts/current/02",
+    "runs/names-excerpts/definitions_first/01",
+    "runs/names-excerpts/definitions_first/02",
+    "runs/names-excerpts/references_first/01",
+    "runs/names-excerpts/references_first/02",
+    "runs/names-excerpts/rich/01",
+    "runs/names-excerpts/rich/02",
+    "runs/photos/current/01",
+    "runs/photos/current/02",
+    "runs/photos/definitions_first/01",
+    "runs/photos/definitions_first/02",
+    "runs/photos/references_first/01",
+    "runs/photos/references_first/02",
+    "runs/photos/rich/01",
+    "runs/photos/rich/02"
+  ],
+  "historical_strict_replay_detects_drift": true,
+  "protected_files_unchanged": 9476,
+  "unchanged_core_sources": 62
+}

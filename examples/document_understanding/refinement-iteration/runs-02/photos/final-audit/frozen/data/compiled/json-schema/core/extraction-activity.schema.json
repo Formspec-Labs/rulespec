@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/extraction-activity.json",
+  "title": "extraction-activity",
+  "$defs": {
+    "ExtractionMethod": {
+      "type": "string",
+      "enum": [
+        "rkaf:deterministicParse",
+        "rkaf:ruleBasedExtraction",
+        "rkaf:modelExtraction",
+        "rkaf:humanExtraction",
+        "rkaf:importedRecord"
+      ]
+    },
+    "ExtractionActivity": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:ExtractionActivity"
+        },
+        "rkaf:extractionMethod": {
+          "$ref": "#/$defs/ExtractionMethod"
+        },
+        "rkaf:extractionRun": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:extractedBy": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:extractorVersion": {
+          "type": "string"
+        },
+        "rkaf:requestContractDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "rkaf:extractionModelRef": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:extractionPromptRef": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasAILineage": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:inputDigest": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^sha256:[0-9a-f]{64}$"
+              }
+            }
+          ]
+        },
+        "prov:startedAtTime": {
+          "type": "string"
+        },
+        "prov:endedAtTime": {
+          "type": "string"
+        },
+        "rkaf:extractionAttempt": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:extractionMethod",
+        "rkaf:extractionRun",
+        "rkaf:extractedBy",
+        "rkaf:extractorVersion"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "rkaf:extractionMethod": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:modelExtraction"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:modelExtraction"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:extractionMethod"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:extractionModelRef": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "rkaf:requestContractDigest": {
+                "type": "string",
+                "pattern": "^sha256:[0-9a-f]{64}$"
+              }
+            },
+            "required": [
+              "rkaf:extractionModelRef",
+              "rkaf:requestContractDigest"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

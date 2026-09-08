@@ -1,5 +1,13 @@
 # Standalone document understanding in Rulespec
 
+Implementation: [first local slice and remaining extraction work](2026-09-07-document-understanding-execution.md).
+The new application is runnable; the historical research and rationale remain below.
+
+Latest review: [final path forward and codebase reuse audit](../reviews/2026-09-07-document-understanding-path-forward.md).
+The experimental proof of concept now exists in `examples/document_understanding/`.
+The review updates the next milestone, identifies existing implementations to
+reuse, and records the evaluation, identity, and replay gaps identified before implementation.
+
 Follow-up: [LangExtract integration with Rulespec schemas](2026-09-07-langextract-schema-integration.md)
 records the proposed candidate schema, mapping responsibilities, and implementation
 acceptance checks. [SpicyRegs comparison](2026-09-06-spicyregs-segmenter-comparison.md)

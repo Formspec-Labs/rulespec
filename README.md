@@ -48,8 +48,13 @@ extraction, evidence linking, and validation needed to evaluate the result.
 DocSpec's document segmentation does not supply the semantic boundaries this
 workflow needs; a DocSpec release or service is not a prerequisite.
 
-Rulespec Core defines how the results are represented and checked. The complete
-standalone workflow remains an implementation objective. Existing
+Rulespec Core defines how the results are represented and checked. An
+[experimental local application](packages/rulespec-extrapolator/README.md) now
+extracts from exact text, preserves model responses for replay, and supports
+persistent corrections and review. Its
+[passport-manual results](packages/rulespec-extrapolator/evaluation/results/FINDINGS.md)
+expose remaining omissions and scope errors. The complete standalone workflow
+remains an implementation objective. Existing
 [Extrapolation release formats](spec/rulespec-releases.md#3-extrapolationrelease)
 describe an exchange path using prepared upstream inputs; they do not define
 the prerequisites for a local validation run. The
@@ -94,8 +99,8 @@ Each used to require a phone call, an email chain, or a careful re-read of a lon
 
 A workflow engine, a form builder, a case manager, an AI assistant, a search
 engine, a document generator, or a policy authoring tool. Rulespec Core is the
-portable substrate underneath those products. The separately released
-Rulespec Extrapolator can produce evidence-bound, search-only candidates, but
+portable substrate underneath those products. The separately versioned
+Rulespec Extrapolator can produce evidence-bound candidates for review, but
 it does not acquire source documents, govern vocabularies, rank results, or
 serve search.
 

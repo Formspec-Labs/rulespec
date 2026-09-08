@@ -1,0 +1,43 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+        "RetentionPostExpiry": {
+            "enum": [
+                "rkaf:delete",
+                "rkaf:anonymize",
+                "rkaf:archive",
+                "rkaf:legal-hold-on-trigger"
+            ]
+        },
+        "RetentionTrigger": {
+            "enum": [
+                "rkaf:creation",
+                "rkaf:lastAccess",
+                "rkaf:lastModification",
+                "rkaf:lifecycleEvent"
+            ]
+        }
+    },
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "@type": {
+            "const": "rkaf:RetentionPolicy"
+        },
+        "rkaf:retentionDurationDays": {
+            "type": "number",
+            "minimum": 0
+        },
+        "rkaf:retentionPostExpiry": {
+            "$ref": "#/$defs/RetentionPostExpiry"
+        },
+        "rkaf:retentionTrigger": {
+            "$ref": "#/$defs/RetentionTrigger"
+        }
+    },
+    "required": [
+        "rkaf:retentionDurationDays",
+        "rkaf:retentionPostExpiry",
+        "rkaf:retentionTrigger"
+    ]
+}

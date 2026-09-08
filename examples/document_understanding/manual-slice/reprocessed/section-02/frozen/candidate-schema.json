@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "summary",
+    "actor",
+    "quote"
+  ],
+  "properties": {
+    "kind": {
+      "enum": [
+        "requirement",
+        "permission",
+        "prohibition",
+        "authority",
+        "threshold",
+        "definition",
+        "condition",
+        "exception"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "actor": {
+      "type": "string"
+    },
+    "quote": {
+      "type": "string",
+      "minLength": 1
+    },
+    "action": {
+      "type": "string"
+    },
+    "object": {
+      "type": "string"
+    },
+    "actor_quote": {
+      "type": "string"
+    },
+    "action_quote": {
+      "type": "string"
+    },
+    "object_quote": {
+      "type": "string"
+    },
+    "logic_text": {
+      "type": "string"
+    },
+    "relation": {
+      "enum": [
+        "none",
+        "scope",
+        "prerequisite",
+        "trigger",
+        "exception"
+      ]
+    },
+    "section_id": {
+      "type": "string"
+    },
+    "window_id": {
+      "type": "string"
+    },
+    "start": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "end": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "applies_to": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

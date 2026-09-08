@@ -1,0 +1,66 @@
+{
+  "created_at": "2026-09-07T23:34:13.976189+00:00",
+  "actor": "Codex source adjudication",
+  "actor_kind": "aiAgent",
+  "reference_status": "project_gold_versioned_and_correctable",
+  "provider_calls": 0,
+  "boundary": "Named source-meaning invariants, assessed with full meaning, explicit scope/context and links. Not general accuracy, human review, executable semantics or certification of every component anchor.",
+  "original_reference_sha256": "a5388582620ca1cb67b85c612bad9473879b179352b759bf0cede74a42e9e8a1",
+  "inputs_sha256": {
+    "runs-01/names/before.json": "722a84b4d65dc660b4afd37a2f65ab5f5096522ae6771d10bcc975f319795922",
+    "runs-01/names/after.json": "e392f8d83648378b9c0cfd698f07853b226fc840d968942db67d5d7fc6278b15",
+    "runs-01/names/changes.json": "16aae6398e1c95283aa825f6bcdbcdfd0f33b0cedf5500b66f338bb21850a317",
+    "runs-01/names/manifest.json": "d97c012654d84fa5a6cc8086da3df0c541e6663d1b2c12955c2a0171a329cfe2",
+    "runs-01/photos/before.json": "4d51e6bec405c3f32e0d0e5153b819231086385c3186746bdc1ef817daf6c3dc",
+    "runs-01/photos/after.json": "8822ca2c748f9b6acac1646f8d4283a944324f5d7e8f327dcd636bd170cbe285",
+    "runs-01/photos/changes.json": "fa60d02497fdad9b38d611e8b73a7bbaf6cf9b9355cffb4a48830f02bb6039ad",
+    "runs-01/photos/manifest.json": "1b4a998a7a8443381855d8318a5c363450530a813742464dc73df5533ef5de77",
+    "runs-01/names-excerpts/before.json": "fbf9045a45b681af55847eaab0aab7f832b973c8b6d5f5eeb49d4b69f15d2726",
+    "runs-01/names-excerpts/after.json": "494108788d07a1f26161e85032cab2223943130f2ca08c39ac9a18eb509747f8",
+    "runs-01/names-excerpts/changes.json": "bb83050ae24be2431981c5829a4803760929b71d5e8157512d9dc238fe4fadc0",
+    "runs-01/names-excerpts/manifest.json": "ceec4bfb8a3fc14064058850347e2927f8ae960a14db409261412412d55e4ce4",
+    "runs-02/names/before.json": "3ea2f963adf9a7c08a7c253bf9d53649e305c8475625410172638d40880c0fc1",
+    "runs-02/names/after.json": "09fff6c4b28e81da562310739250e0ceaa53f247a3da0b7817e1d38ed46c6131",
+    "runs-02/names/changes.json": "cc64383c89ff5da0d0cddf6f73f6369de8d405b6eb5a207b6a8ef5f5c31be5d6",
+    "runs-02/names/manifest.json": "3848512580401dc6ffe2fe0593eba2430154de69939ada20aa2f9e9b7749c3aa",
+    "runs-02/photos/before.json": "8ad8810f7b9a54d89d31c4dedb771c86277bffaaf1351e7d9d74ba78b70cfa94",
+    "runs-02/photos/after.json": "8048da4ada128cf468489aefcdb5cb80d41ed89f003af3a6df34b9f80b69da1c",
+    "runs-02/photos/changes.json": "14a6a4d516e5df651743c7fb604ce146d5f96caf33b17188b11df8151bf17b77",
+    "runs-02/photos/manifest.json": "3ef48a8442195dbe90ee7263052ba4cf70b459dd1d9c214e6837f753665a0234",
+    "runs-02/names-excerpts/before.json": "af4b6b4f282af60abf3c0d22a94ac004fd2ab16c03a591aed0d4b18f4fdf87e5",
+    "runs-02/names-excerpts/after.json": "18854f57765020ad60bf6c9dda3b88171bf331f61e13c91ffbed6c78cac6b48a",
+    "runs-02/names-excerpts/changes.json": "6707054375ed671f588c974373fcdad795753d32c327550112ff2917e2d1d5a2",
+    "runs-02/names-excerpts/manifest.json": "d60c111a7d87c058f4ffa366239bce4020a37749d9701d82103cf51c0aa2bdca"
+  },
+  "results": [
+    {
+      "control": "omitted-alternative",
+      "detected_initially": true,
+      "fully_repaired_in_measured_capture": false,
+      "initial_alternatives_errors": 1,
+      "final_alternatives_errors": 1,
+      "initial_links_errors": 0,
+      "final_links_errors": 0,
+      "rationale": "The omission is detected. Recovery proposes the missing alternative but also assigns an unsupported actor; the challenge refuses the complete edit. A separate married-name reference link is added, while customary usage remains absent.",
+      "capture_manifest_sha256": "503f5c9d35d3346c805ff998ffaa3fe85731b6105a1c5574d81c2c960f52dd1d"
+    },
+    {
+      "control": "wrong-exception-target",
+      "detected_initially": true,
+      "fully_repaired_in_measured_capture": false,
+      "initial_alternatives_errors": 0,
+      "final_alternatives_errors": 0,
+      "initial_links_errors": 1,
+      "final_links_errors": 1,
+      "rationale": "The wrong target is detected and redirected. Later edits change the target revision, so ReviewStore correctly requires reconfirmation and clears the current link. The relationship pass proposes reconfirmation, but an overly broad duplicate guard refuses it. The final audit reports the missing link. A final local guard fix and regression test permit reconfirmation; no new provider run is counted as a successful repair.",
+      "capture_manifest_sha256": "a6db0cc7547bd62cd897af72e4a80da55cbf28ef7546183fe872099db38cbf7d"
+    }
+  ],
+  "post_measurement_fix": {
+    "file": "packages/rulespec-extrapolator/src/rulespec_extrapolator/refinement.py",
+    "sha256": "b64749df6d31038415314e2f4056c2f1add7fde2fe1589e8dba41660f34e936f",
+    "provider_rerun": false,
+    "test": "test_same_words_can_reconfirm_a_qualification_after_its_target_changes",
+    "test_receipt": "../test-verification.json"
+  }
+}

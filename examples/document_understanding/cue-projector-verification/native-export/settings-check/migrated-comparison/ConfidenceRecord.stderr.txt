@@ -1,0 +1,460 @@
+runtime: goroutine stack exceeds 1000000000-byte limit
+runtime: sp=0x5ae1e66803b0 stack=[0x5ae1e6680000, 0x5ae206680000]
+fatal error: stack overflow
+
+runtime stack:
+runtime.throw({0x1029dc504?, 0x1020863e4?})
+	runtime/panic.go:1229 +0x38 fp=0x16e326da0 sp=0x16e326d70 pc=0x1020ce5c8
+runtime.newstack()
+	runtime/stack.go:1178 +0x498 fp=0x16e326ed0 sp=0x16e326da0 pc=0x1020b3b48
+runtime.morestack()
+	runtime/asm_arm64.s:507 +0x70 fp=0x16e326ed0 sp=0x16e326ed0 pc=0x1020d41d0
+
+goroutine 1 gp=0x5ae1bf96a1e0 m=10 mp=0x5ae1bff21008 [running]:
+cuelang.org/go/internal/core/adt.(*nodeContext).unshare(0x5ae1d38b0808?)
+	cuelang.org/go@v0.17.1/internal/core/adt/share.go:33 +0x1a8 fp=0x5ae1e66803b0 sp=0x5ae1e66803b0 pc=0x10247d268
+cuelang.org/go/internal/core/adt.(*nodeContext).scheduleConjunct(0x5ae1d38b0808, {0x5ae1d389a620, {0x1034c79a0, 0x5ae1c00ecc80}, {{0x0, 0x0, 0x0}, 0x0, 0x0, 0x0, ...}}, ...)
+	cuelang.org/go@v0.17.1/internal/core/adt/conjunct.go:178 +0x808 fp=0x5ae1e66806c0 sp=0x5ae1e66803b0 pc=0x10244c118
+cuelang.org/go/internal/core/adt.(*nodeContext).scheduleConjunct(0x5ae1d38b0808, {0x5ae1d389a620, {0x1034c7498, 0x5ae1c00eccc0}, {{0x0, 0x0, 0x0}, 0x0, 0x0, 0x0, ...}}, ...)
+	cuelang.org/go@v0.17.1/internal/core/adt/conjunct.go:118 +0xd18 fp=0x5ae1e66809d0 sp=0x5ae1e66806c0 pc=0x10244c628
+cuelang.org/go/internal/core/adt.(*nodeContext).scheduleConjuncts(0x5ae1d38b0808)
+	cuelang.org/go@v0.17.1/internal/core/adt/unify.go:115 +0x130 fp=0x5ae1e6680b30 sp=0x5ae1e66809d0 pc=0x1024854d0
+cuelang.org/go/internal/core/adt.(*Vertex).getState(0x0?, 0x10574ed01?)
+	cuelang.org/go@v0.17.1/internal/core/adt/unify.go:65 +0x30 fp=0x5ae1e6680b60 sp=0x5ae1e6680b30 pc=0x1024852e0
+cuelang.org/go/internal/core/adt.(*Vertex).unify(0x5ae1d38930e0, 0x5ae1d38a5508, {0x0, 0x7fff, 0x4, 0x0, 0x1})
+	cuelang.org/go@v0.17.1/internal/core/adt/unify.go:268 +0x14c fp=0x5ae1e6680e00 sp=0x5ae1e6680b60 pc=0x10248609c
+cuelang.org/go/internal/core/adt.(*nodeContext).completeAllArcs(0x5ae1d38b0408, 0x7fff, 0x4, 0x1)
+	cuelang.org/go@v0.17.1/internal/core/adt/unify.go:679 +0xf4 fp=0x5ae1e6680fe0 sp=0x5ae1e6680e00 pc=0x102487594
+cuelang.org/go/internal/core/adt.(*Vertex).unify(0x5ae1d3891180, 0x5ae1d38a5508, {0x0, 0x7fff, 0x4, 0x0, 0x1})
+	cuelang.org/go@v0.17.1/internal/core/adt/unify.go:419 +0x814 fp=0x5ae1e6681280 sp=0x5ae1e6680fe0 pc=0x102486764
+cuelang.org/go/internal/core/adt.(*nodeContext).doDisjunct(0x5ae1d38b0008, {0x5ae1bfec3880, {0x1034c5380, 0x5ae1c00eb140}, {{0x0, 0x0, 0x0}, 0x0, 0x0, 0x0, ...}}, ...)
+	cuelang.org/go@v0.17.1/internal/core/adt/disjunct2.go:618 +0x45c fp=0x5ae1e6681480 sp=0x5ae1e6681280 pc=0x10246180c
+cuelang.org/go/internal/core/adt.(*nodeContext).crossProduct(0x5ae1d38b0008, {0x5ae1e6681750, 0x0, 0x0}, {0x5ae1e6681828, 0x1, 0x100681738?}, 0x5ae1d38b4000, 0x4)
+	cuelang.org/go@v0.17.1/internal/core/adt/disjunct2.go:444 +0x3bc fp=0x5ae1e66816c0 sp=0x5ae1e6681480 pc=0x102460bec
+cuelang.org/go/internal/core/adt.(*nodeContext).processDisjunctions(0x5ae1d38b0008)
+	cuelang.org/go@v0.17.1/internal/core/adt/disjunct2.go:340 +0x404 fp=0x5ae1e6681950 sp=0x5ae1e66816c0 pc=0x102460234
+cuelang.org/go/internal/core/adt.processDisjunctions(0x0?, 0x5ae1d38b2008, 0xe8?)
+	cuelang.org/go@v0.17.1/internal/core/adt/tasks.go:276 +0x24 fp=0x5ae1e6681990 sp=0x5ae1e6681950 pc=0x102480804
+cuelang.org/go/internal/core/adt.runTask(0x5ae1d38b2008, 0x4)
+	cuelang.org/go@v0.17.1/internal/core/adt/sched.go:977 +0x520 fp=0x5ae1e6681ca0 sp=0x5ae1e6681990 pc=0x10247c9e0
+cuelang.org/go/internal/core/adt.(*scheduler).process(0x5ae1d38b0178, 0x7f7f, 0x4)
+	cuelang.org/go@v0.17.1/internal/core/adt/sched.go:549 +0x2e0 fp=0x5ae1e6681d40 sp=0x5ae1e6681ca0 pc=0x10247bce0
+cuelang.org/go/internal/core/adt.(*Vertex).unify(0x5ae1d38910e0, 0x5ae1d38a5508, {0x4, 0x7fff, 0x4, 0x0, 0x1})
+	cuelang.org/go@v0.17.1/internal/core/adt/unify.go:337 +0x370 fp=0x5ae1e6681fe0 sp=0x5ae1e6681d40 pc=0x1024862c0
+cuelang.org/go/internal/core/adt.(*OpContext).unify(...)
+	cuelang.org/go@v0.17.1/internal/core/adt/eval.go:137
+cuelang.org/go/internal/core/adt.(*Vertex).Finalize(0x5ae1bfc366c0?, 0x5ae1d38a5508)
+	cuelang.org/go@v0.17.1/internal/core/adt/composite.go:1033 +0x5c fp=0x5ae1e6682010 sp=0x5ae1e6681fe0 pc=0x10244796c
+cuelang.org/go/cue.manifest(...)
+	cuelang.org/go@v0.17.1/cue/context.go:478
+cuelang.org/go/cue.remakeValue({0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x5ae1bfec3880, {0x1034d04e0, 0x5ae1c00eb110?})
+	cuelang.org/go@v0.17.1/cue/types.go:745 +0x1a0 fp=0x5ae1e6682130 sp=0x5ae1e6682010 pc=0x102513a90
+cuelang.org/go/cue.Value.Expr({0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?})
+	cuelang.org/go@v0.17.1/cue/types.go:2336 +0x608 fp=0x5ae1e66825e0 sp=0x5ae1e6682130 pc=0x10251c498
+cuelang.org/go/encoding/jsonschema.(*generator).makeItem0(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:366 +0x50 fp=0x5ae1e6682800 sp=0x5ae1e66825e0 pc=0x10253e320
+cuelang.org/go/encoding/jsonschema.(*generator).makeItem(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0?)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:358 +0x38 fp=0x5ae1e6682870 sp=0x5ae1e6682800 pc=0x10253e1d8
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem-range1({0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?})
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1028 +0x94c fp=0x5ae1e6682b10 sp=0x5ae1e6682870 pc=0x102542bdc
+cuelang.org/go/encoding/jsonschema.yieldValueConjuncts({0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x5ae1e6682d68)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1514 +0x64 fp=0x5ae1e6682b70 sp=0x5ae1e6682b10 pc=0x102544ed4
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem.valueConjuncts.func4(...)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1507
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1019 +0x1d0 fp=0x5ae1e6682de0 sp=0x5ae1e6682b70 pc=0x102541cc0
+cuelang.org/go/encoding/jsonschema.(*generator).makeItem0(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:577 +0x88c fp=0x5ae1e6683000 sp=0x5ae1e6682de0 pc=0x10253eb5c
+cuelang.org/go/encoding/jsonschema.(*generator).makeItem(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0?)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:358 +0x38 fp=0x5ae1e6683070 sp=0x5ae1e6683000 pc=0x10253e1d8
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem-range1({0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?})
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1028 +0x94c fp=0x5ae1e6683310 sp=0x5ae1e6683070 pc=0x102542bdc
+cuelang.org/go/encoding/jsonschema.yieldValueConjuncts({0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x5ae1e6683568)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1514 +0x64 fp=0x5ae1e6683370 sp=0x5ae1e6683310 pc=0x102544ed4
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem.valueConjuncts.func4(...)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1507
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1019 +0x1d0 fp=0x5ae1e66835e0 sp=0x5ae1e6683370 pc=0x102541cc0
+cuelang.org/go/encoding/jsonschema.(*generator).makeItem0(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:577 +0x88c fp=0x5ae1e6683800 sp=0x5ae1e66835e0 pc=0x10253eb5c
+cuelang.org/go/encoding/jsonschema.(*generator).makeItem(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0?)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:358 +0x38 fp=0x5ae1e6683870 sp=0x5ae1e6683800 pc=0x10253e1d8
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem-range1({0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?})
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1028 +0x94c fp=0x5ae1e6683b10 sp=0x5ae1e6683870 pc=0x102542bdc
+cuelang.org/go/encoding/jsonschema.yieldValueConjuncts({0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x5ae1e6683d68)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1514 +0x64 fp=0x5ae1e6683b70 sp=0x5ae1e6683b10 pc=0x102544ed4
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem.valueConjuncts.func4(...)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1507
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1019 +0x1d0 fp=0x5ae1e6683de0 sp=0x5ae1e6683b70 pc=0x102541cc0
+cuelang.org/go/encoding/jsonschema.(*generator).makeItem0(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:577 +0x88c fp=0x5ae1e6684000 sp=0x5ae1e6683de0 pc=0x10253eb5c
+cuelang.org/go/encoding/jsonschema.(*generator).makeItem(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0?)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:358 +0x38 fp=0x5ae1e6684070 sp=0x5ae1e6684000 pc=0x10253e1d8
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem-range1({0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?})
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1028 +0x94c fp=0x5ae1e6684310 sp=0x5ae1e6684070 pc=0x102542bdc
+cuelang.org/go/encoding/jsonschema.yieldValueConjuncts({0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x5ae1e6684568)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1514 +0x64 fp=0x5ae1e6684370 sp=0x5ae1e6684310 pc=0x102544ed4
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem.valueConjuncts.func4(...)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1507
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1019 +0x1d0 fp=0x5ae1e66845e0 sp=0x5ae1e6684370 pc=0x102541cc0
+cuelang.org/go/encoding/jsonschema.(*generator).makeItem0(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:577 +0x88c fp=0x5ae1e6684800 sp=0x5ae1e66845e0 pc=0x10253eb5c
+cuelang.org/go/encoding/jsonschema.(*generator).makeItem(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0?)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:358 +0x38 fp=0x5ae1e6684870 sp=0x5ae1e6684800 pc=0x10253e1d8
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem-range1({0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?})
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1028 +0x94c fp=0x5ae1e6684b10 sp=0x5ae1e6684870 pc=0x102542bdc
+cuelang.org/go/encoding/jsonschema.yieldValueConjuncts({0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x5ae1e6684d68)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1514 +0x64 fp=0x5ae1e6684b70 sp=0x5ae1e6684b10 pc=0x102544ed4
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem.valueConjuncts.func4(...)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1507
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1019 +0x1d0 fp=0x5ae1e6684de0 sp=0x5ae1e6684b70 pc=0x102541cc0
+...1572762 frames elided...
+cuelang.org/go/encoding/jsonschema.(*generator).makeItem0(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:577 +0x88c fp=0x5ae20667c800 sp=0x5ae20667c5e0 pc=0x10253eb5c
+cuelang.org/go/encoding/jsonschema.(*generator).makeItem(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0?)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:358 +0x38 fp=0x5ae20667c870 sp=0x5ae20667c800 pc=0x10253e1d8
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem-range1({0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?})
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1028 +0x94c fp=0x5ae20667cb10 sp=0x5ae20667c870 pc=0x102542bdc
+cuelang.org/go/encoding/jsonschema.yieldValueConjuncts({0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x5ae1bfa9cd68)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1514 +0x64 fp=0x5ae20667cb70 sp=0x5ae20667cb10 pc=0x102544ed4
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem.valueConjuncts.func4(...)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1507
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1019 +0x1d0 fp=0x5ae20667cde0 sp=0x5ae20667cb70 pc=0x102541cc0
+cuelang.org/go/encoding/jsonschema.(*generator).makeItem0(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:577 +0x88c fp=0x5ae20667d000 sp=0x5ae20667cde0 pc=0x10253eb5c
+cuelang.org/go/encoding/jsonschema.(*generator).makeItem(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0?)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:358 +0x38 fp=0x5ae20667d070 sp=0x5ae20667d000 pc=0x10253e1d8
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem-range1({0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?})
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1028 +0x94c fp=0x5ae20667d310 sp=0x5ae20667d070 pc=0x102542bdc
+cuelang.org/go/encoding/jsonschema.yieldValueConjuncts({0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x5ae1bfa9d568)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1514 +0x64 fp=0x5ae20667d370 sp=0x5ae20667d310 pc=0x102544ed4
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem.valueConjuncts.func4(...)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1507
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1019 +0x1d0 fp=0x5ae20667d5e0 sp=0x5ae20667d370 pc=0x102541cc0
+cuelang.org/go/encoding/jsonschema.(*generator).makeItem0(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:577 +0x88c fp=0x5ae20667d800 sp=0x5ae20667d5e0 pc=0x10253eb5c
+cuelang.org/go/encoding/jsonschema.(*generator).makeItem(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0?)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:358 +0x38 fp=0x5ae20667d870 sp=0x5ae20667d800 pc=0x10253e1d8
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem-range1({0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?})
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1028 +0x94c fp=0x5ae20667db10 sp=0x5ae20667d870 pc=0x102542bdc
+cuelang.org/go/encoding/jsonschema.yieldValueConjuncts({0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x5ae1bfa9dd68)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1514 +0x64 fp=0x5ae20667db70 sp=0x5ae20667db10 pc=0x102544ed4
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem.valueConjuncts.func4(...)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1507
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1019 +0x1d0 fp=0x5ae20667dde0 sp=0x5ae20667db70 pc=0x102541cc0
+cuelang.org/go/encoding/jsonschema.(*generator).makeItem0(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:577 +0x88c fp=0x5ae20667e000 sp=0x5ae20667dde0 pc=0x10253eb5c
+cuelang.org/go/encoding/jsonschema.(*generator).makeItem(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0?)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:358 +0x38 fp=0x5ae20667e070 sp=0x5ae20667e000 pc=0x10253e1d8
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem-range1({0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?})
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1028 +0x94c fp=0x5ae20667e310 sp=0x5ae20667e070 pc=0x102542bdc
+cuelang.org/go/encoding/jsonschema.yieldValueConjuncts({0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x5ae1bfa9e568)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1514 +0x64 fp=0x5ae20667e370 sp=0x5ae20667e310 pc=0x102544ed4
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem.valueConjuncts.func4(...)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1507
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1019 +0x1d0 fp=0x5ae20667e5e0 sp=0x5ae20667e370 pc=0x102541cc0
+cuelang.org/go/encoding/jsonschema.(*generator).makeItem0(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:577 +0x88c fp=0x5ae20667e800 sp=0x5ae20667e5e0 pc=0x10253eb5c
+cuelang.org/go/encoding/jsonschema.(*generator).makeItem(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0?)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:358 +0x38 fp=0x5ae20667e870 sp=0x5ae20667e800 pc=0x10253e1d8
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem-range1({0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?})
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1028 +0x94c fp=0x5ae20667eb10 sp=0x5ae20667e870 pc=0x102542bdc
+cuelang.org/go/encoding/jsonschema.yieldValueConjuncts({0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x5ae1bfa9ed68)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1514 +0x64 fp=0x5ae20667eb70 sp=0x5ae20667eb10 pc=0x102544ed4
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem.valueConjuncts.func4(...)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1507
+cuelang.org/go/encoding/jsonschema.(*generator).makeStructItem(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1019 +0x1d0 fp=0x5ae20667ede0 sp=0x5ae20667eb70 pc=0x102541cc0
+cuelang.org/go/encoding/jsonschema.(*generator).makeItem0(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x0)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:577 +0x88c fp=0x5ae20667f000 sp=0x5ae20667ede0 pc=0x10253eb5c
+cuelang.org/go/encoding/jsonschema.(*generator).makeItem(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfee8280?, 0x0?}, 0x9?)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:358 +0x38 fp=0x5ae20667f070 sp=0x5ae20667f000 pc=0x10253e1d8
+cuelang.org/go/encoding/jsonschema.(*generator).makeItem0.func1(...)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:457
+cuelang.org/go/encoding/jsonschema.mapSlice[...](...)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:1500
+cuelang.org/go/encoding/jsonschema.(*generator).makeItem0(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfb6a3c0?, 0x0?}, 0x2)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:457 +0x1370 fp=0x5ae20667f290 sp=0x5ae20667f070 pc=0x10253f640
+cuelang.org/go/encoding/jsonschema.(*generator).makeItem(0x5ae1bfee6e80, {0x5ae1bfc366c0?, 0x5ae1bfb6a3c0?, 0x0?}, 0x0?)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:358 +0x38 fp=0x5ae20667f300 sp=0x5ae20667f290 pc=0x10253e1d8
+cuelang.org/go/encoding/jsonschema.Generate({0x5ae1bfc366c0?, 0x5ae1bfb6a3c0?, 0x0?}, 0x5ae1bfec3700)
+	cuelang.org/go@v0.17.1/encoding/jsonschema/generate.go:139 +0x2bc fp=0x5ae20667f540 sp=0x5ae20667f300 pc=0x10253ccfc
+cuelang.org/go/internal/encoding.NewEncoder.func2({0x5ae1bfc366c0?, 0x5ae1bfb6a3c0?, 0x0?})
+	cuelang.org/go@v0.17.1/internal/encoding/encoder.go:92 +0x2c fp=0x5ae20667f580 sp=0x5ae20667f540 pc=0x1026c800c
+cuelang.org/go/internal/encoding.(*Encoder).Encode(0x5ae1bfee6dc0, {0x5ae1bfc366c0?, 0x5ae1bfb6a3c0?, 0x0?})
+	cuelang.org/go@v0.17.1/internal/encoding/encoder.go:280 +0x80 fp=0x5ae20667f600 sp=0x5ae20667f580 pc=0x1026c84b0
+cuelang.org/go/cmd/cue/cmd.runDef(0x5ae1bfc34450, {0x5ae1bfc6e808, 0x3a, 0x3e})
+	cuelang.org/go@v0.17.1/cmd/cue/cmd/def.go:75 +0x154 fp=0x5ae20667f6d0 sp=0x5ae20667f600 pc=0x102938a34
+cuelang.org/go/cmd/cue/cmd.newDefCmd.mkRunE.func1(0x5ae1bfb23200?, {0x5ae1bfc6e808, 0x3a, 0x3e})
+	cuelang.org/go@v0.17.1/cmd/cue/cmd/root.go:204 +0x220 fp=0x5ae20667f9c0 sp=0x5ae20667f6d0 pc=0x1029385e0
+github.com/spf13/cobra.(*Command).execute(0x5ae1bfc44608, {0x5ae1bfc6e408, 0x3e, 0x3e})
+	github.com/spf13/cobra@v1.10.2/command.go:1015 +0x814 fp=0x5ae20667fb70 sp=0x5ae20667f9c0 pc=0x102228314
+github.com/spf13/cobra.(*Command).ExecuteC(0x5ae1bfb19508)
+	github.com/spf13/cobra@v1.10.2/command.go:1148 +0x350 fp=0x5ae20667fc60 sp=0x5ae20667fb70 pc=0x102228a70
+github.com/spf13/cobra.(*Command).Execute(...)
+	github.com/spf13/cobra@v1.10.2/command.go:1071
+github.com/spf13/cobra.(*Command).ExecuteContext(...)
+	github.com/spf13/cobra@v1.10.2/command.go:1064
+cuelang.org/go/cmd/cue/cmd.(*Command).Run(0x5ae1bfc34450, {0x1034cd350?, 0x5ae1bfc354a0?})
+	cuelang.org/go@v0.17.1/cmd/cue/cmd/root.go:499 +0x54 fp=0x5ae20667fc80 sp=0x5ae20667fc60 pc=0x102964524
+cuelang.org/go/cmd/cue/cmd.Main()
+	cuelang.org/go@v0.17.1/cmd/cue/cmd/root.go:385 +0x100 fp=0x5ae20667ff10 sp=0x5ae20667fc80 pc=0x102963e40
+main.main()
+	cuelang.org/go@v0.17.1/cmd/cue/main.go:24 +0x1c fp=0x5ae20667ff30 sp=0x5ae20667ff10 pc=0x10298178c
+runtime.main()
+	runtime/proc.go:290 +0x2b4 fp=0x5ae20667ffd0 sp=0x5ae20667ff30 pc=0x1020992b4
+runtime.goexit({})
+	runtime/asm_arm64.s:1447 +0x4 fp=0x5ae20667ffd0 sp=0x5ae20667ffd0 pc=0x1020d60e4
+
+goroutine 2 gp=0x5ae1bf96a780 m=nil [force gc (idle)]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	runtime/proc.go:462 +0xbc fp=0x5ae1bf9f8f90 sp=0x5ae1bf9f8f70 pc=0x1020ce6dc
+runtime.goparkunlock(...)
+	runtime/proc.go:468
+runtime.forcegchelper()
+	runtime/proc.go:375 +0xb4 fp=0x5ae1bf9f8fd0 sp=0x5ae1bf9f8f90 pc=0x1020995d4
+runtime.goexit({})
+	runtime/asm_arm64.s:1447 +0x4 fp=0x5ae1bf9f8fd0 sp=0x5ae1bf9f8fd0 pc=0x1020d60e4
+created by runtime.init.7 in goroutine 1
+	runtime/proc.go:363 +0x24
+
+goroutine 3 gp=0x5ae1bf96ad20 m=nil [GC sweep wait]:
+runtime.gopark(0x1?, 0x0?, 0x0?, 0x0?, 0x0?)
+	runtime/proc.go:462 +0xbc fp=0x5ae1bf9f9770 sp=0x5ae1bf9f9750 pc=0x1020ce6dc
+runtime.goparkunlock(...)
+	runtime/proc.go:468
+runtime.bgsweep(0x5ae1bfa10000)
+	runtime/mgcsweep.go:324 +0x178 fp=0x5ae1bf9f97b0 sp=0x5ae1bf9f9770 pc=0x1020821c8
+runtime.gcenable.gowrap1()
+	runtime/mgc.go:214 +0x20 fp=0x5ae1bf9f97d0 sp=0x5ae1bf9f97b0 pc=0x102073600
+runtime.goexit({})
+	runtime/asm_arm64.s:1447 +0x4 fp=0x5ae1bf9f97d0 sp=0x5ae1bf9f97d0 pc=0x1020d60e4
+created by runtime.gcenable in goroutine 1
+	runtime/mgc.go:214 +0x6c
+
+goroutine 4 gp=0x5ae1bf96af00 m=nil [GC scavenge wait]:
+runtime.gopark(0x10000?, 0x1526b1?, 0x0?, 0x0?, 0x0?)
+	runtime/proc.go:462 +0xbc fp=0x5ae1bf9f9f60 sp=0x5ae1bf9f9f40 pc=0x1020ce6dc
+runtime.goparkunlock(...)
+	runtime/proc.go:468
+runtime.(*scavengerState).park(0x1035c5180)
+	runtime/mgcscavenge.go:425 +0x5c fp=0x5ae1bf9f9f90 sp=0x5ae1bf9f9f60 pc=0x10207fcdc
+runtime.bgscavenge(0x5ae1bfa10000)
+	runtime/mgcscavenge.go:658 +0xac fp=0x5ae1bf9f9fb0 sp=0x5ae1bf9f9f90 pc=0x10208027c
+runtime.gcenable.gowrap2()
+	runtime/mgc.go:215 +0x20 fp=0x5ae1bf9f9fd0 sp=0x5ae1bf9f9fb0 pc=0x1020735c0
+runtime.goexit({})
+	runtime/asm_arm64.s:1447 +0x4 fp=0x5ae1bf9f9fd0 sp=0x5ae1bf9f9fd0 pc=0x1020d60e4
+created by runtime.gcenable in goroutine 1
+	runtime/mgc.go:215 +0xac
+
+goroutine 5 gp=0x5ae1bf96b4a0 m=nil [GOMAXPROCS updater (idle)]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	runtime/proc.go:462 +0xbc fp=0x5ae1bf9fa770 sp=0x5ae1bf9fa750 pc=0x1020ce6dc
+runtime.goparkunlock(...)
+	runtime/proc.go:468
+runtime.updateMaxProcsGoroutine()
+	runtime/proc.go:7095 +0xf4 fp=0x5ae1bf9fa7d0 sp=0x5ae1bf9fa770 pc=0x1020a7e64
+runtime.goexit({})
+	runtime/asm_arm64.s:1447 +0x4 fp=0x5ae1bf9fa7d0 sp=0x5ae1bf9fa7d0 pc=0x1020d60e4
+created by runtime.defaultGOMAXPROCSUpdateEnable in goroutine 1
+	runtime/proc.go:7083 +0x48
+
+goroutine 6 gp=0x5ae1bf96b680 m=nil [finalizer wait]:
+runtime.gopark(0x5ae1bf9f85b8?, 0x10282da4c?, 0x40?, 0xc6?, 0x32?)
+	runtime/proc.go:462 +0xbc fp=0x5ae1bf9f8580 sp=0x5ae1bf9f8560 pc=0x1020ce6dc
+runtime.runFinalizers()
+	runtime/mfinal.go:210 +0x100 fp=0x5ae1bf9f87d0 sp=0x5ae1bf9f8580 pc=0x102072620
+runtime.goexit({})
+	runtime/asm_arm64.s:1447 +0x4 fp=0x5ae1bf9f87d0 sp=0x5ae1bf9f87d0 pc=0x1020d60e4
+created by runtime.createfing in goroutine 1
+	runtime/mfinal.go:172 +0x78
+
+goroutine 7 gp=0x5ae1bf96b860 m=nil [cleanup wait]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	runtime/proc.go:462 +0xbc fp=0x5ae1bf9faf50 sp=0x5ae1bf9faf30 pc=0x1020ce6dc
+runtime.goparkunlock(...)
+	runtime/proc.go:468
+runtime.(*cleanupQueue).dequeue(0x1035c5c20)
+	runtime/mcleanup.go:522 +0x160 fp=0x5ae1bf9faf90 sp=0x5ae1bf9faf50 pc=0x10206f5b0
+runtime.runCleanups()
+	runtime/mcleanup.go:718 +0x40 fp=0x5ae1bf9fafd0 sp=0x5ae1bf9faf90 pc=0x10206fd00
+runtime.goexit({})
+	runtime/asm_arm64.s:1447 +0x4 fp=0x5ae1bf9fafd0 sp=0x5ae1bf9fafd0 pc=0x1020d60e4
+created by runtime.(*cleanupQueue).createGs in goroutine 1
+	runtime/mcleanup.go:672 +0x108
+
+goroutine 8 gp=0x5ae1bfde85a0 m=nil [GC worker (idle)]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	runtime/proc.go:462 +0xbc fp=0x5ae1bf9fb720 sp=0x5ae1bf9fb700 pc=0x1020ce6dc
+runtime.gcBgMarkWorker(0x5ae1bfbc83f0)
+	runtime/mgc.go:1791 +0xe0 fp=0x5ae1bf9fb7b0 sp=0x5ae1bf9fb720 pc=0x102076060
+runtime.gcBgMarkStartWorkers.gowrap1()
+	runtime/mgc.go:1695 +0x20 fp=0x5ae1bf9fb7d0 sp=0x5ae1bf9fb7b0 pc=0x102075f60
+runtime.goexit({})
+	runtime/asm_arm64.s:1447 +0x4 fp=0x5ae1bf9fb7d0 sp=0x5ae1bf9fb7d0 pc=0x1020d60e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	runtime/mgc.go:1695 +0x134
+
+goroutine 9 gp=0x5ae1bfde8780 m=nil [GC worker (idle)]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	runtime/proc.go:462 +0xbc fp=0x5ae1bf9fbf20 sp=0x5ae1bf9fbf00 pc=0x1020ce6dc
+runtime.gcBgMarkWorker(0x5ae1bfbc83f0)
+	runtime/mgc.go:1791 +0xe0 fp=0x5ae1bf9fbfb0 sp=0x5ae1bf9fbf20 pc=0x102076060
+runtime.gcBgMarkStartWorkers.gowrap1()
+	runtime/mgc.go:1695 +0x20 fp=0x5ae1bf9fbfd0 sp=0x5ae1bf9fbfb0 pc=0x102075f60
+runtime.goexit({})
+	runtime/asm_arm64.s:1447 +0x4 fp=0x5ae1bf9fbfd0 sp=0x5ae1bf9fbfd0 pc=0x1020d60e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	runtime/mgc.go:1695 +0x134
+
+goroutine 10 gp=0x5ae1bfde8960 m=nil [GC worker (idle)]:
+runtime.gopark(0x27347933c5e7a?, 0x3?, 0x7a?, 0x3f?, 0x0?)
+	runtime/proc.go:462 +0xbc fp=0x5ae1bf9f4720 sp=0x5ae1bf9f4700 pc=0x1020ce6dc
+runtime.gcBgMarkWorker(0x5ae1bfbc83f0)
+	runtime/mgc.go:1791 +0xe0 fp=0x5ae1bf9f47b0 sp=0x5ae1bf9f4720 pc=0x102076060
+runtime.gcBgMarkStartWorkers.gowrap1()
+	runtime/mgc.go:1695 +0x20 fp=0x5ae1bf9f47d0 sp=0x5ae1bf9f47b0 pc=0x102075f60
+runtime.goexit({})
+	runtime/asm_arm64.s:1447 +0x4 fp=0x5ae1bf9f47d0 sp=0x5ae1bf9f47d0 pc=0x1020d60e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	runtime/mgc.go:1695 +0x134
+
+goroutine 11 gp=0x5ae1bfde8b40 m=nil [GC worker (idle)]:
+runtime.gopark(0x273450a1913e1?, 0x1?, 0xd3?, 0x14?, 0x0?)
+	runtime/proc.go:462 +0xbc fp=0x5ae1bf9f4f20 sp=0x5ae1bf9f4f00 pc=0x1020ce6dc
+runtime.gcBgMarkWorker(0x5ae1bfbc83f0)
+	runtime/mgc.go:1791 +0xe0 fp=0x5ae1bf9f4fb0 sp=0x5ae1bf9f4f20 pc=0x102076060
+runtime.gcBgMarkStartWorkers.gowrap1()
+	runtime/mgc.go:1695 +0x20 fp=0x5ae1bf9f4fd0 sp=0x5ae1bf9f4fb0 pc=0x102075f60
+runtime.goexit({})
+	runtime/asm_arm64.s:1447 +0x4 fp=0x5ae1bf9f4fd0 sp=0x5ae1bf9f4fd0 pc=0x1020d60e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	runtime/mgc.go:1695 +0x134
+
+goroutine 12 gp=0x5ae1bfde8d20 m=nil [GC worker (idle)]:
+runtime.gopark(0x27347933a0f55?, 0x3?, 0x3f?, 0x3b?, 0x0?)
+	runtime/proc.go:462 +0xbc fp=0x5ae1bf9f5720 sp=0x5ae1bf9f5700 pc=0x1020ce6dc
+runtime.gcBgMarkWorker(0x5ae1bfbc83f0)
+	runtime/mgc.go:1791 +0xe0 fp=0x5ae1bf9f57b0 sp=0x5ae1bf9f5720 pc=0x102076060
+runtime.gcBgMarkStartWorkers.gowrap1()
+	runtime/mgc.go:1695 +0x20 fp=0x5ae1bf9f57d0 sp=0x5ae1bf9f57b0 pc=0x102075f60
+runtime.goexit({})
+	runtime/asm_arm64.s:1447 +0x4 fp=0x5ae1bf9f57d0 sp=0x5ae1bf9f57d0 pc=0x1020d60e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	runtime/mgc.go:1695 +0x134
+
+goroutine 13 gp=0x5ae1bfde8f00 m=nil [GC worker (idle)]:
+runtime.gopark(0x27347933f3999?, 0x1?, 0xff?, 0xf7?, 0x0?)
+	runtime/proc.go:462 +0xbc fp=0x5ae1bf9f5f20 sp=0x5ae1bf9f5f00 pc=0x1020ce6dc
+runtime.gcBgMarkWorker(0x5ae1bfbc83f0)
+	runtime/mgc.go:1791 +0xe0 fp=0x5ae1bf9f5fb0 sp=0x5ae1bf9f5f20 pc=0x102076060
+runtime.gcBgMarkStartWorkers.gowrap1()
+	runtime/mgc.go:1695 +0x20 fp=0x5ae1bf9f5fd0 sp=0x5ae1bf9f5fb0 pc=0x102075f60
+runtime.goexit({})
+	runtime/asm_arm64.s:1447 +0x4 fp=0x5ae1bf9f5fd0 sp=0x5ae1bf9f5fd0 pc=0x1020d60e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	runtime/mgc.go:1695 +0x134
+
+goroutine 14 gp=0x5ae1bfde90e0 m=nil [GC worker (idle)]:
+runtime.gopark(0x27347933c5b63?, 0x1?, 0xf9?, 0xf?, 0x0?)
+	runtime/proc.go:462 +0xbc fp=0x5ae1bf9f6720 sp=0x5ae1bf9f6700 pc=0x1020ce6dc
+runtime.gcBgMarkWorker(0x5ae1bfbc83f0)
+	runtime/mgc.go:1791 +0xe0 fp=0x5ae1bf9f67b0 sp=0x5ae1bf9f6720 pc=0x102076060
+runtime.gcBgMarkStartWorkers.gowrap1()
+	runtime/mgc.go:1695 +0x20 fp=0x5ae1bf9f67d0 sp=0x5ae1bf9f67b0 pc=0x102075f60
+runtime.goexit({})
+	runtime/asm_arm64.s:1447 +0x4 fp=0x5ae1bf9f67d0 sp=0x5ae1bf9f67d0 pc=0x1020d60e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	runtime/mgc.go:1695 +0x134
+
+goroutine 15 gp=0x5ae1bfde92c0 m=nil [GC worker (idle)]:
+runtime.gopark(0x27347933c4804?, 0x3?, 0x3d?, 0xd9?, 0x0?)
+	runtime/proc.go:462 +0xbc fp=0x5ae1bf9f6f20 sp=0x5ae1bf9f6f00 pc=0x1020ce6dc
+runtime.gcBgMarkWorker(0x5ae1bfbc83f0)
+	runtime/mgc.go:1791 +0xe0 fp=0x5ae1bf9f6fb0 sp=0x5ae1bf9f6f20 pc=0x102076060
+runtime.gcBgMarkStartWorkers.gowrap1()
+	runtime/mgc.go:1695 +0x20 fp=0x5ae1bf9f6fd0 sp=0x5ae1bf9f6fb0 pc=0x102075f60
+runtime.goexit({})
+	runtime/asm_arm64.s:1447 +0x4 fp=0x5ae1bf9f6fd0 sp=0x5ae1bf9f6fd0 pc=0x1020d60e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	runtime/mgc.go:1695 +0x134
+
+goroutine 16 gp=0x5ae1bfde94a0 m=nil [GC worker (idle)]:
+runtime.gopark(0x27347933a1079?, 0x1?, 0x70?, 0xf8?, 0x0?)
+	runtime/proc.go:462 +0xbc fp=0x5ae1bf9f7720 sp=0x5ae1bf9f7700 pc=0x1020ce6dc
+runtime.gcBgMarkWorker(0x5ae1bfbc83f0)
+	runtime/mgc.go:1791 +0xe0 fp=0x5ae1bf9f77b0 sp=0x5ae1bf9f7720 pc=0x102076060
+runtime.gcBgMarkStartWorkers.gowrap1()
+	runtime/mgc.go:1695 +0x20 fp=0x5ae1bf9f77d0 sp=0x5ae1bf9f77b0 pc=0x102075f60
+runtime.goexit({})
+	runtime/asm_arm64.s:1447 +0x4 fp=0x5ae1bf9f77d0 sp=0x5ae1bf9f77d0 pc=0x1020d60e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	runtime/mgc.go:1695 +0x134
+
+goroutine 17 gp=0x5ae1bfde9680 m=nil [GC worker (idle)]:
+runtime.gopark(0x27347933a23d7?, 0x1?, 0x92?, 0x87?, 0x0?)
+	runtime/proc.go:462 +0xbc fp=0x5ae1c0883f20 sp=0x5ae1c0883f00 pc=0x1020ce6dc
+runtime.gcBgMarkWorker(0x5ae1bfbc83f0)
+	runtime/mgc.go:1791 +0xe0 fp=0x5ae1c0883fb0 sp=0x5ae1c0883f20 pc=0x102076060
+runtime.gcBgMarkStartWorkers.gowrap1()
+	runtime/mgc.go:1695 +0x20 fp=0x5ae1c0883fd0 sp=0x5ae1c0883fb0 pc=0x102075f60
+runtime.goexit({})
+	runtime/asm_arm64.s:1447 +0x4 fp=0x5ae1c0883fd0 sp=0x5ae1c0883fd0 pc=0x1020d60e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	runtime/mgc.go:1695 +0x134
+
+goroutine 18 gp=0x5ae1bfde9860 m=nil [GC worker (idle)]:
+runtime.gopark(0x1035f3440?, 0x3?, 0xf3?, 0xe5?, 0x0?)
+	runtime/proc.go:462 +0xbc fp=0x5ae1bfdfc720 sp=0x5ae1bfdfc700 pc=0x1020ce6dc
+runtime.gcBgMarkWorker(0x5ae1bfbc83f0)
+	runtime/mgc.go:1791 +0xe0 fp=0x5ae1bfdfc7b0 sp=0x5ae1bfdfc720 pc=0x102076060
+runtime.gcBgMarkStartWorkers.gowrap1()
+	runtime/mgc.go:1695 +0x20 fp=0x5ae1bfdfc7d0 sp=0x5ae1bfdfc7b0 pc=0x102075f60
+runtime.goexit({})
+	runtime/asm_arm64.s:1447 +0x4 fp=0x5ae1bfdfc7d0 sp=0x5ae1bfdfc7d0 pc=0x1020d60e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	runtime/mgc.go:1695 +0x134
+
+goroutine 19 gp=0x5ae1bfde9a40 m=nil [GC worker (idle)]:
+runtime.gopark(0x27347933c48ab?, 0x1?, 0x6d?, 0xae?, 0x0?)
+	runtime/proc.go:462 +0xbc fp=0x5ae1bfdfcf20 sp=0x5ae1bfdfcf00 pc=0x1020ce6dc
+runtime.gcBgMarkWorker(0x5ae1bfbc83f0)
+	runtime/mgc.go:1791 +0xe0 fp=0x5ae1bfdfcfb0 sp=0x5ae1bfdfcf20 pc=0x102076060
+runtime.gcBgMarkStartWorkers.gowrap1()
+	runtime/mgc.go:1695 +0x20 fp=0x5ae1bfdfcfd0 sp=0x5ae1bfdfcfb0 pc=0x102075f60
+runtime.goexit({})
+	runtime/asm_arm64.s:1447 +0x4 fp=0x5ae1bfdfcfd0 sp=0x5ae1bfdfcfd0 pc=0x1020d60e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	runtime/mgc.go:1695 +0x134
+
+goroutine 20 gp=0x5ae1bfde9c20 m=nil [GC worker (idle)]:
+runtime.gopark(0x27347933c497b?, 0x1?, 0xea?, 0xc?, 0x0?)
+	runtime/proc.go:462 +0xbc fp=0x5ae1c0884f20 sp=0x5ae1c0884f00 pc=0x1020ce6dc
+runtime.gcBgMarkWorker(0x5ae1bfbc83f0)
+	runtime/mgc.go:1791 +0xe0 fp=0x5ae1c0884fb0 sp=0x5ae1c0884f20 pc=0x102076060
+runtime.gcBgMarkStartWorkers.gowrap1()
+	runtime/mgc.go:1695 +0x20 fp=0x5ae1c0884fd0 sp=0x5ae1c0884fb0 pc=0x102075f60
+runtime.goexit({})
+	runtime/asm_arm64.s:1447 +0x4 fp=0x5ae1c0884fd0 sp=0x5ae1c0884fd0 pc=0x1020d60e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	runtime/mgc.go:1695 +0x134
+
+goroutine 21 gp=0x5ae1bfe00000 m=nil [GC worker (idle)]:
+runtime.gopark(0x27342954c1286?, 0x3?, 0xfe?, 0x30?, 0x0?)
+	runtime/proc.go:462 +0xbc fp=0x5ae1bfdfdf20 sp=0x5ae1bfdfdf00 pc=0x1020ce6dc
+runtime.gcBgMarkWorker(0x5ae1bfbc83f0)
+	runtime/mgc.go:1791 +0xe0 fp=0x5ae1bfdfdfb0 sp=0x5ae1bfdfdf20 pc=0x102076060
+runtime.gcBgMarkStartWorkers.gowrap1()
+	runtime/mgc.go:1695 +0x20 fp=0x5ae1bfdfdfd0 sp=0x5ae1bfdfdfb0 pc=0x102075f60
+runtime.goexit({})
+	runtime/asm_arm64.s:1447 +0x4 fp=0x5ae1bfdfdfd0 sp=0x5ae1bfdfdfd0 pc=0x1020d60e4
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	runtime/mgc.go:1695 +0x134

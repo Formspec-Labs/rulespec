@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/relation-finding.json",
+  "title": "relation-finding",
+  "$defs": {
+    "RelationFindingKind": {
+      "type": "string",
+      "enum": [
+        "rkaf:affirmedDeniedDiscrepancy"
+      ]
+    },
+    "RelationFinding": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:RelationFinding"
+        },
+        "rkaf:relationFindingKind": {
+          "$ref": "#/$defs/RelationFindingKind"
+        },
+        "rkaf:findingComparisonContext": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:findingComparedAssertion": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+          },
+          "minItems": 2
+        },
+        "rkaf:findingProofRecord": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "rkaf:findingDetectedAt": {
+          "type": "string"
+        },
+        "rkaf:findingRationale": {
+          "type": "string"
+        },
+        "rkaf:findingFingerprint": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:relationFindingKind",
+        "rkaf:findingComparisonContext",
+        "rkaf:findingComparedAssertion",
+        "rkaf:findingProofRecord",
+        "rkaf:findingDetectedAt",
+        "rkaf:findingRationale"
+      ]
+    }
+  }
+}

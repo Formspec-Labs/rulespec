@@ -1,0 +1,1498 @@
+{
+  "assessment_kind": "model-assisted-known-case-review",
+  "limitation": "Fallible model judgments; no human gold, general accuracy estimate or automatic repair.",
+  "results": [
+    {
+      "id": "R01",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "It is acceptable if the infant's eyes, particularly a newborn's, are partially or completely closed;",
+            "Both of the applicant’s eyes should also be visible and open in the photograph (see the exception for infants in 8 FAM 402.1-1)."
+          ],
+          "claim_ids": [
+            "P000",
+            "P025"
+          ],
+          "rationale": "Claim P000 captures closure as permission but omits an explicit exception typing or relation connecting it to the open-eyes baseline in P025, and newborn emphasis is not preserved in structured logic.",
+          "status": "fail"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "It is acceptable if the infant's eyes, particularly a newborn's, are partially or completely closed;"
+          ],
+          "claim_ids": [
+            "P000"
+          ],
+          "rationale": "The draft confines the rule to infants within scope_text and does not generalize permission to all adults or fabricate resolved targets.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "Scope relation between infant closure and general facial expression requirements is unresolved across distant sections.",
+      "status": "fail",
+      "validation_issues": []
+    },
+    {
+      "id": "R02",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "The infant's head may be discreetly supported, e.g., a car seat with a white or off-white blanket behind the child.",
+            "Head tilt is acceptable for infants;",
+            "A parent’s face cannot be in the photograph of the infant."
+          ],
+          "claim_ids": [
+            "P001",
+            "P002",
+            "P003"
+          ],
+          "rationale": "Discreet support, head tilt permission, and parent face prohibition are each captured independently as discrete claims with correct modalities.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "The infant's head may be discreetly supported, e.g., a car seat with a white or off-white blanket behind the child.",
+            "Head tilt is acceptable for infants;",
+            "A parent’s face cannot be in the photograph of the infant."
+          ],
+          "claim_ids": [
+            "P001",
+            "P002",
+            "P003"
+          ],
+          "rationale": "The draft treats car seats as illustrative examples without mandating them, avoids inventing angle constraints, and strictly prohibits parent faces.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "None.",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "R03",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "The photograph should be taken within six months of submitting the application, be a good likeness of and satisfactorily identify the applicant at the time of the application (see 22 CFR 51.26).",
+            "A photograph showing a change in hairstyle or facial hair from the identification document submitted is acceptable if it still is a good likeness of the applicant;",
+            "Be aware that even if the certificate itself was recently issued, because of U.S. Citizenship and Immigration Services processing times, the photograph may not have been taken within six months of submitting the application."
+          ],
+          "claim_ids": [
+            "P004",
+            "P006",
+            "P007"
+          ],
+          "rationale": "The certificate timing caution note is omitted entirely from the draft claims, and the must-request requirement in P004 is not explicitly linked to the six-month standard.",
+          "status": "fail"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "The photograph should be taken within six months of submitting the application, be a good likeness of and satisfactorily identify the applicant at the time of the application (see 22 CFR 51.26)."
+          ],
+          "claim_ids": [
+            "P006"
+          ],
+          "rationale": "The draft retains six months without day conversions, preserves likeness and identification predicates, and gives no blanket reuse permission.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "The draft completely omitted the certificate timing note from claim extraction.",
+      "status": "fail",
+      "validation_issues": []
+    },
+    {
+      "id": "R04",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "The applicant does not need to sign the photograph, as this often causes creases or smudges;",
+            "For hand-carry applications, the acceptance agent signs the back of the photograph."
+          ],
+          "claim_ids": [
+            "P012",
+            "P013"
+          ],
+          "rationale": "The draft accurately distinguishes the applicant's lack of signing obligation from the acceptance agent's duty to sign the back for hand-carry applications.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "The applicant does not need to sign the photograph, as this often causes creases or smudges;",
+            "For hand-carry applications, the acceptance agent signs the back of the photograph."
+          ],
+          "claim_ids": [
+            "P012",
+            "P013"
+          ],
+          "rationale": "The draft creates no applicant signing duty, does not ban all signatures, and restricts agent signing exclusively to hand-carry cases.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "None.",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "R05",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "Material damage is any damage to the facial area that makes the photograph no longer a good likeness of the applicant (e.g., creases, large holes, and large smudges) or impedes the functioning of facial recognition (damage in the area of the eyes);",
+            "Immaterial damage is any damage to the background, and non-material damage to the facial area (e.g., staple holes).",
+            "Immaterial damage is acceptable;"
+          ],
+          "claim_ids": [
+            "P008",
+            "P009",
+            "P010",
+            "P011"
+          ],
+          "rationale": "In claim P010, the draft conjoins the immaterial categories with AND, erroneously requiring both background damage and non-material facial damage simultaneously.",
+          "status": "fail"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "Immaterial damage is any damage to the background, and non-material damage to the facial area (e.g., staple holes)."
+          ],
+          "claim_ids": [
+            "P010"
+          ],
+          "rationale": "Claim P010 defectively formulates choice_text as damage to background AND non-material damage to facial area, committing the conjunction error flagged by the control.",
+          "status": "fail"
+        }
+      ],
+      "uncertainty": "P010 choice_text exhibits conjunctive logic syntax despite the source presenting distinct immaterial categories.",
+      "status": "fail",
+      "validation_issues": []
+    },
+    {
+      "id": "R06",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "A limited-validity passport using endorsement 46 should be issued when the medical circumstance that requires eyeglasses is temporary and the applicant has urgent or emergency travel."
+          ],
+          "claim_ids": [
+            "P021"
+          ],
+          "rationale": "P021 preserves the recommendation modality should, endorsement 46, and the dual conditions of temporary medical circumstance and urgent or emergency travel.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "A limited-validity passport using endorsement 46 should be issued when the medical circumstance that requires eyeglasses is temporary and the applicant has urgent or emergency travel."
+          ],
+          "claim_ids": [
+            "P021"
+          ],
+          "rationale": "The draft does not import an unauthorized one-year validity duration, omit endorsement 46, escalate should to must, or drop the temporary medical need condition.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "None.",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "R07",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "A medical statement signed by a medical professional/health practitioner must be requested in these rare circumstances.",
+            "Both of the applicant’s eyes should also be visible and open in the photograph (see the exception for infants in 8 FAM 402.1-1).",
+            "In rare cases, if it is unlikely that the closed eye(s) or exaggerated expression are because of a medical condition, you should request a medical statement signed by a medical professional/health practitioner.",
+            "Processing and communications/customer service personnel at passport agencies/centers or consular section personnel should refer applications without photographs to their supervisor for guidance on processing passport applications received without photographs;"
+          ],
+          "claim_ids": [
+            "P016",
+            "P025",
+            "P027",
+            "P028"
+          ],
+          "rationale": "The draft maintains the distinction between the mandatory medical-glasses statement request (must in P016) and advisory should statements in P025, P027, and P028.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "In rare cases, if it is unlikely that the closed eye(s) or exaggerated expression are because of a medical condition, you should request a medical statement signed by a medical professional/health practitioner."
+          ],
+          "claim_ids": [
+            "P025",
+            "P027",
+            "P028"
+          ],
+          "rationale": "The draft does not escalate should recommendations into mandatory duties across the board.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "Modality is preserved via issues flags rather than a dedicated advisory taxonomy.",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "R08",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "Passport specialists must suspend a form DS-11 received without a photograph from an acceptance facility.",
+            "The applicant must re-execute the form DS-11 (see IRL 975-04);"
+          ],
+          "claim_ids": [
+            "P030",
+            "P031"
+          ],
+          "rationale": "Claim P031 incorporates the receipt without photograph from an acceptance facility condition directly in its scope while keeping distinct specialist and applicant actors.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "The applicant must re-execute the form DS-11 (see IRL 975-04);"
+          ],
+          "claim_ids": [
+            "P031"
+          ],
+          "rationale": "The re-execution duty in P031 is explicitly scoped to missing photos from acceptance facilities and is not applied to complete DS-11 applications.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "None.",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "R09",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "Eyeglasses are not acceptable unless they cannot be removed for medical reasons, e.g., the applicant has recently had ocular surgery and the eyeglasses are necessary to protect the applicant’s eyes.",
+            "Dark or tinted lenses are permitted if the medical statement also indicates that they are required."
+          ],
+          "claim_ids": [
+            "P015",
+            "P016",
+            "P017",
+            "P018",
+            "P019",
+            "P020"
+          ],
+          "rationale": "Claims P017 through P020 possess relation none and empty target_ids, lacking structural child links subordinate to the medical glasses acceptance prerequisite.",
+          "status": "fail"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "Dark or tinted lenses are permitted if the medical statement also indicates that they are required."
+          ],
+          "claim_ids": [
+            "P017",
+            "P018",
+            "P019",
+            "P020"
+          ],
+          "rationale": "The draft invents no targets, retains disjunctive groupings in P019 and P020, and conditions tinted lenses strictly on medical statement necessity.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "The draft relies on text-based scoping instead of explicit structural parent-child links.",
+      "status": "fail",
+      "validation_issues": []
+    },
+    {
+      "id": "R10",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "Applicants with physical or mental disabilities, including loss of muscle control (e.g., age-related degeneration or because of a medical condition such as Bell's Palsy), may not be able to produce a natural or unexaggerated expression.",
+            "You may accept a photograph without a natural or unexaggerated expression in these circumstances."
+          ],
+          "claim_ids": [
+            "P022",
+            "P023",
+            "P024"
+          ],
+          "rationale": "Claim P024 includes disability circumstances in its scope but sets relation to none and target_ids to empty, omitting structural connection to baseline expression claims P022 and P023.",
+          "status": "fail"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "You may accept a photograph without a natural or unexaggerated expression in these circumstances."
+          ],
+          "claim_ids": [
+            "P024"
+          ],
+          "rationale": "The draft does not broaden the exception to all disabilities unconditionally and invents no mandatory diagnostic proof.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "The baseline-to-exception relationship is conveyed through textual context rather than relational claim identifiers.",
+      "status": "fail",
+      "validation_issues": []
+    },
+    {
+      "id": "R11",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "If the applicant is unable to open one or both eyes because of a medical condition, you may accept the photograph.",
+            "In rare cases, if it is unlikely that the closed eye(s) or exaggerated expression are because of a medical condition, you should request a medical statement signed by a medical professional/health practitioner."
+          ],
+          "claim_ids": [
+            "P026",
+            "P027"
+          ],
+          "rationale": "P026 preserves one OR both eyes with causal condition and discretionary acceptance, while P027 correctly models the distinct rare and unlikely trigger for statement requests.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "If the applicant is unable to open one or both eyes because of a medical condition, you may accept the photograph.",
+            "In rare cases, if it is unlikely that the closed eye(s) or exaggerated expression are because of a medical condition, you should request a medical statement signed by a medical professional/health practitioner."
+          ],
+          "claim_ids": [
+            "P026",
+            "P027"
+          ],
+          "rationale": "The draft preserves unlikely without flipping, retains rare cases, and keeps acceptance discretionary under may.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "None.",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "R12",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "Consequently, the passport application may be returned to adjudication to request a new photograph even though the photograph appeared acceptable."
+          ],
+          "claim_ids": [
+            "P014"
+          ],
+          "rationale": "P014 designates the passport application as the returned object, contextualizes printing defects, and keeps requesting a photograph as an uncommanded purpose.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "Consequently, the passport application may be returned to adjudication to request a new photograph even though the photograph appeared acceptable."
+          ],
+          "claim_ids": [
+            "P014"
+          ],
+          "rationale": "The draft does not make the photograph the returned object or infer an independent must-request command.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "None.",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "R13",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "See 8 FAM 1001.2 regarding importing photographs for forms DS-5504;",
+            "Passport specialists must suspend a form DS-82 or form DS-5504 received without a photograph (see IRL 1000-05 and IRL 1018-14)."
+          ],
+          "claim_ids": [
+            "P029",
+            "P032"
+          ],
+          "rationale": "P029 maintains the unresolved reference to 8 FAM 1001.2 regarding DS-5504 photo importing, and P032 preserves the distinct DS-5504 suspension requirement.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "See 8 FAM 1001.2 regarding importing photographs for forms DS-5504;"
+          ],
+          "claim_ids": [
+            "P029"
+          ],
+          "rationale": "The draft invents no remote import procedures and provides no authorization to accept missing-photo DS-5504 forms at the counter.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "None.",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "R14",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "You must not accept a form DS-11 or form DS-82 received without a photograph at the public counter.",
+            "Passport specialists must suspend a form DS-11 received without a photograph from an acceptance facility.",
+            "Passport specialists must suspend a form DS-82 or form DS-5504 received without a photograph (see IRL 1000-05 and IRL 1018-14)."
+          ],
+          "claim_ids": [
+            "P029",
+            "P030",
+            "P032"
+          ],
+          "rationale": "The draft captures counter refusal for DS-11 OR DS-82, acceptance facility suspension for DS-11, and suspension of DS-82 OR DS-5504 with both IRL references.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "You must not accept a form DS-11 or form DS-82 received without a photograph at the public counter.",
+            "Passport specialists must suspend a form DS-82 or form DS-5504 received without a photograph (see IRL 1000-05 and IRL 1018-14)."
+          ],
+          "claim_ids": [
+            "P029",
+            "P032"
+          ],
+          "rationale": "The draft uses disjunctive grouping without conjunctive distortion and preserves both IRL references.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "None.",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "R15",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "The goal is the best likeness that can reasonably be obtained:",
+            "Applicants may wish to re-use a passport photograph that is depicted on their submitted U.S Certificate of Citizenship or Certificate of Naturalization.",
+            "A photograph that appears acceptable and undamaged in the system may have a defect that is apparent when the passport is printed."
+          ],
+          "claim_ids": [
+            "P000",
+            "P001",
+            "P014"
+          ],
+          "rationale": "Reasonableness and potential defect language are kept non-mandatory, but the certificate note was omitted from the claims, making evidence of certificate guidance handling unavailable.",
+          "status": "unknown"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "The goal is the best likeness that can reasonably be obtained:",
+            "Applicants may wish to re-use a passport photograph that is depicted on their submitted U.S Certificate of Citizenship or Certificate of Naturalization."
+          ],
+          "claim_ids": [
+            "P000",
+            "P001"
+          ],
+          "rationale": "The draft generates no duties from section titles, revision markers, illustrative examples, or advisory preferences.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "Evidence is missing for certificate guidance because the relevant note was omitted from claim extraction.",
+      "status": "unknown",
+      "validation_issues": []
+    },
+    {
+      "id": "NREG-01",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "Material discrepancies between the name recorded on the application, the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality, or the evidence of identity must be documented by submission of one or more of the documents listed in this section"
+          ],
+          "claim_ids": [
+            "N002"
+          ],
+          "rationale": "Claim N002 accurately records the requirement using disjunctive logic ('one or more of the documents listed in this section') rather than requiring all categories.",
+          "status": "pass"
+        },
+        {
+          "index": 1,
+          "source_quotes": [
+            "(a) Name change orders; or",
+            "(b) Divorce decrees;",
+            "(2) Certificates of naturalization;",
+            "(3) Marriage certificates;",
+            "(4) Documentation demonstrating change of name by operation of state law; or",
+            "(5) Documentation of customary usage."
+          ],
+          "claim_ids": [
+            "N002"
+          ],
+          "rationale": "All six distinct leaf document options are retained in N002's choice structure and text.",
+          "status": "pass"
+        },
+        {
+          "index": 2,
+          "source_quotes": [
+            "(1) Court orders or decrees:\n\n(a) Name change orders; or\n\n(b) Divorce decrees;"
+          ],
+          "claim_ids": [
+            "N002"
+          ],
+          "rationale": "N002 preserves Court orders or decrees as the parent category grouping the two sub-alternatives of name change orders and divorce decrees.",
+          "status": "pass"
+        },
+        {
+          "index": 3,
+          "source_quotes": [
+            "(see an exception for married names in 8 FAM 403.1-4(C))"
+          ],
+          "claim_ids": [
+            "N002"
+          ],
+          "rationale": "N002 preserves the married-name exception reference as a cited remote reference without inferring a blanket exemption for all married applicants.",
+          "status": "pass"
+        },
+        {
+          "index": 4,
+          "source_quotes": [
+            "Acceptable means of documenting a material name change include (per 22 CFR 51.25):"
+          ],
+          "claim_ids": [
+            "N002"
+          ],
+          "rationale": "22 CFR 51.25 is retained as an explicit legal reference and context citation governing the acceptable documentation options.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "must be documented by submission of one or more of the documents listed in this section"
+          ],
+          "claim_ids": [],
+          "rationale": "The negative control incorrectly asserts that an applicant must submit documents across every listed category conjunctively, directly contradicting the source's 'one or more' standard.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "Remote reference 8 FAM 403.1-4(C) is external to the excerpt and properly left unresolved.",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "NREG-02",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "If the applicant has had a material name change more than one year prior to applying on form DS-11 but has not updated her/his ID to reflect the material name change"
+          ],
+          "claim_ids": [
+            "N007",
+            "E006"
+          ],
+          "rationale": "The draft incorporates the parent clause regarding material name change more than one year prior to DS-11 with un-updated ID directly into the scope of the emergency issuance permission.",
+          "status": "pass"
+        },
+        {
+          "index": 1,
+          "source_quotes": [
+            "If there is insufficient time to request that the applicant submit acceptable ID prior to urgent or emergency travel"
+          ],
+          "claim_ids": [
+            "N007",
+            "E006"
+          ],
+          "rationale": "The permission requires insufficient time to request acceptable ID prior to urgent or emergency travel, which is faithfully captured with OR logic in choice_text and scope.",
+          "status": "pass"
+        },
+        {
+          "index": 2,
+          "source_quotes": [
+            "a limited-validity passport may be issued in the requested name;"
+          ],
+          "claim_ids": [
+            "N007",
+            "E006"
+          ],
+          "rationale": "The draft reflects discretionary modality ('may') for issuing a limited-validity passport specifically in the requested name.",
+          "status": "pass"
+        },
+        {
+          "index": 3,
+          "source_quotes": [
+            "you must suspend the application to request an acceptable ID in the new name."
+          ],
+          "claim_ids": [
+            "N006",
+            "E005"
+          ],
+          "rationale": "The mandatory suspension duty is isolated into its own claim with 'must' modality.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "If there is insufficient time to request that the applicant submit acceptable ID prior to urgent or emergency travel, a limited-validity passport may be issued in the requested name;"
+          ],
+          "claim_ids": [],
+          "rationale": "The negative control erroneously claims officials 'must' issue a passport whenever urgent travel is planned, ignoring the discretionary 'may', the limited-validity restriction, and the prerequisite condition of an un-updated name change over one year prior.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "None observed.",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "NREG-03",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "Applicants who have had a material name change within one year of applying on a form DS-11 do not need to submit ID in the new name."
+          ],
+          "claim_ids": [
+            "N009",
+            "E008"
+          ],
+          "rationale": "The draft accurately captures the absence of duty for applicants with a recent name change within one year using exemption kind and not_required modality.",
+          "status": "pass"
+        },
+        {
+          "index": 1,
+          "source_quotes": [
+            "However, if the ID has not yet been changed, they must submit their name change documentation."
+          ],
+          "claim_ids": [
+            "N010",
+            "E009"
+          ],
+          "rationale": "The contingent requirement to submit name change documentation when ID has not yet been updated is retained as a distinct requirement claim with must modality.",
+          "status": "pass"
+        },
+        {
+          "index": 2,
+          "source_quotes": [
+            "do not need to submit ID in the new name."
+          ],
+          "claim_ids": [
+            "N009",
+            "E008"
+          ],
+          "rationale": "The draft represents the rule as not_required, avoiding mischaracterization as a requirement, prohibition, or mere permission.",
+          "status": "pass"
+        },
+        {
+          "index": 3,
+          "source_quotes": [
+            "Applicants who have had a material name change within one year of applying on a form DS-11 do not need to submit ID in the new name."
+          ],
+          "claim_ids": [
+            "N009",
+            "E008"
+          ],
+          "rationale": "The absence of duty is represented using standard exemption/not_required schema constructs without losing source content.",
+          "status": "pass"
+        },
+        {
+          "index": 4,
+          "source_quotes": [
+            "Applicants who have had a material name change within one year of applying on a form DS-11 do not need to submit ID in the new name. However, if the ID has not yet been changed, they must submit their name change documentation."
+          ],
+          "claim_ids": [
+            "N006",
+            "N009",
+            "N010",
+            "E005",
+            "E008",
+            "E009"
+          ],
+          "rationale": "The exemption is segregated from the separate >1 year suspension rule and from the documentation requirement.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [],
+      "uncertainty": "None observed.",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "NREG-04",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "The court order or decree must list both the applicant's current and former name(s)."
+          ],
+          "claim_ids": [
+            "E014"
+          ],
+          "rationale": "E014 captures the mandatory requirement that the court order or decree list both current and former names.",
+          "status": "pass"
+        },
+        {
+          "index": 1,
+          "source_quotes": [
+            "EXCEPTION: You may receive a court order in which the applicant's former name is made confidential (e.g., California's Safe at Home program)."
+          ],
+          "claim_ids": [
+            "E014",
+            "E015"
+          ],
+          "rationale": "The draft fails to link or model the confidential former name provision as an exception qualifying the court document content rule in E014; E014 remains completely unqualified.",
+          "status": "fail"
+        },
+        {
+          "index": 2,
+          "source_quotes": [
+            "EXCEPTION: You may receive a court order in which the applicant's former name is made confidential (e.g., California's Safe at Home program)."
+          ],
+          "claim_ids": [
+            "E015"
+          ],
+          "rationale": "The draft avoids creating an independent legal permission claim from the descriptive phrase 'You may receive'.",
+          "status": "pass"
+        },
+        {
+          "index": 3,
+          "source_quotes": [
+            "When this occurs, the applicant must provide both her/his current and former names on the application."
+          ],
+          "claim_ids": [
+            "E015"
+          ],
+          "rationale": "E015 models the application disclosure duty as a must requirement governing when this confidentiality scenario occurs.",
+          "status": "pass"
+        },
+        {
+          "index": 4,
+          "source_quotes": [
+            "You may request additional evidence of U.S. citizenship/non-citizen U.S. nationality or identity in accordance with 22 CFR 51.23 and 22 CFR 51.45."
+          ],
+          "claim_ids": [
+            "E016"
+          ],
+          "rationale": "E016 faithfully represents the permission to request additional evidence of citizenship/nationality or identity under both cited regulations.",
+          "status": "pass"
+        },
+        {
+          "index": 5,
+          "source_quotes": [
+            "The court order or decree must list both the applicant's current and former name(s).\n\nEXCEPTION: You may receive a court order in which the applicant's former name is made confidential (e.g., California's Safe at Home program)."
+          ],
+          "claim_ids": [
+            "E014",
+            "E015"
+          ],
+          "rationale": "There is no modifier/exception relation link pointing from the exception to the court-document rule E014 in the draft.",
+          "status": "fail"
+        }
+      ],
+      "negative_controls": [],
+      "uncertainty": "The draft fails to instantiate an exception claim targeting E014, placing the exception text only in context_quotes of E015.",
+      "status": "fail",
+      "validation_issues": []
+    },
+    {
+      "id": "NREG-05",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "The applicant may not continue to use a previous name after a material name change unless the name change documentation specifically permits the applicant to continue using that name"
+          ],
+          "claim_ids": [
+            "E003",
+            "E004"
+          ],
+          "rationale": "E004 is properly linked via target_ids to E003, correctly modifying the prohibition on continued use of a previous name.",
+          "status": "pass"
+        },
+        {
+          "index": 1,
+          "source_quotes": [
+            "You must clear the applicant's pending name even though the name change is not final and even if the passport is not being issued at this time."
+          ],
+          "claim_ids": [
+            "E004",
+            "E013"
+          ],
+          "rationale": "E004 does not target or excuse E013 (the pending name clearance duty).",
+          "status": "pass"
+        },
+        {
+          "index": 2,
+          "source_quotes": [
+            "unless the name change documentation specifically permits the applicant to continue using that name"
+          ],
+          "claim_ids": [
+            "E004"
+          ],
+          "rationale": "Target validation confirms semantic congruence between the exception and the prohibited action (continuing to use a previous name).",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "The applicant may not continue to use a previous name after a material name change unless the name change documentation specifically permits the applicant to continue using that name",
+            "You must clear the applicant's pending name even though the name change is not final and even if the passport is not being issued at this time."
+          ],
+          "claim_ids": [],
+          "rationale": "The synthetic negative example incorrectly links the documentation exception to the pending-name clearance rule rather than the previous-name use prohibition.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "None observed.",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "NREG-06",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "The court order or decree must be final:"
+          ],
+          "claim_ids": [
+            "E010"
+          ],
+          "rationale": "E010 frames finality as a mandatory state constraint on the court order or decree.",
+          "status": "pass"
+        },
+        {
+          "index": 1,
+          "source_quotes": [
+            "An applicant with a pending name change must not be issued a passport in her/his new name.",
+            "An applicant with a pending name change must not be issued a form FS-240 in her/his new name."
+          ],
+          "claim_ids": [
+            "E011",
+            "E012"
+          ],
+          "rationale": "Passport and FS-240 issuance prohibitions are captured as separate claims E011 and E012.",
+          "status": "pass"
+        },
+        {
+          "index": 2,
+          "source_quotes": [
+            "You must clear the applicant's pending name even though the name change is not final and even if the passport is not being issued at this time."
+          ],
+          "claim_ids": [
+            "E013"
+          ],
+          "rationale": "E013 preserves pending name clearance as a mandatory duty under modality 'must'.",
+          "status": "pass"
+        },
+        {
+          "index": 3,
+          "source_quotes": [
+            "even though the name change is not final and even if the passport is not being issued at this time."
+          ],
+          "claim_ids": [
+            "E013"
+          ],
+          "rationale": "The concessive 'even though' and 'even if' clauses are retained as reinforcing conditions within logic_text rather than negative exceptions.",
+          "status": "pass"
+        },
+        {
+          "index": 4,
+          "source_quotes": [
+            "An applicant with a pending name change must not be issued a passport in her/his new name."
+          ],
+          "claim_ids": [
+            "E011"
+          ],
+          "rationale": "E011 limits the prohibition strictly to issuance 'in her/his new name', avoiding an overbroad ban on all passport issuance.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "You must clear the applicant's pending name even though the name change is not final and even if the passport is not being issued at this time."
+          ],
+          "claim_ids": [],
+          "rationale": "The negative control misinterprets the concessive clause 'even if the passport is not being issued at this time' as an exception that carves out the clearance requirement.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "None observed.",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "NREG-07",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "if the applicant has a name with multiple parts, you must determine how the name will appear:"
+          ],
+          "claim_ids": [
+            "E017"
+          ],
+          "rationale": "E017 faithfully models determining the appearance of a multipart name as a mandatory requirement with modality 'must'.",
+          "status": "pass"
+        },
+        {
+          "index": 1,
+          "source_quotes": [
+            "If the applicant's previous passport had a space, you should add a space on the current application;"
+          ],
+          "claim_ids": [
+            "E018"
+          ],
+          "rationale": "E018 models adding a space when a previous passport had a space as a recommendation with modality 'should'.",
+          "status": "pass"
+        },
+        {
+          "index": 2,
+          "source_quotes": [
+            "If the applicant does not have a previous passport and the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality or ID has a space, you should add a space on the current application;"
+          ],
+          "claim_ids": [
+            "E019"
+          ],
+          "rationale": "E019 preserves the recommendation force ('should') for the no-prior-passport condition.",
+          "status": "pass"
+        },
+        {
+          "index": 3,
+          "source_quotes": [
+            "If the applicant does not have a previous passport and the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality or ID has a space"
+          ],
+          "claim_ids": [
+            "E019"
+          ],
+          "rationale": "The compound logical condition (no previous passport AND [citizenship evidence OR ID has space]) is explicitly preserved in E019.",
+          "status": "pass"
+        },
+        {
+          "index": 4,
+          "source_quotes": [
+            "you should add a space on the current application;"
+          ],
+          "claim_ids": [
+            "E018",
+            "E019"
+          ],
+          "rationale": "The draft maintains the distinction between recommendation ('should') and requirement ('must') without upgrading guidance to mandatory duty.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "If the applicant's previous passport had a space, you should add a space on the current application;",
+            "If the applicant does not have a previous passport and the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality or ID has a space, you should add a space on the current application;"
+          ],
+          "claim_ids": [],
+          "rationale": "The negative control improperly upgrades advisory guidance ('should') to a mandatory duty ('must') and collapses the conditional structure into an overbroad rule.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "None observed.",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "NREG-08",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "If the applicant expresses a clear preference to add or remove space, either verbally or in writing, you may add or remove it per the applicant's preference."
+          ],
+          "claim_ids": [
+            "E020"
+          ],
+          "rationale": "Draft claim E020 faithfully captures the verbal or written disjunction as stated in the source text.",
+          "status": "pass"
+        },
+        {
+          "index": 1,
+          "source_quotes": [
+            "If the applicant expresses a clear preference to add or remove space, either verbally or in writing, you may add or remove it per the applicant's preference."
+          ],
+          "claim_ids": [
+            "E020"
+          ],
+          "rationale": "Draft claim E020 preserves both alternatives to add or remove space according to applicant preference.",
+          "status": "pass"
+        },
+        {
+          "index": 2,
+          "source_quotes": [
+            "you may add or remove it per the applicant's preference."
+          ],
+          "claim_ids": [
+            "E020"
+          ],
+          "rationale": "Draft claim E020 correctly uses permissive modality ('may') rather than an unconditional mandate.",
+          "status": "pass"
+        },
+        {
+          "index": 3,
+          "source_quotes": [
+            "you may add or remove it per the applicant's preference."
+          ],
+          "claim_ids": [
+            "E020"
+          ],
+          "rationale": "Draft claim E020 sets the object as 'space' without silently assigning an unsupported referent.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "If the applicant expresses a clear preference to add or remove space, either verbally or in writing, you may add or remove it per the applicant's preference."
+          ],
+          "claim_ids": [],
+          "rationale": "The negative control improperly imposes a mandatory requirement ('must') and restricts the medium to writing only, contradicting the source's explicit allowance of verbal expression and discretionary permission.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "NREG-09",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "If you receive applications from several family members, you should space the last names consistently, unless a family member expresses a clear preference for a different spacing."
+          ],
+          "claim_ids": [
+            "E021"
+          ],
+          "rationale": "Draft claim E021 accurately retains the recommendation ('should') for consistent family spacing conditioned on the absence of a contrary clear preference.",
+          "status": "pass"
+        },
+        {
+          "index": 1,
+          "source_quotes": [
+            "For special-issuance passports, the spacing of an eligible family member's last name should match the spacing of the last name of the sponsor."
+          ],
+          "claim_ids": [
+            "E022"
+          ],
+          "rationale": "Draft claim E022 preserves the recommendation that spacing of an eligible family member's last name match the sponsor's spacing for special-issuance passports.",
+          "status": "pass"
+        },
+        {
+          "index": 2,
+          "source_quotes": [
+            "unless a family member expresses a clear preference for a different spacing."
+          ],
+          "claim_ids": [
+            "E021"
+          ],
+          "rationale": "Draft claim E021 correctly places the clear preference exception on the family consistency recommendation rather than conflating it with the sponsor rule.",
+          "status": "pass"
+        },
+        {
+          "index": 3,
+          "source_quotes": [
+            "NOTE: If you receive applications from several family members, you should space the last names consistently, unless a family member expresses a clear preference for a different spacing.\n\nNOTE: For special-issuance passports, the spacing of an eligible family member's last name should match the spacing of the last name of the sponsor."
+          ],
+          "claim_ids": [
+            "E021",
+            "E022"
+          ],
+          "rationale": "The draft maintains both notes separately without imposing an artificial hierarchy or mandatory force.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "NOTE: If you receive applications from several family members, you should space the last names consistently, unless a family member expresses a clear preference for a different spacing.\n\nNOTE: For special-issuance passports, the spacing of an eligible family member's last name should match the spacing of the last name of the sponsor."
+          ],
+          "claim_ids": [],
+          "rationale": "The negative control invents a universal 'must' rule and wrongly overrides preference across all family members, ignoring the separate recommendation scopes in the source.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "NREG-10",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "Name spacing issues are generally not sufficient cause to rewrite a passport, unless the Department disregarded the applicant's clear preference (see 8 FAM 1001.2).",
+            "Name suffix issues are generally not sufficient cause to rewrite a passport, unless the Department disregarded the applicant's clear preference (see 8 FAM 1001.2)."
+          ],
+          "claim_ids": [],
+          "rationale": "Neither draft contains claims extracting the separate rewrite rules for spacing (8 FAM 403.1-3(B)(b)) and suffix issues (8 FAM 403.1-3(B)(e)).",
+          "status": "fail"
+        },
+        {
+          "index": 1,
+          "source_quotes": [
+            "Name spacing issues are generally not sufficient cause to rewrite a passport",
+            "Name suffix issues are generally not sufficient cause to rewrite a passport"
+          ],
+          "claim_ids": [],
+          "rationale": "The draft omitted these provisions entirely, failing to represent the qualified non-absolute standard ('generally not sufficient').",
+          "status": "fail"
+        },
+        {
+          "index": 2,
+          "source_quotes": [
+            "unless the Department disregarded the applicant's clear preference (see 8 FAM 1001.2)."
+          ],
+          "claim_ids": [],
+          "rationale": "The draft lacks extracted claims capturing the Department disregard exception.",
+          "status": "fail"
+        },
+        {
+          "index": 3,
+          "source_quotes": [
+            "unless the Department disregarded the applicant's clear preference (see 8 FAM 1001.2)."
+          ],
+          "claim_ids": [],
+          "rationale": "Because the rewrite rules were not extracted, the draft fails to articulate the exception or preserve its non-mandatory status.",
+          "status": "fail"
+        },
+        {
+          "index": 4,
+          "source_quotes": [
+            "(see 8 FAM 1001.2)"
+          ],
+          "claim_ids": [],
+          "rationale": "The cross-reference to 8 FAM 1001.2 for passport rewrites is absent from the drafted claims.",
+          "status": "fail"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "Name spacing issues are generally not sufficient cause to rewrite a passport, unless the Department disregarded the applicant's clear preference (see 8 FAM 1001.2).",
+            "Name suffix issues are generally not sufficient cause to rewrite a passport, unless the Department disregarded the applicant's clear preference (see 8 FAM 1001.2)."
+          ],
+          "claim_ids": [],
+          "rationale": "The negative control posits an absolute prohibition ('must never') and ignores the express exception where the Department disregarded a clear preference.",
+          "status": "pass"
+        },
+        {
+          "index": 1,
+          "source_quotes": [
+            "Name spacing issues are generally not sufficient cause to rewrite a passport, unless the Department disregarded the applicant's clear preference (see 8 FAM 1001.2)."
+          ],
+          "claim_ids": [],
+          "rationale": "The negative control creates an absolute affirmative requirement ('must rewrite every passport') where the source merely qualifies an insufficiency rule with an exception and cross-reference.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "",
+      "status": "fail",
+      "validation_issues": []
+    },
+    {
+      "id": "NREG-11",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "under 22 CFR 51.23(c), evidence of identity might be required in accordance with Department guidance to establish the name that best identifies the applicant:"
+          ],
+          "claim_ids": [
+            "N005"
+          ],
+          "rationale": "Draft claim N005 accurately reflects the possible requirement of identity evidence under 22 CFR 51.23(c) in accordance with Department guidance.",
+          "status": "pass"
+        },
+        {
+          "index": 1,
+          "source_quotes": [
+            "to establish the name that best identifies the applicant:"
+          ],
+          "claim_ids": [
+            "N005"
+          ],
+          "rationale": "Draft claim N005 preserves the purpose phrase explicitly in its scope and summary fields.",
+          "status": "pass"
+        },
+        {
+          "index": 2,
+          "source_quotes": [
+            "The applicant generally will need the name change documentation to change the name on her/his ID."
+          ],
+          "claim_ids": [
+            "N008"
+          ],
+          "rationale": "The draft notes the qualified practical guidance in the context quotes of N008, although it is not formalized as its own standalone claim.",
+          "status": "pass"
+        },
+        {
+          "index": 3,
+          "source_quotes": [
+            "under 22 CFR 51.23(c), evidence of identity might be required in accordance with Department guidance to establish the name that best identifies the applicant:"
+          ],
+          "claim_ids": [
+            "N005",
+            "N006",
+            "N009"
+          ],
+          "rationale": "Draft claim N005 preserves 'possible' modality ('might be required') without converting it into a universal duty, while N009 retains the explicit exemption for applicants who changed names within one year.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "under 22 CFR 51.23(c), evidence of identity might be required in accordance with Department guidance to establish the name that best identifies the applicant:",
+            "Applicants who have had a material name change within one year of applying on a form DS-11 do not need to submit ID in the new name."
+          ],
+          "claim_ids": [],
+          "rationale": "The negative control erroneously universalizes an ID submission duty ('All applicants must submit ID') when the source uses 'might be required' and explicitly exempts applicants who changed names within one year.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "NREG-12",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "If the applicant has had a material name change more than one year prior to applying on form DS-11 but has not updated her/his ID to reflect the material name change, you must suspend the application to request an acceptable ID in the new name."
+          ],
+          "claim_ids": [
+            "N006",
+            "E005"
+          ],
+          "rationale": "Draft claims N006 and E005 correctly distinguish the applicant's material name change from the DS-11 application form context.",
+          "status": "pass"
+        },
+        {
+          "index": 1,
+          "source_quotes": [
+            "If the applicant has had a material name change more than one year prior to applying on form DS-11 but has not updated her/his ID to reflect the material name change, you must suspend the application to request an acceptable ID in the new name."
+          ],
+          "claim_ids": [
+            "N006",
+            "E005"
+          ],
+          "rationale": "Neither claim mispairs the action 'has had a material name change' with 'form DS-11' as its direct object.",
+          "status": "pass"
+        },
+        {
+          "index": 2,
+          "source_quotes": [
+            "If the applicant has had a material name change more than one year prior to applying on form DS-11 but has not updated her/his ID to reflect the material name change, you must suspend the application to request an acceptable ID in the new name."
+          ],
+          "claim_ids": [
+            "N006",
+            "E005"
+          ],
+          "rationale": "The claims retain the full conditional logic and scope rather than forcing synthetic sub-predicates.",
+          "status": "pass"
+        },
+        {
+          "index": 3,
+          "source_quotes": [
+            "If the applicant has had a material name change more than one year prior to applying on form DS-11 but has not updated her/his ID to reflect the material name change, you must suspend the application to request an acceptable ID in the new name."
+          ],
+          "claim_ids": [
+            "N006",
+            "E005"
+          ],
+          "rationale": "Both claims appropriately identify the required action as suspending the application to request acceptable ID, without mandating the filing of form DS-11.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [],
+      "uncertainty": "",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "NREG-13",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "The term “applicant” is used hereinafter for the individual whose citizenship and identity is being adjudicated, including for form DS-2060."
+          ],
+          "claim_ids": [],
+          "rationale": "The draft excerpts and claims in draft run names-excerpts-03 omit the definition of 'applicant' and its explicit reference to form DS-2060, extracting only minor applicants in E000.",
+          "status": "fail"
+        },
+        {
+          "index": 1,
+          "source_quotes": [
+            "For purposes of this chapter, minor applicants are defined as un-emancipated applicants under the age of 18."
+          ],
+          "claim_ids": [
+            "E000"
+          ],
+          "rationale": "Draft claim E000 defines minor applicants as un-emancipated applicants under the age of 18 scoped to this chapter.",
+          "status": "pass"
+        },
+        {
+          "index": 2,
+          "source_quotes": [
+            "For purposes of this chapter, minor applicants are defined as un-emancipated applicants under the age of 18."
+          ],
+          "claim_ids": [
+            "E000"
+          ],
+          "rationale": "Claim E000 correctly retains the emancipation element ('un-emancipated'), the age restriction ('under the age of 18'), and chapter limitation.",
+          "status": "pass"
+        },
+        {
+          "index": 3,
+          "source_quotes": [
+            "For purposes of this chapter, minor applicants are defined as un-emancipated applicants under the age of 18."
+          ],
+          "claim_ids": [
+            "E000"
+          ],
+          "rationale": "Claim E000 correctly leaves the actor blank without inventing an artificial duty bearer for the definitional statement.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "For purposes of this chapter, minor applicants are defined as un-emancipated applicants under the age of 18."
+          ],
+          "claim_ids": [],
+          "rationale": "The negative control overgeneralizes the scope across 'every passport-related context' and omits the crucial condition of being un-emancipated.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "",
+      "status": "fail",
+      "validation_issues": []
+    },
+    {
+      "id": "NREG-14",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "Arabic ordinal numbers must be changed to Roman numerals, for example, 2nd to II, 3rd to III:"
+          ],
+          "claim_ids": [
+            "E023"
+          ],
+          "rationale": "Claim E023 captures the conversion of Arabic ordinal numbers to Roman numerals with the illustrative examples.",
+          "status": "pass"
+        },
+        {
+          "index": 1,
+          "source_quotes": [
+            "Arabic ordinal numbers must be changed to Roman numerals, for example, 2nd to II, 3rd to III:"
+          ],
+          "claim_ids": [
+            "E023"
+          ],
+          "rationale": "Draft claim E023 isolates the ordinal number conversion rule to Section 8 FAM 403.1-5(B)(c) without conflating it with Name Spacing.",
+          "status": "pass"
+        },
+        {
+          "index": 2,
+          "source_quotes": [
+            "Some applicants may include the prefix “Sr.” as an abbreviation for “Señor” in Spanish meaning “Mr.” or “Mister” in English."
+          ],
+          "claim_ids": [],
+          "rationale": "The draft completely omitted paragraph (d) concerning the prefix 'Sr.' meaning 'Señor' and ranks/titles guidance.",
+          "status": "fail"
+        },
+        {
+          "index": 3,
+          "source_quotes": [
+            "If you determine that this is the case, follow the guidance in 8 FAM 403.1-5(C) regarding ranks and titles."
+          ],
+          "claim_ids": [],
+          "rationale": "No draft claim captures the conditional instruction to follow 8 FAM 403.1-5(C) regarding ranks and titles.",
+          "status": "fail"
+        },
+        {
+          "index": 4,
+          "source_quotes": [
+            "If you determine that this is the case, follow the guidance in 8 FAM 403.1-5(C) regarding ranks and titles."
+          ],
+          "claim_ids": [],
+          "rationale": "The guidance is entirely omitted from the draft claims, leaving any rule regarding handling or removal unrepresented.",
+          "status": "fail"
+        }
+      ],
+      "negative_controls": [],
+      "uncertainty": "",
+      "status": "fail",
+      "validation_issues": []
+    }
+  ],
+  "separate_workflow_case": "NREG-15"
+}

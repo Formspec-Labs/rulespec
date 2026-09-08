@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/warrant-family-confusion.json",
+  "title": "warrant-family-confusion",
+  "$defs": {
+    "WarrantFamilyConfusionRejector": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:Warrant"
+        },
+        "rkaf:warrantKind": {
+          "const": "rkaf:statutory"
+        },
+        "rkaf:warrantFamily": {
+          "const": "rkaf:legal"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:warrantKind",
+        "rkaf:warrantFamily"
+      ]
+    }
+  }
+}

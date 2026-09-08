@@ -1,0 +1,498 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/platform-artifact.json",
+  "title": "platform-artifact",
+  "$defs": {
+    "PlatformArtifactInput": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+        },
+        "logicalId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]*[0-9a-f]{64}$"
+        },
+        "artifactDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "role",
+        "logicalId",
+        "artifactDigest"
+      ]
+    },
+    "PlatformArtifactCounts": {
+      "type": "object",
+      "properties": {
+        "manifestCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "memberCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "totalMemberByteSize": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "totalRecordCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "manifestCount",
+        "memberCount",
+        "totalMemberByteSize",
+        "totalRecordCount"
+      ]
+    },
+    "PlatformProducer": {
+      "type": "object",
+      "properties": {
+        "product": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+        },
+        "implementationId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "verifierId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "verifierVersion": {
+          "type": "string"
+        },
+        "verifierImplementationId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "product",
+        "implementationId",
+        "verifierId",
+        "verifierVersion",
+        "verifierImplementationId"
+      ]
+    },
+    "PlatformKnownLimit": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+        },
+        "scope": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+        },
+        "statement": {
+          "type": "string"
+        },
+        "evidenceDigests": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "scope",
+        "statement",
+        "evidenceDigests"
+      ]
+    },
+    "PlatformSupersedes": {
+      "type": "object",
+      "properties": {
+        "logicalId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]*[0-9a-f]{64}$"
+        },
+        "artifactDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "logicalId",
+        "artifactDigest",
+        "reason"
+      ]
+    },
+    "PlatformMemberDescriptor": {
+      "type": "object",
+      "properties": {
+        "objectKey": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "blobRef": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "role": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+        },
+        "mediaType": {
+          "type": "string"
+        },
+        "byteSize": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "recordCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "schemaId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "role",
+        "mediaType",
+        "byteSize"
+      ]
+    },
+    "PlatformMemberManifestReference": {
+      "type": "object",
+      "properties": {
+        "manifestId": {
+          "type": "string"
+        },
+        "scopeKind": {
+          "type": "string",
+          "enum": [
+            "global",
+            "partition"
+          ]
+        },
+        "scopeId": {
+          "type": "string"
+        },
+        "objectKey": {
+          "type": "string"
+        },
+        "byteSize": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "memberCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "totalMemberByteSize": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "totalRecordCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "manifestId",
+        "scopeKind",
+        "scopeId",
+        "objectKey",
+        "byteSize",
+        "sha256",
+        "memberCount",
+        "totalMemberByteSize",
+        "totalRecordCount"
+      ]
+    },
+    "PlatformManifestCounts": {
+      "type": "object",
+      "properties": {
+        "memberCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "totalMemberByteSize": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "totalRecordCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "memberCount",
+        "totalMemberByteSize",
+        "totalRecordCount"
+      ]
+    },
+    "PlatformManifestScope": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "global",
+            "partition"
+          ]
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id"
+      ]
+    },
+    "PlatformMemberManifest": {
+      "type": "object",
+      "properties": {
+        "format": {
+          "const": "spicy-artifact-members"
+        },
+        "formatVersion": {
+          "const": "1.0"
+        },
+        "manifestId": {
+          "type": "string"
+        },
+        "scope": {
+          "$ref": "#/$defs/PlatformManifestScope"
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PlatformMemberDescriptor"
+          }
+        },
+        "counts": {
+          "$ref": "#/$defs/PlatformManifestCounts"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "format",
+        "formatVersion",
+        "manifestId",
+        "scope",
+        "members",
+        "counts"
+      ]
+    },
+    "PlatformDerivationRelation": {
+      "type": "object",
+      "properties": {
+        "relationKind": {
+          "const": "derivation"
+        },
+        "processorId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "processorVersion": {
+          "type": "string"
+        },
+        "processorDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "policyId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "policyVersion": {
+          "type": "string"
+        },
+        "policyDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "parametersDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "partitioningId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "partitioningDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "expectedOutputRoles": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "relationKind",
+        "processorId",
+        "processorVersion",
+        "processorDigest",
+        "policyId",
+        "policyVersion",
+        "policyDigest",
+        "parametersDigest",
+        "partitioningId",
+        "partitioningDigest",
+        "expectedOutputRoles"
+      ]
+    },
+    "PlatformCompositionRelation": {
+      "type": "object",
+      "properties": {
+        "relationKind": {
+          "const": "composition"
+        },
+        "mergePolicyId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "mergePolicyVersion": {
+          "type": "string"
+        },
+        "mergePolicyDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "totalOrderKey": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "relationKind",
+        "mergePolicyId",
+        "mergePolicyVersion",
+        "mergePolicyDigest",
+        "totalOrderKey"
+      ]
+    },
+    "PlatformArtifact": {
+      "type": "object",
+      "properties": {
+        "format": {
+          "const": "spicy-artifact"
+        },
+        "formatVersion": {
+          "const": "1.0"
+        },
+        "kind": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+        },
+        "spec": {
+          "type": "object"
+        },
+        "logicalId": {
+          "type": "string",
+          "pattern": "^urn:[^\\s]*:[0-9a-f]{64}$"
+        },
+        "artifactDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PlatformArtifactInput"
+          },
+          "uniqueItems": true
+        },
+        "memberManifests": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PlatformMemberManifestReference"
+          }
+        },
+        "counts": {
+          "$ref": "#/$defs/PlatformArtifactCounts"
+        },
+        "producer": {
+          "$ref": "#/$defs/PlatformProducer"
+        },
+        "knownLimits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PlatformKnownLimit"
+          },
+          "minItems": 1
+        },
+        "supersedes": {
+          "$ref": "#/$defs/PlatformSupersedes"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "format",
+        "formatVersion",
+        "kind",
+        "spec",
+        "logicalId",
+        "artifactDigest",
+        "inputs",
+        "memberManifests",
+        "counts",
+        "producer"
+      ]
+    }
+  },
+  "$ref": "#/$defs/PlatformArtifact"
+}

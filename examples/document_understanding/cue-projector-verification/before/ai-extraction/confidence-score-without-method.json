@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/confidence-score-without-method.json",
+  "title": "confidence-score-without-method",
+  "$defs": {
+    "ConfidenceScoreWithoutMethodRejector": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:ConfidenceRecord"
+        },
+        "rkaf:confidenceMethod": {
+          "type": "string",
+          "enum": [
+            "rkaf:model-inference",
+            "rkaf:human-estimation",
+            "rkaf:review-consensus",
+            "rkaf:source-class-inheritance",
+            "rkaf:rule-based"
+          ]
+        },
+        "rkaf:calibrationStatus": {
+          "type": "string",
+          "enum": [
+            "rkaf:uncalibrated",
+            "rkaf:calibratedAgainst",
+            "rkaf:humanEstimated",
+            "rkaf:consensus"
+          ]
+        },
+        "rkaf:confidenceBasis": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "rkaf:generatedBy": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:confidenceMethod",
+        "rkaf:calibrationStatus",
+        "rkaf:confidenceBasis",
+        "rkaf:generatedBy"
+      ]
+    }
+  }
+}

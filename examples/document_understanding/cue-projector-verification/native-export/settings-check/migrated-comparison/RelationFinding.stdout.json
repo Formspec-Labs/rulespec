@@ -1,0 +1,60 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+        "RelationFindingKind": {
+            "description": "The kinds of neutral finding this contract can express. ONE value today, and\nthe single value is the point: every other evidence situation has its own\nrepresentation, so a finding kind exists only where none of the others fit.\n\n  affirmed / denied disagreement -> rkaf:affirmedDeniedDiscrepancy (here)\n  source affirms                 -> affirmed #RelationshipAssertion\n  source denies                  -> denied   #RelationshipAssertion\n  source changes the relation    -> #RelationChangeEvent\n  gate failed                    -> rkaf:comparisonNotComparable outcome\n  gate undecided                 -> rkaf:comparisonUnknown outcome\n  source silent                  -> no record; unknown\n\n`expected_relation_not_observed` is deliberately NOT a value and MUST NOT\nbecome one while `#ClosureClaim` is disabled. An omission finding is only\nmeaningful inside a proven closure boundary; without one it converts silence\ninto a claim, which is the single failure mode this whole module exists to\nprevent. `AnalysisModuleTests` asserts the absence mechanically so it cannot\nbe reintroduced as a \"small\" enum addition.",
+            "const": "rkaf:affirmedDeniedDiscrepancy"
+        }
+    },
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "@type": {
+            "const": "rkaf:RelationFinding"
+        },
+        "rkaf:findingComparedAssertion": {
+            "type": "array",
+            "description": "The accepted assertions that disagreed. At least two: one assertion\ncannot disagree with itself, and a \"discrepancy\" naming a single record\nis a mislabelled unilateral claim.",
+            "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            "minItems": 2
+        },
+        "rkaf:findingComparisonContext": {
+            "type": "string",
+            "description": "The comparison this finding reports, class-ranged to\n`rkaf:RelationComparisonContext`. The context carries the artifact pair,\nversions, consumer, scope, evaluation time, policy and detector versions,\nsnapshot, and outcome — so the finding does not restate any of them and\ncannot disagree with them.\n\nThe bound context's outcome must be\n`rkaf:comparisonAffirmedDeniedDiscrepancy`. That is a cross-node\nagreement rule, which per-property SHACL cannot reach, so it is enforced\nby `rkaf:RelationFindingContextOutcomeAgreementShape` in\n`shapes/rkaf-shapes-analysis.ttl`. Without it a producer could attach a\ndiscrepancy finding to a comparison that came back `satisfied`.",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:findingDetectedAt": {
+            "type": "string",
+            "description": "When the detector produced this occurrence, and why."
+        },
+        "rkaf:findingFingerprint": {
+            "type": "string",
+            "description": "A stable correlation key grouping repeated observations of the same\nconceptual gap. Optional and deliberately separate from the finding's\nidentity: changing any comparison input creates a NEW detector\noccurrence, and the fingerprint is what lets a consumer see that two\noccurrences are about the same thing without merging them into one."
+        },
+        "rkaf:findingProofRecord": {
+            "type": "array",
+            "description": "Every proof record backing the finding, class-ranged to\n`rkaf:ResolverProofRecord`. Required: a neutral finding is only as\nreviewable as the gate decisions under it, and \"complete proof records\nfor every emitted finding\" is an acceptance threshold, not a nicety.",
+            "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            "minItems": 1
+        },
+        "rkaf:findingRationale": {
+            "type": "string"
+        },
+        "rkaf:relationFindingKind": {
+            "$ref": "#/$defs/RelationFindingKind"
+        }
+    },
+    "required": [
+        "rkaf:findingComparedAssertion",
+        "rkaf:findingComparisonContext",
+        "rkaf:findingDetectedAt",
+        "rkaf:findingProofRecord",
+        "rkaf:findingRationale"
+    ]
+}

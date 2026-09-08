@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/local-adoption.json",
+  "title": "local-adoption",
+  "$defs": {
+    "LocalAdoptionAuthorityKind": {
+      "type": "string",
+      "enum": [
+        "rkaf:organizational",
+        "rkaf:localOperational",
+        "rkaf:contractual",
+        "rkaf:publication"
+      ]
+    },
+    "UsageEligibility": {
+      "type": "string",
+      "enum": [
+        "rkaf:notEligible",
+        "rkaf:searchOnly",
+        "rkaf:reviewQueueOnly",
+        "rkaf:draftGenerationAllowed",
+        "rkaf:localOperationalUse",
+        "rkaf:publicationAllowed",
+        "rkaf:officialUse"
+      ]
+    },
+    "LocalAdoption": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:LocalAdoption"
+        },
+        "rkaf:organization": {
+          "type": "string"
+        },
+        "rkaf:targetAssertion": {
+          "type": "string"
+        },
+        "rkaf:adoptionStatus": {
+          "type": "string",
+          "enum": [
+            "rkaf:active",
+            "rkaf:revoked",
+            "rkaf:expired",
+            "rkaf:proposed"
+          ]
+        },
+        "rkaf:usageEligibility": {
+          "$ref": "#/$defs/UsageEligibility"
+        },
+        "rkaf:adoptionAuthorityKind": {
+          "$ref": "#/$defs/LocalAdoptionAuthorityKind"
+        },
+        "rkaf:adoptionScope": {
+          "type": "string"
+        },
+        "rkaf:authorizedBy": {
+          "type": "string"
+        },
+        "rkaf:adoptedAt": {
+          "type": "string"
+        },
+        "rkaf:adoptsApplicability": {
+          "type": "string"
+        },
+        "rkaf:basedOnAttestation": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:organization",
+        "rkaf:targetAssertion",
+        "rkaf:adoptionStatus",
+        "rkaf:usageEligibility",
+        "rkaf:adoptionAuthorityKind",
+        "rkaf:adoptionScope",
+        "rkaf:authorizedBy",
+        "rkaf:adoptedAt"
+      ]
+    }
+  }
+}

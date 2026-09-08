@@ -1,0 +1,32 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "description": "ResolverProofIssuer — the versioned resolver and policy a proof was issued\nunder.\n\nThe carrier implementation denormalizes these four fields onto every proof\nrecord because its identity is a content digest over them. The contract\nkeeps ONE issuer record and references it, for the same reason Rulespec keeps\none `rkaf:ConfidenceRecord` rather than a score on every assertion: a\nresolver version that changes must change in one place, and two proofs that\nclaim the same issuer must be comparable by IRI rather than by hoping four\nstrings were copied identically.",
+    "additionalProperties": false,
+    "properties": {
+        "@type": {
+            "const": "rkaf:ResolverProofIssuer"
+        },
+        "rkaf:proofPolicy": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:proofPolicyVersion": {
+            "type": "string"
+        },
+        "rkaf:proofResolver": {
+            "type": "string",
+            "description": "The resolver implementation and the policy it applies. Both are\nproducer-scoped IRIs; Rulespec neither mints nor parses them.",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:proofResolverVersion": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "rkaf:proofPolicy",
+        "rkaf:proofPolicyVersion",
+        "rkaf:proofResolver",
+        "rkaf:proofResolverVersion"
+    ]
+}

@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/Users/mikewolfd/Work/rulespec/.tools/cue-native-v0.17.1/cue",
+    "def",
+    "--out",
+    "jsonschema",
+    "-e",
+    "#Conditional",
+    "imported-strict-conditional.cue"
+  ],
+  "returncode": 0,
+  "stdout": "{\n    \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n    \"type\": \"object\",\n    \"additionalProperties\": false,\n    \"properties\": {\n        \"kind\": {\n            \"enum\": [\n                \"human\",\n                \"ai\"\n            ]\n        },\n        \"lineage\": {\n            \"type\": \"string\"\n        }\n    },\n    \"else\": {\n        \"type\": \"object\",\n        \"additionalProperties\": true,\n        \"not\": {\n            \"anyOf\": [\n                {\n                    \"type\": \"null\"\n                },\n                {\n                    \"type\": \"boolean\"\n                },\n                {\n                    \"type\": \"number\"\n                },\n                {\n                    \"type\": \"string\"\n                },\n                {\n                    \"type\": \"array\"\n                },\n                {\n                    \"type\": \"object\",\n                    \"additionalProperties\": true,\n                    \"properties\": {\n                        \"lineage\": true\n                    },\n                    \"required\": [\n                        \"lineage\"\n                    ]\n                }\n            ]\n        }\n    },\n    \"if\": {\n        \"type\": \"object\",\n        \"additionalProperties\": true,\n        \"properties\": {\n            \"kind\": {\n                \"const\": \"ai\"\n            }\n        },\n        \"required\": [\n            \"kind\"\n        ]\n    },\n    \"then\": {\n        \"type\": \"object\",\n        \"additionalProperties\": true,\n        \"properties\": {\n            \"lineage\": true\n        },\n        \"required\": [\n            \"lineage\"\n        ]\n    },\n    \"required\": [\n        \"kind\"\n    ]\n}\n",
+  "stderr": ""
+}

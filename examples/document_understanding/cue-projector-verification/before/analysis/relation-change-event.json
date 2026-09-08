@@ -1,0 +1,367 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/relation-change-event.json",
+  "title": "relation-change-event",
+  "$defs": {
+    "RelationChangeOperation": {
+      "type": "string",
+      "enum": [
+        "rkaf:relationAdoption",
+        "rkaf:relationRemoval",
+        "rkaf:relationSuspension",
+        "rkaf:relationReplacement"
+      ]
+    },
+    "RelationChangeStage": {
+      "type": "string",
+      "enum": [
+        "rkaf:changeProposed",
+        "rkaf:changeDecided",
+        "rkaf:changeEffective",
+        "rkaf:changeWithdrawn",
+        "rkaf:changeStageUnclear"
+      ]
+    },
+    "UsageEligibility": {
+      "type": "string",
+      "enum": [
+        "rkaf:notEligible",
+        "rkaf:searchOnly",
+        "rkaf:reviewQueueOnly",
+        "rkaf:draftGenerationAllowed",
+        "rkaf:localOperationalUse",
+        "rkaf:publicationAllowed",
+        "rkaf:officialUse"
+      ]
+    },
+    "ConsumerLifecycleState": {
+      "type": "string",
+      "enum": [
+        "rkaf:draft",
+        "rkaf:proposedForOperational",
+        "rkaf:operational",
+        "rkaf:staleForCurrentUse",
+        "rkaf:published"
+      ]
+    },
+    "AssertionOrigin": {
+      "type": "string",
+      "enum": [
+        "rkaf:humanAsserted",
+        "rkaf:aiSuggested",
+        "rkaf:imported",
+        "rkaf:deterministicExtraction"
+      ]
+    },
+    "EpistemicBasis": {
+      "type": "string",
+      "enum": [
+        "rkaf:sourceExplicit",
+        "rkaf:deterministicDerivation",
+        "rkaf:statisticalInference",
+        "rkaf:editorialAssertion",
+        "rkaf:userAssertion"
+      ]
+    },
+    "ProvisionalAIUsageEligibility": {
+      "type": "string",
+      "enum": [
+        "rkaf:notEligible",
+        "rkaf:searchOnly",
+        "rkaf:reviewQueueOnly"
+      ]
+    },
+    "RelationChangeEvent": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:RelationChangeEvent"
+        },
+        "rkaf:usageEligibility": {
+          "$ref": "#/$defs/UsageEligibility"
+        },
+        "rkaf:consumerLifecycleState": {
+          "$ref": "#/$defs/ConsumerLifecycleState"
+        },
+        "rkaf:hasAccessScope": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:assertionOrigin": {
+          "$ref": "#/$defs/AssertionOrigin"
+        },
+        "rkaf:epistemicBasis": {
+          "$ref": "#/$defs/EpistemicBasis"
+        },
+        "rkaf:hasApplicability": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasJustification": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasWarrant": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasAuthority": {
+          "type": "string"
+        },
+        "rkaf:hasRetentionPolicy": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "prov:wasDerivedFrom": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            }
+          ]
+        },
+        "rkaf:hasSourceClaimant": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasExtractionProvenance": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasConfidence": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            }
+          ]
+        },
+        "rkaf:supersedesAssertion": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            }
+          ]
+        },
+        "rkaf:assertedAt": {
+          "type": "string"
+        },
+        "rkaf:changeSubject": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:changePredicate": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:changeObject": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:relationChangeOperation": {
+          "$ref": "#/$defs/RelationChangeOperation"
+        },
+        "rkaf:relationChangeStage": {
+          "$ref": "#/$defs/RelationChangeStage"
+        },
+        "rkaf:relationChangeTime": {
+          "type": "string"
+        },
+        "rkaf:changeIntendedEffectiveTime": {
+          "type": "string"
+        },
+        "rkaf:changeEvidence": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "rkaf:replacementRelationObject": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasAILineage": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:assertionOrigin",
+        "rkaf:epistemicBasis",
+        "rkaf:changeSubject",
+        "rkaf:changePredicate",
+        "rkaf:changeObject",
+        "rkaf:relationChangeOperation",
+        "rkaf:relationChangeStage",
+        "rkaf:changeEvidence"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "rkaf:assertionOrigin": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:aiSuggested"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:aiSuggested"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:assertionOrigin"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:hasAILineage": {
+                "type": "string"
+              },
+              "rkaf:usageEligibility": {
+                "$ref": "#/$defs/ProvisionalAIUsageEligibility"
+              }
+            },
+            "required": [
+              "rkaf:hasAILineage",
+              "rkaf:usageEligibility"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:assertionOrigin": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:deterministicExtraction"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:deterministicExtraction"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:assertionOrigin"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:hasExtractionProvenance": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "rkaf:hasExtractionProvenance"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:relationChangeStage": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:changeEffective"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:changeEffective"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:relationChangeStage"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:changeIntendedEffectiveTime": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "rkaf:changeIntendedEffectiveTime"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:relationChangeOperation": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:relationReplacement"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:relationReplacement"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:relationChangeOperation"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:replacementRelationObject": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            },
+            "required": [
+              "rkaf:replacementRelationObject"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

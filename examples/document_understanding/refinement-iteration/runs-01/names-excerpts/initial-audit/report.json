@@ -1,0 +1,1766 @@
+{
+  "schema_version": "rulespec-evaluation-report/1",
+  "assessment_kind": "model-assisted-source-assessment",
+  "status": "failed",
+  "review_complete": false,
+  "dataset_id": "automatic-inventory:695bc01a6a7f9d916b46e6ec310ffcc2abf3d08e6bf087f6edf158a062929829",
+  "split": "production-assessment",
+  "rulebook_sha256": "f654245869ccab4f71b1cbaac00d899146de8cc4b00d3a6cbcb423712ffc1903",
+  "labels_sha256": "f639439bf2b4b4d4e83765166c58e2039f27ae8869530094f1666b6e3ad5a56b",
+  "label_provenance": {
+    "reviewer": "gemini-3.8-flash source-first checker",
+    "reviewer_kind": "aiAgent",
+    "method": "source_review"
+  },
+  "review_provenance": {
+    "reviewer": "gemini-3.8-flash claim-first checker",
+    "reviewer_kind": "aiAgent",
+    "method": "source_review"
+  },
+  "counts": {
+    "accepted_claims": 24,
+    "expected_units": 40,
+    "reviewed_claims": 24,
+    "unjudged_or_stale_claims": 0
+  },
+  "dimensions": {
+    "summary": {
+      "correct": 24,
+      "error": 0,
+      "not_applicable": 0,
+      "unknown": 0,
+      "reviewed_correct_fraction": {
+        "numerator": 24,
+        "denominator": 24,
+        "value": 1.0
+      },
+      "reviewed_fraction": {
+        "numerator": 24,
+        "denominator": 24,
+        "value": 1.0
+      },
+      "error_examples": []
+    },
+    "actor": {
+      "correct": 15,
+      "error": 1,
+      "not_applicable": 8,
+      "unknown": 0,
+      "reviewed_correct_fraction": {
+        "numerator": 15,
+        "denominator": 16,
+        "value": 0.9375
+      },
+      "reviewed_fraction": {
+        "numerator": 24,
+        "denominator": 24,
+        "value": 1.0
+      },
+      "error_examples": [
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:3bf9aedb7386c3f41801e4c82c154f8d3b4d1b696b2027c9497fa17a2c9b4cdf",
+          "summary": "The court order or decree must list both the applicant's current and former names.",
+          "actor": "",
+          "rationale": "The summary accurately captures the requirement that a court order or decree list current and former names. However, the actor field was left blank rather than identifying the court order or decree as the governing entity."
+        }
+      ]
+    },
+    "support": {
+      "correct": 24,
+      "error": 0,
+      "not_applicable": 0,
+      "unknown": 0,
+      "reviewed_correct_fraction": {
+        "numerator": 24,
+        "denominator": 24,
+        "value": 1.0
+      },
+      "reviewed_fraction": {
+        "numerator": 24,
+        "denominator": 24,
+        "value": 1.0
+      },
+      "error_examples": []
+    },
+    "scope": {
+      "correct": 19,
+      "error": 3,
+      "not_applicable": 2,
+      "unknown": 0,
+      "reviewed_correct_fraction": {
+        "numerator": 19,
+        "denominator": 22,
+        "value": 0.8636363636363636
+      },
+      "reviewed_fraction": {
+        "numerator": 24,
+        "denominator": 24,
+        "value": 1.0
+      },
+      "error_examples": [
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:78f902eb5b9b31b2d82e7c19e596dfea9981c0547c031e079a314aa4dadf04e1",
+          "summary": "An applicant with a pending name change must not be issued a passport in their new name.",
+          "actor": "",
+          "rationale": "The claim captures the prohibition that an applicant with a pending name change must not be issued a passport in their new name. However, it omits the governing lead-in condition 'The court order or decree must be final:' from its explicit scope, rendering the scope overbroad. The actor is passive and unstated in the clause."
+        },
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:e3369a4cac710a54c3fba2e9d2a125d5f8da96122b7a93e0e928dfb9f2b29a4e",
+          "summary": "An applicant with a pending name change must not be issued a form FS-240 in their new name.",
+          "actor": "",
+          "rationale": "The claim correctly reflects that an applicant with a pending name change must not be issued a Form FS-240 in the new name. However, scope fails to incorporate the governing lead-in prerequisite that this applies under subsection c ('The court order or decree must be final:'). Actor is not specified in the passive construction."
+        },
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:5dccbd47a6837d52781bc2bdd2f22d15f9f20038ed1735f67d5170021fa35e8f",
+          "summary": "You must clear the applicant's pending name even though the name change is not final and even if the passport is not currently being issued.",
+          "actor": "You (adjudicator)",
+          "rationale": "The claim accurately states the mandate to clear the applicant's pending name regardless of finality or issuance timing, but scope is left entirely empty, omitting both the pending name change condition and the governing court order context."
+        }
+      ]
+    },
+    "links": {
+      "correct": 15,
+      "error": 0,
+      "not_applicable": 9,
+      "unknown": 0,
+      "reviewed_correct_fraction": {
+        "numerator": 15,
+        "denominator": 15,
+        "value": 1.0
+      },
+      "reviewed_fraction": {
+        "numerator": 24,
+        "denominator": 24,
+        "value": 1.0
+      },
+      "error_examples": []
+    },
+    "boundary": {
+      "correct": 24,
+      "error": 0,
+      "not_applicable": 0,
+      "unknown": 0,
+      "reviewed_correct_fraction": {
+        "numerator": 24,
+        "denominator": 24,
+        "value": 1.0
+      },
+      "reviewed_fraction": {
+        "numerator": 24,
+        "denominator": 24,
+        "value": 1.0
+      },
+      "error_examples": []
+    },
+    "modality": {
+      "correct": 24,
+      "error": 0,
+      "not_applicable": 0,
+      "unknown": 0,
+      "reviewed_correct_fraction": {
+        "numerator": 24,
+        "denominator": 24,
+        "value": 1.0
+      },
+      "reviewed_fraction": {
+        "numerator": 24,
+        "denominator": 24,
+        "value": 1.0
+      },
+      "error_examples": []
+    },
+    "action": {
+      "correct": 23,
+      "error": 0,
+      "not_applicable": 1,
+      "unknown": 0,
+      "reviewed_correct_fraction": {
+        "numerator": 23,
+        "denominator": 23,
+        "value": 1.0
+      },
+      "reviewed_fraction": {
+        "numerator": 24,
+        "denominator": 24,
+        "value": 1.0
+      },
+      "error_examples": []
+    },
+    "object": {
+      "correct": 23,
+      "error": 0,
+      "not_applicable": 1,
+      "unknown": 0,
+      "reviewed_correct_fraction": {
+        "numerator": 23,
+        "denominator": 23,
+        "value": 1.0
+      },
+      "reviewed_fraction": {
+        "numerator": 24,
+        "denominator": 24,
+        "value": 1.0
+      },
+      "error_examples": []
+    },
+    "alternatives": {
+      "correct": 1,
+      "error": 0,
+      "not_applicable": 23,
+      "unknown": 0,
+      "reviewed_correct_fraction": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0
+      },
+      "reviewed_fraction": {
+        "numerator": 24,
+        "denominator": 24,
+        "value": 1.0
+      },
+      "error_examples": []
+    },
+    "thresholds": {
+      "correct": 3,
+      "error": 0,
+      "not_applicable": 21,
+      "unknown": 0,
+      "reviewed_correct_fraction": {
+        "numerator": 3,
+        "denominator": 3,
+        "value": 1.0
+      },
+      "reviewed_fraction": {
+        "numerator": 24,
+        "denominator": 24,
+        "value": 1.0
+      },
+      "error_examples": []
+    }
+  },
+  "coverage": {
+    "covered": 20,
+    "missing": 16,
+    "partial": 3,
+    "unknown": 1,
+    "covered_fraction": {
+      "numerator": 20,
+      "denominator": 40,
+      "value": 0.5
+    },
+    "missing_examples": [
+      {
+        "unit_id": "urn:rulespec:audit-unit:90aefe8d4af88bb973d37b3da5eb920d7870057ef0c77c15d75cc63d03cafda5",
+        "meaning": "The term \"applicant\" is defined as and used to refer to the individual whose citizenship and identity is being adjudicated, including in the context of form DS-2060.",
+        "status": "missing",
+        "rationale": "The draft lacks any claim defining 'applicant' as the individual whose citizenship and identity is being adjudicated, including for form DS-2060."
+      },
+      {
+        "unit_id": "urn:rulespec:audit-unit:51fcee0859f7a6d05349068c1fe6642a0a7fee127013c92b840d0d593e1baa8e",
+        "meaning": "A material discrepancy is defined as any name change that does not qualify as immaterial under 8 FAM 403.1-5.",
+        "status": "missing",
+        "rationale": "The definition of material discrepancy as any name change not defined as immaterial in 8 FAM 403.1-5 is only referenced in context quotations and lacks an extracted claim."
+      },
+      {
+        "unit_id": "urn:rulespec:audit-unit:549cab621fcd1eb66c2d012c45524faf948e6662e945a2f8bd43b5d919bbaab0",
+        "meaning": "Subject to the exception for married names in 8 FAM 403.1-4(C), any material discrepancy between the name on the application, the evidence of U.S. citizenship/non-citizen U.S. nationality, or the evidence of identity must be documented by submitting at least one of the qualifying documents specified in this section.",
+        "status": "missing",
+        "rationale": "No claim was created for the requirement in 8 FAM 403.1-4(b) stating that material discrepancies must be documented by submitting documents listed in the section."
+      },
+      {
+        "unit_id": "urn:rulespec:audit-unit:1cc2d41fb251dee3a8a10e83509395e016c15bda128342fe22f8a263d3ce6af6",
+        "meaning": "Under acceptable documentation per 22 CFR 51.25, court orders for a name change constitute an acceptable document type to evidence a material name change.",
+        "status": "missing",
+        "rationale": "The draft contains no claim covering court orders for name changes as an acceptable means of documentation."
+      },
+      {
+        "unit_id": "urn:rulespec:audit-unit:38f5dacf109a8e7eda2b63716ae031acc16fa6ba109e679a1465681aefb246ff",
+        "meaning": "Under acceptable documentation per 22 CFR 51.25, court-ordered divorce decrees constitute an acceptable document type to evidence a material name change.",
+        "status": "missing",
+        "rationale": "The draft contains no claim covering divorce decrees as an acceptable means of documenting a name change."
+      },
+      {
+        "unit_id": "urn:rulespec:audit-unit:cd3bbde563c064ba5c1e307e162b061f977f4fda371f6953a55942b2b6d01e39",
+        "meaning": "Under 22 CFR 51.25, certificates of naturalization serve as an acceptable document type to prove a material name change.",
+        "status": "missing",
+        "rationale": "The draft contains no claim covering certificates of naturalization as acceptable documentation for a material name change."
+      },
+      {
+        "unit_id": "urn:rulespec:audit-unit:6929fe42a405c0e9667414756376e5683a03d67f5c09bb0952f973c5eece69d6",
+        "meaning": "Under 22 CFR 51.25, marriage certificates constitute an acceptable means of documenting a material name change.",
+        "status": "missing",
+        "rationale": "The draft contains no claim covering marriage certificates as acceptable documentation."
+      },
+      {
+        "unit_id": "urn:rulespec:audit-unit:581e59f490a02d8e1dc910cff1acc36cb8822796fbfadd696232e25dd93814c7",
+        "meaning": "Under 22 CFR 51.25, documentation showing that a name changed by operation of state law is an acceptable means to document a material name change.",
+        "status": "missing",
+        "rationale": "The draft contains no claim covering documentation demonstrating change of name by operation of state law."
+      },
+      {
+        "unit_id": "urn:rulespec:audit-unit:6c49f41fd30ac4ab765351325dc28cde1b04e8420e1e41615fb85306ec030e5e",
+        "meaning": "Under 22 CFR 51.25, documentation evidencing customary usage of the name constitutes an acceptable means of documenting a material name change.",
+        "status": "missing",
+        "rationale": "The draft contains no claim covering documentation of customary usage."
+      },
+      {
+        "unit_id": "urn:rulespec:audit-unit:8d379c34c9bbce10d5e105ef0804a2f24f89b0de1ff48652942593445df2b3f3",
+        "meaning": "Because an applicant's name is an integral component of identity, adjudicators have the authority under 22 CFR 51.23(c) and Department guidance to require evidence of identity to establish which name best identifies the applicant.",
+        "status": "missing",
+        "rationale": "The draft omits the provision under 22 CFR 51.23(c) permitting evidence of identity to be required to establish the name that best identifies the applicant."
+      },
+      {
+        "unit_id": "urn:rulespec:audit-unit:a099f549ab65548eec58cff7667ece9fc0b60f02c36e34496167d32507e13558",
+        "meaning": "As a qualified general rule, applicants will require their name change documentation in order to update the name displayed on their ID.",
+        "status": "missing",
+        "rationale": "The statement that the applicant generally will need name change documentation to update ID is cited only as context in C0007, not extracted as a claim."
+      },
+      {
+        "unit_id": "urn:rulespec:audit-unit:5b2532fce1f92bd68908c5e02ab3f0d5aa292b286f3142b170be6a46076854db",
+        "meaning": "When a name change court order or decree is not final and the name change is pending, a passport must not be issued to the applicant in their new name.",
+        "status": "partial",
+        "rationale": "C0011 captures the prohibition against issuing a passport in the new name, but omits the governing lead-in condition that this applies in the context of court orders/decrees requiring finality."
+      },
+      {
+        "unit_id": "urn:rulespec:audit-unit:a3b68b6e5f883d8404a874897321aaf88a7419725eec5737aaded36a4944c882",
+        "meaning": "When a name change court order or decree is not final and the name change is pending, a Form FS-240 must not be issued to the applicant in their new name.",
+        "status": "partial",
+        "rationale": "C0012 captures the prohibition against issuing Form FS-240 in the new name, but omits the governing lead-in prerequisite regarding court orders or decrees."
+      },
+      {
+        "unit_id": "urn:rulespec:audit-unit:843cddae2f4af58d06ad1ca343b20f3c065e81e5a9f0e98ea18a3a32fd0ccb86",
+        "meaning": "The adjudicator must clear the applicant's pending name, notwithstanding that the name change is not final and regardless of whether the passport is currently being issued.",
+        "status": "partial",
+        "rationale": "C0013 captures the requirement to clear the pending name, but fails to capture the scope and governing lead-in context of a court order name change."
+      },
+      {
+        "unit_id": "urn:rulespec:audit-unit:d1079452961e0f43a21e8f2715698babe7b7f639c44fab12407134d642002e59",
+        "meaning": "Acknowledges that an adjudicator may receive a court order where the applicant's former name is made confidential under programs such as California's Safe at Home program.",
+        "status": "missing",
+        "rationale": "The statement noting that an adjudicator may receive a court order where the former name is made confidential was cited only as scope and lacks an emitted claim."
+      },
+      {
+        "unit_id": "urn:rulespec:audit-unit:7b00222121ed9e345d42c8abbdab470426ad5afd5333b84bc4ad0b51e332e813",
+        "meaning": "Discrepancies or issues regarding name spacing generally do not justify rewriting a passport, except when the Department failed to follow an applicant's clearly expressed preference.",
+        "status": "missing",
+        "rationale": "No claim was created for the provision stating that name spacing issues are generally not sufficient cause to rewrite a passport unless a clear preference was disregarded."
+      },
+      {
+        "unit_id": "urn:rulespec:audit-unit:63105060fa27496ef9d8dd245720aaed27c4255e72283b8ea4c35376217645f5",
+        "meaning": "Observes that some applicants might use the prefix 'Sr.' as a Spanish abbreviation for 'Señor' ('Mr.' or 'Mister').",
+        "status": "missing",
+        "rationale": "No claim represents the observation that some applicants may use 'Sr.' as an abbreviation for 'Señor'."
+      },
+      {
+        "unit_id": "urn:rulespec:audit-unit:d1c27aa81ef32124de25841201cb47a48fa65ee39d895243b1a2c1f0d24ad194",
+        "meaning": "If the adjudicator determines that 'Sr.' is used as an abbreviation for 'Señor', they must follow the ranks and titles procedures detailed in 8 FAM 403.1-5(C).",
+        "status": "missing",
+        "rationale": "No claim represents the requirement to follow ranks and titles guidance in 8 FAM 403.1-5(C) when 'Sr.' is determined to mean 'Señor'."
+      },
+      {
+        "unit_id": "urn:rulespec:audit-unit:00366369c0631fb379f8e9ce6c07dfe7df2320bf5f13903e43fbff9903f5af7f",
+        "meaning": "Issues relating to name suffixes generally do not constitute sufficient grounds to rewrite a passport, except in instances where the Department failed to respect the applicant's clear preference.",
+        "status": "missing",
+        "rationale": "No claim represents the provision stating that name suffix issues are generally not sufficient cause to rewrite a passport unless a clear preference was disregarded."
+      }
+    ]
+  },
+  "issues": [
+    {
+      "code": "inconsistent_coverage_judgment",
+      "unit_id": "urn:rulespec:audit-unit:49a2d6408875f02a244bd6b566aa4cb9271e470780a23bfd09b4bfe2950bbd71",
+      "message": "Coverage lacks current, consistent reviewed claim matches."
+    }
+  ],
+  "claim_results": [
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:1d53d19061e4cd1f738beb03f7beacd0c61b8e5dbdd0f10d1737fe04dc325d9b",
+      "claim_sha256": "74966240b33bf433128f3217f694443f45295eb9a93d133de22a70e15d9121ab",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:79525ac32055e2155d982b3e7748e5964b7d0ee9a70bc825a0688eab7061ce7f"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "not_applicable",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "not_applicable",
+        "object": "not_applicable",
+        "alternatives": "not_applicable",
+        "thresholds": "correct"
+      },
+      "rationale": "The claim accurately reflects the source definition of minor applicants within the chapter, including the condition of being un-emancipated and under 18 years old.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "For purposes of this chapter, minor applicants are defined as un-emancipated applicants under the age of 18.",
+          "start": 147,
+          "end": 255
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:e59a759978c6365d43399fabef8134613b083a787bbab0bb3d1b4a429bb928d1",
+      "claim_sha256": "50dab86ce6cfbaf20eced684078cfec232fb20b1d9907d756221df78e605bee4",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:46c82fb0b94050fd856be4952d44802b98a32fcd49e07a2efd7cb97159c6c0d3"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      },
+      "rationale": "The claim accurately represents the requirement that applicants explain material discrepancies across the specified citizenship/nationality and identity documents.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "The applicant must explain any material discrepancies between the name on the application and the name recorded in the evidence of U.S. citizenship/non-citizen U.S. nationality and the evidence of identity (see 22 CFR 51.25).",
+          "start": 440,
+          "end": 665
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:b3b11a3fb35f9c9e7541419428fa2ea17846e91a611a4fa9cf9091165a6b44b6",
+      "claim_sha256": "f036c8b03515bf0e55ea009887f70973cea0a326d7895c737e3f9b46479e8ece",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:a1a4458d43c6d246a0ac81d7e7ab280bfa5766fc5374e802c930d8867c799a53"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "not_applicable",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      },
+      "rationale": "The claim accurately captures the mandatory requirement that evidence of material name changes be reviewed for counterfeiting or alteration.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "Evidence of material name changes must be reviewed for evidence of counterfeiting or alteration (see 8 FAM 201.1)",
+          "start": 1340,
+          "end": 1453
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:d7b58aac1e80aa9013d1834b9c4de7a6f5ba0b80ae7e4add68ccd78ca18a8d4c",
+      "claim_sha256": "206b6b25c1a719a0bf3728deef684165b7eff57bd2a10dc7e49ef8de09fe0db6",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:137044697b49e05de031e713154b8fbca8920eb5d71c45ca33b457fd4d5197ef"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      },
+      "rationale": "The claim captures the prohibition against using a prior name after a material name change, subject to permission in the documentation.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "The applicant may not continue to use a previous name after a material name change unless the name change documentation specifically permits the applicant to continue using that name (see 8 FAM 403.1-6 regarding “known as” names).",
+          "start": 1458,
+          "end": 1688
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:b831978d331f597d3e6f549a6f64cb2228895ec4ba6c50874daf984e9fe1b8df",
+      "claim_sha256": "65c52ffb19211fc038e61a39b4f036d16484e8c11fefed758308365d6542f487",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:137044697b49e05de031e713154b8fbca8920eb5d71c45ca33b457fd4d5197ef"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      },
+      "rationale": "The claim correctly details the specific exception permitting continued use of a previous name if explicitly allowed by the documentation.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "unless the name change documentation specifically permits the applicant to continue using that name",
+          "start": 1541,
+          "end": 1640
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:feb68bed2a468935932473ecc26ec5be59d6756454b7498ee70fb505016686f2",
+      "claim_sha256": "e3e8c246138d5ddba72d0906ca1395096d65fd7d33e1165f3686945b80daaed6",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:39688f3e939e85ce7ad579ae94d9bd38927d3c064d22ab8d27264f385d30142f"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "correct"
+      },
+      "rationale": "The claim precisely conveys the mandatory suspension and request for updated ID when the material name change occurred more than one year prior to applying on Form DS-11.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "If the applicant has had a material name change more than one year prior to applying on form DS-11 but has not updated her/his ID to reflect the material name change, you must suspend the application to request an acceptable ID in the new name.",
+          "start": 1933,
+          "end": 2177
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:9050634c7a149062c9921afe43c2c8b60ba7612c6b7f286785c6847442ad3a1b",
+      "claim_sha256": "e40df50990d64291f204cd940a89891afb0fb698974426fd2dde89c3ee4bb724",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:44bf86431fc6b7af3a0834ae7a054e02f05bf6d2e64f0e3a3b5e4c6eebcf9e56"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "not_applicable",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      },
+      "rationale": "The claim correctly reflects the discretionary permission to issue a limited-validity passport when there is insufficient time before urgent or emergency travel, incorporating the relevant governing condition from item (1).",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "If there is insufficient time to request that the applicant submit acceptable ID prior to urgent or emergency travel, a limited-validity passport may be issued in the requested name;",
+          "start": 2178,
+          "end": 2360
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:8c4efb5e8cd0c4486af56ba67fdbd64d3b16e14172ff742280e0a2c55c544eac",
+      "claim_sha256": "97b88fe35b1bd82ad060edbb157ae88c3bf15789e12fbf69a1a272afbbf2b9ce",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:fb30000d90f097d6cf2dc5bf9a5b66548904388b1afb6475c6dfbfb55b707bef"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      },
+      "rationale": "The claim accurately captures the adjudicator's requirement to fully notate name change documentation as 'seen and returned' prior to returning it with an IRL.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "You must fully notate the name change documentation prior to returning the documentation, including that the documentation was \"seen and returned,\" to the applicant with the information request letter (IRL);",
+          "start": 2464,
+          "end": 2671
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:e542258d3ea77a32ba456fa7040cc4244e4ed817d0a4835bd775751e2d70e76f",
+      "claim_sha256": "b833b0f1cc6836a39c53bb73281cd4e557ccb42201ec5b58ff65b965ede820bd",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:8bf3bf70759b24e1796e7f70867f528ec604d396aed132b07dade5cd3161c122"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "correct"
+      },
+      "rationale": "The claim accurately states the exemption from submitting an ID in the new name for applicants with a material name change within one year of application.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "Applicants who have had a material name change within one year of applying on a form DS-11 do not need to submit ID in the new name.",
+          "start": 2681,
+          "end": 2813
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:af88c364a12f0bb890bd2b20956d86e4b283be6d29895e5915323582f50f563c",
+      "claim_sha256": "72a7339ad41cc900b57e00c72ae84ccaeb93aedf80a8096264ed592a23e0dfe9",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:242f2dcfd2bed3497b4c76ed0ab53c43c4494b5e6f079e24f3fa5cf36cf6298b"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      },
+      "rationale": "The claim properly captures the mandatory condition that applicants whose ID is not yet updated must submit their name change documentation.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "However, if the ID has not yet been changed, they must submit their name change documentation.",
+          "start": 2814,
+          "end": 2908
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:fc4787a704c5aaf087799656dfdc7521486aa2e49a96e4184e09d03eb5c1b58e",
+      "claim_sha256": "0a3e222257e41b6c5d881f01935bb0d20c5d01484769f2f8b5a835896b649d02",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:4c450b4f35d80c86d235a90c85f2a75e64d8645c1c85a104945f10d4d229ddc3"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "not_applicable",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      },
+      "rationale": "The claim accurately captures the requirement that a submitted court order or decree must be final.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "The court order or decree must be final:",
+          "start": 2913,
+          "end": 2953
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:78f902eb5b9b31b2d82e7c19e596dfea9981c0547c031e079a314aa4dadf04e1",
+      "claim_sha256": "8c107034bad338592c07a0d7caba78ad002fd4b5af7517841b2372ab5cde8550",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:5b2532fce1f92bd68908c5e02ab3f0d5aa292b286f3142b170be6a46076854db"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "not_applicable",
+        "support": "correct",
+        "scope": "error",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      },
+      "rationale": "The claim captures the prohibition that an applicant with a pending name change must not be issued a passport in their new name. However, it omits the governing lead-in condition 'The court order or decree must be final:' from its explicit scope, rendering the scope overbroad. The actor is passive and unstated in the clause.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "An applicant with a pending name change must not be issued a passport in her/his new name.",
+          "start": 2959,
+          "end": 3049
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:e3369a4cac710a54c3fba2e9d2a125d5f8da96122b7a93e0e928dfb9f2b29a4e",
+      "claim_sha256": "c0317ccd48e00094f7781fcdbdaee6259ce7f5fe8bf88a58e4f53f1d39c1108e",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:a3b68b6e5f883d8404a874897321aaf88a7419725eec5737aaded36a4944c882"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "not_applicable",
+        "support": "correct",
+        "scope": "error",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      },
+      "rationale": "The claim correctly reflects that an applicant with a pending name change must not be issued a Form FS-240 in the new name. However, scope fails to incorporate the governing lead-in prerequisite that this applies under subsection c ('The court order or decree must be final:'). Actor is not specified in the passive construction.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "An applicant with a pending name change must not be issued a form FS-240 in her/his new name.",
+          "start": 3133,
+          "end": 3226
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:5dccbd47a6837d52781bc2bdd2f22d15f9f20038ed1735f67d5170021fa35e8f",
+      "claim_sha256": "f7f6e12d49adf0ca7315cb288a559a272ecf71e388f9834e9fff4a249c331688",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:843cddae2f4af58d06ad1ca343b20f3c065e81e5a9f0e98ea18a3a32fd0ccb86"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "error",
+        "links": "not_applicable",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      },
+      "rationale": "The claim accurately states the mandate to clear the applicant's pending name regardless of finality or issuance timing, but scope is left entirely empty, omitting both the pending name change condition and the governing court order context.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "You must clear the applicant's pending name even though the name change is not final and even if the passport is not being issued at this time.",
+          "start": 3287,
+          "end": 3430
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:3bf9aedb7386c3f41801e4c82c154f8d3b4d1b696b2027c9497fa17a2c9b4cdf",
+      "claim_sha256": "1269831525ca0d7e2e7dc9f123351374b0a8028fa2951ef593cd5b78a38f3eff",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:49a2d6408875f02a244bd6b566aa4cb9271e470780a23bfd09b4bfe2950bbd71"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "error",
+        "support": "correct",
+        "scope": "not_applicable",
+        "links": "not_applicable",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      },
+      "rationale": "The summary accurately captures the requirement that a court order or decree list current and former names. However, the actor field was left blank rather than identifying the court order or decree as the governing entity.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "The court order or decree must list both the applicant's current and former name(s).",
+          "start": 3435,
+          "end": 3519
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:f7b7bbb7aa45de7c7676ec050d28c24ff9a8d3ff76de1e013b290a6961dcb198",
+      "claim_sha256": "dc611db51808c256f8147703552636507852b16f4c04a10d139ab209f9cb84e5",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:76c5f79eb258d47c60f15f61a771ce7808719a86ecce238912cb05cac4472d68"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "not_applicable",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      },
+      "rationale": "The claim correctly identifies the applicant as the actor, the obligation to provide both names, and properly sets the scope based on the confidential former name exception.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "When this occurs, the applicant must provide both her/his current and former names on the application.",
+          "start": 3663,
+          "end": 3765
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:d4dae498c1f57c59d791e81268fd4f804e105abe56b0ae3eb83021406ae4f800",
+      "claim_sha256": "eb7bac347f1471721c69d2c9a29d4ae69a9154a0cc1d6c80f9d48e5a40b01ff7",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:65134ba4c3b899dc662ba41b267a263957bac5cb66c6861e22129575bed4508c"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      },
+      "rationale": "The claim accurately captures the adjudicator's permission to request additional evidence under the confidential former name exception, maintaining citations and scope.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "You may request additional evidence of U.S. citizenship/non-citizen U.S. nationality or identity in accordance with 22 CFR 51.23 and 22 CFR 51.45.",
+          "start": 3766,
+          "end": 3912
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:0022d5e93c534c21eb30f7fee7bee56e702ae13b1563b629674c7f21c8b9591f",
+      "claim_sha256": "f1e3124802a4a4f5a851da0246e568535744520e00316986afc7243b74d653a6",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:1270908e4938b3c96a014d367b1369480adf6a1896e4f94b882d9578322436ae"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      },
+      "rationale": "The claim correctly records the mandatory determination required of the adjudicator when an applicant has a multi-part name.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "if the applicant has a name with multiple parts, you must determine how the name will appear:",
+          "start": 4296,
+          "end": 4389
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:30f7c7f0e394fa4d002c0887f9932580b8241cc1389f24b21873dc617f16b57f",
+      "claim_sha256": "8cf1222828faf4e7b6f25e2b47433605675bedffc6ca099b7962132e2aada08c",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:9c8813b5216dbbbc15875ae97ada22d2218e6b9f0637fdfde3221329ebda2d09"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "not_applicable",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      },
+      "rationale": "The claim correctly states the recommendation to add a space if the previous passport had a space, correctly inheriting the multi-part name governing lead-in.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "If the applicant's previous passport had a space, you should add a space on the current application;",
+          "start": 4395,
+          "end": 4495
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:c9fb2819c24e4e61eff1e2b16153cef51dfa92c4e5ccb9a57b175872d784a4eb",
+      "claim_sha256": "b1e98c4ab6d747ec23d8885551736a8cfae22698f2828932914827ecbec7d95c",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:a1d635755f1188a17eb3caad4fc25e18f9229bae3becfe56f0b2857f853af672"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "not_applicable",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      },
+      "rationale": "The claim correctly reflects the recommendation to add a space when there is no prior passport but citizenship evidence or ID contains a space, under multi-part name scope.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "If the applicant does not have a previous passport and the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality or ID has a space, you should add a space on the current application;",
+          "start": 4501,
+          "end": 4699
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:fa761336dd59017b1cefeb558674f4feba1bebe1b69220f301c9f065a05628a3",
+      "claim_sha256": "f89d80812dcc1f356a1b0f340056ac800da9e16c8a5484fef3bb7d1064396837",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:5c3201434ed97db9f7e87537043d143918de6be56a4e1f546e3b971ca68ba64f"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "not_applicable",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "correct",
+        "thresholds": "not_applicable"
+      },
+      "rationale": "The claim correctly captures the adjudicator's discretion to add or remove space based on verbal or written applicant preference.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "If the applicant expresses a clear preference to add or remove space, either verbally or in writing, you may add or remove it per the applicant's preference.",
+          "start": 4708,
+          "end": 4865
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:c00f2fae36398610e6abe9d86bc5ded6463efe370fe827a6a069b96b803a8e16",
+      "claim_sha256": "e67f53bde066b527c53e55e3171d99a93e43e46f0c32f6f7c7087101b499040b",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:572a23617585ce740f58f475f4ff567e3e9f32ad9147a40a3379b1407f9428db",
+        "urn:rulespec:audit-unit:2f9a784540df95ca34bb8a7f03b051372fae7fd09f288831ee289df427c8afc0"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "not_applicable",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      },
+      "rationale": "The claim accurately reflects both the general recommendation for family member name spacing and the exception when a member expresses a preference for different spacing.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "If you receive applications from several family members, you should space the last names consistently, unless a family member expresses a clear preference for a different spacing.",
+          "start": 4873,
+          "end": 5052
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:1323dfaf207988ed1d83f0487e8fc29c8862ab55adf48d339dcddfbae6ba062d",
+      "claim_sha256": "52da61a734cabe0dd5c7d3976f7a57d5bac70bb0b3ef4f65c1b008be188e90bd",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:1d7cb360ec6a8dace000e2fb6476f8668daefbbb390cd73bb028da6bd71e294d"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "not_applicable",
+        "support": "correct",
+        "scope": "correct",
+        "links": "not_applicable",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      },
+      "rationale": "The claim accurately represents the spacing matching rule for special-issuance passports. The construction is impersonal, so actor is not applicable.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "For special-issuance passports, the spacing of an eligible family member's last name should match the spacing of the last name of the sponsor.",
+          "start": 5060,
+          "end": 5202
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:46a238994dc7caf65c725205ac6a5844f4f40f0c003c3346e58aa871fb762ad6",
+      "claim_sha256": "092317f1919b45287404106ac2a83637aa95a81d056af96e6e94b2c554d67705",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:61626dd389d347a6432f91dbe159b9a0aa50acd2d67079098abb634aca1e7444"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "not_applicable",
+        "support": "correct",
+        "scope": "not_applicable",
+        "links": "not_applicable",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      },
+      "rationale": "The claim correctly captures the requirement to convert Arabic ordinal numbers to Roman numerals. Actor is unstated in the passive clause.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "Arabic ordinal numbers must be changed to Roman numerals, for example, 2nd to II, 3rd to III:",
+          "start": 5376,
+          "end": 5469
+        }
+      ]
+    }
+  ],
+  "unit_results": [
+    {
+      "unit_id": "urn:rulespec:audit-unit:90aefe8d4af88bb973d37b3da5eb920d7870057ef0c77c15d75cc63d03cafda5",
+      "excerpt_id": "window-04f58b9a6fd375451a21",
+      "status": "missing",
+      "claim_ids": [],
+      "rationale": "The draft lacks any claim defining 'applicant' as the individual whose citizenship and identity is being adjudicated, including for form DS-2060.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "The term “applicant” is used hereinafter for the individual whose citizenship and identity is being adjudicated, including for form DS-2060.",
+          "start": 6,
+          "end": 146
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:79525ac32055e2155d982b3e7748e5964b7d0ee9a70bc825a0688eab7061ce7f",
+      "excerpt_id": "window-04f58b9a6fd375451a21",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:1d53d19061e4cd1f738beb03f7beacd0c61b8e5dbdd0f10d1737fe04dc325d9b"
+      ],
+      "rationale": "Claim C0000 fully and accurately covers the definition of minor applicants.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "For purposes of this chapter, minor applicants are defined as un-emancipated applicants under the age of 18.",
+          "start": 147,
+          "end": 255
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:51fcee0859f7a6d05349068c1fe6642a0a7fee127013c92b840d0d593e1baa8e",
+      "excerpt_id": "window-04f58b9a6fd375451a21",
+      "status": "missing",
+      "claim_ids": [],
+      "rationale": "The definition of material discrepancy as any name change not defined as immaterial in 8 FAM 403.1-5 is only referenced in context quotations and lacks an extracted claim.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "A material discrepancy is any name change that is not defined as immaterial in 8 FAM 403.1-5.",
+          "start": 346,
+          "end": 439
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:46c82fb0b94050fd856be4952d44802b98a32fcd49e07a2efd7cb97159c6c0d3",
+      "excerpt_id": "window-04f58b9a6fd375451a21",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:e59a759978c6365d43399fabef8134613b083a787bbab0bb3d1b4a429bb928d1"
+      ],
+      "rationale": "Claim C0001 completely covers the applicant's requirement to explain material discrepancies between application names and citizenship/identity documentation.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "The applicant must explain any material discrepancies between the name on the application and the name recorded in the evidence of U.S. citizenship/non-citizen U.S. nationality and the evidence of identity (see 22 CFR 51.25).",
+          "start": 440,
+          "end": 665
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:549cab621fcd1eb66c2d012c45524faf948e6662e945a2f8bd43b5d919bbaab0",
+      "excerpt_id": "window-04f58b9a6fd375451a21",
+      "status": "missing",
+      "claim_ids": [],
+      "rationale": "No claim was created for the requirement in 8 FAM 403.1-4(b) stating that material discrepancies must be documented by submitting documents listed in the section.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "Material discrepancies between the name recorded on the application, the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality, or the evidence of identity must be documented by submission of one or more of the documents listed in this section (see an exception for married names in 8 FAM 403.1-4(C)).",
+          "start": 670,
+          "end": 987
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:1cc2d41fb251dee3a8a10e83509395e016c15bda128342fe22f8a263d3ce6af6",
+      "excerpt_id": "window-04f58b9a6fd375451a21",
+      "status": "missing",
+      "claim_ids": [],
+      "rationale": "The draft contains no claim covering court orders for name changes as an acceptable means of documentation.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "(a) Name change orders; or",
+          "start": 1102,
+          "end": 1128
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:38f5dacf109a8e7eda2b63716ae031acc16fa6ba109e679a1465681aefb246ff",
+      "excerpt_id": "window-04f58b9a6fd375451a21",
+      "status": "missing",
+      "claim_ids": [],
+      "rationale": "The draft contains no claim covering divorce decrees as an acceptable means of documenting a name change.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "(b) Divorce decrees;",
+          "start": 1130,
+          "end": 1150
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:cd3bbde563c064ba5c1e307e162b061f977f4fda371f6953a55942b2b6d01e39",
+      "excerpt_id": "window-04f58b9a6fd375451a21",
+      "status": "missing",
+      "claim_ids": [],
+      "rationale": "The draft contains no claim covering certificates of naturalization as acceptable documentation for a material name change.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "(2) Certificates of naturalization;",
+          "start": 1152,
+          "end": 1187
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:6929fe42a405c0e9667414756376e5683a03d67f5c09bb0952f973c5eece69d6",
+      "excerpt_id": "window-04f58b9a6fd375451a21",
+      "status": "missing",
+      "claim_ids": [],
+      "rationale": "The draft contains no claim covering marriage certificates as acceptable documentation.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "(3) Marriage certificates;",
+          "start": 1189,
+          "end": 1215
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:581e59f490a02d8e1dc910cff1acc36cb8822796fbfadd696232e25dd93814c7",
+      "excerpt_id": "window-04f58b9a6fd375451a21",
+      "status": "missing",
+      "claim_ids": [],
+      "rationale": "The draft contains no claim covering documentation demonstrating change of name by operation of state law.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "(4) Documentation demonstrating change of name by operation of state law; or",
+          "start": 1217,
+          "end": 1293
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:6c49f41fd30ac4ab765351325dc28cde1b04e8420e1e41615fb85306ec030e5e",
+      "excerpt_id": "window-04f58b9a6fd375451a21",
+      "status": "missing",
+      "claim_ids": [],
+      "rationale": "The draft contains no claim covering documentation of customary usage.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "(5) Documentation of customary usage.",
+          "start": 1295,
+          "end": 1332
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:a1a4458d43c6d246a0ac81d7e7ab280bfa5766fc5374e802c930d8867c799a53",
+      "excerpt_id": "window-04f58b9a6fd375451a21",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:b3b11a3fb35f9c9e7541419428fa2ea17846e91a611a4fa9cf9091165a6b44b6"
+      ],
+      "rationale": "Claim C0002 covers the requirement to review material name change evidence for counterfeiting or alteration.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "Evidence of material name changes must be reviewed for evidence of counterfeiting or alteration (see 8 FAM 201.1)",
+          "start": 1340,
+          "end": 1453
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:137044697b49e05de031e713154b8fbca8920eb5d71c45ca33b457fd4d5197ef",
+      "excerpt_id": "window-04f58b9a6fd375451a21",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:d7b58aac1e80aa9013d1834b9c4de7a6f5ba0b80ae7e4add68ccd78ca18a8d4c",
+        "urn:rulespec:document-understanding:revision:b831978d331f597d3e6f549a6f64cb2228895ec4ba6c50874daf984e9fe1b8df"
+      ],
+      "rationale": "Claims C0003 and C0004 jointly cover the prohibition against using a prior name and the exception where the documentation specifically permits it.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "The applicant may not continue to use a previous name after a material name change unless the name change documentation specifically permits the applicant to continue using that name (see 8 FAM 403.1-6 regarding “known as” names).",
+          "start": 1458,
+          "end": 1688
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:8d379c34c9bbce10d5e105ef0804a2f24f89b0de1ff48652942593445df2b3f3",
+      "excerpt_id": "window-04f58b9a6fd375451a21",
+      "status": "missing",
+      "claim_ids": [],
+      "rationale": "The draft omits the provision under 22 CFR 51.23(c) permitting evidence of identity to be required to establish the name that best identifies the applicant.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "The applicant's name is an integral part of her/his identity. Consequently, under 22 CFR 51.23(c), evidence of identity might be required in accordance with Department guidance to establish the name that best identifies the applicant:",
+          "start": 1693,
+          "end": 1927
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:39688f3e939e85ce7ad579ae94d9bd38927d3c064d22ab8d27264f385d30142f",
+      "excerpt_id": "window-04f58b9a6fd375451a21",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:feb68bed2a468935932473ecc26ec5be59d6756454b7498ee70fb505016686f2"
+      ],
+      "rationale": "Claim C0005 completely covers the rule requiring application suspension and an ID request for name changes older than one year without updated ID.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "If the applicant has had a material name change more than one year prior to applying on form DS-11 but has not updated her/his ID to reflect the material name change, you must suspend the application to request an acceptable ID in the new name.",
+          "start": 1933,
+          "end": 2177
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:44bf86431fc6b7af3a0834ae7a054e02f05bf6d2e64f0e3a3b5e4c6eebcf9e56",
+      "excerpt_id": "window-04f58b9a6fd375451a21",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:9050634c7a149062c9921afe43c2c8b60ba7612c6b7f286785c6847442ad3a1b"
+      ],
+      "rationale": "Claim C0006 covers the issuance of a limited-validity passport in the requested name when urgent/emergency travel does not allow enough time to submit acceptable ID.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "If there is insufficient time to request that the applicant submit acceptable ID prior to urgent or emergency travel, a limited-validity passport may be issued in the requested name;",
+          "start": 2178,
+          "end": 2360
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:a099f549ab65548eec58cff7667ece9fc0b60f02c36e34496167d32507e13558",
+      "excerpt_id": "window-04f58b9a6fd375451a21",
+      "status": "missing",
+      "claim_ids": [],
+      "rationale": "The statement that the applicant generally will need name change documentation to update ID is cited only as context in C0007, not extracted as a claim.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "The applicant generally will need the name change documentation to change the name on her/his ID.",
+          "start": 2366,
+          "end": 2463
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:fb30000d90f097d6cf2dc5bf9a5b66548904388b1afb6475c6dfbfb55b707bef",
+      "excerpt_id": "window-04f58b9a6fd375451a21",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:8c4efb5e8cd0c4486af56ba67fdbd64d3b16e14172ff742280e0a2c55c544eac"
+      ],
+      "rationale": "Claim C0007 accurately covers the requirement to notate name change documentation as 'seen and returned' before sending it with an IRL.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "You must fully notate the name change documentation prior to returning the documentation, including that the documentation was \"seen and returned,\" to the applicant with the information request letter (IRL);",
+          "start": 2464,
+          "end": 2671
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:8bf3bf70759b24e1796e7f70867f528ec604d396aed132b07dade5cd3161c122",
+      "excerpt_id": "window-04f58b9a6fd375451a21",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:e542258d3ea77a32ba456fa7040cc4244e4ed817d0a4835bd775751e2d70e76f"
+      ],
+      "rationale": "Claim C0008 covers the exemption from submitting ID in the new name for applicants with a material name change within one year.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "Applicants who have had a material name change within one year of applying on a form DS-11 do not need to submit ID in the new name.",
+          "start": 2681,
+          "end": 2813
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:242f2dcfd2bed3497b4c76ed0ab53c43c4494b5e6f079e24f3fa5cf36cf6298b",
+      "excerpt_id": "window-04f58b9a6fd375451a21",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:af88c364a12f0bb890bd2b20956d86e4b283be6d29895e5915323582f50f563c"
+      ],
+      "rationale": "Claim C0009 covers the mandatory submission of name change documentation when the ID has not yet been changed within that one-year window.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "However, if the ID has not yet been changed, they must submit their name change documentation.",
+          "start": 2814,
+          "end": 2908
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:4c450b4f35d80c86d235a90c85f2a75e64d8645c1c85a104945f10d4d229ddc3",
+      "excerpt_id": "window-04f58b9a6fd375451a21",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:fc4787a704c5aaf087799656dfdc7521486aa2e49a96e4184e09d03eb5c1b58e"
+      ],
+      "rationale": "Claim C0010 covers the requirement that court orders or decrees must be final.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "The court order or decree must be final:",
+          "start": 2913,
+          "end": 2953
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:5b2532fce1f92bd68908c5e02ab3f0d5aa292b286f3142b170be6a46076854db",
+      "excerpt_id": "window-bb8a1208366898ef0890",
+      "status": "partial",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:78f902eb5b9b31b2d82e7c19e596dfea9981c0547c031e079a314aa4dadf04e1"
+      ],
+      "rationale": "C0011 captures the prohibition against issuing a passport in the new name, but omits the governing lead-in condition that this applies in the context of court orders/decrees requiring finality.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "An applicant with a pending name change must not be issued a passport in her/his new name.",
+          "start": 2959,
+          "end": 3049
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:a3b68b6e5f883d8404a874897321aaf88a7419725eec5737aaded36a4944c882",
+      "excerpt_id": "window-bb8a1208366898ef0890",
+      "status": "partial",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:e3369a4cac710a54c3fba2e9d2a125d5f8da96122b7a93e0e928dfb9f2b29a4e"
+      ],
+      "rationale": "C0012 captures the prohibition against issuing Form FS-240 in the new name, but omits the governing lead-in prerequisite regarding court orders or decrees.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "An applicant with a pending name change must not be issued a form FS-240 in her/his new name.",
+          "start": 3133,
+          "end": 3226
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:843cddae2f4af58d06ad1ca343b20f3c065e81e5a9f0e98ea18a3a32fd0ccb86",
+      "excerpt_id": "window-bb8a1208366898ef0890",
+      "status": "partial",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:5dccbd47a6837d52781bc2bdd2f22d15f9f20038ed1735f67d5170021fa35e8f"
+      ],
+      "rationale": "C0013 captures the requirement to clear the pending name, but fails to capture the scope and governing lead-in context of a court order name change.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "You must clear the applicant's pending name even though the name change is not final and even if the passport is not being issued at this time.",
+          "start": 3287,
+          "end": 3430
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:49a2d6408875f02a244bd6b566aa4cb9271e470780a23bfd09b4bfe2950bbd71",
+      "excerpt_id": "window-bb8a1208366898ef0890",
+      "status": "unknown",
+      "claim_ids": []
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:d1079452961e0f43a21e8f2715698babe7b7f639c44fab12407134d642002e59",
+      "excerpt_id": "window-bb8a1208366898ef0890",
+      "status": "missing",
+      "claim_ids": [],
+      "rationale": "The statement noting that an adjudicator may receive a court order where the former name is made confidential was cited only as scope and lacks an emitted claim.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "EXCEPTION: You may receive a court order in which the applicant's former name is made confidential (e.g., California's Safe at Home program).",
+          "start": 3521,
+          "end": 3662
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:76c5f79eb258d47c60f15f61a771ce7808719a86ecce238912cb05cac4472d68",
+      "excerpt_id": "window-bb8a1208366898ef0890",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:f7b7bbb7aa45de7c7676ec050d28c24ff9a8d3ff76de1e013b290a6961dcb198"
+      ],
+      "rationale": "C0015 fully and accurately captures the requirement that an applicant must provide both current and former names on the application when the court order makes the former name confidential.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "When this occurs, the applicant must provide both her/his current and former names on the application.",
+          "start": 3663,
+          "end": 3765
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:65134ba4c3b899dc662ba41b267a263957bac5cb66c6861e22129575bed4508c",
+      "excerpt_id": "window-bb8a1208366898ef0890",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:d4dae498c1f57c59d791e81268fd4f804e105abe56b0ae3eb83021406ae4f800"
+      ],
+      "rationale": "C0016 accurately conveys the permission to request additional evidence of citizenship, nationality, or identity under 22 CFR 51.23 and 22 CFR 51.45.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "You may request additional evidence of U.S. citizenship/non-citizen U.S. nationality or identity in accordance with 22 CFR 51.23 and 22 CFR 51.45.",
+          "start": 3766,
+          "end": 3912
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:1270908e4938b3c96a014d367b1369480adf6a1896e4f94b882d9578322436ae",
+      "excerpt_id": "window-bb8a1208366898ef0890",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:0022d5e93c534c21eb30f7fee7bee56e702ae13b1563b629674c7f21c8b9591f"
+      ],
+      "rationale": "C0017 completely captures the requirement to determine how a multi-part name will appear.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "if the applicant has a name with multiple parts, you must determine how the name will appear:",
+          "start": 4296,
+          "end": 4389
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:9c8813b5216dbbbc15875ae97ada22d2218e6b9f0637fdfde3221329ebda2d09",
+      "excerpt_id": "window-bb8a1208366898ef0890",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:30f7c7f0e394fa4d002c0887f9932580b8241cc1389f24b21873dc617f16b57f"
+      ],
+      "rationale": "C0018 faithfully conveys the recommendation to add a space if the previous passport contained one.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "If the applicant's previous passport had a space, you should add a space on the current application;",
+          "start": 4395,
+          "end": 4495
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:a1d635755f1188a17eb3caad4fc25e18f9229bae3becfe56f0b2857f853af672",
+      "excerpt_id": "window-bb8a1208366898ef0890",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:c9fb2819c24e4e61eff1e2b16153cef51dfa92c4e5ccb9a57b175872d784a4eb"
+      ],
+      "rationale": "C0019 faithfully conveys the recommendation to add a space if there is no previous passport and citizenship evidence or ID contains a space.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "If the applicant does not have a previous passport and the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality or ID has a space, you should add a space on the current application;",
+          "start": 4501,
+          "end": 4699
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:5c3201434ed97db9f7e87537043d143918de6be56a4e1f546e3b971ca68ba64f",
+      "excerpt_id": "window-bb8a1208366898ef0890",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:fa761336dd59017b1cefeb558674f4feba1bebe1b69220f301c9f065a05628a3"
+      ],
+      "rationale": "C0020 fully captures the adjudicator's authorization to add or remove space in accordance with the applicant's verbal or written preference.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "If the applicant expresses a clear preference to add or remove space, either verbally or in writing, you may add or remove it per the applicant's preference.",
+          "start": 4708,
+          "end": 4865
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:572a23617585ce740f58f475f4ff567e3e9f32ad9147a40a3379b1407f9428db",
+      "excerpt_id": "window-bb8a1208366898ef0890",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:c00f2fae36398610e6abe9d86bc5ded6463efe370fe827a6a069b96b803a8e16"
+      ],
+      "rationale": "C0021 faithfully conveys the recommendation to space family members' last names consistently across applications.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "If you receive applications from several family members, you should space the last names consistently, unless a family member expresses a clear preference for a different spacing.",
+          "start": 4873,
+          "end": 5052
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:2f9a784540df95ca34bb8a7f03b051372fae7fd09f288831ee289df427c8afc0",
+      "excerpt_id": "window-bb8a1208366898ef0890",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:c00f2fae36398610e6abe9d86bc5ded6463efe370fe827a6a069b96b803a8e16"
+      ],
+      "rationale": "The explicit logic and summary of C0021 fully retain the exception to family name spacing consistency when a member expresses a preference for different spacing.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "unless a family member expresses a clear preference for a different spacing.",
+          "start": 4976,
+          "end": 5052
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:1d7cb360ec6a8dace000e2fb6476f8668daefbbb390cd73bb028da6bd71e294d",
+      "excerpt_id": "window-bb8a1208366898ef0890",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:1323dfaf207988ed1d83f0487e8fc29c8862ab55adf48d339dcddfbae6ba062d"
+      ],
+      "rationale": "C0022 accurately covers the recommendation that an eligible family member's last name spacing match the sponsor's spacing for special-issuance passports.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "For special-issuance passports, the spacing of an eligible family member's last name should match the spacing of the last name of the sponsor.",
+          "start": 5060,
+          "end": 5202
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:7b00222121ed9e345d42c8abbdab470426ad5afd5333b84bc4ad0b51e332e813",
+      "excerpt_id": "window-bb8a1208366898ef0890",
+      "status": "missing",
+      "claim_ids": [],
+      "rationale": "No claim was created for the provision stating that name spacing issues are generally not sufficient cause to rewrite a passport unless a clear preference was disregarded.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "Name spacing issues are generally not sufficient cause to rewrite a passport, unless the Department disregarded the applicant's clear preference (see 8 FAM 1001.2).",
+          "start": 5207,
+          "end": 5371
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:61626dd389d347a6432f91dbe159b9a0aa50acd2d67079098abb634aca1e7444",
+      "excerpt_id": "window-bb8a1208366898ef0890",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:46a238994dc7caf65c725205ac6a5844f4f40f0c003c3346e58aa871fb762ad6"
+      ],
+      "rationale": "C0023 faithfully captures the requirement that Arabic ordinal numbers must be changed to Roman numerals.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "Arabic ordinal numbers must be changed to Roman numerals, for example, 2nd to II, 3rd to III:",
+          "start": 5376,
+          "end": 5469
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:63105060fa27496ef9d8dd245720aaed27c4255e72283b8ea4c35376217645f5",
+      "excerpt_id": "window-bb8a1208366898ef0890",
+      "status": "missing",
+      "claim_ids": [],
+      "rationale": "No claim represents the observation that some applicants may use 'Sr.' as an abbreviation for 'Señor'.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "Some applicants may include the prefix “Sr.” as an abbreviation for “Señor” in Spanish meaning “Mr.” or “Mister” in English.",
+          "start": 5474,
+          "end": 5598
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:d1c27aa81ef32124de25841201cb47a48fa65ee39d895243b1a2c1f0d24ad194",
+      "excerpt_id": "window-bb8a1208366898ef0890",
+      "status": "missing",
+      "claim_ids": [],
+      "rationale": "No claim represents the requirement to follow ranks and titles guidance in 8 FAM 403.1-5(C) when 'Sr.' is determined to mean 'Señor'.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "If you determine that this is the case, follow the guidance in 8 FAM 403.1-5(C) regarding ranks and titles.",
+          "start": 5599,
+          "end": 5706
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:00366369c0631fb379f8e9ce6c07dfe7df2320bf5f13903e43fbff9903f5af7f",
+      "excerpt_id": "window-bb8a1208366898ef0890",
+      "status": "missing",
+      "claim_ids": [],
+      "rationale": "No claim represents the provision stating that name suffix issues are generally not sufficient cause to rewrite a passport unless a clear preference was disregarded.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:5a4175f45e6a1e5ed68819bc7725f1871d0cab391934e214c9f7f34023ccc1da",
+          "quote": "Name suffix issues are generally not sufficient cause to rewrite a passport, unless the Department disregarded the applicant's clear preference (see 8 FAM 1001.2).",
+          "start": 5711,
+          "end": 5874
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Semantic verdicts are supplied by the named source reviewer; this evaluator does not infer truth from text overlap.",
+    "Source span and digest checks establish assessment integrity, not semantic correctness.",
+    "Counts describe this bounded labeled set; they are not a general extraction accuracy estimate."
+  ],
+  "audit_issues": [
+    {
+      "window_id": "window-04f58b9a6fd375451a21",
+      "row_index": 2,
+      "code": "invalid_inventory_unit",
+      "error_type": "ValueError"
+    },
+    {
+      "window_id": "window-bb8a1208366898ef0890",
+      "row_index": 19,
+      "code": "invalid_inventory_unit",
+      "error_type": "ValueError"
+    },
+    {
+      "window_id": "window-bb8a1208366898ef0890",
+      "row_index": 24,
+      "code": "invalid_inventory_unit",
+      "error_type": "ValueError"
+    }
+  ],
+  "semantic_completeness": "not_established",
+  "automatic_repairs": 0,
+  "limitation": "The source inventory and judgments are fallible model observations, not independent evaluation gold or human approval."
+}

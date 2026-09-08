@@ -1,0 +1,83 @@
+........................................................................ [ 29%]
+........................FFF.....FF.F.................F.........F........ [ 59%]
+........................................................................ [ 88%]
+...........................                                              [100%]
+=================================== FAILURES ===================================
+____ test_recorded_run_and_raw_replay_are_identical_without_provider_calls _____
+packages/rulespec-extrapolator/tests/test_extraction.py:266: in test_recorded_run_and_raw_replay_are_identical_without_provider_calls
+    assert rulebook["run"]["status"] == "complete"
+E   AssertionError: assert 'failed' == 'complete'
+E     
+E     - complete
+E     + failed
+______________ test_overflow_run_finishes_replays_and_reprocesses ______________
+packages/rulespec-extrapolator/tests/test_extraction.py:288: in test_overflow_run_finishes_replays_and_reprocesses
+    assert book["run"]["status"] == "partial"
+E   AssertionError: assert 'failed' == 'partial'
+E     
+E     - partial
+E     + failed
+_________ test_successful_window_cannot_hide_failed_window_and_replays _________
+packages/rulespec-extrapolator/tests/test_extraction.py:307: in test_successful_window_cannot_hide_failed_window_and_replays
+    assert rulebook["run"]["status"] == "partial"
+E   AssertionError: assert 'failed' == 'partial'
+E     
+E     - partial
+E     + failed
+_ test_compiler_rejection_changes_final_status_without_erasing_parse_status[False] _
+packages/rulespec-extrapolator/tests/test_extraction.py:395: in test_compiler_rejection_changes_final_status_without_erasing_parse_status
+    assert rulebook["run"]["failure_code"] == "no_grounded_candidates"
+E   AssertionError: assert 'graph_validation_failed' == 'no_grounded_candidates'
+E     
+E     - no_grounded_candidates
+E     + graph_validation_failed
+_ test_compiler_rejection_changes_final_status_without_erasing_parse_status[True] _
+packages/rulespec-extrapolator/tests/test_extraction.py:392: in test_compiler_rejection_changes_final_status_without_erasing_parse_status
+    assert rulebook["run"]["status"] == ("partial" if mixed else "failed")
+E   AssertionError: assert 'failed' == 'partial'
+E     
+E     - partial
+E     + failed
+_____ test_recorded_compilation_failure_recovers_only_through_reprocessing _____
+packages/rulespec-extrapolator/tests/test_extraction.py:439: in test_recorded_compilation_failure_recovers_only_through_reprocessing
+    assert recovered["run"]["status"] == "complete"
+E   AssertionError: assert 'failed' == 'complete'
+E     
+E     - complete
+E     + failed
+____________ test_no_candidates_and_partial_empty_runs_are_explicit ____________
+packages/rulespec-extrapolator/tests/test_extraction.py:520: in test_no_candidates_and_partial_empty_runs_are_explicit
+    assert rulebook["run"]["status"] == "no_candidates"
+E   AssertionError: assert 'failed' == 'no_candidates'
+E     
+E     - no_candidates
+E     + failed
+__ test_reprocess_preserves_failed_windows_and_supports_another_reprocessing ___
+packages/rulespec-extrapolator/tests/test_extraction.py:641: in test_reprocess_preserves_failed_windows_and_supports_another_reprocessing
+    assert first["run"]["status"] == second["run"]["status"] == "partial"
+E   AssertionError: assert 'failed' == 'partial'
+E     
+E     - partial
+E     + failed
+=============================== warnings summary ===============================
+packages/rulespec-extrapolator/tests/test_audit.py: 9 warnings
+packages/rulespec-extrapolator/tests/test_core.py: 6 warnings
+packages/rulespec-extrapolator/tests/test_extraction.py: 78 warnings
+packages/rulespec-extrapolator/tests/test_meaning.py: 5 warnings
+packages/rulespec-extrapolator/tests/test_refinement.py: 26 warnings
+packages/rulespec-extrapolator/tests/test_review_http.py: 2 warnings
+packages/rulespec-extrapolator/tests/test_review_store.py: 2 warnings
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/parsers/jsonld.py:159: DeprecationWarning: ConjunctiveGraph is deprecated, use Dataset instead.
+    conj_sink = ConjunctiveGraph(store=sink.store, identifier=sink.identifier)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED packages/rulespec-extrapolator/tests/test_extraction.py::test_recorded_run_and_raw_replay_are_identical_without_provider_calls
+FAILED packages/rulespec-extrapolator/tests/test_extraction.py::test_overflow_run_finishes_replays_and_reprocesses
+FAILED packages/rulespec-extrapolator/tests/test_extraction.py::test_successful_window_cannot_hide_failed_window_and_replays
+FAILED packages/rulespec-extrapolator/tests/test_extraction.py::test_compiler_rejection_changes_final_status_without_erasing_parse_status[False]
+FAILED packages/rulespec-extrapolator/tests/test_extraction.py::test_compiler_rejection_changes_final_status_without_erasing_parse_status[True]
+FAILED packages/rulespec-extrapolator/tests/test_extraction.py::test_recorded_compilation_failure_recovers_only_through_reprocessing
+FAILED packages/rulespec-extrapolator/tests/test_extraction.py::test_no_candidates_and_partial_empty_runs_are_explicit
+FAILED packages/rulespec-extrapolator/tests/test_extraction.py::test_reprocess_preserves_failed_windows_and_supports_another_reprocessing
+8 failed, 235 passed, 128 warnings in 29.39s

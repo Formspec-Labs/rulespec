@@ -1,0 +1,88 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+        "FragmentIdentityScheme": {
+            "description": "Closed enum: HOW a cited fragment is identified (§4.2).\n\n`rkaf:published-fragment` is the form every other Rulespec record uses. The\ncited IRI names a `rkaf:SourceFragment` node the producer publishes, and the\nthree identity bindings below are read off that node.\n\n`rkaf:carrier-local-fragment` is the DERIVED form. A tabular carrier that\nalready stores an artifact identifier, a start offset, an end offset, and a\ndigest of the selected text holds every binding a fragment needs. Requiring\nit to also publish a fragments table before it may cite evidence adds no\ninformation, and it blocked the term outright for carriers that will not\nmaintain one. The URN carries the bindings instead of pointing at a node\nthat would restate them:\n\n  urn:rkaf:fragment:<artifact>:<start>:<end>:sha256-<64 lowercase hex>\n\n  <artifact>  the parent Artifact IRI, percent-encoded against the RFC 3986\n              unreserved set (`A-Za-z0-9-._~`) with uppercase hex triplets —\n              the encoding SPARQL's ENCODE_FOR_URI produces. Encoding is\n              what keeps the component unambiguous inside a colon-delimited\n              URN, and it is what makes the artifact recoverable by a reader\n              that never dereferences anything.\n  <start>     first Unicode code point of the region, no leading zeroes\n  <end>       one past the last, no leading zeroes. The interval is HALF-OPEN\n              `[start, end)`, so `start == end` is an insertion point and two\n              abutting regions share no code point.\n  digest      SHA-256 over the UTF-8 bytes of the SELECTED TEXT — the same\n              scope `rkaf:fragmentContentDigest` covers, not the Artifact's.\n              It is spelled `sha256-` rather than `sha256:` so the component\n              contributes no colon to a colon-delimited URN.\n\nThe scheme FIXES the two facts an offset cannot carry: the coordinate system\nis `rkaf:unicode-codepoint` and the selector kind is `oa:TextPositionSelector`.\nA derived identifier that left the unit to be guessed would reintroduce the\nexact instability `#CoordinateSystem` exists to remove — `118` names three\ndifferent positions across code points, UTF-8 bytes, and UTF-16 code units.\n\nWhat the URN does NOT carry is `rkaf:sourceArtifactDigest`: which STATE of\nthe Artifact the coordinates were taken against. A carrier that needs the\nsubstitution check §4.2 describes publishes a fragment node; the derived\nform pins the quoted text and not the document around it.",
+            "enum": [
+                "rkaf:published-fragment",
+                "rkaf:carrier-local-fragment"
+            ]
+        },
+        "SelectorKind": {
+            "description": "Closed enum: foundational OA selectors + domain-specific (§4.2).",
+            "enum": [
+                "oa:FragmentSelector",
+                "oa:TextQuoteSelector",
+                "oa:TextPositionSelector",
+                "oa:RangeSelector",
+                "oa:XPathSelector",
+                "oa:CssSelector",
+                "rkaf:aknt-eId",
+                "rkaf:uslm-section",
+                "rkaf:eli-fragment",
+                "rkaf:jsonpath",
+                "rkaf:doi-fragment",
+                "rkaf:partner-defined"
+            ]
+        }
+    },
+    "type": "object",
+    "description": "SourceFragment — one addressable region of ONE Artifact (§4.2).\n\nFragment identity is the three REQUIRED bindings below taken together. Drop\nany one and the fragment stops naming a region:\n\n  oa:hasSource               WHICH Artifact — an exact IRI, class-ranged to\n                             rkaf:Artifact by the range registry\n  oa:hasSelector             WHICH region — at least one selector object\n  rkaf:selectorKind          HOW to read the region — closed set\n\nA fourth binding is required by the SELECTOR rather than by the fragment:\n`rkaf:coordinateSystem`, above, on `#TextPositionSelector`. Requiring it\nthere and not here is deliberate — see the comment on that definition — but\nit left the whole selector contract opt-in, because the selector shape fires\nonly on a node the producer typed. `rkaf:SourceFragmentSelectorKindAgreement`\nin `shapes/rkaf-shapes-core.ttl` binds a declared\n`rkaf:selectorKind: oa:TextPositionSelector` to an actually-typed selector,\nwhich is a cross-node rule Layer 2 has no carrier for.\n\n`rkaf:sourceArtifactDigest` is a STATE binding, not an identity binding, and\nit is deliberately optional at L1/L3. An Artifact is immutable by definition,\nbut nothing stops a producer pointing `oa:hasSource` at an identifier whose\nbacking bytes were quietly replaced; recording the digest the coordinates\nwere computed against makes that substitution detectable instead of\ninvisible. §4.2 states normatively that a fragment cited as comparison\nevidence or as evidence for an accepted assertion MUST carry it — an\nobligation on the consumer profile, not a cardinality this shape enforces.",
+    "additionalProperties": false,
+    "properties": {
+        "@type": {
+            "const": "rkaf:SourceFragment"
+        },
+        "oa:hasSelector": {
+            "type": "array",
+            "minItems": 1
+        },
+        "oa:hasSource": {
+            "type": "string",
+            "description": "The parent Artifact, as an absolute IRI. The range registry\n(constraints/semantics/l0-ranges.cue) pins the class, so SHACL checks\nthat the referenced node really is an rkaf:Artifact and not any IRI.",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:fragmentContentDigest": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "rkaf:fragmentIdentityScheme": {
+            "description": "Optional explicit identity form. Carrier-local URNs now materialize as\nordinary SourceFragment nodes and declare the scheme here; evidence\nalways reaches them through the universal EvidenceBinding path.",
+            "$ref": "#/$defs/FragmentIdentityScheme"
+        },
+        "rkaf:hasAccessScope": {
+            "type": "string",
+            "description": "Visibility may be narrower than the parent Artifact.",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasRetentionPolicy": {
+            "type": "string",
+            "description": "A fragment may need a stricter retention rule than its parent Artifact\n(for example, a legally held excerpt). Consumer policy resolves parent\nand child policies conservatively; the child edge never erases the\nparent's policy.",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:lastVerifiedAt": {
+            "type": "string",
+            "description": "Plan 7d — freshness. Orthogonal to lifecycle: tracks WHEN the source\nwas last reconfirmed, not whether the rule it grounds is in force."
+        },
+        "rkaf:selectorKind": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/SelectorKind"
+            },
+            "minItems": 1
+        },
+        "rkaf:sourceArtifactDigest": {
+            "type": "string",
+            "description": "Content-digest bindings. `sourceArtifactDigest` pins the Artifact STATE\nthe coordinates address; `fragmentContentDigest` pins the exact region\ntext those coordinates select. They answer different questions — \"did the\ndocument change under me\" and \"is this the text I quoted\" — so a record\nmay carry either, both, or neither.",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "rkaf:verifiedBy": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "oa:hasSelector",
+        "oa:hasSource",
+        "rkaf:selectorKind"
+    ]
+}

@@ -1,0 +1,111 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+        "ArtifactIdentifierScheme": {
+            "description": "Closed enum of artifact identifier schemes (§4.1).\n\n`rkaf:formspec-need` is the v0.2 addition: a Formspec Needs Document `url`\nplus `need.id` pair, `<docUrl>#<needId>` with an OPTIONAL `@<revision>`\nsuffix pinning the wording an assertion saw. The kernel does not close a\ngrammar over it, because `rkaf:hasArtifactIdentifier` and this scheme list\nare both 1..* and no positional correspondence exists between them — the\nper-scheme grammar idiom is available only where the identifier/scheme pair\nis scalar, as in the US rulemaking profile (§5.2). The tag is a declaration\nof which grammar the producer is claiming, which is the same job it does\nfor `rkaf:eli` and `rkaf:doi`.",
+            "enum": [
+                "rkaf:eli",
+                "rkaf:eli-dl",
+                "rkaf:eli-i",
+                "rkaf:uslm",
+                "rkaf:aknt-eId",
+                "rkaf:doi",
+                "rkaf:isbn",
+                "rkaf:issn",
+                "rkaf:cid",
+                "rkaf:hash-sha256",
+                "rkaf:urn-persistent",
+                "rkaf:formspec-need",
+                "rkaf:partner-defined"
+            ]
+        }
+    },
+    "type": "object",
+    "properties": {
+        "@type": {
+            "const": "rkaf:Artifact"
+        },
+        "dcterms:format": {
+            "type": "string",
+            "description": "IANA media type for this immutable representation. `dcterms:hasFormat`\nrelates sibling Artifacts; `dcterms:format` describes this one.",
+            "pattern": "^[A-Za-z0-9!#$&^_.+-]+/[A-Za-z0-9!#$&^_.+-]+(?:\\s*;.*)?$"
+        },
+        "dcterms:hasFormat": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            "minItems": 1
+        },
+        "dcterms:isFormatOf": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            "minItems": 1
+        },
+        "dcterms:isVersionOf": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            "minItems": 1
+        },
+        "foaf:primaryTopic": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "prov:wasRevisionOf": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            "minItems": 1
+        },
+        "rkaf:artifactIdentifierScheme": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/ArtifactIdentifierScheme"
+            },
+            "minItems": 1
+        },
+        "rkaf:hasAccessScope": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasArtifactIdentifier": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            "minItems": 1
+        },
+        "rkaf:hasContentDigest": {
+            "type": "string",
+            "description": "The content digest of the immutable state this Artifact names. Lowercase\n`sha256:<64 hex>` — the same lexical contract every other Rulespec digest\nuses. The kernel checks the FORM of a digest, never its preimage.",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "rkaf:hasRetentionPolicy": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:versionLineageEvidence": {
+            "type": "array",
+            "description": "The source regions that STATE the version or revision relation: a\nmasthead line, an amendment note, a registry supersession field. These\nare SourceFragments, so \"where did this lineage come from\" resolves to\nexact coordinates in an actual document rather than to a heuristic.",
+            "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            "minItems": 1
+        }
+    },
+    "required": [
+        "rkaf:artifactIdentifierScheme",
+        "rkaf:hasArtifactIdentifier"
+    ]
+}

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/conditional-silent-pass.json",
+  "title": "conditional-silent-pass",
+  "$defs": {
+    "SafetyLabelPermitsConsensus": {
+      "type": "string",
+      "enum": [
+        "rkaf:permits-consensus-without-citation",
+        "rkaf:permits-axiomatic",
+        "rkaf:permits-all"
+      ]
+    },
+    "ConsensusEvidencePermissionShape": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:Assertion"
+        },
+        "rkaf:hasSafetyLabel": {
+          "$ref": "#/$defs/SafetyLabelPermitsConsensus"
+        },
+        "rkaf:hasEvidenceBinding": {
+          "type": "string"
+        },
+        "rkaf:noEvidenceReason": {
+          "const": "rkaf:consensus-without-citation"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:hasSafetyLabel",
+        "rkaf:hasEvidenceBinding"
+      ]
+    }
+  }
+}

@@ -1,0 +1,180 @@
+{
+  "status": "Assistant-authored and source-reviewed before v2 inference; not human gold or a blind benchmark",
+  "constitution": {
+    "source": "source/article-i-section-5.txt",
+    "statements": {
+      "judge": {
+        "anchor": "Judge of the Elections",
+        "kind": "authority"
+      },
+      "quorum": {
+        "anchor": "Quorum",
+        "kind": "threshold"
+      },
+      "expulsion": {
+        "anchor": "expel a Member",
+        "kind": "permission"
+      },
+      "keeping": {
+        "anchor": "keep a Journal",
+        "kind": "requirement"
+      },
+      "publication": {
+        "anchor": "publish the same",
+        "kind": "requirement"
+      },
+      "votes": {
+        "anchor": "Yeas and Nays",
+        "kind": "requirement"
+      },
+      "duration": {
+        "anchor": "adjourn for more than three days",
+        "kind": "prohibition"
+      },
+      "location": {
+        "anchor": "any other Place",
+        "kind": "prohibition"
+      }
+    },
+    "distinct": [
+      [
+        "duration",
+        "location"
+      ],
+      [
+        "keeping",
+        "publication"
+      ]
+    ],
+    "qualifications": [
+      {
+        "anchor": "with the Concurrence of two thirds",
+        "relation": "prerequisite",
+        "targets": [
+          "expulsion"
+        ]
+      },
+      {
+        "anchor": "excepting such Parts",
+        "relation": "exception",
+        "targets": [
+          "publication"
+        ]
+      },
+      {
+        "anchor": "at the Desire of one fifth",
+        "relation": "trigger",
+        "targets": [
+          "votes"
+        ]
+      },
+      {
+        "anchor": "during the Session of Congress",
+        "relation": "scope",
+        "targets": [
+          "duration",
+          "location"
+        ]
+      },
+      {
+        "anchor": "without the Consent of the other",
+        "relation": "scope",
+        "targets": [
+          "duration",
+          "location"
+        ]
+      }
+    ]
+  },
+  "shared_scope": {
+    "source": "source/shared-scope-test.txt",
+    "statements": {
+      "pump": {
+        "anchor": "restart pumps",
+        "kind": "prohibition"
+      },
+      "valve": {
+        "anchor": "open valves",
+        "kind": "prohibition"
+      },
+      "unit": {
+        "anchor": "constitutes a response unit",
+        "kind": "threshold"
+      },
+      "lead": {
+        "anchor": "judge of equipment readiness",
+        "kind": "authority"
+      },
+      "record": {
+        "anchor": "record the pressure",
+        "kind": "requirement"
+      }
+    },
+    "distinct": [
+      [
+        "pump",
+        "valve"
+      ]
+    ],
+    "qualifications": [
+      {
+        "anchor": "During emergency operations",
+        "relation": "scope",
+        "targets": [
+          "pump",
+          "valve"
+        ]
+      },
+      {
+        "anchor": "without supervisor approval",
+        "relation": "scope",
+        "targets": [
+          "pump",
+          "valve"
+        ]
+      },
+      {
+        "anchor": "When two inspectors request it",
+        "relation": "trigger",
+        "targets": [
+          "record"
+        ]
+      }
+    ]
+  },
+  "scope_counterexample": {
+    "source": "source/scope-counterexample.txt",
+    "statements": {
+      "hatch": {
+        "anchor": "open the hatch",
+        "kind": "prohibition"
+      },
+      "meter": {
+        "anchor": "read the external meter",
+        "kind": "permission"
+      }
+    },
+    "distinct": [
+      [
+        "hatch",
+        "meter"
+      ]
+    ],
+    "qualifications": [
+      {
+        "anchor": "During maintenance",
+        "relation": "scope",
+        "targets": [
+          "hatch"
+        ]
+      },
+      {
+        "anchor": "without a permit",
+        "relation": "scope",
+        "targets": [
+          "hatch"
+        ]
+      }
+    ]
+  }
+}

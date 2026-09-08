@@ -1,0 +1,203 @@
+{
+  "schema_version": "rulespec-evaluation-judgments/1",
+  "rulebook_sha256": "93239b2192d742c85c16a1bc7e65368fa8bc268407007ba4a2f554ecc242273f",
+  "labels_sha256": "742df61cb24b41bebeffe50a8e683459987e0b3b563269e4ad4602915d1489bd",
+  "review_provenance": {
+    "reviewer": "gemini-3.8-flash claim-first checker",
+    "reviewer_kind": "aiAgent",
+    "method": "source_review"
+  },
+  "claim_judgments": [
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:fc16db125d2ce10f810cf1b0ac9c8f5c79601fc0387e91de8cce94367dc3ef69",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:ab1b3ff6371611b158f1778f155fe25ec913e4bc42e06eb8abceb55583db8695",
+        "urn:rulespec:audit-unit:6ea9bac5d88f640679c06e1771b9fae58f3c448b524027694ad678017e4d92ed",
+        "urn:rulespec:audit-unit:28e06cf33aebf961f5d580ba0523063da7e3110e94e2f6bad11fc0ff478e9fb8",
+        "urn:rulespec:audit-unit:d84d4ed485e429c7576cf8575a2fed660f787528db9913ef389b3d6e00ba2273",
+        "urn:rulespec:audit-unit:f2be4d5252c2272c970b0658090cfefe5f8d645aeb1b0a301bc1286870f04877",
+        "urn:rulespec:audit-unit:049504f421c08acfc519ae4af969b3ee14caca9aa58ff52bff1703ebe46da53b"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:660d269ce0e0ee226093dd3c78c292d98b7ef7de1af61f8431adecf82778afc6",
+          "quote": "Material discrepancies between the name recorded on the application, the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality, or the evidence of identity must be documented by submission of one or more of the documents listed in this section (see an exception for married names in 8 FAM 403.1-4(C)). Acceptable means of documenting a material name change include (per 22 CFR 51.25):\n\n(1) Court orders or decrees:\n\n(a) Name change orders; or\n\n(b) Divorce decrees;\n\n(2) Certificates of naturalization;\n\n(3) Marriage certificates;\n\n(4) Documentation demonstrating change of name by operation of state law; or\n\n(5) Documentation of customary usage.",
+          "start": 0,
+          "end": 662
+        }
+      ],
+      "rationale": "Claim C0000 accurately identifies the mandatory obligation and threshold ('must', 'one or more') to document material name discrepancies with specified documentation. However, it fails to record item (5) '(5) Documentation of customary usage' in its alternatives list and summary. Furthermore, the explicit scope, actor, action, and object fields are left blank, omitting the specific discrepancy conditions across the application, citizenship evidence, and identity evidence.",
+      "claim_sha256": "569e05782620e4317cfd27a1db3b4d2547b91fb3285e6d848bc7bbaf7bd33161",
+      "dimensions": {
+        "summary": "error",
+        "actor": "error",
+        "support": "correct",
+        "scope": "error",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "error",
+        "object": "error",
+        "alternatives": "error",
+        "thresholds": "correct"
+      }
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:6851a77e6141477d6a63c22223e1b67e35d0001580eef001ded75efbb4717792",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:e8a6f4c73d72f5c1a316304286ee9735f23ecf32e3bf15c3780a100cd0d196a0"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:660d269ce0e0ee226093dd3c78c292d98b7ef7de1af61f8431adecf82778afc6",
+          "quote": "(see an exception for married names in 8 FAM 403.1-4(C))",
+          "start": 260,
+          "end": 316
+        }
+      ],
+      "rationale": "Claim C0001 correctly extracts the exception for married names under 8 FAM 403.1-4(C), accurately framing its target C0000 and relation type 'exception' with proper governing scope.",
+      "claim_sha256": "3f02f3cb6ab5b17cb9bf5cfa17116ec96aee24793fd237bbe9091a3f1695dfab",
+      "dimensions": {
+        "summary": "correct",
+        "actor": "not_applicable",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "not_applicable",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      }
+    }
+  ],
+  "unit_judgments": [
+    {
+      "unit_id": "urn:rulespec:audit-unit:ab1b3ff6371611b158f1778f155fe25ec913e4bc42e06eb8abceb55583db8695",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:fc16db125d2ce10f810cf1b0ac9c8f5c79601fc0387e91de8cce94367dc3ef69"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:660d269ce0e0ee226093dd3c78c292d98b7ef7de1af61f8431adecf82778afc6",
+          "quote": "Material discrepancies between the name recorded on the application, the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality, or the evidence of identity must be documented by submission of one or more of the documents listed in this section",
+          "start": 0,
+          "end": 259
+        }
+      ],
+      "rationale": "Claim C0000 states the core requirement to document discrepancies with one or more documents, but truncates the specific 3-way discrepancy scope (application, citizenship evidence, and identity evidence) and leaves the actor and explicit scope empty.",
+      "status": "partial"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:e8a6f4c73d72f5c1a316304286ee9735f23ecf32e3bf15c3780a100cd0d196a0",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:6851a77e6141477d6a63c22223e1b67e35d0001580eef001ded75efbb4717792"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:660d269ce0e0ee226093dd3c78c292d98b7ef7de1af61f8431adecf82778afc6",
+          "quote": "(see an exception for married names in 8 FAM 403.1-4(C))",
+          "start": 260,
+          "end": 316
+        }
+      ],
+      "rationale": "Claim C0001 completely and faithfully conveys the exception for married names governed by 8 FAM 403.1-4(C).",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:6ea9bac5d88f640679c06e1771b9fae58f3c448b524027694ad678017e4d92ed",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:fc16db125d2ce10f810cf1b0ac9c8f5c79601fc0387e91de8cce94367dc3ef69"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:660d269ce0e0ee226093dd3c78c292d98b7ef7de1af61f8431adecf82778afc6",
+          "quote": "(a) Name change orders; or",
+          "start": 432,
+          "end": 458
+        }
+      ],
+      "rationale": "Name change orders as an acceptable court order alternative are covered in C0000's alternatives and summary.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:28e06cf33aebf961f5d580ba0523063da7e3110e94e2f6bad11fc0ff478e9fb8",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:fc16db125d2ce10f810cf1b0ac9c8f5c79601fc0387e91de8cce94367dc3ef69"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:660d269ce0e0ee226093dd3c78c292d98b7ef7de1af61f8431adecf82778afc6",
+          "quote": "(b) Divorce decrees;",
+          "start": 460,
+          "end": 480
+        }
+      ],
+      "rationale": "Divorce decrees as an acceptable court order alternative are covered in C0000's alternatives and summary.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:d84d4ed485e429c7576cf8575a2fed660f787528db9913ef389b3d6e00ba2273",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:fc16db125d2ce10f810cf1b0ac9c8f5c79601fc0387e91de8cce94367dc3ef69"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:660d269ce0e0ee226093dd3c78c292d98b7ef7de1af61f8431adecf82778afc6",
+          "quote": "(2) Certificates of naturalization;",
+          "start": 482,
+          "end": 517
+        }
+      ],
+      "rationale": "Certificates of naturalization are included in C0000's alternatives list and summary.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:f2be4d5252c2272c970b0658090cfefe5f8d645aeb1b0a301bc1286870f04877",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:fc16db125d2ce10f810cf1b0ac9c8f5c79601fc0387e91de8cce94367dc3ef69"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:660d269ce0e0ee226093dd3c78c292d98b7ef7de1af61f8431adecf82778afc6",
+          "quote": "(3) Marriage certificates;",
+          "start": 519,
+          "end": 545
+        }
+      ],
+      "rationale": "Marriage certificates are included in C0000's alternatives list and summary.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:049504f421c08acfc519ae4af969b3ee14caca9aa58ff52bff1703ebe46da53b",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:fc16db125d2ce10f810cf1b0ac9c8f5c79601fc0387e91de8cce94367dc3ef69"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:660d269ce0e0ee226093dd3c78c292d98b7ef7de1af61f8431adecf82778afc6",
+          "quote": "(4) Documentation demonstrating change of name by operation of state law; or",
+          "start": 547,
+          "end": 623
+        }
+      ],
+      "rationale": "Documentation demonstrating change of name by operation of state law is included in C0000's alternatives and summary.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:171f16cad0a370bfac1ced777239a0029acbd178abf4b9736d708ee93e55abc4",
+      "claim_ids": [],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:660d269ce0e0ee226093dd3c78c292d98b7ef7de1af61f8431adecf82778afc6",
+          "quote": "(5) Documentation of customary usage.",
+          "start": 625,
+          "end": 662
+        }
+      ],
+      "rationale": "Documentation of customary usage under 22 CFR 51.25 was omitted from the draft claims' alternatives and summary.",
+      "status": "missing"
+    }
+  ]
+}

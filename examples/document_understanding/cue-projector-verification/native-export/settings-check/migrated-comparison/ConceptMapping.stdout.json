@@ -1,0 +1,30 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+        "AssertionPolarity": {
+            "description": "Whether the proposition is affirmed or denied. Part of the immutable\nproposition core, so it lives beside `#AssertionProposition` rather than in\none form's file: `#RelationshipAssertion` and `#ValueAssertion` both close\nover the same two values. Predicates stay affirmative; polarity records\nwhether the source-backed assertion affirms or denies that relationship.",
+            "enum": [
+                "rkaf:affirmed",
+                "rkaf:denied"
+            ]
+        }
+    },
+    "type": "object",
+    "description": "Both concept slots are IRIs on the wire — `context/rkaf-context.jsonld`\ncoerces each with `@type: @id` — but NEITHER carries a class range in\n`constraints/semantics/l0-ranges.cue`, and that absence is deliberate for the\nreason that file already records for `skos:inScheme`: SKOS owns concept\nidentity, and a mapping's endpoint\nmay legally be an external `skos:Concept` in a thesaurus Rulespec does not\nmodel. Pinning a range here would reject exactly the cross-scheme alignment\nthe `*Match` predicates exist for. The cardinality and the IRI coercion are\nwhat is enforced; the class is not.",
+    "properties": {
+        "rkaf:assertionPolarity": {
+            "$ref": "#/$defs/AssertionPolarity"
+        },
+        "rkaf:assertsPredicate": {
+            "type": "string"
+        },
+        "rkaf:assertsSubject": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "rkaf:assertionPolarity",
+        "rkaf:assertsPredicate",
+        "rkaf:assertsSubject"
+    ]
+}

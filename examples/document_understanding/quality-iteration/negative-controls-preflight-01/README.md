@@ -1,0 +1,1 @@
+Preparation failed before provider requests because concurrent RDF/SHACL parser initialization raised a TypeError. The experiment script now validates and runs controls sequentially. These inputs are retained for traceability; they are not model results.

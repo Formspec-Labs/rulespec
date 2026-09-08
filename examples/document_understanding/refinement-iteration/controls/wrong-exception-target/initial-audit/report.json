@@ -1,0 +1,449 @@
+{
+  "schema_version": "rulespec-evaluation-report/1",
+  "assessment_kind": "model-assisted-source-assessment",
+  "status": "failed",
+  "review_complete": false,
+  "dataset_id": "automatic-inventory:e23a7bc3c63fce2709ba591f82410aed9261330f6f054ab40f85e1e9c81bbacf",
+  "split": "production-assessment",
+  "rulebook_sha256": "006521d2dba0fdd7cb297f44b2a21d206df031aad8d5189e8ae344549a31f2f6",
+  "labels_sha256": "bc9d6fc395aac2decbb58908f81d3d87eb70741e6bfbf097864f5f18a95665e5",
+  "label_provenance": {
+    "reviewer": "gemini-3.8-flash source-first checker",
+    "reviewer_kind": "aiAgent",
+    "method": "source_review"
+  },
+  "review_provenance": {
+    "reviewer": "gemini-3.8-flash claim-first checker",
+    "reviewer_kind": "aiAgent",
+    "method": "source_review"
+  },
+  "counts": {
+    "accepted_claims": 3,
+    "expected_units": 3,
+    "reviewed_claims": 3,
+    "unjudged_or_stale_claims": 0
+  },
+  "dimensions": {
+    "summary": {
+      "correct": 3,
+      "error": 0,
+      "not_applicable": 0,
+      "unknown": 0,
+      "reviewed_correct_fraction": {
+        "numerator": 3,
+        "denominator": 3,
+        "value": 1.0
+      },
+      "reviewed_fraction": {
+        "numerator": 3,
+        "denominator": 3,
+        "value": 1.0
+      },
+      "error_examples": []
+    },
+    "actor": {
+      "correct": 0,
+      "error": 3,
+      "not_applicable": 0,
+      "unknown": 0,
+      "reviewed_correct_fraction": {
+        "numerator": 0,
+        "denominator": 3,
+        "value": 0.0
+      },
+      "reviewed_fraction": {
+        "numerator": 3,
+        "denominator": 3,
+        "value": 1.0
+      },
+      "error_examples": [
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:1f571c843624585cf99083af904645d86dfc01faf94777202e365192962efc09",
+          "summary": "After a material name change, an applicant may not continue using the previous name unless the name change documentation specifically permits it.",
+          "actor": "",
+          "rationale": "The claim summary accurately reflects the prohibition and its exception condition. The scope correctly captures 'after a material name change'. However, the structured actor, action, and object fields are left completely empty."
+        },
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:f746c2041f7cea6c8f44e6386beb30b02fe10a97fc74ffe2e53ce70bbf5a58a2",
+          "summary": "You must clear the applicant's pending name even though the change is not final and even if no passport is being issued now.",
+          "actor": "",
+          "rationale": "The claim summary accurately captures the mandatory requirement and the two non-obstante clauses. Modality and support are correct, but actor, action, and object fields are unpopulated."
+        },
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:010f2b7f005dfd2f5cb7b77c20ede83af1712e582581c7ac281d3f0eae03cc20",
+          "summary": "Specific name-change documentation allowing continued use of the previous name is an exception.",
+          "actor": "",
+          "rationale": "The claim designates this clause as an exception, but it incorrectly sets target_ids to C0001 (clearing the pending name) rather than C0000 (prohibition against continuing to use a previous name). Consequently, its links and scope are in error. Furthermore, actor, action, and object are empty."
+        }
+      ]
+    },
+    "support": {
+      "correct": 3,
+      "error": 0,
+      "not_applicable": 0,
+      "unknown": 0,
+      "reviewed_correct_fraction": {
+        "numerator": 3,
+        "denominator": 3,
+        "value": 1.0
+      },
+      "reviewed_fraction": {
+        "numerator": 3,
+        "denominator": 3,
+        "value": 1.0
+      },
+      "error_examples": []
+    },
+    "scope": {
+      "correct": 2,
+      "error": 1,
+      "not_applicable": 0,
+      "unknown": 0,
+      "reviewed_correct_fraction": {
+        "numerator": 2,
+        "denominator": 3,
+        "value": 0.6666666666666666
+      },
+      "reviewed_fraction": {
+        "numerator": 3,
+        "denominator": 3,
+        "value": 1.0
+      },
+      "error_examples": [
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:010f2b7f005dfd2f5cb7b77c20ede83af1712e582581c7ac281d3f0eae03cc20",
+          "summary": "Specific name-change documentation allowing continued use of the previous name is an exception.",
+          "actor": "",
+          "rationale": "The claim designates this clause as an exception, but it incorrectly sets target_ids to C0001 (clearing the pending name) rather than C0000 (prohibition against continuing to use a previous name). Consequently, its links and scope are in error. Furthermore, actor, action, and object are empty."
+        }
+      ]
+    },
+    "links": {
+      "correct": 2,
+      "error": 1,
+      "not_applicable": 0,
+      "unknown": 0,
+      "reviewed_correct_fraction": {
+        "numerator": 2,
+        "denominator": 3,
+        "value": 0.6666666666666666
+      },
+      "reviewed_fraction": {
+        "numerator": 3,
+        "denominator": 3,
+        "value": 1.0
+      },
+      "error_examples": [
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:010f2b7f005dfd2f5cb7b77c20ede83af1712e582581c7ac281d3f0eae03cc20",
+          "summary": "Specific name-change documentation allowing continued use of the previous name is an exception.",
+          "actor": "",
+          "rationale": "The claim designates this clause as an exception, but it incorrectly sets target_ids to C0001 (clearing the pending name) rather than C0000 (prohibition against continuing to use a previous name). Consequently, its links and scope are in error. Furthermore, actor, action, and object are empty."
+        }
+      ]
+    },
+    "boundary": {
+      "correct": 3,
+      "error": 0,
+      "not_applicable": 0,
+      "unknown": 0,
+      "reviewed_correct_fraction": {
+        "numerator": 3,
+        "denominator": 3,
+        "value": 1.0
+      },
+      "reviewed_fraction": {
+        "numerator": 3,
+        "denominator": 3,
+        "value": 1.0
+      },
+      "error_examples": []
+    },
+    "modality": {
+      "correct": 2,
+      "error": 0,
+      "not_applicable": 1,
+      "unknown": 0,
+      "reviewed_correct_fraction": {
+        "numerator": 2,
+        "denominator": 2,
+        "value": 1.0
+      },
+      "reviewed_fraction": {
+        "numerator": 3,
+        "denominator": 3,
+        "value": 1.0
+      },
+      "error_examples": []
+    },
+    "action": {
+      "correct": 0,
+      "error": 3,
+      "not_applicable": 0,
+      "unknown": 0,
+      "reviewed_correct_fraction": {
+        "numerator": 0,
+        "denominator": 3,
+        "value": 0.0
+      },
+      "reviewed_fraction": {
+        "numerator": 3,
+        "denominator": 3,
+        "value": 1.0
+      },
+      "error_examples": [
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:1f571c843624585cf99083af904645d86dfc01faf94777202e365192962efc09",
+          "summary": "After a material name change, an applicant may not continue using the previous name unless the name change documentation specifically permits it.",
+          "actor": "",
+          "rationale": "The claim summary accurately reflects the prohibition and its exception condition. The scope correctly captures 'after a material name change'. However, the structured actor, action, and object fields are left completely empty."
+        },
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:f746c2041f7cea6c8f44e6386beb30b02fe10a97fc74ffe2e53ce70bbf5a58a2",
+          "summary": "You must clear the applicant's pending name even though the change is not final and even if no passport is being issued now.",
+          "actor": "",
+          "rationale": "The claim summary accurately captures the mandatory requirement and the two non-obstante clauses. Modality and support are correct, but actor, action, and object fields are unpopulated."
+        },
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:010f2b7f005dfd2f5cb7b77c20ede83af1712e582581c7ac281d3f0eae03cc20",
+          "summary": "Specific name-change documentation allowing continued use of the previous name is an exception.",
+          "actor": "",
+          "rationale": "The claim designates this clause as an exception, but it incorrectly sets target_ids to C0001 (clearing the pending name) rather than C0000 (prohibition against continuing to use a previous name). Consequently, its links and scope are in error. Furthermore, actor, action, and object are empty."
+        }
+      ]
+    },
+    "object": {
+      "correct": 0,
+      "error": 3,
+      "not_applicable": 0,
+      "unknown": 0,
+      "reviewed_correct_fraction": {
+        "numerator": 0,
+        "denominator": 3,
+        "value": 0.0
+      },
+      "reviewed_fraction": {
+        "numerator": 3,
+        "denominator": 3,
+        "value": 1.0
+      },
+      "error_examples": [
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:1f571c843624585cf99083af904645d86dfc01faf94777202e365192962efc09",
+          "summary": "After a material name change, an applicant may not continue using the previous name unless the name change documentation specifically permits it.",
+          "actor": "",
+          "rationale": "The claim summary accurately reflects the prohibition and its exception condition. The scope correctly captures 'after a material name change'. However, the structured actor, action, and object fields are left completely empty."
+        },
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:f746c2041f7cea6c8f44e6386beb30b02fe10a97fc74ffe2e53ce70bbf5a58a2",
+          "summary": "You must clear the applicant's pending name even though the change is not final and even if no passport is being issued now.",
+          "actor": "",
+          "rationale": "The claim summary accurately captures the mandatory requirement and the two non-obstante clauses. Modality and support are correct, but actor, action, and object fields are unpopulated."
+        },
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:010f2b7f005dfd2f5cb7b77c20ede83af1712e582581c7ac281d3f0eae03cc20",
+          "summary": "Specific name-change documentation allowing continued use of the previous name is an exception.",
+          "actor": "",
+          "rationale": "The claim designates this clause as an exception, but it incorrectly sets target_ids to C0001 (clearing the pending name) rather than C0000 (prohibition against continuing to use a previous name). Consequently, its links and scope are in error. Furthermore, actor, action, and object are empty."
+        }
+      ]
+    },
+    "alternatives": {
+      "correct": 0,
+      "error": 0,
+      "not_applicable": 3,
+      "unknown": 0,
+      "reviewed_correct_fraction": {
+        "numerator": 0,
+        "denominator": 0,
+        "value": null
+      },
+      "reviewed_fraction": {
+        "numerator": 3,
+        "denominator": 3,
+        "value": 1.0
+      },
+      "error_examples": []
+    },
+    "thresholds": {
+      "correct": 0,
+      "error": 0,
+      "not_applicable": 3,
+      "unknown": 0,
+      "reviewed_correct_fraction": {
+        "numerator": 0,
+        "denominator": 0,
+        "value": null
+      },
+      "reviewed_fraction": {
+        "numerator": 3,
+        "denominator": 3,
+        "value": 1.0
+      },
+      "error_examples": []
+    }
+  },
+  "coverage": {
+    "covered": 0,
+    "missing": 0,
+    "partial": 1,
+    "unknown": 2,
+    "covered_fraction": {
+      "numerator": 0,
+      "denominator": 3,
+      "value": 0.0
+    },
+    "missing_examples": [
+      {
+        "unit_id": "urn:rulespec:audit-unit:d6c5f3e3755b0adee1e58dac483a5cb22504fb6302f5c91e53300a844bd883d1",
+        "meaning": "An applicant is permitted to continue using a previous name after a material name change if the documentation for the name change specifically authorizes the applicant to continue using that name.",
+        "status": "partial",
+        "rationale": "Claim C0002 extracts the exception clause, but mislinks it to claim C0001 rather than C0000, disconnecting the exception from the prohibition on using previous names and omitting the governing condition of a material name change."
+      }
+    ]
+  },
+  "issues": [
+    {
+      "code": "inconsistent_coverage_judgment",
+      "unit_id": "urn:rulespec:audit-unit:7ca0c27a947a4f7c882007538b7ddfd81b99d41b9febd033c8ad6e743f231ce3",
+      "message": "Coverage lacks current, consistent reviewed claim matches."
+    },
+    {
+      "code": "inconsistent_coverage_judgment",
+      "unit_id": "urn:rulespec:audit-unit:12eb33eef24d2ffca783ccfd02a971407a5222b53d29d5928efab16a31f9a9e1",
+      "message": "Coverage lacks current, consistent reviewed claim matches."
+    }
+  ],
+  "claim_results": [
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:1f571c843624585cf99083af904645d86dfc01faf94777202e365192962efc09",
+      "claim_sha256": "4fcb52de0298f5b0bfe970870d48ca9af8539efcf293481ed703c36ca4a9e6bc",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:7ca0c27a947a4f7c882007538b7ddfd81b99d41b9febd033c8ad6e743f231ce3"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "error",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "error",
+        "object": "error",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      },
+      "rationale": "The claim summary accurately reflects the prohibition and its exception condition. The scope correctly captures 'after a material name change'. However, the structured actor, action, and object fields are left completely empty.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:18f4bf274ad4685c447ed7ae4d32c7ebeca3c32803bc29a9a7e037e484ff62c9",
+          "quote": "The applicant may not continue to use a previous name after a material name change unless the name change documentation specifically permits the applicant to continue using that name",
+          "start": 3,
+          "end": 185
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:f746c2041f7cea6c8f44e6386beb30b02fe10a97fc74ffe2e53ce70bbf5a58a2",
+      "claim_sha256": "784585254c5a5c86acb03f07ab3477f36e951946105ecdf34b8c8450ae1a4a5c",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:12eb33eef24d2ffca783ccfd02a971407a5222b53d29d5928efab16a31f9a9e1"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "error",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "error",
+        "object": "error",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      },
+      "rationale": "The claim summary accurately captures the mandatory requirement and the two non-obstante clauses. Modality and support are correct, but actor, action, and object fields are unpopulated.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:18f4bf274ad4685c447ed7ae4d32c7ebeca3c32803bc29a9a7e037e484ff62c9",
+          "quote": "You must clear the applicant's pending name even though the name change is not final and even if the passport is not being issued at this time.",
+          "start": 239,
+          "end": 382
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:010f2b7f005dfd2f5cb7b77c20ede83af1712e582581c7ac281d3f0eae03cc20",
+      "claim_sha256": "0e696799645d04c03ef9d72dba0583a3716da61d768bce000a7f0b9b0d7540a7",
+      "status": "reviewed",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:d6c5f3e3755b0adee1e58dac483a5cb22504fb6302f5c91e53300a844bd883d1"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "error",
+        "support": "correct",
+        "scope": "error",
+        "links": "error",
+        "boundary": "correct",
+        "modality": "not_applicable",
+        "action": "error",
+        "object": "error",
+        "alternatives": "not_applicable",
+        "thresholds": "not_applicable"
+      },
+      "rationale": "The claim designates this clause as an exception, but it incorrectly sets target_ids to C0001 (clearing the pending name) rather than C0000 (prohibition against continuing to use a previous name). Consequently, its links and scope are in error. Furthermore, actor, action, and object are empty.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:18f4bf274ad4685c447ed7ae4d32c7ebeca3c32803bc29a9a7e037e484ff62c9",
+          "quote": "unless the name change documentation specifically permits the applicant to continue using that name",
+          "start": 86,
+          "end": 185
+        }
+      ]
+    }
+  ],
+  "unit_results": [
+    {
+      "unit_id": "urn:rulespec:audit-unit:7ca0c27a947a4f7c882007538b7ddfd81b99d41b9febd033c8ad6e743f231ce3",
+      "excerpt_id": "window-ed7fba00bc5b787be942",
+      "status": "unknown",
+      "claim_ids": []
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:d6c5f3e3755b0adee1e58dac483a5cb22504fb6302f5c91e53300a844bd883d1",
+      "excerpt_id": "window-ed7fba00bc5b787be942",
+      "status": "partial",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:010f2b7f005dfd2f5cb7b77c20ede83af1712e582581c7ac281d3f0eae03cc20"
+      ],
+      "rationale": "Claim C0002 extracts the exception clause, but mislinks it to claim C0001 rather than C0000, disconnecting the exception from the prohibition on using previous names and omitting the governing condition of a material name change.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:18f4bf274ad4685c447ed7ae4d32c7ebeca3c32803bc29a9a7e037e484ff62c9",
+          "quote": "unless the name change documentation specifically permits the applicant to continue using that name",
+          "start": 86,
+          "end": 185
+        }
+      ]
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:12eb33eef24d2ffca783ccfd02a971407a5222b53d29d5928efab16a31f9a9e1",
+      "excerpt_id": "window-ed7fba00bc5b787be942",
+      "status": "unknown",
+      "claim_ids": []
+    }
+  ],
+  "limitations": [
+    "Semantic verdicts are supplied by the named source reviewer; this evaluator does not infer truth from text overlap.",
+    "Source span and digest checks establish assessment integrity, not semantic correctness.",
+    "Counts describe this bounded labeled set; they are not a general extraction accuracy estimate."
+  ],
+  "audit_issues": [],
+  "semantic_completeness": "not_established",
+  "automatic_repairs": 0,
+  "limitation": "The source inventory and judgments are fallible model observations, not independent evaluation gold or human approval."
+}

@@ -1,0 +1,46 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "description": "AILineage records the MODEL DERIVATION: which model, at which version, under\nwhich prompt contract and sampling settings, over which input context (§5.3).\nAI-touched assertions carrying no lineage at all are still rejected — that\ncross-property invariant lives in assertion.cue and is unchanged.\n\n`rkaf:humanApprover` is OPTIONAL. An unreviewed model candidate must be\nrepresentable exactly as it is: a model produced it, and nobody has looked at\nit yet. Requiring an approver here forced every `rkaf:aiSuggested` assertion\n— the origin value whose entire meaning is \"unreviewed candidate\" — to name a\nreviewer, so the only way to record an honest candidate was to invent one.\nApproval is a separate, scoped, temporal `rkaf:Attestation` targeting the\nassertion (§2.4, §3.1); a candidate nobody has reviewed simply has no such\nAttestation yet.\n\nWhat the shape still refuses is a lineage carrying the TRACES of a review\nwithout the reviewer. `rkaf:humanRationale` is a human's stated reason for\naccepting the output; a rationale with no `rkaf:humanApprover` is a review\nattributed to nobody, which is worse than an unreviewed candidate because it\nREADS as approved. The conditional below rejects exactly that.",
+    "additionalProperties": false,
+    "properties": {
+        "@type": {
+            "const": "rkaf:AILineage"
+        },
+        "rkaf:humanApprover": {
+            "type": "string"
+        },
+        "rkaf:humanRationale": {
+            "type": "string"
+        },
+        "rkaf:inputContextHash": {
+            "type": "string",
+            "description": "A digest, not a free string: lowercase `sha256:<64 hex>`, the lexical\ncontract `rkaf:requestContractDigest` and `rkaf:inputDigest` already use.\nA hash field that accepts any string cannot be compared across runs,\nwhich is the only thing an input-context hash exists to do.",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "rkaf:modelId": {
+            "type": "string"
+        },
+        "rkaf:modelVersion": {
+            "type": "string"
+        },
+        "rkaf:promptTemplateRef": {
+            "type": "string"
+        },
+        "rkaf:seed": {
+            "type": "integer"
+        },
+        "rkaf:temperature": {
+            "type": "number",
+            "maximum": 2,
+            "minimum": 0
+        }
+    },
+    "required": [
+        "rkaf:inputContextHash",
+        "rkaf:modelId",
+        "rkaf:modelVersion",
+        "rkaf:promptTemplateRef",
+        "rkaf:temperature"
+    ]
+}

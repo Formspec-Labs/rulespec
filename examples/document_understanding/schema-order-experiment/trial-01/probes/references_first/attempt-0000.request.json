@@ -1,0 +1,378 @@
+{
+  "model": "gemini-3.8-flash",
+  "contents": "There is no substantive source content. Return the schema's object with all top-level arrays empty.",
+  "config": {
+    "temperature": 0,
+    "max_output_tokens": 1024,
+    "response_mime_type": "application/json",
+    "candidate_count": 1,
+    "response_json_schema": {
+      "type": "object",
+      "properties": {
+        "relationships": {
+          "type": "array",
+          "title": "Explicit qualifications between units",
+          "description": "Retain supported conditions and exceptions with their actual baseline targets. Each source qualification unit has at most one relationship row; multiple targets share that row.",
+          "items": {
+            "type": "object",
+            "title": "Explicit qualification",
+            "description": "A source-supported relationship between extracted meanings. An ID's existence does not establish that it is the correct semantic target.",
+            "properties": {
+              "source_unit_ref": {
+                "type": "string",
+                "title": "Qualifying unit",
+                "description": "ID of a condition or exception unit in extractions. Preserve the independent baseline and qualification meanings as units; do not create a relation by relabeling the baseline."
+              },
+              "target_unit_refs": {
+                "type": "array",
+                "title": "Affected baseline units",
+                "description": "IDs of the non-condition, non-exception units whose meaning this qualification changes. Target the rule actually governed, not another obligation in the same passage. Empty if the target cannot be established.",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "relation": {
+                "type": "string",
+                "enum": [
+                  "scope",
+                  "prerequisite",
+                  "trigger",
+                  "exception"
+                ],
+                "description": "The qualification's semantic relationship to the baseline, agreeing with the qualifying unit's relation field. Exceptions can qualify recommendations or descriptive generalizations as well as duties."
+              },
+              "evidence_quotes": {
+                "type": "array",
+                "title": "Relationship evidence",
+                "description": "Exact source passages supporting the qualification and its connection to these particular targets. Co-occurrence alone is insufficient. Include an antecedent or cross-reference when needed.",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "explanation": {
+                "type": "string",
+                "title": "Source-supported relationship meaning",
+                "description": "Explain which case qualifies which baseline and how. Preserve limits, modal force and alternatives; an exception does not automatically guarantee a remedy or cancel a separate duty."
+              }
+            },
+            "required": [
+              "source_unit_ref",
+              "target_unit_refs",
+              "relation",
+              "evidence_quotes",
+              "explanation"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "extractions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "title": "Local unit identifier",
+                "description": "Unique label u1, u2, and so on within this response. Different meanings sharing a quotation have different IDs. Relationships refer to these IDs."
+              },
+              "unit": {
+                "type": "string",
+                "description": "One exact contiguous quotation in the focus source, copied without rewriting.",
+                "title": "Exact main quotation"
+              },
+              "actor_ref": {
+                "type": "string",
+                "title": "Actor concept reference",
+                "description": "The ID of the concept identifying this unit's responsible actor, or empty when not stated or uncertain. It must agree with actor and actor_quote, not merely name a nearby concept."
+              },
+              "object_refs": {
+                "type": "array",
+                "title": "Object concept references",
+                "description": "IDs of concepts that the action concerns, agreeing with object and object_quote. Empty when inapplicable or uncertain. These references do not determine AND/OR grouping.",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "unit_attributes": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "authority",
+                      "condition",
+                      "definition",
+                      "exception",
+                      "exemption",
+                      "permission",
+                      "prohibition",
+                      "recommendation",
+                      "requirement",
+                      "statement",
+                      "threshold"
+                    ],
+                    "description": "Semantic kind; must agree with modality and relationship role. Classify the complete meaning, including headings' inherited context. A recommendation remains recommendation; descriptive possibility is statement. Conditions and exceptions are separate qualifications of a baseline; retain the baseline itself. Definitions and useful descriptive explanations also deserve units.",
+                    "title": "Kind"
+                  },
+                  "scope_quotes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Exact source passages defining the governing conditions, including parent lead-ins outside the main quote. Provide every source passage needed to substantiate scope_text. Parent cases may appear elsewhere in the supplied focus or context. Every item must be contiguous and exact; use separate items for separate passages.",
+                    "title": "Scope quotes"
+                  },
+                  "scope_text": {
+                    "type": "string",
+                    "description": "ALL source-supported conditions governing this unit, including inherited parent cases and timing; do not transfer neighboring branch scope. Combine all governing conditions for this unit, including inherited lead-ins and antecedents outside its main quotation. Preserve alternative branches and timing boundaries. A split child must still describe the complete case in which it applies; do not import conditions from neighboring independent cases.",
+                    "title": "Scope text"
+                  },
+                  "context_quotes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Exact explanatory passages that aid interpretation without asserting conditions. Use for explanations and background that help interpret this unit without turning them into prerequisites. Useful descriptive or advisory meaning should also be retained as a unit when independently substantive.",
+                    "title": "Context quotes"
+                  },
+                  "modality_quote": {
+                    "type": "string",
+                    "description": "Exact support for modal force; preserve generally, might, should and negation. Include qualifiers that establish the force, such as generally or might. A neighboring must cannot supply the force of a separate recommendation or description. A companion condition can have not_stated while its baseline retains must or should.",
+                    "title": "Modality quote"
+                  },
+                  "modality": {
+                    "type": "string",
+                    "description": "Normative force: must, should, permission may, prohibition must_not, exemption not_required, descriptive possible, not_stated or uncertain. Use should for recommendations, may for permission, possible for descriptive may/might, and not_required only for an explicit absence of duty. not_stated fits factual definitions and qualifications with no independent normative force. An exception to a recommendation does not itself declare absence of a legal duty. Generally is not universally.",
+                    "enum": [
+                      "must",
+                      "should",
+                      "may",
+                      "must_not",
+                      "not_required",
+                      "possible",
+                      "not_stated",
+                      "uncertain"
+                    ],
+                    "title": "Modality"
+                  },
+                  "alternative_quotes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "EVERY exact source option with its qualifying text, not just the list introduction. Retain every leaf option, including options nested under a parent category, with its qualifying wording. A grouped faithful rule can contain all options without creating a separate duty for each option. The list's introductory sentence alone is insufficient.",
+                    "title": "Alternative quotes"
+                  },
+                  "choice_quote": {
+                    "type": "string",
+                    "description": "One exact contiguous source passage supporting choice/grouping; never join separate phrases with invented separators. Select a contiguous passage that actually supports the grouping; an entire short list can be appropriate. Do not splice disjoint quotations or invent separators inside the quote.",
+                    "title": "Choice quote"
+                  },
+                  "choice_text": {
+                    "type": "string",
+                    "description": "Complete source choice/grouping in words, including nested AND/OR and qualifications. Explain the complete choice and its nesting: all required elements, independently sufficient options, one-or-more groups, and alternatives inside an option. Preserve each option's qualifiers. Do not equate a grammatical conjunction in a category description with a requirement that both categories hold.",
+                    "title": "Choice text"
+                  },
+                  "logic_text": {
+                    "type": "string",
+                    "description": "Verbatim source wording retaining AND/OR, thresholds, units, dates and negation; no invented executable logic. Retain the source's complete logical wording when relevant. Do not uppercase a conjunction to imply executable Boolean logic. A list of independent categories need not require simultaneous membership in all categories. Preserve exact comparators, units and reference dates.",
+                    "title": "Logic text"
+                  },
+                  "actor_quote": {
+                    "type": "string",
+                    "description": "Exact source support for actor, including antecedent if needed. Copy a contiguous passage supporting the actor assignment. An inherited actor may be supported in supplied context. Empty actor has empty support; a matching word alone does not establish its semantic role.",
+                    "title": "Actor quote"
+                  },
+                  "actor": {
+                    "type": "string",
+                    "description": "Source-supported responsible person or entity; empty if unstated. Resolve a pronoun only when the source establishes its antecedent. Do not invent a duty bearer for an impersonal requirement, definition or factual statement. Do not substitute a neighboring actor from a different branch.",
+                    "title": "Actor"
+                  },
+                  "action_quote": {
+                    "type": "string",
+                    "description": "Exact source support for action. Copy source wording that supports this action, preserving its direction and negation. Do not rewrite the quoted passage to match a normalized action label.",
+                    "title": "Action quote"
+                  },
+                  "action": {
+                    "type": "string",
+                    "description": "Source-supported action; empty when inapplicable or unstated. Represent the action actually attributed to the actor. Distinguish taking an action, being permitted to take it, and an event merely being possible; normative force is recorded in modality.",
+                    "title": "Action"
+                  },
+                  "object_quote": {
+                    "type": "string",
+                    "description": "Exact source support for object. Copy source wording supporting the chosen object and its option grouping. Do not convert a contextual form, date or actor into the object simply because those words occur nearby.",
+                    "title": "Object quote"
+                  },
+                  "object": {
+                    "type": "string",
+                    "description": "What the action concerns; preserve option grouping; empty if unstated. Identify the semantic object of the action, not merely a nearby quoted noun. A form named in a timing condition is not necessarily what the action changes. Leave uncertain components empty while retaining the complete source meaning.",
+                    "title": "Object"
+                  },
+                  "jurisdiction_quote": {
+                    "type": "string",
+                    "description": "Exact source support for jurisdiction; empty when unstated. Quote the supplied source's territorial wording. When there is no explicit territorial scope, leave both jurisdiction fields empty.",
+                    "title": "Jurisdiction quote"
+                  },
+                  "jurisdiction": {
+                    "type": "string",
+                    "description": "Territorial scope only when explicitly supported in supplied text; never infer from URL. Use only territory explicitly provided by source wording. The document title, institution or web address is not evidence for an inferred territorial applicability claim.",
+                    "title": "Jurisdiction"
+                  },
+                  "relation": {
+                    "type": "string",
+                    "description": "A condition/exception's relationship to its baseline; none for other kinds. The source decides which baseline a qualification governs. Contextual proximity alone does not. An even-though or despite clause may preserve a duty rather than remove it. The qualification must retain the baseline's scope and the limits of the modification.",
+                    "enum": [
+                      "none",
+                      "scope",
+                      "prerequisite",
+                      "trigger",
+                      "exception"
+                    ],
+                    "title": "Relation"
+                  },
+                  "references": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Source section labels for cross-references, including unresolved remote targets. Keep source cross-reference labels even when their content is unavailable. Preserve the topic of each reference in the unit's meaning; a nearby reference is not a license to infer the missing rule.",
+                    "title": "References"
+                  },
+                  "summary": {
+                    "type": "string",
+                    "description": "Complete meaning of this unit, preserving governing scope, qualifications and modal force. Make this a self-contained reading of the source. Include every governing parent case, time limit, negation, exception and qualification needed to avoid broadening or narrowing its meaning. A long supporting quote does not compensate for omitted meaning in this field. Keep descriptive and advisory material at its source force.",
+                    "title": "Summary"
+                  }
+                },
+                "required": [
+                  "kind",
+                  "scope_quotes",
+                  "scope_text",
+                  "context_quotes",
+                  "modality_quote",
+                  "modality",
+                  "alternative_quotes",
+                  "choice_quote",
+                  "choice_text",
+                  "logic_text",
+                  "actor_quote",
+                  "actor",
+                  "action_quote",
+                  "action",
+                  "object_quote",
+                  "object",
+                  "jurisdiction_quote",
+                  "jurisdiction",
+                  "relation",
+                  "references",
+                  "summary"
+                ],
+                "additionalProperties": false,
+                "title": "Complete unit meaning and component evidence",
+                "description": "Interpret this unit using only its source and supplied context. Keep evidence, normative force, conditions, alternatives and meaning mutually consistent. Empty values preserve uncertainty rather than inventing missing details."
+              }
+            },
+            "required": [
+              "id",
+              "unit",
+              "actor_ref",
+              "object_refs",
+              "unit_attributes"
+            ],
+            "additionalProperties": false,
+            "title": "One semantic unit",
+            "description": "One independently referenceable source meaning. Separate distinct actions when useful, while preserving their inherited scope and connected qualifications. Overlapping main quotations are allowed."
+          }
+        },
+        "concepts": {
+          "type": "array",
+          "title": "Shared source concepts",
+          "description": "Concepts, entities and roles referenced by units. Definitions with independent meaning must also appear as extracted units.",
+          "items": {
+            "type": "object",
+            "title": "Source concept",
+            "description": "A local, evidence-backed meaning that extracted units may share. Do not infer cross-document identity or a canonical RefSpec term.",
+            "properties": {
+              "id": {
+                "type": "string",
+                "title": "Local concept identifier",
+                "description": "Unique label c1, c2, and so on within this response. It identifies a source-grounded concept, entity or role, not a global vocabulary identifier."
+              },
+              "label": {
+                "type": "string",
+                "title": "Source-supported concept label",
+                "description": "A meaningful concept, entity or role used by extracted units. Reuse an existing concept for the same meaning; distinguish materially different meanings. Do not inventory every ordinary word."
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "concept",
+                  "entity",
+                  "role"
+                ],
+                "description": "Whether the label denotes a general concept, a particular entity, or a role held by a source participant."
+              },
+              "source_quotes": {
+                "type": "array",
+                "title": "Exact concept evidence",
+                "description": "One or more exact contiguous supplied source quotations establishing this meaning. A short repeated term is permitted here; never invent a source definition.",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "id",
+              "label",
+              "kind",
+              "source_quotes"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "unresolved": {
+          "type": "array",
+          "title": "Unresolved source references",
+          "description": "Record unresolved links and their source-specific uncertainty.",
+          "items": {
+            "type": "object",
+            "title": "Unresolved reference",
+            "description": "Retain incomplete links visibly instead of guessing. A locally available target should not be called remote merely because its quotation is elsewhere in the same source.",
+            "properties": {
+              "source_unit_ref": {
+                "type": "string",
+                "title": "Referring unit",
+                "description": "Existing unit ID, or empty if no corresponding unit can be extracted."
+              },
+              "reference": {
+                "type": "string",
+                "title": "Unresolved source reference",
+                "description": "An exact source quotation or section label whose target or meaning is not established in the supplied source."
+              },
+              "reason": {
+                "type": "string",
+                "title": "Remaining uncertainty",
+                "description": "Why the source does not establish a target or interpretation. Preserve what is known without inventing a local or remote rule."
+              }
+            },
+            "required": [
+              "source_unit_ref",
+              "reference",
+              "reason"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "concepts",
+        "extractions",
+        "relationships",
+        "unresolved"
+      ],
+      "additionalProperties": false,
+      "title": "Source-grounded document meanings",
+      "description": "Retain independently useful rules, definitions, recommendations, permissions, exemptions, qualifications and descriptive statements with exact evidence. Empty collections express absent supported content, never proof of completeness."
+    }
+  }
+}

@@ -1,0 +1,139 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+        "NonEmptyVocabularyText": {
+            "type": "string",
+            "pattern": "^[\\s\\S]+$"
+        },
+        "NotationLiteral": {
+            "type": "object",
+            "description": "Closed JSON-LD typed-literal authoring object for skos:notation.",
+            "additionalProperties": false,
+            "properties": {
+                "@type": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                },
+                "@value": {
+                    "$ref": "#/$defs/NonEmptyVocabularyText"
+                }
+            },
+            "required": [
+                "@type",
+                "@value"
+            ]
+        },
+        "PreferredLabelMap": {
+            "type": "object",
+            "description": "JSON-LD language maps preserve the authoring language and script. A\npreferred-label map admits one string per language. Other authored SKOS\ntext admits one or many strings per language.",
+            "additionalProperties": true
+        },
+        "SkosAuthoredText": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "skos:altLabel": {
+                    "$ref": "#/$defs/VocabularyTextMap"
+                },
+                "skos:changeNote": {
+                    "$ref": "#/$defs/VocabularyTextMap"
+                },
+                "skos:definition": {
+                    "$ref": "#/$defs/VocabularyTextMap"
+                },
+                "skos:editorialNote": {
+                    "$ref": "#/$defs/VocabularyTextMap"
+                },
+                "skos:example": {
+                    "$ref": "#/$defs/VocabularyTextMap"
+                },
+                "skos:hiddenLabel": {
+                    "$ref": "#/$defs/VocabularyTextMap"
+                },
+                "skos:historyNote": {
+                    "$ref": "#/$defs/VocabularyTextMap"
+                },
+                "skos:note": {
+                    "$ref": "#/$defs/VocabularyTextMap"
+                },
+                "skos:prefLabel": {
+                    "$ref": "#/$defs/PreferredLabelMap"
+                },
+                "skos:scopeNote": {
+                    "$ref": "#/$defs/VocabularyTextMap"
+                }
+            },
+            "required": [
+                "skos:prefLabel"
+            ]
+        },
+        "SkosConceptAuthoredText": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "skos:notation": {
+                    "type": "array",
+                    "description": "Normative authoring form is a non-empty JSON array. The strict-list\nmarker tells semantic projections not to admit JSON-LD scalar shorthand;\nRDF SHACL can validate the expanded literals but cannot recover whether\nthe compact source used an array, so source/JSON validation runs first.",
+                    "items": {
+                        "$ref": "#/$defs/NotationLiteral"
+                    },
+                    "minItems": 1
+                }
+            },
+            "$ref": "#/$defs/SkosAuthoredText"
+        },
+        "VocabularyTextMap": {
+            "type": "object",
+            "additionalProperties": true
+        }
+    },
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "@type": {
+            "const": "rkaf:RegisteredConcept"
+        },
+        "rkaf:conceptScope": {
+            "type": "string"
+        },
+        "rkaf:managedByRegistry": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:registeredAt": {
+            "type": "string"
+        },
+        "skos:broader": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            }
+        },
+        "skos:inScheme": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "skos:narrower": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            }
+        },
+        "skos:related": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            }
+        }
+    },
+    "$ref": "#/$defs/SkosConceptAuthoredText",
+    "required": [
+        "rkaf:conceptScope",
+        "rkaf:managedByRegistry",
+        "rkaf:registeredAt",
+        "skos:inScheme"
+    ]
+}

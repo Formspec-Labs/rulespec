@@ -1,0 +1,717 @@
+{
+  "assessment_kind": "model-assisted-known-case-review",
+  "limitation": "Fallible model judgments; no human gold, general accuracy estimate or automatic repair.",
+  "results": [
+    {
+      "id": "R01",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "It is acceptable if the infant's eyes, particularly a newborn's, are partially or completely closed;",
+            "Both of the applicant’s eyes should also be visible and open in the photograph (see the exception for infants in 8 FAM 402.1-1)."
+          ],
+          "claim_ids": [
+            "P000",
+            "P021"
+          ],
+          "rationale": "Claim P000 correctly preserves the partial or complete closure alternative and the newborn emphasis, but it completely lacks an explicit exception role or an unresolved exception relation linking it to the general open-eyes rule referenced in 8 FAM 402.1-5.",
+          "status": "fail"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "It is acceptable if the infant's eyes, particularly a newborn's, are partially or completely closed;"
+          ],
+          "claim_ids": [
+            "P000"
+          ],
+          "rationale": "Claim P000 does not generalize infant eye closure permissions to adult applicants and does not fabricate a resolved target relation.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "none",
+      "status": "fail",
+      "validation_issues": []
+    },
+    {
+      "id": "R02",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "(2) The infant's head may be discreetly supported, e.g., a car seat with a white or off-white blanket behind the child. Head tilt is acceptable for infants; and",
+            "(3) A parent’s face cannot be in the photograph of the infant."
+          ],
+          "claim_ids": [
+            "P001",
+            "P002"
+          ],
+          "rationale": "The draft claims represent discreet head support (P001) and parent face prohibition (P002), but head tilt permission for infants was entirely omitted from the draft.",
+          "status": "fail"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "(2) The infant's head may be discreetly supported, e.g., a car seat with a white or off-white blanket behind the child. Head tilt is acceptable for infants; and",
+            "(3) A parent’s face cannot be in the photograph of the infant."
+          ],
+          "claim_ids": [
+            "P001",
+            "P002"
+          ],
+          "rationale": "The draft treats the car seat merely as an example rather than a requirement, does not invent an unauthorized tilt angle, and strictly prohibits the parent's face.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "none",
+      "status": "fail",
+      "validation_issues": []
+    },
+    {
+      "id": "R03",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "You must request a new photograph if the photograph submitted does not meet the following requirements:",
+            "(2) The photograph should be taken within six months of submitting the application, be a good likeness of and satisfactorily identify the applicant at the time of the application (see 22 CFR 51.26). A photograph showing a change in hairstyle or facial hair from the identification document submitted is acceptable if it still is a good likeness of the applicant;",
+            "NOTE: Applicants may wish to re-use a passport photograph that is depicted on their submitted U.S Certificate of Citizenship or Certificate of Naturalization. Be aware that even if the certificate itself was recently issued, because of U.S. Citizenship and Immigration Services processing times, the photograph may not have been taken within six months of submitting the application."
+          ],
+          "claim_ids": [
+            "P003",
+            "P005"
+          ],
+          "rationale": "The draft preserves the six-month timing, likeness, and identification requirements, but entirely omits the provision permitting hairstyle or facial hair changes if likeness remains, as well as the certificate processing timing caution note.",
+          "status": "fail"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "(2) The photograph should be taken within six months of submitting the application, be a good likeness of and satisfactorily identify the applicant at the time of the application (see 22 CFR 51.26)."
+          ],
+          "claim_ids": [
+            "P005"
+          ],
+          "rationale": "The draft avoids converting six months into a fixed day count, does not substitute certificate issue date, retains the identification predicate, and does not grant blanket photo reuse permission.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "none",
+      "status": "fail",
+      "validation_issues": []
+    },
+    {
+      "id": "R04",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "(c) The applicant does not need to sign the photograph, as this often causes creases or smudges; and",
+            "NOTE: For hand-carry applications, the acceptance agent signs the back of the photograph."
+          ],
+          "claim_ids": [
+            "P009",
+            "P010"
+          ],
+          "rationale": "Claim P009 correctly captures that the applicant is not required to sign the photograph, and claim P010 correctly assigns signing the back of the photograph specifically to the acceptance agent for hand-carry applications.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "(c) The applicant does not need to sign the photograph, as this often causes creases or smudges; and",
+            "NOTE: For hand-carry applications, the acceptance agent signs the back of the photograph."
+          ],
+          "claim_ids": [
+            "P009",
+            "P010"
+          ],
+          "rationale": "The draft imposes no signing duty on the applicant, does not prohibit all signatures generally, and does not make agent signing universal beyond hand-carry applications.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "none",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "R05",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "(a) Material damage is any damage to the facial area that makes the photograph no longer a good likeness of the applicant (e.g., creases, large holes, and large smudges) or impedes the functioning of facial recognition (damage in the area of the eyes);",
+            "(b) Immaterial damage is any damage to the background, and non-material damage to the facial area (e.g., staple holes). Immaterial damage is acceptable;"
+          ],
+          "claim_ids": [
+            "P006",
+            "P007",
+            "P008"
+          ],
+          "rationale": "While material damage alternatives and immaterial categories are defined, claim P008 completely truncates and omits the explicit rule stating that immaterial damage is acceptable.",
+          "status": "fail"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "(a) Material damage is any damage to the facial area that makes the photograph no longer a good likeness of the applicant (e.g., creases, large holes, and large smudges) or impedes the functioning of facial recognition (damage in the area of the eyes);"
+          ],
+          "claim_ids": [
+            "P007"
+          ],
+          "rationale": "The draft does not classify harmless background or staple damage as material and correctly represents the material damage triggers disjunctively rather than requiring both simultaneously.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "none",
+      "status": "fail",
+      "validation_issues": []
+    },
+    {
+      "id": "R06",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "NOTE: A limited-validity passport using endorsement 46 should be issued when the medical circumstance that requires eyeglasses is temporary and the applicant has urgent or emergency travel."
+          ],
+          "claim_ids": [
+            "P018"
+          ],
+          "rationale": "Claim P018 faithfully preserves the advisory modality 'should', the issuance of a limited-validity passport using endorsement 46, and the dual condition of temporary medical circumstance combined with urgent or emergency travel.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "NOTE: A limited-validity passport using endorsement 46 should be issued when the medical circumstance that requires eyeglasses is temporary and the applicant has urgent or emergency travel."
+          ],
+          "claim_ids": [
+            "P018"
+          ],
+          "rationale": "The draft does not import an arbitrary one-year validity, does not omit endorsement 46, does not elevate should to must, and does not drop the temporary medical necessity requirement.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "none",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "R07",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "A medical statement signed by a medical professional/health practitioner must be requested in these rare circumstances.",
+            "In rare cases, if it is unlikely that the closed eye(s) or exaggerated expression are because of a medical condition, you should request a medical statement signed by a medical professional/health practitioner.",
+            "Processing and communications/customer service personnel at passport agencies/centers or consular section personnel should refer applications without photographs to their supervisor for guidance on processing passport applications received without photographs;"
+          ],
+          "claim_ids": [
+            "P013",
+            "P022",
+            "P023"
+          ],
+          "rationale": "The draft maintains the mandatory force 'must' for the medical statement required for eyeglasses (P013) while preserving the recommendation modality 'should' for statements regarding closed eyes (P022) and supervisory referrals (P023).",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "In rare cases, if it is unlikely that the closed eye(s) or exaggerated expression are because of a medical condition, you should request a medical statement signed by a medical professional/health practitioner."
+          ],
+          "claim_ids": [
+            "P022"
+          ],
+          "rationale": "The draft correctly retains recommendation kind and should modality for soft rules rather than converting every should to a mandatory requirement.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "none",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "R08",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "(3) Passport specialists must suspend a form DS-11 received without a photograph from an acceptance facility. The applicant must re-execute the form DS-11 (see IRL 975-04); and"
+          ],
+          "claim_ids": [
+            "P025",
+            "P026"
+          ],
+          "rationale": "Claim P026 explicitly incorporates the conditions 'without a photograph' and 'from an acceptance facility' into the re-execution scope and correctly distinguishes the applicant actor from the passport specialist actor in P025.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "(3) Passport specialists must suspend a form DS-11 received without a photograph from an acceptance facility. The applicant must re-execute the form DS-11 (see IRL 975-04); and"
+          ],
+          "claim_ids": [
+            "P026"
+          ],
+          "rationale": "The draft does not assign re-execution to complete DS-11 applications and does not rely solely on nearby claims or reference codes to define the re-execution condition.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "none",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "R09",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "If the eyeglasses are accepted for medical reasons:",
+            "(a) The frames of the eyeglasses must not cover the eye(s);",
+            "(b) There must not be glare on eyeglasses that obscures the eye(s);",
+            "(c) There must not be shadows or refraction from the eyeglasses that obscure the eye(s); and",
+            "(d) Dark or tinted lenses are permitted if the medical statement also indicates that they are required."
+          ],
+          "claim_ids": [
+            "P011",
+            "P012",
+            "P013",
+            "P014",
+            "P015",
+            "P016",
+            "P017"
+          ],
+          "rationale": "Although claims P014 through P017 recite the subordinate rules, none of them retain the prerequisite child links (target_ids are all empty and relations are set to none) connecting them to the governing exception rule.",
+          "status": "fail"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "(d) Dark or tinted lenses are permitted if the medical statement also indicates that they are required."
+          ],
+          "claim_ids": [
+            "P017"
+          ],
+          "rationale": "The draft does not fabricate ungrounded target links and requires explicit medical statement necessity for dark or tinted lenses rather than allowing automatic acceptance.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "none",
+      "status": "fail",
+      "validation_issues": []
+    },
+    {
+      "id": "R10",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "a. The applicant’s expression should be natural. Normal, unexaggerated smiles are acceptable, but unusual expressions and squinting are not.",
+            "b. Applicants with physical or mental disabilities, including loss of muscle control (e.g., age-related degeneration or because of a medical condition such as Bell's Palsy), may not be able to produce a natural or unexaggerated expression. You may accept a photograph without a natural or unexaggerated expression in these circumstances."
+          ],
+          "claim_ids": [
+            "P019",
+            "P020"
+          ],
+          "rationale": "Claim P020 defines the disability scope but fails to connect to the baseline natural expression requirement (P019) via target_ids or relation, and fails to flag an unresolved relation issue.",
+          "status": "fail"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "b. Applicants with physical or mental disabilities, including loss of muscle control (e.g., age-related degeneration or because of a medical condition such as Bell's Palsy), may not be able to produce a natural or unexaggerated expression."
+          ],
+          "claim_ids": [
+            "P020"
+          ],
+          "rationale": "The draft restricts acceptance to disabilities causing inability to produce natural expressions rather than broadening to any disability, and invents no unauthorized mandatory diagnosis requirements.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "none",
+      "status": "fail",
+      "validation_issues": []
+    },
+    {
+      "id": "R11",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "If the applicant is unable to open one or both eyes because of a medical condition, you may accept the photograph.",
+            "In rare cases, if it is unlikely that the closed eye(s) or exaggerated expression are because of a medical condition, you should request a medical statement signed by a medical professional/health practitioner."
+          ],
+          "claim_ids": [
+            "P021",
+            "P022"
+          ],
+          "rationale": "The draft correctly preserves discretionary acceptance ('may') for one or both eyes closed due to a medical condition (P021), maintains 'rare' and 'unlikely' with advisory 'should' for statement requests (P022), and keeps the trigger distinct from the general exception.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "In rare cases, if it is unlikely that the closed eye(s) or exaggerated expression are because of a medical condition, you should request a medical statement signed by a medical professional/health practitioner."
+          ],
+          "claim_ids": [
+            "P022"
+          ],
+          "rationale": "The draft does not invert 'unlikely', does not drop 'rare' from the scoped summary, does not make statement requests universal, and does not make photograph acceptance mandatory.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "none",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "R12",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "(d) A photograph that appears acceptable and undamaged in the system may have a defect that is apparent when the passport is printed. Consequently, the passport application may be returned to adjudication to request a new photograph even though the photograph appeared acceptable."
+          ],
+          "claim_ids": [],
+          "rationale": "The rule governing returning the application to adjudication when a printing defect appears to request a new photograph is completely missing from the extracted claims.",
+          "status": "fail"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "Consequently, the passport application may be returned to adjudication to request a new photograph even though the photograph appeared acceptable."
+          ],
+          "claim_ids": [],
+          "rationale": "The draft does not misstate the photograph itself as the returned object and does not invent a mandatory command from the stated purpose.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "none",
+      "status": "fail",
+      "validation_issues": []
+    },
+    {
+      "id": "R13",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "(2) You must not accept a form DS-11 or form DS-82 received without a photograph at the public counter. See 8 FAM 1001.2 regarding importing photographs for forms DS-5504;",
+            "(4) Passport specialists must suspend a form DS-82 or form DS-5504 received without a photograph (see IRL 1000-05 and IRL 1018-14)."
+          ],
+          "claim_ids": [
+            "P024",
+            "P027"
+          ],
+          "rationale": "The draft faithfully leaves the cross-reference to 8 FAM 1001.2 regarding DS-5504 photo importing as an unresolved contextual citation in P024 and maintains the separate mandatory DS-5504 suspension duty in P027.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "See 8 FAM 1001.2 regarding importing photographs for forms DS-5504;"
+          ],
+          "claim_ids": [
+            "P024"
+          ],
+          "rationale": "The draft does not invent photo importing procedures and does not grant unauthorized permission to accept a DS-5504 missing a photograph at the public counter.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "none",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "R14",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "(2) You must not accept a form DS-11 or form DS-82 received without a photograph at the public counter. See 8 FAM 1001.2 regarding importing photographs for forms DS-5504;",
+            "(3) Passport specialists must suspend a form DS-11 received without a photograph from an acceptance facility. The applicant must re-execute the form DS-11 (see IRL 975-04); and",
+            "(4) Passport specialists must suspend a form DS-82 or form DS-5504 received without a photograph (see IRL 1000-05 and IRL 1018-14)."
+          ],
+          "claim_ids": [
+            "P024",
+            "P025",
+            "P027"
+          ],
+          "rationale": "The draft preserves disjunctive counter refusal for DS-11 or DS-82 (P024), acceptance facility suspension for DS-11 (P025), suspension for DS-82 or DS-5504 (P027), and cites both IRL 1000-05 and IRL 1018-14.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "(4) Passport specialists must suspend a form DS-82 or form DS-5504 received without a photograph (see IRL 1000-05 and IRL 1018-14)."
+          ],
+          "claim_ids": [
+            "P027"
+          ],
+          "rationale": "The draft does not change disjunctions to conjunctions, does not import acceptance facility restrictions to DS-82/DS-5504, and preserves both IRL references without exclusive mapping.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "none",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "R15",
+      "invariants": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "The goal is the best likeness that can reasonably be obtained:",
+            "NOTE: Applicants may wish to re-use a passport photograph that is depicted on their submitted U.S Certificate of Citizenship or Certificate of Naturalization. Be aware that even if the certificate itself was recently issued, because of U.S. Citizenship and Immigration Services processing times, the photograph may not have been taken within six months of submitting the application."
+          ],
+          "claim_ids": [
+            "P000",
+            "P005"
+          ],
+          "rationale": "Advisory reasonableness principles and descriptive certificate re-use preferences are preserved as context or non-binding statements rather than being converted into mandatory obligations.",
+          "status": "pass"
+        }
+      ],
+      "negative_controls": [
+        {
+          "index": 0,
+          "source_quotes": [
+            "8 FAM 402.1-5 Facial Expression",
+            "(CT:CITZ-112; 09-06-2024)"
+          ],
+          "claim_ids": [],
+          "rationale": "The draft does not invent substantive duties or rules from section headings, revision markers, illustrative examples, or applicant preferences.",
+          "status": "pass"
+        }
+      ],
+      "uncertainty": "none",
+      "status": "pass",
+      "validation_issues": []
+    },
+    {
+      "id": "NREG-01",
+      "invariants": [],
+      "negative_controls": [],
+      "uncertainty": "Missing or duplicate case verdict.",
+      "status": "unknown",
+      "validation_issues": [
+        "provider_incomplete",
+        "malformed_audit_response",
+        "invalid_case_assessment_schema",
+        "incomplete_invariants",
+        "incomplete_negative_controls"
+      ]
+    },
+    {
+      "id": "NREG-02",
+      "invariants": [],
+      "negative_controls": [],
+      "uncertainty": "Missing or duplicate case verdict.",
+      "status": "unknown",
+      "validation_issues": [
+        "provider_incomplete",
+        "malformed_audit_response",
+        "invalid_case_assessment_schema",
+        "incomplete_invariants",
+        "incomplete_negative_controls"
+      ]
+    },
+    {
+      "id": "NREG-03",
+      "invariants": [],
+      "negative_controls": [],
+      "uncertainty": "Missing or duplicate case verdict.",
+      "status": "unknown",
+      "validation_issues": [
+        "provider_incomplete",
+        "malformed_audit_response",
+        "invalid_case_assessment_schema",
+        "incomplete_invariants"
+      ]
+    },
+    {
+      "id": "NREG-04",
+      "invariants": [],
+      "negative_controls": [],
+      "uncertainty": "Missing or duplicate case verdict.",
+      "status": "unknown",
+      "validation_issues": [
+        "provider_incomplete",
+        "malformed_audit_response",
+        "invalid_case_assessment_schema",
+        "incomplete_invariants"
+      ]
+    },
+    {
+      "id": "NREG-05",
+      "invariants": [],
+      "negative_controls": [],
+      "uncertainty": "Missing or duplicate case verdict.",
+      "status": "unknown",
+      "validation_issues": [
+        "provider_incomplete",
+        "malformed_audit_response",
+        "invalid_case_assessment_schema",
+        "incomplete_invariants",
+        "incomplete_negative_controls"
+      ]
+    },
+    {
+      "id": "NREG-06",
+      "invariants": [],
+      "negative_controls": [],
+      "uncertainty": "Missing or duplicate case verdict.",
+      "status": "unknown",
+      "validation_issues": [
+        "provider_incomplete",
+        "malformed_audit_response",
+        "invalid_case_assessment_schema",
+        "incomplete_invariants",
+        "incomplete_negative_controls"
+      ]
+    },
+    {
+      "id": "NREG-07",
+      "invariants": [],
+      "negative_controls": [],
+      "uncertainty": "Missing or duplicate case verdict.",
+      "status": "unknown",
+      "validation_issues": [
+        "provider_incomplete",
+        "malformed_audit_response",
+        "invalid_case_assessment_schema",
+        "incomplete_invariants",
+        "incomplete_negative_controls"
+      ]
+    },
+    {
+      "id": "NREG-08",
+      "invariants": [],
+      "negative_controls": [],
+      "uncertainty": "Missing or duplicate case verdict.",
+      "status": "unknown",
+      "validation_issues": [
+        "provider_incomplete",
+        "malformed_audit_response",
+        "invalid_case_assessment_schema",
+        "incomplete_invariants",
+        "incomplete_negative_controls"
+      ]
+    },
+    {
+      "id": "NREG-09",
+      "invariants": [],
+      "negative_controls": [],
+      "uncertainty": "Missing or duplicate case verdict.",
+      "status": "unknown",
+      "validation_issues": [
+        "provider_incomplete",
+        "malformed_audit_response",
+        "invalid_case_assessment_schema",
+        "incomplete_invariants",
+        "incomplete_negative_controls"
+      ]
+    },
+    {
+      "id": "NREG-10",
+      "invariants": [],
+      "negative_controls": [],
+      "uncertainty": "Missing or duplicate case verdict.",
+      "status": "unknown",
+      "validation_issues": [
+        "provider_incomplete",
+        "malformed_audit_response",
+        "invalid_case_assessment_schema",
+        "incomplete_invariants",
+        "incomplete_negative_controls"
+      ]
+    },
+    {
+      "id": "NREG-11",
+      "invariants": [],
+      "negative_controls": [],
+      "uncertainty": "Missing or duplicate case verdict.",
+      "status": "unknown",
+      "validation_issues": [
+        "provider_incomplete",
+        "malformed_audit_response",
+        "invalid_case_assessment_schema",
+        "incomplete_invariants",
+        "incomplete_negative_controls"
+      ]
+    },
+    {
+      "id": "NREG-12",
+      "invariants": [],
+      "negative_controls": [],
+      "uncertainty": "Missing or duplicate case verdict.",
+      "status": "unknown",
+      "validation_issues": [
+        "provider_incomplete",
+        "malformed_audit_response",
+        "invalid_case_assessment_schema",
+        "incomplete_invariants"
+      ]
+    },
+    {
+      "id": "NREG-13",
+      "invariants": [],
+      "negative_controls": [],
+      "uncertainty": "Missing or duplicate case verdict.",
+      "status": "unknown",
+      "validation_issues": [
+        "provider_incomplete",
+        "malformed_audit_response",
+        "invalid_case_assessment_schema",
+        "incomplete_invariants",
+        "incomplete_negative_controls"
+      ]
+    },
+    {
+      "id": "NREG-14",
+      "invariants": [],
+      "negative_controls": [],
+      "uncertainty": "Missing or duplicate case verdict.",
+      "status": "unknown",
+      "validation_issues": [
+        "provider_incomplete",
+        "malformed_audit_response",
+        "invalid_case_assessment_schema",
+        "incomplete_invariants"
+      ]
+    }
+  ],
+  "separate_workflow_case": "NREG-15"
+}

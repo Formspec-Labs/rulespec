@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "kind": {
+      "enum": [
+        "human",
+        "ai"
+      ]
+    },
+    "lineage": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "kind"
+  ],
+  "additionalProperties": false,
+  "if": {
+    "properties": {
+      "kind": {
+        "const": "ai"
+      }
+    },
+    "required": [
+      "kind"
+    ]
+  },
+  "then": {
+    "required": [
+      "lineage"
+    ]
+  },
+  "else": {
+    "not": {
+      "required": [
+        "lineage"
+      ]
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "@type": {
+            "const": "rkaf:ConfidenceRecord"
+        },
+        "rkaf:calibrationStatus": {
+            "enum": [
+                "rkaf:uncalibrated",
+                "rkaf:calibratedAgainst",
+                "rkaf:humanEstimated",
+                "rkaf:consensus"
+            ]
+        },
+        "rkaf:confidenceBasis": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "rkaf:confidenceMethod": {
+            "enum": [
+                "rkaf:model-inference",
+                "rkaf:human-estimation",
+                "rkaf:review-consensus",
+                "rkaf:source-class-inheritance",
+                "rkaf:rule-based"
+            ]
+        },
+        "rkaf:generatedBy": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "rkaf:calibrationStatus",
+        "rkaf:confidenceMethod",
+        "rkaf:generatedBy"
+    ]
+}

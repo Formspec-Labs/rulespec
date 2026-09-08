@@ -1,0 +1,176 @@
+{
+  "model": "gemini-3.8-flash",
+  "contents": "There is no source text. Return an empty extractions array.",
+  "config": {
+    "temperature": 0,
+    "candidate_count": 1,
+    "max_output_tokens": 256,
+    "response_mime_type": "application/json",
+    "response_json_schema": {
+      "type": "object",
+      "properties": {
+        "extractions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "unit": {
+                "type": "string"
+              },
+              "unit_attributes": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "authority",
+                      "condition",
+                      "definition",
+                      "exception",
+                      "exemption",
+                      "permission",
+                      "prohibition",
+                      "recommendation",
+                      "requirement",
+                      "statement",
+                      "threshold"
+                    ]
+                  },
+                  "summary": {
+                    "type": "string"
+                  },
+                  "actor": {
+                    "type": "string"
+                  },
+                  "action": {
+                    "type": "string"
+                  },
+                  "object": {
+                    "type": "string"
+                  },
+                  "actor_quote": {
+                    "type": "string"
+                  },
+                  "action_quote": {
+                    "type": "string"
+                  },
+                  "object_quote": {
+                    "type": "string"
+                  },
+                  "logic_text": {
+                    "type": "string"
+                  },
+                  "relation": {
+                    "type": "string",
+                    "enum": [
+                      "none",
+                      "scope",
+                      "prerequisite",
+                      "trigger",
+                      "exception"
+                    ]
+                  },
+                  "modality": {
+                    "type": "string",
+                    "enum": [
+                      "must",
+                      "should",
+                      "may",
+                      "must_not",
+                      "not_required",
+                      "possible",
+                      "not_stated",
+                      "uncertain"
+                    ]
+                  },
+                  "modality_quote": {
+                    "type": "string"
+                  },
+                  "scope_text": {
+                    "type": "string"
+                  },
+                  "choice_text": {
+                    "type": "string"
+                  },
+                  "choice_quote": {
+                    "type": "string"
+                  },
+                  "jurisdiction": {
+                    "type": "string"
+                  },
+                  "jurisdiction_quote": {
+                    "type": "string"
+                  },
+                  "applies_to": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "references": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "scope_quotes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "context_quotes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "alternative_quotes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "kind",
+                  "summary",
+                  "actor",
+                  "action",
+                  "object",
+                  "actor_quote",
+                  "action_quote",
+                  "object_quote",
+                  "logic_text",
+                  "relation",
+                  "modality",
+                  "modality_quote",
+                  "scope_text",
+                  "choice_text",
+                  "choice_quote",
+                  "jurisdiction",
+                  "jurisdiction_quote",
+                  "applies_to",
+                  "references",
+                  "scope_quotes",
+                  "context_quotes",
+                  "alternative_quotes"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "unit",
+              "unit_attributes"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "extractions"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

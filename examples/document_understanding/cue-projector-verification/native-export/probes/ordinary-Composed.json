@@ -1,0 +1,44 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+        "Concept": {
+            "type": "object",
+            "description": "A reusable concept identifier.",
+            "additionalProperties": false,
+            "properties": {
+                "a_label": {
+                    "type": "string",
+                    "description": "The source label."
+                },
+                "z_id": {
+                    "type": "string",
+                    "description": "Stable identifier. Use it in later references."
+                }
+            },
+            "required": [
+                "a_label",
+                "z_id"
+            ]
+        }
+    },
+    "type": "object",
+    "description": "A composed record.",
+    "additionalProperties": false,
+    "properties": {
+        "own": {
+            "allOf": [
+                {
+                    "type": "number"
+                },
+                {
+                    "type": "integer",
+                    "minimum": 1
+                }
+            ]
+        }
+    },
+    "$ref": "#/$defs/Concept",
+    "required": [
+        "own"
+    ]
+}

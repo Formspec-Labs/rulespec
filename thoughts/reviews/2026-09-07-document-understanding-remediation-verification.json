@@ -1,0 +1,167 @@
+{
+  "verified_at_utc": "2026-09-07T15:27:50.647541+00:00",
+  "reviewer_kind": "aiAgent",
+  "verdict": "APPROVE bounded local implementation after remediation",
+  "verification_roles": {
+    "core_and_documents": "independent review of root-owned implementation",
+    "first_open_integrity_and_refusal_ui": "regression verification by their implementation author; no independent security-review claim"
+  },
+  "independent_checks": {
+    "restored_actor_a_b_a": {
+      "status": "passed",
+      "verification": "independent",
+      "application_revisions": 3,
+      "revision_artifact_digests_and_references_match": true,
+      "derivation_chain_preserved": true,
+      "original_ai_origin_preserved": true,
+      "proposition_cycle": false,
+      "core_shacl_valid": true
+    },
+    "kind_change": {
+      "status": "passed",
+      "verification": "independent",
+      "requirement_to_permission_supersedes_prior_summary": true,
+      "revision_chain_preserved": true,
+      "core_shacl_valid": true
+    },
+    "qualification_two_one_two_targets": {
+      "status": "passed",
+      "verification": "independent",
+      "target_counts": [
+        2,
+        1,
+        2
+      ],
+      "relationship_kind_changes": [
+        "exception",
+        "scope",
+        "exception"
+      ],
+      "all_prior_relationships_superseded": true,
+      "revision_chain_preserved": true,
+      "proposition_cycle": false,
+      "core_shacl_valid": true
+    },
+    "original_source_coordinates": {
+      "status": "passed",
+      "verification": "independent",
+      "invalid_cases": [
+        {
+          "source_start": -7,
+          "source_end": 1,
+          "rejected": true
+        },
+        {
+          "source_start": 0.5,
+          "source_end": 8.5,
+          "rejected": true
+        },
+        {
+          "source_start": true,
+          "source_end": 9,
+          "rejected": true
+        },
+        {
+          "source_start": 0,
+          "source_end": true,
+          "rejected": true
+        },
+        {
+          "source_start": 0,
+          "source_end": 0,
+          "rejected": true
+        },
+        {
+          "source_start": 0,
+          "source_end": -1,
+          "rejected": true
+        },
+        {
+          "source_start": 0,
+          "source_end": 8.0,
+          "rejected": true
+        }
+      ],
+      "scope": "Type, lower bound, positive interval and mapped length checks; referenced original source contents are not checked here."
+    },
+    "plaintext_newline_preservation": {
+      "status": "passed",
+      "verification": "independent",
+      "before_fix_observation": {
+        "separator": "CRLF",
+        "input_codepoints": 52,
+        "loaded_codepoints": 51,
+        "input_second_rule_start": 26,
+        "loaded_second_rule_start": 25
+      },
+      "after_fix_cases": [
+        {
+          "separator": "CRLF",
+          "codepoints": 54,
+          "source_quote_start": 28,
+          "exact_text_preserved": true,
+          "input_bytes_digest_matches": true
+        },
+        {
+          "separator": "CR",
+          "codepoints": 53,
+          "source_quote_start": 27,
+          "exact_text_preserved": true,
+          "input_bytes_digest_matches": true
+        },
+        {
+          "separator": "mixed_LF_CRLF",
+          "codepoints": 55,
+          "source_quote_start": 29,
+          "exact_text_preserved": true,
+          "input_bytes_digest_matches": true
+        }
+      ]
+    },
+    "inserted_text_evidence_boundary": {
+      "status": "passed",
+      "verification": "independent",
+      "inserted_heading_refused": true,
+      "original_source_rule_accepted": true
+    }
+  },
+  "focused_suite": {
+    "command": ".tools/document-poc-venv/bin/python -m pytest packages/rulespec-extrapolator/tests/test_core.py packages/rulespec-extrapolator/tests/test_review_store.py packages/rulespec-extrapolator/tests/test_review_http.py -q",
+    "passed": 57,
+    "warnings": 7,
+    "warning_kind": "rdflib ConjunctiveGraph deprecation"
+  },
+  "regression_checks": {
+    "F1_first_open_integrity": {
+      "status": "passed",
+      "coverage": [
+        "manifest verification before database creation",
+        "manifest-free evidence and fragment identity",
+        "component assertion-ID agreement",
+        "attestation target resolution before event insertion"
+      ]
+    },
+    "F3_refusal_visibility": {
+      "status": "code and HTTP regression checks passed",
+      "source_location": "packages/rulespec-extrapolator/src/rulespec_extrapolator/static/review.js:171",
+      "observed_behavior": "Parser/provider refusals contribute to the visible issue count and render their window, attempt and reason through text APIs. HTTP regression preserves the refusal records.",
+      "browser_verification_by_this_reviewer": false
+    }
+  },
+  "source_sha256": {
+    "packages/rulespec-extrapolator/src/rulespec_extrapolator/core.py": "2a31db57e0fd1a068841e47d4e70a53a9fa10bd0c32b7362927568d834dfb03f",
+    "packages/rulespec-extrapolator/src/rulespec_extrapolator/documents.py": "6c75a5908c404f5513328a3f9a14a299a935ad6596fa9390bf9fca684d683929",
+    "packages/rulespec-extrapolator/src/rulespec_extrapolator/review_store.py": "0b53020699a0818a7ac19db454c82dfa01a22429ce254c062788c7b2a56669c5",
+    "packages/rulespec-extrapolator/src/rulespec_extrapolator/review.py": "c55c91566350f6a77848e9ed8491b787115864d04a22082ef1639324b845c72c",
+    "packages/rulespec-extrapolator/src/rulespec_extrapolator/static/review.js": "29294723158493e9e6d3dbd5cc8778c39b841192686af856b323c4ea67b9115a",
+    "packages/rulespec-extrapolator/src/rulespec_extrapolator/static/index.html": "6c17b9adcc46bfd3dd1b1f60e37a1e333e23099d1a57d0a447be610d4fef683b",
+    "packages/rulespec-extrapolator/tests/test_core.py": "66cf5fabd57624effb2e5c71579fcfe904782e2bd6da709d7363a39080a14815",
+    "packages/rulespec-extrapolator/tests/test_review_store.py": "3b4d82344dd3dbe92b07bdeed423640c8105fba922c815b1013fb633f1d4bfe4",
+    "packages/rulespec-extrapolator/tests/test_review_http.py": "f6370630b38c872213a02be8742ca7d60e49c2cfb7f3d61f8c7df7d2ef66c236"
+  },
+  "limits": [
+    "No provider calls, human review, semantic accuracy claim, deployment, or release.",
+    "Core propositions preserve first origin and historical supersession. Current claim membership comes from immutable revision artifacts and application review history.",
+    "Original-source coordinates are structurally checked; their referenced source snapshots require separate content verification."
+  ]
+}

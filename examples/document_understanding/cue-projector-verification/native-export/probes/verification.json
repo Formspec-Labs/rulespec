@@ -1,0 +1,91 @@
+{
+  "validation_checks": [
+    {
+      "shape": "Concept",
+      "payload": {
+        "z_id": "c1",
+        "a_label": "Applicant"
+      },
+      "expected_accepts": true,
+      "cue_accepts": true,
+      "export_accepts": true,
+      "export_errors": []
+    },
+    {
+      "shape": "Concept",
+      "payload": {
+        "a_label": "Applicant"
+      },
+      "expected_accepts": false,
+      "cue_accepts": false,
+      "export_accepts": false,
+      "export_errors": [
+        "'z_id' is a required property"
+      ]
+    },
+    {
+      "shape": "Composed",
+      "payload": {
+        "z_id": "c1",
+        "a_label": "Applicant",
+        "own": 1
+      },
+      "expected_accepts": true,
+      "cue_accepts": true,
+      "export_accepts": false,
+      "export_errors": [
+        "Additional properties are not allowed ('a_label', 'z_id' were unexpected)",
+        "Additional properties are not allowed ('own' was unexpected)"
+      ]
+    },
+    {
+      "shape": "Conditional",
+      "payload": {
+        "kind": "human"
+      },
+      "expected_accepts": true,
+      "cue_accepts": true,
+      "export_accepts": true,
+      "export_errors": []
+    },
+    {
+      "shape": "Conditional",
+      "payload": {
+        "kind": "ai",
+        "lineage": "run-1"
+      },
+      "expected_accepts": true,
+      "cue_accepts": true,
+      "export_accepts": true,
+      "export_errors": []
+    },
+    {
+      "shape": "Conditional",
+      "payload": {
+        "kind": "ai"
+      },
+      "expected_accepts": false,
+      "cue_accepts": false,
+      "export_accepts": true,
+      "export_errors": []
+    },
+    {
+      "shape": "Conditional",
+      "payload": {},
+      "expected_accepts": false,
+      "cue_accepts": false,
+      "export_accepts": true,
+      "export_errors": []
+    }
+  ],
+  "validation_mismatches": 3,
+  "source_property_order": [
+    "z_id",
+    "a_label"
+  ],
+  "export_property_order": [
+    "a_label",
+    "z_id"
+  ],
+  "native_parser_preserves_annotations_order_and_conditional_fields": true
+}

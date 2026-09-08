@@ -1,0 +1,34 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "@type": {
+            "const": "rkaf:Assertion"
+        },
+        "rkaf:hasEvidenceBinding": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "@type": {
+                        "const": "rkaf:EvidenceBinding"
+                    },
+                    "rkaf:noEvidenceReason": {
+                        "const": "rkaf:axiomatic"
+                    }
+                }
+            }
+        },
+        "rkaf:hasSafetyLabel": {
+            "enum": [
+                "rkaf:permits-axiomatic",
+                "rkaf:permits-all"
+            ]
+        }
+    },
+    "required": [
+        "rkaf:hasSafetyLabel"
+    ]
+}

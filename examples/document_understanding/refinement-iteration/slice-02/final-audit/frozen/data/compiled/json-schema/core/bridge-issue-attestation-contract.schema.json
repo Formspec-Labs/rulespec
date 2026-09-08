@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/bridge-issue-attestation-contract.json",
+  "title": "bridge-issue-attestation-contract",
+  "$defs": {
+    "BridgeIssueKind": {
+      "type": "string",
+      "enum": [
+        "rkaf:staleDep",
+        "rkaf:unresolvedConcept",
+        "rkaf:brokenAuthority",
+        "rkaf:unsupportedAnchor"
+      ]
+    },
+    "BridgeIssueAttestationContract": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:BridgeIssueAttestationContract"
+        },
+        "rkaf:consumer": {
+          "type": "string"
+        },
+        "rkaf:attestedIssueKinds": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/BridgeIssueKind"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/BridgeIssueKind"
+              }
+            }
+          ]
+        },
+        "rkaf:contractVersion": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:consumer",
+        "rkaf:attestedIssueKinds",
+        "rkaf:contractVersion"
+      ]
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/Users/mikewolfd/Work/rulespec/.tools/cue-native-v0.17.1/cue",
+    "def",
+    "--out",
+    "jsonschema",
+    "-e",
+    "#Conditional",
+    "union-conditional.cue"
+  ],
+  "returncode": 0,
+  "stdout": "{\n    \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n    \"anyOf\": [\n        {\n            \"type\": \"object\",\n            \"additionalProperties\": false,\n            \"properties\": {\n                \"kind\": {\n                    \"const\": \"human\"\n                }\n            }\n        },\n        {\n            \"type\": \"object\",\n            \"additionalProperties\": false,\n            \"properties\": {\n                \"kind\": {\n                    \"const\": \"ai\"\n                },\n                \"lineage\": {\n                    \"type\": \"string\"\n                }\n            },\n            \"required\": [\n                \"lineage\"\n            ]\n        }\n    ]\n}\n",
+  "stderr": ""
+}

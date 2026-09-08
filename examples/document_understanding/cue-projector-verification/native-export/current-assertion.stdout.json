@@ -1,0 +1,46 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+        "ConsumerDisposition": {
+            "type": "object",
+            "description": "Mutable, consumer-scoped disposition (§2.3). These are the L4 reducer's\ninputs and outputs; they change as consumers, scopes, and reviews change,\nwhile the proposition above does not. They are named separately so that no\nreader — and no future edit — can mistake them for proposition content.",
+            "additionalProperties": false,
+            "properties": {
+                "rkaf:consumerLifecycleState": {
+                    "$ref": "#/$defs/ConsumerLifecycleState"
+                },
+                "rkaf:hasAccessScope": {
+                    "type": "string"
+                },
+                "rkaf:usageEligibility": {
+                    "description": "L4 reducer inputs (rkaf-behavior.md §1.2). The reducer reads\nthese to compute effective usageEligibility per scope.",
+                    "$ref": "#/$defs/UsageEligibility"
+                }
+            }
+        },
+        "ConsumerLifecycleState": {
+            "description": "Cached lifecycle state on a generated work product. Closed enum.",
+            "enum": [
+                "rkaf:draft",
+                "rkaf:proposedForOperational",
+                "rkaf:operational",
+                "rkaf:staleForCurrentUse",
+                "rkaf:published"
+            ]
+        },
+        "UsageEligibility": {
+            "description": "Closed lattice (§1.4): usage eligibility ascends from notEligible (lowest\nceiling) to officialUse (highest). The lattice ORDER is normative — consumers\nMAY narrow (move down), MUST NOT broaden (move up). Only LocalAdoption MAY\nbroaden within its declared scope.\n\nEffective `usageEligibility` for an artifact is computed by a reducer that\ncombines: assertion baseline, scoped LocalAdoption grants, lifecycle status,\napplicability constraints, consumer capabilities. The reducer is runtime\nbehavior; CUE only validates the closed enum membership.",
+            "enum": [
+                "rkaf:notEligible",
+                "rkaf:searchOnly",
+                "rkaf:reviewQueueOnly",
+                "rkaf:draftGenerationAllowed",
+                "rkaf:localOperationalUse",
+                "rkaf:publicationAllowed",
+                "rkaf:officialUse"
+            ]
+        }
+    },
+    "description": "The generic Assertion envelope, minus the JSON-LD `@type` discriminator.\nAssertion specializations embed this definition rather than restating it, so\nthe envelope has exactly one source and cannot drift between classes. The\nprojector flattens the composition into every target.\n\nThe envelope holds CONTEXT for a proposition — where it came from, what\ngrounds it, who may use it — never the proposition itself. It composes\n`#ConsumerDisposition` for the mutable half; `#AssertionProposition` is\ncomposed by the proposition-bearing forms, not by the envelope, because the\ngeneric `#Assertion` is an envelope-only carrier retained for v0.2\nbackward compatibility.",
+    "$ref": "#/$defs/ConsumerDisposition"
+}

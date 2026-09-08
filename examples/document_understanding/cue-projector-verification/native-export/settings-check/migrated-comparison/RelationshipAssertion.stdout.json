@@ -1,0 +1,56 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+        "AssertionPolarity": {
+            "description": "Whether the proposition is affirmed or denied. Part of the immutable\nproposition core, so it lives beside `#AssertionProposition` rather than in\none form's file: `#RelationshipAssertion` and `#ValueAssertion` both close\nover the same two values. Predicates stay affirmative; polarity records\nwhether the source-backed assertion affirms or denies that relationship.",
+            "enum": [
+                "rkaf:affirmed",
+                "rkaf:denied"
+            ]
+        },
+        "SafetyLabel": {
+            "description": "Safety labels (§1.3): D0 (display-only) through P4 (production-permitted),\nplus the \"permits-*\" family that authorizes a specific evidence gap on the\nEvidenceBinding a labeled Assertion carries (see\nconstraints/adversarial/conditional-silent-pass.cue and\nnested-noevidencereason.cue, and `rkaf:NoEvidenceReason` in\nspec/rkaf-core.md §2.4). Operational property of an artifact — what the\nconsumer may do with it. The published lettered scheme is D0 / S1 / R2 /\nA3 / P4 plus advisory and authority-critical refinements. Bound below via\n`#SafetyLabelCarrier`; the two adversarial modules above use literal\nsubsets of this same set, never their own vocabulary.",
+            "enum": [
+                "rkaf:D0DisplayOnly",
+                "rkaf:S1Suggestion",
+                "rkaf:R2Review",
+                "rkaf:A3Advisory",
+                "rkaf:A3AdvisoryAggregated",
+                "rkaf:A3AuthorityCritical",
+                "rkaf:P4Production",
+                "rkaf:permits-axiomatic",
+                "rkaf:permits-consensus-without-citation",
+                "rkaf:permits-all"
+            ]
+        }
+    },
+    "description": "RelationshipAssertion restores the proposition-bearing specialization from\nRulespec v0.1 without changing the backward-compatible generic Assertion\nenvelope. Expected and observed are comparison roles, not stored modes.\n\n`#AssertionPolarity` is declared in constraints/core/assertion.cue: polarity\nbelongs to the shared proposition core that `#ValueAssertion` closes over\ntoo, not to this one form.\n\nTwo definitions arrive by composition, and each carries a different half of\nthe contract:\n  #AssertionProposition — the immutable proposition core (subject,\n    predicate, polarity), shared with #ValueAssertion.\n  #DurableAssertionEnvelope — provenance, epistemic basis, grounding, and\n                              consumer disposition.\nBoth live in constraints/core/assertion.cue, so their properties and the\nAI-lineage conditionals have exactly one source and are projected here from\nit.\n\nThe restatements below are NOT duplication. They are deliberate\nRelationshipAssertion-specific NARROWINGS of the composed definitions: the\nshared definitions type their reference fields as plain `string`, while a\nRelationshipAssertion additionally requires each of them to be an absolute\nIRI. Narrowing is exactly what CUE unification does with an embedded\ndefinition; the projector unifies these facet by facet, so the compiled\nJSON Schema / SHACL / Rust / TypeScript carry the composed definition AND\nthe stricter pattern. Deleting them would loosen every generated target\nrelative to the CUE source.",
+    "allOf": [
+        {
+            "properties": {
+                "rkaf:hasSafetyLabel": {
+                    "$ref": "#/$defs/SafetyLabel"
+                }
+            }
+        },
+        {
+            "type": "object",
+            "properties": {
+                "rkaf:assertionPolarity": {
+                    "$ref": "#/$defs/AssertionPolarity"
+                },
+                "rkaf:assertsPredicate": {
+                    "type": "string"
+                },
+                "rkaf:assertsSubject": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "rkaf:assertionPolarity",
+                "rkaf:assertsPredicate",
+                "rkaf:assertsSubject"
+            ]
+        }
+    ]
+}

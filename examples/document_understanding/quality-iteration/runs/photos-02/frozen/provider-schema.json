@@ -1,0 +1,189 @@
+{
+  "type": "object",
+  "properties": {
+    "extractions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "unit": {
+            "type": "string",
+            "description": "One exact contiguous quotation in the focus source, copied without rewriting."
+          },
+          "unit_attributes": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "authority",
+                  "condition",
+                  "definition",
+                  "exception",
+                  "exemption",
+                  "permission",
+                  "prohibition",
+                  "recommendation",
+                  "requirement",
+                  "statement",
+                  "threshold"
+                ],
+                "description": "Semantic kind; must agree with modality and relationship role."
+              },
+              "summary": {
+                "type": "string",
+                "description": "Complete meaning of this unit, preserving governing scope, qualifications and modal force."
+              },
+              "actor": {
+                "type": "string",
+                "description": "Source-supported responsible person or entity; empty if unstated."
+              },
+              "action": {
+                "type": "string",
+                "description": "Source-supported action; empty when inapplicable or unstated."
+              },
+              "object": {
+                "type": "string",
+                "description": "What the action concerns; preserve option grouping; empty if unstated."
+              },
+              "actor_quote": {
+                "type": "string",
+                "description": "Exact source support for actor, including antecedent if needed."
+              },
+              "action_quote": {
+                "type": "string",
+                "description": "Exact source support for action."
+              },
+              "object_quote": {
+                "type": "string",
+                "description": "Exact source support for object."
+              },
+              "logic_text": {
+                "type": "string",
+                "description": "Verbatim source wording retaining AND/OR, thresholds, units, dates and negation; no invented executable logic."
+              },
+              "relation": {
+                "type": "string",
+                "description": "A condition/exception's relationship to its baseline; none for other kinds.",
+                "enum": [
+                  "none",
+                  "scope",
+                  "prerequisite",
+                  "trigger",
+                  "exception"
+                ]
+              },
+              "modality": {
+                "type": "string",
+                "description": "Normative force: must, should, permission may, prohibition must_not, exemption not_required, descriptive possible, not_stated or uncertain.",
+                "enum": [
+                  "must",
+                  "should",
+                  "may",
+                  "must_not",
+                  "not_required",
+                  "possible",
+                  "not_stated",
+                  "uncertain"
+                ]
+              },
+              "modality_quote": {
+                "type": "string",
+                "description": "Exact support for modal force; preserve generally, might, should and negation."
+              },
+              "scope_text": {
+                "type": "string",
+                "description": "ALL source-supported conditions governing this unit, including inherited parent cases and timing; do not transfer neighboring branch scope."
+              },
+              "choice_text": {
+                "type": "string",
+                "description": "Complete source choice/grouping in words, including nested AND/OR and qualifications."
+              },
+              "choice_quote": {
+                "type": "string",
+                "description": "Exact source support for choice/grouping."
+              },
+              "jurisdiction": {
+                "type": "string",
+                "description": "Territorial scope only when explicitly supported in supplied text; never infer from URL."
+              },
+              "jurisdiction_quote": {
+                "type": "string",
+                "description": "Exact source support for jurisdiction; empty when unstated."
+              },
+              "applies_to": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Exact main-rule quotations targeted by this condition or exception; never summaries or invented remote text."
+              },
+              "references": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Source section labels for cross-references, including unresolved remote targets."
+              },
+              "scope_quotes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Exact source passages defining the governing conditions, including parent lead-ins outside the main quote."
+              },
+              "context_quotes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Exact explanatory passages that aid interpretation without asserting conditions."
+              },
+              "alternative_quotes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "EVERY exact source option with its qualifying text, not just the list introduction."
+              }
+            },
+            "required": [
+              "kind",
+              "summary",
+              "actor",
+              "action",
+              "object",
+              "actor_quote",
+              "action_quote",
+              "object_quote",
+              "logic_text",
+              "relation",
+              "modality",
+              "modality_quote",
+              "scope_text",
+              "choice_text",
+              "choice_quote",
+              "jurisdiction",
+              "jurisdiction_quote",
+              "applies_to",
+              "references",
+              "scope_quotes",
+              "context_quotes",
+              "alternative_quotes"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "unit",
+          "unit_attributes"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "extractions"
+  ],
+  "additionalProperties": false
+}

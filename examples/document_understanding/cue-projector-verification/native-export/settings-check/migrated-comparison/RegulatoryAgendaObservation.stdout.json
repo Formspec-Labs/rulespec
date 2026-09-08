@@ -1,0 +1,80 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+        "AgendaObservationIdentifierScheme": {
+            "const": "rkaf:urn-persistent"
+        },
+        "AgendaPriority": {
+            "enum": [
+                "rkaf:agendaPriorityEconomicallySignificant",
+                "rkaf:agendaPriorityOtherSignificant",
+                "rkaf:agendaPrioritySubstantiveNonsignificant",
+                "rkaf:agendaPriorityRoutineFrequent",
+                "rkaf:agendaPriorityInfoAdminOther"
+            ]
+        },
+        "AgendaStage": {
+            "enum": [
+                "rkaf:agendaPrerule",
+                "rkaf:agendaProposed",
+                "rkaf:agendaFinal",
+                "rkaf:agendaLongterm",
+                "rkaf:agendaCompleted"
+            ]
+        }
+    },
+    "type": "object",
+    "description": "One immutable record of an agenda item in one Unified Agenda edition.\nThis class is a profile subclass of both rkaf:Artifact and\ndcat:CatalogRecord; its artifact identity is the edition-specific source URL.",
+    "additionalProperties": false,
+    "properties": {
+        "@type": {
+            "const": "rkaf:RegulatoryAgendaObservation"
+        },
+        "foaf:primaryTopic": {
+            "type": "string",
+            "pattern": "^urn:rkaf:us:rin:[0-9]{4}-[A-Z]{2}[0-9]{2}$"
+        },
+        "rkaf:agendaAffectsCitation": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^urn:rkaf:us:cfr:[1-9][0-9]*:[0-9]+([a-z]|-[0-9]+)?(\\.[0-9]+[a-z]{0,3}(-[0-9a-z]+)*)?$"
+            },
+            "minItems": 1
+        },
+        "rkaf:agendaAuthorityCitation": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^urn:rkaf:us:(usc:[1-9][0-9]*:[1-9][0-9]*[a-z]*(-[0-9a-z]+)*|pl:[1-9][0-9]*-[1-9][0-9]*)$"
+            },
+            "minItems": 1
+        },
+        "rkaf:agendaPriority": {
+            "$ref": "#/$defs/AgendaPriority"
+        },
+        "rkaf:agendaStage": {
+            "$ref": "#/$defs/AgendaStage"
+        },
+        "rkaf:artifactIdentifierScheme": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/AgendaObservationIdentifierScheme"
+            },
+            "minItems": 1
+        },
+        "rkaf:hasArtifactIdentifier": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            "minItems": 1
+        }
+    },
+    "required": [
+        "foaf:primaryTopic",
+        "rkaf:artifactIdentifierScheme",
+        "rkaf:hasArtifactIdentifier"
+    ]
+}

@@ -1,0 +1,29 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+        "AssertionPolarity": {
+            "description": "Whether the proposition is affirmed or denied. Part of the immutable\nproposition core, so it lives beside `#AssertionProposition` rather than in\none form's file: `#RelationshipAssertion` and `#ValueAssertion` both close\nover the same two values. Predicates stay affirmative; polarity records\nwhether the source-backed assertion affirms or denies that relationship.",
+            "enum": [
+                "rkaf:affirmed",
+                "rkaf:denied"
+            ]
+        }
+    },
+    "type": "object",
+    "properties": {
+        "rkaf:assertionPolarity": {
+            "$ref": "#/$defs/AssertionPolarity"
+        },
+        "rkaf:assertsPredicate": {
+            "type": "string"
+        },
+        "rkaf:assertsSubject": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "rkaf:assertionPolarity",
+        "rkaf:assertsPredicate",
+        "rkaf:assertsSubject"
+    ]
+}

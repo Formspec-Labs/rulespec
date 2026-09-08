@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/consent-vs-warrant.json",
+  "title": "consent-vs-warrant",
+  "$defs": {
+    "ConsentVsWarrantRejector": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:Warrant"
+        },
+        "rkaf:warrantKind": {
+          "type": "string",
+          "enum": [
+            "rkaf:legal",
+            "rkaf:statutory",
+            "rkaf:regulatory",
+            "rkaf:delegated",
+            "rkaf:organizational",
+            "rkaf:contractual",
+            "rkaf:localOperational",
+            "rkaf:publication",
+            "rkaf:methodological",
+            "rkaf:empirical",
+            "rkaf:replication",
+            "rkaf:peerReview",
+            "rkaf:editorial",
+            "rkaf:factCheck",
+            "rkaf:correction",
+            "rkaf:cryptographic",
+            "rkaf:commitment",
+            "rkaf:consensus",
+            "rkaf:expertOpinion",
+            "rkaf:communityEndorsement",
+            "rkaf:sourceReliability",
+            "rkaf:provenanceClass"
+          ]
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:warrantKind"
+      ]
+    }
+  }
+}

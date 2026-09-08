@@ -1,0 +1,76 @@
+{
+  "reviewer": "Integrator; not blind",
+  "method": "Rerun the blind workflow reviewer's W1/W2 inputs against the sealed code copy.",
+  "production_edits": false,
+  "provider_calls": 0,
+  "scratch": "/Users/mikewolfd/Work/rulespec/.tools/blind-review-20260907/integrator-confirm-c1tc71ii",
+  "overflow": {
+    "raw_response_text": "{\"extractions\":[{\"requirement\": \"Staff must log requests.\", \"requirement_attributes\": {\"summary\": \"Staff must log requests.\", \"actor\": \"Staff\", \"action\": \"log\", \"object\": \"requests\", \"actor_quote\": \"Staff\", \"action_quote\": \"log\", \"object_quote\": \"requests\"}},{\"requirement\":\"Staff must log requests.\",\"requirement_attributes\":{\"summary\":\"Staff must log requests.\",\"actor\":1e999}}]}",
+    "parse_status": "partial",
+    "accepted_parse_candidates": 1,
+    "refusal_codes": [
+      "candidate_schema"
+    ],
+    "refused_actor_python_representation": "inf",
+    "raised": {
+      "type": "ValueError",
+      "message": "Out of range float values are not JSON compliant: inf"
+    },
+    "offline_transport_calls": 1,
+    "run_artifact": "/Users/mikewolfd/Work/rulespec/.tools/blind-review-20260907/integrator-confirm-c1tc71ii/runs/numeric-overflow/run.json",
+    "final_artifact_exists": {
+      "candidates.json": true,
+      "refusals.json": false,
+      "rulebook.json": false,
+      "graph.jsonld": false,
+      "validation.json": false,
+      "manifest.json": false
+    },
+    "refusals_size": null
+  },
+  "recorded_run_status": "running",
+  "recovery": {
+    "review": {
+      "error_type": "ReviewIntegrityError",
+      "message": "Cannot read the original rulebook.json."
+    },
+    "replay": {
+      "error_type": "FileNotFoundError",
+      "message": "[Errno 2] No such file or directory: '/Users/mikewolfd/Work/rulespec/.tools/blind-review-20260907/integrator-confirm-c1tc71ii/runs/numeric-overflow/manifest.json'"
+    },
+    "reprocess": {
+      "error_type": "FileNotFoundError",
+      "message": "[Errno 2] No such file or directory: '/Users/mikewolfd/Work/rulespec/.tools/blind-review-20260907/integrator-confirm-c1tc71ii/runs/numeric-overflow/manifest.json'"
+    }
+  },
+  "total_omission": {
+    "status": "failed",
+    "review_complete": false,
+    "counts": {
+      "accepted_claims": 0,
+      "expected_units": 1,
+      "reviewed_claims": 0,
+      "unjudged_or_stale_claims": 0
+    },
+    "coverage": {
+      "covered": 0,
+      "missing": 1,
+      "partial": 0,
+      "unknown": 0,
+      "covered_fraction": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      },
+      "missing_examples": [
+        {
+          "unit_id": "unit-1",
+          "meaning": "Staff must log requests.",
+          "status": "missing",
+          "rationale": "The output contains no claims, so the only source duty is absent."
+        }
+      ]
+    },
+    "issues": []
+  }
+}

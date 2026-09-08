@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/bridge-consumer-registration.json",
+  "title": "bridge-consumer-registration",
+  "$defs": {
+    "AuthorityKind": {
+      "type": "string",
+      "enum": [
+        "rkaf:legal",
+        "rkaf:statutory",
+        "rkaf:regulatory",
+        "rkaf:delegated",
+        "rkaf:organizational",
+        "rkaf:contractual",
+        "rkaf:localOperational",
+        "rkaf:publication"
+      ]
+    },
+    "UsageEligibility": {
+      "type": "string",
+      "enum": [
+        "rkaf:notEligible",
+        "rkaf:searchOnly",
+        "rkaf:reviewQueueOnly",
+        "rkaf:draftGenerationAllowed",
+        "rkaf:localOperationalUse",
+        "rkaf:publicationAllowed",
+        "rkaf:officialUse"
+      ]
+    },
+    "BridgeConsumerRegistration": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:BridgeConsumerRegistration"
+        },
+        "rkaf:consumer": {
+          "type": "string"
+        },
+        "rkaf:bridgeContractVersion": {
+          "type": "string"
+        },
+        "rkaf:registeredAt": {
+          "type": "string"
+        },
+        "rkaf:supportedEvaluationAnchors": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "rkaf:supportsRegistryVersionRange": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "rkaf:supportedAutomaticMigrations": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "rkaf:supportedAuthorityKinds": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AuthorityKind"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/AuthorityKind"
+              }
+            }
+          ]
+        },
+        "rkaf:capabilityCap": {
+          "$ref": "#/$defs/UsageEligibility"
+        },
+        "rkaf:trustedRegistries": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "rkaf:maxAttestationStalenessDays": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:consumer",
+        "rkaf:bridgeContractVersion",
+        "rkaf:registeredAt",
+        "rkaf:supportedEvaluationAnchors",
+        "rkaf:supportsRegistryVersionRange",
+        "rkaf:supportedAutomaticMigrations",
+        "rkaf:supportedAuthorityKinds"
+      ]
+    }
+  }
+}

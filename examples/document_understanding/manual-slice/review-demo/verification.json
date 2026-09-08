@@ -1,0 +1,59 @@
+{
+  "schema_version": "document-understanding-review-demo-verification/1",
+  "verified_at": "2026-09-07T15:43:20.404775Z",
+  "checks": {
+    "saved_source_manifest_matches_source": true,
+    "copied_manifest_adds_only_strict_replay_receipt": true,
+    "original_artifacts_byte_identical": true,
+    "source_review_database_not_created": true,
+    "all_original_graph_nodes_identical_and_retained": true,
+    "all_original_claim_revisions_retained": true,
+    "all_original_assertions_retained": true,
+    "all_retained_evidence_matches_pinned_source": true,
+    "review_database_reopen_matches_export": true,
+    "saved_history_matches_export": true,
+    "strict_replay_and_three_json_actions_recreated_same_current_content_via_cli": true,
+    "independent_recreation_export_conforms": true,
+    "reviewed_copy_strict_raw_replay_matches_original_extraction": true,
+    "strict_raw_replay_excludes_existing_review_database": true,
+    "no_current_qualification_target_failures": true,
+    "all_review_actions_identify_ai_agent": true,
+    "all_current_claims_remain_pending": true,
+    "no_approval_attestations": true,
+    "all_action_payloads_byte_identical_to_archived_demo": true
+  },
+  "counts": {
+    "original_manifest_artifacts": 123,
+    "copied_run_manifest_artifacts": 124,
+    "original_graph_nodes_retained": 206,
+    "original_assertions_retained": 66,
+    "original_claim_revisions_retained": 14,
+    "current_claims": 12,
+    "retained_claim_revisions": 17,
+    "review_actions": 3
+  },
+  "validation": {
+    "core_nodes": 241,
+    "shacl_conforms": true,
+    "semantic_accuracy": "Requires independent source review"
+  },
+  "recreation_commands_executed": [
+    "rulespec-understand replay reprocessed/section-01 --output FRESH_COPY",
+    "rulespec-understand review FRESH_COPY --action actions/01-document-alternatives.json",
+    "rulespec-understand review FRESH_COPY --action actions/02-urgent-travel-scope.json",
+    "rulespec-understand review FRESH_COPY --action actions/03-unchanged-id-scope.json",
+    "rulespec-understand export FRESH_COPY --output reviewed-rulebook.json"
+  ],
+  "recreation_identity_note": "A fresh application creates new review-event, revision, occurrence and merged-rule identifiers and timestamps. Current candidate fields, exact evidence, issues, review state and target quotations matched. Reopening the saved database matches the exported snapshot exactly.",
+  "raw_replay_note": "Strict raw replay verifies the frozen extraction beneath this review; it intentionally produces the original 14 candidates, not the corrected current review state. It copies manifest-declared extraction artifacts and omits the existing review database. Review actions reproduce the correction separately.",
+  "semantic_assessment": "This receipt verifies artifacts, persistence, source coordinates and schema/SHACL conformance. It does not assess or score the corrections, establish semantic completeness, or represent human approval.",
+  "artifacts_sha256": {
+    "README.md": "9c26e58938c0eb7757d3e9a9692d5853d183f993dbd84df24acf23e956427cf0",
+    "source-manifest.json": "af384e5002bd24b36712f0d109592227779ac789869826d82d4886079188797f",
+    "provenance.json": "7c161dd7035616f0588877e472490bac516fa76f970ecac2a75b8b058f53ef2f",
+    "review-history.json": "f76d34dde5bc3bf50789bf57067c8aa98d6faae3a7e5e642d0e59a742b55050f",
+    "reviewed-rulebook.json": "fde85978017bb4a4f6227ca53eb614925ca100e6961d9685e72ad0d558a45217",
+    "reviewed-graph.jsonld": "4148595f4b039b5f3650670260c931e835873e25929464bf9dd835abf8e5e7c9",
+    "reviewed-validation.json": "eee7b734eb750474419ca3932316957ae70b3693b4672f582d17e5325c9d3fd3"
+  }
+}

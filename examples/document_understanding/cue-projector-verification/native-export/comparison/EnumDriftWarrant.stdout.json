@@ -1,0 +1,90 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+        "WarrantKind": {
+            "anyOf": [
+                {
+                    "$ref": "#/$defs/WarrantKindLegal"
+                },
+                {
+                    "$ref": "#/$defs/WarrantKindScientific"
+                },
+                {
+                    "$ref": "#/$defs/WarrantKindEditorial"
+                },
+                {
+                    "$ref": "#/$defs/WarrantKindCryptographic"
+                },
+                {
+                    "$ref": "#/$defs/WarrantKindSocial"
+                },
+                {
+                    "$ref": "#/$defs/WarrantKindSourceClass"
+                }
+            ]
+        },
+        "WarrantKindCryptographic": {
+            "enum": [
+                "rkaf:cryptographic",
+                "rkaf:commitment"
+            ]
+        },
+        "WarrantKindEditorial": {
+            "enum": [
+                "rkaf:editorial",
+                "rkaf:factCheck",
+                "rkaf:correction"
+            ]
+        },
+        "WarrantKindLegal": {
+            "enum": [
+                "rkaf:legal",
+                "rkaf:statutory",
+                "rkaf:regulatory",
+                "rkaf:delegated",
+                "rkaf:organizational",
+                "rkaf:contractual",
+                "rkaf:localOperational",
+                "rkaf:publication"
+            ]
+        },
+        "WarrantKindScientific": {
+            "enum": [
+                "rkaf:methodological",
+                "rkaf:empirical",
+                "rkaf:replication",
+                "rkaf:peerReview"
+            ]
+        },
+        "WarrantKindSocial": {
+            "enum": [
+                "rkaf:consensus",
+                "rkaf:expertOpinion",
+                "rkaf:communityEndorsement"
+            ]
+        },
+        "WarrantKindSourceClass": {
+            "enum": [
+                "rkaf:sourceReliability",
+                "rkaf:provenanceClass"
+            ]
+        },
+        "WarrantKindV02": {
+            "description": "A reference, not a copy: constraints/core/warrant.cue:22 (`#WarrantKind`) is\nthe single source of the 22-member taxonomy. An enum-drift detector that\nhardcoded its own copy of the taxonomy it polices would silently stop\ncovering a new #WarrantKind member the day one is added.",
+            "$ref": "#/$defs/WarrantKind"
+        }
+    },
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "@type": {
+            "const": "rkaf:Warrant"
+        },
+        "rkaf:warrantKind": {
+            "$ref": "#/$defs/WarrantKindV02"
+        }
+    },
+    "required": [
+        "rkaf:warrantKind"
+    ]
+}

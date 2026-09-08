@@ -1,0 +1,691 @@
+diff --git a/tools/constraints_compile.py b/tools/constraints_compile.py
+index fb95fe9..b1ed887 100644
+--- a/tools/constraints_compile.py
++++ b/tools/constraints_compile.py
+@@ -76,12 +76,14 @@ from typing import Optional
+ class EnumDef:
+     name: str
+     values: list[str]  # literal string values
++    annotations: dict[str, str] = field(default_factory=dict, compare=False)
+ 
+ @dataclass
+ class EnumUnion:
+     """A closed-enum union built from other enum refs: `#A | #B | #C`."""
+     name: str
+     refs: list[str]  # names of referenced enums
++    annotations: dict[str, str] = field(default_factory=dict, compare=False)
+ 
+ 
+ @dataclass
+@@ -127,6 +129,8 @@ class PropDef:
+     # typed literal (`@value` + `@type`) or language-tagged string
+     # (`@value` + `@language`). Each branch is a closed object.
+     object_alternatives: Optional[list[list["PropDef"]]] = None
++    annotations: dict[str, str] = field(default_factory=dict, compare=False)
++    list_item_annotations: dict[str, str] = field(default_factory=dict, compare=False)
+ 
+ 
+ @dataclass
+@@ -170,6 +174,8 @@ class ShapeDef:
+     # `_resolve_shape_compositions` so that every emitter sees one flat,
+     # fully-composed shape.
+     base_refs: list[str] = field(default_factory=list)
++    annotations: dict[str, str] = field(default_factory=dict, compare=False)
++    type_annotations: dict[str, str] = field(default_factory=dict, compare=False)
+ 
+ 
+ @dataclass
+@@ -185,6 +191,7 @@ class PatternMapDef:
+     key: PropDef
+     value: PropDef
+     min_properties: int = 0
++    annotations: dict[str, str] = field(default_factory=dict, compare=False)
+ 
+ 
+ @dataclass
+@@ -193,6 +200,7 @@ class ObjectTypeDef:
+ 
+     name: str
+     properties: list[PropDef] = field(default_factory=list)
++    annotations: dict[str, str] = field(default_factory=dict, compare=False)
+ 
+ 
+ @dataclass
+@@ -269,6 +277,96 @@ PATTERN_MAP_FIELD_RE = re.compile(
+ VALUE_OBJECT_MEMBERS = {"@value", "@type", "@language"}
+ 
+ 
++def _split_cue_comment(line: str) -> tuple[str, Optional[str]]:
++    """Find a line comment outside quoted text, including escaped quotes."""
++    quoted = escaped = False
++    for index, char in enumerate(line):
++        if quoted:
++            if escaped:
++                escaped = False
++            elif char == "\\":
++                escaped = True
++            elif char == '"':
++                quoted = False
++        elif char == '"':
++            quoted = True
++        elif line.startswith("//", index):
++            return line[:index].rstrip(), line[index + 2:].removeprefix(" ")
++    return line.rstrip(), None
++
++
++def _extract_schema_annotations(line: str) -> tuple[str, dict[str, str]]:
++    """Read literal @title/@description attributes; leave other CUE intact."""
++    annotations: dict[str, str] = {}
++    kept: list[str] = []
++    index = 0
++    quoted = escaped = False
++    while index < len(line):
++        char = line[index]
++        if quoted:
++            kept.append(char)
++            if escaped:
++                escaped = False
++            elif char == "\\":
++                escaped = True
++            elif char == '"':
++                quoted = False
++            index += 1
++            continue
++        if char == '"':
++            quoted = True
++        match = re.match(r"@(title|description)\b", line[index:]) if char == "@" else None
++        if match:
++            name = match.group(1)
++            argument = index + match.end()
++            while argument < len(line) and line[argument].isspace():
++                argument += 1
++            if argument >= len(line) or line[argument] != "(":
++                raise CompileError(f"@{name} requires one JSON-compatible quoted string")
++            argument += 1
++            while argument < len(line) and line[argument].isspace():
++                argument += 1
++            try:
++                value, end = json.JSONDecoder().raw_decode(line, argument)
++            except ValueError as exc:
++                raise CompileError(f"@{name} requires one JSON-compatible quoted string") from exc
++            while end < len(line) and line[end].isspace():
++                end += 1
++            if not isinstance(value, str) or end >= len(line) or line[end] != ")":
++                raise CompileError(f"@{name} requires one JSON-compatible quoted string")
++            if name in annotations and annotations[name] != value:
++                raise CompileError(f"conflicting @{name} annotations on one declaration")
++            annotations[name] = value
++            index = end + 1
++            continue
++        kept.append(char)
++        index += 1
++    return "".join(kept).rstrip(), annotations
++
++
++def _documented_cue_lines(source: str) -> list[tuple[str, dict[str, str]]]:
++    """Attach adjacent documentation to declarations before structural parsing."""
++    result: list[tuple[str, dict[str, str]]] = []
++    pending: list[str] = []
++    for raw in source.splitlines():
++        code, comment = _split_cue_comment(raw)
++        if not code.strip() and comment is not None:
++            pending.append(comment)
++            result.append(("", {}))
++            continue
++        code, explicit = _extract_schema_annotations(code)
++        documented = bool(re.match(r'^\s*(?:#\w+:|"[^"]+"\??:)', code))
++        annotations = {}
++        if documented:
++            description = "\n".join([*pending, *([comment] if comment is not None else [])]).strip()
++            if description:
++                annotations["description"] = description
++        annotations.update(explicit)
++        result.append((code, annotations))
++        pending = []
++    return result
++
++
+ def parse_cue_file(path: Path, *, resolve_composition: bool = True) -> ConstraintDoc:
+     """Parse one CUE constraint file into the projector's flat AST.
+ 
+@@ -283,12 +381,14 @@ def parse_cue_file(path: Path, *, resolve_composition: bool = True) -> Constrain
+     # Pre-pass: join any line that ends with `|` into the next line (CUE
+     # disjunction continuation). This works for both top-level enum unions and
+     # in-shape property assignments whose RHS spans multiple lines.
+-    raw_lines = src.split("\n")
++    raw_lines = _documented_cue_lines(src)
+     joined_pre: list[str] = []
++    line_annotations: dict[int, dict[str, str]] = {}
+     buf = ""
+-    for raw in raw_lines:
+-        no_comment = raw.split("//")[0].rstrip()
+-        stripped = no_comment.rstrip()
++    buf_annotations: dict[str, str] = {}
++    for raw, annotations in raw_lines:
++        stripped = raw.rstrip()
++        buf_annotations.update(annotations)
+         if buf:
+             buf += " " + stripped.lstrip()
+         else:
+@@ -296,9 +396,12 @@ def parse_cue_file(path: Path, *, resolve_composition: bool = True) -> Constrain
+         # Continue if line ends with `|` (CUE disjunction continuation)
+         if buf.rstrip().endswith("|"):
+             continue
++        line_annotations[len(joined_pre)] = buf_annotations
+         joined_pre.append(buf)
+         buf = ""
++        buf_annotations = {}
+     if buf:
++        line_annotations[len(joined_pre)] = buf_annotations
+         joined_pre.append(buf)
+     lines = joined_pre
+ 
+@@ -308,8 +411,8 @@ def parse_cue_file(path: Path, *, resolve_composition: bool = True) -> Constrain
+     i = 0
+     while i < len(lines):
+         line = lines[i]
+-        stripped = line.split("//")[0].rstrip()
+-        if not stripped.strip():
++        stripped = line.rstrip()
++        if not stripped.strip() and not line_annotations.get(i):
+             i += 1
+             continue
+         # Multi-line enum (string literal): collect continuation lines starting with whitespace + `"`
+@@ -317,7 +420,7 @@ def parse_cue_file(path: Path, *, resolve_composition: bool = True) -> Constrain
+             buf = stripped
+             j = i + 1
+             while j < len(lines):
+-                nxt = lines[j].split("//")[0].rstrip()
++                nxt = lines[j].rstrip()
+                 if re.match(r"^\s+\"", nxt) and ("|" in nxt or buf.endswith("|")):
+                     buf += " " + nxt.strip()
+                     j += 1
+@@ -334,7 +437,7 @@ def parse_cue_file(path: Path, *, resolve_composition: bool = True) -> Constrain
+             buf = stripped
+             j = i + 1
+             while j < len(lines):
+-                nxt = lines[j].split("//")[0].rstrip()
++                nxt = lines[j].rstrip()
+                 if re.match(r"^\s+#\w+", nxt) and ("|" in nxt or buf.endswith("|")):
+                     buf += " " + nxt.strip()
+                     j += 1
+@@ -352,13 +455,14 @@ def parse_cue_file(path: Path, *, resolve_composition: bool = True) -> Constrain
+     # Phase 2: walk joined_lines to extract enums and shape definitions.
+     idx = 0
+     while idx < len(joined_lines):
+-        _, line = joined_lines[idx]
++        line_number, line = joined_lines[idx]
++        annotations = line_annotations.get(line_number, {})
+         # Enum on single (joined) line — string literals
+         em = ENUM_LINE_RE.match(line)
+         if em:
+             name = em.group(1)
+             values = ENUM_MULTI_RE.findall(em.group(2))
+-            doc.enums.append(EnumDef(name=name, values=values))
++            doc.enums.append(EnumDef(name=name, values=values, annotations=dict(annotations)))
+             idx += 1
+             continue
+         # Enum-union (#A | #B | #C)
+@@ -366,7 +470,7 @@ def parse_cue_file(path: Path, *, resolve_composition: bool = True) -> Constrain
+         if um:
+             name = um.group(1)
+             refs = ENUM_UNION_REFS_RE.findall(um.group(2))
+-            doc.enum_unions.append(EnumUnion(name=name, refs=refs))
++            doc.enum_unions.append(EnumUnion(name=name, refs=refs, annotations=dict(annotations)))
+             idx += 1
+             continue
+         # Reusable constrained scalar. The shared language-tag grammar is the
+@@ -374,7 +478,7 @@ def parse_cue_file(path: Path, *, resolve_composition: bool = True) -> Constrain
+         # carry separate copies of the same BCP 47 regular expression.
+         scalar = SCALAR_TYPE_RE.match(line)
+         if scalar:
+-            value = parse_property_line(f'"__value": {scalar.group(2)}')
++            value = parse_property_line(f'"__value": {scalar.group(2)}', annotations)
+             if value is None or value.type_ref != "string":
+                 raise CompileError(
+                     f"scalar type #{scalar.group(1)} is not a projectable string"
+@@ -400,7 +504,9 @@ def parse_cue_file(path: Path, *, resolve_composition: bool = True) -> Constrain
+                 idx + 1,
+                 name=mm.group(1),
+                 min_properties=int(mm.group(2)),
++                line_annotations=line_annotations,
+             )
++            map_def.annotations = {**annotations, **map_def.annotations}
+             doc.pattern_maps.append(map_def)
+             idx += 1 + consumed
+             continue
+@@ -408,8 +514,9 @@ def parse_cue_file(path: Path, *, resolve_composition: bool = True) -> Constrain
+         sm = re.match(r"^#(\w+):\s*(?:\w+=)?\{$", line)
+         if sm:
+             shape_name = sm.group(1)
+-            shape, consumed = parse_shape_body(joined_lines, idx + 1)
++            shape, consumed = parse_shape_body(joined_lines, idx + 1, line_annotations)
+             shape.name = shape_name
++            shape.annotations = {**annotations, **shape.annotations}
+             # A top-level JSON-LD value object is a named property carrier, not
+             # an RDF node shape. Resource shapes may compose other shapes and
+             # normally carry a fixed class-valued `@type`; a named typed
+@@ -419,6 +526,7 @@ def parse_cue_file(path: Path, *, resolve_composition: bool = True) -> Constrain
+                 object_type = ObjectTypeDef(
+                     name=shape_name,
+                     properties=shape.properties,
++                    annotations=shape.annotations,
+                 )
+                 doc.object_types.append(object_type)
+             else:
+@@ -428,8 +536,9 @@ def parse_cue_file(path: Path, *, resolve_composition: bool = True) -> Constrain
+         # Shape composition by conjunction: `#Name: #Base & { ... }`.
+         cj = SHAPE_CONJUNCTION_RE.match(line)
+         if cj:
+-            shape, consumed = parse_shape_body(joined_lines, idx + 1)
++            shape, consumed = parse_shape_body(joined_lines, idx + 1, line_annotations)
+             shape.name = cj.group(1)
++            shape.annotations = {**annotations, **shape.annotations}
+             shape.base_refs.insert(0, cj.group(2))
+             doc.shapes.append(shape)
+             idx += 1 + consumed
+@@ -440,10 +549,10 @@ def parse_cue_file(path: Path, *, resolve_composition: bool = True) -> Constrain
+         # overlay becomes one alternative of a single disjunction group.
+         cd = COMPOSED_DISJUNCTION_OPEN_RE.match(line)
+         if cd:
+-            shape = ShapeDef(name=cd.group(1), type_iri=None)
++            shape = ShapeDef(name=cd.group(1), type_iri=None, annotations=dict(annotations))
+             shape.base_refs.append(cd.group(2))
+             branches, consumed = parse_composed_disjunction(
+-                joined_lines, idx + 1, shape
++                joined_lines, idx + 1, shape, line_annotations
+             )
+             if branches:
+                 shape.disjunctions.append(branches)
+@@ -473,19 +582,24 @@ def parse_pattern_map_body(
+     *,
+     name: str,
+     min_properties: int,
++    line_annotations: Optional[dict[int, dict[str, str]]] = None,
+ ) -> tuple[PatternMapDef, int]:
+     """Parse the single pattern field inside a named CUE map definition."""
+     entries: list[tuple[PropDef, PropDef]] = []
++    annotations: dict[str, str] = {}
++    line_annotations = line_annotations or {}
+     i = start
+     while i < len(lines):
+         line = lines[i][1].strip()
++        if not line or line == "}":
++            annotations.update(line_annotations.get(lines[i][0], {}))
+         if line == "}":
+             i += 1
+             break
+         match = PATTERN_MAP_FIELD_RE.match(line)
+         if match:
+             key = parse_property_line(f'"__key": {match.group(1)}')
+-            value = parse_property_line(f'"__value": {match.group(2)}')
++            value = parse_property_line(f'"__value": {match.group(2)}', line_annotations.get(lines[i][0]))
+             if key is None or value is None:
+                 raise CompileError(
+                     f"named map #{name} contains an unprojectable pattern field"
+@@ -512,6 +626,7 @@ def parse_pattern_map_body(
+             key=key,
+             value=value,
+             min_properties=min_properties,
++            annotations=annotations,
+         ),
+         i - start,
+     )
+@@ -585,7 +700,8 @@ def _validate_pattern_map(definition: PatternMapDef, *, allow_unresolved: bool)
+ 
+ 
+ def parse_composed_disjunction(
+-    lines: list[tuple[int, str]], start: int, shape: ShapeDef
++    lines: list[tuple[int, str]], start: int, shape: ShapeDef,
++    line_annotations: Optional[dict[int, dict[str, str]]] = None,
+ ) -> tuple[list[DisjunctionBranch], int]:
+     """Parse the alternatives of `(#Base & {...}) | (#Base & {...})`.
+ 
+@@ -595,6 +711,7 @@ def parse_composed_disjunction(
+     """
+     branches: list[DisjunctionBranch] = []
+     current: list[PropDef] = []
++    line_annotations = line_annotations or {}
+     i = start
+     while i < len(lines):
+         line = lines[i][1].strip()
+@@ -610,14 +727,17 @@ def parse_composed_disjunction(
+             branches.append(DisjunctionBranch(properties=current))
+             i += 1
+             break
+-        prop = parse_property_line(line)
++        prop = parse_property_line(line, line_annotations.get(lines[i][0]))
+         if prop:
+             current.append(prop)
+         i += 1
+     return branches, i - start
+ 
+ 
+-def parse_shape_body(lines: list[tuple[int, str]], start: int) -> tuple[ShapeDef, int]:
++def parse_shape_body(
++    lines: list[tuple[int, str]], start: int,
++    line_annotations: Optional[dict[int, dict[str, str]]] = None,
++) -> tuple[ShapeDef, int]:
+     """Parse the body of `#Name: { ... }` starting at `start`. Returns (shape, lines_consumed).
+ 
+     Walks line-by-line. Recognized constructs:
+@@ -629,11 +749,15 @@ def parse_shape_body(lines: list[tuple[int, str]], start: int) -> tuple[ShapeDef
+         via parse_disjunction_block_text.
+     """
+     shape = ShapeDef(name="", type_iri=None)
++    line_annotations = line_annotations or {}
+     depth = 1
+     i = start
+     while i < len(lines) and depth > 0:
+-        _, raw = lines[i]
++        line_number, raw = lines[i]
+         line = raw.strip()
++        annotations = line_annotations.get(line_number, {})
++        if not line or line == "}":
++            shape.annotations.update(annotations)
+         if line == "}":
+             depth -= 1
+             if depth == 0:
+@@ -751,12 +875,15 @@ def parse_shape_body(lines: list[tuple[int, str]], start: int) -> tuple[ShapeDef
+                     nested = NESTED_OBJECT_OPEN_RE.match(l2)
+                     if nested:
+                         inner: list[PropDef] = []
++                        object_annotations = dict(line_annotations.get(lines[j][0], {}))
+                         j += 1
+                         while j < len(lines):
+                             nested_line = lines[j][1].strip()
++                            if not nested_line or nested_line == "}":
++                                object_annotations.update(line_annotations.get(lines[j][0], {}))
+                             if nested_line == "}":
+                                 break
+-                            inner_prop = parse_property_line(nested_line)
++                            inner_prop = parse_property_line(nested_line, line_annotations.get(lines[j][0]))
+                             if inner_prop:
+                                 inner.append(inner_prop)
+                             j += 1
+@@ -766,6 +893,7 @@ def parse_shape_body(lines: list[tuple[int, str]], start: int) -> tuple[ShapeDef
+                             optional=nested.group(2) == "?",
+                             object_properties=inner,
+                             object_alternatives=[inner],
++                            annotations=object_annotations,
+                         )
+                         req_props.append(prop)
+                         j += 1
+@@ -775,7 +903,7 @@ def parse_shape_body(lines: list[tuple[int, str]], start: int) -> tuple[ShapeDef
+                         forbidden_props.append(forbidden.group(1))
+                         j += 1
+                         continue
+-                    p = parse_property_line(l2)
++                    p = parse_property_line(l2, line_annotations.get(lines[j][0]))
+                     if p:
+                         req_props.append(p)
+                     j += 1
+@@ -800,7 +928,7 @@ def parse_shape_body(lines: list[tuple[int, str]], start: int) -> tuple[ShapeDef
+                     l2 = l2_raw.strip()
+                     if l2 == "}":
+                         break
+-                    p = parse_property_line(l2)
++                    p = parse_property_line(l2, line_annotations.get(lines[j][0]))
+                     if p:
+                         req_props.append(p)
+                     j += 1
+@@ -835,7 +963,7 @@ def parse_shape_body(lines: list[tuple[int, str]], start: int) -> tuple[ShapeDef
+                     j += 1
+                     break
+                 local_depth += lopens - lcloses
+-                p = parse_property_line(l2)
++                p = parse_property_line(l2, line_annotations.get(lines[j][0]))
+                 if p:
+                     current.append(p)
+                 j += 1
+@@ -861,10 +989,13 @@ def parse_shape_body(lines: list[tuple[int, str]], start: int) -> tuple[ShapeDef
+         if nested:
+             inner: list[PropDef] = []
+             alternatives: list[list[PropDef]] = []
++            object_annotations = dict(annotations)
+             j = i + 1
+             while j < len(lines):
+                 _, l2_raw = lines[j]
+                 l2 = l2_raw.strip()
++                if not l2 or l2 == "}":
++                    object_annotations.update(line_annotations.get(lines[j][0], {}))
+                 if l2 == "}":
+                     break
+                 if l2 == "{":
+@@ -883,14 +1014,14 @@ def parse_shape_body(lines: list[tuple[int, str]], start: int) -> tuple[ShapeDef
+                             branches.append(current)
+                             j += 1
+                             break
+-                        branch_prop = parse_property_line(branch_line)
++                        branch_prop = parse_property_line(branch_line, line_annotations.get(lines[j][0]))
+                         if branch_prop:
+                             current.append(branch_prop)
+                         j += 1
+                     alternatives = [[*inner, *branch] for branch in branches]
+                     # The next `}` closes the outer value object.
+                     continue
+-                inner_prop = parse_property_line(l2)
++                inner_prop = parse_property_line(l2, line_annotations.get(lines[j][0]))
+                 if inner_prop:
+                     inner.append(inner_prop)
+                 j += 1
+@@ -906,6 +1037,7 @@ def parse_shape_body(lines: list[tuple[int, str]], start: int) -> tuple[ShapeDef
+                     optional=nested.group(2) == "?",
+                     object_properties=value_branches[0],
+                     object_alternatives=value_branches,
++                    annotations=object_annotations,
+                 )
+                 shape.properties.append(prop)
+                 i = j + 1
+@@ -937,10 +1069,11 @@ def parse_shape_body(lines: list[tuple[int, str]], start: int) -> tuple[ShapeDef
+             i += 1
+             continue
+         # Property line
+-        p = parse_property_line(line)
++        p = parse_property_line(line, annotations)
+         if p:
+             if p.name == "@type" and isinstance(p.fixed_value, str):
+                 shape.type_iri = p.fixed_value
++                shape.type_annotations = p.annotations
+             else:
+                 shape.properties.append(p)
+         i += 1
+@@ -955,7 +1088,11 @@ def _decode_cue_string(value: str) -> str:
+     return json.loads(f'"{value}"')
+ 
+ 
+-def parse_property_line(line: str) -> Optional[PropDef]:
++def parse_property_line(line: str, annotations: Optional[dict[str, str]] = None) -> Optional[PropDef]:
++    line, comment = _split_cue_comment(line)
++    line, explicit = _extract_schema_annotations(line)
++    annotations = {**({"description": comment.strip()} if comment and comment.strip() else {}),
++                   **(annotations or {}), **explicit}
+     line = line.strip().rstrip(",")
+     if not line:
+         return None
+@@ -966,7 +1103,7 @@ def parse_property_line(line: str) -> Optional[PropDef]:
+     optional = m.group(2) == "?"
+     rhs = m.group(3).rstrip()
+ 
+-    p = PropDef(name=name, type_ref="string", optional=optional)
++    p = PropDef(name=name, type_ref="string", optional=optional, annotations=annotations)
+     if rhs.endswith("@rkafStrictList()"):
+         p.list_allow_scalar = False
+         rhs = rhs[: -len("@rkafStrictList()")].rstrip()
+@@ -1207,6 +1344,7 @@ def _classify_local_named_references(doc: ConstraintDoc) -> None:
+                     scalar.value,
+                     name=prop.name,
+                     optional=prop.optional,
++                    annotations={**scalar.value.annotations, **prop.annotations},
+                 )
+                 prop.__dict__.update(replacement.__dict__)
+                 continue
+@@ -1219,6 +1357,7 @@ def _classify_local_named_references(doc: ConstraintDoc) -> None:
+                 prop.list_of_string = True
+                 prop.pattern = scalar.value.pattern
+                 prop.forbidden_pattern = scalar.value.forbidden_pattern
++                prop.list_item_annotations = dict(scalar.value.annotations)
+                 prop.list_inner_enum = None
+                 continue
+             prop.list_inner_named = prop.list_inner_enum
+@@ -1244,6 +1383,7 @@ def _classify_global_named_references(
+                     definition.value,
+                     name=prop.name,
+                     optional=prop.optional,
++                    annotations={**definition.value.annotations, **prop.annotations},
+                 )
+                 prop.__dict__.update(replacement.__dict__)
+             elif isinstance(definition, (PatternMapDef, ObjectTypeDef)):
+@@ -1256,6 +1396,7 @@ def _classify_global_named_references(
+                 prop.list_of_string = True
+                 prop.pattern = definition.value.pattern
+                 prop.forbidden_pattern = definition.value.forbidden_pattern
++                prop.list_item_annotations = dict(definition.value.annotations)
+                 prop.list_inner_enum = None
+             elif isinstance(definition, (PatternMapDef, ObjectTypeDef)):
+                 prop.list_inner_named = prop.list_inner_enum
+@@ -1271,6 +1412,7 @@ def _classify_global_named_references(
+                             definition.value,
+                             name=inner.name,
+                             optional=inner.optional,
++                            annotations={**definition.value.annotations, **inner.annotations},
+                         )
+                         inner.__dict__.update(replacement.__dict__)
+                     elif isinstance(definition, (PatternMapDef, ObjectTypeDef)):
+@@ -1549,7 +1691,8 @@ _NARROWING_FACETS = {
+ 
+ def _copy_property(prop: PropDef) -> PropDef:
+     """Detached copy, so composing a base never mutates the registry entry."""
+-    return replace(prop)
++    return replace(prop, annotations=dict(prop.annotations),
++                   list_item_annotations=dict(prop.list_item_annotations))
+ 
+ 
+ def _unify_property(
+@@ -1590,6 +1733,20 @@ def _unify_property(
+         setattr(merged, facet, derived_value if derived_declared else base_value)
+     # Unification narrows: a field required by either declaration is required.
+     merged.optional = base.optional and derived.optional
++    merged.annotations = {**base.annotations, **derived.annotations}
++    merged.list_item_annotations = {**base.list_item_annotations, **derived.list_item_annotations}
++    # Documentation never makes otherwise equal nested constraints conflict.
++    # Merge it recursively so restating a value object keeps inherited guidance.
++    if base.object_properties is not None and derived.object_properties is not None:
++        merged.object_properties = [
++            _unify_property(left, right, shape_name)
++            for left, right in zip(base.object_properties, derived.object_properties)
++        ]
++    if base.object_alternatives is not None and derived.object_alternatives is not None:
++        merged.object_alternatives = [
++            [_unify_property(left, right, shape_name) for left, right in zip(left_branch, right_branch)]
++            for left_branch, right_branch in zip(base.object_alternatives, derived.object_alternatives)
++        ]
+     return merged
+ 
+ 
+@@ -1702,6 +1859,8 @@ def _compose_shape(
+     # `@type` const across two JSON Schema `$defs`. Composition reuses the
+     # base's fields; it must not re-bind the base's class identity.
+     merged.type_iri = shape.type_iri
++    merged.annotations = dict(shape.annotations)
++    merged.type_annotations = dict(shape.type_annotations)
+     for prop in shape.properties:
+         _upsert_property(merged.properties, prop, shape.name)
+     for branch in shape.conditionals:
+@@ -1934,7 +2093,7 @@ def target_json_schema(doc: ConstraintDoc, registry: Optional[dict] = None) -> s
+     plain_json = _is_plain_json(doc)
+     schemas: dict = {}
+     for e in doc.enums:
+-        schemas[e.name] = {"type": "string", "enum": e.values}
++        schemas[e.name] = {"type": "string", "enum": e.values, **e.annotations}
+     # Enum-unions: collapse to a single closed enum from the union of
+     # referenced values. Refs may cross files (a profile assembling the closed
+     # whole-contract set from the kernel's values plus its own).
+@@ -1942,6 +2101,7 @@ def target_json_schema(doc: ConstraintDoc, registry: Optional[dict] = None) -> s
+         schemas[u.name] = {
+             "type": "string",
+             "enum": _resolve_enum_values(u.name, doc, registry),
++            **u.annotations,
+         }
+     for scalar in doc.scalar_types:
+         schemas[scalar.name] = property_to_jsonschema(
+@@ -1955,6 +2115,7 @@ def target_json_schema(doc: ConstraintDoc, registry: Optional[dict] = None) -> s
+                 map_def.value, doc, registry
+             ),
+             "minProperties": map_def.min_properties,
++            **map_def.annotations,
+         }
+     for object_type in doc.object_types:
+         object_properties = {
+@@ -1971,6 +2132,7 @@ def target_json_schema(doc: ConstraintDoc, registry: Optional[dict] = None) -> s
+         }
+         if required:
+             schema["required"] = required
++        schema.update(object_type.annotations)
+         schemas[object_type.name] = schema
+ 
+     # Inline cross-file enum definitions referenced by this doc's properties /
+@@ -1985,6 +2147,7 @@ def target_json_schema(doc: ConstraintDoc, registry: Optional[dict] = None) -> s
+         schemas[enum_name] = {
+             "type": "string",
+             "enum": _resolve_enum_values(enum_name, doc, registry),
++            **registry[enum_name].annotations,
+         }
+ 
+     def _inline_cross_file_carrier(name: str) -> None:
+@@ -2005,6 +2168,7 @@ def target_json_schema(doc: ConstraintDoc, registry: Optional[dict] = None) -> s
+                     definition.value, doc, registry
+                 ),
+                 "minProperties": definition.min_properties,
++                **definition.annotations,
+             }
+         elif isinstance(definition, ObjectTypeDef):
+             properties = {
+@@ -2020,6 +2184,7 @@ def target_json_schema(doc: ConstraintDoc, registry: Optional[dict] = None) -> s
+                     if not prop.optional
+                 ],
+                 "additionalProperties": False,
++                **definition.annotations,
+             }
+ 
+     if registry:
+@@ -2062,7 +2227,7 @@ def target_json_schema(doc: ConstraintDoc, registry: Optional[dict] = None) -> s
+                     if bp.name not in props:
+                         props[bp.name] = property_to_jsonschema(bp, doc, registry)
+         if s.type_iri:
+-            props["@type"] = {"const": s.type_iri}
++            props["@type"] = {"const": s.type_iri, **s.type_annotations}
+             required.append("@type")
+         for p in s.properties:
+             props[p.name] = property_to_jsonschema(p, doc, registry)
+@@ -2121,6 +2286,7 @@ def target_json_schema(doc: ConstraintDoc, registry: Optional[dict] = None) -> s
+                 alts.append({"properties": br_props, "required": br_req})
+             any_of_groups.append({"anyOf": alts})
+         schema: dict = {"type": "object", "properties": props}
++        schema.update(s.annotations)
+         if plain_json:
+             schema["additionalProperties"] = False
+         if required:
+@@ -2160,6 +2326,14 @@ def target_json_schema(doc: ConstraintDoc, registry: Optional[dict] = None) -> s
+ 
+ def property_to_jsonschema(
+     p: PropDef, doc: ConstraintDoc, registry: Optional[dict] = None
++) -> dict:
++    schema = _property_value_jsonschema(p, doc, registry)
++    schema.update(p.annotations)
++    return schema
++
++
++def _property_value_jsonschema(
++    p: PropDef, doc: ConstraintDoc, registry: Optional[dict] = None
+ ) -> dict:
+     if p.type_ref == "json_object":
+         return {"type": "object"}
+@@ -2220,6 +2394,7 @@ def property_to_jsonschema(
+             items["pattern"] = p.pattern
+         if p.string_format:
+             items["format"] = p.string_format
++        items.update(p.list_item_annotations)
+         arr: dict = {"type": "array", "items": items}
+         if p.list_min_items > 0:
+             arr["minItems"] = p.list_min_items

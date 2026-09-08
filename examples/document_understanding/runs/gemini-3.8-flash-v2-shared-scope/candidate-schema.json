@@ -1,0 +1,123 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "quote",
+    "summary",
+    "actor",
+    "applies_to",
+    "start",
+    "end",
+    "relation"
+  ],
+  "properties": {
+    "kind": {
+      "enum": [
+        "requirement",
+        "permission",
+        "prohibition",
+        "authority",
+        "threshold",
+        "definition",
+        "condition",
+        "exception"
+      ]
+    },
+    "quote": {
+      "type": "string",
+      "minLength": 1
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "actor": {
+      "type": "string",
+      "minLength": 1
+    },
+    "applies_to": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "start": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "end": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "relation": {
+      "enum": [
+        "none",
+        "scope",
+        "prerequisite",
+        "trigger",
+        "exception"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "enum": [
+              "condition",
+              "exception"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "applies_to": {
+            "minItems": 1
+          },
+          "relation": {
+            "not": {
+              "const": "none"
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "applies_to": {
+            "maxItems": 0
+          },
+          "relation": {
+            "const": "none"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "exception"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "relation": {
+            "const": "exception"
+          }
+        }
+      }
+    }
+  ]
+}

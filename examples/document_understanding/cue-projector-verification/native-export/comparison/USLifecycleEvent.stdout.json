@@ -1,0 +1,59 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+        "ComposedLifecycleEventKind": {
+            "anyOf": [
+                {
+                    "$ref": "#/$defs/LifecycleEventKind"
+                },
+                {
+                    "$ref": "#/$defs/USProceedingLifecycleEventKind"
+                }
+            ]
+        },
+        "LifecycleEvent": true,
+        "LifecycleEventKind": {
+            "description": "Kernel lifecycle kinds. Promotion and demotion are no longer standalone\nevent kinds; both are operations of rkaf:conceptLifecycle.",
+            "enum": [
+                "rkaf:revalidation",
+                "rkaf:revalidationClosure",
+                "rkaf:amendment",
+                "rkaf:supersession",
+                "rkaf:rescission",
+                "rkaf:materialRevision",
+                "rkaf:editorialRevision",
+                "rkaf:conceptLifecycle"
+            ]
+        },
+        "USProceedingLifecycleEventKind": {
+            "description": "US rulemaking profile — proceeding lifecycle kinds, contributed to the\nSHARED `rkaf:LifecycleEvent` class.\n\nThese twelve kinds are NOT universal: a prerule stage, a supplemental\nproposal, a judicial vacatur, a congressional disapproval are US rulemaking\nevents. The kernel `#LifecycleEventKind`\n(constraints/core/lifecycle-event.cue) therefore no longer declares them;\nthis profile does, and the dependency runs profile -> kernel, never the\nother way.\n\nClass binding: the overlay keeps `@type: \"rkaf:LifecycleEvent\"`. A\nproceeding stage transition IS a LifecycleEvent — the profile contributes\nvalues to the universal class rather than minting a parallel event class\n(spec/rkaf-rulemaking.md §6, \"this module defines no parallel event class\").\n\nValue-set assembly: `#ComposedLifecycleEventKind` is the closed\nwhole-contract kind set — the kernel's eight universal kinds unioned with this\nprofile's twelve. The compiler resolves the union across files at build time\n(tools/constraints_compile.py `_resolve_enum_values`), so every compiled\ntarget of THIS file carries all 20 values while every compiled kernel target\ncarries only the eight the kernel owns.",
+            "enum": [
+                "rkaf:proceedingPrerule",
+                "rkaf:proceedingProposed",
+                "rkaf:proceedingSupplemental",
+                "rkaf:proceedingFinal",
+                "rkaf:proceedingWithdrawn",
+                "rkaf:proceedingLongterm",
+                "rkaf:proceedingConcluded",
+                "rkaf:proceedingVacated",
+                "rkaf:proceedingStayed",
+                "rkaf:proceedingRemanded",
+                "rkaf:proceedingReinstated",
+                "rkaf:proceedingDisapproved"
+            ]
+        }
+    },
+    "type": "object",
+    "properties": {
+        "@type": {
+            "const": "rkaf:LifecycleEvent"
+        },
+        "rkaf:lifecycleEventKind": {
+            "$ref": "#/$defs/ComposedLifecycleEventKind"
+        }
+    },
+    "$ref": "#/$defs/LifecycleEvent",
+    "required": [
+        "rkaf:lifecycleEventKind"
+    ]
+}

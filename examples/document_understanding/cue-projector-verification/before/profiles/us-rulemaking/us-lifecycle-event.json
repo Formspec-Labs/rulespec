@@ -1,0 +1,631 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/us-lifecycle-event.json",
+  "title": "us-lifecycle-event",
+  "$defs": {
+    "USProceedingLifecycleEventKind": {
+      "type": "string",
+      "enum": [
+        "rkaf:proceedingPrerule",
+        "rkaf:proceedingProposed",
+        "rkaf:proceedingSupplemental",
+        "rkaf:proceedingFinal",
+        "rkaf:proceedingWithdrawn",
+        "rkaf:proceedingLongterm",
+        "rkaf:proceedingConcluded",
+        "rkaf:proceedingVacated",
+        "rkaf:proceedingStayed",
+        "rkaf:proceedingRemanded",
+        "rkaf:proceedingReinstated",
+        "rkaf:proceedingDisapproved"
+      ]
+    },
+    "ComposedLifecycleEventKind": {
+      "type": "string",
+      "enum": [
+        "rkaf:revalidation",
+        "rkaf:revalidationClosure",
+        "rkaf:amendment",
+        "rkaf:supersession",
+        "rkaf:rescission",
+        "rkaf:materialRevision",
+        "rkaf:editorialRevision",
+        "rkaf:conceptLifecycle",
+        "rkaf:proceedingPrerule",
+        "rkaf:proceedingProposed",
+        "rkaf:proceedingSupplemental",
+        "rkaf:proceedingFinal",
+        "rkaf:proceedingWithdrawn",
+        "rkaf:proceedingLongterm",
+        "rkaf:proceedingConcluded",
+        "rkaf:proceedingVacated",
+        "rkaf:proceedingStayed",
+        "rkaf:proceedingRemanded",
+        "rkaf:proceedingReinstated",
+        "rkaf:proceedingDisapproved"
+      ]
+    },
+    "ConceptLifecycleOperation": {
+      "type": "string",
+      "enum": [
+        "rkaf:deprecation",
+        "rkaf:withdrawal",
+        "rkaf:replacement",
+        "rkaf:split",
+        "rkaf:merge",
+        "rkaf:promotion",
+        "rkaf:demotion"
+      ]
+    },
+    "USLifecycleEvent": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:LifecycleEvent"
+        },
+        "rkaf:lifecycleEventKind": {
+          "$ref": "#/$defs/ComposedLifecycleEventKind"
+        },
+        "rkaf:effectiveDate": {
+          "type": "string"
+        },
+        "rkaf:emittedBy": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:appliesTo": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          ]
+        },
+        "rkaf:bridgeContractVersion": {
+          "type": "string"
+        },
+        "rkaf:cascadeAlgorithm": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:safeAutomaticMigration": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:conceptLifecycleOperation": {
+          "$ref": "#/$defs/ConceptLifecycleOperation"
+        },
+        "rkaf:predecessorConcepts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "rkaf:successorConcepts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "rkaf:predecessorConceptRelease": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:successorConceptRelease": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:lifecycleEventKind",
+        "rkaf:effectiveDate",
+        "rkaf:emittedBy",
+        "rkaf:appliesTo"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "not": {
+              "properties": {
+                "rkaf:lifecycleEventKind": {
+                  "anyOf": [
+                    {
+                      "const": "rkaf:conceptLifecycle"
+                    },
+                    {
+                      "type": "array",
+                      "contains": {
+                        "const": "rkaf:conceptLifecycle"
+                      }
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "rkaf:lifecycleEventKind"
+              ]
+            }
+          },
+          "then": {
+            "allOf": [
+              {
+                "not": {
+                  "required": [
+                    "rkaf:conceptLifecycleOperation"
+                  ]
+                }
+              },
+              {
+                "not": {
+                  "required": [
+                    "rkaf:predecessorConcepts"
+                  ]
+                }
+              },
+              {
+                "not": {
+                  "required": [
+                    "rkaf:successorConcepts"
+                  ]
+                }
+              },
+              {
+                "not": {
+                  "required": [
+                    "rkaf:predecessorConceptRelease"
+                  ]
+                }
+              },
+              {
+                "not": {
+                  "required": [
+                    "rkaf:successorConceptRelease"
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:lifecycleEventKind": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:conceptLifecycle"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:conceptLifecycle"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:lifecycleEventKind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:conceptLifecycleOperation": {
+                "$ref": "#/$defs/ConceptLifecycleOperation"
+              },
+              "rkaf:predecessorConcepts": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                },
+                "minItems": 1
+              },
+              "rkaf:predecessorConceptRelease": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            },
+            "required": [
+              "rkaf:conceptLifecycleOperation",
+              "rkaf:predecessorConcepts",
+              "rkaf:predecessorConceptRelease"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:conceptLifecycleOperation": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:deprecation"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:deprecation"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:conceptLifecycleOperation"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:predecessorConcepts": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                },
+                "minItems": 1,
+                "maxItems": 1
+              }
+            },
+            "required": [
+              "rkaf:predecessorConcepts"
+            ],
+            "allOf": [
+              {
+                "not": {
+                  "required": [
+                    "rkaf:successorConcepts"
+                  ]
+                }
+              },
+              {
+                "not": {
+                  "required": [
+                    "rkaf:successorConceptRelease"
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:conceptLifecycleOperation": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:withdrawal"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:withdrawal"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:conceptLifecycleOperation"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:predecessorConcepts": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                },
+                "minItems": 1,
+                "maxItems": 1
+              }
+            },
+            "required": [
+              "rkaf:predecessorConcepts"
+            ],
+            "allOf": [
+              {
+                "not": {
+                  "required": [
+                    "rkaf:successorConcepts"
+                  ]
+                }
+              },
+              {
+                "not": {
+                  "required": [
+                    "rkaf:successorConceptRelease"
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:conceptLifecycleOperation": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:replacement"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:replacement"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:conceptLifecycleOperation"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:predecessorConcepts": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                },
+                "minItems": 1,
+                "maxItems": 1
+              },
+              "rkaf:successorConcepts": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                },
+                "minItems": 1,
+                "maxItems": 1
+              },
+              "rkaf:successorConceptRelease": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            },
+            "required": [
+              "rkaf:predecessorConcepts",
+              "rkaf:successorConcepts",
+              "rkaf:successorConceptRelease"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:conceptLifecycleOperation": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:split"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:split"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:conceptLifecycleOperation"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:predecessorConcepts": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                },
+                "minItems": 1,
+                "maxItems": 1
+              },
+              "rkaf:successorConcepts": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                },
+                "minItems": 2
+              },
+              "rkaf:successorConceptRelease": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            },
+            "required": [
+              "rkaf:predecessorConcepts",
+              "rkaf:successorConcepts",
+              "rkaf:successorConceptRelease"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:conceptLifecycleOperation": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:merge"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:merge"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:conceptLifecycleOperation"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:predecessorConcepts": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                },
+                "minItems": 2
+              },
+              "rkaf:successorConcepts": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                },
+                "minItems": 1,
+                "maxItems": 1
+              },
+              "rkaf:successorConceptRelease": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            },
+            "required": [
+              "rkaf:predecessorConcepts",
+              "rkaf:successorConcepts",
+              "rkaf:successorConceptRelease"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:conceptLifecycleOperation": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:promotion"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:promotion"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:conceptLifecycleOperation"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:predecessorConcepts": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                },
+                "minItems": 1,
+                "maxItems": 1
+              },
+              "rkaf:successorConcepts": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                },
+                "minItems": 1,
+                "maxItems": 1
+              },
+              "rkaf:successorConceptRelease": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            },
+            "required": [
+              "rkaf:predecessorConcepts",
+              "rkaf:successorConcepts",
+              "rkaf:successorConceptRelease"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:conceptLifecycleOperation": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:demotion"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:demotion"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:conceptLifecycleOperation"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:predecessorConcepts": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                },
+                "minItems": 1,
+                "maxItems": 1
+              },
+              "rkaf:successorConcepts": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                },
+                "minItems": 1,
+                "maxItems": 1
+              },
+              "rkaf:successorConceptRelease": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            },
+            "required": [
+              "rkaf:predecessorConcepts",
+              "rkaf:successorConcepts",
+              "rkaf:successorConceptRelease"
+            ]
+          }
+        }
+      ],
+      "x-rkaf-not-equal": [
+        {
+          "left": "rkaf:predecessorConceptRelease",
+          "right": "rkaf:successorConceptRelease"
+        }
+      ]
+    }
+  }
+}

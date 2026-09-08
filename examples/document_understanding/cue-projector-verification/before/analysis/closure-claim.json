@@ -1,0 +1,282 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/closure-claim.json",
+  "title": "closure-claim",
+  "$defs": {
+    "ClosureClaimStatus": {
+      "type": "string",
+      "enum": [
+        "rkaf:closureClaimDisabled"
+      ]
+    },
+    "UsageEligibility": {
+      "type": "string",
+      "enum": [
+        "rkaf:notEligible",
+        "rkaf:searchOnly",
+        "rkaf:reviewQueueOnly",
+        "rkaf:draftGenerationAllowed",
+        "rkaf:localOperationalUse",
+        "rkaf:publicationAllowed",
+        "rkaf:officialUse"
+      ]
+    },
+    "ConsumerLifecycleState": {
+      "type": "string",
+      "enum": [
+        "rkaf:draft",
+        "rkaf:proposedForOperational",
+        "rkaf:operational",
+        "rkaf:staleForCurrentUse",
+        "rkaf:published"
+      ]
+    },
+    "AssertionOrigin": {
+      "type": "string",
+      "enum": [
+        "rkaf:humanAsserted",
+        "rkaf:aiSuggested",
+        "rkaf:imported",
+        "rkaf:deterministicExtraction"
+      ]
+    },
+    "EpistemicBasis": {
+      "type": "string",
+      "enum": [
+        "rkaf:sourceExplicit",
+        "rkaf:deterministicDerivation",
+        "rkaf:statisticalInference",
+        "rkaf:editorialAssertion",
+        "rkaf:userAssertion"
+      ]
+    },
+    "ProvisionalAIUsageEligibility": {
+      "type": "string",
+      "enum": [
+        "rkaf:notEligible",
+        "rkaf:searchOnly",
+        "rkaf:reviewQueueOnly"
+      ]
+    },
+    "ClosureClaim": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:ClosureClaim"
+        },
+        "rkaf:usageEligibility": {
+          "$ref": "#/$defs/UsageEligibility"
+        },
+        "rkaf:consumerLifecycleState": {
+          "$ref": "#/$defs/ConsumerLifecycleState"
+        },
+        "rkaf:hasAccessScope": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:assertionOrigin": {
+          "$ref": "#/$defs/AssertionOrigin"
+        },
+        "rkaf:epistemicBasis": {
+          "$ref": "#/$defs/EpistemicBasis"
+        },
+        "rkaf:hasApplicability": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasJustification": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasWarrant": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasAuthority": {
+          "type": "string"
+        },
+        "rkaf:hasRetentionPolicy": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "prov:wasDerivedFrom": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            }
+          ]
+        },
+        "rkaf:hasSourceClaimant": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasExtractionProvenance": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasConfidence": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            }
+          ]
+        },
+        "rkaf:supersedesAssertion": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            }
+          ]
+        },
+        "rkaf:assertedAt": {
+          "type": "string"
+        },
+        "rkaf:closureClaimStatus": {
+          "$ref": "#/$defs/ClosureClaimStatus"
+        },
+        "rkaf:closureArtifact": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:closureRegion": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "rkaf:closurePredicateFamily": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:closureProfileVersion": {
+          "type": "string"
+        },
+        "rkaf:closureMemberDigest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "rkaf:closureReviewedAt": {
+          "type": "string"
+        },
+        "rkaf:hasAILineage": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:assertionOrigin",
+        "rkaf:epistemicBasis",
+        "rkaf:closureClaimStatus",
+        "rkaf:closureArtifact",
+        "rkaf:closureRegion",
+        "rkaf:closurePredicateFamily",
+        "rkaf:closureProfileVersion",
+        "rkaf:closureMemberDigest"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "rkaf:assertionOrigin": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:aiSuggested"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:aiSuggested"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:assertionOrigin"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:hasAILineage": {
+                "type": "string"
+              },
+              "rkaf:usageEligibility": {
+                "$ref": "#/$defs/ProvisionalAIUsageEligibility"
+              }
+            },
+            "required": [
+              "rkaf:hasAILineage",
+              "rkaf:usageEligibility"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:assertionOrigin": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:deterministicExtraction"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:deterministicExtraction"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:assertionOrigin"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:hasExtractionProvenance": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "rkaf:hasExtractionProvenance"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

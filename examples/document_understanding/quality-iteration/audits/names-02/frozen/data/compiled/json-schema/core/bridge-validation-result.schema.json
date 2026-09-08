@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/bridge-validation-result.json",
+  "title": "bridge-validation-result",
+  "$defs": {
+    "BridgeResult": {
+      "type": "string",
+      "enum": [
+        "rkaf:accepted",
+        "rkaf:acceptedWithWarnings",
+        "rkaf:rejected"
+      ]
+    },
+    "AuthorityChainStatus": {
+      "type": "string",
+      "enum": [
+        "rkaf:valid",
+        "rkaf:broken",
+        "rkaf:staleForCurrentUse",
+        "rkaf:validForPointInTimeOnly",
+        "rkaf:brokenForNewCases",
+        "rkaf:missingAuthority",
+        "rkaf:unsupportedAuthorityKind"
+      ]
+    },
+    "UsageEligibility": {
+      "type": "string",
+      "enum": [
+        "rkaf:notEligible",
+        "rkaf:searchOnly",
+        "rkaf:reviewQueueOnly",
+        "rkaf:draftGenerationAllowed",
+        "rkaf:localOperationalUse",
+        "rkaf:publicationAllowed",
+        "rkaf:officialUse"
+      ]
+    },
+    "AuthorityKind": {
+      "type": "string",
+      "enum": [
+        "rkaf:legal",
+        "rkaf:statutory",
+        "rkaf:regulatory",
+        "rkaf:delegated",
+        "rkaf:organizational",
+        "rkaf:contractual",
+        "rkaf:localOperational",
+        "rkaf:publication"
+      ]
+    },
+    "BridgeIssueKind": {
+      "type": "string",
+      "enum": [
+        "rkaf:staleDep",
+        "rkaf:unresolvedConcept",
+        "rkaf:brokenAuthority",
+        "rkaf:unsupportedAnchor"
+      ]
+    },
+    "BridgeValidationResult": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:BridgeValidationResult"
+        },
+        "rkaf:packetId": {
+          "type": "string"
+        },
+        "rkaf:consumer": {
+          "type": "string"
+        },
+        "rkaf:bridgeContractVersion": {
+          "type": "string"
+        },
+        "rkaf:result": {
+          "$ref": "#/$defs/BridgeResult"
+        },
+        "rkaf:effectiveUsageEligibility": {
+          "$ref": "#/$defs/UsageEligibility"
+        },
+        "rkaf:effectiveUsageEligibilityRationale": {
+          "type": "string"
+        },
+        "rkaf:validatedAt": {
+          "type": "string"
+        },
+        "rkaf:conceptResolutionResults": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "rkaf:findings": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "rkaf:authorityChainTraversal": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "rkaf:chainTerminus": {
+          "type": "string"
+        },
+        "rkaf:chainTerminusKind": {
+          "$ref": "#/$defs/AuthorityKind"
+        },
+        "rkaf:authorityChainStatus": {
+          "$ref": "#/$defs/AuthorityChainStatus"
+        },
+        "rkaf:suggestedRemediation": {
+          "type": "string"
+        },
+        "rkaf:noRemediationReason": {
+          "type": "string"
+        },
+        "rkaf:usedAsAuthority": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "rkaf:detectedIssues": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/BridgeIssueKind"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/BridgeIssueKind"
+              }
+            }
+          ]
+        },
+        "rkaf:lastVerifiedAt": {
+          "type": "string"
+        },
+        "rkaf:verifiedBy": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:packetId",
+        "rkaf:consumer",
+        "rkaf:bridgeContractVersion",
+        "rkaf:result",
+        "rkaf:effectiveUsageEligibility",
+        "rkaf:effectiveUsageEligibilityRationale",
+        "rkaf:validatedAt"
+      ]
+    }
+  }
+}

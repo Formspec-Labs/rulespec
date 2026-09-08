@@ -1,6 +1,12 @@
 # Proposed LangExtract integration with Rulespec schemas
 
-Date: 2026-09-07. Status: proposed implementation plan; integration is not built.
+Implementation: [first local slice and remaining extraction work](2026-09-07-document-understanding-execution.md).
+The application now uses the existing Core records and preserves raw-response replay.
+
+Date: 2026-09-07. Status at proposal: integration was not built.
+An experimental integration now exists in `examples/document_understanding/`.
+See the [final review and codebase reuse audit](../reviews/2026-09-07-document-understanding-path-forward.md)
+for verified capabilities, remaining gaps, and the revised next milestone.
 
 ## Decision
 

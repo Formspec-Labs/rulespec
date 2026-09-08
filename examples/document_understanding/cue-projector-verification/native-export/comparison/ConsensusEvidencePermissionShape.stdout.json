@@ -1,0 +1,38 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+        "SafetyLabelPermitsConsensus": {
+            "description": "Appendix-C class regression: a constraint that an sh:if/sh:then-based SHACL\nevaluator silently passes. Restated as CUE so it compiles cleanly to every\ntarget; fixtures exercise the failure mode.\n\n\"When an EvidenceBinding has noEvidenceReason = consensus-without-citation,\nthe parent Assertion's safetyLabel MUST permit it.\"\n\nA literal subset of `#SafetyLabel` (constraints/core/trust-and-safety.cue),\nnever its own vocabulary: every member here MUST also be a member there.\nNarrower on purpose — a D0/S1/R2/A3/P4 label does not permit this\nevidence gap, only the `permits-*` family does.",
+            "enum": [
+                "rkaf:permits-consensus-without-citation",
+                "rkaf:permits-axiomatic",
+                "rkaf:permits-all"
+            ]
+        }
+    },
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "@type": {
+            "const": "rkaf:Assertion"
+        },
+        "rkaf:hasEvidenceBinding": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "rkaf:noEvidenceReason": {
+                        "const": "rkaf:consensus-without-citation"
+                    }
+                }
+            }
+        },
+        "rkaf:hasSafetyLabel": {
+            "$ref": "#/$defs/SafetyLabelPermitsConsensus"
+        }
+    },
+    "required": [
+        "rkaf:hasSafetyLabel"
+    ]
+}

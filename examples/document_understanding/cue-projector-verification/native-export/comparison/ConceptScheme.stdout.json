@@ -1,0 +1,101 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+        "PreferredLabelMap": {
+            "type": "object",
+            "description": "JSON-LD language maps preserve the authoring language and script. A\npreferred-label map admits one string per language. Other authored SKOS\ntext admits one or many strings per language.",
+            "additionalProperties": true
+        },
+        "SkosAuthoredText": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "skos:altLabel": {
+                    "$ref": "#/$defs/VocabularyTextMap"
+                },
+                "skos:changeNote": {
+                    "$ref": "#/$defs/VocabularyTextMap"
+                },
+                "skos:definition": {
+                    "$ref": "#/$defs/VocabularyTextMap"
+                },
+                "skos:editorialNote": {
+                    "$ref": "#/$defs/VocabularyTextMap"
+                },
+                "skos:example": {
+                    "$ref": "#/$defs/VocabularyTextMap"
+                },
+                "skos:hiddenLabel": {
+                    "$ref": "#/$defs/VocabularyTextMap"
+                },
+                "skos:historyNote": {
+                    "$ref": "#/$defs/VocabularyTextMap"
+                },
+                "skos:note": {
+                    "$ref": "#/$defs/VocabularyTextMap"
+                },
+                "skos:prefLabel": {
+                    "$ref": "#/$defs/PreferredLabelMap"
+                },
+                "skos:scopeNote": {
+                    "$ref": "#/$defs/VocabularyTextMap"
+                }
+            },
+            "required": [
+                "skos:prefLabel"
+            ]
+        },
+        "VocabularyTextMap": {
+            "type": "object",
+            "additionalProperties": true
+        }
+    },
+    "type": "object",
+    "description": "Native SKOS concept carriage. Language maps and typed notation come from\nvocabulary-text.cue so every resource uses one BCP 47 grammar.",
+    "properties": {
+        "@type": {
+            "const": "rkaf:ConceptScheme"
+        },
+        "rkaf:schemeFacet": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "skos:hasTopConcept": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            }
+        }
+    },
+    "$ref": "#/$defs/SkosAuthoredText",
+    "anyOf": [
+        {
+            "type": "object",
+            "properties": {
+                "rkaf:managedByRegistry": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                }
+            },
+            "required": [
+                "rkaf:managedByRegistry"
+            ]
+        },
+        {
+            "type": "object",
+            "properties": {
+                "rkaf:definedInScope": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+                }
+            },
+            "required": [
+                "rkaf:definedInScope"
+            ]
+        }
+    ],
+    "required": [
+        "rkaf:schemeFacet"
+    ]
+}

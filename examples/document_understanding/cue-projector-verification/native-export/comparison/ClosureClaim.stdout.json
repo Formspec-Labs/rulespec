@@ -1,0 +1,167 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+        "AssertionEnvelope": {
+            "description": "The generic Assertion envelope, minus the JSON-LD `@type` discriminator.\nAssertion specializations embed this definition rather than restating it, so\nthe envelope has exactly one source and cannot drift between classes. The\nprojector flattens the composition into every target.\n\nThe envelope holds CONTEXT for a proposition — where it came from, what\ngrounds it, who may use it — never the proposition itself. It composes\n`#ConsumerDisposition` for the mutable half; `#AssertionProposition` is\ncomposed by the proposition-bearing forms, not by the envelope, because the\ngeneric `#Assertion` is an envelope-only carrier retained for v0.2\nbackward compatibility.",
+            "$ref": "#/$defs/ConsumerDisposition"
+        },
+        "ClosureClaimStatus": {
+            "description": "One value, on purpose. This is the experimental flag that gates the record:\na producer cannot author a ClosureClaim without declaring it disabled, and a\nconsumer reading `rkaf:closureClaimDisabled` knows the claim carries no\nweight without consulting prose.",
+            "const": "rkaf:closureClaimDisabled"
+        },
+        "ConsumerDisposition": {
+            "type": "object",
+            "description": "Mutable, consumer-scoped disposition (§2.3). These are the L4 reducer's\ninputs and outputs; they change as consumers, scopes, and reviews change,\nwhile the proposition above does not. They are named separately so that no\nreader — and no future edit — can mistake them for proposition content.",
+            "additionalProperties": false,
+            "properties": {
+                "rkaf:consumerLifecycleState": {
+                    "$ref": "#/$defs/ConsumerLifecycleState"
+                },
+                "rkaf:hasAccessScope": {
+                    "type": "string"
+                },
+                "rkaf:usageEligibility": {
+                    "description": "L4 reducer inputs (rkaf-behavior.md §1.2). The reducer reads\nthese to compute effective usageEligibility per scope.",
+                    "$ref": "#/$defs/UsageEligibility"
+                }
+            }
+        },
+        "ConsumerLifecycleState": {
+            "description": "Cached lifecycle state on a generated work product. Closed enum.",
+            "enum": [
+                "rkaf:draft",
+                "rkaf:proposedForOperational",
+                "rkaf:operational",
+                "rkaf:staleForCurrentUse",
+                "rkaf:published"
+            ]
+        },
+        "DurableAssertionEnvelope": {
+            "type": "object",
+            "description": "Every durable Rulespec assertion form uses this definition. Keeping the\nrequirement here makes epistemic basis uniform across generic,\nrelationship, value, concept-assignment, concept-mapping, and analysis\nassertions while retaining `#AssertionEnvelope` as the one shared source\nfor fields and conditionals.",
+            "properties": {
+                "rkaf:epistemicBasis": {
+                    "$ref": "#/$defs/EpistemicBasis"
+                }
+            },
+            "$ref": "#/$defs/AssertionEnvelope",
+            "required": [
+                "rkaf:epistemicBasis"
+            ]
+        },
+        "EpistemicBasis": {
+            "description": "Why the proposition may be believed. This is deliberately independent of\n`rkaf:assertionOrigin`, which records what CONSTRUCTED the record. A model\nmay extract a source-explicit statement, a human may record a statistical\ninference, and review changes neither fact. See Core §2.5.",
+            "enum": [
+                "rkaf:sourceExplicit",
+                "rkaf:deterministicDerivation",
+                "rkaf:statisticalInference",
+                "rkaf:editorialAssertion",
+                "rkaf:userAssertion"
+            ]
+        },
+        "UsageEligibility": {
+            "description": "Closed lattice (§1.4): usage eligibility ascends from notEligible (lowest\nceiling) to officialUse (highest). The lattice ORDER is normative — consumers\nMAY narrow (move down), MUST NOT broaden (move up). Only LocalAdoption MAY\nbroaden within its declared scope.\n\nEffective `usageEligibility` for an artifact is computed by a reducer that\ncombines: assertion baseline, scoped LocalAdoption grants, lifecycle status,\napplicability constraints, consumer capabilities. The reducer is runtime\nbehavior; CUE only validates the closed enum membership.",
+            "enum": [
+                "rkaf:notEligible",
+                "rkaf:searchOnly",
+                "rkaf:reviewQueueOnly",
+                "rkaf:draftGenerationAllowed",
+                "rkaf:localOperationalUse",
+                "rkaf:publicationAllowed",
+                "rkaf:officialUse"
+            ]
+        }
+    },
+    "type": "object",
+    "properties": {
+        "@type": {
+            "const": "rkaf:ClosureClaim"
+        },
+        "rkaf:closureArtifact": {
+            "type": "string",
+            "description": "WHERE the claim applies. The Artifact version, class-ranged to\n`rkaf:Artifact`, and the exact source regions enumerated, class-ranged to\n`rkaf:SourceFragment`. Both required: \"closure is always local\", so a\nclaim that names no region is a claim about a whole document, which this\nrecord must be incapable of expressing.",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:closureClaimStatus": {
+            "description": "The experimental gate. Required; exactly one legal value.",
+            "$ref": "#/$defs/ClosureClaimStatus"
+        },
+        "rkaf:closureMemberDigest": {
+            "type": "string",
+            "description": "The digest over the accepted member assertions. This is what makes the\nclaim checkable at all: \"these and only these\" is only verifiable against\na content-bound set, and a recomputed digest that differs means the\nenumeration is not the one that was reviewed.",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "rkaf:closurePredicateFamily": {
+            "type": "string",
+            "description": "WHAT was enumerated: the predicate family or collection shape covered.\nA producer-scoped IRI — the kernel does not own predicate families, and\nwhich relations a profile expects a boundary to address is a profile\nquestion.",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:closureProfileVersion": {
+            "type": "string",
+            "description": "UNDER WHICH RULES. The profile version whose normalization policy defined\nthe boundary; changing it invalidates the claim rather than updating it."
+        },
+        "rkaf:closureRegion": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            "minItems": 1
+        },
+        "rkaf:closureReviewedAt": {
+            "type": "string",
+            "description": "When the claim was reviewed or takes effect. Optional; closure is\n\"local and revocable\", and an unreviewed claim must be representable as\nunreviewed rather than back-dated."
+        },
+        "rkaf:hasAccessScope": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasApplicability": {
+            "type": "string",
+            "description": "Derived-shape narrowings of the envelope's reference fields, matching\nevery other envelope-composing form.",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasConfidence": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            }
+        },
+        "rkaf:hasExtractionProvenance": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasJustification": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasRetentionPolicy": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasSourceClaimant": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:hasWarrant": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:supersedesAssertion": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            }
+        }
+    },
+    "$ref": "#/$defs/DurableAssertionEnvelope",
+    "required": [
+        "rkaf:closureArtifact",
+        "rkaf:closureMemberDigest",
+        "rkaf:closurePredicateFamily",
+        "rkaf:closureProfileVersion",
+        "rkaf:closureRegion"
+    ]
+}

@@ -1,0 +1,23 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "@type": {
+            "const": "rkaf:Workspace"
+        },
+        "rkaf:workspaceId": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]+$"
+        },
+        "rkaf:workspaceTrustList": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        }
+    },
+    "required": [
+        "rkaf:workspaceId"
+    ]
+}

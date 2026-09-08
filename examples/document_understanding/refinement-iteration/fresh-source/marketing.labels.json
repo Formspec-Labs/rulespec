@@ -1,0 +1,95 @@
+{
+  "schema_version": "rulespec-evaluation-labels/1",
+  "dataset_id": "refinement-fresh-marketing",
+  "split": "fresh-before-first-extraction",
+  "label_provenance": {
+    "reviewer": "Codex pre-extraction source adjudication",
+    "reviewer_kind": "aiAgent",
+    "method": "source_review"
+  },
+  "sources": [
+    {
+      "id": "urn:rulespec:document-understanding:document:f67fb8d0b764c051983bad3d82bf45ddb3ed4041d0fa853b574ea725a567082d",
+      "text": "(3) Authorization required: Marketing. (i) Notwithstanding any provision of this subpart, other than the transition provisions in § 164.532, a covered entity must obtain an authorization for any use or disclosure of protected health information for marketing, except if the communication is in the form of:\n\n(A) A face-to-face communication made by a covered entity to an individual; or\n\n(B) A promotional gift of nominal value provided by the covered entity.\n\n(ii) If the marketing involves financial remuneration, as defined in paragraph (3) of the definition of marketing at § 164.501, to the covered entity from a third party, the authorization must state that such remuneration is involved.",
+      "sha256": "f67fb8d0b764c051983bad3d82bf45ddb3ed4041d0fa853b574ea725a567082d"
+    }
+  ],
+  "expected_units": [
+    {
+      "id": "marketing-01",
+      "kind": "requirement",
+      "meaning": "A covered entity must obtain authorization for any use OR disclosure of protected health information for marketing, notwithstanding the subpart other than transition provisions in 164.532, subject to either of the two communication exceptions.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:f67fb8d0b764c051983bad3d82bf45ddb3ed4041d0fa853b574ea725a567082d",
+          "start": 0,
+          "end": 306,
+          "quote": "(3) Authorization required: Marketing. (i) Notwithstanding any provision of this subpart, other than the transition provisions in § 164.532, a covered entity must obtain an authorization for any use or disclosure of protected health information for marketing, except if the communication is in the form of:"
+        },
+        {
+          "source_id": "urn:rulespec:document-understanding:document:f67fb8d0b764c051983bad3d82bf45ddb3ed4041d0fa853b574ea725a567082d",
+          "start": 308,
+          "end": 386,
+          "quote": "(A) A face-to-face communication made by a covered entity to an individual; or"
+        },
+        {
+          "source_id": "urn:rulespec:document-understanding:document:f67fb8d0b764c051983bad3d82bf45ddb3ed4041d0fa853b574ea725a567082d",
+          "start": 388,
+          "end": 459,
+          "quote": "(B) A promotional gift of nominal value provided by the covered entity."
+        }
+      ]
+    },
+    {
+      "id": "marketing-02",
+      "kind": "exception",
+      "meaning": "Face-to-face communication by a covered entity to an individual is an exception to the marketing authorization requirement. Preserve its actor and recipient and explicit target.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:f67fb8d0b764c051983bad3d82bf45ddb3ed4041d0fa853b574ea725a567082d",
+          "start": 0,
+          "end": 306,
+          "quote": "(3) Authorization required: Marketing. (i) Notwithstanding any provision of this subpart, other than the transition provisions in § 164.532, a covered entity must obtain an authorization for any use or disclosure of protected health information for marketing, except if the communication is in the form of:"
+        },
+        {
+          "source_id": "urn:rulespec:document-understanding:document:f67fb8d0b764c051983bad3d82bf45ddb3ed4041d0fa853b574ea725a567082d",
+          "start": 308,
+          "end": 386,
+          "quote": "(A) A face-to-face communication made by a covered entity to an individual; or"
+        }
+      ]
+    },
+    {
+      "id": "marketing-03",
+      "kind": "exception",
+      "meaning": "A promotional gift of NOMINAL value provided by the covered entity is an alternative exception to the marketing authorization requirement. Do not invent a monetary amount, require face-to-face delivery too, or exempt every gift.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:f67fb8d0b764c051983bad3d82bf45ddb3ed4041d0fa853b574ea725a567082d",
+          "start": 0,
+          "end": 306,
+          "quote": "(3) Authorization required: Marketing. (i) Notwithstanding any provision of this subpart, other than the transition provisions in § 164.532, a covered entity must obtain an authorization for any use or disclosure of protected health information for marketing, except if the communication is in the form of:"
+        },
+        {
+          "source_id": "urn:rulespec:document-understanding:document:f67fb8d0b764c051983bad3d82bf45ddb3ed4041d0fa853b574ea725a567082d",
+          "start": 388,
+          "end": 459,
+          "quote": "(B) A promotional gift of nominal value provided by the covered entity."
+        }
+      ]
+    },
+    {
+      "id": "marketing-04",
+      "kind": "requirement",
+      "meaning": "If marketing involves financial remuneration as defined by 164.501 from a third party to the covered entity, the authorization must state that remuneration is involved. Preserve direction, definition reference and conditional scope; do not transfer this to every communication or promise the source settles interaction with the exceptions.",
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:f67fb8d0b764c051983bad3d82bf45ddb3ed4041d0fa853b574ea725a567082d",
+          "start": 461,
+          "end": 695,
+          "quote": "(ii) If the marketing involves financial remuneration, as defined in paragraph (3) of the definition of marketing at § 164.501, to the covered entity from a third party, the authorization must state that such remuneration is involved."
+        }
+      ]
+    }
+  ]
+}
