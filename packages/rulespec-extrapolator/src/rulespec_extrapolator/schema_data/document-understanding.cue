@@ -23,7 +23,7 @@ import (
 // Exact explanatory passages that aid interpretation without asserting conditions. Use for explanations and background that help interpret this unit without turning them into prerequisites. Useful descriptive or advisory meaning should also be retained as a unit when independently substantive.
 #ContextQuotes: [...string] @title("Context quotes")
 
-// Exact support for modal force; preserve generally, might, should and negation. Include qualifiers that establish the force, such as generally or might. A neighboring must cannot supply the force of a separate recommendation or description. A companion condition can have not_stated while its baseline retains must or should.
+// Exact support for modal force; preserve generally, might, should and negation. Include qualifiers that establish the force, such as generally or might. A neighboring must cannot supply the force of a separate recommendation or description. A companion condition can have not_stated while its baseline retains must or should. For factual not_stated meaning, leave this empty rather than quoting a bare copula such as is; quote only wording that establishes modal force.
 #ModalityQuote: string @title("Modality quote")
 
 // Normative force: must, should, permission may, prohibition must_not, exemption not_required, descriptive possible, not_stated or uncertain. Use should for recommendations, may for permission, possible for descriptive may/might, and not_required only for an explicit absence of duty. not_stated fits factual definitions and qualifications with no independent normative force. An exception to a recommendation does not itself declare absence of a legal duty. Generally is not universally.
@@ -44,7 +44,7 @@ import (
 // Exact source support for actor, including antecedent if needed. Copy a contiguous passage supporting the actor assignment. An inherited actor may be supported in supplied context. Empty actor has empty support; a matching word alone does not establish its semantic role.
 #ActorQuote: string @title("Actor quote")
 
-// Source-supported responsible person or entity; empty if unstated. Resolve a pronoun only when the source establishes its antecedent. Do not invent a duty bearer for an impersonal requirement, definition or factual statement. Do not substitute a neighboring actor from a different branch.
+// Source-supported responsible person or entity; empty if unstated. If the source addresses you without naming a role, retain you rather than inventing a job title. Resolve a pronoun only when the source establishes its antecedent. Do not invent a duty bearer for an impersonal requirement, definition or factual statement. Do not substitute a neighboring actor from a different branch.
 #Actor: string @title("Actor")
 
 // Exact source support for action. Copy source wording that supports this action, preserving its direction and negation. Do not rewrite the quoted passage to match a normalized action label.
@@ -65,10 +65,10 @@ import (
 // Territorial scope only when explicitly supported in supplied text; never infer from URL. Use only territory explicitly provided by source wording. The document title, institution or web address is not evidence for an inferred territorial applicability claim.
 #Jurisdiction: string @title("Jurisdiction")
 
-// A condition/exception's relationship to its baseline; none for other kinds. The source decides which baseline a qualification governs. Contextual proximity alone does not. An even-though or despite clause may preserve a duty rather than remove it. The qualification must retain the baseline's scope and the limits of the modification.
+// A condition/exception's relationship to its baseline; none for other kinds. The source decides which baseline a qualification governs. Contextual proximity alone does not. An even-though or despite clause may preserve a duty rather than remove it. The qualification must retain the baseline's scope and the limits of the modification. When a locally stated rule has an explicit exception, retain the complete baseline with its original kind and relation none, and also emit a separate exception unit linked to it. Do not turn the baseline itself into an exception or strip the exception from its meaning. A conditional permission does not by itself cancel a neighboring duty.
 #Relation: "none" | "scope" | "prerequisite" | "trigger" | "exception" @title("Relation")
 
-// Exact main-rule quotations targeted by this condition or exception; never summaries or invented remote text. Select the actual baseline whose meaning changes, preserving its complete scope. Never target an unrelated rule just because its quotation is exact. Leave remote targets unresolved rather than supplying text absent from the request.
+// Exact main-rule quotations targeted by this condition or exception; never summaries or invented remote text. Select the actual baseline whose meaning changes, preserving its complete scope. Never target an unrelated rule just because its quotation is exact. Match the complete main quotation of an emitted baseline unit exactly, including punctuation; a substring may not identify that unit. Leave remote targets unresolved rather than supplying text absent from the request.
 #AppliesTo: [...string] @title("Applies to")
 
 // Source section labels for cross-references, including unresolved remote targets. Keep source cross-reference labels even when their content is unavailable. Preserve the topic of each reference in the unit's meaning; a nearby reference is not a license to infer the missing rule.
@@ -96,7 +96,13 @@ import (
 // Who the SOURCE attributes this statement to, separately from who must act.
 // Leave the collection empty when attribution was not established. NotStated
 // records an assessed absence, supported by the examined passage; it is not a
-// model confidence score. Never infer the issuer from a URL or the model.
+// model confidence score. The quotation must establish attribution of THIS
+// statement, not merely mention an institution. "Under Agency guidance" or a
+// citation identifies a reference, not necessarily the party asserting the claim.
+// Do not transfer an agency mentioned in another paragraph to this statement.
+// An issuer attribution needs supplied text establishing issuer and coverage.
+// Never infer the issuer from a URL or the model. Empty is better than an
+// unsupported attribution; it does not make the underlying rule uncertain.
 #Claimant: {
     text!: string
     quote!: string
@@ -114,8 +120,10 @@ import (
     datatype!: core.#ValueDatatype
     // Source wording, e.g. more than, at least, no later than; empty if absent.
     comparator!: string
+    // Exact unit wording from quote, including singular/plural; empty if absent.
     unit!: string
-    // Source event from which a relative limit is measured; empty if absent.
+    // Exact source phrase in quote naming the reference event; do not paraphrase.
+    // This is the event from which a relative limit is measured; empty if absent.
     anchor!: string
 }
 
@@ -161,7 +169,7 @@ import (
 	summary!:            #Summary
 }
 
-// One independently referenceable source meaning. Separate distinct actions when useful, while preserving their inherited scope and connected qualifications. Overlapping main quotations are allowed.
+// One independently referenceable source meaning. Separate distinct actions when useful, while preserving their inherited scope and connected qualifications. Overlapping main quotations are allowed. Retain substantive notes and cautions even when they impose no duty, including explanations that one event or document date does not establish the date of its underlying evidence. Keep these as descriptive statements at their source force.
 #SemanticUnit: {
 	@title("One semantic unit")
 

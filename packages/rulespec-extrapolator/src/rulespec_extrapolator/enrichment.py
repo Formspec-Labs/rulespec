@@ -16,6 +16,47 @@ def _timestamp(value):
     return datetime.fromisoformat(value.replace("Z", "+00:00"))
 
 
+def _check_claimant(item, claim):
+    """Admit only a directly named speaker at the start of this unit's evidence.
+
+    This intentionally leaves implied speakers, separate attribution context and
+    document issuers for review. A citation or agency mention is not attribution.
+    It is a bounded textual check, not a general entailment verifier.
+    """
+    if item["attribution"] == "rkaf:claimantNotStated":
+        return
+    prefix = re.escape(item["text"].strip()) + r"\s+(?:states|says|declares|reports|asserts|announces)\s*:\s*"
+    if (item["attribution"] != "rkaf:claimantNamedInSource"
+            or not re.match(prefix, item["quote"].lstrip(), re.IGNORECASE)
+            or not claim["quote"].lstrip().startswith(item["quote"].lstrip())):
+        raise ValueError("Attribution needs a directly named speaker introducing this unit; other attribution needs review")
+
+
+def _check_duration(item):
+    """Compare a simple source duration with its literal, without unit conversion.
+
+    Supported wording is comparator + whole number (digits or one through twelve)
+    + years/months/days + optional reference event. Compound, fractional, ranged,
+    implicit and differently expressed durations remain unresolved.
+    """
+    words = "one two three four five six seven eight nine ten eleven twelve".split()
+    numbers = {word: i for i, word in enumerate(words, 1)}
+    number = r"(?:0|[1-9][0-9]*|" + "|".join(words) + r")"
+    prefix = re.escape(item["comparator"]) + r"\s+" if item["comparator"] else ""
+    # The reference event is copied exactly. Only a small explicit set of
+    # connectors may sit between the duration and that event.
+    suffix = (r"\s+(?:(?:of|after|before|prior to|following)\s+)?" + re.escape(item["anchor"])) if item["anchor"] else ""
+    match = re.fullmatch(prefix + r"(" + number + r")\s+(years?|months?|days?)" + suffix + r"[.;]?", item["quote"].strip(), re.IGNORECASE)
+    if not match or match[2].casefold() != item["unit"].casefold():
+        raise ValueError("Duration wording is outside the supported simple quantity and reference-event grammar")
+    quantity = numbers.get(match[1].casefold())
+    if quantity is None:
+        quantity = int(match[1])
+    expected = f"P{quantity}{match[2][0].upper()}"
+    if item["value"] != expected:
+        raise ValueError(f"Duration disagrees with source quantity; expected {expected} without unit conversion")
+
+
 def check_components(claim):
     """Keep questionable model interpretations visible, without emitting them as facts."""
     issues = []
@@ -34,6 +75,7 @@ def check_components(claim):
                             raise ValueError("An unstated claimant cannot also name a claimant")
                     elif not item["text"].strip():
                         raise ValueError("An attributed claimant needs source-supported text")
+                    _check_claimant(item, claim)
                 if field == "typed_values":
                     if not item["name"].strip() or not item["value"].strip():
                         raise ValueError("A typed component needs a name and a lexical value")
@@ -44,6 +86,8 @@ def check_components(claim):
                     # them verbatim avoids silently upgrading a model paraphrase.
                     if any(item[key] and item[key] not in item["quote"] for key in ("comparator", "unit", "anchor")):
                         raise ValueError("Comparator, unit and anchor must occur in the component quotation")
+                    if item["datatype"] == "xsd:duration":
+                        _check_duration(item)
                 if field == "effective_periods":
                     if len(claim[field]) > 1:
                         raise ValueError("Multiple effectivity branches need separate semantic units")

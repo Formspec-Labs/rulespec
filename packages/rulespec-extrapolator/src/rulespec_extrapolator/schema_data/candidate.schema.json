@@ -11,7 +11,7 @@
     },
     "Actor": {
       "type": "string",
-      "description": "Source-supported responsible person or entity; empty if unstated. Resolve a pronoun only when the source establishes its antecedent. Do not invent a duty bearer for an impersonal requirement, definition or factual statement. Do not substitute a neighboring actor from a different branch."
+      "description": "Source-supported responsible person or entity; empty if unstated. If the source addresses you without naming a role, retain you rather than inventing a job title. Resolve a pronoun only when the source establishes its antecedent. Do not invent a duty bearer for an impersonal requirement, definition or factual statement. Do not substitute a neighboring actor from a different branch."
     },
     "ActorQuote": {
       "type": "string",
@@ -26,7 +26,7 @@
     },
     "AppliesTo": {
       "type": "array",
-      "description": "Exact main-rule quotations targeted by this condition or exception; never summaries or invented remote text. Select the actual baseline whose meaning changes, preserving its complete scope. Never target an unrelated rule just because its quotation is exact. Leave remote targets unresolved rather than supplying text absent from the request.",
+      "description": "Exact main-rule quotations targeted by this condition or exception; never summaries or invented remote text. Select the actual baseline whose meaning changes, preserving its complete scope. Never target an unrelated rule just because its quotation is exact. Match the complete main quotation of an emitted baseline unit exactly, including punctuation; a substring may not identify that unit. Leave remote targets unresolved rather than supplying text absent from the request.",
       "items": {
         "type": "string"
       }
@@ -41,7 +41,7 @@
     },
     "Claimant": {
       "type": "object",
-      "description": "Who the SOURCE attributes this statement to, separately from who must act.\nLeave the collection empty when attribution was not established. NotStated\nrecords an assessed absence, supported by the examined passage; it is not a\nmodel confidence score. Never infer the issuer from a URL or the model.",
+      "description": "Who the SOURCE attributes this statement to, separately from who must act.\nLeave the collection empty when attribution was not established. NotStated\nrecords an assessed absence, supported by the examined passage; it is not a\nmodel confidence score. The quotation must establish attribution of THIS\nstatement, not merely mention an institution. \"Under Agency guidance\" or a\ncitation identifies a reference, not necessarily the party asserting the claim.\nDo not transfer an agency mentioned in another paragraph to this statement.\nAn issuer attribution needs supplied text establishing issuer and coverage.\nNever infer the issuer from a URL or the model. Empty is better than an\nunsupported attribution; it does not make the underlying rule uncertain.",
       "additionalProperties": false,
       "properties": {
         "attribution": {
@@ -162,7 +162,7 @@
     },
     "ModalityQuote": {
       "type": "string",
-      "description": "Exact support for modal force; preserve generally, might, should and negation. Include qualifiers that establish the force, such as generally or might. A neighboring must cannot supply the force of a separate recommendation or description. A companion condition can have not_stated while its baseline retains must or should."
+      "description": "Exact support for modal force; preserve generally, might, should and negation. Include qualifiers that establish the force, such as generally or might. A neighboring must cannot supply the force of a separate recommendation or description. A companion condition can have not_stated while its baseline retains must or should. For factual not_stated meaning, leave this empty rather than quoting a bare copula such as is; quote only wording that establishes modal force."
     },
     "NonemptyText": {
       "type": "string",
@@ -205,7 +205,7 @@
       }
     },
     "Relation": {
-      "description": "A condition/exception's relationship to its baseline; none for other kinds. The source decides which baseline a qualification governs. Contextual proximity alone does not. An even-though or despite clause may preserve a duty rather than remove it. The qualification must retain the baseline's scope and the limits of the modification.",
+      "description": "A condition/exception's relationship to its baseline; none for other kinds. The source decides which baseline a qualification governs. Contextual proximity alone does not. An even-though or despite clause may preserve a duty rather than remove it. The qualification must retain the baseline's scope and the limits of the modification. When a locally stated rule has an explicit exception, retain the complete baseline with its original kind and relation none, and also emit a separate exception unit linked to it. Do not turn the baseline itself into an exception or strip the exception from its meaning. A conditional permission does not by itself cancel a neighboring duty.",
       "enum": [
         "none",
         "scope",
@@ -236,7 +236,7 @@
       "properties": {
         "anchor": {
           "type": "string",
-          "description": "Source event from which a relative limit is measured; empty if absent."
+          "description": "Exact source phrase in quote naming the reference event; do not paraphrase.\nThis is the event from which a relative limit is measured; empty if absent."
         },
         "comparator": {
           "type": "string",
@@ -252,7 +252,8 @@
           "type": "string"
         },
         "unit": {
-          "type": "string"
+          "type": "string",
+          "description": "Exact unit wording from quote, including singular/plural; empty if absent."
         },
         "value": {
           "type": "string"
