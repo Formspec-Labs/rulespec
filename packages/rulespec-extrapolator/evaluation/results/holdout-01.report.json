@@ -1,0 +1,1701 @@
+{
+  "schema_version": "rulespec-evaluation-report/1",
+  "assessment_kind": "source-reviewed-judgment-accounting",
+  "status": "failed",
+  "review_complete": false,
+  "dataset_id": "fam-passports-2026-09-07",
+  "split": "holdout",
+  "rulebook_sha256": "fdfb88293c8a99161448fafd80c2fd94a3fe5ba188c5eb628c3e97f58008c512",
+  "labels_sha256": "25efe164b12ded2ad391445e56b4d7c059d289d6ae307259629722a9dee95a15",
+  "label_provenance": {
+    "reviewer": "Codex evaluation worker /root/evaluation",
+    "reviewer_kind": "aiAgent",
+    "method": "source_review",
+    "reviewed_at": "2026-09-07",
+    "description": "Agent-authored source review completed before candidate output was inspected. These are provisional evaluation labels, not human gold or an authoritative legal interpretation."
+  },
+  "review_provenance": {
+    "reviewer": "Codex evaluation worker /root/evaluation",
+    "reviewer_kind": "aiAgent",
+    "method": "source_review",
+    "review_started_at": "2026-09-07T15:02:01.200038+00:00",
+    "review_completed_at": "2026-09-07T15:14:20.156170+00:00",
+    "authorship_limit": "Agent-authored, uncalibrated source review. The same evaluation worker authored the labels before output inspection. No human expert has validated these decisions.",
+    "same_agent_authored_labels": true,
+    "decision_artifact_sha256": "aae5f686e0d22bb293e163d217a9e3f9cd7c57638fad081d219616b22c2a94f0",
+    "frozen_rulebook_path": "examples/document_understanding/manual-slice/runs/holdout-01/rulebook.json",
+    "frozen_rulebook_file_sha256": "b5923b1fab50f510b56ce90d53585101f77f5f022f05a52d90e142db6e6d2edb",
+    "unseal_receipt_sha256": "09d81468699f3096ae202167dcd426e2924539b26ce4ae4669e9b488086e3024"
+  },
+  "counts": {
+    "accepted_claims": 31,
+    "expected_units": 29,
+    "reviewed_claims": 31,
+    "unjudged_or_stale_claims": 0
+  },
+  "dimensions": {
+    "summary": {
+      "correct": 27,
+      "error": 2,
+      "not_applicable": 0,
+      "unknown": 2,
+      "reviewed_correct_fraction": {
+        "numerator": 27,
+        "denominator": 29,
+        "value": 0.9310344827586207
+      },
+      "reviewed_fraction": {
+        "numerator": 29,
+        "denominator": 31,
+        "value": 0.9354838709677419
+      },
+      "error_examples": [
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:c74d60b54ccd126d3129c5d358bc66d8a89fe77fb32aea0c1b0c2f7374436d92",
+          "summary": "Applicants must submit their name change documentation if their ID has not yet been changed.",
+          "actor": "they",
+          "rationale": "The accepted documentation duty is generalized to all applicants with unchanged ID. Its source confines the duty to a material name change within one year of a DS-11 application. The waiver/antecedent was rejected and no accepted link restores it. The literal they still resolves to applicants, so the role itself is retained."
+        },
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:440d7fdc77405719e9393d27d0f7a88995bde6ad4373142f65bf2be11b3a12d4",
+          "summary": "You may request additional evidence of citizenship/nationality or identity in accordance with 22 CFR 51.23 and 22 CFR 51.45.",
+          "actor": "You",
+          "rationale": "The request authority is extracted as general. In the selected text it is part of the confidential-former-name exception, but no condition, logic text, or incoming exception link limits it to that case. The requester You and cited CFR forms are correct; the generalization is unsupported within this source scope."
+        }
+      ]
+    },
+    "actor": {
+      "correct": 16,
+      "error": 0,
+      "not_applicable": 6,
+      "unknown": 9,
+      "reviewed_correct_fraction": {
+        "numerator": 16,
+        "denominator": 16,
+        "value": 1.0
+      },
+      "reviewed_fraction": {
+        "numerator": 22,
+        "denominator": 31,
+        "value": 0.7096774193548387
+      },
+      "error_examples": []
+    },
+    "support": {
+      "correct": 28,
+      "error": 2,
+      "not_applicable": 0,
+      "unknown": 1,
+      "reviewed_correct_fraction": {
+        "numerator": 28,
+        "denominator": 30,
+        "value": 0.9333333333333333
+      },
+      "reviewed_fraction": {
+        "numerator": 30,
+        "denominator": 31,
+        "value": 0.967741935483871
+      },
+      "error_examples": [
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:c74d60b54ccd126d3129c5d358bc66d8a89fe77fb32aea0c1b0c2f7374436d92",
+          "summary": "Applicants must submit their name change documentation if their ID has not yet been changed.",
+          "actor": "they",
+          "rationale": "The accepted documentation duty is generalized to all applicants with unchanged ID. Its source confines the duty to a material name change within one year of a DS-11 application. The waiver/antecedent was rejected and no accepted link restores it. The literal they still resolves to applicants, so the role itself is retained."
+        },
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:440d7fdc77405719e9393d27d0f7a88995bde6ad4373142f65bf2be11b3a12d4",
+          "summary": "You may request additional evidence of citizenship/nationality or identity in accordance with 22 CFR 51.23 and 22 CFR 51.45.",
+          "actor": "You",
+          "rationale": "The request authority is extracted as general. In the selected text it is part of the confidential-former-name exception, but no condition, logic text, or incoming exception link limits it to that case. The requester You and cited CFR forms are correct; the generalization is unsupported within this source scope."
+        }
+      ]
+    },
+    "scope": {
+      "correct": 25,
+      "error": 5,
+      "not_applicable": 0,
+      "unknown": 1,
+      "reviewed_correct_fraction": {
+        "numerator": 25,
+        "denominator": 30,
+        "value": 0.8333333333333334
+      },
+      "reviewed_fraction": {
+        "numerator": 30,
+        "denominator": 31,
+        "value": 0.967741935483871
+      },
+      "error_examples": [
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:61556f1301f6689ee20e7b5aefb4aeb99136e34970fcc70b658bc6ec0cbabf6d",
+          "summary": "A limited-validity passport may be issued in the requested name when insufficient time exists to request acceptable ID before urgent travel.",
+          "actor": "",
+          "rationale": "The permission retains limited validity and the requested name. Its summary says urgent travel while the linked condition includes urgent or emergency travel; the summary's narrowing is uncertain. The issuer is empty, and neither this claim nor its linked condition retains the older-name-change/unupdated-ID branch or an exception link to that branch."
+        },
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:fa1ca2677d916029d65b23f89b6d195e6a8ea63b37ed9650cd2e47df6404a4a2",
+          "summary": "Triggered when insufficient time exists to request acceptable ID prior to urgent or emergency travel.",
+          "actor": "",
+          "rationale": "The time/travel trigger itself preserves urgent OR emergency and insufficient time to request ID, but its linkage only to claim 11 leaves the surrounding older-name-change branch detached. The requester role is not supplied."
+        },
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:c74d60b54ccd126d3129c5d358bc66d8a89fe77fb32aea0c1b0c2f7374436d92",
+          "summary": "Applicants must submit their name change documentation if their ID has not yet been changed.",
+          "actor": "they",
+          "rationale": "The accepted documentation duty is generalized to all applicants with unchanged ID. Its source confines the duty to a material name change within one year of a DS-11 application. The waiver/antecedent was rejected and no accepted link restores it. The literal they still resolves to applicants, so the role itself is retained."
+        },
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:e2d161e5b02a84e60c382c6aba6e4fec7b5720b9b4c5ce67e4e162db55116c3e",
+          "summary": "Applies when the applicant's ID has not yet been changed.",
+          "actor": "",
+          "rationale": "The unchanged-ID condition points to claim 14 but captures only one part of its source scope. It does not restore the within-one-year DS-11 branch or the ID waiver. Its actor is empty."
+        },
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:440d7fdc77405719e9393d27d0f7a88995bde6ad4373142f65bf2be11b3a12d4",
+          "summary": "You may request additional evidence of citizenship/nationality or identity in accordance with 22 CFR 51.23 and 22 CFR 51.45.",
+          "actor": "You",
+          "rationale": "The request authority is extracted as general. In the selected text it is part of the confidential-former-name exception, but no condition, logic text, or incoming exception link limits it to that case. The requester You and cited CFR forms are correct; the generalization is unsupported within this source scope."
+        }
+      ]
+    },
+    "links": {
+      "correct": 24,
+      "error": 5,
+      "not_applicable": 0,
+      "unknown": 2,
+      "reviewed_correct_fraction": {
+        "numerator": 24,
+        "denominator": 29,
+        "value": 0.8275862068965517
+      },
+      "reviewed_fraction": {
+        "numerator": 29,
+        "denominator": 31,
+        "value": 0.9354838709677419
+      },
+      "error_examples": [
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:61556f1301f6689ee20e7b5aefb4aeb99136e34970fcc70b658bc6ec0cbabf6d",
+          "summary": "A limited-validity passport may be issued in the requested name when insufficient time exists to request acceptable ID before urgent travel.",
+          "actor": "",
+          "rationale": "The permission retains limited validity and the requested name. Its summary says urgent travel while the linked condition includes urgent or emergency travel; the summary's narrowing is uncertain. The issuer is empty, and neither this claim nor its linked condition retains the older-name-change/unupdated-ID branch or an exception link to that branch."
+        },
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:fa1ca2677d916029d65b23f89b6d195e6a8ea63b37ed9650cd2e47df6404a4a2",
+          "summary": "Triggered when insufficient time exists to request acceptable ID prior to urgent or emergency travel.",
+          "actor": "",
+          "rationale": "The time/travel trigger itself preserves urgent OR emergency and insufficient time to request ID, but its linkage only to claim 11 leaves the surrounding older-name-change branch detached. The requester role is not supplied."
+        },
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:c74d60b54ccd126d3129c5d358bc66d8a89fe77fb32aea0c1b0c2f7374436d92",
+          "summary": "Applicants must submit their name change documentation if their ID has not yet been changed.",
+          "actor": "they",
+          "rationale": "The accepted documentation duty is generalized to all applicants with unchanged ID. Its source confines the duty to a material name change within one year of a DS-11 application. The waiver/antecedent was rejected and no accepted link restores it. The literal they still resolves to applicants, so the role itself is retained."
+        },
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:e2d161e5b02a84e60c382c6aba6e4fec7b5720b9b4c5ce67e4e162db55116c3e",
+          "summary": "Applies when the applicant's ID has not yet been changed.",
+          "actor": "",
+          "rationale": "The unchanged-ID condition points to claim 14 but captures only one part of its source scope. It does not restore the within-one-year DS-11 branch or the ID waiver. Its actor is empty."
+        },
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:440d7fdc77405719e9393d27d0f7a88995bde6ad4373142f65bf2be11b3a12d4",
+          "summary": "You may request additional evidence of citizenship/nationality or identity in accordance with 22 CFR 51.23 and 22 CFR 51.45.",
+          "actor": "You",
+          "rationale": "The request authority is extracted as general. In the selected text it is part of the confidential-former-name exception, but no condition, logic text, or incoming exception link limits it to that case. The requester You and cited CFR forms are correct; the generalization is unsupported within this source scope."
+        }
+      ]
+    },
+    "boundary": {
+      "correct": 23,
+      "error": 6,
+      "not_applicable": 0,
+      "unknown": 2,
+      "reviewed_correct_fraction": {
+        "numerator": 23,
+        "denominator": 29,
+        "value": 0.7931034482758621
+      },
+      "reviewed_fraction": {
+        "numerator": 29,
+        "denominator": 31,
+        "value": 0.9354838709677419
+      },
+      "error_examples": [
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:61a2ac50791261f412c70ff7416a49f723b7ec9e65a8c71192c093a075f50499",
+          "summary": "Material discrepancies in names must be documented by submitting one or more specified documents.",
+          "actor": "",
+          "rationale": "The general one-or-more document requirement is faithful but none of the accepted document alternatives is assembled. The married-name exception survives only in the quote/reference and its scope is unresolved. The actor is explicitly empty. The list boundary loses substantive content."
+        },
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:61556f1301f6689ee20e7b5aefb4aeb99136e34970fcc70b658bc6ec0cbabf6d",
+          "summary": "A limited-validity passport may be issued in the requested name when insufficient time exists to request acceptable ID before urgent travel.",
+          "actor": "",
+          "rationale": "The permission retains limited validity and the requested name. Its summary says urgent travel while the linked condition includes urgent or emergency travel; the summary's narrowing is uncertain. The issuer is empty, and neither this claim nor its linked condition retains the older-name-change/unupdated-ID branch or an exception link to that branch."
+        },
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:fa1ca2677d916029d65b23f89b6d195e6a8ea63b37ed9650cd2e47df6404a4a2",
+          "summary": "Triggered when insufficient time exists to request acceptable ID prior to urgent or emergency travel.",
+          "actor": "",
+          "rationale": "The time/travel trigger itself preserves urgent OR emergency and insufficient time to request ID, but its linkage only to claim 11 leaves the surrounding older-name-change branch detached. The requester role is not supplied."
+        },
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:c74d60b54ccd126d3129c5d358bc66d8a89fe77fb32aea0c1b0c2f7374436d92",
+          "summary": "Applicants must submit their name change documentation if their ID has not yet been changed.",
+          "actor": "they",
+          "rationale": "The accepted documentation duty is generalized to all applicants with unchanged ID. Its source confines the duty to a material name change within one year of a DS-11 application. The waiver/antecedent was rejected and no accepted link restores it. The literal they still resolves to applicants, so the role itself is retained."
+        },
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:e2d161e5b02a84e60c382c6aba6e4fec7b5720b9b4c5ce67e4e162db55116c3e",
+          "summary": "Applies when the applicant's ID has not yet been changed.",
+          "actor": "",
+          "rationale": "The unchanged-ID condition points to claim 14 but captures only one part of its source scope. It does not restore the within-one-year DS-11 branch or the ID waiver. Its actor is empty."
+        },
+        {
+          "claim_id": "urn:rulespec:document-understanding:revision:440d7fdc77405719e9393d27d0f7a88995bde6ad4373142f65bf2be11b3a12d4",
+          "summary": "You may request additional evidence of citizenship/nationality or identity in accordance with 22 CFR 51.23 and 22 CFR 51.45.",
+          "actor": "You",
+          "rationale": "The request authority is extracted as general. In the selected text it is part of the confidential-former-name exception, but no condition, logic text, or incoming exception link limits it to that case. The requester You and cited CFR forms are correct; the generalization is unsupported within this source scope."
+        }
+      ]
+    }
+  },
+  "coverage": {
+    "covered": 11,
+    "missing": 7,
+    "partial": 5,
+    "unknown": 6,
+    "covered_fraction": {
+      "numerator": 11,
+      "denominator": 29,
+      "value": 0.3793103448275862
+    },
+    "missing_examples": [
+      {
+        "unit_id": "fam-names-02-u03",
+        "meaning": "Material discrepancies must be documented using one or more listed means, with an exception for married names in 8 FAM 403.1-4(C).",
+        "status": "partial",
+        "rationale": "The duty to submit one or more documents is present, but the five alternative means and nested court-order types are absent. The married-name exception is a reference rather than assembled scope."
+      },
+      {
+        "unit_id": "fam-names-03-u01",
+        "meaning": "Identity evidence may be required under Department guidance to establish the name that best identifies the applicant.",
+        "status": "missing",
+        "rationale": "No accepted claim represents the introductory discretionary identity-evidence authority under 22 CFR 51.23(c)."
+      },
+      {
+        "unit_id": "fam-names-03-u03",
+        "meaning": "A limited-validity passport may be issued in the requested name when urgent or emergency travel leaves insufficient time to obtain acceptable ID.",
+        "status": "partial",
+        "rationale": "The limited-passport permission and travel trigger are present, but the enclosing name-change branch is detached and the issuer remains unknown."
+      },
+      {
+        "unit_id": "fam-names-03-u05",
+        "meaning": "Applicants whose material name change occurred within one year of applying on DS-11 need not submit ID in the new name, but if ID is unchanged they must submit name-change documentation.",
+        "status": "partial",
+        "rationale": "The recent-change ID waiver exists only as a rejected candidate. The accepted documentation duty loses the DS-11/within-one-year antecedent; unchanged-ID alone is insufficient."
+      },
+      {
+        "unit_id": "fam-names-04-u07",
+        "meaning": "In the confidential-former-name case, the adjudicator may request additional citizenship/nationality or identity evidence.",
+        "status": "partial",
+        "rationale": "The additional-evidence authority is present without its confidential-name scope."
+      },
+      {
+        "unit_id": "fam-names-05-u01",
+        "meaning": "Names on U.S. passports, FS-240 and DS-2060 are printed in uppercase; adjudicators must determine the appearance of names with multiple parts.",
+        "status": "partial",
+        "rationale": "The multipart-name determination duty is present. Uppercase printing for passports, FS-240, and DS-2060 is omitted."
+      },
+      {
+        "unit_id": "fam-names-05-u02",
+        "meaning": "If a previous passport included a space in a multiple-part name, add a space on the current application.",
+        "status": "missing",
+        "rationale": "The should-add-space default based on a previous passport is absent."
+      },
+      {
+        "unit_id": "fam-names-05-u03",
+        "meaning": "If no previous passport exists and citizenship/nationality evidence or ID has a space, add a space on the application.",
+        "status": "missing",
+        "rationale": "The no-previous-passport and spaced evidence/ID default is absent."
+      },
+      {
+        "unit_id": "fam-names-05-u05",
+        "meaning": "For several family applications, space last names consistently unless a family member clearly prefers different spacing.",
+        "status": "missing",
+        "rationale": "The family consistency guidance and individual-preference exception are absent."
+      },
+      {
+        "unit_id": "fam-names-05-u06",
+        "meaning": "For special-issuance passports, eligible family members’ last-name spacing should match their sponsor’s.",
+        "status": "missing",
+        "rationale": "The special-issuance eligible-family-member/sponsor spacing guidance is absent."
+      },
+      {
+        "unit_id": "fam-names-05-u07",
+        "meaning": "Name spacing issues generally do not justify rewriting a passport unless the Department disregarded the applicant’s clear preference.",
+        "status": "missing",
+        "rationale": "The general limitation on passport rewrites for spacing and its exception are absent."
+      },
+      {
+        "unit_id": "fam-names-06-u03",
+        "meaning": "Name suffix issues generally do not justify rewriting a passport unless the Department disregarded the applicant’s clear preference.",
+        "status": "missing",
+        "rationale": "The general limitation on rewrites for suffix issues and its exception are absent."
+      }
+    ]
+  },
+  "issues": [],
+  "claim_results": [
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:4ccdebe7ee06de90d50d28645d0d386e5c80dc79a72f4908ac0ba799091aee56",
+      "claim_sha256": "d197b53be4408311c73e0e0d651a70b3fc745f407a740f2fd7ac57819f46da95",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-01-u01"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "not_applicable",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct"
+      },
+      "rationale": "The applicant definition preserves the adjudicated individual and the unusual DS-2060 inclusion. No acting party is required for this definition.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-01",
+          "start": 0,
+          "end": 255,
+          "quote": "NOTE: The term “applicant” is used hereinafter for the individual whose citizenship and identity is being adjudicated, including for form DS-2060. For purposes of this chapter, minor applicants are defined as un-emancipated applicants under the age of 18."
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:958bc84cc577b851fd15e4fd7337cc4762b25dcd3323180cd18d56835da615f3",
+      "claim_sha256": "eccff5824a3e85dfb4f4d8852d3f901bd60ed84e0de2fb435a1975c6bf94ac75",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-01-u02"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "not_applicable",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct"
+      },
+      "rationale": "The definition preserves both un-emancipated status and under 18; the chapter-scoped source quote is intact. No acting party is required.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-01",
+          "start": 0,
+          "end": 255,
+          "quote": "NOTE: The term “applicant” is used hereinafter for the individual whose citizenship and identity is being adjudicated, including for form DS-2060. For purposes of this chapter, minor applicants are defined as un-emancipated applicants under the age of 18."
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:e1bfe2164b1deb9d11449e7683de5ed033a8d8ab04e2ec9196fd61cf87ebc277",
+      "claim_sha256": "fefe2a91251bb5ff9dc48181f06ad93d40a2b8efb4c57d6aa0f938abec2f910b",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-02-u01"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "not_applicable",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct"
+      },
+      "rationale": "The definition preserves the exclusion by the immaterial-name-change reference. That reference is explicitly unresolved. An unresolved exact binding for the short word is does not alter the source-reviewed definition.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-02",
+          "start": 86,
+          "end": 408,
+          "quote": "a. A material discrepancy is any name change that is not defined as immaterial in 8 FAM 403.1-5. The applicant must explain any material discrepancies between the name on the application and the name recorded in the evidence of U.S. citizenship/non-citizen U.S. nationality and the evidence of identity (see 22 CFR 51.25)."
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:1583867839a75ddd5d583b2df8e96e6ea2c1eee91258db89ff2ce3f786a38171",
+      "claim_sha256": "da384330b62781b7d0d6a3ed42161b40e44b4d8887cc92c059b8fd25f553a99d",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-02-u02"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct"
+      },
+      "rationale": "The applicant, explanation duty, and the application/citizenship-or-nationality/identity records are preserved. The cited CFR remains unresolved rather than invented.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-02",
+          "start": 86,
+          "end": 408,
+          "quote": "a. A material discrepancy is any name change that is not defined as immaterial in 8 FAM 403.1-5. The applicant must explain any material discrepancies between the name on the application and the name recorded in the evidence of U.S. citizenship/non-citizen U.S. nationality and the evidence of identity (see 22 CFR 51.25)."
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:61a2ac50791261f412c70ff7416a49f723b7ec9e65a8c71192c093a075f50499",
+      "claim_sha256": "a8f984e46c13ed36a0c5fb9ea868554a0c4e4b541be976210872007857389645",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-02-u03"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "unknown",
+        "support": "correct",
+        "scope": "unknown",
+        "links": "correct",
+        "boundary": "error"
+      },
+      "rationale": "The general one-or-more document requirement is faithful but none of the accepted document alternatives is assembled. The married-name exception survives only in the quote/reference and its scope is unresolved. The actor is explicitly empty. The list boundary loses substantive content.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-02",
+          "start": 410,
+          "end": 813,
+          "quote": "b. Material discrepancies between the name recorded on the application, the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality, or the evidence of identity must be documented by submission of one or more of the documents listed in this section (see an exception for married names in 8 FAM 403.1-4(C)). Acceptable means of documenting a material name change include (per 22 CFR 51.25):"
+        },
+        {
+          "source_id": "fam-names-02",
+          "start": 815,
+          "end": 843,
+          "quote": "(1) Court orders or decrees:"
+        },
+        {
+          "source_id": "fam-names-02",
+          "start": 895,
+          "end": 930,
+          "quote": "(2) Certificates of naturalization;"
+        },
+        {
+          "source_id": "fam-names-02",
+          "start": 932,
+          "end": 958,
+          "quote": "(3) Marriage certificates;"
+        },
+        {
+          "source_id": "fam-names-02",
+          "start": 960,
+          "end": 1036,
+          "quote": "(4) Documentation demonstrating change of name by operation of state law; or"
+        },
+        {
+          "source_id": "fam-names-02",
+          "start": 1038,
+          "end": 1075,
+          "quote": "(5) Documentation of customary usage."
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:a383893ca8db932d8e64d0cc2db3d1e1073fb2349a1923c608051a1d7942b021",
+      "claim_sha256": "c4f173a9c7a948d80b0b98d35abe8393d09a245ca05869be6faf837c36bd08d7",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-02-u04"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "unknown",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct"
+      },
+      "rationale": "The counterfeiting-or-alteration review duty is retained and the external reference is unresolved. The actor remains empty; the source does not identify a particular office, so actor correctness cannot be credited.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-02",
+          "start": 1077,
+          "end": 1196,
+          "quote": "NOTE: Evidence of material name changes must be reviewed for evidence of counterfeiting or alteration (see 8 FAM 201.1)"
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:f48917d459543149632791c17432d08e5e96d26cc97a21de762cd52e0b9f382c",
+      "claim_sha256": "4e1782f78d63100650ae75d5db3b0aa88dd2fcb30b8b26859b777dfeaf91d602",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-02-u05"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct"
+      },
+      "rationale": "The applicant prohibition retains the material-change scope and express-documentation exception. Incoming exception claim 8 points to this prohibition, and the known-as reference is explicitly unresolved.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-02",
+          "start": 1198,
+          "end": 1431,
+          "quote": "c. The applicant may not continue to use a previous name after a material name change unless the name change documentation specifically permits the applicant to continue using that name (see 8 FAM 403.1-6 regarding “known as” names)."
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:8c59895244a5fad6210f249d202504ebb33199a8f983dc9105127db21e884a81",
+      "claim_sha256": "37cb92a8df035db2fb721cc7d7ec4efd380bb3a15f31521c786d987a7b1aefeb",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-02-u05"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct"
+      },
+      "rationale": "This exception preserves express permission in name-change documentation and points to claim 7. The split is redundant with the main summary but retains its target and does not add a new duty.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-02",
+          "start": 1198,
+          "end": 1431,
+          "quote": "c. The applicant may not continue to use a previous name after a material name change unless the name change documentation specifically permits the applicant to continue using that name (see 8 FAM 403.1-6 regarding “known as” names)."
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:f4e93af2ad98487255938db4d913ba268492d60d8c34dcd865e2f8e58fd08de5",
+      "claim_sha256": "44025cd2f4617adf0b00485918030d9e0354bca950ad84d19bd073bc923031e6",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-03-u02"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct"
+      },
+      "rationale": "The addressed adjudicator must suspend and request acceptable new-name ID. Incoming claim 10 supplies the more-than-one-year, DS-11, and unchanged-ID conditions, so this was reviewed as a connected rule.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-03",
+          "start": 239,
+          "end": 670,
+          "quote": "(1) If the applicant has had a material name change more than one year prior to applying on form DS-11 but has not updated her/his ID to reflect the material name change, you must suspend the application to request an acceptable ID in the new name. If there is insufficient time to request that the applicant submit acceptable ID prior to urgent or emergency travel, a limited-validity passport may be issued in the requested name;"
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:c3d581563102ea3c7b0d6c113eebbe39c8a7e2b360cd827a3f0192f53aa8d2f2",
+      "claim_sha256": "deef2ff33526f5d0a74ab9598e9f43366aa1e27bbb86a521d36ec5eef46097ef",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-03-u02"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct"
+      },
+      "rationale": "The condition preserves more than one year, DS-11, and unchanged ID and links to claim 9. Exact logic is explicitly uninterpreted; no anniversary calculation is invented.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-03",
+          "start": 239,
+          "end": 670,
+          "quote": "(1) If the applicant has had a material name change more than one year prior to applying on form DS-11 but has not updated her/his ID to reflect the material name change, you must suspend the application to request an acceptable ID in the new name. If there is insufficient time to request that the applicant submit acceptable ID prior to urgent or emergency travel, a limited-validity passport may be issued in the requested name;"
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:61556f1301f6689ee20e7b5aefb4aeb99136e34970fcc70b658bc6ec0cbabf6d",
+      "claim_sha256": "8edceabaf029093af9526f499e37377d05641aaceb5ab5d32c1c17cd23c436d9",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-03-u03"
+      ],
+      "dimensions": {
+        "summary": "unknown",
+        "actor": "unknown",
+        "support": "correct",
+        "scope": "error",
+        "links": "error",
+        "boundary": "error"
+      },
+      "rationale": "The permission retains limited validity and the requested name. Its summary says urgent travel while the linked condition includes urgent or emergency travel; the summary's narrowing is uncertain. The issuer is empty, and neither this claim nor its linked condition retains the older-name-change/unupdated-ID branch or an exception link to that branch.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-03",
+          "start": 239,
+          "end": 670,
+          "quote": "(1) If the applicant has had a material name change more than one year prior to applying on form DS-11 but has not updated her/his ID to reflect the material name change, you must suspend the application to request an acceptable ID in the new name. If there is insufficient time to request that the applicant submit acceptable ID prior to urgent or emergency travel, a limited-validity passport may be issued in the requested name;"
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:fa1ca2677d916029d65b23f89b6d195e6a8ea63b37ed9650cd2e47df6404a4a2",
+      "claim_sha256": "9066d02395804df3ae03c7c01e20fb98a823f9861b3d19bfc92548447a731121",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-03-u03"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "unknown",
+        "support": "correct",
+        "scope": "error",
+        "links": "error",
+        "boundary": "error"
+      },
+      "rationale": "The time/travel trigger itself preserves urgent OR emergency and insufficient time to request ID, but its linkage only to claim 11 leaves the surrounding older-name-change branch detached. The requester role is not supplied.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-03",
+          "start": 239,
+          "end": 670,
+          "quote": "(1) If the applicant has had a material name change more than one year prior to applying on form DS-11 but has not updated her/his ID to reflect the material name change, you must suspend the application to request an acceptable ID in the new name. If there is insufficient time to request that the applicant submit acceptable ID prior to urgent or emergency travel, a limited-validity passport may be issued in the requested name;"
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:2f4c366dcf2b3b33d993a5cfbda078168364782e3c7bdd0ddcad765afd641bfd",
+      "claim_sha256": "991fdc047f7c8e56c43bdfcdc373fd3a18fd564caf97706e4d7b3187ba96926c",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-03-u04"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct"
+      },
+      "rationale": "The addressed adjudicator's annotation action, return timing, applicant/IRL context, and required seen-and-returned notation survive in the summary plus explicit logic text.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-03",
+          "start": 672,
+          "end": 985,
+          "quote": "(2) The applicant generally will need the name change documentation to change the name on her/his ID. You must fully notate the name change documentation prior to returning the documentation, including that the documentation was \"seen and returned,\" to the applicant with the information request letter (IRL); and"
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:c74d60b54ccd126d3129c5d358bc66d8a89fe77fb32aea0c1b0c2f7374436d92",
+      "claim_sha256": "5497731dcc80dd59bc1a971e601aa81be42f956dd564731fe62981c2d94e194c",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-03-u05"
+      ],
+      "dimensions": {
+        "summary": "error",
+        "actor": "correct",
+        "support": "error",
+        "scope": "error",
+        "links": "error",
+        "boundary": "error"
+      },
+      "rationale": "The accepted documentation duty is generalized to all applicants with unchanged ID. Its source confines the duty to a material name change within one year of a DS-11 application. The waiver/antecedent was rejected and no accepted link restores it. The literal they still resolves to applicants, so the role itself is retained.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-03",
+          "start": 987,
+          "end": 1218,
+          "quote": "(3) Applicants who have had a material name change within one year of applying on a form DS-11 do not need to submit ID in the new name. However, if the ID has not yet been changed, they must submit their name change documentation."
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:e2d161e5b02a84e60c382c6aba6e4fec7b5720b9b4c5ce67e4e162db55116c3e",
+      "claim_sha256": "8b5f07b5ef2c8594848050255afb513bd898fb9023566d20429784b66d2bb9a8",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-03-u05"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "unknown",
+        "support": "correct",
+        "scope": "error",
+        "links": "error",
+        "boundary": "error"
+      },
+      "rationale": "The unchanged-ID condition points to claim 14 but captures only one part of its source scope. It does not restore the within-one-year DS-11 branch or the ID waiver. Its actor is empty.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-03",
+          "start": 987,
+          "end": 1218,
+          "quote": "(3) Applicants who have had a material name change within one year of applying on a form DS-11 do not need to submit ID in the new name. However, if the ID has not yet been changed, they must submit their name change documentation."
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:e570bab1f5ca2e31ff708b7eef3ef1259e309d353932f8170a10884aac42dec6",
+      "claim_sha256": "535297d7177f1cc32737d9a2612b1151056466fd3a4016770287204ed5286799",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-04-u01"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "not_applicable",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct"
+      },
+      "rationale": "The court order/decree finality property is exact. The document is a regulated object rather than an acting official, so actor is not applicable for this property.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-04",
+          "start": 0,
+          "end": 43,
+          "quote": "c. The court order or decree must be final:"
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:883147b5262da8c484e5c80f02a8659d3a1996e3873447976ba90f6c6b4d22d5",
+      "claim_sha256": "9b94b021c80c189818bb445c38522610f62833b0b4d96d8f2109aeff1d59eba3",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-04-u02"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "unknown",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct"
+      },
+      "rationale": "The pending-name passport prohibition and replacement-passport reference are retained. The issuer role remains explicitly empty and unknown; it is not assigned to the applicant.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-04",
+          "start": 45,
+          "end": 217,
+          "quote": "(1) An applicant with a pending name change must not be issued a passport in her/his new name. See 8 FAM 1001.5 regarding applying for a replacement passport in a new name;"
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:37046b92ad751a25e7d65c14ab5cb7c4d4950f8a899e06eb5348291ca34cd380",
+      "claim_sha256": "46066db4c1fc0d1145ae3168f961b5e1fe73f51188efd1294b02681c8ed1615d",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-04-u03"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "unknown",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct"
+      },
+      "rationale": "The separate pending-name FS-240 prohibition and amendment reference are retained. The issuer role remains empty and unknown; no passport/FS-240 conflation appears.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-04",
+          "start": 219,
+          "end": 371,
+          "quote": "(2) An applicant with a pending name change must not be issued a form FS-240 in her/his new name. See 8 FAM 1001.3 regarding amending a form FS-240; and"
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:b58f949cf23cae3655165cbf0f27578958ce53c33431a613692f124108b76cdf",
+      "claim_sha256": "264d9b1a69dfdf89ae0ef11efcde5494176a9d94c615248746db52a379b5f67d",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-04-u04"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct"
+      },
+      "rationale": "The addressed adjudicator must clear the pending name despite non-finality and despite no current issuance. Both independent qualifications remain verbatim in logic_text.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-04",
+          "start": 373,
+          "end": 520,
+          "quote": "(3) You must clear the applicant's pending name even though the name change is not final and even if the passport is not being issued at this time."
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:88c5c48d4e0a05b36b085e99bc174b262078cbca95e427b07d535baf52d53926",
+      "claim_sha256": "dc17bf33a3748b7df4a05c99b8e4b48ff7bcf44f28b0af4baf03c8f90dc6e673",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-04-u05"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "not_applicable",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct"
+      },
+      "rationale": "The document must list current and former names, and incoming exception claim 21 restores the confidential-former-name qualification. No acting official is required for this document property.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-04",
+          "start": 522,
+          "end": 609,
+          "quote": "d. The court order or decree must list both the applicant's current and former name(s)."
+        },
+        {
+          "source_id": "fam-names-04",
+          "start": 611,
+          "end": 1002,
+          "quote": "EXCEPTION: You may receive a court order in which the applicant's former name is made confidential (e.g., California's Safe at Home program). When this occurs, the applicant must provide both her/his current and former names on the application. You may request additional evidence of U.S. citizenship/non-citizen U.S. nationality or identity in accordance with 22 CFR 51.23 and 22 CFR 51.45."
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:f9a7d65d4abe32e3269800c1b23d1ba2995cd3c67e97469c5642ce8a3f5b813a",
+      "claim_sha256": "ac87b793777e077a0579741001613e16a5ef0158c855d4dba67f1c4f94782ebd",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-04-u05"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct"
+      },
+      "rationale": "The confidential-former-name case is explicitly an exception and points to claim 20. The addressed recipient and the source's court-order example are preserved without claiming a new unconditional permission.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-04",
+          "start": 522,
+          "end": 609,
+          "quote": "d. The court order or decree must list both the applicant's current and former name(s)."
+        },
+        {
+          "source_id": "fam-names-04",
+          "start": 611,
+          "end": 1002,
+          "quote": "EXCEPTION: You may receive a court order in which the applicant's former name is made confidential (e.g., California's Safe at Home program). When this occurs, the applicant must provide both her/his current and former names on the application. You may request additional evidence of U.S. citizenship/non-citizen U.S. nationality or identity in accordance with 22 CFR 51.23 and 22 CFR 51.45."
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:a48d02b904e30845feb75e23ff9293c433fddebf59815c8572c9bf8a7b231efe",
+      "claim_sha256": "6b73548c5f30d6a13edddf6949e1338d962f831d0446a3b3624c7f204579607d",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-04-u06"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "unknown",
+        "boundary": "unknown"
+      },
+      "rationale": "The summary correctly states the confidential-name case and the applicant's duty to provide both names on the application. Its explicit trigger is the unresolved anaphor When this occurs, with no source-antecedent binding; claim 23 adds a provider interpretation, so links and boundary remain uncertain.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-04",
+          "start": 611,
+          "end": 1002,
+          "quote": "EXCEPTION: You may receive a court order in which the applicant's former name is made confidential (e.g., California's Safe at Home program). When this occurs, the applicant must provide both her/his current and former names on the application. You may request additional evidence of U.S. citizenship/non-citizen U.S. nationality or identity in accordance with 22 CFR 51.23 and 22 CFR 51.45."
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:0a81426b35115fdb8a0ffbb7098aaab5b948e04507e81918192727b9e8fe70d0",
+      "claim_sha256": "49ad18f9f82e2655dc0bbff90c8745038ba1cdc5b74bb17a7f6f86f22742b8c5",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-04-u06"
+      ],
+      "dimensions": {
+        "summary": "unknown",
+        "actor": "not_applicable",
+        "support": "unknown",
+        "scope": "correct",
+        "links": "unknown",
+        "boundary": "unknown"
+      },
+      "rationale": "The source says the addressed officer may receive such a court order, followed by When this occurs. The summary adds that the applicant provides it. That supplier inference is plausible but not stated; it remains unknown. No acting party is necessary for the occurrence condition itself.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-04",
+          "start": 611,
+          "end": 1002,
+          "quote": "EXCEPTION: You may receive a court order in which the applicant's former name is made confidential (e.g., California's Safe at Home program). When this occurs, the applicant must provide both her/his current and former names on the application. You may request additional evidence of U.S. citizenship/non-citizen U.S. nationality or identity in accordance with 22 CFR 51.23 and 22 CFR 51.45."
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:440d7fdc77405719e9393d27d0f7a88995bde6ad4373142f65bf2be11b3a12d4",
+      "claim_sha256": "26400db911bc889b81cebcae7564f0c23b19dc58fb891a731a2e23faae2f4ad3",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-04-u07"
+      ],
+      "dimensions": {
+        "summary": "error",
+        "actor": "correct",
+        "support": "error",
+        "scope": "error",
+        "links": "error",
+        "boundary": "error"
+      },
+      "rationale": "The request authority is extracted as general. In the selected text it is part of the confidential-former-name exception, but no condition, logic text, or incoming exception link limits it to that case. The requester You and cited CFR forms are correct; the generalization is unsupported within this source scope.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-04",
+          "start": 611,
+          "end": 1002,
+          "quote": "EXCEPTION: You may receive a court order in which the applicant's former name is made confidential (e.g., California's Safe at Home program). When this occurs, the applicant must provide both her/his current and former names on the application. You may request additional evidence of U.S. citizenship/non-citizen U.S. nationality or identity in accordance with 22 CFR 51.23 and 22 CFR 51.45."
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:e0f736e75abd63a713f9a79393bcbc96b57b52b20f5f42fef74e3c1b9ac12dea",
+      "claim_sha256": "b53480a217a343690fcbfac5ee218946204a8ae9b8ac855e89ea10eb427f811a",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-05-u01"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct"
+      },
+      "rationale": "The multipart-name determination duty and its condition are retained, including incoming condition 26. This claim does not include the adjacent uppercase-printing statement for three document types; that is recorded as partial unit coverage.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-05",
+          "start": 57,
+          "end": 475,
+          "quote": "a. In accordance with International Civil Aviation Organization (ICAO) recommendations, U.S. passports, form FS-240, and form DS-2060 are printed in all uppercase letters. Printing a name with multiple parts in uppercase letters causes the name to appear as one word unless the parts are separated with spaces. Consequently, if the applicant has a name with multiple parts, you must determine how the name will appear:"
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:ce0558b5a16371bb3726a398353016d260eb39370f596350b8c0cb4d1c8508a6",
+      "claim_sha256": "648f9e7ff0cf134c9b3b8db37c059c51c215e5e9c3f64f200635a2310befad99",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-05-u01"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct"
+      },
+      "rationale": "The multipart-name condition is faithful and targets claim 25. It contributes no additional printing rule and does not silently cover that omission.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-05",
+          "start": 57,
+          "end": 475,
+          "quote": "a. In accordance with International Civil Aviation Organization (ICAO) recommendations, U.S. passports, form FS-240, and form DS-2060 are printed in all uppercase letters. Printing a name with multiple parts in uppercase letters causes the name to appear as one word unless the parts are separated with spaces. Consequently, if the applicant has a name with multiple parts, you must determine how the name will appear:"
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:70738888ff5113bb95db1fc42e5c76ab4def7da08c186940d26b475ed88ab991",
+      "claim_sha256": "c8672d4f9973546e7344da14b8f6ba897c4720675c86ed1ab605ad5683664ce2",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-05-u04"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct"
+      },
+      "rationale": "The add-or-remove permission preserves clear applicant preference and verbal OR written expression. The source-reviewed full quote supports the action and pronoun despite component evidence ambiguity flags; the code does not claim those bindings were repaired.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-05",
+          "start": 790,
+          "end": 951,
+          "quote": "(3) If the applicant expresses a clear preference to add or remove space, either verbally or in writing, you may add or remove it per the applicant's preference."
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:4edba54d9ca59fc667ae6de5920e1d50cdc915a4031b4d76550581bcf39154f1",
+      "claim_sha256": "7f9db9cb5016285bacea35911ec3bf844e5253da6ce1c01db31992901629ef19",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-05-u04"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct"
+      },
+      "rationale": "The qualification preserves clear spacing preference and verbal/written alternatives and points to claim 27. The split retains the correct target.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-05",
+          "start": 790,
+          "end": 951,
+          "quote": "(3) If the applicant expresses a clear preference to add or remove space, either verbally or in writing, you may add or remove it per the applicant's preference."
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:bd377c32bbef3035b43a97d16f4ebaf700d93d56059a7191cdd3bcdafcbf35d9",
+      "claim_sha256": "1aef980d3a4ab1da54539b2d414f7cab1e85916199a1652d08c4765435539609",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-06-u01"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "unknown",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct"
+      },
+      "rationale": "The ordinal-to-Roman transformation is faithful in the pinned name-suffix section. No acting role is supplied; the unknown_actor issue remains unresolved rather than assigning the applicant an unsupported correction duty.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-06",
+          "start": 0,
+          "end": 96,
+          "quote": "c. Arabic ordinal numbers must be changed to Roman numerals, for example, 2nd to II, 3rd to III:"
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:2edf0eff943694b9b0a3f6644fb24ca2ce872619cd44493ca9f0293a89433373",
+      "claim_sha256": "7c345e60b928244aedd457667e244045efd720346070b6133408146055fd25a0",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-06-u02"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "unknown",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct"
+      },
+      "rationale": "The summary correctly distinguishes the Spanish courtesy prefix Sr. and directs the reader to ranks-and-titles guidance; incoming condition 31 supplies the determination condition. The reference remains unresolved. The addressed actor was omitted and remains unknown.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-06",
+          "start": 98,
+          "end": 333,
+          "quote": "d. Some applicants may include the prefix “Sr.” as an abbreviation for “Señor” in Spanish meaning “Mr.” or “Mister” in English. If you determine that this is the case, follow the guidance in 8 FAM 403.1-5(C) regarding ranks and titles."
+        }
+      ]
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:6186fd57b6a05c6e72e1f946e1716d3fa8960c2ee73976c338e31894cd1e4061",
+      "claim_sha256": "4f33e1b71e70969a8f39538451ca768215ecf03508893b6ebe10b3c7d881a499",
+      "status": "reviewed",
+      "unit_ids": [
+        "fam-names-06-u02"
+      ],
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct"
+      },
+      "rationale": "Reading the pinned preceding sentence resolves this is the case to the Spanish Señor prefix. The summary states that case accurately, retains the addressed determiner, and points to claim 30. This judgment uses source context, not quote overlap alone.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-06",
+          "start": 98,
+          "end": 333,
+          "quote": "d. Some applicants may include the prefix “Sr.” as an abbreviation for “Señor” in Spanish meaning “Mr.” or “Mister” in English. If you determine that this is the case, follow the guidance in 8 FAM 403.1-5(C) regarding ranks and titles."
+        }
+      ]
+    }
+  ],
+  "unit_results": [
+    {
+      "unit_id": "fam-names-01-u01",
+      "excerpt_id": "fam-names-01",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:4ccdebe7ee06de90d50d28645d0d386e5c80dc79a72f4908ac0ba799091aee56"
+      ],
+      "rationale": "The adjudicated-individual definition and DS-2060 inclusion are retained.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-01",
+          "start": 0,
+          "end": 255,
+          "quote": "NOTE: The term “applicant” is used hereinafter for the individual whose citizenship and identity is being adjudicated, including for form DS-2060. For purposes of this chapter, minor applicants are defined as un-emancipated applicants under the age of 18."
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-01-u02",
+      "excerpt_id": "fam-names-01",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:958bc84cc577b851fd15e4fd7337cc4762b25dcd3323180cd18d56835da615f3"
+      ],
+      "rationale": "The age and emancipation qualifications are retained.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-01",
+          "start": 0,
+          "end": 255,
+          "quote": "NOTE: The term “applicant” is used hereinafter for the individual whose citizenship and identity is being adjudicated, including for form DS-2060. For purposes of this chapter, minor applicants are defined as un-emancipated applicants under the age of 18."
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-02-u01",
+      "excerpt_id": "fam-names-02",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:e1bfe2164b1deb9d11449e7683de5ed033a8d8ab04e2ec9196fd61cf87ebc277"
+      ],
+      "rationale": "The definition and unresolved cross-reference are retained.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-02",
+          "start": 86,
+          "end": 408,
+          "quote": "a. A material discrepancy is any name change that is not defined as immaterial in 8 FAM 403.1-5. The applicant must explain any material discrepancies between the name on the application and the name recorded in the evidence of U.S. citizenship/non-citizen U.S. nationality and the evidence of identity (see 22 CFR 51.25)."
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-02-u02",
+      "excerpt_id": "fam-names-02",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:1583867839a75ddd5d583b2df8e96e6ea2c1eee91258db89ff2ce3f786a38171"
+      ],
+      "rationale": "The applicant explanation duty covers the three record categories.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-02",
+          "start": 86,
+          "end": 408,
+          "quote": "a. A material discrepancy is any name change that is not defined as immaterial in 8 FAM 403.1-5. The applicant must explain any material discrepancies between the name on the application and the name recorded in the evidence of U.S. citizenship/non-citizen U.S. nationality and the evidence of identity (see 22 CFR 51.25)."
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-02-u03",
+      "excerpt_id": "fam-names-02",
+      "status": "partial",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:61a2ac50791261f412c70ff7416a49f723b7ec9e65a8c71192c093a075f50499"
+      ],
+      "rationale": "The duty to submit one or more documents is present, but the five alternative means and nested court-order types are absent. The married-name exception is a reference rather than assembled scope.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-02",
+          "start": 410,
+          "end": 813,
+          "quote": "b. Material discrepancies between the name recorded on the application, the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality, or the evidence of identity must be documented by submission of one or more of the documents listed in this section (see an exception for married names in 8 FAM 403.1-4(C)). Acceptable means of documenting a material name change include (per 22 CFR 51.25):"
+        },
+        {
+          "source_id": "fam-names-02",
+          "start": 815,
+          "end": 843,
+          "quote": "(1) Court orders or decrees:"
+        },
+        {
+          "source_id": "fam-names-02",
+          "start": 895,
+          "end": 930,
+          "quote": "(2) Certificates of naturalization;"
+        },
+        {
+          "source_id": "fam-names-02",
+          "start": 932,
+          "end": 958,
+          "quote": "(3) Marriage certificates;"
+        },
+        {
+          "source_id": "fam-names-02",
+          "start": 960,
+          "end": 1036,
+          "quote": "(4) Documentation demonstrating change of name by operation of state law; or"
+        },
+        {
+          "source_id": "fam-names-02",
+          "start": 1038,
+          "end": 1075,
+          "quote": "(5) Documentation of customary usage."
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-02-u04",
+      "excerpt_id": "fam-names-02",
+      "status": "unknown",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:a383893ca8db932d8e64d0cc2db3d1e1073fb2349a1923c608051a1d7942b021"
+      ],
+      "rationale": "The review duty is retained, but its acting role remains explicitly unresolved.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-02",
+          "start": 1077,
+          "end": 1196,
+          "quote": "NOTE: Evidence of material name changes must be reviewed for evidence of counterfeiting or alteration (see 8 FAM 201.1)"
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-02-u05",
+      "excerpt_id": "fam-names-02",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:f48917d459543149632791c17432d08e5e96d26cc97a21de762cd52e0b9f382c",
+        "urn:rulespec:document-understanding:revision:8c59895244a5fad6210f249d202504ebb33199a8f983dc9105127db21e884a81"
+      ],
+      "rationale": "The prohibition and express-permission exception remain connected.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-02",
+          "start": 1198,
+          "end": 1431,
+          "quote": "c. The applicant may not continue to use a previous name after a material name change unless the name change documentation specifically permits the applicant to continue using that name (see 8 FAM 403.1-6 regarding “known as” names)."
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-03-u01",
+      "excerpt_id": "fam-names-03",
+      "status": "missing",
+      "claim_ids": [],
+      "rationale": "No accepted claim represents the introductory discretionary identity-evidence authority under 22 CFR 51.23(c).",
+      "source_spans": [
+        {
+          "source_id": "fam-names-03",
+          "start": 0,
+          "end": 237,
+          "quote": "d. The applicant's name is an integral part of her/his identity. Consequently, under 22 CFR 51.23(c), evidence of identity might be required in accordance with Department guidance to establish the name that best identifies the applicant:"
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-03-u02",
+      "excerpt_id": "fam-names-03",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:f4e93af2ad98487255938db4d913ba268492d60d8c34dcd865e2f8e58fd08de5",
+        "urn:rulespec:document-understanding:revision:c3d581563102ea3c7b0d6c113eebbe39c8a7e2b360cd827a3f0192f53aa8d2f2"
+      ],
+      "rationale": "The suspension duty and full older-change/DS-11/unchanged-ID condition are connected.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-03",
+          "start": 239,
+          "end": 670,
+          "quote": "(1) If the applicant has had a material name change more than one year prior to applying on form DS-11 but has not updated her/his ID to reflect the material name change, you must suspend the application to request an acceptable ID in the new name. If there is insufficient time to request that the applicant submit acceptable ID prior to urgent or emergency travel, a limited-validity passport may be issued in the requested name;"
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-03-u03",
+      "excerpt_id": "fam-names-03",
+      "status": "partial",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:61556f1301f6689ee20e7b5aefb4aeb99136e34970fcc70b658bc6ec0cbabf6d",
+        "urn:rulespec:document-understanding:revision:fa1ca2677d916029d65b23f89b6d195e6a8ea63b37ed9650cd2e47df6404a4a2"
+      ],
+      "rationale": "The limited-passport permission and travel trigger are present, but the enclosing name-change branch is detached and the issuer remains unknown.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-03",
+          "start": 239,
+          "end": 670,
+          "quote": "(1) If the applicant has had a material name change more than one year prior to applying on form DS-11 but has not updated her/his ID to reflect the material name change, you must suspend the application to request an acceptable ID in the new name. If there is insufficient time to request that the applicant submit acceptable ID prior to urgent or emergency travel, a limited-validity passport may be issued in the requested name;"
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-03-u04",
+      "excerpt_id": "fam-names-03",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:2f4c366dcf2b3b33d993a5cfbda078168364782e3c7bdd0ddcad765afd641bfd"
+      ],
+      "rationale": "The return timing, IRL, and seen-and-returned notation survive in explicit content.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-03",
+          "start": 672,
+          "end": 985,
+          "quote": "(2) The applicant generally will need the name change documentation to change the name on her/his ID. You must fully notate the name change documentation prior to returning the documentation, including that the documentation was \"seen and returned,\" to the applicant with the information request letter (IRL); and"
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-03-u05",
+      "excerpt_id": "fam-names-03",
+      "status": "partial",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:c74d60b54ccd126d3129c5d358bc66d8a89fe77fb32aea0c1b0c2f7374436d92",
+        "urn:rulespec:document-understanding:revision:e2d161e5b02a84e60c382c6aba6e4fec7b5720b9b4c5ce67e4e162db55116c3e"
+      ],
+      "rationale": "The recent-change ID waiver exists only as a rejected candidate. The accepted documentation duty loses the DS-11/within-one-year antecedent; unchanged-ID alone is insufficient.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-03",
+          "start": 987,
+          "end": 1218,
+          "quote": "(3) Applicants who have had a material name change within one year of applying on a form DS-11 do not need to submit ID in the new name. However, if the ID has not yet been changed, they must submit their name change documentation."
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-04-u01",
+      "excerpt_id": "fam-names-04",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:e570bab1f5ca2e31ff708b7eef3ef1259e309d353932f8170a10884aac42dec6"
+      ],
+      "rationale": "The finality requirement is present as a document property.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-04",
+          "start": 0,
+          "end": 43,
+          "quote": "c. The court order or decree must be final:"
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-04-u02",
+      "excerpt_id": "fam-names-04",
+      "status": "unknown",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:883147b5262da8c484e5c80f02a8659d3a1996e3873447976ba90f6c6b4d22d5"
+      ],
+      "rationale": "The passport prohibition is present but the issuer is unresolved.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-04",
+          "start": 45,
+          "end": 217,
+          "quote": "(1) An applicant with a pending name change must not be issued a passport in her/his new name. See 8 FAM 1001.5 regarding applying for a replacement passport in a new name;"
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-04-u03",
+      "excerpt_id": "fam-names-04",
+      "status": "unknown",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:37046b92ad751a25e7d65c14ab5cb7c4d4950f8a899e06eb5348291ca34cd380"
+      ],
+      "rationale": "The separate FS-240 prohibition is present but the issuer is unresolved.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-04",
+          "start": 219,
+          "end": 371,
+          "quote": "(2) An applicant with a pending name change must not be issued a form FS-240 in her/his new name. See 8 FAM 1001.3 regarding amending a form FS-240; and"
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-04-u04",
+      "excerpt_id": "fam-names-04",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:b58f949cf23cae3655165cbf0f27578958ce53c33431a613692f124108b76cdf"
+      ],
+      "rationale": "The clearance duty retains both despite clauses.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-04",
+          "start": 373,
+          "end": 520,
+          "quote": "(3) You must clear the applicant's pending name even though the name change is not final and even if the passport is not being issued at this time."
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-04-u05",
+      "excerpt_id": "fam-names-04",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:88c5c48d4e0a05b36b085e99bc174b262078cbca95e427b07d535baf52d53926",
+        "urn:rulespec:document-understanding:revision:f9a7d65d4abe32e3269800c1b23d1ba2995cd3c67e97469c5642ce8a3f5b813a"
+      ],
+      "rationale": "The document name-listing rule has its confidential-name exception linked.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-04",
+          "start": 522,
+          "end": 609,
+          "quote": "d. The court order or decree must list both the applicant's current and former name(s)."
+        },
+        {
+          "source_id": "fam-names-04",
+          "start": 611,
+          "end": 1002,
+          "quote": "EXCEPTION: You may receive a court order in which the applicant's former name is made confidential (e.g., California's Safe at Home program). When this occurs, the applicant must provide both her/his current and former names on the application. You may request additional evidence of U.S. citizenship/non-citizen U.S. nationality or identity in accordance with 22 CFR 51.23 and 22 CFR 51.45."
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-04-u06",
+      "excerpt_id": "fam-names-04",
+      "status": "unknown",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:a48d02b904e30845feb75e23ff9293c433fddebf59815c8572c9bf8a7b231efe",
+        "urn:rulespec:document-understanding:revision:0a81426b35115fdb8a0ffbb7098aaab5b948e04507e81918192727b9e8fe70d0"
+      ],
+      "rationale": "The application name-disclosure duty is accurate, but the anaphoric trigger and added provider interpretation remain uncertain.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-04",
+          "start": 611,
+          "end": 1002,
+          "quote": "EXCEPTION: You may receive a court order in which the applicant's former name is made confidential (e.g., California's Safe at Home program). When this occurs, the applicant must provide both her/his current and former names on the application. You may request additional evidence of U.S. citizenship/non-citizen U.S. nationality or identity in accordance with 22 CFR 51.23 and 22 CFR 51.45."
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-04-u07",
+      "excerpt_id": "fam-names-04",
+      "status": "partial",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:440d7fdc77405719e9393d27d0f7a88995bde6ad4373142f65bf2be11b3a12d4"
+      ],
+      "rationale": "The additional-evidence authority is present without its confidential-name scope.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-04",
+          "start": 611,
+          "end": 1002,
+          "quote": "EXCEPTION: You may receive a court order in which the applicant's former name is made confidential (e.g., California's Safe at Home program). When this occurs, the applicant must provide both her/his current and former names on the application. You may request additional evidence of U.S. citizenship/non-citizen U.S. nationality or identity in accordance with 22 CFR 51.23 and 22 CFR 51.45."
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-05-u01",
+      "excerpt_id": "fam-names-05",
+      "status": "partial",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:e0f736e75abd63a713f9a79393bcbc96b57b52b20f5f42fef74e3c1b9ac12dea",
+        "urn:rulespec:document-understanding:revision:ce0558b5a16371bb3726a398353016d260eb39370f596350b8c0cb4d1c8508a6"
+      ],
+      "rationale": "The multipart-name determination duty is present. Uppercase printing for passports, FS-240, and DS-2060 is omitted.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-05",
+          "start": 57,
+          "end": 475,
+          "quote": "a. In accordance with International Civil Aviation Organization (ICAO) recommendations, U.S. passports, form FS-240, and form DS-2060 are printed in all uppercase letters. Printing a name with multiple parts in uppercase letters causes the name to appear as one word unless the parts are separated with spaces. Consequently, if the applicant has a name with multiple parts, you must determine how the name will appear:"
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-05-u02",
+      "excerpt_id": "fam-names-05",
+      "status": "missing",
+      "claim_ids": [],
+      "rationale": "The should-add-space default based on a previous passport is absent.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-05",
+          "start": 477,
+          "end": 581,
+          "quote": "(1) If the applicant's previous passport had a space, you should add a space on the current application;"
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-05-u03",
+      "excerpt_id": "fam-names-05",
+      "status": "missing",
+      "claim_ids": [],
+      "rationale": "The no-previous-passport and spaced evidence/ID default is absent.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-05",
+          "start": 583,
+          "end": 788,
+          "quote": "(2) If the applicant does not have a previous passport and the applicant's evidence of U.S. citizenship/non-citizen U.S. nationality or ID has a space, you should add a space on the current application; or"
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-05-u04",
+      "excerpt_id": "fam-names-05",
+      "status": "covered",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:70738888ff5113bb95db1fc42e5c76ab4def7da08c186940d26b475ed88ab991",
+        "urn:rulespec:document-understanding:revision:4edba54d9ca59fc667ae6de5920e1d50cdc915a4031b4d76550581bcf39154f1"
+      ],
+      "rationale": "The clear-preference permission retains verbal/written alternatives.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-05",
+          "start": 790,
+          "end": 951,
+          "quote": "(3) If the applicant expresses a clear preference to add or remove space, either verbally or in writing, you may add or remove it per the applicant's preference."
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-05-u05",
+      "excerpt_id": "fam-names-05",
+      "status": "missing",
+      "claim_ids": [],
+      "rationale": "The family consistency guidance and individual-preference exception are absent.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-05",
+          "start": 953,
+          "end": 1138,
+          "quote": "NOTE: If you receive applications from several family members, you should space the last names consistently, unless a family member expresses a clear preference for a different spacing."
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-05-u06",
+      "excerpt_id": "fam-names-05",
+      "status": "missing",
+      "claim_ids": [],
+      "rationale": "The special-issuance eligible-family-member/sponsor spacing guidance is absent.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-05",
+          "start": 1140,
+          "end": 1288,
+          "quote": "NOTE: For special-issuance passports, the spacing of an eligible family member's last name should match the spacing of the last name of the sponsor."
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-05-u07",
+      "excerpt_id": "fam-names-05",
+      "status": "missing",
+      "claim_ids": [],
+      "rationale": "The general limitation on passport rewrites for spacing and its exception are absent.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-05",
+          "start": 1290,
+          "end": 1457,
+          "quote": "b. Name spacing issues are generally not sufficient cause to rewrite a passport, unless the Department disregarded the applicant's clear preference (see 8 FAM 1001.2)."
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-06-u01",
+      "excerpt_id": "fam-names-06",
+      "status": "unknown",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:bd377c32bbef3035b43a97d16f4ebaf700d93d56059a7191cdd3bcdafcbf35d9"
+      ],
+      "rationale": "The ordinal conversion is present but the acting role remains unresolved.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-06",
+          "start": 0,
+          "end": 96,
+          "quote": "c. Arabic ordinal numbers must be changed to Roman numerals, for example, 2nd to II, 3rd to III:"
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-06-u02",
+      "excerpt_id": "fam-names-06",
+      "status": "unknown",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:2edf0eff943694b9b0a3f6644fb24ca2ce872619cd44493ca9f0293a89433373",
+        "urn:rulespec:document-understanding:revision:6186fd57b6a05c6e72e1f946e1716d3fa8960c2ee73976c338e31894cd1e4061"
+      ],
+      "rationale": "The Sr./Señor distinction and reference are present, but the main instruction actor remains unresolved.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-06",
+          "start": 98,
+          "end": 333,
+          "quote": "d. Some applicants may include the prefix “Sr.” as an abbreviation for “Señor” in Spanish meaning “Mr.” or “Mister” in English. If you determine that this is the case, follow the guidance in 8 FAM 403.1-5(C) regarding ranks and titles."
+        }
+      ]
+    },
+    {
+      "unit_id": "fam-names-06-u03",
+      "excerpt_id": "fam-names-06",
+      "status": "missing",
+      "claim_ids": [],
+      "rationale": "The general limitation on rewrites for suffix issues and its exception are absent.",
+      "source_spans": [
+        {
+          "source_id": "fam-names-06",
+          "start": 335,
+          "end": 501,
+          "quote": "e. Name suffix issues are generally not sufficient cause to rewrite a passport, unless the Department disregarded the applicant's clear preference (see 8 FAM 1001.2)."
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Semantic verdicts are supplied by the named source reviewer; this evaluator does not infer truth from text overlap.",
+    "Source span and digest checks establish assessment integrity, not semantic correctness.",
+    "Counts describe this bounded labeled set; they are not a general extraction accuracy estimate."
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": "rulespec-judgment-transfer-validation/1",
+  "verified_at": "2026-09-07T15:42:38.473120+00:00",
+  "actor": "Codex evaluation worker /root/evaluation",
+  "actor_kind": "aiAgent",
+  "final_transfer_manifest_sha256": "07ce5037f0ba614b2be705099d64d961dc8e73faeff5ad7e87cd1a6a6d3f0d0f",
+  "positive_checks": "All four final compilation-recovery outputs strictly replayed; all 87 accepted claims, complete documents, source digests and selected labels matched the frozen originals.",
+  "negative_checks": [
+    {
+      "case": "changed_actor",
+      "outcome": "refused_before_replay_or_write",
+      "reason": "An accepted interpretation changed: holdout-01",
+      "mutation_location": "in-memory loaded JSON only; no source, label, or output file changed"
+    },
+    {
+      "case": "changed_source",
+      "outcome": "refused_before_replay_or_write",
+      "reason": "The source document or its metadata changed: holdout-01",
+      "mutation_location": "in-memory loaded JSON only; no source, label, or output file changed"
+    },
+    {
+      "case": "changed_label",
+      "outcome": "refused_before_replay_or_write",
+      "reason": "Selected labels changed: holdout-01",
+      "mutation_location": "in-memory loaded JSON only; no source, label, or output file changed"
+    }
+  ],
+  "original_and_transferred_artifacts_unchanged_by_probes": true,
+  "provider_calls": 0
+}

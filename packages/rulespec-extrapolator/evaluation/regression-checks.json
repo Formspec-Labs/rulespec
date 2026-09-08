@@ -1,0 +1,178 @@
+{
+  "schema_version": "rulespec-evaluator-regression-evidence/1",
+  "source": "Pinned 8 FAM 402.1-8(a)(3) development excerpt",
+  "authorship": "Agent-authored source-reviewed test fixture; not an extraction accuracy result.",
+  "fixture_rulebook_sha256": "141d6f6f205cd050e840b757c1cdc8734ec98638993c27d54fd82c02c9430c85",
+  "fixture_labels_sha256": "7a529cdaafa082e586fe9266dc70dc1b7e8c52d3cf99796a8f721567dd4bca1e",
+  "cases": [
+    {
+      "case": "reviewed_original",
+      "status": "passed",
+      "review_complete": true,
+      "coverage": {
+        "covered": 2,
+        "partial": 0,
+        "missing": 0,
+        "unknown": 0
+      },
+      "summary": {
+        "correct": 2,
+        "error": 0,
+        "unknown": 0
+      },
+      "actor": {
+        "correct": 2,
+        "error": 0,
+        "unknown": 0
+      },
+      "support": {
+        "correct": 2,
+        "error": 0,
+        "unknown": 0
+      },
+      "issue_codes": []
+    },
+    {
+      "case": "corrupted_summary_old_judgments",
+      "status": "needs_review",
+      "review_complete": false,
+      "coverage": {
+        "covered": 0,
+        "partial": 0,
+        "missing": 0,
+        "unknown": 2
+      },
+      "summary": {
+        "correct": 0,
+        "error": 0,
+        "unknown": 2
+      },
+      "actor": {
+        "correct": 0,
+        "error": 0,
+        "unknown": 2
+      },
+      "support": {
+        "correct": 0,
+        "error": 0,
+        "unknown": 2
+      },
+      "issue_codes": [
+        "stale_assessment",
+        "stale_claim_judgment"
+      ]
+    },
+    {
+      "case": "corrupted_summary_negative_source_review",
+      "status": "failed",
+      "review_complete": true,
+      "coverage": {
+        "covered": 0,
+        "partial": 2,
+        "missing": 0,
+        "unknown": 0
+      },
+      "summary": {
+        "correct": 0,
+        "error": 2,
+        "unknown": 0
+      },
+      "actor": {
+        "correct": 2,
+        "error": 0,
+        "unknown": 0
+      },
+      "support": {
+        "correct": 0,
+        "error": 2,
+        "unknown": 0
+      },
+      "issue_codes": []
+    },
+    {
+      "case": "corrupted_actor_old_judgments",
+      "status": "needs_review",
+      "review_complete": false,
+      "coverage": {
+        "covered": 0,
+        "partial": 0,
+        "missing": 0,
+        "unknown": 2
+      },
+      "summary": {
+        "correct": 0,
+        "error": 0,
+        "unknown": 2
+      },
+      "actor": {
+        "correct": 0,
+        "error": 0,
+        "unknown": 2
+      },
+      "support": {
+        "correct": 0,
+        "error": 0,
+        "unknown": 2
+      },
+      "issue_codes": [
+        "stale_assessment",
+        "stale_claim_judgment"
+      ]
+    },
+    {
+      "case": "corrupted_actor_negative_source_review",
+      "status": "failed",
+      "review_complete": true,
+      "coverage": {
+        "covered": 0,
+        "partial": 2,
+        "missing": 0,
+        "unknown": 0
+      },
+      "summary": {
+        "correct": 2,
+        "error": 0,
+        "unknown": 0
+      },
+      "actor": {
+        "correct": 0,
+        "error": 2,
+        "unknown": 0
+      },
+      "support": {
+        "correct": 0,
+        "error": 2,
+        "unknown": 0
+      },
+      "issue_codes": []
+    },
+    {
+      "case": "extra_unreviewed_claim_expected_coverage_complete",
+      "status": "needs_review",
+      "review_complete": false,
+      "coverage": {
+        "covered": 2,
+        "partial": 0,
+        "missing": 0,
+        "unknown": 0
+      },
+      "summary": {
+        "correct": 2,
+        "error": 0,
+        "unknown": 1
+      },
+      "actor": {
+        "correct": 2,
+        "error": 0,
+        "unknown": 1
+      },
+      "support": {
+        "correct": 2,
+        "error": 0,
+        "unknown": 1
+      },
+      "issue_codes": []
+    }
+  ],
+  "limitation": "Mutation detection invalidates stale review or accounts for explicit negative source review. The evaluator does not autonomously infer false meanings."
+}

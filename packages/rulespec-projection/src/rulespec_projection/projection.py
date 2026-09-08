@@ -972,6 +972,21 @@ ASSIGNMENT_ROLE_ABSOLUTE_IRIS: dict[str, str] = {
 }
 
 
+def concept_assignment(*, assertion_iri: str, subject: str, concept_iri: str,
+                       role: str, release_iri: str, **metadata: Any) -> dict[str, Any]:
+    """Construct the shared Core assignment after source/membership verification.
+
+    Callers supply their provenance and review state; the canonical proposition
+    and release pin have one representation for all document profiles.
+    """
+    if role not in ASSIGNMENT_ROLE_IRIS.values():
+        raise ValueError("Unknown concept assignment role")
+    return {**metadata, "@id": assertion_iri, "@type": "rkaf:ConceptAssignment",
+            "rkaf:assertsSubject": subject, "rkaf:assertsPredicate": role,
+            "rkaf:assertsObject": concept_iri, "rkaf:assertionPolarity": "rkaf:affirmed",
+            "rkaf:assignedConceptRelease": release_iri}
+
+
 def verify_candidate_rows(
     artifact: SourceArtifact,
     rows: Sequence[Mapping[str, Any]],
@@ -1481,15 +1496,10 @@ def assemble(
                 f"{stable_id(judgment.concept_iri, judgment.release_iri, length=20)}"
             )
             provenance_records.add(record_iri)
-            graph.append(
-                {
-                    "@id": assignment_iri,
-                    "@type": "rkaf:ConceptAssignment",
-                    "rkaf:assertsSubject": artifact_iri,
-                    "rkaf:assertsPredicate": judgment.role,
-                    "rkaf:assertsObject": judgment.concept_iri,
-                    "rkaf:assertionPolarity": "rkaf:affirmed",
-                    "rkaf:assignedConceptRelease": judgment.release_iri,
+            graph.append(concept_assignment(
+                assertion_iri=assignment_iri, subject=artifact_iri,
+                concept_iri=judgment.concept_iri, role=judgment.role,
+                release_iri=judgment.release_iri, **{
                     "rkaf:assertionOrigin": ASSERTION_ORIGIN_MODEL,
                     "rkaf:epistemicBasis": "rkaf:statisticalInference",
                     "rkaf:hasAILineage": lineage_iri,
@@ -1497,8 +1507,7 @@ def assemble(
                     "rkaf:assertedAt": context.asserted_at,
                     "rkaf:usageEligibility": MODEL_USAGE_ELIGIBILITY,
                     "prov:wasDerivedFrom": [record_iri],
-                }
-            )
+                }))
             graph.append(
                 {
                     "@id": f"{partner}:binding:assignment:{judgment.candidate_id}",

@@ -1,0 +1,48 @@
+name: extraction-schemas
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/rulespec-extrapolator/**'
+      - 'constraints/core/**'
+      - 'src/rulespec_conformance/**'
+      - 'packages/rulespec-projection/**'
+      - 'tools/cue_schema_export/**'
+      - 'tools/build_extraction_schemas.py'
+      - 'tools/test_extraction_schemas.py'
+      - '.github/workflows/extraction-schemas.yml'
+  pull_request:
+    paths:
+      - 'packages/rulespec-extrapolator/**'
+      - 'constraints/core/**'
+      - 'src/rulespec_conformance/**'
+      - 'packages/rulespec-projection/**'
+      - 'tools/cue_schema_export/**'
+      - 'tools/build_extraction_schemas.py'
+      - 'tools/test_extraction_schemas.py'
+      - '.github/workflows/extraction-schemas.yml'
+
+jobs:
+  generation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: tools/cue_schema_export/go.mod
+          cache-dependency-path: tools/cue_schema_export/go.sum
+      - name: Check native CUE generation
+        run: python tools/build_extraction_schemas.py --check
+      - name: Install profile test dependencies
+        run: |
+          for source in constraints/core/*.cue; do
+            python tools/constraints_compile.py --in "$source" --target json-schema \
+              --out "compiled/json-schema/core/$(basename "$source" .cue).schema.json"
+          done
+          python -m pip install -e packages/rulespec-artifacts -e . -e packages/rulespec-projection -e packages/rulespec-extrapolator pytest
+      - name: Check generated profile validation
+        run: python -m pytest tools/test_extraction_schemas.py packages/rulespec-extrapolator/tests/test_schemas.py
