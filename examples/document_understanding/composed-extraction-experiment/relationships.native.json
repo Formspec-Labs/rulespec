@@ -1,0 +1,164 @@
+{
+  "generator": {
+    "cue_language_version": "v0.17.0",
+    "cue_module_version": "v0.17.1"
+  },
+  "metadata": {
+    "order": [
+      "extractions"
+    ],
+    "properties": {
+      "extractions": {
+        "items": {
+          "order": [
+            "unit",
+            "unit_attributes"
+          ],
+          "properties": {
+            "unit": {
+              "title": "Existing statement identifier"
+            },
+            "unit_attributes": {
+              "order": [
+                "qualifications"
+              ],
+              "properties": {
+                "qualifications": {
+                  "items": {
+                    "order": [
+                      "relation",
+                      "statement",
+                      "evidence",
+                      "references"
+                    ],
+                    "properties": {
+                      "evidence": {
+                        "items": {
+                          "title": "Source passage reference"
+                        }
+                      },
+                      "references": {
+                        "title": "References",
+                        "items": {}
+                      },
+                      "relation": {
+                        "title": "Relation"
+                      },
+                      "statement": {
+                        "title": "Summary"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+      "Qualification": {
+        "type": "object",
+        "description": "One locally supported qualification OF THE CONTAINING STATEMENT. The nesting\nidentifies its target; do not repeat the baseline or its quote to create a link.\nA conditional permission does not cancel another duty merely by being nearby.",
+        "additionalProperties": false,
+        "properties": {
+          "evidence": {
+            "type": "array",
+            "description": "Source passages establishing this qualification, including inherited cases.",
+            "items": {
+              "$ref": "#/$defs/SourceRef"
+            }
+          },
+          "references": {
+            "$ref": "#/$defs/References"
+          },
+          "relation": {
+            "description": "scope, prerequisite, trigger or exception. An unless/except clause may be\nan exception; assess the meaning and limits rather than the keyword alone.",
+            "$ref": "#/$defs/Relation"
+          },
+          "statement": {
+            "description": "State the complete qualification, preserving the parent's case and limits.\nAn exception to should does not erase a legal duty. Never strengthen force.",
+            "$ref": "#/$defs/Summary"
+          }
+        },
+        "required": [
+          "evidence",
+          "references",
+          "relation",
+          "statement"
+        ]
+      },
+      "References": {
+        "type": "array",
+        "description": "Source section labels for cross-references, including unresolved remote targets. Keep source cross-reference labels even when their content is unavailable. Preserve the topic of each reference in the unit's meaning; a nearby reference is not a license to infer the missing rule.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "Relation": {
+        "description": "A condition/exception's relationship to its baseline; none for other kinds. The source decides which baseline a qualification governs. Contextual proximity alone does not. An even-though or despite clause may preserve a duty rather than remove it. The qualification must retain the baseline's scope and the limits of the modification. When a locally stated rule has an explicit exception, retain the complete baseline with its original kind and relation none, and also emit a separate exception unit linked to it. Do not turn the baseline itself into an exception or strip the exception from its meaning. A conditional permission does not by itself cancel a neighboring duty.",
+        "enum": [
+          "none",
+          "scope",
+          "prerequisite",
+          "trigger",
+          "exception"
+        ]
+      },
+      "SourceRef": {
+        "type": "string",
+        "description": "A supplied passage ID, such as P003, or a contiguous inclusive range P003:P009.\nSelect actual source evidence; never invent IDs or copy/rewrite its text here.\nRanges may span an introductory rule and its complete list of alternatives.\nIDs identify text locations, not meanings. A broad passage does not prove\nevery claim about it. Keep the statement specific even when evidence is broad."
+      },
+      "Summary": {
+        "type": "string",
+        "description": "Complete meaning of this unit, preserving governing scope, qualifications and modal force. Make this a self-contained reading of the source. Include every governing parent case, time limit, negation, exception and qualification needed to avoid broadening or narrowing its meaning. A long supporting quote does not compensate for omitted meaning in this field. Keep descriptive and advisory material at its source force."
+      }
+    },
+    "type": "object",
+    "description": "Add qualifications to existing statements without rewriting those statements.\nA supplied statement identifier locates the target; source passages establish\nwhether the relationship is supported. Empty qualifications are appropriate.",
+    "additionalProperties": false,
+    "properties": {
+      "extractions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "unit": {
+              "type": "string",
+              "description": "Copy the supplied B000-style identifier exactly; never invent a target."
+            },
+            "unit_attributes": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "qualifications": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/Qualification"
+                  }
+                }
+              },
+              "required": [
+                "qualifications"
+              ]
+            }
+          },
+          "required": [
+            "unit",
+            "unit_attributes"
+          ]
+        }
+      }
+    },
+    "required": [
+      "extractions"
+    ]
+  },
+  "source_files": [
+    "/Users/mikewolfd/Work/rulespec/examples/document_understanding/composed-extraction-experiment/build/experiment.cue"
+  ]
+}

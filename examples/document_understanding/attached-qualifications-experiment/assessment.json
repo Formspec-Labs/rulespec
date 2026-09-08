@@ -1,0 +1,129 @@
+{
+  "decision": "Keep isolated; nesting and source references work mechanically, but this combined prompt/schema variant regresses meaning.",
+  "provider_calls": 2,
+  "metrics": [
+    {
+      "sample": "names",
+      "baseline_statements": 13,
+      "trial_statements": 10,
+      "converted_records": 16,
+      "converted_links": 6,
+      "rejected": 0,
+      "baseline_total_tokens": 13177,
+      "trial_total_tokens": 9511,
+      "core_validation": {
+        "status": "passed",
+        "core_nodes": 431,
+        "shacl_conforms": true,
+        "semantic_accuracy": "Requires independent source review"
+      }
+    },
+    {
+      "sample": "photos",
+      "baseline_statements": 10,
+      "trial_statements": 7,
+      "converted_records": 12,
+      "converted_links": 5,
+      "rejected": 0,
+      "baseline_total_tokens": 8365,
+      "trial_total_tokens": 6790,
+      "core_validation": {
+        "status": "passed",
+        "core_nodes": 307,
+        "shacl_conforms": true,
+        "semantic_accuracy": "Requires independent source review"
+      }
+    }
+  ],
+  "edge_reviews": [
+    {
+      "sample": "names",
+      "raw_statement_index": 2,
+      "raw_qualification_index": 0,
+      "assessment": "uncertain",
+      "rationale": "Remote married-name exception is a reference, not a locally established exception with known limits."
+    },
+    {
+      "sample": "names",
+      "raw_statement_index": 4,
+      "raw_qualification_index": 0,
+      "assessment": "supported",
+      "rationale": "Previous-name exception points to the containing prohibition and retains documentary permission."
+    },
+    {
+      "sample": "names",
+      "raw_statement_index": 6,
+      "raw_qualification_index": 0,
+      "assessment": "supported",
+      "rationale": "Older-than-one-year, DS-11 and unchanged-ID trigger belongs to the suspension duty."
+    },
+    {
+      "sample": "names",
+      "raw_statement_index": 7,
+      "raw_qualification_index": 0,
+      "assessment": "error",
+      "rationale": "Emergency permission and its trigger omit inherited older-than-one-year, DS-11 and unchanged-ID conditions; those survive only in source evidence."
+    },
+    {
+      "sample": "names",
+      "raw_statement_index": 8,
+      "raw_qualification_index": 0,
+      "assessment": "error",
+      "rationale": "Generally needing documents to change ID is explanation, not scope governing the notation duty."
+    },
+    {
+      "sample": "names",
+      "raw_statement_index": 9,
+      "raw_qualification_index": 0,
+      "assessment": "error",
+      "rationale": "Conditional duty to submit name-change documentation is represented as a prerequisite of the no-new-ID exemption."
+    },
+    {
+      "sample": "photos",
+      "raw_statement_index": 0,
+      "raw_qualification_index": 0,
+      "assessment": "error",
+      "rationale": "Particularly a newborn is emphasis within the infant allowance, not a separate applicability condition."
+    },
+    {
+      "sample": "photos",
+      "raw_statement_index": 1,
+      "raw_qualification_index": 0,
+      "assessment": "uncertain",
+      "rationale": "Scope entry repeats support permission and an example; its compound target also contains the separate head-tilt allowance."
+    },
+    {
+      "sample": "photos",
+      "raw_statement_index": 3,
+      "raw_qualification_index": 0,
+      "assessment": "supported",
+      "rationale": "Failure to meet photo requirements correctly triggers requesting a replacement photograph."
+    },
+    {
+      "sample": "photos",
+      "raw_statement_index": 5,
+      "raw_qualification_index": 0,
+      "assessment": "error",
+      "rationale": "Hairstyle acceptance is attached as an exception to the whole recency/likeness recommendation; source does not waive six-month recency."
+    },
+    {
+      "sample": "photos",
+      "raw_statement_index": 6,
+      "raw_qualification_index": 0,
+      "assessment": "error",
+      "rationale": "Certificate timing caveat is descriptive context, not an applicability condition on the desire to reuse a photo."
+    }
+  ],
+  "findings": [
+    "The desired previous-name exception is explicitly linked to the correct prohibition. Saved controls had no explicit links.",
+    "All six document alternatives survive final conversion with original list formatting reconstructed from passage IDs.",
+    "After correcting an experimental adapter mismatch, no baseline or qualification is refused. Original conversions are preserved.",
+    "Valid IDs and parent-specific linking do not validate qualification meaning. Six of eleven links are misleading and two remain uncertain in this source review.",
+    "Emergency permission loses the governing prior-year, DS-11 and unchanged-ID case from statement, scope_text and qualification; full source paragraph still contains it.",
+    "Recent-change exemption and a separate conditional duty merge into one baseline with a misleading prerequisite link.",
+    "The prompt is much shorter and some reference fields lose the original explanatory descriptions, including the context-versus-scope distinction. The experiment cannot isolate nesting from those guidance changes.",
+    "Both variants retain should; source references alone do not improve normative classification. Role and attribution invention was not observed in these two trial responses."
+  ],
+  "next_step": "Retain the source-ID and parent-link mechanics in the experiment. Restore existing full-scope and separate-action guidance, and distinguish supporting context, a related duty, and a true qualification before another trial. Do not infer qualification roles from nesting alone.",
+  "limits": "Known two-excerpt sample, one new call each, saved controls; manual source review is not a gold standard or population accuracy estimate."
+}

@@ -1,0 +1,300 @@
+{
+  "decision": "Promising prompt-only improvement in source meaning and links; retain as experiment, not a production replacement.",
+  "provider_calls": 2,
+  "temperature": 0,
+  "changed": "Only prompt instructions/examples; schema, catalog, adapter and full request configuration match prior trial.",
+  "metrics": [
+    {
+      "sample": "names",
+      "previous_baselines": 10,
+      "new_baselines": 12,
+      "previous_links": 6,
+      "new_links": 8,
+      "accepted_records": 20,
+      "rejected_records": 0,
+      "previous_total_tokens": 9511,
+      "new_total_tokens": 10948,
+      "new_usage": {
+        "cache_tokens_details": null,
+        "cached_content_token_count": null,
+        "candidates_token_count": 5128,
+        "candidates_tokens_details": null,
+        "prompt_token_count": 3732,
+        "prompt_tokens_details": [
+          {
+            "modality": "TEXT",
+            "token_count": 3732
+          }
+        ],
+        "thoughts_token_count": 2088,
+        "tool_use_prompt_token_count": null,
+        "tool_use_prompt_tokens_details": null,
+        "total_token_count": 10948,
+        "traffic_type": null
+      },
+      "validation": {
+        "status": "passed",
+        "core_nodes": 494,
+        "shacl_conforms": true,
+        "semantic_accuracy": "Requires independent source review"
+      },
+      "issues_by_code": {
+        "structured_component_unresolved": 12,
+        "logic_requires_review": 9,
+        "unknown_actor": 4,
+        "component_evidence_unresolved": 3
+      }
+    },
+    {
+      "sample": "photos",
+      "previous_baselines": 7,
+      "new_baselines": 10,
+      "previous_links": 5,
+      "new_links": 2,
+      "accepted_records": 12,
+      "rejected_records": 0,
+      "previous_total_tokens": 6790,
+      "new_total_tokens": 9106,
+      "new_usage": {
+        "cache_tokens_details": null,
+        "cached_content_token_count": null,
+        "candidates_token_count": 4169,
+        "candidates_tokens_details": null,
+        "prompt_token_count": 2512,
+        "prompt_tokens_details": [
+          {
+            "modality": "TEXT",
+            "token_count": 2512
+          }
+        ],
+        "thoughts_token_count": 2425,
+        "tool_use_prompt_token_count": null,
+        "tool_use_prompt_tokens_details": null,
+        "total_token_count": 9106,
+        "traffic_type": null
+      },
+      "validation": {
+        "status": "passed",
+        "core_nodes": 324,
+        "shacl_conforms": true,
+        "semantic_accuracy": "Requires independent source review"
+      },
+      "issues_by_code": {
+        "unknown_actor": 8,
+        "logic_requires_review": 4,
+        "component_evidence_unresolved": 2
+      }
+    }
+  ],
+  "edge_reviews": [
+    {
+      "sample": "names",
+      "raw_statement_index": 1,
+      "raw_qualification_index": 0,
+      "assessment": "supported",
+      "rationale": "The discrepancy case governs the duty to explain discrepancies. The same source supports the baseline and scope."
+    },
+    {
+      "sample": "names",
+      "raw_statement_index": 2,
+      "raw_qualification_index": 0,
+      "assessment": "uncertain",
+      "rationale": "The source establishes a remote married-name exception exists but not its contents or limits. Emitting a local exception remains contrary to the trial instructions. The parent wording also risks a blanket married-name exclusion."
+    },
+    {
+      "sample": "names",
+      "raw_statement_index": 4,
+      "raw_qualification_index": 0,
+      "assessment": "supported",
+      "rationale": "The documentary permission exception targets the previous-name prohibition. The converted child retains the after-material-name-change scope of its parent."
+    },
+    {
+      "sample": "names",
+      "raw_statement_index": 6,
+      "raw_qualification_index": 0,
+      "assessment": "supported",
+      "rationale": "The suspension duty and qualification retain more-than-one-year timing, applying on DS-11 and unchanged ID."
+    },
+    {
+      "sample": "names",
+      "raw_statement_index": 7,
+      "raw_qualification_index": 0,
+      "assessment": "supported",
+      "rationale": "The emergency permission and qualification retain all three inherited case limits plus insufficient time before urgent or emergency travel."
+    },
+    {
+      "sample": "names",
+      "raw_statement_index": 9,
+      "raw_qualification_index": 0,
+      "assessment": "error",
+      "rationale": "Notation before returning documents is an ordering/deadline constraint on notation. The generated prerequisite instead points to the notation duty itself, rather than expressing notation as preceding return. The readable baseline is faithful."
+    },
+    {
+      "sample": "names",
+      "raw_statement_index": 10,
+      "raw_qualification_index": 0,
+      "assessment": "supported",
+      "rationale": "The within-one-year DS-11 case qualifies the no-new-ID exemption without treating the separate documentation duty as its prerequisite."
+    },
+    {
+      "sample": "names",
+      "raw_statement_index": 11,
+      "raw_qualification_index": 0,
+      "assessment": "supported",
+      "rationale": "The separate documentation duty is scoped by within-one-year, DS-11 and unchanged ID."
+    },
+    {
+      "sample": "photos",
+      "raw_statement_index": 4,
+      "raw_qualification_index": 0,
+      "assessment": "supported",
+      "rationale": "Failure to meet photo requirements activates the request-for-new-photo duty. The baseline retains context references to the requirements."
+    },
+    {
+      "sample": "photos",
+      "raw_statement_index": 7,
+      "raw_qualification_index": 0,
+      "assessment": "supported",
+      "rationale": "The good-likeness prerequisite targets only the hairstyle/facial-hair allowance. It does not target or waive the separate recency recommendation. Its short It statement relies on the parent scope retained by conversion."
+    }
+  ],
+  "edge_review_counts": {
+    "supported": 8,
+    "uncertain": 1,
+    "error": 1
+  },
+  "review_basis": "Manual source review of all 22 baseline statements and all 10 qualifications, plus component outputs and Core issues. Judgments are revisable, not gold annotations.",
+  "improvements": [
+    {
+      "case": "Inherited emergency limits",
+      "rows": [
+        "names:7"
+      ],
+      "result": "Statement, scope_text and qualification now preserve more than one year, DS-11, unchanged ID and insufficient time before urgent/emergency travel."
+    },
+    {
+      "case": "Recent-change duties",
+      "rows": [
+        "names:10",
+        "names:11"
+      ],
+      "result": "Exemption and conditional documentation duty are separate baselines with their own supported scopes."
+    },
+    {
+      "case": "Explanation and notation",
+      "rows": [
+        "names:8",
+        "names:9"
+      ],
+      "result": "Generally-needed-documentation explanation is separate, no longer an applicability condition of notation. A different temporal-link error remains."
+    },
+    {
+      "case": "Photo recency and hairstyle",
+      "rows": [
+        "photos:6",
+        "photos:7"
+      ],
+      "result": "Should remains a recommendation. Hairstyle acceptance is a separate permission with a good-likeness prerequisite; no recency exception."
+    },
+    {
+      "case": "Photo statements",
+      "rows": [
+        "photos:0",
+        "photos:1",
+        "photos:2",
+        "photos:8",
+        "photos:9"
+      ],
+      "result": "Head support and head tilt split. Newborn emphasis no longer becomes a qualification. Reuse desire and certificate timing caution are separate descriptive possibilities without false links."
+    },
+    {
+      "case": "Source-reference mechanics",
+      "rows": [
+        "names:2"
+      ],
+      "result": "All six document options retain exact text and list markers; no rejected baselines or qualifications."
+    }
+  ],
+  "remaining": [
+    {
+      "case": "Remote exception",
+      "rows": [
+        "names:2"
+      ],
+      "severity": "semantic risk",
+      "result": "Still emits a local exception for missing married-name content. Parent says except for married names under the section, which may overstate the scope compared with subject to the referenced exception."
+    },
+    {
+      "case": "Deadline versus prerequisite",
+      "rows": [
+        "names:9"
+      ],
+      "severity": "misleading relationship",
+      "result": "The before-returning constraint points as a prerequisite to its own notation duty. Keep faithful timing meaning; the typed relationship does not express the ordering correctly."
+    },
+    {
+      "case": "Unsupported effectivity",
+      "rows": [
+        "names:0",
+        "names:1",
+        "names:2",
+        "names:3",
+        "names:4",
+        "names:5",
+        "names:6",
+        "names:7",
+        "names:8",
+        "names:9",
+        "names:10",
+        "names:11"
+      ],
+      "severity": "new raw component regression, withheld from graph",
+      "result": "All 12 names baselines infer effective start 2026-03-10 from the CT header date. Supplied source does not establish that as legal effectivity. Existing checks flag incomplete timestamps and emit zero EffectivePeriod nodes; they do not prove date-role correctness."
+    },
+    {
+      "case": "Mixed fact and possibility",
+      "rows": [
+        "names:5"
+      ],
+      "severity": "segmentation limitation",
+      "result": "Name-is-part-of-identity fact remains fused with possible identity-evidence requirement. Both prose meanings survive, but they lack independent records and distinct modalities."
+    },
+    {
+      "case": "Context in scope text",
+      "rows": [
+        "photos:0"
+      ],
+      "severity": "field-role imprecision",
+      "result": "The challenge/best-likeness goal remains inside scope_text as well as context, despite no false qualification link."
+    },
+    {
+      "case": "Short component evidence",
+      "rows": [
+        "names:8",
+        "names:9",
+        "names:10",
+        "photos:8",
+        "photos:9"
+      ],
+      "severity": "review issues remain",
+      "result": "Repeated short quotations leave object/action/modality evidence ambiguous. Exact passage references did not replace every copied component quotation."
+    },
+    {
+      "case": "Broad alternative references",
+      "rows": [
+        "names:3",
+        "names:7"
+      ],
+      "severity": "granularity limitation",
+      "result": "Counterfeiting or alteration and urgent or emergency each use one whole-paragraph alternative reference. Source wording survives, but these do not individually identify each option."
+    }
+  ],
+  "composition_proposal": [
+    "Keep deterministic source passage catalogs and explicit parent binding as reusable mechanics.",
+    "Use full-scope, separate-action guidance to produce source-faithful statements for discovery.",
+    "Evaluate relationship typing independently from target binding; uncertainty about relation kind must remain visible.",
+    "Assess optional dates, claimants and normalized values independently; retain existing Core admission checks and raw candidates.",
+    "If authorized next, compare this all-fields pass with a statements-and-evidence pass followed by targeted enrichment on held-out excerpts; measure omissions, meaning, links and total usage separately."
+  ],
+  "limits": "Two familiar excerpts, one new response each with saved controls. Prompt contains failure-informed invented examples. Improvement does not establish generalization or causation from any single prompt sentence. No default changes or additional calls."
+}

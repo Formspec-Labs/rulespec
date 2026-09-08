@@ -1,0 +1,253 @@
+{
+  "generator": {
+    "cue_language_version": "v0.17.0",
+    "cue_module_version": "v0.17.1"
+  },
+  "metadata": {
+    "order": [
+      "extractions"
+    ],
+    "properties": {
+      "extractions": {
+        "items": {
+          "order": [
+            "unit",
+            "unit_attributes"
+          ],
+          "properties": {
+            "unit": {
+              "title": "Source passage reference"
+            },
+            "unit_attributes": {
+              "order": [
+                "kind",
+                "scope_quotes",
+                "scope_text",
+                "context_quotes",
+                "modality_quote",
+                "modality",
+                "alternative_quotes",
+                "choice_quote",
+                "choice_text",
+                "logic_text",
+                "references",
+                "statement"
+              ],
+              "properties": {
+                "alternative_quotes": {
+                  "items": {
+                    "title": "Source passage reference"
+                  }
+                },
+                "choice_quote": {
+                  "title": "Source passage reference"
+                },
+                "choice_text": {
+                  "title": "Choice text"
+                },
+                "context_quotes": {
+                  "items": {
+                    "title": "Source passage reference"
+                  }
+                },
+                "kind": {
+                  "title": "Kind",
+                  "sortEnum": true
+                },
+                "logic_text": {
+                  "title": "Logic text"
+                },
+                "modality": {
+                  "title": "Modality"
+                },
+                "modality_quote": {
+                  "title": "Modality quote"
+                },
+                "references": {
+                  "title": "References",
+                  "items": {}
+                },
+                "scope_quotes": {
+                  "items": {
+                    "title": "Source passage reference"
+                  }
+                },
+                "scope_text": {
+                  "title": "Scope text"
+                },
+                "statement": {
+                  "title": "Source-faithful statement"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+      "ChoiceText": {
+        "type": "string",
+        "description": "Complete source choice/grouping in words, including nested AND/OR and qualifications. Explain the complete choice and its nesting: all required elements, independently sufficient options, one-or-more groups, and alternatives inside an option. Preserve each option's qualifiers. Do not equate a grammatical conjunction in a category description with a requirement that both categories hold."
+      },
+      "FirstMeaning": {
+        "type": "object",
+        "description": "Complete meanings first. Conditions and exceptions remain in the statement\nand scope even though this pass does not create their relationship records.",
+        "additionalProperties": false,
+        "properties": {
+          "alternative_quotes": {
+            "type": "array",
+            "description": "Every leaf option with its complete qualifying wording; preserve all groups.",
+            "items": {
+              "$ref": "#/$defs/SourceRef"
+            }
+          },
+          "choice_quote": {
+            "description": "A contiguous passage/range supporting the complete choice, or empty.",
+            "$ref": "#/$defs/SourceRef"
+          },
+          "choice_text": {
+            "$ref": "#/$defs/ChoiceText"
+          },
+          "context_quotes": {
+            "type": "array",
+            "description": "Explanations aid interpretation without becoming applicability conditions.",
+            "items": {
+              "$ref": "#/$defs/SourceRef"
+            }
+          },
+          "kind": {
+            "$ref": "#/$defs/Kind"
+          },
+          "logic_text": {
+            "$ref": "#/$defs/LogicText"
+          },
+          "modality": {
+            "$ref": "#/$defs/Modality"
+          },
+          "modality_quote": {
+            "$ref": "#/$defs/ModalityQuote"
+          },
+          "references": {
+            "$ref": "#/$defs/References"
+          },
+          "scope_quotes": {
+            "type": "array",
+            "description": "Select every source passage establishing inherited cases and timing.",
+            "items": {
+              "$ref": "#/$defs/SourceRef"
+            }
+          },
+          "scope_text": {
+            "$ref": "#/$defs/ScopeText"
+          },
+          "statement": {
+            "$ref": "#/$defs/Summary"
+          }
+        },
+        "required": [
+          "alternative_quotes",
+          "choice_quote",
+          "choice_text",
+          "context_quotes",
+          "kind",
+          "logic_text",
+          "modality",
+          "modality_quote",
+          "references",
+          "scope_quotes",
+          "scope_text",
+          "statement"
+        ]
+      },
+      "Kind": {
+        "description": "Semantic kind; must agree with modality and relationship role. Classify the complete meaning, including headings' inherited context. A recommendation remains recommendation; descriptive possibility is statement. Conditions and exceptions are separate qualifications of a baseline; retain the baseline itself. Definitions and useful descriptive explanations also deserve units.",
+        "enum": [
+          "requirement",
+          "permission",
+          "prohibition",
+          "authority",
+          "threshold",
+          "definition",
+          "condition",
+          "exception",
+          "recommendation",
+          "exemption",
+          "statement"
+        ]
+      },
+      "LogicText": {
+        "type": "string",
+        "description": "Verbatim source wording retaining AND/OR, thresholds, units, dates and negation; no invented executable logic. Retain the source's complete logical wording when relevant. Do not uppercase a conjunction to imply executable Boolean logic. A list of independent categories need not require simultaneous membership in all categories. Preserve exact comparators, units and reference dates."
+      },
+      "Modality": {
+        "description": "Normative force: must, should, permission may, prohibition must_not, exemption not_required, descriptive possible, not_stated or uncertain. Use should for recommendations, may for permission, possible for descriptive may/might, and not_required only for an explicit absence of duty. not_stated fits factual definitions and qualifications with no independent normative force. An exception to a recommendation does not itself declare absence of a legal duty. Generally is not universally.",
+        "enum": [
+          "must",
+          "should",
+          "may",
+          "must_not",
+          "not_required",
+          "possible",
+          "not_stated",
+          "uncertain"
+        ]
+      },
+      "ModalityQuote": {
+        "type": "string",
+        "description": "Exact support for modal force; preserve generally, might, should and negation. Include qualifiers that establish the force, such as generally or might. A neighboring must cannot supply the force of a separate recommendation or description. A companion condition can have not_stated while its baseline retains must or should. For factual not_stated meaning, leave this empty rather than quoting a bare copula such as is; quote only wording that establishes modal force."
+      },
+      "References": {
+        "type": "array",
+        "description": "Source section labels for cross-references, including unresolved remote targets. Keep source cross-reference labels even when their content is unavailable. Preserve the topic of each reference in the unit's meaning; a nearby reference is not a license to infer the missing rule.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "ScopeText": {
+        "type": "string",
+        "description": "ALL source-supported conditions governing this unit, including inherited parent cases and timing; do not transfer neighboring branch scope. Combine all governing conditions for this unit, including inherited lead-ins and antecedents outside its main quotation. Preserve alternative branches and timing boundaries. A split child must still describe the complete case in which it applies; do not import conditions from neighboring independent cases."
+      },
+      "SourceRef": {
+        "type": "string",
+        "description": "A supplied passage ID, such as P003, or a contiguous inclusive range P003:P009.\nSelect actual source evidence; never invent IDs or copy/rewrite its text here.\nRanges may span an introductory rule and its complete list of alternatives.\nIDs identify text locations, not meanings. A broad passage does not prove\nevery claim about it. Keep the statement specific even when evidence is broad."
+      },
+      "Summary": {
+        "type": "string",
+        "description": "Complete meaning of this unit, preserving governing scope, qualifications and modal force. Make this a self-contained reading of the source. Include every governing parent case, time limit, negation, exception and qualification needed to avoid broadening or narrowing its meaning. A long supporting quote does not compensate for omitted meaning in this field. Keep descriptive and advisory material at its source force."
+      }
+    },
+    "type": "object",
+    "description": "Capture independently referenceable complete meanings, including substantive\nexplanations. Must, should, may and might retain their distinct source force.",
+    "additionalProperties": false,
+    "properties": {
+      "extractions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "unit": {
+              "$ref": "#/$defs/SourceRef"
+            },
+            "unit_attributes": {
+              "$ref": "#/$defs/FirstMeaning"
+            }
+          },
+          "required": [
+            "unit",
+            "unit_attributes"
+          ]
+        }
+      }
+    },
+    "required": [
+      "extractions"
+    ]
+  },
+  "source_files": [
+    "/Users/mikewolfd/Work/rulespec/examples/document_understanding/composed-extraction-experiment/build/experiment.cue"
+  ]
+}

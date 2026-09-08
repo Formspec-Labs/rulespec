@@ -1,0 +1,87 @@
+{
+  "type": "object",
+  "properties": {
+    "extractions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "unit": {
+            "type": "string",
+            "description": "Copy the supplied B000-style identifier exactly; never invent a target.",
+            "title": "Existing statement identifier"
+          },
+          "unit_attributes": {
+            "type": "object",
+            "properties": {
+              "qualifications": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "relation": {
+                      "type": "string",
+                      "description": "scope, prerequisite, trigger or exception. An unless/except clause may be\nan exception; assess the meaning and limits rather than the keyword alone.",
+                      "enum": [
+                        "none",
+                        "scope",
+                        "prerequisite",
+                        "trigger",
+                        "exception"
+                      ],
+                      "title": "Relation"
+                    },
+                    "statement": {
+                      "type": "string",
+                      "description": "State the complete qualification, preserving the parent's case and limits.\nAn exception to should does not erase a legal duty. Never strengthen force.",
+                      "title": "Summary"
+                    },
+                    "evidence": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "A supplied passage ID, such as P003, or a contiguous inclusive range P003:P009.\nSelect actual source evidence; never invent IDs or copy/rewrite its text here.\nRanges may span an introductory rule and its complete list of alternatives.\nIDs identify text locations, not meanings. A broad passage does not prove\nevery claim about it. Keep the statement specific even when evidence is broad.",
+                        "title": "Source passage reference"
+                      },
+                      "description": "Source passages establishing this qualification, including inherited cases."
+                    },
+                    "references": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Source section labels for cross-references, including unresolved remote targets. Keep source cross-reference labels even when their content is unavailable. Preserve the topic of each reference in the unit's meaning; a nearby reference is not a license to infer the missing rule.",
+                      "title": "References"
+                    }
+                  },
+                  "required": [
+                    "relation",
+                    "statement",
+                    "evidence",
+                    "references"
+                  ],
+                  "additionalProperties": false,
+                  "description": "One locally supported qualification OF THE CONTAINING STATEMENT. The nesting\nidentifies its target; do not repeat the baseline or its quote to create a link.\nA conditional permission does not cancel another duty merely by being nearby."
+                }
+              }
+            },
+            "required": [
+              "qualifications"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "unit",
+          "unit_attributes"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "extractions"
+  ],
+  "additionalProperties": false,
+  "description": "Add qualifications to existing statements without rewriting those statements.\nA supplied statement identifier locates the target; source passages establish\nwhether the relationship is supported. Empty qualifications are appropriate."
+}

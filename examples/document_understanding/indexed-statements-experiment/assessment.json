@@ -1,0 +1,54 @@
+{
+  "decision": "Do not adopt the combined schema. Direct statement wording and shared citation identity are promising; role identity, semantic topic coverage, and exception links need a smaller follow-up.",
+  "method": "Four requests total at temperature 0, current versus indexed on two known excerpts; one repeat per cell. Native CUE definitions reused, no audit/refinement requests. Qualitative source review, not a general accuracy score.",
+  "findings": [
+    {
+      "proposal": "roles first",
+      "result": "regressed",
+      "evidence": "runs/names-indexed/output.json#/roles/1",
+      "observation": "label Passport Examiner / Adjudicator and ID role-passport-agent were invented from you while title remained empty. Statements still say you. Photo role refs include people discussed even when the actor field is empty. ID existence is not semantic identity."
+    },
+    {
+      "proposal": "citation index",
+      "result": "useful with an exact-text defect",
+      "evidence": "runs/names-indexed/output.json#/citations",
+      "observation": "All six distinct cited FAM/CFR references are indexed, along with form DS-11. Photo CFR citation is indexed. Legal citation labels were already present in baseline unit references; new benefit is shared identity and explicit occurrence accounting. Form DS-11 label differs in case from source form DS-11, yielding zero exact label spans despite exact quote field."
+    },
+    {
+      "proposal": "concept index",
+      "result": "mixed",
+      "evidence": "runs/names-indexed/output.json#/concepts",
+      "observation": "Names compresses 13 local baseline topics into one shared Material Discrepancy concept; photos uses two rather than ten. Sharing works but loss of distinct topics may hurt discovery. No topic recall benchmark was run."
+    },
+    {
+      "proposal": "statement wording",
+      "result": "small style gain",
+      "evidence": "runs/names-indexed/output.json#/extractions/0/unit_attributes/statement",
+      "observation": "A material discrepancy is defined as becomes A material discrepancy is. Most baseline statements were already direct; new wording is not a large readability improvement. Source role you remains in statements."
+    },
+    {
+      "proposal": "keyword guidance",
+      "result": "no observed exception-link gain",
+      "evidence": "experiment.cue#Response",
+      "observation": "Lexical signals are in the native-generated schema sent to the endpoint. Both variants preserve unless in prose but emit zero explicit exception links. Both retain should and tested timing conditions."
+    },
+    {
+      "proposal": "completeness",
+      "result": "mixed",
+      "evidence": "runs/names-indexed/refusals.json#/0",
+      "observation": "The document-alternatives rule exists in raw output but is refused because its court-order alternative quote rewrites line breaks and markers. All six options occur in raw meaning. Married-name qualification is retained in scope but absent from the direct statement. Names identity explanation moves from standalone to context. Photos gains a standalone infant-photo goal and retains certificate timing caution."
+    }
+  ],
+  "limitations": [
+    "Known excerpts, no held-out sample; role title positive-resolution case not tested live because these excerpts do not establish a professional title for you.",
+    "Bundled schema, ordering, and wording changes cannot isolate which caused differences.",
+    "All four graph validations pass; this does not establish accurate extraction.",
+    "No unsupported source claimant was generated in either variant; this comparison does not establish an attribution improvement."
+  ],
+  "next_experiment": [
+    "Keep direct source-faithful statement wording separate from concept/topic labels.",
+    "Require verbatim source labels for roles and citations; keep any display wording separate, and distinguish participants from responsible actors.",
+    "Prefer existing citation quote evidence for occurrence selection; label normalization must not change the pinned source.",
+    "Try qualifications as part of a statement with deterministic link conversion, rather than more keyword reminders to create separate units. No such redesign is adopted here."
+  ]
+}

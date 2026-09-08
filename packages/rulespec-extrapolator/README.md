@@ -130,6 +130,11 @@ visible with issues but do not emit specialized Core records. Direct named speak
 and simple year/month/day durations are supported; issuer metadata, implied speakers,
 and more complex duration wording still need review or a later integration.
 
+The [composition experiment](../../examples/document_understanding/composed-extraction-experiment/README.md)
+compares all-fields extraction with complete statements first and optional
+relationship enrichment. The smaller pass performed best in that four-excerpt
+trial; it remains an experimental candidate, with production defaults unchanged.
+
 The optional structured collections add useful detail without requiring invented
 values. `concepts` comes first in each unit and supplies a label, distinguishing
 definition, topical role and exact quotation. Rulespec creates `LocalConcept`,
