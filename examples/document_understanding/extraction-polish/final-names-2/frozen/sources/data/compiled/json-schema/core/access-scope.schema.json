@@ -1,0 +1,216 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/access-scope.json",
+  "title": "access-scope",
+  "$defs": {
+    "AccessScopeKind": {
+      "type": "string",
+      "enum": [
+        "rkaf:public",
+        "rkaf:partnerVisible",
+        "rkaf:organizationVisible",
+        "rkaf:roleRestricted",
+        "rkaf:personalRestricted",
+        "rkaf:regulatoryRestricted",
+        "rkaf:embargoUntil"
+      ]
+    },
+    "RegulatoryClass": {
+      "type": "string",
+      "enum": [
+        "rkaf:HIPAA-PHI",
+        "rkaf:GDPR-PII",
+        "rkaf:FERPA",
+        "rkaf:CJIS",
+        "rkaf:classified",
+        "rkaf:legally-privileged",
+        "rkaf:partner-defined"
+      ]
+    },
+    "AccessScope": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:AccessScope"
+        },
+        "rkaf:accessScopeKind": {
+          "$ref": "#/$defs/AccessScopeKind"
+        },
+        "dpv:hasPersonalDataCategory": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "dpv:hasLegalBasis": {
+          "type": "string"
+        },
+        "dpv:hasPurpose": {
+          "type": "string"
+        },
+        "rkaf:regulatoryClass": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RegulatoryClass"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/RegulatoryClass"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "rkaf:embargoUntil": {
+          "type": "string"
+        },
+        "rkaf:permittedRole": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:accessScopeKind"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "rkaf:accessScopeKind": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:regulatoryRestricted"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:regulatoryRestricted"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:accessScopeKind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:regulatoryClass": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/RegulatoryClass"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/RegulatoryClass"
+                    },
+                    "minItems": 1
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:regulatoryClass"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:accessScopeKind": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:embargoUntil"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:embargoUntil"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:accessScopeKind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:embargoUntil": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "rkaf:embargoUntil"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:accessScopeKind": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:roleRestricted"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:roleRestricted"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:accessScopeKind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:permittedRole": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "minItems": 1
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:permittedRole"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

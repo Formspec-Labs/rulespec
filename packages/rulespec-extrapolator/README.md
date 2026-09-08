@@ -119,6 +119,17 @@ tracks connected capabilities and the next integrations. Supported conditions
 use `ApplicabilityScope` even when no territory is asserted; audit quality issues
 use `Finding`. Model lineage records the actual request temperature.
 
+The [temperature-zero polish results](../../examples/document_understanding/extraction-polish/README.md)
+preserve twelve live trials, including rejected changes. They show remaining
+exception-link and discovery gaps; lower temperature does not guarantee completeness.
+
+The [provider-free discovery trial](../../examples/document_understanding/discovery-trial/README.md)
+compares summary search with source passages and linked evidence. It also verifies
+narrow attribution and duration checks: unsupported structured suggestions remain
+visible with issues but do not emit specialized Core records. Direct named speakers
+and simple year/month/day durations are supported; issuer metadata, implied speakers,
+and more complex duration wording still need review or a later integration.
+
 The optional structured collections add useful detail without requiring invented
 values. `concepts` comes first in each unit and supplies a label, distinguishing
 definition, topical role and exact quotation. Rulespec creates `LocalConcept`,
@@ -160,9 +171,10 @@ rulespec-understand prepare manual.txt --title "Manual section" \
 rulespec-understand extract prepared.json --model gemini-3.8-flash \
   --env-file /path/to/local.env --output my-run
 
-# A controlled sampling experiment; temperature is retained in the request/run.
-rulespec-understand extract prepared.json --temperature 0.2 \
-  --env-file /path/to/local.env --output my-run-t02
+# Temperature defaults to 0; specify it explicitly for a recorded comparison.
+# Fresh model calls can still differ at 0. Replay reproduces saved responses.
+rulespec-understand extract prepared.json --temperature 0 \
+  --env-file /path/to/local.env --output my-run-t0
 
 # Verify frozen requests, parse saved responses, and reproduce candidates/graph.
 # This makes no provider call and refuses runtime or artifact drift.

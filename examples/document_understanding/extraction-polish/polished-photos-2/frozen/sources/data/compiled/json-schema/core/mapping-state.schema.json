@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/mapping-state.json",
+  "title": "mapping-state",
+  "$defs": {
+    "MappingState": {
+      "type": "string",
+      "enum": [
+        "rkaf:mapsToWos",
+        "rkaf:authoringOnly",
+        "rkaf:requiresSpecExtension",
+        "rkaf:unmappedButApproved"
+      ]
+    },
+    "MappingStateCarrier": {
+      "type": "object",
+      "properties": {
+        "rkaf:mappingState": {
+          "$ref": "#/$defs/MappingState"
+        }
+      },
+      "required": [
+        "rkaf:mappingState"
+      ]
+    }
+  }
+}
