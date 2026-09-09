@@ -10,14 +10,13 @@ from rulespec_extrapolator.documents import prepare_document
 from rulespec_extrapolator import extraction as e
 
 
-def row(quote="Staff must log requests", **attributes):
-    fields = {name: "" for name in e.TEXT_FIELDS}
-    fields.update({name: [] for name in e.LIST_FIELDS})
-    fields.update(kind="requirement", summary=quote, actor="Staff", action="log", object="requests",
-                  actor_quote="Staff", action_quote="log", object_quote="requests",
-                  modality="must", modality_quote="must", relation="none")
+def row(reference="F000", **attributes):
+    fields = {name: [] if schema['type'] == 'array' else ''
+              for name, schema in e.PROVIDER_FIELDS.items()}
+    fields.update(kind="requirement", statement="Staff must log requests",
+                  modality="must", modality_quote="must")
     fields.update(attributes)
-    return {"unit": quote, "unit_attributes": fields}
+    return {"unit": reference, "unit_attributes": fields}
 
 
 def raw(payload=None, *, text=None, finish="STOP"):
@@ -63,7 +62,7 @@ def test_parser_uses_raw_text_not_sdk_parsed_cache():
     response["parsed"] = {"extractions": [row("An invented obligation")]}
     result = parsed(response)
     assert result["status"] == "complete"
-    assert result["candidates"][0]["quote"] == "Staff must log requests"
+    assert result["candidates"][0]["quote"] == "Staff must log requests."
 
 
 def test_legacy_per_kind_output_is_refused():
@@ -110,7 +109,7 @@ def test_valid_empty_output_is_distinct_from_missing_provider_content():
 
 
 def test_invalid_rows_do_not_hide_valid_rows_or_their_failure():
-    response = raw([row(), "invalid", row(actor=None), row(kind="mystery"),
+    response = raw([row(), "invalid", row(statement=None), row(kind="mystery"),
                     {"requirement_attributes": {}}, row(extra_field="unexpected")])
     result = parsed(response)
     assert result["status"] == "partial"
@@ -129,7 +128,7 @@ def test_overflow_refusal_is_serializable_and_preserves_valid_neighbor():
     assert "1e999" in serialized
 
 
-@pytest.mark.parametrize("field", ["actor", "scope_quotes", "modality", "alternative_quotes"])
+@pytest.mark.parametrize("field", ["statement", "scope_quotes", "modality", "alternative_quotes"])
 def test_missing_required_attributes_are_not_invented(field):
     malformed = row()
     del malformed["unit_attributes"][field]
@@ -163,34 +162,35 @@ def test_blocked_empty_and_nontext_responses_remain_visible():
     assert result["status"] == "failed"
 
 
-@pytest.mark.parametrize("quote,source,code", [
-    ("Staff must log requests", "Staff must log requests. Staff must log requests.", "ambiguous_quote_in_window"),
-    ("Staff must log requests", "Staff may log requests.", "quote_not_in_window"),
+@pytest.mark.parametrize("reference,code", [
+    ("Invented quotation", "invalid_semantic_unit"),
+    ("F999", "passage_not_in_request"),
+    ("C000", "invalid_semantic_unit"),
+    ("F001:F000", "invalid_passage_range"),
+    ("F000:C000", "invalid_semantic_unit"),
 ])
-def test_no_fuzzy_or_ambiguous_evidence_alignment(quote, source, code):
-    result = parsed(raw([row(quote)]), source)
+def test_invalid_main_reference_is_refused(reference, code):
+    result = parsed(raw([row(reference)]))
     assert result["status"] == "failed"
     assert codes(result) == {code}
 
 
-def test_quote_outside_window_is_not_recovered_from_whole_document():
-    document = prepare_document("Staff must log requests.\nDifferent source window.")
-    window = e.plan_windows(document, 27)[-1]
-    result = e.parse_raw_response(raw(), document, window)
-    assert result["status"] == "failed"
-    assert "quote_not_in_window" in codes(result)
+def test_repeated_source_text_is_disambiguated_by_passage_reference():
+    source = "Staff must log requests.\n\nStaff must log requests."
+    result = parsed(raw([row("F001")]), source)
+    assert result['candidates'][0]['start'] == source.rindex('Staff')
+    assert not result['refusals']
 
 
 def test_remote_references_and_complex_logic_are_preserved():
     text = "For section 2, two votes and a written request are required."
-    item = row(text, kind="condition", summary="Section 2 requires two votes and a written request",
-               actor="", actor_quote="", action="", action_quote="", object="", object_quote="",
-               modality="not_stated", modality_quote="", relation="prerequisite",
-               applies_to=[], references=["section 2"], logic_text="two votes and a written request")
+    item = row(kind="requirement", statement="Section 2 requires two votes and a written request",
+               modality="must", modality_quote="required",
+               references=["section 2"], logic_quote="F000")
     result = parsed(raw([item]), text)
     assert result["status"] == "complete"
     assert result["candidates"][0]["references"] == ["section 2"]
-    assert result["candidates"][0]["logic_text"] == "two votes and a written request"
+    assert result["candidates"][0]["logic_text"] == text
 
 
 class FakeResponse:
@@ -332,7 +332,9 @@ def test_credential_echo_in_response_is_not_written(offline, tmp_path):
     assert not list((tmp_path / "failed").glob("*.response.json"))
 
 
-def test_real_langextract_adapter_records_explicit_schema_and_generation_settings(tmp_path):
+@pytest.mark.parametrize("thinking_level", [None, "high"])
+@pytest.mark.parametrize("max_output_tokens", [e.MAX_OUTPUT_TOKENS, None])
+def test_real_langextract_adapter_records_explicit_schema_and_generation_settings(tmp_path, thinking_level, max_output_tokens):
     schema = e.provider_schema()
     model = e._create_model(e.DEFAULT_MODEL, "synthetic-test-credential", schema)
     sdk_client = model._client
@@ -340,30 +342,58 @@ def test_real_langextract_adapter_records_explicit_schema_and_generation_setting
     model._client = fake._client
     document = prepare_document("Staff must log requests.")
     window = e.plan_windows(document)[0]
-    attempt = e._record_window(model, "An offline prompt", tmp_path, window, "synthetic-test-credential", temperature=0.2)
+    attempt = e._record_window(model, "An offline prompt", tmp_path, window, "synthetic-test-credential", temperature=0.2, thinking_level=thinking_level, max_output_tokens=max_output_tokens)
     sdk_client.close()
     request = e._load(tmp_path / attempt["request_file"])
     assert attempt["status"] == "response_received"
     assert fake.calls == 1
-    assert request["config"] == {"temperature": 0.2, "max_output_tokens": e.MAX_OUTPUT_TOKENS,
+    expected = {"temperature": 0.2, "max_output_tokens": e.MAX_OUTPUT_TOKENS,
         "candidate_count": 1, "response_mime_type": "application/json",
         "response_json_schema": schema.schema_dict}
+    if thinking_level is not None:
+        expected["thinking_config"] = {"thinking_level": thinking_level}
+    if max_output_tokens is None:
+        expected.pop("max_output_tokens")
+    assert request["config"] == expected
+
+
+def test_thinking_level_survives_replay_and_reprocessing_without_budget(offline, tmp_path):
+    install, _ = offline
+    env = install([raw([row()])])
+    original = tmp_path / "high-thinking"
+    e.extract_run(prepare_document("Staff must log requests."), original, env_file=env, thinking_level="high")
+    config = e._load(original / "attempt-0000.request.json")["config"]
+    assert config["thinking_config"] == {"thinking_level": "high"}
+    assert e.replay_run(original, tmp_path / "replayed")["run"]["thinking_level"] == "high"
+    assert e.reprocess_run(original, tmp_path / "reprocessed")["run"]["thinking_level"] == "high"
+    assert e.replay_run(tmp_path / "reprocessed", tmp_path / "reprocessed-replay")["run"]["thinking_level"] == "high"
+    run = e._load(original / "run.json")
+    run["thinking_level"] = "medium"
+    e._save(original / "run.json", run)
+    e._write_manifest(original)
+    with pytest.raises(e.ReplayDriftError, match="generation"):
+        e.replay_run(original, tmp_path / "tampered")
+
+
+@pytest.mark.parametrize("level", ["extreme", "HIGH", 1, True, {}])
+def test_invalid_thinking_level_is_refused_before_run(level, tmp_path):
+    with pytest.raises(ValueError, match="thinking_level"):
+        e.extract_run(prepare_document("Source"), tmp_path / "invalid", thinking_level=level)
+    assert not (tmp_path / "invalid").exists()
 
 
 def test_native_schema_preserves_closed_meaning_fields_without_json_prompt_examples():
-    from jsonschema import Draft202012Validator
     schema = e.provider_schema().schema_dict
     row_schema = schema["properties"]["extractions"]["items"]
     attrs = row_schema["properties"]["unit_attributes"]
-    assert set(attrs["required"]) == {*e.TEXT_FIELDS, *e.LIST_FIELDS}
+    assert set(attrs["required"]) == set(e.PROVIDER_FIELDS)
+    assert "concepts" not in attrs["properties"]
+    assert "statement" in attrs["properties"]
     assert attrs["additionalProperties"] is False
     assert attrs["properties"]["modality"]["enum"] == list(e.core.MODALITIES)
     assert set(attrs["properties"]["kind"]["enum"]) == set(e.core.KINDS)
-    for example in e.invented_examples():
-        for item in example.extractions:
-            Draft202012Validator(row_schema).validate({"unit": item.extraction_text, "unit_attributes": item.attributes})
     prompt = e._prompt_generator(e.invented_examples()).render("Staff must log requests.")
-    assert "invoice bearing the account number" in prompt
+    assert "temporary pass" in prompt
     assert '"unit_attributes"' not in prompt
 
 
@@ -381,10 +411,32 @@ def test_temperature_survives_recording_replay_and_reprocessing(offline, tmp_pat
     assert not (tmp_path / "invalid").exists()
 
 
+@pytest.mark.parametrize("allowance", [32768, None])
+def test_generation_allowance_survives_recording_replay_and_reprocessing(offline, tmp_path, allowance):
+    install, _ = offline
+    env = install([raw([row()])])
+    original = tmp_path / 'larger-output'
+    e.extract_run(prepare_document('Staff must log requests.'), original, env_file=env,
+                  max_output_tokens=allowance)
+    config = e._load(original / 'attempt-0000.request.json')['config']
+    assert config.get('max_output_tokens') == allowance
+    assert ('max_output_tokens' in config) == (allowance is not None)
+    assert e.replay_run(original, tmp_path / 'replayed')['run']['max_output_tokens'] == allowance
+    assert e.reprocess_run(original, tmp_path / 'reprocessed')['run']['max_output_tokens'] == allowance
+    assert e.replay_run(tmp_path / 'reprocessed', tmp_path / 'reprocessed-replay')['run']['max_output_tokens'] == allowance
+
+
+@pytest.mark.parametrize('limit', [0, -1, True, 1.5])
+def test_invalid_generation_allowance_is_refused_before_run(limit, tmp_path):
+    with pytest.raises(ValueError, match='max_output_tokens'):
+        e.extract_run(prepare_document('Source'), tmp_path / 'invalid', max_output_tokens=limit)
+    assert not (tmp_path / 'invalid').exists()
+
+
 @pytest.mark.parametrize("mixed", [False, True])
 def test_compiler_rejection_changes_final_status_without_erasing_parse_status(offline, tmp_path, mixed):
     install, _ = offline
-    invalid = row(relation="prerequisite", applies_to=["Staff must log requests"])
+    invalid = row(kind="statement", modality="not_required")
     env_file = install([raw(([row()] if mixed else []) + [invalid])])
     original = tmp_path / "original"
     rulebook = e.extract_run(prepare_document("Staff must log requests."), original, env_file=env_file)

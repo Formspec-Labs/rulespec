@@ -57,11 +57,16 @@ def provider(monkeypatch, tmp_path, responses):
     return env, requests
 
 
-def test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote(monkeypatch, tmp_path):
+@pytest.mark.parametrize("settings", [{}, {"thinking_level": "high", "max_output_tokens": None}])
+def test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote(monkeypatch, tmp_path, settings):
     book = draft()
     before = deepcopy(book)
     env, requests = provider(monkeypatch, tmp_path, answers())
-    report = a.audit_run(book, tmp_path / 'audit', env_file=env)
+    report = a.audit_run(book, tmp_path / 'audit', env_file=env, **settings)
+    if settings:
+        for request in requests:
+            assert request['config']['thinking_config'] == {'thinking_level': 'high'}
+            assert 'max_output_tokens' not in request['config']
     assert report['status'] == 'failed'
     assert report['coverage']['missing'] == 1
     assert report['dimensions']['alternatives']['error'] == 1
@@ -70,6 +75,9 @@ def test_missing_alternative_is_visible_despite_complete_processing_and_exact_qu
     assert 'C0000' not in requests[0]['contents']
     assert 'Draft and inventory:' not in requests[0]['contents']
     assert 'C0000' in requests[1]['contents']
+    assert 'CUE-generated field definitions:' in requests[1]['contents']
+    assert a.load_schema('meaning')['properties']['choice_text']['description'] in requests[1]['contents']
+    assert 'CUE-generated field definitions:' not in requests[0]['contents']
     assert book == before
     findings = e._load(tmp_path / 'audit/findings.jsonld')
     nodes = [n for n in findings['@graph'] if n['@type'] == 'rkaf:Finding']
@@ -81,6 +89,26 @@ def test_missing_alternative_is_visible_despite_complete_processing_and_exact_qu
     monkeypatch.setattr(e, '_create_model', lambda *args: pytest.fail('Replay called a provider'))
     assert a.replay_audit(tmp_path / 'audit', tmp_path / 'replay') == report
     assert e._load(tmp_path / 'replay/findings.jsonld') == findings
+
+
+@pytest.mark.parametrize("settings", [{"thinking_level": "extreme"}, {"thinking_level": True},
+    {"max_output_tokens": 0}, {"max_output_tokens": True}])
+def test_invalid_audit_settings_refused_before_creating_run(tmp_path, settings):
+    with pytest.raises(ValueError):
+        a.audit_run(draft(), tmp_path / 'invalid', **settings)
+    assert not (tmp_path / 'invalid').exists()
+
+
+def test_replay_rejects_changed_audit_thinking_metadata(monkeypatch, tmp_path):
+    env, _ = provider(monkeypatch, tmp_path, answers())
+    path = tmp_path / 'audit'
+    a.audit_run(draft(), path, env_file=env, thinking_level='high', max_output_tokens=None)
+    run = e._load(path / 'audit.json')
+    run['thinking_level'] = 'low'
+    e._save(path / 'audit.json', run)
+    e._write_manifest(path)
+    with pytest.raises(e.ReplayDriftError, match='request differs'):
+        a.replay_audit(path, tmp_path / 'tampered')
 
 
 def test_audit_provider_failure_retains_terminal_attempts_and_unknown_meaning(monkeypatch, tmp_path):

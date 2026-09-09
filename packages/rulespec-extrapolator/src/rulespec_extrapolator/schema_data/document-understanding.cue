@@ -29,7 +29,7 @@ import (
 // Normative force: must, should, permission may, prohibition must_not, exemption not_required, descriptive possible, not_stated or uncertain. Use should for recommendations, may for permission, possible for descriptive may/might, and not_required only for an explicit absence of duty. not_stated fits factual definitions and qualifications with no independent normative force. An exception to a recommendation does not itself declare absence of a legal duty. Generally is not universally.
 #Modality: "must" | "should" | "may" | "must_not" | "not_required" | "possible" | "not_stated" | "uncertain" @title("Modality")
 
-// EVERY exact source option with its qualifying text, not just the list introduction. Retain every leaf option, including options nested under a parent category, with its qualifying wording. A grouped faithful rule can contain all options without creating a separate duty for each option. The list's introductory sentence alone is insufficient.
+// Exact source passages supporting EVERY leaf option and its qualifications, not just the list introduction. One passage may support several options; separate strings or substrings for each option are not required. Retain every option, nested grouping and qualification explicitly in the meaning, including choice_text when applicable. Evidence granularity does not determine whether alternatives are complete: a shared passage is sufficient evidence, but evidence alone does not restore an option or qualification omitted from the meaning. A grouped faithful rule can contain all options without creating a separate duty for each option.
 #AlternativeQuotes: [...string] @title("Alternative quotes")
 
 // One exact contiguous source passage supporting choice/grouping; never join separate phrases with invented separators. Select a contiguous passage that actually supports the grouping; an entire short list can be appropriate. Do not splice disjoint quotations or invent separators inside the quote.
@@ -169,13 +169,48 @@ import (
 	summary!:            #Summary
 }
 
+// Select a supplied focus (F000) or context (C000) passage, or a contiguous
+// inclusive range such as F003:F009. These locate exact source text; they do
+// not prove that the text supports the proposed meaning. Never invent IDs.
+#SourceRef: string @title("Source passage reference")
+
+// Complete meanings first. Preserve conditions and exceptions in every split
+// statement and its scope; this pass does not create relationship records.
+#FirstMeaning: {
+    kind!: #Kind
+    // Select every passage needed for inherited conditions, cases and timing.
+    scope_quotes!: [...#SourceRef]
+    scope_text!: #ScopeText
+    // Select explanatory support without turning it into prerequisites.
+    context_quotes!: [...#SourceRef]
+    modality_quote!: #ModalityQuote
+    modality!: #Modality
+    // Select passages supporting EVERY leaf option with its full qualifications
+    // and nested groups. One passage ID may support several options; select it
+    // once. Preserve each option and qualification explicitly in choice_text
+    // and statement; a shared evidence passage does not restore omitted meaning.
+    alternative_quotes!: [...#SourceRef]
+    // Select the complete choice/grouping passage or range; empty if absent.
+    choice_quote!: #SourceRef
+    choice_text!: #ChoiceText
+    // Select a passage/range retaining complete AND/OR, comparators, units,
+    // reference events and negation. Empty if inapplicable. The application
+    // copies the original wording; never write or splice logical text here.
+    logic_quote!: #SourceRef
+    references!: #References
+    statement!: #Summary @title("Source-faithful statement")
+}
+
 // One independently referenceable source meaning. Separate distinct actions when useful, while preserving their inherited scope and connected qualifications. Overlapping main quotations are allowed. Retain substantive notes and cautions even when they impose no duty, including explanations that one event or document date does not establish the date of its underlying evidence. Keep these as descriptive statements at their source force.
 #SemanticUnit: {
 	@title("One semantic unit")
 
-	// One exact contiguous quotation in the focus source, copied without rewriting.
-	unit!:            string @title("Exact main quotation")
-	unit_attributes!: #UnitMeaning
+	// Select ONE focus passage or contiguous focus range. Never comma-separate
+	// disconnected passages. Select the main clause here and its remote lead-in
+	// in scope_quotes; preserve the full governing case in statement and scope.
+	// Context is support only.
+	unit!:            string & =~"^F[0-9]{3,}(:F[0-9]{3,})?$" @title("One focus passage or contiguous range")
+	unit_attributes!: #FirstMeaning
 }
 
 // Retain independently useful rules, definitions, recommendations, permissions, exemptions, qualifications and descriptive statements with exact evidence. Empty collections express absent supported content, never proof of completeness.

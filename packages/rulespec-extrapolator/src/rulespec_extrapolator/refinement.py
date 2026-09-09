@@ -91,8 +91,7 @@ An exception to a recommendation does not assert absence of a legal duty.
 
 
 def proposal_schema():
-    native = load_schema("provider")
-    attrs = native["properties"]["extractions"]["items"]["properties"]["unit_attributes"]
+    attrs = load_schema("meaning")
     attrs["properties"].pop("applies_to")
     attrs["required"].remove("applies_to")
     proposal = a._object({"rationale": a.TEXT,

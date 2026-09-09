@@ -5,6 +5,7 @@ from pathlib import Path
 
 from .core import canonical, validate_graph
 from .documents import load_document
+from . import extraction as e
 
 
 def _load(path):
@@ -30,7 +31,12 @@ def main(argv=None):
     extract.add_argument("source", type=Path)
     extract.add_argument("--model", default="gemini-3.8-flash")
     extract.add_argument("--env-file", type=Path)
-    extract.add_argument("--max-chars", type=int, default=6000)
+    extract.add_argument("--max-chars", type=int, default=e.DEFAULT_MAX_CHARS)
+    extract.add_argument("--max-output-tokens", type=lambda value: None if value == "provider" else int(value),
+                         default=e.MAX_OUTPUT_TOKENS, metavar="TOKENS|provider",
+                         help="Total generation allowance; 'provider' omits the application cap. Recorded for replay.")
+    extract.add_argument("--thinking-level", choices=("low", "medium", "high"),
+                         help="Gemini thinking effort; omitting uses the provider default. No thinking budget is sent.")
     extract.add_argument("--temperature", type=float, default=0,
                          help="Gemini sampling temperature (0–2), recorded for replay; default 0.")
     extract.add_argument("--output", type=Path, required=True)
@@ -50,6 +56,9 @@ def main(argv=None):
     export = sub.add_parser("export", help="Export and validate the current review state.")
     export.add_argument("run", type=Path)
     export.add_argument("--output", type=Path, required=True)
+    discovery = sub.add_parser("discovery-export", help="Export source passages with grounded scope/context links and processing status.")
+    discovery.add_argument("run", type=Path)
+    discovery.add_argument("--output", type=Path, required=True)
     evaluate = sub.add_parser("evaluate", help="Score content-bound independent source judgments.")
     evaluate.add_argument("rulebook", type=Path)
     evaluate.add_argument("--labels", type=Path, required=True)
@@ -60,6 +69,11 @@ def main(argv=None):
     audit.add_argument("--model", default="gemini-3.8-flash")
     audit.add_argument("--env-file", type=Path)
     audit.add_argument("--max-chars", type=int, default=3000)
+    audit.add_argument("--max-output-tokens", type=lambda value: None if value == "provider" else int(value),
+                       default=32768, metavar="TOKENS|provider",
+                       help="Total generation allowance per audit request; 'provider' omits the application cap.")
+    audit.add_argument("--thinking-level", choices=("low", "medium", "high"),
+                       help="Thinking effort for both audit stages; no thinking budget is sent.")
     audit.add_argument("--output", type=Path, required=True)
     audit_replay = sub.add_parser("audit-replay", help="Recompute a saved audit without provider calls.")
     audit_replay.add_argument("input", type=Path)
@@ -85,7 +99,8 @@ def main(argv=None):
         from .extraction import extract_run, replay_run, reprocess_run
         if args.command == "extract":
             result = extract_run(load_document(args.source), args.output, args.model,
-                                 env_file=args.env_file, max_chars=args.max_chars, temperature=args.temperature)
+                                 env_file=args.env_file, max_chars=args.max_chars, temperature=args.temperature,
+                                 max_output_tokens=args.max_output_tokens, thinking_level=args.thinking_level)
         elif args.command == "replay":
             result = replay_run(args.input, args.output)
         else:
@@ -106,6 +121,10 @@ def main(argv=None):
             result = store.snapshot()
             result["validation"] = validate_graph(result["graph"])
             _write_new(args.output, result)
+    elif args.command == "discovery-export":
+        from .discovery import export_discovery
+        from .review_store import ReviewStore
+        _write_new(args.output, export_discovery(ReviewStore(args.run).snapshot()))
     elif args.command == "evaluate":
         from .evaluation import evaluate
         result = evaluate(_load(args.rulebook), _load(args.labels),
@@ -126,7 +145,8 @@ def main(argv=None):
             print(json.dumps(replay_refinement(args.input, args.output)))
     elif args.command in ("audit", "audit-replay"):
         from .audit import audit_run, replay_audit
-        result = (audit_run(_load(args.rulebook), args.output, args.model, env_file=args.env_file, max_chars=args.max_chars)
+        result = (audit_run(_load(args.rulebook), args.output, args.model, env_file=args.env_file, max_chars=args.max_chars,
+                            max_output_tokens=args.max_output_tokens, thinking_level=args.thinking_level)
                   if args.command == "audit" else replay_audit(args.input, args.output))
         print(json.dumps({"output": str(args.output), "status": result["status"],
                           "review_complete": result["review_complete"], "semantic_completeness": result["semantic_completeness"]}, indent=2))

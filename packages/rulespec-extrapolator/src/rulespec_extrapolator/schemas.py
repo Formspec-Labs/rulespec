@@ -5,7 +5,7 @@ from pathlib import Path
 
 SCHEMA_DATA = Path(__file__).with_name("schema_data")
 PROFILE_SOURCES = ("document-understanding.cue", "cue.mod/module.cue")
-SCHEMA_FILES = {name: name + ".schema.json" for name in ("candidate", "provider")}
+SCHEMA_FILES = {name: name + ".schema.json" for name in ("candidate", "meaning", "provider")}
 
 
 def load_schema(name: str) -> dict:
@@ -28,6 +28,8 @@ def runtime_sources() -> dict[str, Path]:
 
 
 UNIT_SCHEMA = load_schema("provider")["properties"]["extractions"]["items"]
-UNIT_FIELDS = UNIT_SCHEMA["properties"]["unit_attributes"]["properties"]
+PROVIDER_FIELDS = UNIT_SCHEMA["properties"]["unit_attributes"]["properties"]
+# Full Core/refinement fields are independent of what one provider pass selects.
+UNIT_FIELDS = load_schema("meaning")["properties"]
 TEXT_FIELDS = tuple(name for name, field in UNIT_FIELDS.items() if field["type"] == "string")
 LIST_FIELDS = tuple(name for name, field in UNIT_FIELDS.items() if field["type"] == "array")

@@ -70,17 +70,19 @@ def source_passages(document):
     """Index exact paragraphs/list items; structural parents are not rule scope.
 
     Blank lines and explicit list markers supply boundaries. This bounded text
-    profile recognizes lettered paragraphs, numbered children and lettered
-    grandchildren; it reports that method rather than claiming layout recovery.
+    profile recognizes dotted-letter lists with lettered grandchildren, and
+    parenthesized-letter lists with numbered children and Roman grandchildren.
+    It reports that method rather than claiming layout or legal-scope recovery.
     """
     validate_document(document)
     text = document["text"]
     boundaries = {0, len(text)}
     boundaries.update(m.end() for m in re.finditer(r"\r?\n[ \t]*\r?\n", text))
-    boundaries.update(m.start() for m in re.finditer(r"(?m)^[ \t]*(?:[a-z]\.|\([a-z0-9]+\)|\d+\.)[ \t]+", text))
+    boundaries.update(m.start() for m in re.finditer(r"(?m)^[ \t]*(?:[a-z]\.|\([a-z0-9]+\)(?:\(\d+\))?|\d+\.)[ \t]+", text))
     bounds = sorted(boundaries)
     passages, parents = [], {}
     previous_section = None
+    style, top_letter = None, None
     for start, end in zip(bounds, bounds[1:]):
         content = text[start:end]
         containing = [s for s in document["sections"] if s["start"] <= start and end <= s["end"]]
@@ -88,20 +90,40 @@ def source_passages(document):
         section_id = section["id"] if section else ""
         if section_id != previous_section:
             parents = {}
+            style, top_letter = None, None
         previous_section = section_id
-        marker = re.match(r"\s*(?:(?P<top>[a-z])\.|\((?P<number>\d+)\)|\((?P<letter>[a-z])\)|(?P<plain>\d+)\.)\s+", content)
+        marker = re.match(r"\s*(?:(?P<top>[a-z])\.|\((?P<number>\d+)\)|\((?P<letter>[a-z]+)\)(?P<child>\(\d+\))?|(?P<plain>\d+)\.)\s+", content)
         parent = None
         if marker:
-            level = 0 if marker["top"] or marker["plain"] else 1 if marker["number"] else 2
+            if marker["top"] or marker["plain"]:
+                style, level = "dotted", 0
+            elif marker["number"]:
+                level = 1
+            else:
+                letter = marker["letter"]
+                if style == "dotted":
+                    level = 2
+                else:
+                    style = "parenthesized"
+                    next_top = top_letter is not None and len(letter) == 1 and ord(letter) == ord(top_letter) + 1
+                    roman = re.fullmatch(r"x{0,3}(?:ix|iv|v?i{0,3})", letter)
+                    level = 2 if roman and 1 in parents and not next_top and (
+                        letter == "i" or len(letter) > 1 or 2 in parents
+                    ) else 0
+                    if level == 0:
+                        top_letter = letter if len(letter) == 1 else None
             parent = parents.get(level - 1)
             parents = {depth: identity for depth, identity in parents.items() if depth < level}
         identity = NS + "passage:" + digest([document["id"], start, end])
         passage = {"id": identity, "start": start, "end": end, "text_sha256": digest(content),
                    "section_id": section_id, "kind": "list_item" if marker else "paragraph",
-                   "parent_id": parent, "structure_method": "text-paragraphs-and-list-markers/1"}
+                   "parent_id": parent, "structure_method": "text-paragraphs-and-list-markers/2"}
         passages.append(passage)
         if marker:
             parents[level] = identity
+            # A combined (c)(1) paragraph supplies both structural levels.
+            if marker['child']:
+                parents[level + 1] = identity
     return passages
 
 

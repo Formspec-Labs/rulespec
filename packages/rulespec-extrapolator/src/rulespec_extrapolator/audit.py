@@ -13,6 +13,7 @@ from rulespec_projection.evidence import resolve_exact_evidence_offsets
 from . import extraction as e
 from .core import MEANING_FIELDS, NS, validate_graph
 from .documents import source_passages, validate_document
+from .schemas import load_schema
 from .evaluation import (COVERAGE, MEANING_DIMENSIONS, VERDICTS, claim_digest,
                          content_digest, evaluate)
 
@@ -72,6 +73,35 @@ Use only the supplied C/U aliases, with reciprocal links in both judgment lists.
 Every judgment needs rationale and exact source quotes. Return claim_judgments
 [{claim_id, unit_ids, dimensions, rationale, quotes}] and unit_judgments
 [{unit_id, claim_ids, status, rationale, quotes}]."""
+
+
+def comparison_prompt():
+    """Use the existing CUE field meanings when judging the extraction profile."""
+    fields = load_schema("meaning")["properties"]
+    definitions = {name: {key: fields[name][key] for key in ("title", "description", "enum") if key in fields[name]}
+                   for name in ("summary", "scope_text", "modality", "logic_text",
+                                "alternative_quotes", "choice_text", "choice_quote")}
+    return COMPARISON_PROMPT + """
+Application field definitions below come from the existing CUE profile. Use
+them rather than guessing semantics from field names. alternative_quotes lists
+source components; choice_text determines whether they form AND or OR groups.
+Assess summary and scope quality separately from whole-record coverage: a missing
+qualification in summary can be a summary error even if logic_text retains it.
+Explain exactly which fields retain or omit the meaning. Do not say a meaning
+is absent everywhere when it remains in explicit logic_text. Mere quote/context
+evidence still does not restore meaning. If a linked claim has an error, use
+partial/unknown rather than covered and explain whether the issue is wording,
+meaning or representation. Keep reciprocal C/U links consistent.
+An inventory unit can be covered jointly by multiple focus claims. Check their
+combined duties, governing scopes, AND/OR and qualifications before declaring a
+group missing. Do not demand a duplicate parent duty when the constituent duties
+already preserve the complete requirement. Neighboring claims do not repair an
+individual claim's overbroad wording; distinguish these two questions.
+This extraction profile permits qualifications in complete prose without separate
+relationship records. Missing optional graph enrichment is not a links error.
+Judge populated links for correct direction and targets, and flag meaning actually
+lost through an omitted qualification. Do not invent a local target for remote rules.
+""" + "\nCUE-generated field definitions: " + e._canonical(definitions)
 
 
 def _object(properties):
@@ -311,7 +341,8 @@ def _findings(book, report, run):
     return {"@context": book["graph"]["@context"], "@graph": list(unique.values())}
 
 
-def _capture(directory, document, windows, prompts, schema, model_id, key, setup_error):
+def _capture(directory, document, windows, prompts, schema, model_id, key, setup_error, *,
+             max_output_tokens=AUDIT_MAX_OUTPUT_TOKENS, thinking_level=None):
     from langextract.providers.schemas.gemini import GeminiSchema
     directory.mkdir(parents=True, exist_ok=False)
     model, attempts = None, []
@@ -327,25 +358,30 @@ def _capture(directory, document, windows, prompts, schema, model_id, key, setup
             e._save(directory / (attempt["id"] + ".json"), attempt)
         else:
             attempt = e._record_window(model, prompt, directory, window, key,
-                                       max_output_tokens=AUDIT_MAX_OUTPUT_TOKENS)
+                                       max_output_tokens=max_output_tokens, thinking_level=thinking_level)
         attempts.append(attempt)
         if attempt.get("error_code") == "interrupted":
             setup_error = "interrupted"
     return attempts
 
 
-def audit_run(book, output, model_id=e.DEFAULT_MODEL, *, env_file=None, max_chars=3000):
+def audit_run(book, output, model_id=e.DEFAULT_MODEL, *, env_file=None, max_chars=3000,
+              max_output_tokens=AUDIT_MAX_OUTPUT_TOKENS, thinking_level=None):
     """Record both checks without modifying the supplied draft or its review."""
     validate_document(book["document"])
     validate_graph(book["graph"])
+    if max_output_tokens is not None and (type(max_output_tokens) is not int or max_output_tokens < 1):
+        raise ValueError("max_output_tokens must be a positive integer or None for the provider default")
+    if thinking_level not in (None, "low", "medium", "high"):
+        raise ValueError("thinking_level must be low, medium, high, or None for the provider default")
+    windows = e.plan_windows(book["document"], max_chars)
     output = Path(output)
     output.mkdir(parents=True, exist_ok=False)
     e._save(output / "rulebook.json", book)
-    windows = e.plan_windows(book["document"], max_chars)
     fingerprints = {name: e._digest(path.read_bytes()) for name, path in e._runtime_sources().items()}
     run = {"schema_version": AUDIT_VERSION, "model": model_id, "windows": windows,
             "rulebook_sha256": content_digest(book), "max_chars": max_chars,
-            "max_output_tokens": AUDIT_MAX_OUTPUT_TOKENS,
+            "max_output_tokens": max_output_tokens, "thinking_level": thinking_level,
             "runtime": e._runtime_versions(), "sources_sha256": fingerprints,
            "status": "running", "started_at": e._now()}
     e._save(output / "audit.json", run)
@@ -353,7 +389,7 @@ def audit_run(book, output, model_id=e.DEFAULT_MODEL, *, env_file=None, max_char
         target = output / "frozen" / name
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(path, target)
-    e._save(output / "configuration.json", {"inventory_prompt": INVENTORY_PROMPT, "comparison_prompt": COMPARISON_PROMPT,
+    e._save(output / "configuration.json", {"inventory_prompt": INVENTORY_PROMPT, "comparison_prompt": comparison_prompt(),
             "inventory_schema": INVENTORY_SCHEMA, "comparison_schema": COMPARISON_SCHEMA})
     key, setup_error = "", None
     try:
@@ -362,7 +398,8 @@ def audit_run(book, output, model_id=e.DEFAULT_MODEL, *, env_file=None, max_char
         setup_error = "credential_unavailable"
     generator = e._prompt_generator([], INVENTORY_PROMPT)
     prompts = [e._window_prompt(generator, book["document"], w) for w in windows]
-    inventory_attempts = _capture(output / "inventory", book["document"], windows, prompts, INVENTORY_SCHEMA, model_id, key, setup_error)
+    inventory_attempts = _capture(output / "inventory", book["document"], windows, prompts, INVENTORY_SCHEMA, model_id, key, setup_error,
+                                  max_output_tokens=max_output_tokens, thinking_level=thinking_level)
     inventory = _inventory(output / "inventory", book["document"], windows, inventory_attempts)
     labels = _labels(book["document"], inventory, model_id)
     # Freeze the inventory before constructing anything that contains the draft.
@@ -373,9 +410,10 @@ def audit_run(book, output, model_id=e.DEFAULT_MODEL, *, env_file=None, max_char
     e._save(output / "audit.json", run)
     if any(a.get("error_code") == "interrupted" for a in inventory_attempts):
         setup_error = "interrupted"
-    generator = e._prompt_generator([], COMPARISON_PROMPT)
+    generator = e._prompt_generator([], comparison_prompt())
     prompts = [e._window_prompt(generator, book["document"], w) + '\nDraft and inventory: ' + e._canonical(_model_input(_comparison_input(book, labels, w)[0])) for w in windows]
-    comparison_attempts = _capture(output / "comparison", book["document"], windows, prompts, COMPARISON_SCHEMA, model_id, key, setup_error)
+    comparison_attempts = _capture(output / "comparison", book["document"], windows, prompts, COMPARISON_SCHEMA, model_id, key, setup_error,
+                                   max_output_tokens=max_output_tokens, thinking_level=thinking_level)
     judgments, problems = _judgments(output / "comparison", book, labels, windows, comparison_attempts, model_id)
     issues = inventory["issues"] + problems
     report = _assessment(book, labels, judgments, issues)
@@ -422,6 +460,11 @@ def replay_audit(directory, output):
         raise ValueError("Audit replay needs a new directory outside its input")
     loaded = load_audit(directory)
     manifest, run, book = loaded["manifest"], loaded["run"], loaded["book"]
+    if ("max_output_tokens" not in run
+            or (run["max_output_tokens"] is not None
+                and (type(run["max_output_tokens"]) is not int or run["max_output_tokens"] < 1))
+            or run.get("thinking_level") not in (None, "low", "medium", "high")):
+        raise e.ReplayDriftError("Audit generation settings are invalid")
     if run["windows"] != e.plan_windows(book["document"], run["max_chars"]):
         raise e.ReplayDriftError("Audit request coverage changed")
     current = {name: e._digest(path.read_bytes()) for name, path in e._runtime_sources().items()}
@@ -431,7 +474,7 @@ def replay_audit(directory, output):
     labels = _labels(book["document"], inventory, run["model"])
     from langextract.providers.schemas.gemini import GeminiSchema
     for stage, description, schema, attempts in (("inventory", INVENTORY_PROMPT, INVENTORY_SCHEMA, run["inventory_attempts"]),
-                                                ("comparison", COMPARISON_PROMPT, COMPARISON_SCHEMA, run["comparison_attempts"])):
+                                                ("comparison", comparison_prompt(), COMPARISON_SCHEMA, run["comparison_attempts"])):
         generator = e._prompt_generator([], description)
         for window, attempt in zip(run["windows"], attempts, strict=True):
             attempt_name = stage + '/' + attempt["id"] + '.json'
@@ -448,8 +491,12 @@ def replay_audit(directory, output):
             prompt = e._window_prompt(generator, book["document"], window)
             if stage == "comparison":
                 prompt += '\nDraft and inventory: ' + e._canonical(_model_input(_comparison_input(book, labels, window)[0]))
-            config = {"temperature": 0, "max_output_tokens": AUDIT_MAX_OUTPUT_TOKENS, "candidate_count": 1,
+            config = {"temperature": 0, "candidate_count": 1,
                       **GeminiSchema(schema, _use_json_schema=True).to_provider_config()}
+            if run["max_output_tokens"] is not None:
+                config["max_output_tokens"] = run["max_output_tokens"]
+            if run.get("thinking_level") is not None:
+                config["thinking_config"] = {"thinking_level": run["thinking_level"]}
             if request != {"model": run["model"], "contents": prompt, "config": config}:
                 raise e.ReplayDriftError("Audit request differs from its pinned source and stage inputs")
             if attempt.get("response_file") and stage + '/' + attempt["response_file"] not in manifest["artifacts_sha256"]:

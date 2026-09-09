@@ -105,13 +105,14 @@ def test_nested_evidence_cannot_come_from_outside_the_request(field):
     c[field][0]['quote'] = 'Unseen source passage'
     b = book(c)
     assert any(i['field'] == field + ':0' and i['code'] == 'component_evidence_unresolved' for i in b['accepted'][0]['issues'])
-    attrs = {name: '' for name in e.TEXT_FIELDS}
-    attrs.update({name: [] for name in e.LIST_FIELDS})
-    attrs.update({k: v for k, v in c.items() if k != 'quote'}, relation='none')
-    doc = b['document']
-    parsed = e.parse_response_text(json.dumps({'extractions': [{'unit': TEXT, 'unit_attributes': attrs}]}), doc, e.plan_windows(doc)[0])
-    assert not parsed['candidates']
-    assert parsed['refusals'][0]['code'] == 'component_quote_outside_request'
+    # Rich suggestions belong to Core/refinement, outside the first-pass schema.
+    assert field not in e.PROVIDER_FIELDS
+    if field == 'concepts':
+        assert not nodes(b, 'ConceptAssignment')
+    elif field == 'claimants':
+        assert not nodes(b, 'SourceClaimant')
+    elif field == 'effective_periods':
+        assert not nodes(b, 'EffectivePeriod')
 
 
 def test_relative_deadline_does_not_create_an_effective_period():

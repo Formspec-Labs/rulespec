@@ -127,8 +127,6 @@ def _claim(document, candidate, *, rule_id, occurrence_id, origin="aiSuggested")
         section = min(containing, key=lambda s: (s["end"] - s["start"], s["start"], s["id"]), default=None)
         c["section_id"] = section["id"] if section else ""
     evidence, issues = [main], []
-    if not c["actor"] and (c["modality"] == "uncertain" or c["kind"] in MODALITY_KINDS.get(c["modality"], set())):
-        issues.append(_issue("unknown_actor", "actor", "The actor needs review."))
     for field in ("actor", "action", "object"):
         if not c[field]:
             continue

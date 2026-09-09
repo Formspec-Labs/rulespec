@@ -101,7 +101,7 @@ def generate():
         shutil.copytree(SOURCE, module)
         shutil.copytree(ROOT / "constraints/core", module / "cue.mod/pkg/rulespec.invalid/core")
         exports = {}
-        for definition in ("Candidate", "ExtractionResponse"):
+        for definition in ("Candidate", "UnitMeaning", "ExtractionResponse"):
             result = subprocess.run([str(binary), "-definition", "#" + definition, str(module)],
                                     cwd=SOURCE, check=True, capture_output=True, text=True)
             exports[definition] = json.loads(result.stdout)
@@ -114,7 +114,9 @@ def generate():
         raise ValueError("Native candidate fields differ from CUE metadata")
     candidate["properties"] = {name: candidate["properties"][name] for name in candidate_order}
     candidate["required"] = [name for name in candidate_order if name in candidate["required"]]
+    meaning = exports["UnitMeaning"]
     files = {"candidate.schema.json": serialized(candidate),
+             "meaning.schema.json": serialized(model_schema(meaning["schema"], meaning["metadata"])),
              "provider.schema.json": serialized(model_schema(provider["schema"], provider["metadata"]))}
     inputs = [SOURCE / "document-understanding.cue", SOURCE / "cue.mod/module.cue", Path(__file__),
               GENERATOR / "main.go", GENERATOR / "go.mod", GENERATOR / "go.sum",
