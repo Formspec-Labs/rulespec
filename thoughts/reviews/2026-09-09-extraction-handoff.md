@@ -143,3 +143,15 @@ Source correction: C0014.logic_text starts mid-sentence at F004. It retains unus
 circumstances/emergency qualifications but lacks F003's unforeseeable-leave lead-in;
 it is not the complete original paragraph. Preserve that distinction in later
 field-specific quality work. These results remain local and uncommitted.
+
+## Passage references integrated after explicit next-step authorization
+
+The user authorized the proposed narrower citation-reliability integration and a
+checkpoint commit, followed by two untouched source checks. Comparison now selects
+CUE-generated source references; the existing resolver retains complete passages
+and refuses invalid evidence. All 356 package/schema tests and CUE drift checks
+pass. Both saved P runs reproduce exactly through production, without new calls.
+Audit format is version 4. Previous research/runtime is committed at `68de277`;
+old captures retain their original schemas and observations. This adoption does
+not retroactively pass the broader semantic gate. Two-document transfer evaluation
+is the next bounded task, with no semantic prompt tuning in that evaluation.

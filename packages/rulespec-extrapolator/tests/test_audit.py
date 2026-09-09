@@ -26,9 +26,9 @@ def answers():
     comparison = {'claim_judgments': [{'claim_id': 'C0000', 'unit_ids': [], 'dimensions': {
         d: 'error' if d == 'alternatives' else 'correct' for d in MEANING_DIMENSIONS},
         'rationale': 'The meaning narrows the choice to a receipt; the quote alone does not restore the missing alternative.',
-        'quotes': ['a receipt; or an invoice']}],
+        'source_refs': ['F000']}],
         'unit_judgments': [{'unit_id': 'U0000', 'claim_ids': [], 'status': 'missing',
-        'rationale': 'The draft meaning omits invoices despite their presence in the source quotation.', 'quotes': ['an invoice']}]}
+        'rationale': 'The draft meaning omits invoices despite their presence in the source quotation.', 'source_refs': ['F000']}]}
     return inventory, comparison
 
 
@@ -203,3 +203,74 @@ def test_inventory_never_treats_inserted_text_as_source(tmp_path):
     doc['source_map'] = [{'kind': 'inserted', 'start': 0, 'end': len(doc['text']), 'text': doc['text']}]
     result = inventory_capture(tmp_path, doc, e.plan_windows(doc)[0])
     assert not result['units'] and result['issues'][0]['code'] == 'invalid_inventory_unit'
+
+
+def comparison_capture(tmp_path, document, window, refs):
+    quote = document['text'][window['start']:window['end']]
+    book = compile_candidates(document, [{'kind': 'statement', 'summary': quote, 'quote': quote, 'actor': ''}], {})
+    assert len(book['accepted']) == 1
+    row = {'claim_id': 'C0000', 'unit_ids': [], 'source_refs': refs,
+           'rationale': 'Constructed evidence selection, not a semantic quality judgment.',
+           'dimensions': {d: 'correct' for d in MEANING_DIMENSIONS}}
+    raw = {'candidates': [{'content': {'parts': [{'text': json.dumps({
+        'claim_judgments': [row], 'unit_judgments': []})}]}, 'finish_reason': 'STOP'}]}
+    e._save(tmp_path / 'response.json', raw)
+    result = a._judgments(tmp_path, book, {'expected_units': []}, [window],
+                          [{'response_file': 'response.json'}], e.DEFAULT_MODEL)
+    assert e._load(tmp_path / 'response.json') == raw
+    return result
+
+
+def test_comparison_passage_ids_preserve_scope_and_select_repeated_occurrence(tmp_path):
+    doc = prepare_document('Only for licensed staff:\n\nStaff must file.\n\nOnly for volunteers:\n\nStaff must file.')
+    result, issues = comparison_capture(tmp_path, doc, e.plan_windows(doc)[0], ['F002:F003'])
+    assert not issues
+    span = result['claim_judgments'][0]['source_spans'][0]
+    assert span['start'] == doc['text'].index('Only for volunteers:')
+    assert span['end'] == len(doc['text'])
+    assert span['quote'] == 'Only for volunteers:\n\nStaff must file.'
+
+
+@pytest.mark.parametrize('refs', [[], ['F999'], ['bogus'], ['F0000'], ['C000:C001']])
+def test_comparison_refuses_missing_invalid_and_unseen_evidence(tmp_path, refs):
+    doc = prepare_document('Before.\n\nUnseen.\n\nStaff must file.\n\nAfter.')
+    start = doc['text'].index('Staff')
+    window = {'id': 'focus', 'start': start, 'end': start + len('Staff must file.'),
+              'context_spans': [{'start': 0, 'end': len('Before.')},
+                                {'start': doc['text'].index('After'), 'end': len(doc['text'])}]}
+    judgments, issues = comparison_capture(tmp_path, doc, window, refs)
+    assert not judgments['claim_judgments']
+    assert issues[0]['code'] == 'invalid_semantic_judgment'
+
+
+def test_comparison_preserves_supplied_context_as_separate_component(tmp_path):
+    doc = prepare_document('Only during emergencies.\n\nUnseen.\n\nStaff may call.')
+    start = doc['text'].index('Staff')
+    window = {'id': 'focus', 'start': start, 'end': len(doc['text']),
+              'context_spans': [{'start': 0, 'end': len('Only during emergencies.')}]}
+    judgments, issues = comparison_capture(tmp_path, doc, window, ['F000', 'C000'])
+    assert not issues
+    assert [s['quote'] for s in judgments['claim_judgments'][0]['source_spans']] == [
+        'Staff may call.', 'Only during emergencies.']
+
+
+def test_comparison_refuses_inserted_source_text(tmp_path):
+    prefix = 'Staff must file.\n\n'
+    doc = prepare_document(prefix + 'Inserted marker.')
+    doc['source_map'] = [
+        {'kind': 'source', 'start': 0, 'end': len(prefix), 'source_start': 0,
+         'source_end': len(prefix), 'source_id': doc['id']},
+        {'kind': 'inserted', 'start': len(prefix), 'end': len(doc['text']), 'text': 'Inserted marker.'}]
+    window = {'id': 'focus', 'start': 0, 'end': len('Staff must file.'),
+              'context_spans': [{'start': len(prefix), 'end': len(doc['text'])}]}
+    judgments, issues = comparison_capture(tmp_path, doc, window, ['C000'])
+    assert not judgments['claim_judgments']
+    assert issues[0]['code'] == 'invalid_semantic_judgment'
+
+
+def test_valid_comparison_id_does_not_prove_semantic_relevance(tmp_path):
+    doc = prepare_document('Staff must file.\n\nThe sky is blue.')
+    judgments, issues = comparison_capture(tmp_path, doc, e.plan_windows(doc)[0], ['F001'])
+    assert not issues
+    assert judgments['claim_judgments'][0]['source_spans'][0]['quote'] == 'The sky is blue.'
+    assert judgments['review_provenance']['reviewer_kind'] == 'aiAgent'

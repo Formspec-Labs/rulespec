@@ -66,13 +66,18 @@ produced 18 accepted statements and no inventory refusals, but comparison reject
 three claim/unit pairs for inexact copied quotations. Review remained incomplete.
 A [whitespace-only fallback experiment](../../examples/document_understanding/whitespace-evidence-experiment/README.md)
 recovers those pairs, but accepts two constructed table/list joins against the
-declared expectations. It remains experimental; production comparison matching
-is still exact. A [known-library comparison](../../examples/document_understanding/library-fuzzy-evidence-experiment/README.md)
+declared expectations. It remains experimental; comparison matching was exact
+at that checkpoint. A [known-library comparison](../../examples/document_understanding/library-fuzzy-evidence-experiment/README.md)
 then found that installed LangExtract can recover all six judgments through its
 token-exact alignment, even with fuzzy matching disabled. That path still selects
 ambiguous and layout-sensitive spans in the constructed controls; it remains
 experimental. Configurable character-edit matching showed broader content-change
 acceptances, and one fuzzysearch setting varied its selected repeated-text location.
+
+The [passage-ID integration](../../examples/document_understanding/passage-id-integration/README.md)
+now uses that existing source-reference path in comparison as a narrowly scoped
+citation-reliability improvement. It reproduces both saved ID runs, preserving all
+36 judgments per run. The broader semantic-quality gate remains unmet.
 
 ## Run the workflow
 
@@ -176,8 +181,10 @@ no embeddings or inferred legal relationships.
 **Audit:** a separate source-first inventory selects focus passage IDs for each
 observation and focus/context IDs for its scope. The existing resolver turns these
 into exact source text and offsets; invalid selections refuse the observation.
-A subsequent draft comparison still uses exact quotations for its judgments and
-produces raw judgments, a detailed report and existing Core `Finding` records in
+A subsequent draft comparison selects `source_refs` using the same CUE-generated
+passage references and resolver. Full selected source passages and governing
+context are retained with exact offsets. Invalid or unavailable selections are
+refused; a valid ID alone does not prove relevance. Comparison produces raw judgments, a detailed report and existing Core `Finding` records in
 `findings.jsonld`. It does not modify the draft. Inventories and judgments remain
 fallible observations; missing or invalid inventory entries limit what was checked.
 
