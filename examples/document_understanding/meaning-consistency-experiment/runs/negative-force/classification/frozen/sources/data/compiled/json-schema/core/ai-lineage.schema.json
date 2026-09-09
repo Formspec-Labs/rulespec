@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/ai-lineage.json",
+  "title": "ai-lineage",
+  "$defs": {
+    "AILineage": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:AILineage"
+        },
+        "rkaf:modelId": {
+          "type": "string"
+        },
+        "rkaf:modelVersion": {
+          "type": "string"
+        },
+        "rkaf:promptTemplateRef": {
+          "type": "string"
+        },
+        "rkaf:temperature": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 2.0
+        },
+        "rkaf:seed": {
+          "type": "integer"
+        },
+        "rkaf:inputContextHash": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "rkaf:humanApprover": {
+          "type": "string"
+        },
+        "rkaf:humanRationale": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:modelId",
+        "rkaf:modelVersion",
+        "rkaf:promptTemplateRef",
+        "rkaf:temperature",
+        "rkaf:inputContextHash"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "rkaf:humanRationale"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:humanApprover": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "rkaf:humanApprover"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

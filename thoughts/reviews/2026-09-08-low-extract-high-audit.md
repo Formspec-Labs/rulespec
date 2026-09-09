@@ -1,0 +1,13 @@
+# Low extraction followed by high audit: completed
+
+User authorized this experiment. Added audit thinking_level and optional max_output_tokens controls, preserving default settings. Both source-inventory and comparison requests record exact settings; replay verifies them. CLI exposes --thinking-level high --max-output-tokens provider. No schema/prompt changes; existing Core Findings and evaluator reused.
+
+Four low draft snapshots were copied byte-for-byte and audited at high with whole-section 24,000-character windows, temperature 0, no thinking_budget or application output cap. Eight new model calls; no new extraction, retries, repairs or automatic review approvals. All eight responses STOP, all four audits processed completely and replayed identically. 333 package tests and 11 focused audit tests passed.
+
+Findings: first leave audit correctly catches rejected nonconsecutive-month rule as missing; second detects teacher-specific prose and future-headcount example omissions. Some standalone-scope warnings are useful but overstate loss when full context remains in logic_text. Both display audits falsely demand a duplicate all-four-duties baseline despite jointly present duties. Last display audit misreads alternative_quotes as OR even though CUE/choice_text support AND groups; it also treats optional relationship enrichment as mandatory. Inventory repeats classification errors and filters descriptive queue possibility as background. Seven inconsistent covered-unit judgments downgraded to unknown by existing evaluator in final display report; review_complete=false despite complete provider processing. Do not turn audit observations or coverage counts into gold accuracy metrics.
+
+Cost evidence: 416,400 audit tokens plus 26,522 low extraction tokens = 442,922 total, 2.95585x the 149,846 saved high-extraction total. Token ratio is not billing ratio. Roughly 3–5 minutes per document across sequential extraction/inventory/comparison requests. Original drafts unchanged, no corrections generated/applied.
+
+Decision: keep optional; low+high-audit is not yet clearly better than high extraction alone. Before more expensive thinking, pass relevant existing CUE field descriptions to the checker, credit coverage across multiple claims, distinguish prose quality from complete record meaning and optional graph enrichment, and require consistent judgments. A shorter defect-focused audit is a future experiment, not an adopted change. Preserve raw judgments and replay cases.
+
+Evidence: examples/document_understanding/low-extract-high-audit/README.md, source-review.json, verification.json, results.json, criteria.json, design.json and manifest.json. Natural stopping point reached. Local/uncommitted; no commit requested this turn.

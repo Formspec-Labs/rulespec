@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/point-in-time-exception.json",
+  "title": "point-in-time-exception",
+  "$defs": {
+    "EvaluationAnchor": {
+      "type": "string",
+      "enum": [
+        "rkaf:applicationSubmissionTime",
+        "rkaf:eventOccurrenceTime",
+        "rkaf:eligibilityDeterminationTime",
+        "rkaf:noticeGenerationTime",
+        "rkaf:workflowStartTime",
+        "rkaf:workflowStepStartTime",
+        "rkaf:currentTime",
+        "rkaf:effectivePeriodStart",
+        "rkaf:publicationTime"
+      ]
+    },
+    "PointInTimeException": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:PointInTimeException"
+        },
+        "rkaf:evaluationAnchor": {
+          "$ref": "#/$defs/EvaluationAnchor"
+        },
+        "rkaf:retainsAssertion": {
+          "type": "string"
+        },
+        "rkaf:retainsWorkProduct": {
+          "type": "string"
+        },
+        "rkaf:exceptionScope": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:evaluationAnchor"
+      ]
+    }
+  }
+}

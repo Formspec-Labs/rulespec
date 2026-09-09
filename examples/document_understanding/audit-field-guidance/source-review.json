@@ -1,0 +1,1042 @@
+{
+  "reviewer_kind": "aiAgent",
+  "status": "revisable observations, not gold labels",
+  "records": [
+    {
+      "cell": "leave-full-low-1",
+      "assessment": "The audit retains the missing nonconsecutive-month finding. Its accounting summary/scope warning is useful, but the complete exception lead-in survives in logic_text. The rationale still does not explicitly acknowledge this retained meaning.",
+      "source_document": "examples/document_understanding/low-extract-high-audit/runs/leave-full-low-1/rulebook.json",
+      "draft_fields": {
+        "C0009": {
+          "summary": "Any accurate accounting of actual hours worked under FLSA's principles may be used.",
+          "scope_text": "For determining hours worked under FLSA principles.",
+          "logic_text": "(c)(1) Except as provided in paragraph (c)(2) of this section and in § 825.801 containing the special hours of service requirement for airline flight crew employees, whether an employee has worked the minimum 1,250 hours of service is determined according to the principles established under the Fair Labor Standards Act (FLSA) for determining compensable hours of work. See 29 CFR part 785. The determining factor is the number of hours an employee has worked for the employer within the meaning of the FLSA. The determination is not limited by methods of recordkeeping, or by compensation agreements that do not accurately reflect all of the hours an employee has worked for or been in service to the employer. Any accurate accounting of actual hours worked under FLSA's principles may be used.",
+          "alternative_quotes": [],
+          "choice_text": "",
+          "relation": "none",
+          "target_ids": []
+        }
+      },
+      "judgments": {
+        "control": {
+          "claims": [
+            {
+              "claim_id": "C0009",
+              "unit_ids": [
+                "U0015"
+              ],
+              "quotes": [
+                "(c)(1) Except as provided in paragraph (c)(2) of this section and in § 825.801 containing the special hours of service requirement for airline flight crew employees, whether an employee has worked the minimum 1,250 hours of service is determined according to the principles established under the Fair Labor Standards Act (FLSA) for determining compensable hours of work.",
+                "Any accurate accounting of actual hours worked under FLSA's principles may be used."
+              ],
+              "rationale": "The explicit scope in C0009 ('For determining hours worked under FLSA principles') and its summary omit the governing lead-in exceptions from paragraph (c)(1), which explicitly exclude airline flight crew employees governed by § 825.801 and employees returning from USERRA service under paragraph (c)(2). Consequently, C0009 impermissibly broadens the permission sentence to admit airline flight crew and USERRA situations where FLSA actual-hours accounting alone does not govern.",
+              "dimensions": {
+                "summary": "correct",
+                "actor": "correct",
+                "support": "correct",
+                "scope": "error",
+                "links": "correct",
+                "boundary": "correct",
+                "modality": "correct",
+                "action": "correct",
+                "object": "correct",
+                "alternatives": "not_applicable",
+                "thresholds": "not_applicable",
+                "concepts": "correct",
+                "source_attribution": "not_applicable",
+                "effectivity": "not_applicable"
+              }
+            }
+          ],
+          "units": [
+            {
+              "unit_id": "U0003",
+              "claim_ids": [],
+              "status": "missing",
+              "rationale": "The substantive rule in paragraph (b) that the required 12 months of employment need not be consecutive months was entirely omitted from the draft claims.",
+              "quotes": [
+                "(b) The 12 months an employee must have been employed by the employer need not be consecutive months, provided"
+              ]
+            },
+            {
+              "unit_id": "U0015",
+              "claim_ids": [
+                "C0009"
+              ],
+              "status": "partial",
+              "rationale": "While C0009 captures the permission to use accurate FLSA accounting, it omits the governing lead-in exceptions from paragraph (c)(1) (excluding airline flight crew under § 825.801 and USERRA calculations under (c)(2)), leaving its scope overbroad and incomplete.",
+              "quotes": [
+                "Any accurate accounting of actual hours worked under FLSA's principles may be used.",
+                "(c)(1) Except as provided in paragraph (c)(2) of this section and in § 825.801 containing the special hours of service requirement for airline flight crew employees, whether an employee has worked the minimum 1,250 hours of service is determined according to the principles established under the Fair Labor Standards Act (FLSA) for determining compensable hours of work."
+              ]
+            }
+          ]
+        },
+        "treatment": {
+          "claims": [
+            {
+              "claim_id": "C0009",
+              "unit_ids": [
+                "U0015"
+              ],
+              "quotes": [
+                "Any accurate accounting of actual hours worked under FLSA's principles may be used.",
+                "(c)(1) Except as provided in paragraph (c)(2) of this section and in § 825.801 containing the special hours of service requirement for airline flight crew employees, whether an employee has worked the minimum 1,250 hours of service is determined according to the principles established under the Fair Labor Standards Act (FLSA) for determining compensable hours of work."
+              ],
+              "rationale": "C0009 extracts the permissive sentence allowing any accurate accounting of actual hours worked, but its scope and summary omit the governing exceptions in lead-in paragraph (c)(1) ('Except as provided in paragraph (c)(2) of this section and in § 825.801 containing the special hours of service requirement for airline flight crew employees'). Under C0009's overbroad scope, FLSA actual hours accounting would improperly apply to airline flight crew employees and USERRA returning employees, which the source excludes.",
+              "dimensions": {
+                "summary": "error",
+                "actor": "correct",
+                "support": "correct",
+                "scope": "error",
+                "links": "correct",
+                "boundary": "correct",
+                "modality": "correct",
+                "action": "correct",
+                "object": "correct",
+                "alternatives": "not_applicable",
+                "thresholds": "not_applicable",
+                "concepts": "correct",
+                "source_attribution": "not_applicable",
+                "effectivity": "not_applicable"
+              }
+            }
+          ],
+          "units": [
+            {
+              "unit_id": "U0003",
+              "claim_ids": [],
+              "status": "missing",
+              "rationale": "The substantive rule in 29 CFR 825.110(b) establishing that the 12 months need not be consecutive months is not extracted or represented in any draft claim.",
+              "quotes": [
+                "(b) The 12 months an employee must have been employed by the employer need not be consecutive months, provided"
+              ]
+            },
+            {
+              "unit_id": "U0015",
+              "claim_ids": [
+                "C0009"
+              ],
+              "status": "partial",
+              "rationale": "C0009 extracts the permission to use any accurate accounting of actual hours worked under FLSA principles, but its summary and scope omit the governing lead-in exception for airline flight crew under § 825.801 and USERRA service under paragraph (c)(2), resulting in an overbroad and incomplete representation.",
+              "quotes": [
+                "Any accurate accounting of actual hours worked under FLSA's principles may be used.",
+                "(c)(1) Except as provided in paragraph (c)(2) of this section and in § 825.801 containing the special hours of service requirement for airline flight crew employees, whether an employee has worked the minimum 1,250 hours of service is determined according to the principles established under the Fair Labor Standards Act (FLSA) for determining compensable hours of work."
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "cell": "display-low-1",
+      "assessment": "The parent duty is now linked jointly to constituent duties instead of called missing. Partial status also inherits an alternatives representation warning; it is not proof that a duty is absent.",
+      "source_document": "examples/document_understanding/low-extract-high-audit/runs/display-low-1/rulebook.json",
+      "draft_fields": {
+        "C0001": {
+          "summary": "For a temporary display open to the public after sunset on agency premises, the organizer must illuminate every public exit throughout the time the display remains open.",
+          "scope_text": "For a temporary display open to the public after sunset on agency premises",
+          "logic_text": "(1) The organizer must illuminate every public exit throughout the time the display remains open.",
+          "alternative_quotes": [],
+          "choice_text": "",
+          "relation": "none",
+          "target_ids": []
+        },
+        "C0002": {
+          "summary": "For a temporary display open to the public after sunset on agency premises, the organizer must keep every public exit clear throughout the time the display remains open.",
+          "scope_text": "For a temporary display open to the public after sunset on agency premises",
+          "logic_text": "(2) The organizer must keep every public exit clear throughout the time the display remains open. Equipment stored behind a locked staff-only door is not an obstruction of a public exit.",
+          "alternative_quotes": [],
+          "choice_text": "",
+          "relation": "none",
+          "target_ids": []
+        },
+        "C0004": {
+          "summary": "For a temporary display open to the public after sunset on agency premises, the organizer must appoint an adult steward who remains on site throughout the time the display remains open, unless an agency employee is assigned to supervise the display for that entire period.",
+          "scope_text": "For a temporary display open to the public after sunset on agency premises, except when an agency employee is assigned to supervise the display for that entire period",
+          "logic_text": "(3) The organizer must appoint an adult steward who remains on site throughout the time the display remains open. This appointment duty does not apply when an agency employee is assigned to supervise the display for that entire period.",
+          "alternative_quotes": [],
+          "choice_text": "",
+          "relation": "none",
+          "target_ids": []
+        },
+        "C0006": {
+          "summary": "For a temporary display open to the public after sunset on agency premises, before admitting the first visitor, the organizer must give the agency either a signed paper inspection record or an electronic inspection record signed by the inspecting officer.",
+          "scope_text": "For a temporary display open to the public after sunset on agency premises, before admitting the first visitor",
+          "logic_text": "(4) Before admitting the first visitor, the organizer must give the agency either a signed paper inspection record or an electronic inspection record signed by the inspecting officer. Each record must identify the display, the inspection date, and every public exit inspected.",
+          "alternative_quotes": [
+            "(4) Before admitting the first visitor, the organizer must give the agency either a signed paper inspection record or an electronic inspection record signed by the inspecting officer. Each record must identify the display, the inspection date, and every public exit inspected."
+          ],
+          "choice_text": "either a signed paper inspection record or an electronic inspection record signed by the inspecting officer",
+          "relation": "none",
+          "target_ids": []
+        }
+      },
+      "judgments": {
+        "control": {
+          "claims": [
+            {
+              "claim_id": "C0001",
+              "unit_ids": [
+                "U0001"
+              ],
+              "quotes": [
+                "For a temporary display open to the public after sunset on agency premises, the organizer must satisfy all of the following conditions:",
+                "The organizer must illuminate every public exit throughout the time the display remains open."
+              ],
+              "rationale": "The draft claim accurately carries the governing scope from subsection (a) and captures the mandatory duty to illuminate every public exit throughout the time the display remains open, matching unit U0001 perfectly.",
+              "dimensions": {
+                "summary": "correct",
+                "actor": "correct",
+                "support": "correct",
+                "scope": "correct",
+                "links": "correct",
+                "boundary": "correct",
+                "modality": "correct",
+                "action": "correct",
+                "object": "correct",
+                "alternatives": "not_applicable",
+                "thresholds": "not_applicable",
+                "concepts": "correct",
+                "source_attribution": "not_applicable",
+                "effectivity": "not_applicable"
+              }
+            },
+            {
+              "claim_id": "C0002",
+              "unit_ids": [
+                "U0002"
+              ],
+              "quotes": [
+                "For a temporary display open to the public after sunset on agency premises, the organizer must satisfy all of the following conditions:",
+                "The organizer must keep every public exit clear throughout the time the display remains open."
+              ],
+              "rationale": "The claim accurately incorporates the governing condition from subsection (a) and faithfully states the organizer's duty to keep every public exit clear throughout the time the display remains open, fulfilling U0002.",
+              "dimensions": {
+                "summary": "correct",
+                "actor": "correct",
+                "support": "correct",
+                "scope": "correct",
+                "links": "correct",
+                "boundary": "correct",
+                "modality": "correct",
+                "action": "correct",
+                "object": "correct",
+                "alternatives": "not_applicable",
+                "thresholds": "not_applicable",
+                "concepts": "correct",
+                "source_attribution": "not_applicable",
+                "effectivity": "not_applicable"
+              }
+            },
+            {
+              "claim_id": "C0004",
+              "unit_ids": [
+                "U0004"
+              ],
+              "quotes": [
+                "For a temporary display open to the public after sunset on agency premises, the organizer must satisfy all of the following conditions:",
+                "The organizer must appoint an adult steward who remains on site throughout the time the display remains open.",
+                "This appointment duty does not apply when an agency employee is assigned to supervise the display for that entire period."
+              ],
+              "rationale": "The claim retains the requirement to appoint an adult steward on site throughout the open period under the sunset display scope, and explicitly incorporates the exception clause in both summary and scope, covering U0004.",
+              "dimensions": {
+                "summary": "correct",
+                "actor": "correct",
+                "support": "correct",
+                "scope": "correct",
+                "links": "correct",
+                "boundary": "correct",
+                "modality": "correct",
+                "action": "correct",
+                "object": "correct",
+                "alternatives": "not_applicable",
+                "thresholds": "not_applicable",
+                "concepts": "correct",
+                "source_attribution": "not_applicable",
+                "effectivity": "not_applicable"
+              }
+            },
+            {
+              "claim_id": "C0006",
+              "unit_ids": [
+                "U0006",
+                "U0007",
+                "U0008",
+                "U0009"
+              ],
+              "quotes": [
+                "For a temporary display open to the public after sunset on agency premises, the organizer must satisfy all of the following conditions:",
+                "Before admitting the first visitor, the organizer must give the agency either a signed paper inspection record or an electronic inspection record signed by the inspecting officer."
+              ],
+              "rationale": "The claim's explicit summary and choice structure capture the requirement to provide an inspection record (U0006), the timing condition before admitting the first visitor (U0007), and both permissible format alternatives (U0008, U0009).",
+              "dimensions": {
+                "summary": "correct",
+                "actor": "correct",
+                "support": "correct",
+                "scope": "correct",
+                "links": "correct",
+                "boundary": "correct",
+                "modality": "correct",
+                "action": "correct",
+                "object": "correct",
+                "alternatives": "correct",
+                "thresholds": "not_applicable",
+                "concepts": "correct",
+                "source_attribution": "not_applicable",
+                "effectivity": "not_applicable"
+              }
+            }
+          ],
+          "units": [
+            {
+              "unit_id": "U0000",
+              "claim_ids": [],
+              "status": "missing",
+              "rationale": "No claim in the draft was created to represent the overarching requirement that the organizer must satisfy all of the listed conditions together for a sunset temporary display.",
+              "quotes": [
+                "For a temporary display open to the public after sunset on agency premises, the organizer must satisfy all of the following conditions:"
+              ]
+            }
+          ]
+        },
+        "treatment": {
+          "claims": [
+            {
+              "claim_id": "C0001",
+              "unit_ids": [
+                "U0000",
+                "U0001"
+              ],
+              "quotes": [
+                "For a temporary display open to the public after sunset on agency premises, the organizer must satisfy all of the following conditions:",
+                "The organizer must illuminate every public exit throughout the time the display remains open."
+              ],
+              "rationale": "Claim C0001 faithfully represents condition (1) of subsection (a), correctly capturing the governing scope, actor, mandatory modality, action, and duration for illuminating public exits.",
+              "dimensions": {
+                "summary": "correct",
+                "actor": "correct",
+                "support": "correct",
+                "scope": "correct",
+                "links": "correct",
+                "boundary": "correct",
+                "modality": "correct",
+                "action": "correct",
+                "object": "correct",
+                "alternatives": "correct",
+                "thresholds": "correct",
+                "concepts": "correct",
+                "source_attribution": "correct",
+                "effectivity": "correct"
+              }
+            },
+            {
+              "claim_id": "C0002",
+              "unit_ids": [
+                "U0000",
+                "U0002"
+              ],
+              "quotes": [
+                "The organizer must keep every public exit clear throughout the time the display remains open.",
+                "Equipment stored behind a locked staff-only door is not an obstruction of a public exit."
+              ],
+              "rationale": "Claim C0002's claimed span and logic_text cover both sentences of subsection (a)(2), but its summary omits the qualification that equipment stored behind a locked staff-only door is not an obstruction, creating a summary error.",
+              "dimensions": {
+                "summary": "error",
+                "actor": "correct",
+                "support": "correct",
+                "scope": "correct",
+                "links": "correct",
+                "boundary": "correct",
+                "modality": "correct",
+                "action": "correct",
+                "object": "correct",
+                "alternatives": "correct",
+                "thresholds": "correct",
+                "concepts": "correct",
+                "source_attribution": "correct",
+                "effectivity": "correct"
+              }
+            },
+            {
+              "claim_id": "C0004",
+              "unit_ids": [
+                "U0000",
+                "U0004"
+              ],
+              "quotes": [
+                "The organizer must appoint an adult steward who remains on site throughout the time the display remains open.",
+                "This appointment duty does not apply when an agency employee is assigned to supervise the display for that entire period."
+              ],
+              "rationale": "Claim C0004 faithfully captures both the duty to appoint an adult steward and its exception when an agency employee supervises the display, fully incorporating the parent scope.",
+              "dimensions": {
+                "summary": "correct",
+                "actor": "correct",
+                "support": "correct",
+                "scope": "correct",
+                "links": "correct",
+                "boundary": "correct",
+                "modality": "correct",
+                "action": "correct",
+                "object": "correct",
+                "alternatives": "correct",
+                "thresholds": "correct",
+                "concepts": "correct",
+                "source_attribution": "correct",
+                "effectivity": "correct"
+              }
+            },
+            {
+              "claim_id": "C0006",
+              "unit_ids": [
+                "U0000",
+                "U0006",
+                "U0007",
+                "U0008",
+                "U0009"
+              ],
+              "quotes": [
+                "Before admitting the first visitor, the organizer must give the agency either a signed paper inspection record or an electronic inspection record signed by the inspecting officer."
+              ],
+              "rationale": "Claim C0006 captures the requirement to submit an inspection record prior to admitting the first visitor. However, alternative_quotes lumps the entire paragraph into a single string rather than extracting the individual leaf options (signed paper record vs. electronic record signed by the inspecting officer), constituting an alternatives representation error.",
+              "dimensions": {
+                "summary": "correct",
+                "actor": "correct",
+                "support": "correct",
+                "scope": "correct",
+                "links": "correct",
+                "boundary": "correct",
+                "modality": "correct",
+                "action": "correct",
+                "object": "correct",
+                "alternatives": "error",
+                "thresholds": "correct",
+                "concepts": "correct",
+                "source_attribution": "correct",
+                "effectivity": "correct"
+              }
+            }
+          ],
+          "units": [
+            {
+              "unit_id": "U0000",
+              "claim_ids": [
+                "C0001",
+                "C0002",
+                "C0004",
+                "C0006"
+              ],
+              "status": "partial",
+              "rationale": "The parent duty requiring the satisfaction of all four conditions is split across constituent claims C0001, C0002, C0004, and C0006. Because C0002 has a summary error (omitting the locked-door exception) and C0006 has an alternatives representation error, the joint coverage is partial.",
+              "quotes": [
+                "For a temporary display open to the public after sunset on agency premises, the organizer must satisfy all of the following conditions:"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "cell": "display-low-1",
+      "assessment": "Both inspection-record alternatives and their qualifying signature wording are explicit in summary and choice_text. One supporting paragraph contains both options. Requiring separate substrings is a representation demand that passage-ID acquisition cannot directly meet, not a missing-option finding.",
+      "source_document": "examples/document_understanding/low-extract-high-audit/runs/display-low-1/rulebook.json",
+      "draft_fields": {
+        "C0006": {
+          "summary": "For a temporary display open to the public after sunset on agency premises, before admitting the first visitor, the organizer must give the agency either a signed paper inspection record or an electronic inspection record signed by the inspecting officer.",
+          "scope_text": "For a temporary display open to the public after sunset on agency premises, before admitting the first visitor",
+          "logic_text": "(4) Before admitting the first visitor, the organizer must give the agency either a signed paper inspection record or an electronic inspection record signed by the inspecting officer. Each record must identify the display, the inspection date, and every public exit inspected.",
+          "alternative_quotes": [
+            "(4) Before admitting the first visitor, the organizer must give the agency either a signed paper inspection record or an electronic inspection record signed by the inspecting officer. Each record must identify the display, the inspection date, and every public exit inspected."
+          ],
+          "choice_text": "either a signed paper inspection record or an electronic inspection record signed by the inspecting officer",
+          "relation": "none",
+          "target_ids": []
+        }
+      },
+      "judgments": {
+        "control": {
+          "claims": [
+            {
+              "claim_id": "C0006",
+              "unit_ids": [
+                "U0006",
+                "U0007",
+                "U0008",
+                "U0009"
+              ],
+              "quotes": [
+                "For a temporary display open to the public after sunset on agency premises, the organizer must satisfy all of the following conditions:",
+                "Before admitting the first visitor, the organizer must give the agency either a signed paper inspection record or an electronic inspection record signed by the inspecting officer."
+              ],
+              "rationale": "The claim's explicit summary and choice structure capture the requirement to provide an inspection record (U0006), the timing condition before admitting the first visitor (U0007), and both permissible format alternatives (U0008, U0009).",
+              "dimensions": {
+                "summary": "correct",
+                "actor": "correct",
+                "support": "correct",
+                "scope": "correct",
+                "links": "correct",
+                "boundary": "correct",
+                "modality": "correct",
+                "action": "correct",
+                "object": "correct",
+                "alternatives": "correct",
+                "thresholds": "not_applicable",
+                "concepts": "correct",
+                "source_attribution": "not_applicable",
+                "effectivity": "not_applicable"
+              }
+            }
+          ],
+          "units": []
+        },
+        "treatment": {
+          "claims": [
+            {
+              "claim_id": "C0006",
+              "unit_ids": [
+                "U0000",
+                "U0006",
+                "U0007",
+                "U0008",
+                "U0009"
+              ],
+              "quotes": [
+                "Before admitting the first visitor, the organizer must give the agency either a signed paper inspection record or an electronic inspection record signed by the inspecting officer."
+              ],
+              "rationale": "Claim C0006 captures the requirement to submit an inspection record prior to admitting the first visitor. However, alternative_quotes lumps the entire paragraph into a single string rather than extracting the individual leaf options (signed paper record vs. electronic record signed by the inspecting officer), constituting an alternatives representation error.",
+              "dimensions": {
+                "summary": "correct",
+                "actor": "correct",
+                "support": "correct",
+                "scope": "correct",
+                "links": "correct",
+                "boundary": "correct",
+                "modality": "correct",
+                "action": "correct",
+                "object": "correct",
+                "alternatives": "error",
+                "thresholds": "correct",
+                "concepts": "correct",
+                "source_attribution": "correct",
+                "effectivity": "correct"
+              }
+            }
+          ],
+          "units": []
+        }
+      }
+    },
+    {
+      "cell": "display-low-2",
+      "assessment": "The same new paragraph-granularity warning recurs. Clarify the upstream CUE evidence descriptions before treating this warning as a semantic defect.",
+      "source_document": "examples/document_understanding/low-extract-high-audit/runs/display-low-2/rulebook.json",
+      "draft_fields": {
+        "C0006": {
+          "summary": "For a temporary display open to the public after sunset on agency premises, before admitting the first visitor, the organizer must give the agency either a signed paper inspection record or an electronic inspection record signed by the inspecting officer.",
+          "scope_text": "For a temporary display open to the public after sunset on agency premises, before admitting the first visitor",
+          "logic_text": "(4) Before admitting the first visitor, the organizer must give the agency either a signed paper inspection record or an electronic inspection record signed by the inspecting officer. Each record must identify the display, the inspection date, and every public exit inspected.",
+          "alternative_quotes": [
+            "(4) Before admitting the first visitor, the organizer must give the agency either a signed paper inspection record or an electronic inspection record signed by the inspecting officer. Each record must identify the display, the inspection date, and every public exit inspected."
+          ],
+          "choice_text": "either a signed paper inspection record or an electronic inspection record signed by the inspecting officer",
+          "relation": "none",
+          "target_ids": []
+        }
+      },
+      "judgments": {
+        "control": {
+          "claims": [
+            {
+              "claim_id": "C0006",
+              "unit_ids": [
+                "U0006",
+                "U0007"
+              ],
+              "quotes": [
+                "(4) Before admitting the first visitor, the organizer must give the agency either a signed paper inspection record or an electronic inspection record signed by the inspecting officer.",
+                "either a signed paper inspection record or an electronic inspection record signed by the inspecting officer",
+                "(a) For a temporary display open to the public after sunset on agency premises, the organizer must satisfy all of the following conditions:"
+              ],
+              "rationale": "The claim accurately details the mandatory pre-admission inspection record delivery and explicitly captures the alternative choice between signed paper and electronically signed formats.",
+              "dimensions": {
+                "summary": "correct",
+                "actor": "correct",
+                "support": "correct",
+                "scope": "correct",
+                "links": "correct",
+                "boundary": "correct",
+                "modality": "correct",
+                "action": "correct",
+                "object": "correct",
+                "alternatives": "correct",
+                "thresholds": "correct",
+                "concepts": "correct",
+                "source_attribution": "correct",
+                "effectivity": "correct"
+              }
+            }
+          ],
+          "units": []
+        },
+        "treatment": {
+          "claims": [
+            {
+              "claim_id": "C0006",
+              "unit_ids": [
+                "U0000",
+                "U0006",
+                "U0007"
+              ],
+              "quotes": [
+                "(4) Before admitting the first visitor, the organizer must give the agency either a signed paper inspection record or an electronic inspection record signed by the inspecting officer."
+              ],
+              "rationale": "C0006 captures the requirement to provide an inspection record prior to admitting visitors. However, the alternative_quotes field is erroneous because it dumps the entire source paragraph rather than isolating the two discrete leaf options ('a signed paper inspection record' and 'an electronic inspection record signed by the inspecting officer').",
+              "dimensions": {
+                "summary": "correct",
+                "actor": "not_applicable",
+                "support": "correct",
+                "scope": "correct",
+                "links": "not_applicable",
+                "boundary": "correct",
+                "modality": "correct",
+                "action": "not_applicable",
+                "object": "not_applicable",
+                "alternatives": "error",
+                "thresholds": "not_applicable",
+                "concepts": "not_applicable",
+                "source_attribution": "not_applicable",
+                "effectivity": "not_applicable"
+              }
+            }
+          ],
+          "units": []
+        }
+      }
+    },
+    {
+      "cell": "display-low-2",
+      "assessment": "The prior alternatives-implies-OR warning is gone. Summary, scope_text and choice_text explicitly retain the required conjunction.",
+      "source_document": "examples/document_understanding/low-extract-high-audit/runs/display-low-2/rulebook.json",
+      "draft_fields": {
+        "C0008": {
+          "summary": "When a storm warning is active, the organizer must suspend outdoor demonstrations unless all of the specified conditions are met: the demonstration takes place beneath a fixed roof, the agency has measured wind speed below 20 kilometers per hour at the demonstration site within the preceding 10 minutes, and an agency officer authorizes the demonstration for the duration of the current warning.",
+          "scope_text": "When a storm warning is active, unless all of the following conditions are met: (1) the demonstration takes place beneath a fixed roof; (2) the agency has measured wind speed below 20 kilometers per hour at the demonstration site within the preceding 10 minutes; and (3) an agency officer authorizes the demonstration for the duration of the current warning",
+          "logic_text": "(b) When a storm warning is active, the organizer must suspend outdoor demonstrations unless all of the following conditions are met:",
+          "alternative_quotes": [
+            "(1) The demonstration takes place beneath a fixed roof.",
+            "(2) The agency has measured wind speed below 20 kilometers per hour at the demonstration site within the preceding 10 minutes.",
+            "(3) An agency officer authorizes the demonstration for the duration of the current warning. The authorization expires when that warning ends; it does not authorize demonstrations under a later warning."
+          ],
+          "choice_text": "unless all of the following conditions are met: (1) fixed roof, (2) wind speed below 20 km/h measured within preceding 10 minutes, and (3) agency officer authorization for duration of current warning",
+          "relation": "none",
+          "target_ids": []
+        }
+      },
+      "judgments": {
+        "control": {
+          "claims": [
+            {
+              "claim_id": "C0008",
+              "unit_ids": [
+                "U0009",
+                "U0010",
+                "U0011",
+                "U0012"
+              ],
+              "quotes": [
+                "(b) When a storm warning is active, the organizer must suspend outdoor demonstrations unless all of the following conditions are met:",
+                "(1) The demonstration takes place beneath a fixed roof.",
+                "(2) The agency has measured wind speed below 20 kilometers per hour at the demonstration site within the preceding 10 minutes.",
+                "(3) An agency officer authorizes the demonstration for the duration of the current warning."
+              ],
+              "rationale": "The summary and scope accurately consolidate the requirement to suspend outdoor demonstrations during a storm warning unless all three cumulative conditions are met. However, populating alternative_quotes with conditions that are conjunctive prerequisites misrepresents cumulative conditions as alternatives, so alternatives is scored as error.",
+              "dimensions": {
+                "summary": "correct",
+                "actor": "correct",
+                "support": "correct",
+                "scope": "correct",
+                "links": "correct",
+                "boundary": "correct",
+                "modality": "correct",
+                "action": "correct",
+                "object": "correct",
+                "alternatives": "error",
+                "thresholds": "correct",
+                "concepts": "correct",
+                "source_attribution": "correct",
+                "effectivity": "correct"
+              }
+            }
+          ],
+          "units": []
+        },
+        "treatment": {
+          "claims": [
+            {
+              "claim_id": "C0008",
+              "unit_ids": [
+                "U0009",
+                "U0010",
+                "U0011",
+                "U0012"
+              ],
+              "quotes": [
+                "(b) When a storm warning is active, the organizer must suspend outdoor demonstrations unless all of the following conditions are met:"
+              ],
+              "rationale": "C0008 faithfully structures the requirement to suspend outdoor demonstrations during active storm warnings unless all three cumulative conditions are met, retaining the fixed roof condition, the 20 km/h wind threshold within 10 minutes, and officer authorization.",
+              "dimensions": {
+                "summary": "correct",
+                "actor": "not_applicable",
+                "support": "correct",
+                "scope": "correct",
+                "links": "not_applicable",
+                "boundary": "correct",
+                "modality": "correct",
+                "action": "not_applicable",
+                "object": "not_applicable",
+                "alternatives": "correct",
+                "thresholds": "correct",
+                "concepts": "not_applicable",
+                "source_attribution": "not_applicable",
+                "effectivity": "not_applicable"
+              }
+            }
+          ],
+          "units": []
+        }
+      }
+    },
+    {
+      "cell": "display-low-2",
+      "assessment": "The prior demand for optional separate relationship records is gone. This does not establish that every modal classification is right; the non-prohibition to permission concern remains.",
+      "source_document": "examples/document_understanding/low-extract-high-audit/runs/display-low-2/rulebook.json",
+      "draft_fields": {
+        "C0005": {
+          "summary": "For a temporary display open to the public after sunset on agency premises, the duty to appoint an adult steward does not apply when an agency employee is assigned to supervise the display for that entire period.",
+          "scope_text": "For a temporary display open to the public after sunset on agency premises, when an agency employee is assigned to supervise the display for that entire period",
+          "logic_text": "(3) The organizer must appoint an adult steward who remains on site throughout the time the display remains open. This appointment duty does not apply when an agency employee is assigned to supervise the display for that entire period.",
+          "alternative_quotes": [],
+          "choice_text": "",
+          "relation": "none",
+          "target_ids": []
+        },
+        "C0016": {
+          "summary": "This policy does not prohibit visitors from bringing paper maps, but other premises rules may restrict particular materials.",
+          "scope_text": "",
+          "logic_text": "(e) Visitors are not required to supply their home addresses. This policy does not prohibit visitors from bringing paper maps, but other premises rules may restrict particular materials. A queue may form when several groups arrive together.",
+          "alternative_quotes": [],
+          "choice_text": "",
+          "relation": "none",
+          "target_ids": []
+        }
+      },
+      "judgments": {
+        "control": {
+          "claims": [
+            {
+              "claim_id": "C0005",
+              "unit_ids": [
+                "U0005"
+              ],
+              "quotes": [
+                "This appointment duty does not apply when an agency employee is assigned to supervise the display for that entire period.",
+                "(a) For a temporary display open to the public after sunset on agency premises, the organizer must satisfy all of the following conditions:"
+              ],
+              "rationale": "The claim accurately captures the exemption from the adult steward appointment duty. However, because it is structured as an exemption claim without linking via target_ids to the requirement it modifies (C0004), links is an error.",
+              "dimensions": {
+                "summary": "correct",
+                "actor": "correct",
+                "support": "correct",
+                "scope": "correct",
+                "links": "error",
+                "boundary": "correct",
+                "modality": "correct",
+                "action": "correct",
+                "object": "correct",
+                "alternatives": "correct",
+                "thresholds": "correct",
+                "concepts": "correct",
+                "source_attribution": "correct",
+                "effectivity": "correct"
+              }
+            },
+            {
+              "claim_id": "C0016",
+              "unit_ids": [
+                "U0020",
+                "U0021"
+              ],
+              "quotes": [
+                "This policy does not prohibit visitors from bringing paper maps,",
+                "but other premises rules may restrict particular materials."
+              ],
+              "rationale": "The summary faithfully retains both the permission to bring paper maps and the caveat that other premises rules may restrict materials. However, the caveat is an exception that was not emitted as a separate linked exception claim, resulting in an error in links.",
+              "dimensions": {
+                "summary": "correct",
+                "actor": "correct",
+                "support": "correct",
+                "scope": "correct",
+                "links": "error",
+                "boundary": "correct",
+                "modality": "correct",
+                "action": "correct",
+                "object": "correct",
+                "alternatives": "correct",
+                "thresholds": "correct",
+                "concepts": "correct",
+                "source_attribution": "correct",
+                "effectivity": "correct"
+              }
+            }
+          ],
+          "units": []
+        },
+        "treatment": {
+          "claims": [
+            {
+              "claim_id": "C0005",
+              "unit_ids": [
+                "U0005"
+              ],
+              "quotes": [
+                "This appointment duty does not apply when an agency employee is assigned to supervise the display for that entire period."
+              ],
+              "rationale": "C0005 accurately represents the exemption from the steward appointment duty when an agency employee supervises the display for the entire period, retaining the governing parent scope.",
+              "dimensions": {
+                "summary": "correct",
+                "actor": "not_applicable",
+                "support": "correct",
+                "scope": "correct",
+                "links": "not_applicable",
+                "boundary": "correct",
+                "modality": "correct",
+                "action": "not_applicable",
+                "object": "not_applicable",
+                "alternatives": "not_applicable",
+                "thresholds": "not_applicable",
+                "concepts": "not_applicable",
+                "source_attribution": "not_applicable",
+                "effectivity": "not_applicable"
+              }
+            },
+            {
+              "claim_id": "C0016",
+              "unit_ids": [
+                "U0020",
+                "U0021"
+              ],
+              "quotes": [
+                "This policy does not prohibit visitors from bringing paper maps, but other premises rules may restrict particular materials."
+              ],
+              "rationale": "C0016 correctly captures both the policy permission allowing visitors to bring paper maps and the caveat that other premises rules may restrict particular materials.",
+              "dimensions": {
+                "summary": "correct",
+                "actor": "not_applicable",
+                "support": "correct",
+                "scope": "correct",
+                "links": "not_applicable",
+                "boundary": "correct",
+                "modality": "correct",
+                "action": "not_applicable",
+                "object": "not_applicable",
+                "alternatives": "not_applicable",
+                "thresholds": "not_applicable",
+                "concepts": "not_applicable",
+                "source_attribution": "not_applicable",
+                "effectivity": "not_applicable"
+              }
+            }
+          ],
+          "units": []
+        }
+      }
+    },
+    {
+      "cell": "display-low-2",
+      "assessment": "These new summary warnings concern standalone wording: scope_text retains the parent scope. They should not be presented as complete loss of that condition from the record.",
+      "source_document": "examples/document_understanding/low-extract-high-audit/runs/display-low-2/rulebook.json",
+      "draft_fields": {
+        "C0003": {
+          "summary": "Equipment stored behind a locked staff-only door is not an obstruction of a public exit.",
+          "scope_text": "For a temporary display open to the public after sunset on agency premises",
+          "logic_text": "",
+          "alternative_quotes": [],
+          "choice_text": "",
+          "relation": "none",
+          "target_ids": []
+        },
+        "C0007": {
+          "summary": "Each inspection record must identify the display, the inspection date, and every public exit inspected.",
+          "scope_text": "For each inspection record required for a temporary display open to the public after sunset on agency premises",
+          "logic_text": "(4) Before admitting the first visitor, the organizer must give the agency either a signed paper inspection record or an electronic inspection record signed by the inspecting officer. Each record must identify the display, the inspection date, and every public exit inspected.",
+          "alternative_quotes": [],
+          "choice_text": "",
+          "relation": "none",
+          "target_ids": []
+        }
+      },
+      "judgments": {
+        "control": {
+          "claims": [
+            {
+              "claim_id": "C0003",
+              "unit_ids": [
+                "U0003"
+              ],
+              "quotes": [
+                "Equipment stored behind a locked staff-only door is not an obstruction of a public exit.",
+                "(a) For a temporary display open to the public after sunset on agency premises, the organizer must satisfy all of the following conditions:"
+              ],
+              "rationale": "The claim correctly defines the safe-harbor rule where locked staff-only storage is not an exit obstruction.",
+              "dimensions": {
+                "summary": "correct",
+                "actor": "correct",
+                "support": "correct",
+                "scope": "correct",
+                "links": "correct",
+                "boundary": "correct",
+                "modality": "correct",
+                "action": "correct",
+                "object": "correct",
+                "alternatives": "correct",
+                "thresholds": "correct",
+                "concepts": "correct",
+                "source_attribution": "correct",
+                "effectivity": "correct"
+              }
+            },
+            {
+              "claim_id": "C0007",
+              "unit_ids": [
+                "U0008"
+              ],
+              "quotes": [
+                "Each record must identify the display, the inspection date, and every public exit inspected.",
+                "(a) For a temporary display open to the public after sunset on agency premises, the organizer must satisfy all of the following conditions:"
+              ],
+              "rationale": "The claim correctly reflects the mandatory content elements that each inspection record must identify.",
+              "dimensions": {
+                "summary": "correct",
+                "actor": "correct",
+                "support": "correct",
+                "scope": "correct",
+                "links": "correct",
+                "boundary": "correct",
+                "modality": "correct",
+                "action": "correct",
+                "object": "correct",
+                "alternatives": "correct",
+                "thresholds": "correct",
+                "concepts": "correct",
+                "source_attribution": "correct",
+                "effectivity": "correct"
+              }
+            }
+          ],
+          "units": [
+            {
+              "unit_id": "U0003",
+              "claim_ids": [
+                "C0003"
+              ],
+              "status": "covered",
+              "rationale": "Claim C0003 faithfully retains the rule that equipment stored behind a locked staff-only door is not an obstruction.",
+              "quotes": [
+                "Equipment stored behind a locked staff-only door is not an obstruction of a public exit.",
+                "(a) For a temporary display open to the public after sunset on agency premises, the organizer must satisfy all of the following conditions:"
+              ]
+            }
+          ]
+        },
+        "treatment": {
+          "claims": [
+            {
+              "claim_id": "C0003",
+              "unit_ids": [
+                "U0003"
+              ],
+              "quotes": [
+                "Equipment stored behind a locked staff-only door is not an obstruction of a public exit."
+              ],
+              "rationale": "C0003's scope_text contains the governing scope from paragraph (a), but its summary field omits this parent condition entirely, formulating an overbroad universal statement that equipment stored behind a locked staff-only door is never an obstruction.",
+              "dimensions": {
+                "summary": "error",
+                "actor": "not_applicable",
+                "support": "correct",
+                "scope": "correct",
+                "links": "not_applicable",
+                "boundary": "correct",
+                "modality": "correct",
+                "action": "not_applicable",
+                "object": "not_applicable",
+                "alternatives": "not_applicable",
+                "thresholds": "not_applicable",
+                "concepts": "not_applicable",
+                "source_attribution": "not_applicable",
+                "effectivity": "not_applicable"
+              }
+            },
+            {
+              "claim_id": "C0007",
+              "unit_ids": [
+                "U0000",
+                "U0008"
+              ],
+              "quotes": [
+                "Each record must identify the display, the inspection date, and every public exit inspected."
+              ],
+              "rationale": "C0007 specifies the mandatory contents of the inspection record. The scope_text maintains the governing lead-in, but the summary fails to incorporate the governing parent scope and pre-admission timing, making the summary field an error.",
+              "dimensions": {
+                "summary": "error",
+                "actor": "not_applicable",
+                "support": "correct",
+                "scope": "correct",
+                "links": "not_applicable",
+                "boundary": "correct",
+                "modality": "correct",
+                "action": "not_applicable",
+                "object": "not_applicable",
+                "alternatives": "not_applicable",
+                "thresholds": "not_applicable",
+                "concepts": "not_applicable",
+                "source_attribution": "not_applicable",
+                "effectivity": "not_applicable"
+              }
+            }
+          ],
+          "units": [
+            {
+              "unit_id": "U0003",
+              "claim_ids": [
+                "C0003"
+              ],
+              "status": "partial",
+              "rationale": "C0003 omits the governing parent scope from its summary field, stating the non-obstruction definition in an overbroad and unqualified manner.",
+              "quotes": [
+                "Equipment stored behind a locked staff-only door is not an obstruction of a public exit."
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "cell": "leave-full-low-2",
+      "assessment": "MAX_TOKENS leaves malformed comparison JSON. The evaluator correctly records all 28 units unknown and review_complete=false. No semantic comparison or retention claim is possible.",
+      "audit_issues": [
+        {
+          "window_id": "window-4580e3e7320a00d07361",
+          "code": "provider_incomplete"
+        },
+        {
+          "window_id": "window-4580e3e7320a00d07361",
+          "code": "malformed_audit_response"
+        },
+        {
+          "window_id": "window-4580e3e7320a00d07361",
+          "code": "invalid_comparison_wrapper"
+        }
+      ]
+    }
+  ]
+}

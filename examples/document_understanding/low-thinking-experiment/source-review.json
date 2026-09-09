@@ -1,0 +1,2202 @@
+{
+  "reviewer": "assistant; revisable direct source assessment",
+  "method": "Read both complete source documents and all four raw statement/scope/logic/choice/reference outputs. Separate raw extraction omissions, Core rejection, component meaning and exact supporting evidence. High controls are saved earlier responses, not new calls.",
+  "findings": [
+    {
+      "id": "kind-modality-rejection",
+      "assessment": "The first leave response states the nonconsecutive-month rule with its proviso but labels it kind=statement and modality=not_required. Existing Core validation rejects that pair. Raw capture and candidate remain intact, but the accepted graph omits that meaning. The second repeat uses a compatible kind and retains it. This is a processing defect distinct from an omitted source meaning.",
+      "evidence": [
+        {
+          "run": "runs/leave-full-low-1",
+          "response_sha256": "78c41d6e020bc4f73ac7e097edf228fdb35604f5168519f3aa7a9d334f112a3d",
+          "rows": [
+            {
+              "index": 1,
+              "raw": {
+                "unit": "F005",
+                "unit_attributes": {
+                  "kind": "statement",
+                  "scope_quotes": [
+                    "F001",
+                    "F005"
+                  ],
+                  "scope_text": "Governs the 12-month employment requirement for an employee to be eligible under the FMLA, subject to the conditions of paragraph (b).",
+                  "context_quotes": [],
+                  "modality_quote": "need not",
+                  "modality": "not_required",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F005",
+                  "references": [],
+                  "statement": "The 12 months an employee must have been employed by the employer need not be consecutive months, provided the conditions of paragraph (b) are met."
+                }
+              },
+              "disposition": {
+                "raw_index": 1,
+                "status": "rejected",
+                "reason": "Candidate kind contradicts its declared modality"
+              }
+            }
+          ]
+        },
+        {
+          "run": "runs/leave-full-low-2",
+          "response_sha256": "abf8f45f9cbe302cd0f31346aafd1ed81a54790009e9584f332f89c7342aad71",
+          "rows": [
+            {
+              "index": 1,
+              "raw": {
+                "unit": "F005",
+                "unit_attributes": {
+                  "kind": "exemption",
+                  "scope_quotes": [
+                    "F005"
+                  ],
+                  "scope_text": "The 12 months an employee must have been employed by the employer, provided the conditions of paragraph (b) are met",
+                  "context_quotes": [
+                    "F001:F002"
+                  ],
+                  "modality_quote": "need not be",
+                  "modality": "not_required",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F005",
+                  "references": [],
+                  "statement": "The 12 months an employee must have been employed by the employer need not be consecutive months, provided the rules in paragraph (b) are satisfied."
+                }
+              },
+              "disposition": {
+                "raw_index": 1,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:940ea73a90b741cb20d84c04a94dabdc28efef9ced81883ec860c496ded9277b"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "leave-variable-detail",
+      "assessment": "The first leave repeat retains the teacher example/inaccurate-record context, separates employment-counting definitions and timing, and preserves the qualified future-headcount example in generalized statement plus concrete scope. The second produces12 grouped records: teacher topic disappears from statement/scope though its citation remains; the future-headcount example disappears from statement/scope; intermittent/reduced schedules survive only in scope. Both saved high controls retained these topics in extracted prose. Counts alone are not accuracy.",
+      "evidence": [
+        {
+          "run": "runs/leave-full-low-1",
+          "response_sha256": "78c41d6e020bc4f73ac7e097edf228fdb35604f5168519f3aa7a9d334f112a3d",
+          "rows": [
+            {
+              "index": 13,
+              "raw": {
+                "unit": "F014",
+                "unit_attributes": {
+                  "kind": "statement",
+                  "scope_quotes": [
+                    "F014"
+                  ],
+                  "scope_text": "In the event an employer does not maintain an accurate record of hours worked by an employee, including employees exempt from FLSA recordkeeping requirements.",
+                  "context_quotes": [],
+                  "modality_quote": "",
+                  "modality": "not_stated",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F014",
+                  "references": [
+                    "29 CFR part 541",
+                    "§ 825.102",
+                    "§ 825.801(d)"
+                  ],
+                  "statement": "In the event an employer does not maintain an accurate record of hours worked by an employee (including FLSA-exempt employees), the employer has the burden of showing that the employee has not worked the requisite hours."
+                }
+              },
+              "disposition": {
+                "raw_index": 13,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:9d4b2c1ebe1df0e082e74de6d73539ba349660581bbc9ab4d83a5913b9aea78d"
+              }
+            },
+            {
+              "index": 14,
+              "raw": {
+                "unit": "F014",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F014"
+                  ],
+                  "scope_text": "When an employer does not maintain an accurate record of hours worked and claims that employees (such as full-time teachers who work outside the classroom or at home) are not eligible for FMLA leave.",
+                  "context_quotes": [],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F014",
+                  "references": [
+                    "§ 825.102",
+                    "§ 825.801(d)"
+                  ],
+                  "statement": "An employer must be able to clearly demonstrate that the employee did not work 1,250 hours during the previous 12 months (for example, full-time teachers of an elementary or secondary school system, institution of higher education, or other educational establishment) in order to claim that the employee is not eligible for FMLA leave."
+                }
+              },
+              "disposition": {
+                "raw_index": 14,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:5578f36b20823b433225cd5deda68878fd57777cf029b43d3a31650c32e7fb82"
+              }
+            },
+            {
+              "index": 15,
+              "raw": {
+                "unit": "F015",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F015"
+                  ],
+                  "scope_text": "Governs the timing of determining whether an employee meets the hours of service requirement and has been employed for a total of at least 12 months.",
+                  "context_quotes": [],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F015",
+                  "references": [
+                    "§ 825.300(b)"
+                  ],
+                  "statement": "The determination of whether an employee meets the hours of service requirement and has been employed by the employer for a total of at least 12 months must be made as of the date the FMLA leave is to start."
+                }
+              },
+              "disposition": {
+                "raw_index": 15,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:84d3a01a8b60aa057e67d76f72f349c988ca9f0da8581a4dab834b8f7697bbfc"
+              }
+            },
+            {
+              "index": 16,
+              "raw": {
+                "unit": "F015",
+                "unit_attributes": {
+                  "kind": "statement",
+                  "scope_quotes": [
+                    "F015"
+                  ],
+                  "scope_text": "When an employee is on non-FMLA leave at the time he or she meets the 12-month eligibility requirement.",
+                  "context_quotes": [],
+                  "modality_quote": "",
+                  "modality": "not_stated",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F015",
+                  "references": [],
+                  "statement": "An employee may be on non-FMLA leave at the time he or she meets the 12-month eligibility requirement, and in that event, any portion of the leave taken for an FMLA-qualifying reason after the employee meets the eligibility requirement would be FMLA leave."
+                }
+              },
+              "disposition": {
+                "raw_index": 16,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:99e7a40928992f0bac0a331f9c365e2c435e66104d4b77857e83e4e3fd1c3b0a"
+              }
+            },
+            {
+              "index": 17,
+              "raw": {
+                "unit": "F016",
+                "unit_attributes": {
+                  "kind": "statement",
+                  "scope_quotes": [
+                    "F016"
+                  ],
+                  "scope_text": "To ascertain an employee's eligibility for FMLA benefits regarding whether 50 employees are employed within 75 miles.",
+                  "context_quotes": [],
+                  "modality_quote": "",
+                  "modality": "not_stated",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F016",
+                  "references": [],
+                  "statement": "Whether 50 employees are employed within 75 miles to ascertain an employee's eligibility for FMLA benefits is determined when the employee gives notice of the need for leave."
+                }
+              },
+              "disposition": {
+                "raw_index": 17,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:71bba797935d9d78c2ee861669d4a8b56f7fe5d0c195a46bec5ace15bf4497b5"
+              }
+            },
+            {
+              "index": 18,
+              "raw": {
+                "unit": "F016",
+                "unit_attributes": {
+                  "kind": "statement",
+                  "scope_quotes": [
+                    "F016"
+                  ],
+                  "scope_text": "Once an employee is determined eligible in response to a notice of the need for leave, whether leave is taken at one time or on an intermittent or reduced leave schedule basis.",
+                  "context_quotes": [],
+                  "modality_quote": "",
+                  "modality": "not_stated",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F016",
+                  "references": [],
+                  "statement": "Once an employee is determined eligible in response to a notice of the need for leave (whether taken at one time or on an intermittent or reduced leave schedule basis), the employee's eligibility is not affected by any subsequent change in the number of employees employed at or within 75 miles of the worksite for that specific notice of need for leave."
+                }
+              },
+              "disposition": {
+                "raw_index": 18,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:4902db6785da6c3300351a24fafddcf6d5341ac6004435dd7a05d61c26052583"
+              }
+            },
+            {
+              "index": 19,
+              "raw": {
+                "unit": "F016",
+                "unit_attributes": {
+                  "kind": "prohibition",
+                  "scope_quotes": [
+                    "F016"
+                  ],
+                  "scope_text": "When an employee's leave has already started and the employee count drops below 50.",
+                  "context_quotes": [],
+                  "modality_quote": "may not",
+                  "modality": "must_not",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F016",
+                  "references": [],
+                  "statement": "An employer may not terminate employee leave that has already started if the employee count drops below 50."
+                }
+              },
+              "disposition": {
+                "raw_index": 19,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:a4eec05de193d39f0217cb290f6eaf4c9beaba7ef6cbd0f8a5ca75b2fc3efcce"
+              }
+            },
+            {
+              "index": 20,
+              "raw": {
+                "unit": "F016",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F016"
+                  ],
+                  "scope_text": "When an employer employs 50 or more employees (e.g., 60 in August) at the time an otherwise eligible employee gives notice of the need for leave, even if the employer expects the number to drop below 50 (e.g., to 40 in December) when the leave begins.",
+                  "context_quotes": [],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F016",
+                  "references": [],
+                  "statement": "An employer must grant FMLA benefits to an otherwise eligible employee who gives notice of the need for leave when 50 or more employees are employed within 75 miles, even if the employer expects the count to drop below 50 by the time the leave is scheduled to begin."
+                }
+              },
+              "disposition": {
+                "raw_index": 20,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:cfa31253bf4298cd9e2d4cbeaa98f812144a1bbd1accaacaaea8a4dbb2748185"
+              }
+            }
+          ]
+        },
+        {
+          "run": "runs/leave-full-low-2",
+          "response_sha256": "abf8f45f9cbe302cd0f31346aafd1ed81a54790009e9584f332f89c7342aad71",
+          "rows": [
+            {
+              "index": 9,
+              "raw": {
+                "unit": "F014",
+                "unit_attributes": {
+                  "kind": "statement",
+                  "scope_quotes": [
+                    "F014"
+                  ],
+                  "scope_text": "In the event an employer does not maintain an accurate record of hours worked by an employee, including for employees exempt from FLSA recordkeeping requirements (such as executive, administrative, and professional employees under 29 CFR part 541)",
+                  "context_quotes": [
+                    "F012"
+                  ],
+                  "modality_quote": "",
+                  "modality": "not_stated",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F014",
+                  "references": [
+                    "29 CFR part 541",
+                    "§ 825.102",
+                    "§ 825.801(d)"
+                  ],
+                  "statement": "In the event an employer does not maintain an accurate record of hours worked by an employee (including FLSA-exempt employees), the employer has the burden of showing that the employee has not worked the requisite hours, and must be able to clearly demonstrate that the employee did not work 1,250 hours during the previous 12 months in order to claim ineligibility (referencing § 825.801(d) for airline flight crew employees)."
+                }
+              },
+              "disposition": {
+                "raw_index": 9,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:555f1359168738a8706c4443a1e7470e8ebe63633d86741dbbe9c86a2d8e46a9"
+              }
+            },
+            {
+              "index": 10,
+              "raw": {
+                "unit": "F015",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F015"
+                  ],
+                  "scope_text": "For determining whether an employee meets the hours of service requirement and total of at least 12 months of employment",
+                  "context_quotes": [
+                    "F001:F004"
+                  ],
+                  "modality_quote": "must be made",
+                  "modality": "must",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F015",
+                  "references": [
+                    "§ 825.300(b)"
+                  ],
+                  "statement": "The determination of whether an employee meets the hours of service requirement and has been employed for a total of at least 12 months must be made as of the date the FMLA leave is to start, and if an employee is on non-FMLA leave when meeting 12-month eligibility, any portion taken for an FMLA-qualifying reason after meeting it becomes FMLA leave (referencing § 825.300(b) for eligibility notice rules)."
+                }
+              },
+              "disposition": {
+                "raw_index": 10,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:70e32e7388b156b6504e815be398953d6521a74536b8c3f4c1c87d64f0bdf5d1"
+              }
+            },
+            {
+              "index": 11,
+              "raw": {
+                "unit": "F016",
+                "unit_attributes": {
+                  "kind": "prohibition",
+                  "scope_quotes": [
+                    "F016"
+                  ],
+                  "scope_text": "When an employee's leave has already started, or once an employee is determined eligible in response to a specific notice of the need for leave (whether leave is taken at one time or on an intermittent/reduced leave basis)",
+                  "context_quotes": [
+                    "F004"
+                  ],
+                  "modality_quote": "may not",
+                  "modality": "must_not",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F016",
+                  "references": [],
+                  "statement": "Whether 50 employees are employed within 75 miles is determined when the employee gives notice of the need for leave; once determined eligible in response to that notice, eligibility is not affected by any subsequent change in employee count within 75 miles for that specific notice, and an employer may not terminate employee leave that has already started if the employee count drops below 50."
+                }
+              },
+              "disposition": {
+                "raw_index": 11,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:e362814d0998eef7eb9a9af1afae7b4c40f3768ff82a5f2ed13ec3c9a84a5768"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eligibility-and-service",
+      "assessment": "Both low runs retain three eligibility requirements, seven-or-more versus more-than-seven thresholds, USERRA/rehire alternatives, actual plus hypothetical prior12-month hours, general pre-service schedule, and start-of-leave versus notice timing. Low1 drops flight-crew/outside-US topics from eligibility statement/scope but keeps citations; low2 retains them. Low2 separates alternative branches yet repeats the full OR choice in each record and combines service-absence credit with the long-break rule; downstream interpretation needs care.",
+      "evidence": [
+        {
+          "run": "runs/leave-full-low-1",
+          "response_sha256": "78c41d6e020bc4f73ac7e097edf228fdb35604f5168519f3aa7a9d334f112a3d",
+          "rows": [
+            {
+              "index": 0,
+              "raw": {
+                "unit": "F001:F004",
+                "unit_attributes": {
+                  "kind": "definition",
+                  "scope_quotes": [
+                    "F001"
+                  ],
+                  "scope_text": "Applies to an employee of a covered employer under the FMLA.",
+                  "context_quotes": [],
+                  "modality_quote": "",
+                  "modality": "not_stated",
+                  "alternative_quotes": [
+                    "F002",
+                    "F003",
+                    "F004"
+                  ],
+                  "choice_quote": "F001:F004",
+                  "choice_text": "All of the following three requirements must be met: (1) has been employed by the employer for at least 12 months; (2) has been employed for at least 1,250 hours of service during the 12-month period immediately preceding the commencement of the leave; and (3) is employed at a worksite where 50 or more employees are employed by the employer within 75 miles of that worksite.",
+                  "logic_quote": "F001:F004",
+                  "references": [
+                    "§ 825.801",
+                    "§ 825.105(b)"
+                  ],
+                  "statement": "An eligible employee is defined as an employee of a covered employer who meets all three criteria: has been employed by the employer for at least 12 months; has been employed for at least 1,250 hours of service during the 12-month period immediately preceding the commencement of the leave; and is employed at a worksite where 50 or more employees are employed by the employer within 75 miles of that worksite."
+                }
+              },
+              "disposition": {
+                "raw_index": 0,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:93d7b883c61f4920038d7ffc6fbb26df6af1a60c7dcc43245c3532fd0fbc80c4"
+              }
+            },
+            {
+              "index": 2,
+              "raw": {
+                "unit": "F006",
+                "unit_attributes": {
+                  "kind": "exemption",
+                  "scope_quotes": [
+                    "F006"
+                  ],
+                  "scope_text": "In determining whether the employee has been employed by the employer for at least 12 months, subject to the exceptions provided in paragraph (b)(2).",
+                  "context_quotes": [],
+                  "modality_quote": "need not",
+                  "modality": "not_required",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F006",
+                  "references": [
+                    "paragraph (b)(2)"
+                  ],
+                  "statement": "Subject to the exceptions provided in paragraph (b)(2), employment periods prior to a break in service of seven years or more need not be counted in determining whether the employee has been employed by the employer for at least 12 months."
+                }
+              },
+              "disposition": {
+                "raw_index": 2,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:dd720e14eacdf685b1fa7bcb02994761a1e5996aa8e3aef8304091d90826ab2d"
+              }
+            },
+            {
+              "index": 3,
+              "raw": {
+                "unit": "F007:F009",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F007:F009"
+                  ],
+                  "scope_text": "In determining whether the employee has been employed by the employer for at least 12 months, when an employment period precedes a break in service of more than seven years under specified conditions.",
+                  "context_quotes": [],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [
+                    "F008",
+                    "F009"
+                  ],
+                  "choice_quote": "F008:F009",
+                  "choice_text": "Either: (i) the employee's break in service is occasioned by the fulfillment of his or her USERRA-covered service obligation; or (ii) a written agreement, including a collective bargaining agreement, exists concerning the employer's intention to rehire the employee after the break in service.",
+                  "logic_quote": "F007:F009",
+                  "references": [
+                    "USERRA, 38 U.S.C. 4301, et seq."
+                  ],
+                  "statement": "Employment periods preceding a break in service of more than seven years must be counted in determining whether the employee has been employed by the employer for at least 12 months where the break in service is occasioned by the fulfillment of a USERRA-covered service obligation, or where a written agreement (including a collective bargaining agreement) exists concerning the employer's intention to rehire the employee after the break in service."
+                }
+              },
+              "disposition": {
+                "raw_index": 3,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:ad81f6013e45fa12b502b6eca16f0ff67c64176335d819b92b50b489bad880d0"
+              }
+            },
+            {
+              "index": 4,
+              "raw": {
+                "unit": "F008",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F008"
+                  ],
+                  "scope_text": "In determining whether the employee has been employed for at least 12 months by the employer.",
+                  "context_quotes": [],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F008",
+                  "references": [
+                    "USERRA, 38 U.S.C. 4301, et seq."
+                  ],
+                  "statement": "The period of absence from work due to or necessitated by USERRA-covered service must also be counted in determining whether the employee has been employed for at least 12 months by the employer, though this does not provide any greater entitlement to the employee than would be available under USERRA."
+                }
+              },
+              "disposition": {
+                "raw_index": 4,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:bba68aab2ce79040e99d38c0d83ff34f8e749c7b357071b6894b5885c2f2268b"
+              }
+            },
+            {
+              "index": 9,
+              "raw": {
+                "unit": "F012",
+                "unit_attributes": {
+                  "kind": "statement",
+                  "scope_quotes": [
+                    "F012"
+                  ],
+                  "scope_text": "Except as provided in paragraph (c)(2) of this section and in § 825.801 for airline flight crew employees.",
+                  "context_quotes": [],
+                  "modality_quote": "",
+                  "modality": "not_stated",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F012",
+                  "references": [
+                    "paragraph (c)(2)",
+                    "§ 825.801",
+                    "29 CFR part 785"
+                  ],
+                  "statement": "Except as provided in paragraph (c)(2) and § 825.801, whether an employee has worked the minimum 1,250 hours of service is determined according to the principles established under the Fair Labor Standards Act (FLSA) for determining compensable hours of work, where the determining factor is the number of hours an employee has worked for the employer within the meaning of the FLSA, without limitation by recordkeeping methods or inaccurate compensation agreements."
+                }
+              },
+              "disposition": {
+                "raw_index": 9,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:d3b4956315910fd9433cbab2f799a20d4a2f8a9e2bd165de7707166af3b926c0"
+              }
+            },
+            {
+              "index": 11,
+              "raw": {
+                "unit": "F013",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F013"
+                  ],
+                  "scope_text": "Applies to an employee returning from or reemployed following USERRA-covered service in determining eligibility for FMLA-qualifying leave.",
+                  "context_quotes": [
+                    "F013"
+                  ],
+                  "modality_quote": "shall",
+                  "modality": "must",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F013",
+                  "references": [
+                    "§ 825.801(c)"
+                  ],
+                  "statement": "An employee returning from USERRA-covered service shall be credited with the hours of service that would have been performed but for the period of absence from work due to or necessitated by USERRA-covered service, which are added to hours actually worked during the previous 12-month period to meet the hours of service requirement."
+                }
+              },
+              "disposition": {
+                "raw_index": 11,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:4f22ef233ff72a31428dbeed8eae9a4f430098959170a1047b11ea6b39004c24"
+              }
+            },
+            {
+              "index": 12,
+              "raw": {
+                "unit": "F013",
+                "unit_attributes": {
+                  "kind": "statement",
+                  "scope_quotes": [
+                    "F013"
+                  ],
+                  "scope_text": "In order to determine the hours that would have been worked during the period of absence from work due to or necessitated by USERRA-covered service.",
+                  "context_quotes": [],
+                  "modality_quote": "generally",
+                  "modality": "possible",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F013",
+                  "references": [
+                    "§ 825.801(c)"
+                  ],
+                  "statement": "The employee's pre-service work schedule can generally be used for calculations to determine the hours that would have been worked during the period of absence due to or necessitated by USERRA-covered service."
+                }
+              },
+              "disposition": {
+                "raw_index": 12,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:2673681c4bb5ef704bf5ef0a29b622d162d5f48c1ebcf56e25a75af6528acce2"
+              }
+            },
+            {
+              "index": 15,
+              "raw": {
+                "unit": "F015",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F015"
+                  ],
+                  "scope_text": "Governs the timing of determining whether an employee meets the hours of service requirement and has been employed for a total of at least 12 months.",
+                  "context_quotes": [],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F015",
+                  "references": [
+                    "§ 825.300(b)"
+                  ],
+                  "statement": "The determination of whether an employee meets the hours of service requirement and has been employed by the employer for a total of at least 12 months must be made as of the date the FMLA leave is to start."
+                }
+              },
+              "disposition": {
+                "raw_index": 15,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:84d3a01a8b60aa057e67d76f72f349c988ca9f0da8581a4dab834b8f7697bbfc"
+              }
+            },
+            {
+              "index": 17,
+              "raw": {
+                "unit": "F016",
+                "unit_attributes": {
+                  "kind": "statement",
+                  "scope_quotes": [
+                    "F016"
+                  ],
+                  "scope_text": "To ascertain an employee's eligibility for FMLA benefits regarding whether 50 employees are employed within 75 miles.",
+                  "context_quotes": [],
+                  "modality_quote": "",
+                  "modality": "not_stated",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F016",
+                  "references": [],
+                  "statement": "Whether 50 employees are employed within 75 miles to ascertain an employee's eligibility for FMLA benefits is determined when the employee gives notice of the need for leave."
+                }
+              },
+              "disposition": {
+                "raw_index": 17,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:71bba797935d9d78c2ee861669d4a8b56f7fe5d0c195a46bec5ace15bf4497b5"
+              }
+            }
+          ]
+        },
+        {
+          "run": "runs/leave-full-low-2",
+          "response_sha256": "abf8f45f9cbe302cd0f31346aafd1ed81a54790009e9584f332f89c7342aad71",
+          "rows": [
+            {
+              "index": 0,
+              "raw": {
+                "unit": "F001:F004",
+                "unit_attributes": {
+                  "kind": "definition",
+                  "scope_quotes": [
+                    "F001"
+                  ],
+                  "scope_text": "An employee of a covered employer",
+                  "context_quotes": [
+                    "F000"
+                  ],
+                  "modality_quote": "",
+                  "modality": "not_stated",
+                  "alternative_quotes": [
+                    "F002",
+                    "F003",
+                    "F004"
+                  ],
+                  "choice_quote": "F001:F004",
+                  "choice_text": "All of: (1) has been employed by the employer for at least 12 months; AND (2) has been employed for at least 1,250 hours of service during the 12-month period immediately preceding the commencement of the leave; AND (3) is employed at a worksite where 50 or more employees are employed by the employer within 75 miles of that worksite.",
+                  "logic_quote": "F001:F004",
+                  "references": [
+                    "§ 825.801",
+                    "§ 825.105(b)"
+                  ],
+                  "statement": "An eligible employee is defined as an employee of a covered employer who has been employed by the employer for at least 12 months, has been employed for at least 1,250 hours of service during the 12-month period immediately preceding the commencement of the leave (noting § 825.801 for special rules for airline flight crew employees), and is employed at a worksite where 50 or more employees are employed by the employer within 75 miles of that worksite (noting § 825.105(b) regarding employees working outside the U.S.)."
+                }
+              },
+              "disposition": {
+                "raw_index": 0,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:82ac3fc512e99f7833d9f44cc7a6031de224fa434c9c54a55a61cd32fa7bbd8c"
+              }
+            },
+            {
+              "index": 2,
+              "raw": {
+                "unit": "F006",
+                "unit_attributes": {
+                  "kind": "exemption",
+                  "scope_quotes": [
+                    "F005",
+                    "F006"
+                  ],
+                  "scope_text": "In determining whether an employee has been employed by the employer for at least 12 months, subject to the exceptions in paragraph (b)(2)",
+                  "context_quotes": [
+                    "F005"
+                  ],
+                  "modality_quote": "need not be",
+                  "modality": "not_required",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F006",
+                  "references": [
+                    "paragraph (b)(2)"
+                  ],
+                  "statement": "Subject to the exceptions in paragraph (b)(2), employment periods prior to a break in service of seven years or more need not be counted in determining whether the employee has been employed by the employer for at least 12 months."
+                }
+              },
+              "disposition": {
+                "raw_index": 2,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:6271bc3ac2eb2689eca2fc994ed2061b32c68182007a3fc4533821be7c1607d2"
+              }
+            },
+            {
+              "index": 3,
+              "raw": {
+                "unit": "F007:F008",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F007",
+                    "F008"
+                  ],
+                  "scope_text": "In determining whether the employee has been employed by the employer for at least 12 months, where an employee's break in service of more than seven years is occasioned by the fulfillment of a USERRA-covered service obligation (38 U.S.C. 4301 et seq.)",
+                  "context_quotes": [
+                    "F005"
+                  ],
+                  "modality_quote": "must be",
+                  "modality": "must",
+                  "alternative_quotes": [
+                    "F008",
+                    "F009"
+                  ],
+                  "choice_quote": "F007:F009",
+                  "choice_text": "Either (i) USERRA-covered service obligation; OR (ii) a written agreement concerning the employer's intention to rehire exists.",
+                  "logic_quote": "F007:F008",
+                  "references": [
+                    "USERRA, 38 U.S.C. 4301, et seq."
+                  ],
+                  "statement": "Employment periods preceding a break in service of more than seven years, and the period of absence from work due to or necessitated by USERRA-covered service, must be counted in determining whether the employee has been employed for at least 12 months by the employer where the break in service is occasioned by the fulfillment of a USERRA-covered service obligation (though this does not provide any greater entitlement than available under USERRA)."
+                }
+              },
+              "disposition": {
+                "raw_index": 3,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:e2e414727a284a3ecbfd663759119d955718a4d0bd73257ebdbdd32365507c27"
+              }
+            },
+            {
+              "index": 4,
+              "raw": {
+                "unit": "F007:F009",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F007",
+                    "F009"
+                  ],
+                  "scope_text": "In determining whether the employee has been employed by the employer for at least 12 months, where a break in service exceeds seven years and a written agreement exists concerning rehire",
+                  "context_quotes": [
+                    "F005"
+                  ],
+                  "modality_quote": "must be",
+                  "modality": "must",
+                  "alternative_quotes": [
+                    "F008",
+                    "F009"
+                  ],
+                  "choice_quote": "F007:F009",
+                  "choice_text": "Either (i) break occasioned by USERRA-covered service obligation; OR (ii) a written agreement exists concerning employer's intention to rehire.",
+                  "logic_quote": "F007:F009",
+                  "references": [],
+                  "statement": "Employment periods preceding a break in service of more than seven years must be counted in determining whether the employee has been employed by the employer for at least 12 months where a written agreement, including a collective bargaining agreement, exists concerning the employer's intention to rehire the employee after the break in service (such as for furthering education or childrearing)."
+                }
+              },
+              "disposition": {
+                "raw_index": 4,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:c04a4e2b64cdc2b18050c821c5ebaced957a56ebf8f1e1d2a275b4def28b3226"
+              }
+            },
+            {
+              "index": 7,
+              "raw": {
+                "unit": "F012",
+                "unit_attributes": {
+                  "kind": "statement",
+                  "scope_quotes": [
+                    "F012"
+                  ],
+                  "scope_text": "Except as provided in paragraph (c)(2) and in § 825.801 for airline flight crew employees",
+                  "context_quotes": [
+                    "F001",
+                    "F003"
+                  ],
+                  "modality_quote": "",
+                  "modality": "not_stated",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F012",
+                  "references": [
+                    "paragraph (c)(2)",
+                    "§ 825.801",
+                    "29 CFR part 785"
+                  ],
+                  "statement": "Except as provided in paragraph (c)(2) and in § 825.801, whether an employee has worked the minimum 1,250 hours of service is determined according to FLSA principles for compensable hours of work, based on the number of hours worked within the meaning of the FLSA, not limited by methods of recordkeeping or non-reflective compensation agreements; any accurate accounting of actual hours worked under FLSA principles may be used."
+                }
+              },
+              "disposition": {
+                "raw_index": 7,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:2c064f790628d00bcd1e54cf0000243b6e2131c9c6b5e0102959cc2e72946eb0"
+              }
+            },
+            {
+              "index": 8,
+              "raw": {
+                "unit": "F013",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F013"
+                  ],
+                  "scope_text": "For an employee returning from USERRA-covered service, in determining eligibility for FMLA-qualifying leave",
+                  "context_quotes": [
+                    "F003",
+                    "F012"
+                  ],
+                  "modality_quote": "shall",
+                  "modality": "must",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F013",
+                  "references": [
+                    "§ 825.801(c)"
+                  ],
+                  "statement": "An employee returning from USERRA-covered service shall be credited with the hours of service that would have been performed but for the period of absence due to or necessitated by USERRA-covered service when determining FMLA eligibility, adding those hours to actual hours worked during the previous 12-month period, and the employee's pre-service work schedule can generally be used for calculations (referencing § 825.801(c) for airline flight crew employees)."
+                }
+              },
+              "disposition": {
+                "raw_index": 8,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:680ab98f3853b82a38d571e728ce4c04eb82878458d4f973a942c7ef54c0398e"
+              }
+            },
+            {
+              "index": 10,
+              "raw": {
+                "unit": "F015",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F015"
+                  ],
+                  "scope_text": "For determining whether an employee meets the hours of service requirement and total of at least 12 months of employment",
+                  "context_quotes": [
+                    "F001:F004"
+                  ],
+                  "modality_quote": "must be made",
+                  "modality": "must",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F015",
+                  "references": [
+                    "§ 825.300(b)"
+                  ],
+                  "statement": "The determination of whether an employee meets the hours of service requirement and has been employed for a total of at least 12 months must be made as of the date the FMLA leave is to start, and if an employee is on non-FMLA leave when meeting 12-month eligibility, any portion taken for an FMLA-qualifying reason after meeting it becomes FMLA leave (referencing § 825.300(b) for eligibility notice rules)."
+                }
+              },
+              "disposition": {
+                "raw_index": 10,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:70e32e7388b156b6504e815be398953d6521a74536b8c3f4c1c87d64f0bdf5d1"
+              }
+            },
+            {
+              "index": 11,
+              "raw": {
+                "unit": "F016",
+                "unit_attributes": {
+                  "kind": "prohibition",
+                  "scope_quotes": [
+                    "F016"
+                  ],
+                  "scope_text": "When an employee's leave has already started, or once an employee is determined eligible in response to a specific notice of the need for leave (whether leave is taken at one time or on an intermittent/reduced leave basis)",
+                  "context_quotes": [
+                    "F004"
+                  ],
+                  "modality_quote": "may not",
+                  "modality": "must_not",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F016",
+                  "references": [],
+                  "statement": "Whether 50 employees are employed within 75 miles is determined when the employee gives notice of the need for leave; once determined eligible in response to that notice, eligibility is not affected by any subsequent change in employee count within 75 miles for that specific notice, and an employer may not terminate employee leave that has already started if the employee count drops below 50."
+                }
+              },
+              "disposition": {
+                "raw_index": 11,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:e362814d0998eef7eb9a9af1afae7b4c40f3768ff82a5f2ed13ec3c9a84a5768"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scope-and-splitting",
+      "assessment": "Low1 standalone permission to count older service omits uniform-treatment proviso; accurate-accounting permission omits inherited c2/flight-crew exceptions. These issues also occur in saved high outputs. Low2 groups the permission/duty and accounting clauses, retaining more context in prose but representing distinct forces with one modality. Complete source quotes do not by themselves establish independently complete statements.",
+      "evidence": [
+        {
+          "run": "runs/leave-full-low-1",
+          "response_sha256": "78c41d6e020bc4f73ac7e097edf228fdb35604f5168519f3aa7a9d334f112a3d",
+          "rows": [
+            {
+              "index": 7,
+              "raw": {
+                "unit": "F011",
+                "unit_attributes": {
+                  "kind": "permission",
+                  "scope_quotes": [
+                    "F011"
+                  ],
+                  "scope_text": "When determining whether an employee has met the 12-month employment requirement.",
+                  "context_quotes": [],
+                  "modality_quote": "Nothing in this section prevents",
+                  "modality": "may",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F011",
+                  "references": [],
+                  "statement": "Nothing in this section prevents employers from considering employment prior to a continuous break in service of more than seven years when determining whether an employee has met the 12-month employment requirement."
+                }
+              },
+              "disposition": {
+                "raw_index": 7,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:9c459a03d2f3f0973be6a3cd1c0ed3cccae6da9d0cc5f1e54aa94c53e8380dff"
+              }
+            },
+            {
+              "index": 8,
+              "raw": {
+                "unit": "F011",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F011"
+                  ],
+                  "scope_text": "If an employer chooses to recognize employment prior to a continuous break in service of more than seven years.",
+                  "context_quotes": [],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F011",
+                  "references": [],
+                  "statement": "If an employer chooses to recognize employment prior to a continuous break in service of more than seven years, the employer must do so uniformly with respect to all employees with similar breaks in service."
+                }
+              },
+              "disposition": {
+                "raw_index": 8,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:46cdfb7ea8279b33e2cf759604c8fec0719289fba1d0c35ea835c59a043eb06f"
+              }
+            },
+            {
+              "index": 9,
+              "raw": {
+                "unit": "F012",
+                "unit_attributes": {
+                  "kind": "statement",
+                  "scope_quotes": [
+                    "F012"
+                  ],
+                  "scope_text": "Except as provided in paragraph (c)(2) of this section and in § 825.801 for airline flight crew employees.",
+                  "context_quotes": [],
+                  "modality_quote": "",
+                  "modality": "not_stated",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F012",
+                  "references": [
+                    "paragraph (c)(2)",
+                    "§ 825.801",
+                    "29 CFR part 785"
+                  ],
+                  "statement": "Except as provided in paragraph (c)(2) and § 825.801, whether an employee has worked the minimum 1,250 hours of service is determined according to the principles established under the Fair Labor Standards Act (FLSA) for determining compensable hours of work, where the determining factor is the number of hours an employee has worked for the employer within the meaning of the FLSA, without limitation by recordkeeping methods or inaccurate compensation agreements."
+                }
+              },
+              "disposition": {
+                "raw_index": 9,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:d3b4956315910fd9433cbab2f799a20d4a2f8a9e2bd165de7707166af3b926c0"
+              }
+            },
+            {
+              "index": 10,
+              "raw": {
+                "unit": "F012",
+                "unit_attributes": {
+                  "kind": "permission",
+                  "scope_quotes": [
+                    "F012"
+                  ],
+                  "scope_text": "For determining hours worked under FLSA principles.",
+                  "context_quotes": [],
+                  "modality_quote": "may",
+                  "modality": "may",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F012",
+                  "references": [],
+                  "statement": "Any accurate accounting of actual hours worked under FLSA's principles may be used."
+                }
+              },
+              "disposition": {
+                "raw_index": 10,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:f4b98e3239588158552d6efbc107b12d9de4e0fa32a760e0f98b43a976118cad"
+              }
+            }
+          ]
+        },
+        {
+          "run": "runs/leave-full-low-2",
+          "response_sha256": "abf8f45f9cbe302cd0f31346aafd1ed81a54790009e9584f332f89c7342aad71",
+          "rows": [
+            {
+              "index": 6,
+              "raw": {
+                "unit": "F011",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F011"
+                  ],
+                  "scope_text": "When determining whether an employee has met the 12-month employment requirement, if an employer chooses to recognize prior employment preceding a continuous break in service of more than seven years",
+                  "context_quotes": [
+                    "F005",
+                    "F006"
+                  ],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F011",
+                  "references": [],
+                  "statement": "Nothing prevents employers from considering employment prior to a continuous break in service of more than seven years when determining whether an employee has met the 12-month requirement, but if an employer chooses to recognize such prior employment, the employer must do so uniformly with respect to all employees with similar breaks in service."
+                }
+              },
+              "disposition": {
+                "raw_index": 6,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:a0fe87abe647bfd359a4b1987d76b2be2046ca24c5c1d7969b9e68d4ce8dc3ca"
+              }
+            },
+            {
+              "index": 7,
+              "raw": {
+                "unit": "F012",
+                "unit_attributes": {
+                  "kind": "statement",
+                  "scope_quotes": [
+                    "F012"
+                  ],
+                  "scope_text": "Except as provided in paragraph (c)(2) and in § 825.801 for airline flight crew employees",
+                  "context_quotes": [
+                    "F001",
+                    "F003"
+                  ],
+                  "modality_quote": "",
+                  "modality": "not_stated",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F012",
+                  "references": [
+                    "paragraph (c)(2)",
+                    "§ 825.801",
+                    "29 CFR part 785"
+                  ],
+                  "statement": "Except as provided in paragraph (c)(2) and in § 825.801, whether an employee has worked the minimum 1,250 hours of service is determined according to FLSA principles for compensable hours of work, based on the number of hours worked within the meaning of the FLSA, not limited by methods of recordkeeping or non-reflective compensation agreements; any accurate accounting of actual hours worked under FLSA principles may be used."
+                }
+              },
+              "disposition": {
+                "raw_index": 7,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:2c064f790628d00bcd1e54cf0000243b6e2131c9c6b5e0102959cc2e72946eb0"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "display-core-retained",
+      "assessment": "Both display repeats retain inherited after-sunset/agency-premises context, steward exception, paper/electronic record alternatives and record contents; full storm conjunction and warning expiry; recommendation force;30-day retention plus investigation extension; no-address duty and descriptive queue possibility. They avoid the broad all-duties baseline duplicated by saved high runs, while retaining individual duties. The steward exception appears both in baseline prose and separately.",
+      "evidence": [
+        {
+          "run": "runs/display-low-1",
+          "response_sha256": "a89f586d6570f93d2a77c5cceaeab5c28e3cc81f80a07c6c91261d0ec52cf240",
+          "rows": [
+            {
+              "index": 1,
+              "raw": {
+                "unit": "F001:F002",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F001"
+                  ],
+                  "scope_text": "For a temporary display open to the public after sunset on agency premises",
+                  "context_quotes": [],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F002",
+                  "references": [
+                    "(a)",
+                    "(a)(1)"
+                  ],
+                  "statement": "For a temporary display open to the public after sunset on agency premises, the organizer must illuminate every public exit throughout the time the display remains open."
+                }
+              },
+              "disposition": {
+                "raw_index": 1,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:67ecf3f5c6cd2c1f0f03ecd92b20ceae8af34d8b222474d314d4b06aac345ee2"
+              }
+            },
+            {
+              "index": 2,
+              "raw": {
+                "unit": "F003",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F001"
+                  ],
+                  "scope_text": "For a temporary display open to the public after sunset on agency premises",
+                  "context_quotes": [],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F003",
+                  "references": [
+                    "(a)",
+                    "(a)(2)"
+                  ],
+                  "statement": "For a temporary display open to the public after sunset on agency premises, the organizer must keep every public exit clear throughout the time the display remains open."
+                }
+              },
+              "disposition": {
+                "raw_index": 2,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:46ff6e67f8c2496c55d76b692f0c54452398762bfa66e8d620e9db14978d21e5"
+              }
+            },
+            {
+              "index": 4,
+              "raw": {
+                "unit": "F004",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F001",
+                    "F004"
+                  ],
+                  "scope_text": "For a temporary display open to the public after sunset on agency premises, except when an agency employee is assigned to supervise the display for that entire period",
+                  "context_quotes": [],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F004",
+                  "references": [
+                    "(a)",
+                    "(a)(3)"
+                  ],
+                  "statement": "For a temporary display open to the public after sunset on agency premises, the organizer must appoint an adult steward who remains on site throughout the time the display remains open, unless an agency employee is assigned to supervise the display for that entire period."
+                }
+              },
+              "disposition": {
+                "raw_index": 4,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:302ccc22e017f75f2942a57a8b0a8bf08dc267155af67b5dd46b0ac8ad74932d"
+              }
+            },
+            {
+              "index": 5,
+              "raw": {
+                "unit": "F004",
+                "unit_attributes": {
+                  "kind": "exemption",
+                  "scope_quotes": [
+                    "F001",
+                    "F004"
+                  ],
+                  "scope_text": "For a temporary display open to the public after sunset on agency premises, when an agency employee is assigned to supervise the display for that entire period",
+                  "context_quotes": [],
+                  "modality_quote": "does not apply",
+                  "modality": "not_required",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F004",
+                  "references": [
+                    "(a)(3)"
+                  ],
+                  "statement": "The duty to appoint an adult steward does not apply when an agency employee is assigned to supervise the display for the entire period the display remains open."
+                }
+              },
+              "disposition": {
+                "raw_index": 5,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:26ef81086f77dd518856d55d00c1d8f1738ea27ce78a723998407d5209141d12"
+              }
+            },
+            {
+              "index": 6,
+              "raw": {
+                "unit": "F005",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F001",
+                    "F005"
+                  ],
+                  "scope_text": "For a temporary display open to the public after sunset on agency premises, before admitting the first visitor",
+                  "context_quotes": [],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [
+                    "F005"
+                  ],
+                  "choice_quote": "F005",
+                  "choice_text": "either a signed paper inspection record or an electronic inspection record signed by the inspecting officer",
+                  "logic_quote": "F005",
+                  "references": [
+                    "(a)",
+                    "(a)(4)"
+                  ],
+                  "statement": "For a temporary display open to the public after sunset on agency premises, before admitting the first visitor, the organizer must give the agency either a signed paper inspection record or an electronic inspection record signed by the inspecting officer."
+                }
+              },
+              "disposition": {
+                "raw_index": 6,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:d46f4efdae41edb908d30525782adcc2533d8ffac7a85fa25a2b069be1987a74"
+              }
+            },
+            {
+              "index": 7,
+              "raw": {
+                "unit": "F005",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F001",
+                    "F005"
+                  ],
+                  "scope_text": "For each inspection record provided to the agency for a temporary display open to the public after sunset on agency premises",
+                  "context_quotes": [],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F005",
+                  "references": [
+                    "(a)(4)"
+                  ],
+                  "statement": "Each inspection record must identify the display, the inspection date, and every public exit inspected."
+                }
+              },
+              "disposition": {
+                "raw_index": 7,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:757ca4d65d7566aca5180d6d08e71326c80512373c240f61f50a2d4ee0b3d27b"
+              }
+            },
+            {
+              "index": 8,
+              "raw": {
+                "unit": "F006:F009",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F006",
+                    "F007:F009"
+                  ],
+                  "scope_text": "When a storm warning is active, unless all of the following conditions are met: (1) the demonstration takes place beneath a fixed roof; (2) the agency has measured wind speed below 20 kilometers per hour at the demonstration site within the preceding 10 minutes; and (3) an agency officer authorizes the demonstration for the duration of the current warning",
+                  "context_quotes": [],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [],
+                  "choice_quote": "F006:F009",
+                  "choice_text": "all of the following conditions are met: (1) the demonstration takes place beneath a fixed roof; (2) the agency has measured wind speed below 20 kilometers per hour at the demonstration site within the preceding 10 minutes; and (3) an agency officer authorizes the demonstration for the duration of the current warning",
+                  "logic_quote": "F006:F009",
+                  "references": [
+                    "(b)",
+                    "(b)(1)",
+                    "(b)(2)",
+                    "(b)(3)"
+                  ],
+                  "statement": "When a storm warning is active, the organizer must suspend outdoor demonstrations unless all three conditions are met: the demonstration takes place beneath a fixed roof, the agency has measured wind speed below 20 kilometers per hour at the demonstration site within the preceding 10 minutes, and an agency officer authorizes the demonstration for the duration of the current warning."
+                }
+              },
+              "disposition": {
+                "raw_index": 8,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:0fd1ec714976135994b7748e9c2441d4b466b2d862e65d15ceacbcf019e072f2"
+              }
+            },
+            {
+              "index": 9,
+              "raw": {
+                "unit": "F009",
+                "unit_attributes": {
+                  "kind": "statement",
+                  "scope_quotes": [
+                    "F006",
+                    "F009"
+                  ],
+                  "scope_text": "For an officer's authorization of an outdoor demonstration during an active storm warning",
+                  "context_quotes": [],
+                  "modality_quote": "",
+                  "modality": "not_stated",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F009",
+                  "references": [
+                    "(b)(3)"
+                  ],
+                  "statement": "The authorization of an outdoor demonstration expires when the active storm warning ends and does not authorize demonstrations under a later warning."
+                }
+              },
+              "disposition": {
+                "raw_index": 9,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:0a6349173ca4ffa3103be0b450ba0a25c1136998f4d25346231315d9cccc4295"
+              }
+            },
+            {
+              "index": 10,
+              "raw": {
+                "unit": "F010",
+                "unit_attributes": {
+                  "kind": "recommendation",
+                  "scope_quotes": [
+                    "F010"
+                  ],
+                  "scope_text": "For displays held entirely before sunset",
+                  "context_quotes": [],
+                  "modality_quote": "should",
+                  "modality": "should",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F010",
+                  "references": [
+                    "(c)"
+                  ],
+                  "statement": "For displays held entirely before sunset, the organizer should place a readable map near the entrance."
+                }
+              },
+              "disposition": {
+                "raw_index": 10,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:435fcead9c33cf349e953cd5deb6a8faa79feff5efcf9cb62fc0021b3ce59976"
+              }
+            },
+            {
+              "index": 11,
+              "raw": {
+                "unit": "F010",
+                "unit_attributes": {
+                  "kind": "statement",
+                  "scope_quotes": [
+                    "F010"
+                  ],
+                  "scope_text": "Regarding the recommendation to place a readable map near the entrance for displays held entirely before sunset",
+                  "context_quotes": [],
+                  "modality_quote": "",
+                  "modality": "not_stated",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F010",
+                  "references": [
+                    "(c)"
+                  ],
+                  "statement": "The recommendation to place a readable map near the entrance for displays held entirely before sunset does not create a duty to illuminate exits after sunset."
+                }
+              },
+              "disposition": {
+                "raw_index": 11,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:ab0381785e5f847a4461211bf8f5f1d9467e92e876e4ad3e75f8a30a2bb4e877"
+              }
+            },
+            {
+              "index": 12,
+              "raw": {
+                "unit": "F011",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F011"
+                  ],
+                  "scope_text": "After the display closes",
+                  "context_quotes": [],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F011",
+                  "references": [
+                    "(d)"
+                  ],
+                  "statement": "The organizer must retain each inspection record for at least 30 calendar days after the display closes."
+                }
+              },
+              "disposition": {
+                "raw_index": 12,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:ec55750991d602587ac81f05793f7053e4dce4d8ae3168b3c2269354e4a992ef"
+              }
+            },
+            {
+              "index": 13,
+              "raw": {
+                "unit": "F011",
+                "unit_attributes": {
+                  "kind": "statement",
+                  "scope_quotes": [
+                    "F011"
+                  ],
+                  "scope_text": "Regarding the 30 calendar days retention period for inspection records",
+                  "context_quotes": [],
+                  "modality_quote": "",
+                  "modality": "not_stated",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F011",
+                  "references": [
+                    "(d)"
+                  ],
+                  "statement": "Weekends and holidays count toward the 30 calendar days retention period."
+                }
+              },
+              "disposition": {
+                "raw_index": 13,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:2dc9acc7d160a25c4e38f82c1bf817e2ff5a0c7521d3ce6c95f56bf93e0571bd"
+              }
+            },
+            {
+              "index": 14,
+              "raw": {
+                "unit": "F011",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F011"
+                  ],
+                  "scope_text": "If an investigation is open when the 30 calendar days retention period ends",
+                  "context_quotes": [],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F011",
+                  "references": [
+                    "(d)"
+                  ],
+                  "statement": "If an investigation is open when the 30 calendar days period ends, the organizer must retain the inspection record until the agency closes the investigation."
+                }
+              },
+              "disposition": {
+                "raw_index": 14,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:1503169ee05dd0a83bd033261f041f387851c5671b68c247b380b812e0262a48"
+              }
+            },
+            {
+              "index": 15,
+              "raw": {
+                "unit": "F012",
+                "unit_attributes": {
+                  "kind": "exemption",
+                  "scope_quotes": [],
+                  "scope_text": "",
+                  "context_quotes": [],
+                  "modality_quote": "not required",
+                  "modality": "not_required",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F012",
+                  "references": [
+                    "(e)"
+                  ],
+                  "statement": "Visitors are not required to supply their home addresses."
+                }
+              },
+              "disposition": {
+                "raw_index": 15,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:ff9138f84754b11c76909f6c3d5603d07a3949a724b92e100315a64bad1d7314"
+              }
+            },
+            {
+              "index": 17,
+              "raw": {
+                "unit": "F012",
+                "unit_attributes": {
+                  "kind": "statement",
+                  "scope_quotes": [
+                    "F012"
+                  ],
+                  "scope_text": "When several groups arrive together",
+                  "context_quotes": [],
+                  "modality_quote": "may",
+                  "modality": "possible",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F012",
+                  "references": [
+                    "(e)"
+                  ],
+                  "statement": "A queue may form when several groups arrive together."
+                }
+              },
+              "disposition": {
+                "raw_index": 17,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:b853897d7a2745577c1f89b51e20210b940dcd1464909ee74f9510e5de892189"
+              }
+            }
+          ]
+        },
+        {
+          "run": "runs/display-low-2",
+          "response_sha256": "adef2679f16acd9d1cc8d5aef8cb03200d1ac17c947714abdf2fb9561dcd1e63",
+          "rows": [
+            {
+              "index": 1,
+              "raw": {
+                "unit": "F002",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F001"
+                  ],
+                  "scope_text": "For a temporary display open to the public after sunset on agency premises",
+                  "context_quotes": [],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F002",
+                  "references": [
+                    "(a)",
+                    "(1)"
+                  ],
+                  "statement": "For a temporary display open to the public after sunset on agency premises, the organizer must illuminate every public exit throughout the time the display remains open."
+                }
+              },
+              "disposition": {
+                "raw_index": 1,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:6b0e00f8d973c5e1fbe4763e52bfd959ca4f1088b87d0281e2392476e27d31b6"
+              }
+            },
+            {
+              "index": 2,
+              "raw": {
+                "unit": "F003",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F001"
+                  ],
+                  "scope_text": "For a temporary display open to the public after sunset on agency premises",
+                  "context_quotes": [],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F003",
+                  "references": [
+                    "(a)",
+                    "(2)"
+                  ],
+                  "statement": "For a temporary display open to the public after sunset on agency premises, the organizer must keep every public exit clear throughout the time the display remains open."
+                }
+              },
+              "disposition": {
+                "raw_index": 2,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:d810890dc029524341337e540007ad35446b4479357e6db91333192836b409d6"
+              }
+            },
+            {
+              "index": 4,
+              "raw": {
+                "unit": "F004",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F001"
+                  ],
+                  "scope_text": "For a temporary display open to the public after sunset on agency premises, except when an agency employee is assigned to supervise the display for that entire period",
+                  "context_quotes": [],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F004",
+                  "references": [
+                    "(a)",
+                    "(3)"
+                  ],
+                  "statement": "For a temporary display open to the public after sunset on agency premises, the organizer must appoint an adult steward who remains on site throughout the time the display remains open, unless an agency employee is assigned to supervise the display for that entire period."
+                }
+              },
+              "disposition": {
+                "raw_index": 4,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:d64580d11d5cfd90fd28f06242448e7181f37263e575a4f9caf8543fa08c5f13"
+              }
+            },
+            {
+              "index": 5,
+              "raw": {
+                "unit": "F004",
+                "unit_attributes": {
+                  "kind": "exemption",
+                  "scope_quotes": [
+                    "F001"
+                  ],
+                  "scope_text": "For a temporary display open to the public after sunset on agency premises, when an agency employee is assigned to supervise the display for that entire period",
+                  "context_quotes": [],
+                  "modality_quote": "does not apply",
+                  "modality": "not_required",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F004",
+                  "references": [
+                    "(a)",
+                    "(3)"
+                  ],
+                  "statement": "For a temporary display open to the public after sunset on agency premises, the duty to appoint an adult steward does not apply when an agency employee is assigned to supervise the display for that entire period."
+                }
+              },
+              "disposition": {
+                "raw_index": 5,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:886c6616d1169b9f9dffca9a70a65918a3caa5d10d21cf4b9a410718e15646d1"
+              }
+            },
+            {
+              "index": 6,
+              "raw": {
+                "unit": "F005",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F001"
+                  ],
+                  "scope_text": "For a temporary display open to the public after sunset on agency premises, before admitting the first visitor",
+                  "context_quotes": [],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [
+                    "F005"
+                  ],
+                  "choice_quote": "F005",
+                  "choice_text": "either a signed paper inspection record or an electronic inspection record signed by the inspecting officer",
+                  "logic_quote": "F005",
+                  "references": [
+                    "(a)",
+                    "(4)"
+                  ],
+                  "statement": "For a temporary display open to the public after sunset on agency premises, before admitting the first visitor, the organizer must give the agency either a signed paper inspection record or an electronic inspection record signed by the inspecting officer."
+                }
+              },
+              "disposition": {
+                "raw_index": 6,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:0cbd936bd81bb6829b0aef61942333bfc217b0388d9f48636422174ee2eb6122"
+              }
+            },
+            {
+              "index": 7,
+              "raw": {
+                "unit": "F005",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F001"
+                  ],
+                  "scope_text": "For each inspection record required for a temporary display open to the public after sunset on agency premises",
+                  "context_quotes": [],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F005",
+                  "references": [
+                    "(a)",
+                    "(4)"
+                  ],
+                  "statement": "Each inspection record must identify the display, the inspection date, and every public exit inspected."
+                }
+              },
+              "disposition": {
+                "raw_index": 7,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:dcc4299964ba9d4fc32d181a098d74013cf25c85d5f559ba89626206a6855b9a"
+              }
+            },
+            {
+              "index": 8,
+              "raw": {
+                "unit": "F006",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F007:F009"
+                  ],
+                  "scope_text": "When a storm warning is active, unless all of the following conditions are met: (1) the demonstration takes place beneath a fixed roof; (2) the agency has measured wind speed below 20 kilometers per hour at the demonstration site within the preceding 10 minutes; and (3) an agency officer authorizes the demonstration for the duration of the current warning",
+                  "context_quotes": [],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [
+                    "F007",
+                    "F008",
+                    "F009"
+                  ],
+                  "choice_quote": "F006",
+                  "choice_text": "unless all of the following conditions are met: (1) fixed roof, (2) wind speed below 20 km/h measured within preceding 10 minutes, and (3) agency officer authorization for duration of current warning",
+                  "logic_quote": "F006",
+                  "references": [
+                    "(b)"
+                  ],
+                  "statement": "When a storm warning is active, the organizer must suspend outdoor demonstrations unless all of the specified conditions are met: the demonstration takes place beneath a fixed roof, the agency has measured wind speed below 20 kilometers per hour at the demonstration site within the preceding 10 minutes, and an agency officer authorizes the demonstration for the duration of the current warning."
+                }
+              },
+              "disposition": {
+                "raw_index": 8,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:e5614c7b8050be0d82e1b4393311d2af2fe33544de06e06bfc16b94f22538120"
+              }
+            },
+            {
+              "index": 9,
+              "raw": {
+                "unit": "F009",
+                "unit_attributes": {
+                  "kind": "statement",
+                  "scope_quotes": [
+                    "F006"
+                  ],
+                  "scope_text": "When an agency officer authorizes an outdoor demonstration during an active storm warning",
+                  "context_quotes": [],
+                  "modality_quote": "",
+                  "modality": "not_stated",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F009",
+                  "references": [
+                    "(b)",
+                    "(3)"
+                  ],
+                  "statement": "The authorization expires when that warning ends, and it does not authorize demonstrations under a later warning."
+                }
+              },
+              "disposition": {
+                "raw_index": 9,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:c6a0c6e37041a528385e08b7cc3dd6e2537044a2e730bb898eb04f0d10ac1011"
+              }
+            },
+            {
+              "index": 10,
+              "raw": {
+                "unit": "F010",
+                "unit_attributes": {
+                  "kind": "recommendation",
+                  "scope_quotes": [],
+                  "scope_text": "For displays held entirely before sunset",
+                  "context_quotes": [],
+                  "modality_quote": "should",
+                  "modality": "should",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F010",
+                  "references": [
+                    "(c)"
+                  ],
+                  "statement": "For displays held entirely before sunset, the organizer should place a readable map near the entrance."
+                }
+              },
+              "disposition": {
+                "raw_index": 10,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:8d135bf6c21cb435e83dcca067a4cd07abcd467cff09c253ed6322eb5afdc47c"
+              }
+            },
+            {
+              "index": 11,
+              "raw": {
+                "unit": "F010",
+                "unit_attributes": {
+                  "kind": "statement",
+                  "scope_quotes": [],
+                  "scope_text": "",
+                  "context_quotes": [],
+                  "modality_quote": "",
+                  "modality": "not_stated",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "",
+                  "references": [
+                    "(c)"
+                  ],
+                  "statement": "The recommendation to place a readable map near the entrance for displays held entirely before sunset does not create a duty to illuminate exits after sunset."
+                }
+              },
+              "disposition": {
+                "raw_index": 11,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:1b541ddcf0c9aef48f8c07b6ed27e81fff19cc8f32cbf1512be754be349c6c08"
+              }
+            },
+            {
+              "index": 12,
+              "raw": {
+                "unit": "F011",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [],
+                  "scope_text": "After the display closes",
+                  "context_quotes": [],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F011",
+                  "references": [
+                    "(d)"
+                  ],
+                  "statement": "The organizer must retain each inspection record for at least 30 calendar days after the display closes."
+                }
+              },
+              "disposition": {
+                "raw_index": 12,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:cd7e7454609d3116fd4f159ed182cf515b3efc3cf121708ed7b0b7b83d3a86c3"
+              }
+            },
+            {
+              "index": 13,
+              "raw": {
+                "unit": "F011",
+                "unit_attributes": {
+                  "kind": "statement",
+                  "scope_quotes": [],
+                  "scope_text": "For the 30 calendar days retention period",
+                  "context_quotes": [],
+                  "modality_quote": "",
+                  "modality": "not_stated",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "",
+                  "references": [
+                    "(d)"
+                  ],
+                  "statement": "Weekends and holidays count toward the 30 days of inspection record retention."
+                }
+              },
+              "disposition": {
+                "raw_index": 13,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:15804259d52c8ec19c6c374ffb05f62e50fd63a2ab773ee96f59f38b4da439cf"
+              }
+            },
+            {
+              "index": 14,
+              "raw": {
+                "unit": "F011",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [],
+                  "scope_text": "If an investigation is open when the 30 calendar days period ends",
+                  "context_quotes": [],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F011",
+                  "references": [
+                    "(d)"
+                  ],
+                  "statement": "If an investigation is open when the 30 calendar days period ends, the organizer must retain the inspection record until the agency closes the investigation."
+                }
+              },
+              "disposition": {
+                "raw_index": 14,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:5b01a393b6289945ada7cbae3ad45bc9e1ad521affc035247cbefae8e1cb66ad"
+              }
+            },
+            {
+              "index": 15,
+              "raw": {
+                "unit": "F012",
+                "unit_attributes": {
+                  "kind": "exemption",
+                  "scope_quotes": [],
+                  "scope_text": "",
+                  "context_quotes": [],
+                  "modality_quote": "not required",
+                  "modality": "not_required",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F012",
+                  "references": [
+                    "(e)"
+                  ],
+                  "statement": "Visitors are not required to supply their home addresses."
+                }
+              },
+              "disposition": {
+                "raw_index": 15,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:d9d7c9006bcabb0be16f7494330b70e24007cdf44e2f38462dfb1f196e84cab1"
+              }
+            },
+            {
+              "index": 17,
+              "raw": {
+                "unit": "F012",
+                "unit_attributes": {
+                  "kind": "statement",
+                  "scope_quotes": [],
+                  "scope_text": "When several groups arrive together",
+                  "context_quotes": [],
+                  "modality_quote": "may",
+                  "modality": "possible",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F012",
+                  "references": [
+                    "(e)"
+                  ],
+                  "statement": "A queue may form when several groups arrive together."
+                }
+              },
+              "disposition": {
+                "raw_index": 17,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:a3e82869219beac33cf8e6e992e31b3cc8bb4c6f2953f2c35519760281fe2a21"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "display-residuals",
+      "assessment": "Both low runs label paper-map non-prohibition plus possible outside restrictions as permission/may. The source says this policy does not prohibit maps, with restrictions possible elsewhere; permission classification remains a concern. Full storm evidence F006:F009 appears only in repeat1; repeat2 logic cites only lead-inF006 and its choice_text compresses measurement agency/site, though full statement/scope retain them. Saved high component evidence also varied.",
+      "evidence": [
+        {
+          "run": "runs/display-low-1",
+          "response_sha256": "a89f586d6570f93d2a77c5cceaeab5c28e3cc81f80a07c6c91261d0ec52cf240",
+          "rows": [
+            {
+              "index": 8,
+              "raw": {
+                "unit": "F006:F009",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F006",
+                    "F007:F009"
+                  ],
+                  "scope_text": "When a storm warning is active, unless all of the following conditions are met: (1) the demonstration takes place beneath a fixed roof; (2) the agency has measured wind speed below 20 kilometers per hour at the demonstration site within the preceding 10 minutes; and (3) an agency officer authorizes the demonstration for the duration of the current warning",
+                  "context_quotes": [],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [],
+                  "choice_quote": "F006:F009",
+                  "choice_text": "all of the following conditions are met: (1) the demonstration takes place beneath a fixed roof; (2) the agency has measured wind speed below 20 kilometers per hour at the demonstration site within the preceding 10 minutes; and (3) an agency officer authorizes the demonstration for the duration of the current warning",
+                  "logic_quote": "F006:F009",
+                  "references": [
+                    "(b)",
+                    "(b)(1)",
+                    "(b)(2)",
+                    "(b)(3)"
+                  ],
+                  "statement": "When a storm warning is active, the organizer must suspend outdoor demonstrations unless all three conditions are met: the demonstration takes place beneath a fixed roof, the agency has measured wind speed below 20 kilometers per hour at the demonstration site within the preceding 10 minutes, and an agency officer authorizes the demonstration for the duration of the current warning."
+                }
+              },
+              "disposition": {
+                "raw_index": 8,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:0fd1ec714976135994b7748e9c2441d4b466b2d862e65d15ceacbcf019e072f2"
+              }
+            },
+            {
+              "index": 16,
+              "raw": {
+                "unit": "F012",
+                "unit_attributes": {
+                  "kind": "permission",
+                  "scope_quotes": [
+                    "F012"
+                  ],
+                  "scope_text": "Subject to other premises rules that may restrict particular materials",
+                  "context_quotes": [],
+                  "modality_quote": "does not prohibit",
+                  "modality": "may",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F012",
+                  "references": [
+                    "(e)"
+                  ],
+                  "statement": "This policy does not prohibit visitors from bringing paper maps, but other premises rules may restrict particular materials."
+                }
+              },
+              "disposition": {
+                "raw_index": 16,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:7815d14a0e948b3be2586d79efbf930d130c4c4fe17f33c08a35608c35843c01"
+              }
+            }
+          ]
+        },
+        {
+          "run": "runs/display-low-2",
+          "response_sha256": "adef2679f16acd9d1cc8d5aef8cb03200d1ac17c947714abdf2fb9561dcd1e63",
+          "rows": [
+            {
+              "index": 8,
+              "raw": {
+                "unit": "F006",
+                "unit_attributes": {
+                  "kind": "requirement",
+                  "scope_quotes": [
+                    "F007:F009"
+                  ],
+                  "scope_text": "When a storm warning is active, unless all of the following conditions are met: (1) the demonstration takes place beneath a fixed roof; (2) the agency has measured wind speed below 20 kilometers per hour at the demonstration site within the preceding 10 minutes; and (3) an agency officer authorizes the demonstration for the duration of the current warning",
+                  "context_quotes": [],
+                  "modality_quote": "must",
+                  "modality": "must",
+                  "alternative_quotes": [
+                    "F007",
+                    "F008",
+                    "F009"
+                  ],
+                  "choice_quote": "F006",
+                  "choice_text": "unless all of the following conditions are met: (1) fixed roof, (2) wind speed below 20 km/h measured within preceding 10 minutes, and (3) agency officer authorization for duration of current warning",
+                  "logic_quote": "F006",
+                  "references": [
+                    "(b)"
+                  ],
+                  "statement": "When a storm warning is active, the organizer must suspend outdoor demonstrations unless all of the specified conditions are met: the demonstration takes place beneath a fixed roof, the agency has measured wind speed below 20 kilometers per hour at the demonstration site within the preceding 10 minutes, and an agency officer authorizes the demonstration for the duration of the current warning."
+                }
+              },
+              "disposition": {
+                "raw_index": 8,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:e5614c7b8050be0d82e1b4393311d2af2fe33544de06e06bfc16b94f22538120"
+              }
+            },
+            {
+              "index": 16,
+              "raw": {
+                "unit": "F012",
+                "unit_attributes": {
+                  "kind": "permission",
+                  "scope_quotes": [],
+                  "scope_text": "",
+                  "context_quotes": [],
+                  "modality_quote": "does not prohibit",
+                  "modality": "may",
+                  "alternative_quotes": [],
+                  "choice_quote": "",
+                  "choice_text": "",
+                  "logic_quote": "F012",
+                  "references": [
+                    "(e)"
+                  ],
+                  "statement": "This policy does not prohibit visitors from bringing paper maps, but other premises rules may restrict particular materials."
+                }
+              },
+              "disposition": {
+                "raw_index": 16,
+                "status": "accepted",
+                "accepted_id": "urn:rulespec:document-understanding:revision:25b4cf1813cb8a680b78a72275a916a52bda461494af5fe7dde5a57bbc88199a"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

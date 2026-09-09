@@ -1,0 +1,862 @@
+{
+  "schema_version": "rulespec-evaluation-judgments/1",
+  "rulebook_sha256": "b556d1d4e9ed21bdd10c94774da33e0832c6146a4780714ec255a8ec8044405f",
+  "labels_sha256": "c3613cc1ea15e21773602155ad6ab3743ae6547a8ec3366a7c3cc7e1ba1be265",
+  "review_provenance": {
+    "reviewer": "gemini-3.8-flash claim-first checker",
+    "reviewer_kind": "aiAgent",
+    "method": "source_review"
+  },
+  "claim_judgments": [
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:82ac3fc512e99f7833d9f44cc7a6031de224fa434c9c54a55a61cd32fa7bbd8c",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:c67cf7e78e14e8cc712e5d74c4b72efd8d1a0d3b58dc271800d18423ae0dd2a7",
+        "urn:rulespec:audit-unit:954d95f94276c043fdef7470851c20e56a1b945115fe8f3f4131f35c810e49c8",
+        "urn:rulespec:audit-unit:ab1a8e2b75211b699d9cd7929cbb8b58dcd11ee0cba511e6ce53a63be7e98952"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(a) An eligible employee is an employee of a covered employer who:\n\n(1) Has been employed by the employer for at least 12 months, and\n\n(2) Has been employed for at least 1,250 hours of service during the 12-month period immediately preceding the commencement of the leave ( see § 825.801 for special hours of service requirements for airline flight crew employees), and\n\n(3) Is employed at a worksite where 50 or more employees are employed by the employer within 75 miles of that worksite. See § 825.105(b) regarding employees who work outside the U.S.",
+          "start": 37,
+          "end": 590
+        }
+      ],
+      "rationale": "Claim C0000 accurately and completely defines an eligible employee under 29 CFR 825.110(a), incorporating all three cumulative statutory criteria: 12 months of employment, 1,250 hours of service in the preceding 12 months, and employment at a worksite where 50 or more employees work within 75 miles. The offsets [37, 590) precisely match paragraph (a). The empty structured fields do not lose meaning because all requirements and numerical thresholds are fully and faithfully captured in the summary.",
+      "claim_sha256": "6e901bd189f787c7c8622a4ccb4c5b237ca1d5114c803e7fa655853ee7d7d1ea",
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "correct",
+        "thresholds": "correct",
+        "concepts": "correct",
+        "source_attribution": "not_applicable",
+        "effectivity": "not_applicable"
+      }
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:940ea73a90b741cb20d84c04a94dabdc28efef9ced81883ec860c496ded9277b",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:97062571bf9b189324d66b79e7f710ca489e1ee85bb249a2c22bc6576d2dc4c7"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(b) The 12 months an employee must have been employed by the employer need not be consecutive months, provided",
+          "start": 592,
+          "end": 702
+        }
+      ],
+      "rationale": "Claim C0001 extracts the opening permission sentence of paragraph (b). However, the governing lead-in from subsection (a) ('An eligible employee is an employee of a covered employer who: Has been employed by the employer for at least 12 months') was relegated exclusively to context_quotes and omitted from the explicit scope and summary. Because this is a permission rule ('need not be consecutive months'), omitting the prerequisite creates an overbroad scope that would improperly admit an employee of a non-covered employer or an employee outside the FMLA context claiming that 12 months of employment need not be consecutive.",
+      "claim_sha256": "b865abcb8294ee5bc76f71ae21a7c883676604ba8244902b2ed30432945f983d",
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "error",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "correct",
+        "concepts": "correct",
+        "source_attribution": "not_applicable",
+        "effectivity": "not_applicable"
+      }
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:6271bc3ac2eb2689eca2fc994ed2061b32c68182007a3fc4533821be7c1607d2",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:9b93b2aa99eb1db66b9bc4faf67a6baa14ba4a85dcfdad76f3b2e9ee06efe46d"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(1) Subject to the exceptions provided in paragraph (b)(2) of this section, employment periods prior to a break in service of seven years or more need not be counted in determining whether the employee has been employed by the employer for at least 12 months.",
+          "start": 704,
+          "end": 963
+        }
+      ],
+      "rationale": "Claim C0002 accurately captures 29 CFR 825.110(b)(1). It correctly states the exemption excusing employers from counting employment prior to a break of seven years or more toward the 12-month requirement, expressly qualified by the exceptions in paragraph (b)(2). The offsets [704, 963) match paragraph (b)(1), and the 'not_required' modality matches 'need not be counted'.",
+      "claim_sha256": "7b0f27b9b0e9afc10bf9d9c47ed4a2f17c6685e96cf231033214433cfe81001f",
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "correct",
+        "concepts": "correct",
+        "source_attribution": "not_applicable",
+        "effectivity": "not_applicable"
+      }
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:e2e414727a284a3ecbfd663759119d955718a4d0bd73257ebdbdd32365507c27",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:6738ff1714bab0079365afd60ba69174cc7280459a423b6adafecd36ccb125cc",
+        "urn:rulespec:audit-unit:9ad581222e6642661af78cff8145468ff89b4386964ca215ccd385648fce840a",
+        "urn:rulespec:audit-unit:fca40fe97725ef5f494f92b8893478b5a5b7f511980bd62188428563cb5eeff7"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(2) Employment periods preceding a break in service of more than seven years must be counted in determining whether the employee has been employed by the employer for at least 12 months where:\n\n(i) The employee's break in service is occasioned by the fulfillment of his or her Uniformed Services Employment and Reemployment Rights Act (USERRA), 38 U.S.C. 4301, et seq., covered service obligation. The period of absence from work due to or necessitated by USERRA-covered service must be also counted in determining whether the employee has been employed for at least 12 months by the employer. However, this section does not provide any greater entitlement to the employee than would be available under the USERRA; or",
+          "start": 965,
+          "end": 1682
+        }
+      ],
+      "rationale": "Claim C0003 faithfully covers the USERRA exception in 29 CFR 825.110(b)(2)(i), including counting prior employment periods, counting the absence itself toward the 12-month threshold, and clarifying that no greater entitlement is conferred than under USERRA. The boundaries [965, 1682) accurately span the lead-in of (b)(2) and clause (i). The summary preserves all conditions and thresholds.",
+      "claim_sha256": "175bf867c8ec552a23b108e0b65e0f8453460ec97ee4e209fe19f393dc19ebf5",
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "correct",
+        "thresholds": "correct",
+        "concepts": "correct",
+        "source_attribution": "not_applicable",
+        "effectivity": "not_applicable"
+      }
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:c04a4e2b64cdc2b18050c821c5ebaced957a56ebf8f1e1d2a275b4def28b3226",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:b71dec943bad2e405739b6318776b93bb9ff2aeb6c51713945aecf7fd5cdcd53"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(2) Employment periods preceding a break in service of more than seven years must be counted in determining whether the employee has been employed by the employer for at least 12 months where:\n\n(i) The employee's break in service is occasioned by the fulfillment of his or her Uniformed Services Employment and Reemployment Rights Act (USERRA), 38 U.S.C. 4301, et seq., covered service obligation. The period of absence from work due to or necessitated by USERRA-covered service must be also counted in determining whether the employee has been employed for at least 12 months by the employer. However, this section does not provide any greater entitlement to the employee than would be available under the USERRA; or\n\n(ii) A written agreement, including a collective bargaining agreement, exists concerning the employer's intention to rehire the employee after the break in service (e.g., for purposes of the employee furthering his or her education or for childrearing purposes).",
+          "start": 965,
+          "end": 1946
+        }
+      ],
+      "rationale": "Claim C0004 correctly conveys the written agreement exception in 29 CFR 825.110(b)(2)(ii). The summary faithfully captures that prior employment before a break of over seven years must be counted when a written agreement (such as a CBA) exists concerning the employer's intent to rehire the employee. The boundary and text support the claim accurately.",
+      "claim_sha256": "59330f04fd6875924d3c6f819160644834893ac2ed7b1a2c31afba15ed00e650",
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "correct",
+        "thresholds": "correct",
+        "concepts": "correct",
+        "source_attribution": "not_applicable",
+        "effectivity": "not_applicable"
+      }
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:137ca16653dc70713564ce3b49a16a401e0f0c942407a2bfe175004706e24081",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:220c9e269606379009d0546ce638fbfb6b47e26691c87171ec33d585b541da91",
+        "urn:rulespec:audit-unit:91693cc7db610f57655b34cdc978a904556f5a9854a61f5ff3a65a5134d444ad"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(3) If an employee is maintained on the payroll for any part of a week, including any periods of paid or unpaid leave (sick, vacation) during which other benefits or compensation are provided by the employer (e.g., workers' compensation, group health plan benefits, etc.), the week counts as a week of employment. For purposes of determining whether intermittent/occasional/casual employment qualifies as at least 12 months, 52 weeks is deemed to be equal to 12 months.",
+          "start": 1948,
+          "end": 2417
+        }
+      ],
+      "rationale": "Claim C0005 captures 29 CFR 825.110(b)(3) with complete accuracy. Both the payroll rule for counting a week of employment (including leave periods with benefits/compensation) and the 52-week deeming equivalence for intermittent, occasional, or casual employment are preserved faithfully in the summary.",
+      "claim_sha256": "6590e07d0c8a845baf8cfc934ac87f61b6f272ca8d868ab4d74b07a9024e80a0",
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "correct",
+        "concepts": "correct",
+        "source_attribution": "not_applicable",
+        "effectivity": "not_applicable"
+      }
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:a0fe87abe647bfd359a4b1987d76b2be2046ca24c5c1d7969b9e68d4ce8dc3ca",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:da430cd7c8e9629b4263640d435154f970bdaf8f0fa87dfefd65705ff230c0c2",
+        "urn:rulespec:audit-unit:e31c6c6bee765b0f10a00662409e49c596f520c95c22d3f0daad71ee29f69398"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(4) Nothing in this section prevents employers from considering employment prior to a continuous break in service of more than seven years when determining whether an employee has met the 12-month employment requirement. However, if an employer chooses to recognize such prior employment, the employer must do so uniformly, with respect to all employees with similar breaks in service.",
+          "start": 2419,
+          "end": 2804
+        }
+      ],
+      "rationale": "Claim C0006 faithfully captures both the permissive discretion of employers to count employment preceding a break of more than seven years and the mandatory uniformity obligation if the employer elects to recognize such employment under 29 CFR 825.110(b)(4). Modality 'must' is appropriate for the binding uniformity condition.",
+      "claim_sha256": "af5873dceac8f315a52ca9f88e490fb8f2f3ee603dd3fdfe7f704cd2e0e1024b",
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "correct",
+        "concepts": "correct",
+        "source_attribution": "not_applicable",
+        "effectivity": "not_applicable"
+      }
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:2c064f790628d00bcd1e54cf0000243b6e2131c9c6b5e0102959cc2e72946eb0",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:679be8883ca2d4ee3bad6af24bc2ee6fcc1a0359acdf944d31d15dfdc189bf23",
+        "urn:rulespec:audit-unit:b6d5c124aaed592344a99e64aee99d14093b36bb0c7b631f31c40257d6fa9639",
+        "urn:rulespec:audit-unit:f5deb4728162937e66b3136ac27c0b362ca5de6998158c4e76afba803a91df0a",
+        "urn:rulespec:audit-unit:99c360f13c16966888a36a6f1bd2d24609ad01e6b19008ac6e0325438208576d"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(c)(1) Except as provided in paragraph (c)(2) of this section and in § 825.801 containing the special hours of service requirement for airline flight crew employees, whether an employee has worked the minimum 1,250 hours of service is determined according to the principles established under the Fair Labor Standards Act (FLSA) for determining compensable hours of work. See 29 CFR part 785. The determining factor is the number of hours an employee has worked for the employer within the meaning of the FLSA. The determination is not limited by methods of recordkeeping, or by compensation agreements that do not accurately reflect all of the hours an employee has worked for or been in service to the employer. Any accurate accounting of actual hours worked under FLSA's principles may be used.",
+          "start": 2806,
+          "end": 3602
+        }
+      ],
+      "rationale": "Claim C0007 faithfully reflects 29 CFR 825.110(c)(1). The summary accurately captures the governing exceptions (USERRA and flight crew), the FLSA principles controlling compensable hours, the rule that recordkeeping or compensation agreements cannot limit the determination, and the authorization of any accurate accounting.",
+      "claim_sha256": "3c04909afce2d7d7ff0a9e8a737d080711038841e6fafc90bab6193f1cdfcf52",
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "correct",
+        "concepts": "correct",
+        "source_attribution": "not_applicable",
+        "effectivity": "not_applicable"
+      }
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:680ab98f3853b82a38d571e728ce4c04eb82878458d4f973a942c7ef54c0398e",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:de87dd2b21da6a0fcd51cb43695892750ff4abbedcf606b3cc1285871778c76a",
+        "urn:rulespec:audit-unit:4f7df445a777232b3a833eb5b804d8b77144e6d2c4bcf71c313e89e97429b8b2",
+        "urn:rulespec:audit-unit:3db68bf20b5bb503988449281ab644b630ebe88888e628d4aef65a2811d0db75"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(2) An employee returning from USERRA-covered service shall be credited with the hours of service that would have been performed but for the period of absence from work due to or necessitated by USERRA-covered service in determining the employee's eligibility for FMLA-qualifying leave. Accordingly, a person reemployed following USERRA-covered service has the hours that would have been worked for the employer added to any hours actually worked during the previous 12-month period to meet the hours of service requirement. In order to determine the hours that would have been worked during the period of absence from work due to or necessitated by USERRA-covered service, the employee's pre-service work schedule can generally be used for calculations. See § 825.801(c) for special rules applicable to airline flight crew employees.",
+          "start": 3604,
+          "end": 4438
+        }
+      ],
+      "rationale": "Claim C0008 accurately captures all elements of 29 CFR 825.110(c)(2): crediting hours that would have been worked during USERRA absence, adding them to actual hours worked during the preceding 12 months, and authorizing general reliance on the pre-service work schedule. Boundaries, modality, and scope are all fully supported.",
+      "claim_sha256": "b1aa7bc1d7bd27449c60097e776afe3dee7d9de7f4f318fbf341aff4dc8514e4",
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "correct",
+        "concepts": "correct",
+        "source_attribution": "not_applicable",
+        "effectivity": "not_applicable"
+      }
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:555f1359168738a8706c4443a1e7470e8ebe63633d86741dbbe9c86a2d8e46a9",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:9ad060dbc81c96f8ed870e810078c268129a2d2ef20e72fbd8fad1cc2e950e2a",
+        "urn:rulespec:audit-unit:3d1c5700d39904030bc592fa924609b3419e3bd42b071996e1c48e30e97bd4be"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(3) In the event an employer does not maintain an accurate record of hours worked by an employee, including for employees who are exempt from FLSA's requirement that a record be kept of their hours worked (e.g., bona fide executive, administrative, and professional employees as defined in FLSA Regulations, 29 CFR part 541), the employer has the burden of showing that the employee has not worked the requisite hours. An employer must be able to clearly demonstrate, for example, that full-time teachers ( see § 825.102 for definition) of an elementary or secondary school system, or institution of higher education, or other educational establishment or institution (who often work outside the classroom or at their homes) did not work 1,250 hours during the previous 12 months in order to claim that the teachers are not eligible for FMLA leave. See § 825.801(d) for special rules applicable to airline flight crew employees.",
+          "start": 4440,
+          "end": 5368
+        }
+      ],
+      "rationale": "Claim C0009 captures the employer's burden of showing that an employee did not work the requisite hours when accurate records are not kept (including for FLSA-exempt employees). The summary accurately conveys this legal burden, although it generalizes the teacher demonstration requirement. The offsets [4440, 5368) and scope text align with paragraph (c)(3).",
+      "claim_sha256": "88fd6591411acd2d57652d70745e0bde9d50ce8be35b7e67a31ad8bcf20c42e1",
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "correct",
+        "concepts": "correct",
+        "source_attribution": "not_applicable",
+        "effectivity": "not_applicable"
+      }
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:70e32e7388b156b6504e815be398953d6521a74536b8c3f4c1c87d64f0bdf5d1",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:8104626a25cdb77d29f55b8d28d534205dae486087230f090677b5a605600439",
+        "urn:rulespec:audit-unit:e8d129a9c72701491b7c65e6269b140d27869f2236cb21362d842b42a865a523"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(d) The determination of whether an employee meets the hours of service requirement and has been employed by the employer for a total of at least 12 months must be made as of the date the FMLA leave is to start. An employee may be on non-FMLA leave at the time he or she meets the 12-month eligibility requirement, and in that event, any portion of the leave taken for an FMLA-qualifying reason after the employee meets the eligibility requirement would be FMLA leave. See § 825.300(b) for rules governing the content of the eligibility notice given to employees.",
+          "start": 5370,
+          "end": 5933
+        }
+      ],
+      "rationale": "Claim C0010 faithfully reflects 29 CFR 825.110(d). It covers the timing rule that eligibility must be evaluated as of the date FMLA leave starts, as well as the transition rule for employees who attain 12 months of employment while on non-FMLA leave. Offsets [5370, 5933) and modality 'must' match the text.",
+      "claim_sha256": "b398e6908b630281dded88cee094366854d9a5c179de96e708a009845e23b360",
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "correct",
+        "concepts": "correct",
+        "source_attribution": "not_applicable",
+        "effectivity": "not_applicable"
+      }
+    },
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:e362814d0998eef7eb9a9af1afae7b4c40f3768ff82a5f2ed13ec3c9a84a5768",
+      "unit_ids": [
+        "urn:rulespec:audit-unit:0ba9d1621a4786ce1425c6708816871f3f4d94397308d430519afa30e469fb4e",
+        "urn:rulespec:audit-unit:2d2d5f702b4c7ff2c0dde8f26f30dd28c928b1e37f5333127f4a0d4a12b17f3d",
+        "urn:rulespec:audit-unit:33845af7cd66fffb080876dbd55ef23fa5312c80ba8f262c33f3dbbc5e9c4ac7",
+        "urn:rulespec:audit-unit:cad5e64143652a1e6129a592a3425f54be983e8b5ec52105a048121009ba2138"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(e) Whether 50 employees are employed within 75 miles to ascertain an employee's eligibility for FMLA benefits is determined when the employee gives notice of the need for leave. Whether the leave is to be taken at one time or on an intermittent or reduced leave schedule basis, once an employee is determined eligible in response to that notice of the need for leave, the employee's eligibility is not affected by any subsequent change in the number of employees employed at or within 75 miles of the employee's worksite, for that specific notice of the need for leave. Similarly, an employer may not terminate employee leave that has already started if the employee count drops below 50. For example, if an employer employs 60 employees in August, but expects that the number of employees will drop to 40 in December, the employer must grant FMLA benefits to an otherwise eligible employee who gives notice of the need for leave in August for a period of leave to begin in December.",
+          "start": 5935,
+          "end": 6919
+        }
+      ],
+      "rationale": "Claim C0011 captures 29 CFR 825.110(e). The summary accurately states the rule determining 50 employees within 75 miles when notice is given, the rule that subsequent changes do not affect eligibility once determined, and the prohibition on terminating already-started leave. Modality 'must_not' correctly reflects 'may not terminate'.",
+      "claim_sha256": "178f45675e0d3f42fa1c1e0162b1b18473715ad4ea6a83b0fead1ba2376fc90d",
+      "dimensions": {
+        "summary": "correct",
+        "actor": "correct",
+        "support": "correct",
+        "scope": "correct",
+        "links": "correct",
+        "boundary": "correct",
+        "modality": "correct",
+        "action": "correct",
+        "object": "correct",
+        "alternatives": "not_applicable",
+        "thresholds": "correct",
+        "concepts": "correct",
+        "source_attribution": "not_applicable",
+        "effectivity": "not_applicable"
+      }
+    }
+  ],
+  "unit_judgments": [
+    {
+      "unit_id": "urn:rulespec:audit-unit:c67cf7e78e14e8cc712e5d74c4b72efd8d1a0d3b58dc271800d18423ae0dd2a7",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:82ac3fc512e99f7833d9f44cc7a6031de224fa434c9c54a55a61cd32fa7bbd8c"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(1) Has been employed by the employer for at least 12 months, and",
+          "start": 105,
+          "end": 170
+        }
+      ],
+      "rationale": "The 12-month employment threshold required for an eligible employee under the FMLA is fully and accurately captured in C0000's summary and logic text.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:954d95f94276c043fdef7470851c20e56a1b945115fe8f3f4131f35c810e49c8",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:82ac3fc512e99f7833d9f44cc7a6031de224fa434c9c54a55a61cd32fa7bbd8c"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(2) Has been employed for at least 1,250 hours of service during the 12-month period immediately preceding the commencement of the leave ( see § 825.801 for special hours of service requirements for airline flight crew employees), and",
+          "start": 172,
+          "end": 406
+        }
+      ],
+      "rationale": "The requirement of 1,250 hours of service during the preceding 12-month period immediately before leave commences (and reference to § 825.801) is fully retained in C0000.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:ab1a8e2b75211b699d9cd7929cbb8b58dcd11ee0cba511e6ce53a63be7e98952",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:82ac3fc512e99f7833d9f44cc7a6031de224fa434c9c54a55a61cd32fa7bbd8c"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(3) Is employed at a worksite where 50 or more employees are employed by the employer within 75 miles of that worksite. See § 825.105(b) regarding employees who work outside the U.S.",
+          "start": 408,
+          "end": 590
+        }
+      ],
+      "rationale": "The threshold requirement of employment at a worksite with 50 or more employees within 75 miles is completely preserved in C0000.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:97062571bf9b189324d66b79e7f710ca489e1ee85bb249a2c22bc6576d2dc4c7",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:940ea73a90b741cb20d84c04a94dabdc28efef9ced81883ec860c496ded9277b"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(b) The 12 months an employee must have been employed by the employer need not be consecutive months, provided",
+          "start": 592,
+          "end": 702
+        }
+      ],
+      "rationale": "C0001 captures that the 12 months need not be consecutive provided the conditions of paragraph (b) are met, but omits the governing prerequisite from subsection (a) ('employee of a covered employer' establishing FMLA eligibility) from its explicit scope and summary, retaining it only in context_quotes.",
+      "status": "partial"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:9b93b2aa99eb1db66b9bc4faf67a6baa14ba4a85dcfdad76f3b2e9ee06efe46d",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:6271bc3ac2eb2689eca2fc994ed2061b32c68182007a3fc4533821be7c1607d2"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(1) Subject to the exceptions provided in paragraph (b)(2) of this section, employment periods prior to a break in service of seven years or more need not be counted in determining whether the employee has been employed by the employer for at least 12 months.",
+          "start": 704,
+          "end": 963
+        }
+      ],
+      "rationale": "C0002 fully retains the rule that employment periods preceding a break in service of seven years or more need not be counted, subject to the exceptions in paragraph (b)(2).",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:6738ff1714bab0079365afd60ba69174cc7280459a423b6adafecd36ccb125cc",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:e2e414727a284a3ecbfd663759119d955718a4d0bd73257ebdbdd32365507c27"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(2) Employment periods preceding a break in service of more than seven years must be counted in determining whether the employee has been employed by the employer for at least 12 months where:\n\n(i) The employee's break in service is occasioned by the fulfillment of his or her Uniformed Services Employment and Reemployment Rights Act (USERRA), 38 U.S.C. 4301, et seq., covered service obligation.",
+          "start": 965,
+          "end": 1362
+        }
+      ],
+      "rationale": "C0003 faithfully captures the requirement that employment periods preceding a break in service of more than seven years must be counted when occasioned by a USERRA-covered service obligation.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:9ad581222e6642661af78cff8145468ff89b4386964ca215ccd385648fce840a",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:e2e414727a284a3ecbfd663759119d955718a4d0bd73257ebdbdd32365507c27"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "The period of absence from work due to or necessitated by USERRA-covered service must be also counted in determining whether the employee has been employed for at least 12 months by the employer.",
+          "start": 1363,
+          "end": 1558
+        }
+      ],
+      "rationale": "C0003 explicitly includes the requirement that the period of absence from work due to or necessitated by USERRA-covered service must also be counted toward the 12-month employment requirement.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:fca40fe97725ef5f494f92b8893478b5a5b7f511980bd62188428563cb5eeff7",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:e2e414727a284a3ecbfd663759119d955718a4d0bd73257ebdbdd32365507c27"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "However, this section does not provide any greater entitlement to the employee than would be available under the USERRA; or",
+          "start": 1559,
+          "end": 1682
+        }
+      ],
+      "rationale": "C0003 explicitly incorporates the statutory limitation that this section provides no greater entitlement to the employee than available under USERRA.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:b71dec943bad2e405739b6318776b93bb9ff2aeb6c51713945aecf7fd5cdcd53",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:c04a4e2b64cdc2b18050c821c5ebaced957a56ebf8f1e1d2a275b4def28b3226"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(ii) A written agreement, including a collective bargaining agreement, exists concerning the employer's intention to rehire the employee after the break in service (e.g., for purposes of the employee furthering his or her education or for childrearing purposes).",
+          "start": 1684,
+          "end": 1946
+        }
+      ],
+      "rationale": "C0004 faithfully retains the requirement that employment periods prior to a break in service of more than seven years must be counted where a written agreement exists concerning rehire.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:220c9e269606379009d0546ce638fbfb6b47e26691c87171ec33d585b541da91",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:137ca16653dc70713564ce3b49a16a401e0f0c942407a2bfe175004706e24081"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(3) If an employee is maintained on the payroll for any part of a week, including any periods of paid or unpaid leave (sick, vacation) during which other benefits or compensation are provided by the employer (e.g., workers' compensation, group health plan benefits, etc.), the week counts as a week of employment.",
+          "start": 1948,
+          "end": 2261
+        }
+      ],
+      "rationale": "C0005 fully retains the definition and rule that maintenance on payroll for any part of a week, including periods of leave with benefits/compensation, counts as a week of employment.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:91693cc7db610f57655b34cdc978a904556f5a9854a61f5ff3a65a5134d444ad",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:137ca16653dc70713564ce3b49a16a401e0f0c942407a2bfe175004706e24081"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "For purposes of determining whether intermittent/occasional/casual employment qualifies as at least 12 months, 52 weeks is deemed to be equal to 12 months.",
+          "start": 2262,
+          "end": 2417
+        }
+      ],
+      "rationale": "C0005 explicitly includes the threshold equivalence deeming 52 weeks equal to 12 months for intermittent, occasional, or casual employment.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:da430cd7c8e9629b4263640d435154f970bdaf8f0fa87dfefd65705ff230c0c2",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:a0fe87abe647bfd359a4b1987d76b2be2046ca24c5c1d7969b9e68d4ce8dc3ca"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(4) Nothing in this section prevents employers from considering employment prior to a continuous break in service of more than seven years when determining whether an employee has met the 12-month employment requirement.",
+          "start": 2419,
+          "end": 2639
+        }
+      ],
+      "rationale": "C0006 fully preserves the permissive rule that employers are not prevented from considering employment prior to a continuous break in service of more than seven years.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:e31c6c6bee765b0f10a00662409e49c596f520c95c22d3f0daad71ee29f69398",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:a0fe87abe647bfd359a4b1987d76b2be2046ca24c5c1d7969b9e68d4ce8dc3ca"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "However, if an employer chooses to recognize such prior employment, the employer must do so uniformly, with respect to all employees with similar breaks in service.",
+          "start": 2640,
+          "end": 2804
+        }
+      ],
+      "rationale": "C0006 explicitly retains the requirement that if an employer chooses to recognize such prior employment, the employer must do so uniformly for all employees with similar breaks in service.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:679be8883ca2d4ee3bad6af24bc2ee6fcc1a0359acdf944d31d15dfdc189bf23",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:2c064f790628d00bcd1e54cf0000243b6e2131c9c6b5e0102959cc2e72946eb0"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(c)(1) Except as provided in paragraph (c)(2) of this section and in § 825.801 containing the special hours of service requirement for airline flight crew employees, whether an employee has worked the minimum 1,250 hours of service is determined according to the principles established under the Fair Labor Standards Act (FLSA) for determining compensable hours of work.",
+          "start": 2806,
+          "end": 3176
+        }
+      ],
+      "rationale": "C0007 fully retains the mandate that determination of 1,250 hours is made according to FLSA principles, except as provided in (c)(2) and § 825.801.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:b6d5c124aaed592344a99e64aee99d14093b36bb0c7b631f31c40257d6fa9639",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:2c064f790628d00bcd1e54cf0000243b6e2131c9c6b5e0102959cc2e72946eb0"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "The determining factor is the number of hours an employee has worked for the employer within the meaning of the FLSA.",
+          "start": 3198,
+          "end": 3315
+        }
+      ],
+      "rationale": "C0007 explicitly states that the determining factor is the number of hours an employee has worked for the employer within the meaning of the FLSA.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:f5deb4728162937e66b3136ac27c0b362ca5de6998158c4e76afba803a91df0a",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:2c064f790628d00bcd1e54cf0000243b6e2131c9c6b5e0102959cc2e72946eb0"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "The determination is not limited by methods of recordkeeping, or by compensation agreements that do not accurately reflect all of the hours an employee has worked for or been in service to the employer.",
+          "start": 3316,
+          "end": 3518
+        }
+      ],
+      "rationale": "C0007 fully retains the prohibition against limiting hours determination by recordkeeping methods or inaccurate compensation agreements.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:99c360f13c16966888a36a6f1bd2d24609ad01e6b19008ac6e0325438208576d",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:2c064f790628d00bcd1e54cf0000243b6e2131c9c6b5e0102959cc2e72946eb0"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "Any accurate accounting of actual hours worked under FLSA's principles may be used.",
+          "start": 3519,
+          "end": 3602
+        }
+      ],
+      "rationale": "C0007 fully retains the authorization that any accurate accounting of actual hours worked under FLSA principles may be used.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:de87dd2b21da6a0fcd51cb43695892750ff4abbedcf606b3cc1285871778c76a",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:680ab98f3853b82a38d571e728ce4c04eb82878458d4f973a942c7ef54c0398e"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(2) An employee returning from USERRA-covered service shall be credited with the hours of service that would have been performed but for the period of absence from work due to or necessitated by USERRA-covered service in determining the employee's eligibility for FMLA-qualifying leave.",
+          "start": 3604,
+          "end": 3890
+        }
+      ],
+      "rationale": "C0008 fully captures the requirement that an employee returning from USERRA-covered service shall be credited with the hours of service that would have been performed but for the period of absence.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:4f7df445a777232b3a833eb5b804d8b77144e6d2c4bcf71c313e89e97429b8b2",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:680ab98f3853b82a38d571e728ce4c04eb82878458d4f973a942c7ef54c0398e"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "Accordingly, a person reemployed following USERRA-covered service has the hours that would have been worked for the employer added to any hours actually worked during the previous 12-month period to meet the hours of service requirement.",
+          "start": 3891,
+          "end": 4128
+        }
+      ],
+      "rationale": "C0008 explicitly retains the rule that reemployed persons have the hours that would have been worked added to actual hours worked during the previous 12 months.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:3db68bf20b5bb503988449281ab644b630ebe88888e628d4aef65a2811d0db75",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:680ab98f3853b82a38d571e728ce4c04eb82878458d4f973a942c7ef54c0398e"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "In order to determine the hours that would have been worked during the period of absence from work due to or necessitated by USERRA-covered service, the employee's pre-service work schedule can generally be used for calculations.",
+          "start": 4129,
+          "end": 4358
+        }
+      ],
+      "rationale": "C0008 explicitly includes the provision that the employee's pre-service work schedule can generally be used to calculate hours that would have been worked.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:9ad060dbc81c96f8ed870e810078c268129a2d2ef20e72fbd8fad1cc2e950e2a",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:555f1359168738a8706c4443a1e7470e8ebe63633d86741dbbe9c86a2d8e46a9"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(3) In the event an employer does not maintain an accurate record of hours worked by an employee, including for employees who are exempt from FLSA's requirement that a record be kept of their hours worked (e.g., bona fide executive, administrative, and professional employees as defined in FLSA Regulations, 29 CFR part 541), the employer has the burden of showing that the employee has not worked the requisite hours.",
+          "start": 4440,
+          "end": 4858
+        }
+      ],
+      "rationale": "C0009 fully retains the rule that when an employer fails to maintain accurate records (including for FLSA-exempt employees), the employer bears the burden of showing that the employee did not work the requisite hours.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:3d1c5700d39904030bc592fa924609b3419e3bd42b071996e1c48e30e97bd4be",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:555f1359168738a8706c4443a1e7470e8ebe63633d86741dbbe9c86a2d8e46a9"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "An employer must be able to clearly demonstrate, for example, that full-time teachers ( see § 825.102 for definition) of an elementary or secondary school system, or institution of higher education, or other educational establishment or institution (who often work outside the classroom or at their homes) did not work 1,250 hours during the previous 12 months in order to claim that the teachers are not eligible for FMLA leave.",
+          "start": 4859,
+          "end": 5288
+        }
+      ],
+      "rationale": "While C0009 quotes paragraph (c)(3) in full, its summary generalized the clear demonstration requirement to any employee and omitted the specific statutory application to full-time teachers of elementary or secondary school systems or higher education institutions.",
+      "status": "partial"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:8104626a25cdb77d29f55b8d28d534205dae486087230f090677b5a605600439",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:70e32e7388b156b6504e815be398953d6521a74536b8c3f4c1c87d64f0bdf5d1"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(d) The determination of whether an employee meets the hours of service requirement and has been employed by the employer for a total of at least 12 months must be made as of the date the FMLA leave is to start.",
+          "start": 5370,
+          "end": 5581
+        }
+      ],
+      "rationale": "C0010 faithfully preserves the requirement that determination of hours of service and 12 months of employment must be made as of the date FMLA leave is to start.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:e8d129a9c72701491b7c65e6269b140d27869f2236cb21362d842b42a865a523",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:70e32e7388b156b6504e815be398953d6521a74536b8c3f4c1c87d64f0bdf5d1"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "An employee may be on non-FMLA leave at the time he or she meets the 12-month eligibility requirement, and in that event, any portion of the leave taken for an FMLA-qualifying reason after the employee meets the eligibility requirement would be FMLA leave.",
+          "start": 5582,
+          "end": 5838
+        }
+      ],
+      "rationale": "C0010 explicitly incorporates the rule that if an employee meets the 12-month requirement while on non-FMLA leave, any subsequent leave taken for an FMLA-qualifying reason becomes FMLA leave.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:0ba9d1621a4786ce1425c6708816871f3f4d94397308d430519afa30e469fb4e",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:e362814d0998eef7eb9a9af1afae7b4c40f3768ff82a5f2ed13ec3c9a84a5768"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "(e) Whether 50 employees are employed within 75 miles to ascertain an employee's eligibility for FMLA benefits is determined when the employee gives notice of the need for leave.",
+          "start": 5935,
+          "end": 6113
+        }
+      ],
+      "rationale": "C0011 faithfully captures the rule that whether 50 employees are employed within 75 miles is determined when the employee gives notice of the need for leave.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:2d2d5f702b4c7ff2c0dde8f26f30dd28c928b1e37f5333127f4a0d4a12b17f3d",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:e362814d0998eef7eb9a9af1afae7b4c40f3768ff82a5f2ed13ec3c9a84a5768"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "Whether the leave is to be taken at one time or on an intermittent or reduced leave schedule basis, once an employee is determined eligible in response to that notice of the need for leave, the employee's eligibility is not affected by any subsequent change in the number of employees employed at or within 75 miles of the employee's worksite, for that specific notice of the need for leave.",
+          "start": 6114,
+          "end": 6505
+        }
+      ],
+      "rationale": "C0011 fully retains the principle that once an employee is determined eligible in response to notice, eligibility is not affected by subsequent changes in employee headcount within 75 miles.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:33845af7cd66fffb080876dbd55ef23fa5312c80ba8f262c33f3dbbc5e9c4ac7",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:e362814d0998eef7eb9a9af1afae7b4c40f3768ff82a5f2ed13ec3c9a84a5768"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "Similarly, an employer may not terminate employee leave that has already started if the employee count drops below 50.",
+          "start": 6506,
+          "end": 6624
+        }
+      ],
+      "rationale": "C0011 explicitly retains the prohibition that an employer may not terminate leave that has already started if employee count drops below 50.",
+      "status": "covered"
+    },
+    {
+      "unit_id": "urn:rulespec:audit-unit:cad5e64143652a1e6129a592a3425f54be983e8b5ec52105a048121009ba2138",
+      "claim_ids": [
+        "urn:rulespec:document-understanding:revision:e362814d0998eef7eb9a9af1afae7b4c40f3768ff82a5f2ed13ec3c9a84a5768"
+      ],
+      "source_spans": [
+        {
+          "source_id": "urn:rulespec:document-understanding:document:a4cdfc9b75c8a1ed78c29b8a344913757e4b95198a4b069127aa9092960aaf4f",
+          "quote": "For example, if an employer employs 60 employees in August, but expects that the number of employees will drop to 40 in December, the employer must grant FMLA benefits to an otherwise eligible employee who gives notice of the need for leave in August for a period of leave to begin in December.",
+          "start": 6625,
+          "end": 6919
+        }
+      ],
+      "rationale": "C0011 quotes the entire paragraph including the August/December 60-to-40 employee example, but its summary states only the general rules and omits the specific rule/example demonstrating that anticipated headcount drops before leave starts do not defeat eligibility established upon notice.",
+      "status": "partial"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+Classification check for this pass:
+Determine which action a modal phrase governs and what is being negated before
+assigning kind and modality. Classify the complete source meaning, not the word
+exemption or a negative keyword by itself.
+- A duty to do X: requirement / must.
+- Explicit absence of a duty to do X: exemption / not_required.
+- A ban on doing X: prohibition / must_not.
+- An explicit grant of permission to do X: permission / may.
+- A statement that THIS rule does not prohibit X describes the limit of that
+  rule; use statement / not_stated and retain that limitation and any other-rule
+  references. It does not say X is not required or universally permitted.
+- If a named rule does not apply, inspect that rule: removing a positive duty
+  supports not_required; removing a prohibition does not. For the latter,
+  preserve the source's non-applicability statement as statement / not_stated.
+- A possible event remains statement / possible; a recommendation remains should.
+For example, a policy not banning parking describes an absence of that policy's
+restriction. A policy not requiring parking describes an absence of a duty to
+park. Do not interchange these meanings. Check the selected pair against the
+complete statement before returning. Do not add classifications absent from the
+schema or infer the contents of unavailable rules.

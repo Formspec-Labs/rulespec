@@ -1,0 +1,986 @@
+{
+  "method": "Direct review of raw response meanings and pinned source; revisable agent judgments, not gold labels",
+  "criteria_sha256": "95dcaf3c78d764b3bc1d14eaec34ec500a527cefa31429896fcb4289635b96a7",
+  "decision": "Do not promote either appended instruction block. Targeted gains coexist with meaningful regressions. Keep the current extraction default.",
+  "findings": [
+    {
+      "variant": "classification",
+      "case": "baggage_negative_force",
+      "assessment": "target_improved",
+      "reason": "Both does-not-apply-to-a-ban and does-not-prohibit change from exemption/not_required to the intended neutral statement/not_stated mapping.",
+      "control": {
+        "sample": "baggage",
+        "variant": "control",
+        "rows": [
+          1,
+          5
+        ],
+        "claims": [
+          {
+            "id": "urn:rulespec:document-understanding:revision:e81a61361377bae84f0b87b3956c2fcf1cc2f015d81ffbb3cb9a0fd4857cfff7",
+            "quote": "(b) On an individual's person or accessible property—permitted carriage of a weapon. Paragraph (a) of this section does not apply as to carriage of firearms and other weapons if the individual is one of the following:",
+            "kind": "exemption",
+            "modality": "not_required",
+            "summary": "Paragraph (a) of 49 CFR 1540.111 does not apply to the carriage of firearms and other weapons on or about an individual's person or accessible property if the individual is law enforcement personnel required to carry a weapon on duty at the airport, an individual authorized under specified regulations, or an individual authorized to carry a weapon in a sterile area under a security program.",
+            "scope_text": "Governs carriage of firearms and other weapons on or about an individual's person or accessible property if the individual is one of the qualifying individuals specified in paragraphs (b)(1) through (b)(3).",
+            "choice_text": "Paragraph (a) does not apply if the individual is: (1) law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport; (2) an individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter; or (3) an individual authorized to carry a weapon in a sterile area under a security program.",
+            "logic_text": "(b) On an individual's person or accessible property—permitted carriage of a weapon. Paragraph (a) of this section does not apply as to carriage of firearms and other weapons if the individual is one of the following:",
+            "references": [
+              "Paragraph (a)",
+              "§§ 1544.219",
+              "1544.221",
+              "1544.223",
+              "1546.211",
+              "subpart B of part 1562"
+            ]
+          },
+          {
+            "id": "urn:rulespec:document-understanding:revision:f17c0441f3f0f1e925625349d5b669fbe823b06bf2e3d5cf5aa1dc69f856f1ee",
+            "quote": "(d) Ammunition. This section does not prohibit the carriage of ammunition in checked baggage or in the same container as a firearm. Title 49 CFR part 175 provides additional requirements governing carriage of ammunition on aircraft.",
+            "kind": "exemption",
+            "modality": "not_required",
+            "summary": "49 CFR 1540.111 does not prohibit the carriage of ammunition in checked baggage or in the same container as a firearm, while Title 49 CFR part 175 provides additional requirements governing carriage of ammunition on aircraft.",
+            "scope_text": "Governing carriage of ammunition in checked baggage or in the same container as a firearm under 49 CFR 1540.111.",
+            "choice_text": "In checked baggage or in the same container as a firearm.",
+            "logic_text": "(d) Ammunition. This section does not prohibit the carriage of ammunition in checked baggage or in the same container as a firearm. Title 49 CFR part 175 provides additional requirements governing carriage of ammunition on aircraft.",
+            "references": [
+              "Title 49 CFR part 175"
+            ]
+          }
+        ]
+      },
+      "treatment": {
+        "sample": "baggage",
+        "variant": "classification",
+        "rows": [
+          1,
+          3
+        ],
+        "claims": [
+          {
+            "id": "urn:rulespec:document-understanding:revision:0c384428b324d2958b423d19fa500357e20046bf8960979370a3b36f60500023",
+            "quote": "(b) On an individual's person or accessible property—permitted carriage of a weapon. Paragraph (a) of this section does not apply as to carriage of firearms and other weapons if the individual is one of the following:\n\n(1) Law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport.\n\n(2) An individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter.\n\n(3) An individual authorized to carry a weapon in a sterile area under a security program.",
+            "kind": "statement",
+            "modality": "not_stated",
+            "summary": "Paragraph (a) of 49 CFR 1540.111 does not apply to carriage of firearms and other weapons on an individual's person or accessible property if the individual is: (1) law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport; (2) an individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of 49 CFR chapter XII; or (3) an individual authorized to carry a weapon in a sterile area under a security program.",
+            "scope_text": "As to carriage of firearms and other weapons on an individual's person or accessible property.",
+            "choice_text": "If the individual is one of the following: (1) Law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport; (2) An individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter; or (3) An individual authorized to carry a weapon in a sterile area under a security program.",
+            "logic_text": "(b) On an individual's person or accessible property—permitted carriage of a weapon. Paragraph (a) of this section does not apply as to carriage of firearms and other weapons if the individual is one of the following:\n\n(1) Law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport.\n\n(2) An individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter.\n\n(3) An individual authorized to carry a weapon in a sterile area under a security program.",
+            "references": [
+              "Paragraph (a)",
+              "§ 1544.219",
+              "§ 1544.221",
+              "§ 1544.223",
+              "§ 1546.211",
+              "subpart B of part 1562"
+            ]
+          },
+          {
+            "id": "urn:rulespec:document-understanding:revision:f6939f3521b0608646e51de9d343cb4af8219b9390c4f1b8368126aa9f01387b",
+            "quote": "(d) Ammunition. This section does not prohibit the carriage of ammunition in checked baggage or in the same container as a firearm. Title 49 CFR part 175 provides additional requirements governing carriage of ammunition on aircraft.",
+            "kind": "statement",
+            "modality": "not_stated",
+            "summary": "49 CFR 1540.111 does not prohibit the carriage of ammunition in checked baggage or in the same container as a firearm.",
+            "scope_text": "In checked baggage or in the same container as a firearm.",
+            "choice_text": "",
+            "logic_text": "(d) Ammunition. This section does not prohibit the carriage of ammunition in checked baggage or in the same container as a firearm. Title 49 CFR part 175 provides additional requirements governing carriage of ammunition on aircraft.",
+            "references": []
+          }
+        ]
+      }
+    },
+    {
+      "variant": "classification",
+      "case": "invented_negative_force",
+      "assessment": "target_improved",
+      "reason": "Non-prohibition and withdrawal of the tool ban become neutral statements. The positive registration-duty exemption remains not_required. Neutral description rather than permission is the declared profile choice; the control paper-map permission was limited to this policy, not universal permission.",
+      "control": {
+        "sample": "negative-force",
+        "variant": "control",
+        "rows": [
+          4,
+          6,
+          7
+        ],
+        "claims": [
+          {
+            "id": "urn:rulespec:document-understanding:revision:4482e20a81dd4c836f835db723a97344ae6e60a4b7bd5470a0defa29d3ff60f1",
+            "quote": "d. This policy does not prohibit visitors carrying paper maps. Other building policies may impose additional restrictions.",
+            "kind": "permission",
+            "modality": "may",
+            "summary": "Visitors are permitted to carry paper maps under this policy, as this policy does not prohibit it.",
+            "scope_text": "Under this policy, concerning visitors carrying paper maps.",
+            "choice_text": "",
+            "logic_text": "d. This policy does not prohibit visitors carrying paper maps. Other building policies may impose additional restrictions.",
+            "references": []
+          },
+          {
+            "id": "urn:rulespec:document-understanding:revision:3d4555e938723888a263b14b44f2256684defcf1174a351e4ce8691d7d9a37c1",
+            "quote": "e. The registration duty in paragraph a does not apply to overnight staff.",
+            "kind": "exemption",
+            "modality": "not_required",
+            "summary": "Overnight staff are exempt from the duty to register before entering the center.",
+            "scope_text": "Applies to overnight staff regarding the registration duty in paragraph a.",
+            "choice_text": "",
+            "logic_text": "e. The registration duty in paragraph a does not apply to overnight staff.",
+            "references": [
+              "paragraph a"
+            ]
+          },
+          {
+            "id": "urn:rulespec:document-understanding:revision:4280ef490c123c48fc60682c59ffa052e367d0e5113ba892db11bf60f9a60294",
+            "quote": "f. The metal-tool prohibition in paragraph c does not apply to maintenance workers performing repairs.",
+            "kind": "exemption",
+            "modality": "not_required",
+            "summary": "Maintenance workers performing repairs are exempt from the prohibition against carrying metal tools inside the center.",
+            "scope_text": "Applies to maintenance workers while performing repairs regarding the metal-tool prohibition in paragraph c.",
+            "choice_text": "",
+            "logic_text": "f. The metal-tool prohibition in paragraph c does not apply to maintenance workers performing repairs.",
+            "references": [
+              "paragraph c"
+            ]
+          }
+        ]
+      },
+      "treatment": {
+        "sample": "negative-force",
+        "variant": "classification",
+        "rows": [
+          3,
+          5,
+          6
+        ],
+        "claims": [
+          {
+            "id": "urn:rulespec:document-understanding:revision:f7e7bc861559a3f9a776a93632739fd2f3f3322bdd236299c53adbb78fbe0539",
+            "quote": "d. This policy does not prohibit visitors carrying paper maps. Other building policies may impose additional restrictions.",
+            "kind": "statement",
+            "modality": "not_stated",
+            "summary": "This policy does not prohibit visitors carrying paper maps.",
+            "scope_text": "",
+            "choice_text": "",
+            "logic_text": "d. This policy does not prohibit visitors carrying paper maps. Other building policies may impose additional restrictions.",
+            "references": []
+          },
+          {
+            "id": "urn:rulespec:document-understanding:revision:cacb09df1f3275169ef8eb290b4557f9c61e5af368ae41cb54f82869126efe02",
+            "quote": "e. The registration duty in paragraph a does not apply to overnight staff.",
+            "kind": "exemption",
+            "modality": "not_required",
+            "summary": "The registration duty in paragraph a does not apply to overnight staff.",
+            "scope_text": "For overnight staff.",
+            "choice_text": "",
+            "logic_text": "e. The registration duty in paragraph a does not apply to overnight staff.",
+            "references": [
+              "paragraph a"
+            ]
+          },
+          {
+            "id": "urn:rulespec:document-understanding:revision:b1e36ac0ba09525a83d00910dcfbf6aaffca4dfc6922de155bc1cf5e299a0b6e",
+            "quote": "f. The metal-tool prohibition in paragraph c does not apply to maintenance workers performing repairs.",
+            "kind": "statement",
+            "modality": "not_stated",
+            "summary": "The metal-tool prohibition in paragraph c does not apply to maintenance workers performing repairs.",
+            "scope_text": "For maintenance workers performing repairs.",
+            "choice_text": "",
+            "logic_text": "f. The metal-tool prohibition in paragraph c does not apply to maintenance workers performing repairs.",
+            "references": [
+              "paragraph c"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "variant": "classification",
+      "case": "invented_baseline_exceptions",
+      "assessment": "regression",
+      "reason": "Control repeats overnight-staff and maintenance-worker exceptions in the corresponding baseline statements. Treatment drops both exceptions from the baselines, retaining them only in separate records. This violates complete-baseline guidance.",
+      "control": {
+        "sample": "negative-force",
+        "variant": "control",
+        "rows": [
+          1,
+          3
+        ],
+        "claims": [
+          {
+            "id": "urn:rulespec:document-understanding:revision:1127acb534e72f993d2f20ac3aa5913f7bfc798155cafb351ac4bc4791ebf97f",
+            "quote": "a. Visitors must register before entering the center.",
+            "kind": "requirement",
+            "modality": "must",
+            "summary": "Visitors must register before entering the center, except overnight staff to whom the registration duty does not apply.",
+            "scope_text": "Applies to visitors before entering the center, except overnight staff.",
+            "choice_text": "",
+            "logic_text": "a. Visitors must register before entering the center.",
+            "references": [
+              "paragraph a"
+            ]
+          },
+          {
+            "id": "urn:rulespec:document-understanding:revision:e6fbfc9ff63751f9b91f1dcc9052d5d8d513300ba009bafac210280c81049fa9",
+            "quote": "c. Visitors must not carry metal tools inside the center.",
+            "kind": "prohibition",
+            "modality": "must_not",
+            "summary": "Visitors must not carry metal tools inside the center, except maintenance workers performing repairs to whom this prohibition does not apply.",
+            "scope_text": "Inside the center, except for maintenance workers performing repairs.",
+            "choice_text": "",
+            "logic_text": "c. Visitors must not carry metal tools inside the center.",
+            "references": [
+              "paragraph c"
+            ]
+          }
+        ]
+      },
+      "treatment": {
+        "sample": "negative-force",
+        "variant": "classification",
+        "rows": [
+          0,
+          2
+        ],
+        "claims": [
+          {
+            "id": "urn:rulespec:document-understanding:revision:6782252fb437c97974d3a9278e5987887237c891082f5c527eb5c16ea9a1c363",
+            "quote": "a. Visitors must register before entering the center.",
+            "kind": "requirement",
+            "modality": "must",
+            "summary": "Visitors must register before entering the center.",
+            "scope_text": "Before entering the center.",
+            "choice_text": "",
+            "logic_text": "a. Visitors must register before entering the center.",
+            "references": []
+          },
+          {
+            "id": "urn:rulespec:document-understanding:revision:7a1114ff05514167489d1c1402eede7de8c6b672672b657386a9c579c015ba39",
+            "quote": "c. Visitors must not carry metal tools inside the center.",
+            "kind": "prohibition",
+            "modality": "must_not",
+            "summary": "Visitors must not carry metal tools inside the center.",
+            "scope_text": "Inside the center.",
+            "choice_text": "",
+            "logic_text": "c. Visitors must not carry metal tools inside the center.",
+            "references": []
+          }
+        ]
+      }
+    },
+    {
+      "variant": "classification",
+      "case": "baggage_grouping_and_scope",
+      "assessment": "regression",
+      "reason": "Loaded firearms, unloaded firearms and explosives merge into one statement. Source distinctions survive in prose, but are no longer individually referenceable. Accessible-property cases and qualifying-person conditions disappear from their scope fields, although retained in statement/choice. The treatment also adds chapter XII, absent from the supplied request.",
+      "control": {
+        "sample": "baggage",
+        "variant": "control",
+        "rows": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "claims": [
+          {
+            "id": "urn:rulespec:document-understanding:revision:a456363f2abdefe2320c3911abbc4367590a2699d4034a830744b5a8118e08d8",
+            "quote": "(a) On an individual's person or accessible property—prohibitions. Except as provided in paragraph (b) of this section, an individual may not have a weapon, explosive, or incendiary, on or about the individual's person or accessible property—",
+            "kind": "prohibition",
+            "modality": "must_not",
+            "summary": "Except as provided in paragraph (b) of 49 CFR 1540.111, an individual may not have a weapon, explosive, or incendiary, on or about the individual's person or accessible property when inspection has begun before entering a sterile area or boarding a screened aircraft, when entering or in a sterile area, or when attempting to board or onboard a screened aircraft.",
+            "scope_text": "Except as provided in paragraph (b) of 49 CFR 1540.111, when performance has begun of the inspection of an individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter; when the individual is entering or in a sterile area; or when the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.",
+            "choice_text": "The prohibition applies under any of the following circumstances: (1) when performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft screened under this subchapter; (2) when entering or in a sterile area; or (3) when attempting to board or onboard an aircraft screened under §§ 1544.201, 1546.201, or 1562.23.",
+            "logic_text": "(2) When the individual is entering or in a sterile area; or",
+            "references": [
+              "paragraph (b)",
+              "§§ 1544.201",
+              "1546.201",
+              "1562.23"
+            ]
+          },
+          {
+            "id": "urn:rulespec:document-understanding:revision:e81a61361377bae84f0b87b3956c2fcf1cc2f015d81ffbb3cb9a0fd4857cfff7",
+            "quote": "(b) On an individual's person or accessible property—permitted carriage of a weapon. Paragraph (a) of this section does not apply as to carriage of firearms and other weapons if the individual is one of the following:",
+            "kind": "exemption",
+            "modality": "not_required",
+            "summary": "Paragraph (a) of 49 CFR 1540.111 does not apply to the carriage of firearms and other weapons on or about an individual's person or accessible property if the individual is law enforcement personnel required to carry a weapon on duty at the airport, an individual authorized under specified regulations, or an individual authorized to carry a weapon in a sterile area under a security program.",
+            "scope_text": "Governs carriage of firearms and other weapons on or about an individual's person or accessible property if the individual is one of the qualifying individuals specified in paragraphs (b)(1) through (b)(3).",
+            "choice_text": "Paragraph (a) does not apply if the individual is: (1) law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport; (2) an individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter; or (3) an individual authorized to carry a weapon in a sterile area under a security program.",
+            "logic_text": "(b) On an individual's person or accessible property—permitted carriage of a weapon. Paragraph (a) of this section does not apply as to carriage of firearms and other weapons if the individual is one of the following:",
+            "references": [
+              "Paragraph (a)",
+              "§§ 1544.219",
+              "1544.221",
+              "1544.223",
+              "1546.211",
+              "subpart B of part 1562"
+            ]
+          },
+          {
+            "id": "urn:rulespec:document-understanding:revision:62efcba73249f80432d85c96a762001f5a8cc19d8c472c6c95b2267785088ee9",
+            "quote": "(1) Any loaded firearm(s).",
+            "kind": "prohibition",
+            "modality": "must_not",
+            "summary": "A passenger may not transport or offer for transport in checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23 of this chapter any loaded firearm(s).",
+            "scope_text": "In checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23 of this chapter.",
+            "choice_text": "Transport or offer for transport in checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23 of this chapter.",
+            "logic_text": "(c) In checked baggage. A passenger may not transport or offer for transport in checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23 of this chapter:",
+            "references": [
+              "§ 1562.23"
+            ]
+          },
+          {
+            "id": "urn:rulespec:document-understanding:revision:6e472e1330ef8fd1cccffc560600a378a6121f7769b90e46097c760e87deeadc",
+            "quote": "(2) Any unloaded firearm(s) unless—",
+            "kind": "prohibition",
+            "modality": "must_not",
+            "summary": "A passenger may not transport or offer for transport in checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23 of this chapter any unloaded firearm(s) unless the passenger declares it to the aircraft operator before checking, the firearm is unloaded, it is carried in a hard-sided container, and the container is locked with only the passenger retaining the key or combination.",
+            "scope_text": "In checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23 of this chapter, unless all conditions (i) through (iv) are satisfied.",
+            "choice_text": "All of the following conditions must be satisfied: (i) passenger declares to aircraft operator orally or in writing before checking baggage that passenger has an unloaded firearm in the bag; (ii) firearm is unloaded; (iii) firearm is carried in a hard-sided container; and (iv) container is locked with only the passenger retaining key or combination.",
+            "logic_text": "(iii) The firearm is carried in a hard-sided container; and",
+            "references": [
+              "§ 1562.23"
+            ]
+          },
+          {
+            "id": "urn:rulespec:document-understanding:revision:42287dc564f3ce0f0822812feaa811cc68a6028318099b6037a131ab7a94d0da",
+            "quote": "(3) Any unauthorized explosive or incendiary.",
+            "kind": "prohibition",
+            "modality": "must_not",
+            "summary": "A passenger may not transport or offer for transport in checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23 of this chapter any unauthorized explosive or incendiary.",
+            "scope_text": "In checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23 of this chapter.",
+            "choice_text": "",
+            "logic_text": "",
+            "references": [
+              "§ 1562.23"
+            ]
+          }
+        ]
+      },
+      "treatment": {
+        "sample": "baggage",
+        "variant": "classification",
+        "rows": [
+          0,
+          1,
+          2
+        ],
+        "claims": [
+          {
+            "id": "urn:rulespec:document-understanding:revision:ac565d3573d689d383440073be1731b4070cb80a32eb7019abf46d29ac69a53c",
+            "quote": "(a) On an individual's person or accessible property—prohibitions. Except as provided in paragraph (b) of this section, an individual may not have a weapon, explosive, or incendiary, on or about the individual's person or accessible property—\n\n(1) When performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter;\n\n(2) When the individual is entering or in a sterile area; or\n\n(3) When the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.",
+            "kind": "prohibition",
+            "modality": "must_not",
+            "summary": "Except as provided in paragraph (b) of 49 CFR 1540.111, an individual may not have a weapon, explosive, or incendiary, on or about the individual's person or accessible property: (1) when performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter; (2) when the individual is entering or in a sterile area; or (3) when the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.",
+            "scope_text": "Except as provided in paragraph (b) of 49 CFR 1540.111, on or about an individual's person or accessible property.",
+            "choice_text": "(1) When performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter; (2) When the individual is entering or in a sterile area; or (3) When the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.",
+            "logic_text": "(a) On an individual's person or accessible property—prohibitions. Except as provided in paragraph (b) of this section, an individual may not have a weapon, explosive, or incendiary, on or about the individual's person or accessible property—\n\n(1) When performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter;\n\n(2) When the individual is entering or in a sterile area; or\n\n(3) When the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.",
+            "references": [
+              "paragraph (b)",
+              "§ 1544.201",
+              "§ 1546.201",
+              "§ 1562.23"
+            ]
+          },
+          {
+            "id": "urn:rulespec:document-understanding:revision:0c384428b324d2958b423d19fa500357e20046bf8960979370a3b36f60500023",
+            "quote": "(b) On an individual's person or accessible property—permitted carriage of a weapon. Paragraph (a) of this section does not apply as to carriage of firearms and other weapons if the individual is one of the following:\n\n(1) Law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport.\n\n(2) An individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter.\n\n(3) An individual authorized to carry a weapon in a sterile area under a security program.",
+            "kind": "statement",
+            "modality": "not_stated",
+            "summary": "Paragraph (a) of 49 CFR 1540.111 does not apply to carriage of firearms and other weapons on an individual's person or accessible property if the individual is: (1) law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport; (2) an individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of 49 CFR chapter XII; or (3) an individual authorized to carry a weapon in a sterile area under a security program.",
+            "scope_text": "As to carriage of firearms and other weapons on an individual's person or accessible property.",
+            "choice_text": "If the individual is one of the following: (1) Law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport; (2) An individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter; or (3) An individual authorized to carry a weapon in a sterile area under a security program.",
+            "logic_text": "(b) On an individual's person or accessible property—permitted carriage of a weapon. Paragraph (a) of this section does not apply as to carriage of firearms and other weapons if the individual is one of the following:\n\n(1) Law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport.\n\n(2) An individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter.\n\n(3) An individual authorized to carry a weapon in a sterile area under a security program.",
+            "references": [
+              "Paragraph (a)",
+              "§ 1544.219",
+              "§ 1544.221",
+              "§ 1544.223",
+              "§ 1546.211",
+              "subpart B of part 1562"
+            ]
+          },
+          {
+            "id": "urn:rulespec:document-understanding:revision:5788e5acdafca579eccb9f415f5092ef7b6b3ca37adb8c3e6a35aede7b2205fa",
+            "quote": "(c) In checked baggage. A passenger may not transport or offer for transport in checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23 of this chapter:\n\n(1) Any loaded firearm(s).\n\n(2) Any unloaded firearm(s) unless—\n\n(i) The passenger declares to the aircraft operator, either orally or in writing, before checking the baggage, that the passenger has a firearm in his or her bag and that it is unloaded;\n\n(ii) The firearm is unloaded;\n\n(iii) The firearm is carried in a hard-sided container; and\n\n(iv) The container in which it is carried is locked, and only the passenger retains the key or combination.\n\n(3) Any unauthorized explosive or incendiary.",
+            "kind": "prohibition",
+            "modality": "must_not",
+            "summary": "A passenger may not transport or offer for transport in checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23 of 49 CFR chapter XII: (1) any loaded firearm(s); (2) any unloaded firearm(s) unless the passenger declares to the aircraft operator, either orally or in writing, before checking the baggage, that the passenger has a firearm in his or her bag and that it is unloaded, the firearm is unloaded, the firearm is carried in a hard-sided container, and the container in which it is carried is locked and only the passenger retains the key or combination; or (3) any unauthorized explosive or incendiary.",
+            "scope_text": "In checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23 of this chapter.",
+            "choice_text": "(1) Any loaded firearm(s); (2) Any unloaded firearm(s) unless (i) the passenger declares to the aircraft operator, either orally or in writing, before checking the baggage, that the passenger has a firearm in his or her bag and that it is unloaded, (ii) the firearm is unloaded, (iii) the firearm is carried in a hard-sided container, and (iv) the container in which it is carried is locked, and only the passenger retains the key or combination; or (3) Any unauthorized explosive or incendiary.",
+            "logic_text": "(2) Any unloaded firearm(s) unless—\n\n(i) The passenger declares to the aircraft operator, either orally or in writing, before checking the baggage, that the passenger has a firearm in his or her bag and that it is unloaded;\n\n(ii) The firearm is unloaded;\n\n(iii) The firearm is carried in a hard-sided container; and\n\n(iv) The container in which it is carried is locked, and only the passenger retains the key or combination.",
+            "references": [
+              "§ 1562.23"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "variant": "consistency",
+      "case": "baggage_declaration",
+      "assessment": "target_improved",
+      "reason": "Treatment statement explicitly retains the aircraft operator, unloaded firearm declaration content, oral/written alternatives, timing and cumulative conditions. Scope expands the four tests rather than pointing only to their labels. Logic selects the full unless-list rather than only a list item.",
+      "control": {
+        "sample": "baggage",
+        "variant": "control",
+        "rows": [
+          3
+        ],
+        "claims": [
+          {
+            "id": "urn:rulespec:document-understanding:revision:6e472e1330ef8fd1cccffc560600a378a6121f7769b90e46097c760e87deeadc",
+            "quote": "(2) Any unloaded firearm(s) unless—",
+            "kind": "prohibition",
+            "modality": "must_not",
+            "summary": "A passenger may not transport or offer for transport in checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23 of this chapter any unloaded firearm(s) unless the passenger declares it to the aircraft operator before checking, the firearm is unloaded, it is carried in a hard-sided container, and the container is locked with only the passenger retaining the key or combination.",
+            "scope_text": "In checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23 of this chapter, unless all conditions (i) through (iv) are satisfied.",
+            "choice_text": "All of the following conditions must be satisfied: (i) passenger declares to aircraft operator orally or in writing before checking baggage that passenger has an unloaded firearm in the bag; (ii) firearm is unloaded; (iii) firearm is carried in a hard-sided container; and (iv) container is locked with only the passenger retaining key or combination.",
+            "logic_text": "(iii) The firearm is carried in a hard-sided container; and",
+            "references": [
+              "§ 1562.23"
+            ]
+          }
+        ]
+      },
+      "treatment": {
+        "sample": "baggage",
+        "variant": "consistency",
+        "rows": [
+          3
+        ],
+        "claims": [
+          {
+            "id": "urn:rulespec:document-understanding:revision:e1a1d16cf560726b26a5132c212ea943b85d58e43716f6186650e3d8095dfc22",
+            "quote": "(2) Any unloaded firearm(s) unless—\n\n(i) The passenger declares to the aircraft operator, either orally or in writing, before checking the baggage, that the passenger has a firearm in his or her bag and that it is unloaded;\n\n(ii) The firearm is unloaded;\n\n(iii) The firearm is carried in a hard-sided container; and\n\n(iv) The container in which it is carried is locked, and only the passenger retains the key or combination.",
+            "kind": "prohibition",
+            "modality": "must_not",
+            "summary": "A passenger may not transport or offer for transport in checked baggage or baggage carried in an inaccessible cargo hold under § 1562.23 any unloaded firearm(s) unless the passenger declares orally or in writing to the aircraft operator before checking that the bag contains an unloaded firearm, the firearm is unloaded, it is in a hard-sided container, and the container is locked with only the passenger retaining the key or combination.",
+            "scope_text": "In checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23 of this chapter, unless all four conditions are met: (i) the passenger declares to the aircraft operator, either orally or in writing, before checking the baggage, that the passenger has a firearm in his or her bag and that it is unloaded; (ii) the firearm is unloaded; (iii) the firearm is carried in a hard-sided container; and (iv) the container in which it is carried is locked, and only the passenger retains the key or combination.",
+            "choice_text": "Unless all of the following hold: (i) the passenger declares to the aircraft operator, either orally or in writing, before checking the baggage, that the passenger has a firearm in his or her bag and that it is unloaded; (ii) the firearm is unloaded; (iii) the firearm is carried in a hard-sided container; and (iv) the container in which it is carried is locked, and only the passenger retains the key or combination.",
+            "logic_text": "(2) Any unloaded firearm(s) unless—\n\n(i) The passenger declares to the aircraft operator, either orally or in writing, before checking the baggage, that the passenger has a firearm in his or her bag and that it is unloaded;\n\n(ii) The firearm is unloaded;\n\n(iii) The firearm is carried in a hard-sided container; and\n\n(iv) The container in which it is carried is locked, and only the passenger retains the key or combination.",
+            "references": [
+              "§ 1562.23"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "variant": "consistency",
+      "case": "baggage_other_logic",
+      "assessment": "target_improved",
+      "reason": "Accessible-property logic now selects all three cases; the qualifying-person logic includes all three categories instead of only their lead-in. This is exact complete list support, not executable logic validation.",
+      "control": {
+        "sample": "baggage",
+        "variant": "control",
+        "rows": [
+          0,
+          1
+        ],
+        "claims": [
+          {
+            "id": "urn:rulespec:document-understanding:revision:a456363f2abdefe2320c3911abbc4367590a2699d4034a830744b5a8118e08d8",
+            "quote": "(a) On an individual's person or accessible property—prohibitions. Except as provided in paragraph (b) of this section, an individual may not have a weapon, explosive, or incendiary, on or about the individual's person or accessible property—",
+            "kind": "prohibition",
+            "modality": "must_not",
+            "summary": "Except as provided in paragraph (b) of 49 CFR 1540.111, an individual may not have a weapon, explosive, or incendiary, on or about the individual's person or accessible property when inspection has begun before entering a sterile area or boarding a screened aircraft, when entering or in a sterile area, or when attempting to board or onboard a screened aircraft.",
+            "scope_text": "Except as provided in paragraph (b) of 49 CFR 1540.111, when performance has begun of the inspection of an individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter; when the individual is entering or in a sterile area; or when the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.",
+            "choice_text": "The prohibition applies under any of the following circumstances: (1) when performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft screened under this subchapter; (2) when entering or in a sterile area; or (3) when attempting to board or onboard an aircraft screened under §§ 1544.201, 1546.201, or 1562.23.",
+            "logic_text": "(2) When the individual is entering or in a sterile area; or",
+            "references": [
+              "paragraph (b)",
+              "§§ 1544.201",
+              "1546.201",
+              "1562.23"
+            ]
+          },
+          {
+            "id": "urn:rulespec:document-understanding:revision:e81a61361377bae84f0b87b3956c2fcf1cc2f015d81ffbb3cb9a0fd4857cfff7",
+            "quote": "(b) On an individual's person or accessible property—permitted carriage of a weapon. Paragraph (a) of this section does not apply as to carriage of firearms and other weapons if the individual is one of the following:",
+            "kind": "exemption",
+            "modality": "not_required",
+            "summary": "Paragraph (a) of 49 CFR 1540.111 does not apply to the carriage of firearms and other weapons on or about an individual's person or accessible property if the individual is law enforcement personnel required to carry a weapon on duty at the airport, an individual authorized under specified regulations, or an individual authorized to carry a weapon in a sterile area under a security program.",
+            "scope_text": "Governs carriage of firearms and other weapons on or about an individual's person or accessible property if the individual is one of the qualifying individuals specified in paragraphs (b)(1) through (b)(3).",
+            "choice_text": "Paragraph (a) does not apply if the individual is: (1) law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport; (2) an individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter; or (3) an individual authorized to carry a weapon in a sterile area under a security program.",
+            "logic_text": "(b) On an individual's person or accessible property—permitted carriage of a weapon. Paragraph (a) of this section does not apply as to carriage of firearms and other weapons if the individual is one of the following:",
+            "references": [
+              "Paragraph (a)",
+              "§§ 1544.219",
+              "1544.221",
+              "1544.223",
+              "1546.211",
+              "subpart B of part 1562"
+            ]
+          }
+        ]
+      },
+      "treatment": {
+        "sample": "baggage",
+        "variant": "consistency",
+        "rows": [
+          0,
+          1
+        ],
+        "claims": [
+          {
+            "id": "urn:rulespec:document-understanding:revision:5bdb6a8bd6fc1751110870759c07306b16d46ea2519a726451361fc064f0e28f",
+            "quote": "(a) On an individual's person or accessible property—prohibitions. Except as provided in paragraph (b) of this section, an individual may not have a weapon, explosive, or incendiary, on or about the individual's person or accessible property—\n\n(1) When performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter;\n\n(2) When the individual is entering or in a sterile area; or\n\n(3) When the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.",
+            "kind": "prohibition",
+            "modality": "must_not",
+            "summary": "Except as provided in paragraph (b) of this section, an individual may not have a weapon, explosive, or incendiary, on or about the individual's person or accessible property when inspection has begun before entering a sterile area or boarding an aircraft screened under this subchapter, when entering or in a sterile area, or when attempting to board or onboard an aircraft screened under §§ 1544.201, 1546.201, or 1562.23.",
+            "scope_text": "Except as provided in paragraph (b) of 49 CFR 1540.111.",
+            "choice_text": "(1) When performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter; (2) When the individual is entering or in a sterile area; or (3) When the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.",
+            "logic_text": "(1) When performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter;\n\n(2) When the individual is entering or in a sterile area; or\n\n(3) When the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.",
+            "references": [
+              "paragraph (b)",
+              "§§ 1544.201",
+              "1546.201",
+              "1562.23"
+            ]
+          },
+          {
+            "id": "urn:rulespec:document-understanding:revision:2e0836a396e9980788aea60ca848064dc9bb30b0b6645b6d152c7810e66dcc18",
+            "quote": "(b) On an individual's person or accessible property—permitted carriage of a weapon. Paragraph (a) of this section does not apply as to carriage of firearms and other weapons if the individual is one of the following:\n\n(1) Law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport.\n\n(2) An individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter.\n\n(3) An individual authorized to carry a weapon in a sterile area under a security program.",
+            "kind": "exemption",
+            "modality": "not_required",
+            "summary": "Paragraph (a) of this section does not apply to the carriage of firearms and other weapons on an individual's person or accessible property if the individual is law enforcement personnel required to carry a weapon while performing duty at the airport, an individual authorized under §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562, or an individual authorized to carry a weapon in a sterile area under a security program.",
+            "scope_text": "Carriage of firearms and other weapons if the individual is law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport, an individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562, or an individual authorized to carry a weapon in a sterile area under a security program.",
+            "choice_text": "(1) Law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport; (2) An individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter; or (3) An individual authorized to carry a weapon in a sterile area under a security program.",
+            "logic_text": "(b) On an individual's person or accessible property—permitted carriage of a weapon. Paragraph (a) of this section does not apply as to carriage of firearms and other weapons if the individual is one of the following:\n\n(1) Law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport.\n\n(2) An individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter.\n\n(3) An individual authorized to carry a weapon in a sterile area under a security program.",
+            "references": [
+              "Paragraph (a)",
+              "§§ 1544.219",
+              "1544.221",
+              "1544.223",
+              "1546.211",
+              "subpart B of part 1562"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "variant": "consistency",
+      "case": "baggage_accessible_scope",
+      "assessment": "regression",
+      "reason": "Treatment scope retains only the paragraph-b exception and drops the three applicability cases present in control scope. Those cases remain in statement and choice: cross-field distribution persists despite the added check.",
+      "control": {
+        "sample": "baggage",
+        "variant": "control",
+        "rows": [
+          0
+        ],
+        "claims": [
+          {
+            "id": "urn:rulespec:document-understanding:revision:a456363f2abdefe2320c3911abbc4367590a2699d4034a830744b5a8118e08d8",
+            "quote": "(a) On an individual's person or accessible property—prohibitions. Except as provided in paragraph (b) of this section, an individual may not have a weapon, explosive, or incendiary, on or about the individual's person or accessible property—",
+            "kind": "prohibition",
+            "modality": "must_not",
+            "summary": "Except as provided in paragraph (b) of 49 CFR 1540.111, an individual may not have a weapon, explosive, or incendiary, on or about the individual's person or accessible property when inspection has begun before entering a sterile area or boarding a screened aircraft, when entering or in a sterile area, or when attempting to board or onboard a screened aircraft.",
+            "scope_text": "Except as provided in paragraph (b) of 49 CFR 1540.111, when performance has begun of the inspection of an individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter; when the individual is entering or in a sterile area; or when the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.",
+            "choice_text": "The prohibition applies under any of the following circumstances: (1) when performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft screened under this subchapter; (2) when entering or in a sterile area; or (3) when attempting to board or onboard an aircraft screened under §§ 1544.201, 1546.201, or 1562.23.",
+            "logic_text": "(2) When the individual is entering or in a sterile area; or",
+            "references": [
+              "paragraph (b)",
+              "§§ 1544.201",
+              "1546.201",
+              "1562.23"
+            ]
+          }
+        ]
+      },
+      "treatment": {
+        "sample": "baggage",
+        "variant": "consistency",
+        "rows": [
+          0
+        ],
+        "claims": [
+          {
+            "id": "urn:rulespec:document-understanding:revision:5bdb6a8bd6fc1751110870759c07306b16d46ea2519a726451361fc064f0e28f",
+            "quote": "(a) On an individual's person or accessible property—prohibitions. Except as provided in paragraph (b) of this section, an individual may not have a weapon, explosive, or incendiary, on or about the individual's person or accessible property—\n\n(1) When performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter;\n\n(2) When the individual is entering or in a sterile area; or\n\n(3) When the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.",
+            "kind": "prohibition",
+            "modality": "must_not",
+            "summary": "Except as provided in paragraph (b) of this section, an individual may not have a weapon, explosive, or incendiary, on or about the individual's person or accessible property when inspection has begun before entering a sterile area or boarding an aircraft screened under this subchapter, when entering or in a sterile area, or when attempting to board or onboard an aircraft screened under §§ 1544.201, 1546.201, or 1562.23.",
+            "scope_text": "Except as provided in paragraph (b) of 49 CFR 1540.111.",
+            "choice_text": "(1) When performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter; (2) When the individual is entering or in a sterile area; or (3) When the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.",
+            "logic_text": "(1) When performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter;\n\n(2) When the individual is entering or in a sterile area; or\n\n(3) When the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.",
+            "references": [
+              "paragraph (b)",
+              "§§ 1544.201",
+              "1546.201",
+              "1562.23"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "variant": "consistency",
+      "case": "photo_targets",
+      "assessment": "no_demonstrated_gain",
+      "reason": "The fresh control already retains the good-likeness condition in scope and identifies both certificate types in the caution statement. Treatment also retains them, but drops the hairstyle/facial-hair case from scope and no longer gives the reuse possibility its own statement.",
+      "control": {
+        "sample": "photos",
+        "variant": "control",
+        "rows": [
+          8,
+          9,
+          10
+        ],
+        "claims": [
+          {
+            "id": "urn:rulespec:document-understanding:revision:42d3c21cdfc24dcc629b68d3e6ba3c03a66fd062f089255388f9171742a19a07",
+            "quote": "(2) The photograph should be taken within six months of submitting the application, be a good likeness of and satisfactorily identify the applicant at the time of the application (see 22 CFR 51.26). A photograph showing a change in hairstyle or facial hair from the identification document submitted is acceptable if it still is a good likeness of the applicant;",
+            "kind": "permission",
+            "modality": "may",
+            "summary": "A photograph showing a change in hairstyle or facial hair from the identification document submitted is acceptable if it still is a good likeness of the applicant.",
+            "scope_text": "For a submitted photograph showing a change in hairstyle or facial hair from the submitted identification document, provided that it still is a good likeness of the applicant.",
+            "choice_text": "hairstyle or facial hair",
+            "logic_text": "(2) The photograph should be taken within six months of submitting the application, be a good likeness of and satisfactorily identify the applicant at the time of the application (see 22 CFR 51.26). A photograph showing a change in hairstyle or facial hair from the identification document submitted is acceptable if it still is a good likeness of the applicant;",
+            "references": []
+          },
+          {
+            "id": "urn:rulespec:document-understanding:revision:139dbc9cccbe591dba8179eda26f44f973cd44d2ddb8446936d0cf26974682db",
+            "quote": "NOTE: Applicants may wish to re-use a passport photograph that is depicted on their submitted U.S Certificate of Citizenship or Certificate of Naturalization. Be aware that even if the certificate itself was recently issued, because of U.S. Citizenship and Immigration Services processing times, the photograph may not have been taken within six months of submitting the application.",
+            "kind": "statement",
+            "modality": "possible",
+            "summary": "Applicants may wish to re-use a passport photograph that is depicted on their submitted U.S. Certificate of Citizenship or Certificate of Naturalization.",
+            "scope_text": "For applicants submitting a U.S. Certificate of Citizenship or Certificate of Naturalization.",
+            "choice_text": "U.S Certificate of Citizenship or Certificate of Naturalization",
+            "logic_text": "NOTE: Applicants may wish to re-use a passport photograph that is depicted on their submitted U.S Certificate of Citizenship or Certificate of Naturalization. Be aware that even if the certificate itself was recently issued, because of U.S. Citizenship and Immigration Services processing times, the photograph may not have been taken within six months of submitting the application.",
+            "references": []
+          },
+          {
+            "id": "urn:rulespec:document-understanding:revision:7d87aa112a0ff568ce5511e8bd1d1f2122516bd90b78ec88b28095994f5afcbc",
+            "quote": "NOTE: Applicants may wish to re-use a passport photograph that is depicted on their submitted U.S Certificate of Citizenship or Certificate of Naturalization. Be aware that even if the certificate itself was recently issued, because of U.S. Citizenship and Immigration Services processing times, the photograph may not have been taken within six months of submitting the application.",
+            "kind": "statement",
+            "modality": "possible",
+            "summary": "Even if a submitted U.S. Certificate of Citizenship or Certificate of Naturalization itself was recently issued, because of U.S. Citizenship and Immigration Services processing times, the depicted photograph may not have been taken within six months of submitting the application.",
+            "scope_text": "When an applicant seeks to re-use a photograph depicted on a submitted U.S. Certificate of Citizenship or Certificate of Naturalization, even if the certificate itself was recently issued.",
+            "choice_text": "",
+            "logic_text": "NOTE: Applicants may wish to re-use a passport photograph that is depicted on their submitted U.S Certificate of Citizenship or Certificate of Naturalization. Be aware that even if the certificate itself was recently issued, because of U.S. Citizenship and Immigration Services processing times, the photograph may not have been taken within six months of submitting the application.",
+            "references": []
+          }
+        ]
+      },
+      "treatment": {
+        "sample": "photos",
+        "variant": "consistency",
+        "rows": [
+          8,
+          9
+        ],
+        "claims": [
+          {
+            "id": "urn:rulespec:document-understanding:revision:8d8cc8d74654408456e443a547c410fc2dbddbfe624c06a988669bc021fefd6d",
+            "quote": "(2) The photograph should be taken within six months of submitting the application, be a good likeness of and satisfactorily identify the applicant at the time of the application (see 22 CFR 51.26). A photograph showing a change in hairstyle or facial hair from the identification document submitted is acceptable if it still is a good likeness of the applicant;",
+            "kind": "permission",
+            "modality": "may",
+            "summary": "A photograph showing a change in hairstyle or facial hair from the identification document submitted is acceptable if it still is a good likeness of the applicant.",
+            "scope_text": "If the photograph still is a good likeness of the applicant.",
+            "choice_text": "A photograph showing a change in hairstyle or facial hair from the identification document submitted.",
+            "logic_text": "(2) The photograph should be taken within six months of submitting the application, be a good likeness of and satisfactorily identify the applicant at the time of the application (see 22 CFR 51.26). A photograph showing a change in hairstyle or facial hair from the identification document submitted is acceptable if it still is a good likeness of the applicant;",
+            "references": []
+          },
+          {
+            "id": "urn:rulespec:document-understanding:revision:72e734ede838633122061f35e7891bdda34a8ace43c21798f90f71df4e2f56fb",
+            "quote": "NOTE: Applicants may wish to re-use a passport photograph that is depicted on their submitted U.S Certificate of Citizenship or Certificate of Naturalization. Be aware that even if the certificate itself was recently issued, because of U.S. Citizenship and Immigration Services processing times, the photograph may not have been taken within six months of submitting the application.",
+            "kind": "statement",
+            "modality": "possible",
+            "summary": "Even if a submitted U.S. Certificate of Citizenship or Certificate of Naturalization was recently issued, because of U.S. Citizenship and Immigration Services processing times, the depicted photograph may not have been taken within six months of submitting the application.",
+            "scope_text": "When applicants wish to re-use a passport photograph that is depicted on their submitted U.S. Certificate of Citizenship or Certificate of Naturalization, even if the certificate itself was recently issued.",
+            "choice_text": "",
+            "logic_text": "NOTE: Applicants may wish to re-use a passport photograph that is depicted on their submitted U.S Certificate of Citizenship or Certificate of Naturalization. Be aware that even if the certificate itself was recently issued, because of U.S. Citizenship and Immigration Services processing times, the photograph may not have been taken within six months of submitting the application.",
+            "references": []
+          }
+        ]
+      }
+    },
+    {
+      "variant": "consistency",
+      "case": "photo_replacement_scope",
+      "assessment": "needs_review",
+      "reason": "Treatment expands the mandatory replacement scope into unqualified color, recency, likeness and identification tests, while the separate recency record still says should. The source lead-in itself calls the list requirements; this is an ambiguity to preserve/review, not an established legal conclusion that recency is mandatory.",
+      "control": {
+        "sample": "photos",
+        "variant": "control",
+        "rows": [
+          5,
+          7
+        ],
+        "claims": [
+          {
+            "id": "urn:rulespec:document-understanding:revision:312f6b4f930024ac948517f4112de938595d7d548cc2b8c44fab5da474405c22",
+            "quote": "You must request a new photograph if the photograph submitted does not meet the following requirements:",
+            "kind": "requirement",
+            "modality": "must",
+            "summary": "You must request a new photograph if the photograph submitted does not meet the specified requirements.",
+            "scope_text": "If the photograph submitted does not meet the specified requirements.",
+            "choice_text": "",
+            "logic_text": "You must request a new photograph if the photograph submitted does not meet the following requirements:",
+            "references": []
+          },
+          {
+            "id": "urn:rulespec:document-understanding:revision:73429ef6f63bff426875ac9525258b8743c49a1c9226b907a42d3586c9cb4ef9",
+            "quote": "(2) The photograph should be taken within six months of submitting the application, be a good likeness of and satisfactorily identify the applicant at the time of the application (see 22 CFR 51.26). A photograph showing a change in hairstyle or facial hair from the identification document submitted is acceptable if it still is a good likeness of the applicant;",
+            "kind": "recommendation",
+            "modality": "should",
+            "summary": "The photograph should be taken within six months of submitting the application, be a good likeness of, and satisfactorily identify the applicant at the time of the application.",
+            "scope_text": "For a submitted passport photograph.",
+            "choice_text": "",
+            "logic_text": "(2) The photograph should be taken within six months of submitting the application, be a good likeness of and satisfactorily identify the applicant at the time of the application (see 22 CFR 51.26). A photograph showing a change in hairstyle or facial hair from the identification document submitted is acceptable if it still is a good likeness of the applicant;",
+            "references": [
+              "22 CFR 51.26"
+            ]
+          }
+        ]
+      },
+      "treatment": {
+        "sample": "photos",
+        "variant": "consistency",
+        "rows": [
+          5,
+          7
+        ],
+        "claims": [
+          {
+            "id": "urn:rulespec:document-understanding:revision:e4e3144950794fb7b233d0bb264fe4c879ea5c2919c85020cdf3e0db7b234e9c",
+            "quote": "You must request a new photograph if the photograph submitted does not meet the following requirements:",
+            "kind": "requirement",
+            "modality": "must",
+            "summary": "You must request a new photograph if the photograph submitted does not meet the specified requirements.",
+            "scope_text": "If the photograph submitted does not meet the specified requirements: being in color, and being taken within six months of submitting the application, being a good likeness of, and satisfactorily identifying the applicant at the time of the application.",
+            "choice_text": "",
+            "logic_text": "You must request a new photograph if the photograph submitted does not meet the following requirements:\n\n(1) The photograph must be in color;\n\n(2) The photograph should be taken within six months of submitting the application, be a good likeness of and satisfactorily identify the applicant at the time of the application (see 22 CFR 51.26). A photograph showing a change in hairstyle or facial hair from the identification document submitted is acceptable if it still is a good likeness of the applicant;",
+            "references": []
+          },
+          {
+            "id": "urn:rulespec:document-understanding:revision:34bcb1ea7303d88d28d81b4d47dac27e57eb7e5a4cc082289389d5ec55742590",
+            "quote": "(2) The photograph should be taken within six months of submitting the application, be a good likeness of and satisfactorily identify the applicant at the time of the application (see 22 CFR 51.26). A photograph showing a change in hairstyle or facial hair from the identification document submitted is acceptable if it still is a good likeness of the applicant;",
+            "kind": "recommendation",
+            "modality": "should",
+            "summary": "The photograph should be taken within six months of submitting the application, be a good likeness of, and satisfactorily identify the applicant at the time of the application.",
+            "scope_text": "For a photograph submitted with an application.",
+            "choice_text": "",
+            "logic_text": "(2) The photograph should be taken within six months of submitting the application, be a good likeness of and satisfactorily identify the applicant at the time of the application (see 22 CFR 51.26). A photograph showing a change in hairstyle or facial hair from the identification document submitted is acceptable if it still is a good likeness of the applicant;",
+            "references": [
+              "22 CFR 51.26"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "variant": "consistency",
+      "case": "leave_proviso",
+      "assessment": "evidence_improved",
+      "reason": "Both fresh control and treatment retain the proviso in statement and scope. Treatment selects the complete governing paragraph-b range as scope evidence rather than only its opening passages. Treatment leaves optional logic_quote empty, so this is not evidence of improved logical-expression selection.",
+      "control": {
+        "sample": "leave",
+        "variant": "control",
+        "rows": [
+          1
+        ],
+        "claims": [
+          {
+            "id": "urn:rulespec:document-understanding:revision:dd3a6a2f86ec21c6a29dd7281537dcc83eec2049874afc8f62520addeb12d981",
+            "quote": "(b) The 12 months an employee must have been employed by the employer need not be consecutive months, provided",
+            "kind": "exemption",
+            "modality": "not_required",
+            "summary": "The 12 months an employee must have been employed by the employer need not be consecutive months, provided that the break-in-service rules of paragraph (b) are met.",
+            "scope_text": "Applies when determining whether an employee has met the requirement to have been employed by the employer for at least 12 months, subject to the break-in-service rules of paragraph (b).",
+            "choice_text": "",
+            "logic_text": "(b) The 12 months an employee must have been employed by the employer need not be consecutive months, provided",
+            "references": []
+          }
+        ]
+      },
+      "treatment": {
+        "sample": "leave",
+        "variant": "consistency",
+        "rows": [
+          1
+        ],
+        "claims": [
+          {
+            "id": "urn:rulespec:document-understanding:revision:69402045a6ec7626227d94cf859d67d4e81eab64e42934ccb629aa1e0ffaf750",
+            "quote": "(b) The 12 months an employee must have been employed by the employer need not be consecutive months, provided",
+            "kind": "exemption",
+            "modality": "not_required",
+            "summary": "The 12 months an employee must have been employed by the employer need not be consecutive months, provided that the qualifying conditions and rules set forth in 29 CFR 825.110(b) are met.",
+            "scope_text": "Provided that the rules governing breaks in service, payroll maintenance, and voluntary employer recognition in 29 CFR 825.110(b)(1) through (b)(4) apply.",
+            "choice_text": "",
+            "logic_text": "",
+            "references": [
+              "paragraph (b)(1)",
+              "paragraph (b)(2)",
+              "paragraph (b)(3)",
+              "paragraph (b)(4)"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "variant": "consistency",
+      "case": "leave_cross_reference_topics",
+      "assessment": "regression",
+      "reason": "Treatment eligibility statement/choice lose the airline-flight-crew special-hours qualification and outside-US cross-reference topic. Bare citations remain in references and original text remains in context evidence; that does not preserve the explanations in the extracted meaning.",
+      "control": {
+        "sample": "leave",
+        "variant": "control",
+        "rows": [
+          0
+        ],
+        "claims": [
+          {
+            "id": "urn:rulespec:document-understanding:revision:83772fb9302c315ac5bff97ab3e549480b40f96b1e0c53a2ef71aca4531cd33e",
+            "quote": "(a) An eligible employee is an employee of a covered employer who:\n\n(1) Has been employed by the employer for at least 12 months, and\n\n(2) Has been employed for at least 1,250 hours of service during the 12-month period immediately preceding the commencement of the leave ( see § 825.801 for special hours of service requirements for airline flight crew employees), and\n\n(3) Is employed at a worksite where 50 or more employees are employed by the employer within 75 miles of that worksite. See § 825.105(b) regarding employees who work outside the U.S.",
+            "kind": "definition",
+            "modality": "not_stated",
+            "summary": "An eligible employee is defined as an employee of a covered employer who has been employed by the employer for at least 12 months, has been employed for at least 1,250 hours of service during the 12-month period immediately preceding the commencement of the leave (noting § 825.801 for airline flight crew employees), and is employed at a worksite where 50 or more employees are employed by the employer within 75 miles of that worksite (noting § 825.105(b) regarding employees working outside the U.S.).",
+            "scope_text": "Applies to an employee of a covered employer seeking status as an eligible employee.",
+            "choice_text": "An eligible employee must satisfy all three criteria: (1) has been employed by the employer for at least 12 months; AND (2) has been employed for at least 1,250 hours of service during the 12-month period immediately preceding the commencement of the leave (subject to special rules for airline flight crew employees in § 825.801); AND (3) is employed at a worksite where 50 or more employees are employed by the employer within 75 miles of that worksite (referencing § 825.105(b) for employees working outside the U.S.).",
+            "logic_text": "(1) Has been employed by the employer for at least 12 months, and\n\n(2) Has been employed for at least 1,250 hours of service during the 12-month period immediately preceding the commencement of the leave ( see § 825.801 for special hours of service requirements for airline flight crew employees), and\n\n(3) Is employed at a worksite where 50 or more employees are employed by the employer within 75 miles of that worksite. See § 825.105(b) regarding employees who work outside the U.S.",
+            "references": [
+              "§ 825.801",
+              "§ 825.105(b)"
+            ]
+          }
+        ]
+      },
+      "treatment": {
+        "sample": "leave",
+        "variant": "consistency",
+        "rows": [
+          0
+        ],
+        "claims": [
+          {
+            "id": "urn:rulespec:document-understanding:revision:d6f6ac7793e9b920a7e19918b968db01c52643392425210d1ec0acc46863864d",
+            "quote": "(a) An eligible employee is an employee of a covered employer who:\n\n(1) Has been employed by the employer for at least 12 months, and\n\n(2) Has been employed for at least 1,250 hours of service during the 12-month period immediately preceding the commencement of the leave ( see § 825.801 for special hours of service requirements for airline flight crew employees), and\n\n(3) Is employed at a worksite where 50 or more employees are employed by the employer within 75 miles of that worksite. See § 825.105(b) regarding employees who work outside the U.S.",
+            "kind": "definition",
+            "modality": "not_stated",
+            "summary": "An eligible employee is an employee of a covered employer who meets all three criteria: has been employed by the employer for at least 12 months; has been employed for at least 1,250 hours of service during the 12-month period immediately preceding the commencement of the leave; and is employed at a worksite where 50 or more employees are employed by the employer within 75 miles of that worksite.",
+            "scope_text": "",
+            "choice_text": "All of the following three conditions must be satisfied: (1) the employee has been employed by the employer for at least 12 months; AND (2) the employee has been employed for at least 1,250 hours of service during the 12-month period immediately preceding the commencement of the leave; AND (3) the employee is employed at a worksite where 50 or more employees are employed by the employer within 75 miles of that worksite.",
+            "logic_text": "(a) An eligible employee is an employee of a covered employer who:\n\n(1) Has been employed by the employer for at least 12 months, and\n\n(2) Has been employed for at least 1,250 hours of service during the 12-month period immediately preceding the commencement of the leave ( see § 825.801 for special hours of service requirements for airline flight crew employees), and\n\n(3) Is employed at a worksite where 50 or more employees are employed by the employer within 75 miles of that worksite. See § 825.105(b) regarding employees who work outside the U.S.",
+            "references": [
+              "§ 825.801",
+              "§ 825.105(b)"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "variant": "consistency",
+      "case": "leave_grouping",
+      "assessment": "mixed",
+      "reason": "Military-absence counting survives in both outputs; treatment folds its entitlement limit into the same record and combines payroll-week counting with the 52-week definition. This retains much source meaning but changes referenceability, despite unchanged splitting instructions.",
+      "control": {
+        "sample": "leave",
+        "variant": "control",
+        "rows": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "claims": [
+          {
+            "id": "urn:rulespec:document-understanding:revision:d8614b2fee8f1869f2cfacfbf6c0160ad91bf2002f989c98e839c6b7b69e9a88",
+            "quote": "(i) The employee's break in service is occasioned by the fulfillment of his or her Uniformed Services Employment and Reemployment Rights Act (USERRA), 38 U.S.C. 4301, et seq., covered service obligation. The period of absence from work due to or necessitated by USERRA-covered service must be also counted in determining whether the employee has been employed for at least 12 months by the employer. However, this section does not provide any greater entitlement to the employee than would be available under the USERRA; or",
+            "kind": "requirement",
+            "modality": "must",
+            "summary": "The period of absence from work due to or necessitated by USERRA-covered service must also be counted in determining whether the employee has been employed for at least 12 months by the employer, though this section does not provide any greater entitlement to the employee than would be available under USERRA.",
+            "scope_text": "Applies in determining whether the employee has been employed for at least 12 months by the employer when an absence from work is due to or necessitated by USERRA-covered service.",
+            "choice_text": "",
+            "logic_text": "(i) The employee's break in service is occasioned by the fulfillment of his or her Uniformed Services Employment and Reemployment Rights Act (USERRA), 38 U.S.C. 4301, et seq., covered service obligation. The period of absence from work due to or necessitated by USERRA-covered service must be also counted in determining whether the employee has been employed for at least 12 months by the employer. However, this section does not provide any greater entitlement to the employee than would be available under the USERRA; or",
+            "references": [
+              "38 U.S.C. 4301"
+            ]
+          },
+          {
+            "id": "urn:rulespec:document-understanding:revision:200a9fc19430f781053b62126cf6251c23f1c2e7773ff651be3e530d2e6fe717",
+            "quote": "(i) The employee's break in service is occasioned by the fulfillment of his or her Uniformed Services Employment and Reemployment Rights Act (USERRA), 38 U.S.C. 4301, et seq., covered service obligation. The period of absence from work due to or necessitated by USERRA-covered service must be also counted in determining whether the employee has been employed for at least 12 months by the employer. However, this section does not provide any greater entitlement to the employee than would be available under the USERRA; or",
+            "kind": "statement",
+            "modality": "not_stated",
+            "summary": "This section does not provide any greater entitlement to the employee than would be available under the USERRA.",
+            "scope_text": "Applies to employee entitlements under 29 CFR 825.110 in relation to USERRA.",
+            "choice_text": "",
+            "logic_text": "(i) The employee's break in service is occasioned by the fulfillment of his or her Uniformed Services Employment and Reemployment Rights Act (USERRA), 38 U.S.C. 4301, et seq., covered service obligation. The period of absence from work due to or necessitated by USERRA-covered service must be also counted in determining whether the employee has been employed for at least 12 months by the employer. However, this section does not provide any greater entitlement to the employee than would be available under the USERRA; or",
+            "references": [
+              "38 U.S.C. 4301"
+            ]
+          },
+          {
+            "id": "urn:rulespec:document-understanding:revision:f4aa546c7d0b95c078d7963df3843e37799d2721ef7bc2dd2a081dce4dcd9334",
+            "quote": "(3) If an employee is maintained on the payroll for any part of a week, including any periods of paid or unpaid leave (sick, vacation) during which other benefits or compensation are provided by the employer (e.g., workers' compensation, group health plan benefits, etc.), the week counts as a week of employment. For purposes of determining whether intermittent/occasional/casual employment qualifies as at least 12 months, 52 weeks is deemed to be equal to 12 months.",
+            "kind": "statement",
+            "modality": "not_stated",
+            "summary": "If an employee is maintained on the payroll for any part of a week, including any periods of paid or unpaid leave (such as sick or vacation) during which other benefits or compensation are provided by the employer (e.g., workers' compensation, group health plan benefits, etc.), the week counts as a week of employment.",
+            "scope_text": "Applies whenever an employee is maintained on the payroll for any part of a week, including any periods of paid or unpaid leave (sick, vacation) during which other benefits or compensation are provided by the employer (e.g., workers' compensation, group health plan benefits).",
+            "choice_text": "",
+            "logic_text": "(3) If an employee is maintained on the payroll for any part of a week, including any periods of paid or unpaid leave (sick, vacation) during which other benefits or compensation are provided by the employer (e.g., workers' compensation, group health plan benefits, etc.), the week counts as a week of employment. For purposes of determining whether intermittent/occasional/casual employment qualifies as at least 12 months, 52 weeks is deemed to be equal to 12 months.",
+            "references": []
+          },
+          {
+            "id": "urn:rulespec:document-understanding:revision:aa0e7656f597888c43e0595a9435c1cd20efc35d4dcddedb5c37e96754ff16af",
+            "quote": "(3) If an employee is maintained on the payroll for any part of a week, including any periods of paid or unpaid leave (sick, vacation) during which other benefits or compensation are provided by the employer (e.g., workers' compensation, group health plan benefits, etc.), the week counts as a week of employment. For purposes of determining whether intermittent/occasional/casual employment qualifies as at least 12 months, 52 weeks is deemed to be equal to 12 months.",
+            "kind": "definition",
+            "modality": "not_stated",
+            "summary": "For purposes of determining whether intermittent/occasional/casual employment qualifies as at least 12 months, 52 weeks is deemed to be equal to 12 months.",
+            "scope_text": "Applies for purposes of determining whether intermittent, occasional, or casual employment qualifies as at least 12 months.",
+            "choice_text": "",
+            "logic_text": "(3) If an employee is maintained on the payroll for any part of a week, including any periods of paid or unpaid leave (sick, vacation) during which other benefits or compensation are provided by the employer (e.g., workers' compensation, group health plan benefits, etc.), the week counts as a week of employment. For purposes of determining whether intermittent/occasional/casual employment qualifies as at least 12 months, 52 weeks is deemed to be equal to 12 months.",
+            "references": []
+          }
+        ]
+      },
+      "treatment": {
+        "sample": "leave",
+        "variant": "consistency",
+        "rows": [
+          4,
+          5
+        ],
+        "claims": [
+          {
+            "id": "urn:rulespec:document-understanding:revision:4f46808a5bd6fb07691938d748e4468dbcc828bc968d4d4899773803d59d07d7",
+            "quote": "(i) The employee's break in service is occasioned by the fulfillment of his or her Uniformed Services Employment and Reemployment Rights Act (USERRA), 38 U.S.C. 4301, et seq., covered service obligation. The period of absence from work due to or necessitated by USERRA-covered service must be also counted in determining whether the employee has been employed for at least 12 months by the employer. However, this section does not provide any greater entitlement to the employee than would be available under the USERRA; or",
+            "kind": "requirement",
+            "modality": "must",
+            "summary": "The period of absence from work due to or necessitated by USERRA-covered service must also be counted in determining whether the employee has been employed for at least 12 months by the employer; however, this section does not provide any greater entitlement to the employee than would be available under the USERRA.",
+            "scope_text": "In determining whether an employee has been employed for at least 12 months by the employer, when absence from work is due to or necessitated by USERRA-covered service, and subject to the limitation that this section does not provide any greater entitlement than available under USERRA.",
+            "choice_text": "",
+            "logic_text": "(i) The employee's break in service is occasioned by the fulfillment of his or her Uniformed Services Employment and Reemployment Rights Act (USERRA), 38 U.S.C. 4301, et seq., covered service obligation. The period of absence from work due to or necessitated by USERRA-covered service must be also counted in determining whether the employee has been employed for at least 12 months by the employer. However, this section does not provide any greater entitlement to the employee than would be available under the USERRA; or",
+            "references": [
+              "USERRA",
+              "38 U.S.C. 4301, et seq."
+            ]
+          },
+          {
+            "id": "urn:rulespec:document-understanding:revision:e1e07b00e9a16d177136195dfbec038fbde11a5fc72e75163147b15d87923276",
+            "quote": "(3) If an employee is maintained on the payroll for any part of a week, including any periods of paid or unpaid leave (sick, vacation) during which other benefits or compensation are provided by the employer (e.g., workers' compensation, group health plan benefits, etc.), the week counts as a week of employment. For purposes of determining whether intermittent/occasional/casual employment qualifies as at least 12 months, 52 weeks is deemed to be equal to 12 months.",
+            "kind": "statement",
+            "modality": "not_stated",
+            "summary": "If an employee is maintained on the payroll for any part of a week, including any periods of paid or unpaid leave (sick, vacation) during which other benefits or compensation are provided by the employer, the week counts as a week of employment; for purposes of determining whether intermittent, occasional, or casual employment qualifies as at least 12 months, 52 weeks is deemed to be equal to 12 months.",
+            "scope_text": "When an employee is maintained on the payroll for any part of a week, including any periods of paid or unpaid leave (sick, vacation) during which other benefits or compensation are provided by the employer (e.g., workers' compensation, group health plan benefits, etc.).",
+            "choice_text": "",
+            "logic_text": "(3) If an employee is maintained on the payroll for any part of a week, including any periods of paid or unpaid leave (sick, vacation) during which other benefits or compensation are provided by the employer (e.g., workers' compensation, group health plan benefits, etc.), the week counts as a week of employment. For purposes of determining whether intermittent/occasional/casual employment qualifies as at least 12 months, 52 weeks is deemed to be equal to 12 months.",
+            "references": []
+          }
+        ]
+      }
+    }
+  ],
+  "limits": [
+    "One observation per cell; model variability is not separated from treatment effects.",
+    "Control requests for all three real excerpts exactly match the previous adoption requests, but outputs differ.",
+    "Output order and splitting instructions were held fixed; no conclusion about an order-only intervention can be drawn.",
+    "Scope/meaning judgments are application-profile assessments, not legal guidance."
+  ],
+  "next_discriminating_test": "An output-order-only comparison could test early classification commitment and late prose compression without adding instructions. It has not been run."
+}

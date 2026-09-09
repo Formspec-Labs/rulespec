@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/consumer-effective-declaration.json",
+  "title": "consumer-effective-declaration",
+  "$defs": {
+    "UsageEligibility": {
+      "type": "string",
+      "enum": [
+        "rkaf:notEligible",
+        "rkaf:searchOnly",
+        "rkaf:reviewQueueOnly",
+        "rkaf:draftGenerationAllowed",
+        "rkaf:localOperationalUse",
+        "rkaf:publicationAllowed",
+        "rkaf:officialUse"
+      ]
+    },
+    "ConsumerEffectiveDeclaration": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:ConsumerEffectiveDeclaration"
+        },
+        "rkaf:consumer": {
+          "type": "string"
+        },
+        "rkaf:forAssertion": {
+          "type": "string"
+        },
+        "rkaf:declaredEffective": {
+          "$ref": "#/$defs/UsageEligibility"
+        },
+        "rkaf:declaredScope": {
+          "type": "string"
+        },
+        "rkaf:declaredAt": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:consumer",
+        "rkaf:forAssertion",
+        "rkaf:declaredEffective",
+        "rkaf:declaredAt"
+      ]
+    }
+  }
+}

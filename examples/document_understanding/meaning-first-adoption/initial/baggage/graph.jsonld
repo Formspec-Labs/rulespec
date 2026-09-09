@@ -1,0 +1,2893 @@
+{
+  "@context": {
+    "rkaf": "https://rulespec.org/ns/v1#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "oa": "http://www.w3.org/ns/oa#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "cito": "http://purl.org/spar/cito/",
+    "wos": "https://w3id.org/wos/ns/v1#",
+    "formspec": "https://w3id.org/formspec/ns/v1#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "eli": "http://data.europa.eu/eli/ontology#",
+    "aknt": "http://docs.oasis-open.org/legaldocml/ns/akn/3.0/",
+    "uslm": "https://uslm.gov/2.1.0/",
+    "lrml": "http://docs.oasis-open.org/legalruleml/ns/v1.0/",
+    "rrmv": "http://data.europa.eu/m8g/rrmv/",
+    "eco": "http://purl.obolibrary.org/obo/ECO_",
+    "sepio": "http://purl.obolibrary.org/obo/SEPIO_",
+    "dpv": "https://w3id.org/dpv#",
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "rkaf:Artifact": {
+      "@type": "@id"
+    },
+    "rkaf:hasArtifactIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:artifactIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasRegulatoryIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:regulatoryIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:publishedInProceeding": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:publishedInDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:hasFormat": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:format": {
+      "@type": "xsd:string"
+    },
+    "dcterms:isFormatOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:isVersionOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "prov:wasRevisionOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasContentDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:versionLineageEvidence": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:SourceFragment": {
+      "@type": "@id"
+    },
+    "oa:hasSource": {
+      "@type": "@id"
+    },
+    "oa:hasSelector": {
+      "@type": "@id"
+    },
+    "oa:TextQuoteSelector": {
+      "@type": "@id"
+    },
+    "oa:TextPositionSelector": {
+      "@type": "@id"
+    },
+    "oa:exact": {
+      "@type": "xsd:string"
+    },
+    "oa:prefix": {
+      "@type": "xsd:string"
+    },
+    "oa:suffix": {
+      "@type": "xsd:string"
+    },
+    "oa:start": {
+      "@type": "xsd:integer"
+    },
+    "oa:end": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:selectorKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:coordinateSystem": {
+      "@type": "@vocab"
+    },
+    "rkaf:sourceArtifactDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:fragmentContentDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:EvidenceBinding": {
+      "@type": "@id"
+    },
+    "rkaf:bindsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:bindsSourceFragment": {
+      "@type": "@id"
+    },
+    "rkaf:noEvidenceReason": {
+      "@type": "@id"
+    },
+    "rkaf:Warrant": {
+      "@type": "@id"
+    },
+    "rkaf:hasWarrant": {
+      "@type": "@id"
+    },
+    "rkaf:warrantKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:warrantFamily": {
+      "@type": "@vocab"
+    },
+    "rkaf:defeasible": {
+      "@type": "xsd:boolean"
+    },
+    "rkaf:ConfidenceRecord": {
+      "@type": "@id"
+    },
+    "rkaf:hasConfidence": {
+      "@type": "@id"
+    },
+    "rkaf:confidenceMethod": {
+      "@type": "@vocab"
+    },
+    "rkaf:calibrationStatus": {
+      "@type": "@vocab"
+    },
+    "rkaf:confidenceBasis": {
+      "@type": "@id"
+    },
+    "rkaf:evaluatedAgainst": {
+      "@type": "@id"
+    },
+    "rkaf:generatedBy": {
+      "@type": "@id"
+    },
+    "rkaf:score": {
+      "@type": "xsd:float"
+    },
+    "rkaf:scoreCategorical": {
+      "@type": "@vocab"
+    },
+    "rkaf:AccessScope": {
+      "@type": "@id"
+    },
+    "rkaf:hasAccessScope": {
+      "@type": "@id"
+    },
+    "rkaf:accessScopeKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:regulatoryClass": {
+      "@type": "@vocab"
+    },
+    "rkaf:embargoUntil": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:permittedRole": {
+      "@type": "@id"
+    },
+    "rkaf:AILineage": {
+      "@type": "@id"
+    },
+    "rkaf:hasAILineage": {
+      "@type": "@id"
+    },
+    "rkaf:modelId": {
+      "@type": "xsd:string"
+    },
+    "rkaf:modelVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:promptTemplateRef": {
+      "@type": "@id"
+    },
+    "rkaf:temperature": {
+      "@type": "xsd:float"
+    },
+    "rkaf:seed": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:inputContextHash": {
+      "@type": "xsd:string"
+    },
+    "rkaf:humanApprover": {
+      "@type": "@id"
+    },
+    "rkaf:humanRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:MappingState": {
+      "@type": "@id"
+    },
+    "rkaf:mappingState": {
+      "@type": "@vocab"
+    },
+    "rkaf:RetentionPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:hasRetentionPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:retentionDurationDays": {
+      "@type": "xsd:int"
+    },
+    "rkaf:retentionTrigger": {
+      "@type": "@vocab"
+    },
+    "rkaf:retentionPostExpiry": {
+      "@type": "@vocab"
+    },
+    "rkaf:Workspace": {
+      "@type": "@id"
+    },
+    "rkaf:scopedToWorkspace": {
+      "@type": "@id"
+    },
+    "rkaf:workspaceId": {
+      "@type": "xsd:string"
+    },
+    "rkaf:workspaceTrustList": {
+      "@type": "@id"
+    },
+    "rkaf:projectsTo": {
+      "@type": "@id"
+    },
+    "rkaf:llmHint": {
+      "@type": "@id"
+    },
+    "rkaf:Authority": {
+      "@type": "@id"
+    },
+    "rkaf:Attestation": {
+      "@type": "@id"
+    },
+    "rkaf:LocalAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:ApplicabilityScope": {
+      "@type": "@id"
+    },
+    "rkaf:EffectivePeriod": {
+      "@type": "@id"
+    },
+    "rkaf:LifecycleEvent": {
+      "@type": "@id"
+    },
+    "rkaf:Proceeding": {
+      "@type": "@id"
+    },
+    "rkaf:RegulatoryAgendaItem": {
+      "@type": "@id"
+    },
+    "rkaf:RegulatoryAgendaObservation": {
+      "@type": "@id"
+    },
+    "rkaf:AgendaProceedingRelationship": {
+      "@type": "@id"
+    },
+    "dcat:Resource": {
+      "@type": "@id"
+    },
+    "dcat:CatalogRecord": {
+      "@type": "@id"
+    },
+    "dcat:Relationship": {
+      "@type": "@id"
+    },
+    "rkaf:CommentPeriod": {
+      "@type": "@id"
+    },
+    "rkaf:Docket": {
+      "@type": "@id"
+    },
+    "prov:Entity": {
+      "@type": "@id"
+    },
+    "rkaf:hasDocketIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:docketIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasProceedingIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:proceedingIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasAgendaItemIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:agendaItemIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaScopeStatus": {
+      "@type": "@vocab"
+    },
+    "dcat:qualifiedRelation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "foaf:primaryTopic": {
+      "@type": "@id"
+    },
+    "rkaf:agendaStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaPriority": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaAffectsCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:agendaAuthorityCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:relation": {
+      "@type": "@id"
+    },
+    "dcat:hadRole": {
+      "@type": "@vocab"
+    },
+    "rkaf:identifierRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:proceedingStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:proceedingTerminationCause": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasAuthority": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingAffects": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingAffectsCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingProduces": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasProceedingEvidenceIdentifier": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingEvidenceIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:proceedingSupersedes": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodFor": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodOpenedBy": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodStart": {
+      "@type": "xsd:date"
+    },
+    "rkaf:commentPeriodEnd": {
+      "@type": "xsd:date"
+    },
+    "rkaf:RegisteredConcept": {
+      "@type": "@id"
+    },
+    "rkaf:LocalConcept": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptMapping": {
+      "@type": "@id"
+    },
+    "rkaf:ReferenceResourceRelease": {
+      "@type": "@id"
+    },
+    "rkaf:MappingApplicabilityContext": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptResolutionResult": {
+      "@type": "@id"
+    },
+    "rkaf:BridgeValidationResult": {
+      "@type": "@id"
+    },
+    "rkaf:BridgeConsumerRegistration": {
+      "@type": "@id"
+    },
+    "rkaf:RegistryConflict": {
+      "@type": "@id"
+    },
+    "rkaf:Finding": {
+      "@type": "@id"
+    },
+    "rkaf:Justification": {
+      "@type": "@id"
+    },
+    "rkaf:hasJustification": {
+      "@type": "@id"
+    },
+    "rkaf:PointInTimeException": {
+      "@type": "@id"
+    },
+    "rkaf:evaluationAnchor": {
+      "@type": "@id"
+    },
+    "rkaf:retainsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:retainsWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:GeneratedWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:justifiedByAssertion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:consumerLifecycleState": {
+      "@type": "@id"
+    },
+    "rkaf:proposedUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:RevalidationEvent": {
+      "@type": "@id"
+    },
+    "rkaf:RevalidationClosureEvent": {
+      "@type": "@id"
+    },
+    "rkaf:revalidationFor": {
+      "@type": "@id"
+    },
+    "rkaf:triggeredBy": {
+      "@type": "@id"
+    },
+    "rkaf:closesRevalidation": {
+      "@type": "@id"
+    },
+    "rkaf:openedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:closedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:closureDecision": {
+      "@type": "@id"
+    },
+    "rkaf:successorAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:successorWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:ConsumerEffectiveDeclaration": {
+      "@type": "@id"
+    },
+    "rkaf:forAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:declaredEffective": {
+      "@type": "@vocab"
+    },
+    "rkaf:declaredScope": {
+      "@type": "@id"
+    },
+    "rkaf:declaredAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:BridgeIssueAttestationContract": {
+      "@type": "@id"
+    },
+    "rkaf:attestedIssueKinds": {
+      "@type": "@vocab"
+    },
+    "rkaf:usedAsAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:detectedIssues": {
+      "@type": "@id"
+    },
+    "rkaf:derivesAuthorityFrom": {
+      "@type": "@id"
+    },
+    "rkaf:hasApplicability": {
+      "@type": "@id"
+    },
+    "rkaf:hasEffectivePeriod": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:adoptedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:attestationScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:attestorKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:targets": {
+      "@type": "@id"
+    },
+    "rkaf:attestedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:revokedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:rationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:lifecycleEventKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:bridgeContractVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:maxAttestationStalenessDays": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:evaluationTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectivePeriodStart": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectivePeriodEnd": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:retroactiveFrom": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:sunsetAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:resolvedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:validatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:anchoredBy": {
+      "@type": "@id"
+    },
+    "rkaf:anchorType": {
+      "@type": "@id"
+    },
+    "rkaf:Assertion": {
+      "@type": "@id"
+    },
+    "rkaf:RelationshipAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:ValueAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:assertsSubject": {
+      "@type": "@id"
+    },
+    "rkaf:assertsPredicate": {
+      "@type": "@id"
+    },
+    "rkaf:assertsObject": {
+      "@type": "@id"
+    },
+    "rkaf:assertsValue": {
+      "@id": "https://rulespec.org/ns/v1#assertsValue"
+    },
+    "rkaf:assertionPolarity": {
+      "@type": "@vocab"
+    },
+    "rkaf:assertedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:hasSourceClaimant": {
+      "@type": "@id"
+    },
+    "rkaf:hasExtractionProvenance": {
+      "@type": "@id"
+    },
+    "rkaf:SourceClaimant": {
+      "@type": "@id"
+    },
+    "rkaf:claimsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:claimantAttribution": {
+      "@type": "@vocab"
+    },
+    "rkaf:claimantText": {
+      "@type": "xsd:string"
+    },
+    "rkaf:claimantIdentity": {
+      "@type": "@id"
+    },
+    "rkaf:attributedInFragment": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ExtractionActivity": {
+      "@type": "@id"
+    },
+    "rkaf:extractionMethod": {
+      "@type": "@vocab"
+    },
+    "rkaf:extractionRun": {
+      "@type": "@id"
+    },
+    "rkaf:extractedBy": {
+      "@type": "@id"
+    },
+    "rkaf:extractorVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:requestContractDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:extractionModelRef": {
+      "@type": "@id"
+    },
+    "rkaf:extractionPromptRef": {
+      "@type": "@id"
+    },
+    "rkaf:inputDigest": {
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "rkaf:extractionAttempt": {
+      "@type": "xsd:integer"
+    },
+    "prov:startedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "prov:endedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:hasSafetyLabel": {
+      "@type": "@id"
+    },
+    "rkaf:usageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:capabilityCap": {
+      "@type": "@id"
+    },
+    "rkaf:assertionOrigin": {
+      "@type": "@id"
+    },
+    "rkaf:epistemicBasis": {
+      "@type": "@vocab"
+    },
+    "rkaf:authorityKind": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionAuthorityKind": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionStatus": {
+      "@type": "@id"
+    },
+    "rkaf:result": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionStatus": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionMethod": {
+      "@type": "@id"
+    },
+    "rkaf:cacheStatus": {
+      "@type": "@id"
+    },
+    "rkaf:usageCeiling": {
+      "@type": "@id"
+    },
+    "rkaf:lifecycleEvent": {
+      "@type": "@id"
+    },
+    "rkaf:cascadeAlgorithm": {
+      "@type": "@id"
+    },
+    "rkaf:evidenceRole": {
+      "@type": "@id"
+    },
+    "rkaf:evidentiaryFunction": {
+      "@type": "@vocab"
+    },
+    "rkaf:warningCode": {
+      "@type": "@id"
+    },
+    "rkaf:errorCode": {
+      "@type": "@id"
+    },
+    "rkaf:decision": {
+      "@type": "@id"
+    },
+    "rkaf:scope": {
+      "@type": "@id"
+    },
+    "rkaf:visibility": {
+      "@type": "@id"
+    },
+    "rkaf:attestorType": {
+      "@type": "@id"
+    },
+    "rkaf:role": {
+      "@type": "@id"
+    },
+    "rkaf:transitionTo": {
+      "@type": "@id"
+    },
+    "rkaf:status": {
+      "@type": "@id"
+    },
+    "rkaf:predicate": {
+      "@type": "@id"
+    },
+    "rkaf:conceptScope": {
+      "@type": "@id"
+    },
+    "rkaf:governanceModel": {
+      "@type": "@id"
+    },
+    "rkaf:revisedUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:effectiveUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:safeAutomaticMigration": {
+      "@type": "@id"
+    },
+    "rkaf:resourceKind": {
+      "@type": "@id"
+    },
+    "rkaf:officialStatus": {
+      "@type": "@id"
+    },
+    "rkaf:legalValue": {
+      "@type": "@id"
+    },
+    "rkaf:publicationStatus": {
+      "@type": "@id"
+    },
+    "rkaf:remediationAction": {
+      "@type": "@id"
+    },
+    "rkaf:requiredPredicate": {
+      "@type": "@id"
+    },
+    "rkaf:minimumUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:noRemediationReason": {
+      "@type": "@id"
+    },
+    "rkaf:authorityChainStatus": {
+      "@type": "@id"
+    },
+    "rkaf:chainTerminusKind": {
+      "@type": "@id"
+    },
+    "rkaf:fragmentType": {
+      "@type": "@id"
+    },
+    "rkaf:reviewStatus": {
+      "@type": "@id"
+    },
+    "rkaf:newWorkProductStatus": {
+      "@type": "@id"
+    },
+    "rkaf:newUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:newAssertionState": {
+      "@type": "@id"
+    },
+    "rkaf:resourceFamily": {
+      "@type": "@id"
+    },
+    "rkaf:assertedBy": {
+      "@type": "@id"
+    },
+    "rkaf:attestor": {
+      "@type": "@id"
+    },
+    "rkaf:targetAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:targetWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:targetPacket": {
+      "@type": "@id"
+    },
+    "rkaf:sourceConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:targetConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:targetMappingConflict": {
+      "@type": "@id"
+    },
+    "rkaf:targetBridgeValidation": {
+      "@type": "@id"
+    },
+    "rkaf:targetRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:targetAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:authorizedBy": {
+      "@type": "@id"
+    },
+    "rkaf:organization": {
+      "@type": "@id"
+    },
+    "rkaf:packetId": {
+      "@type": "@id"
+    },
+    "rkaf:consumer": {
+      "@type": "@id"
+    },
+    "rkaf:emittedBy": {
+      "@type": "@id"
+    },
+    "rkaf:triggeredByPacket": {
+      "@type": "@id"
+    },
+    "rkaf:closesRevalidationEvent": {
+      "@type": "@id"
+    },
+    "rkaf:successorAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:closedBy": {
+      "@type": "@id"
+    },
+    "rkaf:queuedFor": {
+      "@type": "@id"
+    },
+    "rkaf:supersedesAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:supersedesWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:revalidationOf": {
+      "@type": "@id"
+    },
+    "rkaf:precedingArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:precedingVersion": {
+      "@type": "@id"
+    },
+    "rkaf:supportingEvent": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnClassification": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnEvent": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnAttestation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:basedOnAttestations": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:artifactId": {
+      "@type": "@id"
+    },
+    "rkaf:realizedByArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:resourceLineage": {
+      "@type": "@id"
+    },
+    "rkaf:sourceAuthorityHint": {
+      "@type": "@id"
+    },
+    "rkaf:capturedBy": {
+      "@type": "@id"
+    },
+    "rkaf:subjectArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:priorArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:classifiedBy": {
+      "@type": "@id"
+    },
+    "rkaf:classification": {
+      "@type": "@id"
+    },
+    "rkaf:managedByRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:referenceReleaseDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:versionBasis": {
+      "@type": "@vocab"
+    },
+    "rkaf:membershipMode": {
+      "@type": "@vocab"
+    },
+    "rkaf:hostedByRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:mintingAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionEndpoint": {
+      "@type": "@id"
+    },
+    "rkaf:registeredVia": {
+      "@type": "@id"
+    },
+    "rkaf:replacedBy": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:absorbedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:splitInto": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:conceptLifecycleOperation": {
+      "@type": "@vocab"
+    },
+    "rkaf:predecessorConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:successorConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:predecessorConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:successorConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:subjectConcept": {
+      "@type": "@id"
+    },
+    "rkaf:relatedConcept": {
+      "@type": "@id"
+    },
+    "rkaf:sharedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:relatedPublishedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:conflictingMappings": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:concept": {
+      "@type": "@id"
+    },
+    "rkaf:inputConcept": {
+      "@type": "@id"
+    },
+    "rkaf:resolvedConcept": {
+      "@type": "@id"
+    },
+    "rkaf:mappingAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:openLabelFacet": {
+      "@type": "@id"
+    },
+    "rkaf:openLabelRole": {
+      "@type": "@vocab"
+    },
+    "rkaf:resolutionTrustedVia": {
+      "@type": "@id"
+    },
+    "rkaf:registry": {
+      "@type": "@id"
+    },
+    "rkaf:resolvedToConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:assertion": {
+      "@type": "@id"
+    },
+    "rkaf:object": {
+      "@type": "@id"
+    },
+    "rkaf:dataConcept": {
+      "@type": "@id"
+    },
+    "rkaf:proposedFromLocalConcept": {
+      "@type": "@id"
+    },
+    "rkaf:registeredConcept": {
+      "@type": "@id"
+    },
+    "rkaf:registrationAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:proposedBy": {
+      "@type": "@id"
+    },
+    "rkaf:delegatingAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:delegatedTo": {
+      "@type": "@id"
+    },
+    "rkaf:publisher": {
+      "@type": "@id"
+    },
+    "rkaf:appliesTo": {
+      "@type": "@id"
+    },
+    "rkaf:affectedAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedAuthorityAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedImplementationAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedWorkProducts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedAdoptions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedFragments": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:affectedAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:affectedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:staleDependencies": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:unresolvedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:registryUnavailable": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:staleConceptCache": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedEvaluationAnchors": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedAutomaticMigrations": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedAuthorityKinds": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:justificationBackedBy": {
+      "@type": "@id"
+    },
+    "rkaf:derivedFromFragment": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:associatedWorkflowStep": {
+      "@type": "@id"
+    },
+    "rkaf:generationRun": {
+      "@type": "@id"
+    },
+    "rkaf:fromConcept": {
+      "@type": "@id"
+    },
+    "rkaf:toConcept": {
+      "@type": "@id"
+    },
+    "rkaf:requiredAdoptionScope": {
+      "@type": "@id"
+    },
+    "rkaf:collectsEvidenceType": {
+      "@type": "@id"
+    },
+    "rkaf:requiresEvidenceType": {
+      "@type": "@id"
+    },
+    "rkaf:acceptedDocumentTypes": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:excludesCategory": {
+      "@container": "@set"
+    },
+    "rkaf:evidencePurpose": {
+      "@container": "@set"
+    },
+    "rkaf:excludesPurposes": {
+      "@container": "@set"
+    },
+    "rkaf:jurisdiction": {
+      "@container": "@set"
+    },
+    "prov:wasGeneratedBy": {
+      "@type": "@id"
+    },
+    "prov:wasAttributedTo": {
+      "@type": "@id"
+    },
+    "prov:wasDerivedFrom": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "prov:generatedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "eli:consolidates": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "eli:consolidated_by": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dpv:hasPersonalDataCategory": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dpv:hasLegalBasis": {
+      "@type": "@id"
+    },
+    "dpv:hasPurpose": {
+      "@type": "@id"
+    },
+    "skos:prefLabel": {
+      "@container": "@language"
+    },
+    "skos:altLabel": {
+      "@container": "@language"
+    },
+    "skos:hiddenLabel": {
+      "@container": "@language"
+    },
+    "skos:definition": {
+      "@container": "@language"
+    },
+    "skos:example": {
+      "@container": "@language"
+    },
+    "skos:note": {
+      "@container": "@language"
+    },
+    "skos:scopeNote": {
+      "@container": "@language"
+    },
+    "skos:changeNote": {
+      "@container": "@language"
+    },
+    "skos:editorialNote": {
+      "@container": "@language"
+    },
+    "skos:historyNote": {
+      "@container": "@language"
+    },
+    "skos:notation": {
+      "@id": "http://www.w3.org/2004/02/skos/core#notation"
+    },
+    "skos:broader": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:narrower": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:related": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:inScheme": {
+      "@type": "@id"
+    },
+    "skos:hasTopConcept": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ConceptScheme": {
+      "@type": "@id"
+    },
+    "rkaf:schemeFacet": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptAssignment": {
+      "@type": "@id"
+    },
+    "rkaf:assignedConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:fragmentIdentityScheme": {
+      "@type": "@vocab"
+    },
+    "prov:hadMember": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcat:distribution": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcat:version": {
+      "@type": "xsd:string"
+    },
+    "dcterms:type": {
+      "@type": "@id"
+    },
+    "dcterms:issued": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:capturedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:registeredAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectiveDate": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:exceptionEffectivePeriodEnd": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:exceptionEffectivePeriodStart": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:cachedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:deprecatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:rescissionEffectiveDate": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:detectedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:definedInScope": {
+      "@type": "@id"
+    },
+    "rkaf:findingKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:severity": {
+      "@type": "@vocab"
+    },
+    "rkaf:subject": {
+      "@type": "@id"
+    },
+    "rkaf:detectedBy": {
+      "@type": "@id"
+    },
+    "rkaf:lastVerifiedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:verifiedBy": {
+      "@type": "@id"
+    },
+    "rkaf:targetFinding": {
+      "@type": "@id"
+    },
+    "rkaf:findings": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:RelationChangeEvent": {
+      "@type": "@id"
+    },
+    "rkaf:changeSubject": {
+      "@type": "@id"
+    },
+    "rkaf:changePredicate": {
+      "@type": "@id"
+    },
+    "rkaf:changeObject": {
+      "@type": "@id"
+    },
+    "rkaf:relationChangeOperation": {
+      "@type": "@vocab"
+    },
+    "rkaf:relationChangeStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:relationChangeTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:changeIntendedEffectiveTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:changeEvidence": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:replacementRelationObject": {
+      "@type": "@id"
+    },
+    "rkaf:RelationComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonBaselineArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonObservedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonExpectedAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonConsumer": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonScope": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonEvaluationTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:comparisonPolicyVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonDetector": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonDetectorVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonSnapshot": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonOutcome": {
+      "@type": "@vocab"
+    },
+    "rkaf:comparisonProofRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ResolverProofIssuer": {
+      "@type": "@id"
+    },
+    "rkaf:proofResolver": {
+      "@type": "@id"
+    },
+    "rkaf:proofResolverVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:proofPolicyVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:ResolverProofRecord": {
+      "@type": "@id"
+    },
+    "rkaf:proofType": {
+      "@type": "@vocab"
+    },
+    "rkaf:proofIssuer": {
+      "@type": "@id"
+    },
+    "rkaf:proofComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:proofOutcome": {
+      "@type": "@vocab"
+    },
+    "rkaf:proofRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofInput": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proofInputDigest": {
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "rkaf:proofSupportingRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proofEvaluatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:proofSnapshot": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofRecordDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:independenceGroup": {
+      "@type": "@id"
+    },
+    "rkaf:adjudicationVerdict": {
+      "@type": "@vocab"
+    },
+    "rkaf:sealedRequestDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:sealedResponseArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:RelationFinding": {
+      "@type": "@id"
+    },
+    "rkaf:relationFindingKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:findingComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:findingComparedAssertion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:findingProofRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:findingDetectedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:findingRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:findingFingerprint": {
+      "@type": "xsd:string"
+    },
+    "rkaf:ClosureClaim": {
+      "@type": "@id"
+    },
+    "rkaf:closureClaimStatus": {
+      "@type": "@vocab"
+    },
+    "rkaf:closureArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:closureRegion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:closurePredicateFamily": {
+      "@type": "@id"
+    },
+    "rkaf:closureProfileVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:closureMemberDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:closureReviewedAt": {
+      "@type": "xsd:dateTime"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "urn:rulespec:document-understanding:document:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:document:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:artifactIdentifierScheme": "rkaf:hash-sha256",
+      "rkaf:hasContentDigest": "sha256:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "dcterms:format": "text/plain"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca",
+      "@type": "rkaf:AILineage",
+      "rkaf:modelId": "gemini-3.8-flash",
+      "rkaf:modelVersion": "gemini-3.8-flash",
+      "rkaf:temperature": 0.0,
+      "rkaf:promptTemplateRef": "urn:rulespec:document-understanding:prompt:ea0f956fae2327091cabab292cd816ff74d01afd59b3fbe06d1deab39666eec1",
+      "rkaf:inputContextHash": "sha256:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:activity:8a282c3bf4ba619af7a8f37582c6bf73a39f52cd582d7e1d97286d4c417d7eb1",
+      "@type": "rkaf:ExtractionActivity",
+      "rkaf:extractionMethod": "rkaf:modelExtraction",
+      "rkaf:extractionRun": "urn:rulespec:document-understanding:run:766ec1b2-7f2a-4f9f-a977-c0daadbe28bf",
+      "rkaf:extractedBy": "urn:rulespec:document-understanding:extractor:langextract",
+      "rkaf:extractorVersion": "document-understanding/3",
+      "rkaf:requestContractDigest": "sha256:52fc527b8ec1e538730cfc681bad32e472101e93a65a1795b8e22b117c368cfa",
+      "rkaf:extractionModelRef": "urn:rulespec:document-understanding:model:319034f3e25d0d9bd6b3a46b1def7a01b7689f0d51384c63da1f6e0b464af810",
+      "rkaf:extractionPromptRef": "urn:rulespec:document-understanding:prompt:ea0f956fae2327091cabab292cd816ff74d01afd59b3fbe06d1deab39666eec1",
+      "rkaf:inputDigest": [
+        "sha256:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460"
+      ],
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca"
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:85:769:sha256-f0b5b25a137f7cce76590536680b771afaf6acb0a5936dc368649100eb2ba93d",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentContentDigest": "sha256:f0b5b25a137f7cce76590536680b771afaf6acb0a5936dc368649100eb2ba93d",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(a) On an individual's person or accessible property—prohibitions. Except as provided in paragraph (b) of this section, an individual may not have a weapon, explosive, or incendiary, on or about the individual's person or accessible property—\n\n(1) When performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter;\n\n(2) When the individual is entering or in a sterile area; or\n\n(3) When the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 85,
+          "oa:end": 769,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:219:226:sha256-0007a8bea4dcd3f6b1490fc7199650f1046713dd92d9314e1f2ede6946fcd999",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentContentDigest": "sha256:0007a8bea4dcd3f6b1490fc7199650f1046713dd92d9314e1f2ede6946fcd999",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "may not"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 219,
+          "oa:end": 226,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:329:769:sha256-22dcfb8db4667ffae9d7a7b17b48ca968730412e4f33fe6a7d2d7577439d118b",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentContentDigest": "sha256:22dcfb8db4667ffae9d7a7b17b48ca968730412e4f33fe6a7d2d7577439d118b",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(1) When performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter;\n\n(2) When the individual is entering or in a sterile area; or\n\n(3) When the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 329,
+          "oa:end": 769,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:329:546:sha256-d5fe1a750d86ba4e476f3b755b0d6c324a6a6e30d69b292a6b13efb667ae044b",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentContentDigest": "sha256:d5fe1a750d86ba4e476f3b755b0d6c324a6a6e30d69b292a6b13efb667ae044b",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(1) When performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter;"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 329,
+          "oa:end": 546,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:548:608:sha256-c139a639c1d605a7d307ad6a66eb81168e6c66c3a021b60c289053565aaa41c2",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentContentDigest": "sha256:c139a639c1d605a7d307ad6a66eb81168e6c66c3a021b60c289053565aaa41c2",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(2) When the individual is entering or in a sterile area; or"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 548,
+          "oa:end": 608,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:610:769:sha256-3303604764789bed72f78d4739f5fe14e317e2fcc6c61bed6be2c6efd864dead",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentContentDigest": "sha256:3303604764789bed72f78d4739f5fe14e317e2fcc6c61bed6be2c6efd864dead",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(3) When the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 610,
+          "oa:end": 769,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:scope:cfe1deef74afbd6739e9790847d342b74c0d84d5b9159943a9fa77ea9d4cd8e1",
+      "@type": "rkaf:ApplicabilityScope",
+      "rkaf:appliesInJurisdiction": [],
+      "rkaf:applicabilityCondition": "Except as provided in paragraph (b) of this section, when performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter; when the individual is entering or in a sterile area; or when the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter."
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:28ca85d4fcdd38b15e1047c9b496a242b844fa59273d969d0d155947b55493b5",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:8a282c3bf4ba619af7a8f37582c6bf73a39f52cd582d7e1d97286d4c417d7eb1",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:d544502b2c37a1851b3545f96df4dc903ad7107c9ee270155e1716a20b001b2e",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-prohibition",
+      "rkaf:assertsValue": {
+        "@value": "Except as provided in paragraph (b) of this section, an individual may not have a weapon, explosive, or incendiary on or about their person or accessible property when inspection has begun before entering a sterile area or boarding a screened aircraft, when entering or in a sterile area, or when attempting to board or onboard a screened aircraft.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:43897dae7cd6e4d7fe6ba063715d0f39107d153fdc5abbe927900e303650fc39",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:28ca85d4fcdd38b15e1047c9b496a242b844fa59273d969d0d155947b55493b5",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:85:769:sha256-f0b5b25a137f7cce76590536680b771afaf6acb0a5936dc368649100eb2ba93d"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:3c74f67d4322d6a6755e93c1e8cc618f03fe201d19b17bdd59a8bb7c30d5cff6",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:28ca85d4fcdd38b15e1047c9b496a242b844fa59273d969d0d155947b55493b5",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:85:769:sha256-f0b5b25a137f7cce76590536680b771afaf6acb0a5936dc368649100eb2ba93d"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:05cd162ba39e884287bffb0aaac84538be327613976866967d3addb55305369c",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:8a282c3bf4ba619af7a8f37582c6bf73a39f52cd582d7e1d97286d4c417d7eb1",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:d544502b2c37a1851b3545f96df4dc903ad7107c9ee270155e1716a20b001b2e",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "must_not",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:a80a7ff801217dcdbefd8bb4962a484d33424417c4977c400e5c2459e5752a01",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:05cd162ba39e884287bffb0aaac84538be327613976866967d3addb55305369c",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:219:226:sha256-0007a8bea4dcd3f6b1490fc7199650f1046713dd92d9314e1f2ede6946fcd999"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:109c936879a527c1a53a3ba1223790e42122635a88e331a2c144d759131ecf3d",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:8a282c3bf4ba619af7a8f37582c6bf73a39f52cd582d7e1d97286d4c417d7eb1",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:d544502b2c37a1851b3545f96df4dc903ad7107c9ee270155e1716a20b001b2e",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:scope_text",
+      "rkaf:assertsValue": {
+        "@value": "Except as provided in paragraph (b) of this section, when performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter; when the individual is entering or in a sterile area; or when the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:3ed9bb3f503b05ad1e1c050fdfdf00ae663b605ff6a2f7696c1fa5b41ecb4319",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:109c936879a527c1a53a3ba1223790e42122635a88e331a2c144d759131ecf3d",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:85:769:sha256-f0b5b25a137f7cce76590536680b771afaf6acb0a5936dc368649100eb2ba93d"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:3dbf057449aa63745fed0ffb2dc9df2323acec09bc9aa30f088e9c9b52f08c48",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:8a282c3bf4ba619af7a8f37582c6bf73a39f52cd582d7e1d97286d4c417d7eb1",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:d544502b2c37a1851b3545f96df4dc903ad7107c9ee270155e1716a20b001b2e",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:choice_text",
+      "rkaf:assertsValue": {
+        "@value": "Applies in any of three circumstances: (1) when performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter; (2) when the individual is entering or in a sterile area; or (3) when the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:d66b8a62ccb9b477c806ded29a127861d97b5edb5ab277c74ccca5c07b8f21be",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:3dbf057449aa63745fed0ffb2dc9df2323acec09bc9aa30f088e9c9b52f08c48",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:329:769:sha256-22dcfb8db4667ffae9d7a7b17b48ca968730412e4f33fe6a7d2d7577439d118b"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:d6cb4ecdf213bedab56a184b7d76aef9025b94d2d3cd63ada32901656e29462f",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:8a282c3bf4ba619af7a8f37582c6bf73a39f52cd582d7e1d97286d4c417d7eb1",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:d544502b2c37a1851b3545f96df4dc903ad7107c9ee270155e1716a20b001b2e",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:alternative:0",
+      "rkaf:assertsValue": {
+        "@value": "(1) When performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter;",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:ae2eec8e8b29416a0bc98437e61f6ec296121670545d8ca18e439a197517d4c5",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:d6cb4ecdf213bedab56a184b7d76aef9025b94d2d3cd63ada32901656e29462f",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:329:546:sha256-d5fe1a750d86ba4e476f3b755b0d6c324a6a6e30d69b292a6b13efb667ae044b"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:8a6ed1a107edac9da08ed1e2b28235af8b499e89c09bd25ead3b857696a4d2ec",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:8a282c3bf4ba619af7a8f37582c6bf73a39f52cd582d7e1d97286d4c417d7eb1",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:d544502b2c37a1851b3545f96df4dc903ad7107c9ee270155e1716a20b001b2e",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:alternative:1",
+      "rkaf:assertsValue": {
+        "@value": "(2) When the individual is entering or in a sterile area; or",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:64faacdd2f788974f8cab15513ece5a8b43158bd2a70fdc3897c8befe377d78f",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:8a6ed1a107edac9da08ed1e2b28235af8b499e89c09bd25ead3b857696a4d2ec",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:548:608:sha256-c139a639c1d605a7d307ad6a66eb81168e6c66c3a021b60c289053565aaa41c2"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:63ce10edaa7db22211ae793af171d3bdb1e29086f014e3b604173ade7b700ea5",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:8a282c3bf4ba619af7a8f37582c6bf73a39f52cd582d7e1d97286d4c417d7eb1",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:d544502b2c37a1851b3545f96df4dc903ad7107c9ee270155e1716a20b001b2e",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:alternative:2",
+      "rkaf:assertsValue": {
+        "@value": "(3) When the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:86c562a41fb20a56a8a4b4d0091181a927a451ae2d7abbf05c2216218d64878f",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:63ce10edaa7db22211ae793af171d3bdb1e29086f014e3b604173ade7b700ea5",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:610:769:sha256-3303604764789bed72f78d4739f5fe14e317e2fcc6c61bed6be2c6efd864dead"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:24a566dfab18301502f688e005b7bfb96837e5078d725948b9965d7d46e29d6f",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:8a282c3bf4ba619af7a8f37582c6bf73a39f52cd582d7e1d97286d4c417d7eb1",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:d544502b2c37a1851b3545f96df4dc903ad7107c9ee270155e1716a20b001b2e",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"action\":\"\",\"actor\":\"\",\"alternative_quotes\":[\"(1) When performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter;\",\"(2) When the individual is entering or in a sterile area; or\",\"(3) When the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.\"],\"choice_text\":\"Applies in any of three circumstances: (1) when performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter; (2) when the individual is entering or in a sterile area; or (3) when the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.\",\"claimants\":[],\"concepts\":[],\"effective_periods\":[],\"jurisdiction\":\"\",\"kind\":\"prohibition\",\"logic_text\":\"\",\"modality\":\"must_not\",\"object\":\"\",\"scope_text\":\"Except as provided in paragraph (b) of this section, when performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter; when the individual is entering or in a sterile area; or when the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.\",\"summary\":\"Except as provided in paragraph (b) of this section, an individual may not have a weapon, explosive, or incendiary on or about their person or accessible property when inspection has begun before entering a sterile area or boarding a screened aircraft, when entering or in a sterile area, or when attempting to board or onboard a screened aircraft.\",\"typed_values\":[]}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed",
+      "rkaf:hasApplicability": "urn:rulespec:document-understanding:scope:cfe1deef74afbd6739e9790847d342b74c0d84d5b9159943a9fa77ea9d4cd8e1"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:b407870e73180e2a6569d48e59bbe8d38253fbed61fff8842f494d32185b3cb2",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:24a566dfab18301502f688e005b7bfb96837e5078d725948b9965d7d46e29d6f",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:85:769:sha256-f0b5b25a137f7cce76590536680b771afaf6acb0a5936dc368649100eb2ba93d",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:219:226:sha256-0007a8bea4dcd3f6b1490fc7199650f1046713dd92d9314e1f2ede6946fcd999",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:329:769:sha256-22dcfb8db4667ffae9d7a7b17b48ca968730412e4f33fe6a7d2d7577439d118b",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:329:546:sha256-d5fe1a750d86ba4e476f3b755b0d6c324a6a6e30d69b292a6b13efb667ae044b",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:548:608:sha256-c139a639c1d605a7d307ad6a66eb81168e6c66c3a021b60c289053565aaa41c2",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:610:769:sha256-3303604764789bed72f78d4739f5fe14e317e2fcc6c61bed6be2c6efd864dead"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:5049501a2fd68740d3a47195f9fa980548200e6ee556d3472d4004535be74ad2",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:24a566dfab18301502f688e005b7bfb96837e5078d725948b9965d7d46e29d6f",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:85:769:sha256-f0b5b25a137f7cce76590536680b771afaf6acb0a5936dc368649100eb2ba93d"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:984d00720a366d03be9a1a98d7d3e3de312b797fe552f1c8a5679e8c16687ea1",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:984d00720a366d03be9a1a98d7d3e3de312b797fe552f1c8a5679e8c16687ea1",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:ee823aa1d4f8cb6d94361566ef8e284eca7cd6572e96f4cf880dd31582e5556a",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"\",\"alternative_quotes\":[\"(1) When performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter;\",\"(2) When the individual is entering or in a sterile area; or\",\"(3) When the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.\"],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:28ca85d4fcdd38b15e1047c9b496a242b844fa59273d969d0d155947b55493b5\",\"urn:rulespec:document-understanding:assertion:05cd162ba39e884287bffb0aaac84538be327613976866967d3addb55305369c\",\"urn:rulespec:document-understanding:assertion:109c936879a527c1a53a3ba1223790e42122635a88e331a2c144d759131ecf3d\",\"urn:rulespec:document-understanding:assertion:3dbf057449aa63745fed0ffb2dc9df2323acec09bc9aa30f088e9c9b52f08c48\",\"urn:rulespec:document-understanding:assertion:d6cb4ecdf213bedab56a184b7d76aef9025b94d2d3cd63ada32901656e29462f\",\"urn:rulespec:document-understanding:assertion:8a6ed1a107edac9da08ed1e2b28235af8b499e89c09bd25ead3b857696a4d2ec\",\"urn:rulespec:document-understanding:assertion:63ce10edaa7db22211ae793af171d3bdb1e29086f014e3b604173ade7b700ea5\",\"urn:rulespec:document-understanding:assertion:24a566dfab18301502f688e005b7bfb96837e5078d725948b9965d7d46e29d6f\"],\"choice_quote\":\"(1) When performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter;\\n\\n(2) When the individual is entering or in a sterile area; or\\n\\n(3) When the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.\",\"choice_text\":\"Applies in any of three circumstances: (1) when performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter; (2) when the individual is entering or in a sterile area; or (3) when the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"effective_periods\":[],\"end\":769,\"evidence\":[{\"end\":769,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:85:769:sha256-f0b5b25a137f7cce76590536680b771afaf6acb0a5936dc368649100eb2ba93d\",\"quote\":\"(a) On an individual's person or accessible property—prohibitions. Except as provided in paragraph (b) of this section, an individual may not have a weapon, explosive, or incendiary, on or about the individual's person or accessible property—\\n\\n(1) When performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter;\\n\\n(2) When the individual is entering or in a sterile area; or\\n\\n(3) When the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.\",\"start\":85},{\"end\":226,\"field\":\"modality\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:219:226:sha256-0007a8bea4dcd3f6b1490fc7199650f1046713dd92d9314e1f2ede6946fcd999\",\"quote\":\"may not\",\"start\":219},{\"end\":769,\"field\":\"choice_text\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:329:769:sha256-22dcfb8db4667ffae9d7a7b17b48ca968730412e4f33fe6a7d2d7577439d118b\",\"quote\":\"(1) When performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter;\\n\\n(2) When the individual is entering or in a sterile area; or\\n\\n(3) When the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.\",\"start\":329},{\"end\":769,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:85:769:sha256-f0b5b25a137f7cce76590536680b771afaf6acb0a5936dc368649100eb2ba93d\",\"quote\":\"(a) On an individual's person or accessible property—prohibitions. Except as provided in paragraph (b) of this section, an individual may not have a weapon, explosive, or incendiary, on or about the individual's person or accessible property—\\n\\n(1) When performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter;\\n\\n(2) When the individual is entering or in a sterile area; or\\n\\n(3) When the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.\",\"start\":85},{\"end\":546,\"field\":\"alternative:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:329:546:sha256-d5fe1a750d86ba4e476f3b755b0d6c324a6a6e30d69b292a6b13efb667ae044b\",\"quote\":\"(1) When performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter;\",\"start\":329},{\"end\":608,\"field\":\"alternative:1\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:548:608:sha256-c139a639c1d605a7d307ad6a66eb81168e6c66c3a021b60c289053565aaa41c2\",\"quote\":\"(2) When the individual is entering or in a sterile area; or\",\"start\":548},{\"end\":769,\"field\":\"alternative:2\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:610:769:sha256-3303604764789bed72f78d4739f5fe14e317e2fcc6c61bed6be2c6efd864dead\",\"quote\":\"(3) When the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.\",\"start\":610}],\"id\":\"urn:rulespec:document-understanding:revision:984d00720a366d03be9a1a98d7d3e3de312b797fe552f1c8a5679e8c16687ea1\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"prohibition\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:24a566dfab18301502f688e005b7bfb96837e5078d725948b9965d7d46e29d6f\",\"modality\":\"must_not\",\"modality_quote\":\"may not\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:b28417ffae8bbf63e0272464b2593dfbe59d9358868df9b269cc2cf8e38f4a42\",\"origin\":\"aiSuggested\",\"quote\":\"(a) On an individual's person or accessible property—prohibitions. Except as provided in paragraph (b) of this section, an individual may not have a weapon, explosive, or incendiary, on or about the individual's person or accessible property—\\n\\n(1) When performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter;\\n\\n(2) When the individual is entering or in a sterile area; or\\n\\n(3) When the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.\",\"references\":[\"paragraph (b)\",\"§§ 1544.201\",\"1546.201\",\"1562.23\"],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:d544502b2c37a1851b3545f96df4dc903ad7107c9ee270155e1716a20b001b2e\",\"scope_quotes\":[\"(a) On an individual's person or accessible property—prohibitions. Except as provided in paragraph (b) of this section, an individual may not have a weapon, explosive, or incendiary, on or about the individual's person or accessible property—\\n\\n(1) When performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter;\\n\\n(2) When the individual is entering or in a sterile area; or\\n\\n(3) When the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.\"],\"scope_text\":\"Except as provided in paragraph (b) of this section, when performance has begun of the inspection of the individual's person or accessible property before entering a sterile area, or before boarding an aircraft for which screening is conducted under this subchapter; when the individual is entering or in a sterile area; or when the individual is attempting to board or onboard an aircraft for which screening is conducted under §§ 1544.201, 1546.201, or 1562.23 of this chapter.\",\"section_id\":\"section-1\",\"start\":85,\"summary\":\"Except as provided in paragraph (b) of this section, an individual may not have a weapon, explosive, or incendiary on or about their person or accessible property when inspection has begun before entering a sterile area or boarding a screened aircraft, when entering or in a sterile area, or when attempting to board or onboard a screened aircraft.\",\"target_ids\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:28ca85d4fcdd38b15e1047c9b496a242b844fa59273d969d0d155947b55493b5"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:05cd162ba39e884287bffb0aaac84538be327613976866967d3addb55305369c"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:109c936879a527c1a53a3ba1223790e42122635a88e331a2c144d759131ecf3d"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:3dbf057449aa63745fed0ffb2dc9df2323acec09bc9aa30f088e9c9b52f08c48"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:d6cb4ecdf213bedab56a184b7d76aef9025b94d2d3cd63ada32901656e29462f"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:8a6ed1a107edac9da08ed1e2b28235af8b499e89c09bd25ead3b857696a4d2ec"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:63ce10edaa7db22211ae793af171d3bdb1e29086f014e3b604173ade7b700ea5"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:24a566dfab18301502f688e005b7bfb96837e5078d725948b9965d7d46e29d6f"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:771:1374:sha256-af1a8c92b280b982ac594e1fcc08434ad2ae0eee06bd57850e156e234140fad1",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentContentDigest": "sha256:af1a8c92b280b982ac594e1fcc08434ad2ae0eee06bd57850e156e234140fad1",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(b) On an individual's person or accessible property—permitted carriage of a weapon. Paragraph (a) of this section does not apply as to carriage of firearms and other weapons if the individual is one of the following:\n\n(1) Law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport.\n\n(2) An individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter.\n\n(3) An individual authorized to carry a weapon in a sterile area under a security program."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 771,
+          "oa:end": 1374,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:886:900:sha256-533232681eac9dd2c357af3b24908d4c4e8d41562c911ad7ed51eb0f4638ccd0",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentContentDigest": "sha256:533232681eac9dd2c357af3b24908d4c4e8d41562c911ad7ed51eb0f4638ccd0",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "does not apply"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 886,
+          "oa:end": 900,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:85:327:sha256-a32c8dfb7196d8707007190b60d5fd2a41cfc2faf3efbb1eecb19d61e6401457",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentContentDigest": "sha256:a32c8dfb7196d8707007190b60d5fd2a41cfc2faf3efbb1eecb19d61e6401457",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(a) On an individual's person or accessible property—prohibitions. Except as provided in paragraph (b) of this section, an individual may not have a weapon, explosive, or incendiary, on or about the individual's person or accessible property—"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 85,
+          "oa:end": 327,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:990:1129:sha256-f63ba4358ff966ac514283f276f0c32e86dfc525ab2beea862985bb4ee9e53da",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentContentDigest": "sha256:f63ba4358ff966ac514283f276f0c32e86dfc525ab2beea862985bb4ee9e53da",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(1) Law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 990,
+          "oa:end": 1129,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:1131:1282:sha256-9ab3e271d6219176b18a908e1e89635a5cbfeb67fd6a395dd3bcf59d3ad942c1",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentContentDigest": "sha256:9ab3e271d6219176b18a908e1e89635a5cbfeb67fd6a395dd3bcf59d3ad942c1",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(2) An individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1131,
+          "oa:end": 1282,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:1284:1374:sha256-767b73a5ca31a741e65fb7e179b443fe99e4fac4dbe40a0ca0c7e7df93cee56a",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentContentDigest": "sha256:767b73a5ca31a741e65fb7e179b443fe99e4fac4dbe40a0ca0c7e7df93cee56a",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(3) An individual authorized to carry a weapon in a sterile area under a security program."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1284,
+          "oa:end": 1374,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:scope:73c9cb1f1a73f5cbfdae54af851b1fe633d15995178faf3362cda998a09e5e22",
+      "@type": "rkaf:ApplicabilityScope",
+      "rkaf:appliesInJurisdiction": [],
+      "rkaf:applicabilityCondition": "As to carriage of firearms and other weapons on an individual's person or accessible property, if the individual is law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport; an individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter; or an individual authorized to carry a weapon in a sterile area under a security program."
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:a4802621c2952db3fed1b953743379eb63f4bea124eb3cc1d8cd650508a196b4",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:8a282c3bf4ba619af7a8f37582c6bf73a39f52cd582d7e1d97286d4c417d7eb1",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:f9d47ee1befce89e56be5b9d78bf7dc425e250311316ec9ab0fc00f0c88c69a1",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-exemption",
+      "rkaf:assertsValue": {
+        "@value": "The prohibitions in paragraph (a) do not apply to the carriage of firearms and other weapons on an individual's person or accessible property if the individual is on-duty airport law enforcement required to carry weapons, an individual authorized under specified federal regulations, or an individual authorized under a security program to carry a weapon in a sterile area.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:8588639031510329df5200849afbbd54acd09446465781c6f4ecf494db922c8f",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:a4802621c2952db3fed1b953743379eb63f4bea124eb3cc1d8cd650508a196b4",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:771:1374:sha256-af1a8c92b280b982ac594e1fcc08434ad2ae0eee06bd57850e156e234140fad1"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:d34929e26e73fd500385bb54fe9796d71f65a38fef9437753fed042eca3ae002",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:a4802621c2952db3fed1b953743379eb63f4bea124eb3cc1d8cd650508a196b4",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:771:1374:sha256-af1a8c92b280b982ac594e1fcc08434ad2ae0eee06bd57850e156e234140fad1"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:17624e71f673902d59ab2079506e401ad0eaecb7fcdadb9fa30bd206f5b8a34e",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:a4802621c2952db3fed1b953743379eb63f4bea124eb3cc1d8cd650508a196b4",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:providesContext",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:85:327:sha256-a32c8dfb7196d8707007190b60d5fd2a41cfc2faf3efbb1eecb19d61e6401457"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:bde7a47203f0c48844d28061c78c955cca3d52ab53de6720614a84372a2f5365",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:8a282c3bf4ba619af7a8f37582c6bf73a39f52cd582d7e1d97286d4c417d7eb1",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:f9d47ee1befce89e56be5b9d78bf7dc425e250311316ec9ab0fc00f0c88c69a1",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "not_required",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:566376cb1fa800636b54baad23f7a1f872cdd54474478ab2fdd986bc9019d8b1",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:bde7a47203f0c48844d28061c78c955cca3d52ab53de6720614a84372a2f5365",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:886:900:sha256-533232681eac9dd2c357af3b24908d4c4e8d41562c911ad7ed51eb0f4638ccd0"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:61309f331b5ebe633f812abab2994ff3d0f3e74a8a169382cf7cf3827a5426e5",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:8a282c3bf4ba619af7a8f37582c6bf73a39f52cd582d7e1d97286d4c417d7eb1",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:f9d47ee1befce89e56be5b9d78bf7dc425e250311316ec9ab0fc00f0c88c69a1",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:scope_text",
+      "rkaf:assertsValue": {
+        "@value": "As to carriage of firearms and other weapons on an individual's person or accessible property, if the individual is law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport; an individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter; or an individual authorized to carry a weapon in a sterile area under a security program.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:b496bf3d053880943125d1f297f2589691d60b63b39d557fd85651c976af064c",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:61309f331b5ebe633f812abab2994ff3d0f3e74a8a169382cf7cf3827a5426e5",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:771:1374:sha256-af1a8c92b280b982ac594e1fcc08434ad2ae0eee06bd57850e156e234140fad1"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:890dede556c6fcab4239fdd81cf1f56ba52df79c294b8978f9ddab4974e2e692",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:8a282c3bf4ba619af7a8f37582c6bf73a39f52cd582d7e1d97286d4c417d7eb1",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:f9d47ee1befce89e56be5b9d78bf7dc425e250311316ec9ab0fc00f0c88c69a1",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:choice_text",
+      "rkaf:assertsValue": {
+        "@value": "Applies if the individual is one of the following: (1) law enforcement personnel required to carry a firearm or other weapons while performing duty at the airport; (2) an individual authorized under §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562; or (3) an individual authorized to carry a weapon in a sterile area under a security program.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:25d2f7520df915b01633a949fc174006e808bf52ccc8133db31d9dc55258a50f",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:890dede556c6fcab4239fdd81cf1f56ba52df79c294b8978f9ddab4974e2e692",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:771:1374:sha256-af1a8c92b280b982ac594e1fcc08434ad2ae0eee06bd57850e156e234140fad1"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:e8042f97d64518786f44ddbd88b19a597b1da439ca763d538d832a56fad112de",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:8a282c3bf4ba619af7a8f37582c6bf73a39f52cd582d7e1d97286d4c417d7eb1",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:f9d47ee1befce89e56be5b9d78bf7dc425e250311316ec9ab0fc00f0c88c69a1",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:alternative:0",
+      "rkaf:assertsValue": {
+        "@value": "(1) Law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:09dd0ded9959f8f955d7029eb9b0e12a618c6859049abccb0156a728bf74c47e",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:e8042f97d64518786f44ddbd88b19a597b1da439ca763d538d832a56fad112de",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:990:1129:sha256-f63ba4358ff966ac514283f276f0c32e86dfc525ab2beea862985bb4ee9e53da"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:dd0824837c0a4cb1f63a5871e39c5eb6c469e6196e8ef105571808448ac88dfa",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:8a282c3bf4ba619af7a8f37582c6bf73a39f52cd582d7e1d97286d4c417d7eb1",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:f9d47ee1befce89e56be5b9d78bf7dc425e250311316ec9ab0fc00f0c88c69a1",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:alternative:1",
+      "rkaf:assertsValue": {
+        "@value": "(2) An individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:4aa4f0cc7be53f1e5a7cb22ce4d9b380f79746c46e1e5ad610b1171964907adb",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:dd0824837c0a4cb1f63a5871e39c5eb6c469e6196e8ef105571808448ac88dfa",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:1131:1282:sha256-9ab3e271d6219176b18a908e1e89635a5cbfeb67fd6a395dd3bcf59d3ad942c1"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:90b68bee0c06688ff504e7ccdf97e4998cd5068f1f02b7c797603d71061c850b",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:8a282c3bf4ba619af7a8f37582c6bf73a39f52cd582d7e1d97286d4c417d7eb1",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:f9d47ee1befce89e56be5b9d78bf7dc425e250311316ec9ab0fc00f0c88c69a1",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:alternative:2",
+      "rkaf:assertsValue": {
+        "@value": "(3) An individual authorized to carry a weapon in a sterile area under a security program.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:63a462d0cd757405573f4b65e32634d7882fcd6e3e557db2c74c37b668eb58ec",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:90b68bee0c06688ff504e7ccdf97e4998cd5068f1f02b7c797603d71061c850b",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:1284:1374:sha256-767b73a5ca31a741e65fb7e179b443fe99e4fac4dbe40a0ca0c7e7df93cee56a"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:b3166f5812cb01cfcdb3e9993981eccefd4fb946139de0ff2228be9e88fbc0bb",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:8a282c3bf4ba619af7a8f37582c6bf73a39f52cd582d7e1d97286d4c417d7eb1",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:f9d47ee1befce89e56be5b9d78bf7dc425e250311316ec9ab0fc00f0c88c69a1",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"action\":\"\",\"actor\":\"\",\"alternative_quotes\":[\"(1) Law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport.\",\"(2) An individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter.\",\"(3) An individual authorized to carry a weapon in a sterile area under a security program.\"],\"choice_text\":\"Applies if the individual is one of the following: (1) law enforcement personnel required to carry a firearm or other weapons while performing duty at the airport; (2) an individual authorized under §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562; or (3) an individual authorized to carry a weapon in a sterile area under a security program.\",\"claimants\":[],\"concepts\":[],\"effective_periods\":[],\"jurisdiction\":\"\",\"kind\":\"exemption\",\"logic_text\":\"\",\"modality\":\"not_required\",\"object\":\"\",\"scope_text\":\"As to carriage of firearms and other weapons on an individual's person or accessible property, if the individual is law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport; an individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter; or an individual authorized to carry a weapon in a sterile area under a security program.\",\"summary\":\"The prohibitions in paragraph (a) do not apply to the carriage of firearms and other weapons on an individual's person or accessible property if the individual is on-duty airport law enforcement required to carry weapons, an individual authorized under specified federal regulations, or an individual authorized under a security program to carry a weapon in a sterile area.\",\"typed_values\":[]}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed",
+      "rkaf:hasApplicability": "urn:rulespec:document-understanding:scope:73c9cb1f1a73f5cbfdae54af851b1fe633d15995178faf3362cda998a09e5e22"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:e1cfe0b499d55e107bc545894cfa34706d43d98d95d4bfb50f36e5c250989623",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:b3166f5812cb01cfcdb3e9993981eccefd4fb946139de0ff2228be9e88fbc0bb",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:771:1374:sha256-af1a8c92b280b982ac594e1fcc08434ad2ae0eee06bd57850e156e234140fad1",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:886:900:sha256-533232681eac9dd2c357af3b24908d4c4e8d41562c911ad7ed51eb0f4638ccd0",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:990:1129:sha256-f63ba4358ff966ac514283f276f0c32e86dfc525ab2beea862985bb4ee9e53da",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:1131:1282:sha256-9ab3e271d6219176b18a908e1e89635a5cbfeb67fd6a395dd3bcf59d3ad942c1",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:1284:1374:sha256-767b73a5ca31a741e65fb7e179b443fe99e4fac4dbe40a0ca0c7e7df93cee56a"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:d422933b9d0889cd3e270adb7bf2de542d4f8b46adb2cfb82e74c91d25fa192c",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:b3166f5812cb01cfcdb3e9993981eccefd4fb946139de0ff2228be9e88fbc0bb",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:771:1374:sha256-af1a8c92b280b982ac594e1fcc08434ad2ae0eee06bd57850e156e234140fad1"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:692716fcb71322dba45fd40bc12a9fe6d916c4a3a5dacace0325393b595e7255",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:b3166f5812cb01cfcdb3e9993981eccefd4fb946139de0ff2228be9e88fbc0bb",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:providesContext",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:85:327:sha256-a32c8dfb7196d8707007190b60d5fd2a41cfc2faf3efbb1eecb19d61e6401457"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:9df5375e93ab9ca19f500727d9eaa74bd2c7b12a41a2b88d5290c8715b7be98c",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:9df5375e93ab9ca19f500727d9eaa74bd2c7b12a41a2b88d5290c8715b7be98c",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:be9635cf400880266544de77af6085de337a7fbe4e188c4a75b47428e27c3d03",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"\",\"alternative_quotes\":[\"(1) Law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport.\",\"(2) An individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter.\",\"(3) An individual authorized to carry a weapon in a sterile area under a security program.\"],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:a4802621c2952db3fed1b953743379eb63f4bea124eb3cc1d8cd650508a196b4\",\"urn:rulespec:document-understanding:assertion:bde7a47203f0c48844d28061c78c955cca3d52ab53de6720614a84372a2f5365\",\"urn:rulespec:document-understanding:assertion:61309f331b5ebe633f812abab2994ff3d0f3e74a8a169382cf7cf3827a5426e5\",\"urn:rulespec:document-understanding:assertion:890dede556c6fcab4239fdd81cf1f56ba52df79c294b8978f9ddab4974e2e692\",\"urn:rulespec:document-understanding:assertion:e8042f97d64518786f44ddbd88b19a597b1da439ca763d538d832a56fad112de\",\"urn:rulespec:document-understanding:assertion:dd0824837c0a4cb1f63a5871e39c5eb6c469e6196e8ef105571808448ac88dfa\",\"urn:rulespec:document-understanding:assertion:90b68bee0c06688ff504e7ccdf97e4998cd5068f1f02b7c797603d71061c850b\",\"urn:rulespec:document-understanding:assertion:b3166f5812cb01cfcdb3e9993981eccefd4fb946139de0ff2228be9e88fbc0bb\"],\"choice_quote\":\"(b) On an individual's person or accessible property—permitted carriage of a weapon. Paragraph (a) of this section does not apply as to carriage of firearms and other weapons if the individual is one of the following:\\n\\n(1) Law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport.\\n\\n(2) An individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter.\\n\\n(3) An individual authorized to carry a weapon in a sterile area under a security program.\",\"choice_text\":\"Applies if the individual is one of the following: (1) law enforcement personnel required to carry a firearm or other weapons while performing duty at the airport; (2) an individual authorized under §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562; or (3) an individual authorized to carry a weapon in a sterile area under a security program.\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[\"(a) On an individual's person or accessible property—prohibitions. Except as provided in paragraph (b) of this section, an individual may not have a weapon, explosive, or incendiary, on or about the individual's person or accessible property—\"],\"effective_periods\":[],\"end\":1374,\"evidence\":[{\"end\":1374,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:771:1374:sha256-af1a8c92b280b982ac594e1fcc08434ad2ae0eee06bd57850e156e234140fad1\",\"quote\":\"(b) On an individual's person or accessible property—permitted carriage of a weapon. Paragraph (a) of this section does not apply as to carriage of firearms and other weapons if the individual is one of the following:\\n\\n(1) Law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport.\\n\\n(2) An individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter.\\n\\n(3) An individual authorized to carry a weapon in a sterile area under a security program.\",\"start\":771},{\"end\":900,\"field\":\"modality\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:886:900:sha256-533232681eac9dd2c357af3b24908d4c4e8d41562c911ad7ed51eb0f4638ccd0\",\"quote\":\"does not apply\",\"start\":886},{\"end\":1374,\"field\":\"choice_text\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:771:1374:sha256-af1a8c92b280b982ac594e1fcc08434ad2ae0eee06bd57850e156e234140fad1\",\"quote\":\"(b) On an individual's person or accessible property—permitted carriage of a weapon. Paragraph (a) of this section does not apply as to carriage of firearms and other weapons if the individual is one of the following:\\n\\n(1) Law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport.\\n\\n(2) An individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter.\\n\\n(3) An individual authorized to carry a weapon in a sterile area under a security program.\",\"start\":771},{\"end\":1374,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:771:1374:sha256-af1a8c92b280b982ac594e1fcc08434ad2ae0eee06bd57850e156e234140fad1\",\"quote\":\"(b) On an individual's person or accessible property—permitted carriage of a weapon. Paragraph (a) of this section does not apply as to carriage of firearms and other weapons if the individual is one of the following:\\n\\n(1) Law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport.\\n\\n(2) An individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter.\\n\\n(3) An individual authorized to carry a weapon in a sterile area under a security program.\",\"start\":771},{\"end\":327,\"field\":\"context:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:85:327:sha256-a32c8dfb7196d8707007190b60d5fd2a41cfc2faf3efbb1eecb19d61e6401457\",\"quote\":\"(a) On an individual's person or accessible property—prohibitions. Except as provided in paragraph (b) of this section, an individual may not have a weapon, explosive, or incendiary, on or about the individual's person or accessible property—\",\"start\":85},{\"end\":1129,\"field\":\"alternative:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:990:1129:sha256-f63ba4358ff966ac514283f276f0c32e86dfc525ab2beea862985bb4ee9e53da\",\"quote\":\"(1) Law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport.\",\"start\":990},{\"end\":1282,\"field\":\"alternative:1\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:1131:1282:sha256-9ab3e271d6219176b18a908e1e89635a5cbfeb67fd6a395dd3bcf59d3ad942c1\",\"quote\":\"(2) An individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter.\",\"start\":1131},{\"end\":1374,\"field\":\"alternative:2\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:1284:1374:sha256-767b73a5ca31a741e65fb7e179b443fe99e4fac4dbe40a0ca0c7e7df93cee56a\",\"quote\":\"(3) An individual authorized to carry a weapon in a sterile area under a security program.\",\"start\":1284}],\"id\":\"urn:rulespec:document-understanding:revision:9df5375e93ab9ca19f500727d9eaa74bd2c7b12a41a2b88d5290c8715b7be98c\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"exemption\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:b3166f5812cb01cfcdb3e9993981eccefd4fb946139de0ff2228be9e88fbc0bb\",\"modality\":\"not_required\",\"modality_quote\":\"does not apply\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:75fefec6ed29c61be135e89eb29fdbf851979d5f164b5551135c273402a656b3\",\"origin\":\"aiSuggested\",\"quote\":\"(b) On an individual's person or accessible property—permitted carriage of a weapon. Paragraph (a) of this section does not apply as to carriage of firearms and other weapons if the individual is one of the following:\\n\\n(1) Law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport.\\n\\n(2) An individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter.\\n\\n(3) An individual authorized to carry a weapon in a sterile area under a security program.\",\"references\":[\"Paragraph (a)\",\"§§ 1544.219\",\"1544.221\",\"1544.223\",\"1546.211\",\"subpart B of part 1562\"],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:f9d47ee1befce89e56be5b9d78bf7dc425e250311316ec9ab0fc00f0c88c69a1\",\"scope_quotes\":[\"(b) On an individual's person or accessible property—permitted carriage of a weapon. Paragraph (a) of this section does not apply as to carriage of firearms and other weapons if the individual is one of the following:\\n\\n(1) Law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport.\\n\\n(2) An individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter.\\n\\n(3) An individual authorized to carry a weapon in a sterile area under a security program.\"],\"scope_text\":\"As to carriage of firearms and other weapons on an individual's person or accessible property, if the individual is law enforcement personnel required to carry a firearm or other weapons while in the performance of law enforcement duty at the airport; an individual authorized to carry a weapon in accordance with §§ 1544.219, 1544.221, 1544.223, 1546.211, or subpart B of part 1562 of this chapter; or an individual authorized to carry a weapon in a sterile area under a security program.\",\"section_id\":\"section-1\",\"start\":771,\"summary\":\"The prohibitions in paragraph (a) do not apply to the carriage of firearms and other weapons on an individual's person or accessible property if the individual is on-duty airport law enforcement required to carry weapons, an individual authorized under specified federal regulations, or an individual authorized under a security program to carry a weapon in a sterile area.\",\"target_ids\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:a4802621c2952db3fed1b953743379eb63f4bea124eb3cc1d8cd650508a196b4"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:bde7a47203f0c48844d28061c78c955cca3d52ab53de6720614a84372a2f5365"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:61309f331b5ebe633f812abab2994ff3d0f3e74a8a169382cf7cf3827a5426e5"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:890dede556c6fcab4239fdd81cf1f56ba52df79c294b8978f9ddab4974e2e692"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:e8042f97d64518786f44ddbd88b19a597b1da439ca763d538d832a56fad112de"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:dd0824837c0a4cb1f63a5871e39c5eb6c469e6196e8ef105571808448ac88dfa"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:90b68bee0c06688ff504e7ccdf97e4998cd5068f1f02b7c797603d71061c850b"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:b3166f5812cb01cfcdb3e9993981eccefd4fb946139de0ff2228be9e88fbc0bb"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:1376:1584:sha256-6c487aed336ad1cb682d66ec0d70d30d7d769fea9894c3e82b93edafdf57b3d9",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentContentDigest": "sha256:6c487aed336ad1cb682d66ec0d70d30d7d769fea9894c3e82b93edafdf57b3d9",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(c) In checked baggage. A passenger may not transport or offer for transport in checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23 of this chapter:\n\n(1) Any loaded firearm(s)."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1376,
+          "oa:end": 1584,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:1412:1419:sha256-0007a8bea4dcd3f6b1490fc7199650f1046713dd92d9314e1f2ede6946fcd999",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentContentDigest": "sha256:0007a8bea4dcd3f6b1490fc7199650f1046713dd92d9314e1f2ede6946fcd999",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "may not"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1412,
+          "oa:end": 1419,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:1376:1556:sha256-9dd5c9d0feb251838bff5c1a16b3c099ef083ecc7b0fca10625f4c8d5699fdf1",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentContentDigest": "sha256:9dd5c9d0feb251838bff5c1a16b3c099ef083ecc7b0fca10625f4c8d5699fdf1",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(c) In checked baggage. A passenger may not transport or offer for transport in checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23 of this chapter:"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1376,
+          "oa:end": 1556,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:scope:7553c4cac7ddd8d2f04c2d4e2586a78bdf82984b2d21842f045dc4478a2c6d3e",
+      "@type": "rkaf:ApplicabilityScope",
+      "rkaf:appliesInJurisdiction": [],
+      "rkaf:applicabilityCondition": "For a passenger transporting or offering for transport in checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23 of this chapter."
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:bf74da410cd19010ee29f61601ab3f4b40aaa6277d8bcdcee567ad4b822acde4",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:8a282c3bf4ba619af7a8f37582c6bf73a39f52cd582d7e1d97286d4c417d7eb1",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:a5091bf84c1544049e259a8a7493e7b65f2ff02914a9f30f68c9f416e9c7a951",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-prohibition",
+      "rkaf:assertsValue": {
+        "@value": "A passenger may not transport or offer for transport any loaded firearm(s) in checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:2e20b46e2dd89a2b73f17a9d6862b5506467e570530c67dae2d6ce58f4033535",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:bf74da410cd19010ee29f61601ab3f4b40aaa6277d8bcdcee567ad4b822acde4",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:1376:1584:sha256-6c487aed336ad1cb682d66ec0d70d30d7d769fea9894c3e82b93edafdf57b3d9"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:a7d65c24eaee74e1094f4da248e316c2166c199ae0491516aba46aba8cf16520",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:bf74da410cd19010ee29f61601ab3f4b40aaa6277d8bcdcee567ad4b822acde4",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:1376:1556:sha256-9dd5c9d0feb251838bff5c1a16b3c099ef083ecc7b0fca10625f4c8d5699fdf1"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:95961626d157c71ca246ce320aad8d18bdb47f082710f6d28db49a07322ade3d",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:8a282c3bf4ba619af7a8f37582c6bf73a39f52cd582d7e1d97286d4c417d7eb1",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:a5091bf84c1544049e259a8a7493e7b65f2ff02914a9f30f68c9f416e9c7a951",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "must_not",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:0e3eac56bcbb71d870e57213bba43970f65188fad3cf56216b0bdd7276adf82b",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:95961626d157c71ca246ce320aad8d18bdb47f082710f6d28db49a07322ade3d",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:1412:1419:sha256-0007a8bea4dcd3f6b1490fc7199650f1046713dd92d9314e1f2ede6946fcd999"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:1a63e2c70416d39073397da77a3664d780d168bbfb42731d8d91ac49e4f65d36",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:8a282c3bf4ba619af7a8f37582c6bf73a39f52cd582d7e1d97286d4c417d7eb1",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:a5091bf84c1544049e259a8a7493e7b65f2ff02914a9f30f68c9f416e9c7a951",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:scope_text",
+      "rkaf:assertsValue": {
+        "@value": "For a passenger transporting or offering for transport in checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23 of this chapter.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:b58cd7258d5e4fd9c73d0e74b71e7b383f2d3aff8ef26ad842e46fd71754b89f",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:1a63e2c70416d39073397da77a3664d780d168bbfb42731d8d91ac49e4f65d36",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:1376:1556:sha256-9dd5c9d0feb251838bff5c1a16b3c099ef083ecc7b0fca10625f4c8d5699fdf1"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:6f03a3d9a62f071e7a04e5bfc0efa2bddca6856704206b6d1813f9c6e228c0ce",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:8a282c3bf4ba619af7a8f37582c6bf73a39f52cd582d7e1d97286d4c417d7eb1",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:a5091bf84c1544049e259a8a7493e7b65f2ff02914a9f30f68c9f416e9c7a951",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"action\":\"\",\"actor\":\"\",\"alternative_quotes\":[],\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"effective_periods\":[],\"jurisdiction\":\"\",\"kind\":\"prohibition\",\"logic_text\":\"\",\"modality\":\"must_not\",\"object\":\"\",\"scope_text\":\"For a passenger transporting or offering for transport in checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23 of this chapter.\",\"summary\":\"A passenger may not transport or offer for transport any loaded firearm(s) in checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23.\",\"typed_values\":[]}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed",
+      "rkaf:hasApplicability": "urn:rulespec:document-understanding:scope:7553c4cac7ddd8d2f04c2d4e2586a78bdf82984b2d21842f045dc4478a2c6d3e"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:665cd9b8f28a79ab4326b47b02823cff092dfe8dfe7ed25da4beb0834212feda",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:6f03a3d9a62f071e7a04e5bfc0efa2bddca6856704206b6d1813f9c6e228c0ce",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:1376:1584:sha256-6c487aed336ad1cb682d66ec0d70d30d7d769fea9894c3e82b93edafdf57b3d9",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:1412:1419:sha256-0007a8bea4dcd3f6b1490fc7199650f1046713dd92d9314e1f2ede6946fcd999"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:9e070225b9517193a93d00d6ac8d22ed312e7a9f952bc2c2e18b27f803156040",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:6f03a3d9a62f071e7a04e5bfc0efa2bddca6856704206b6d1813f9c6e228c0ce",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:1376:1556:sha256-9dd5c9d0feb251838bff5c1a16b3c099ef083ecc7b0fca10625f4c8d5699fdf1"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:d1c28dbbc7c222ca7dd06f980228dcb7931bdac5dec5eff0d375e9e1fd17e53c",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:d1c28dbbc7c222ca7dd06f980228dcb7931bdac5dec5eff0d375e9e1fd17e53c",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:e42f5fafd17f7bec67808da0b566b3af1f2033245f120580dfbc168206a31a5c",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:bf74da410cd19010ee29f61601ab3f4b40aaa6277d8bcdcee567ad4b822acde4\",\"urn:rulespec:document-understanding:assertion:95961626d157c71ca246ce320aad8d18bdb47f082710f6d28db49a07322ade3d\",\"urn:rulespec:document-understanding:assertion:1a63e2c70416d39073397da77a3664d780d168bbfb42731d8d91ac49e4f65d36\",\"urn:rulespec:document-understanding:assertion:6f03a3d9a62f071e7a04e5bfc0efa2bddca6856704206b6d1813f9c6e228c0ce\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"effective_periods\":[],\"end\":1584,\"evidence\":[{\"end\":1584,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:1376:1584:sha256-6c487aed336ad1cb682d66ec0d70d30d7d769fea9894c3e82b93edafdf57b3d9\",\"quote\":\"(c) In checked baggage. A passenger may not transport or offer for transport in checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23 of this chapter:\\n\\n(1) Any loaded firearm(s).\",\"start\":1376},{\"end\":1419,\"field\":\"modality\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:1412:1419:sha256-0007a8bea4dcd3f6b1490fc7199650f1046713dd92d9314e1f2ede6946fcd999\",\"quote\":\"may not\",\"start\":1412},{\"end\":1556,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:1376:1556:sha256-9dd5c9d0feb251838bff5c1a16b3c099ef083ecc7b0fca10625f4c8d5699fdf1\",\"quote\":\"(c) In checked baggage. A passenger may not transport or offer for transport in checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23 of this chapter:\",\"start\":1376}],\"id\":\"urn:rulespec:document-understanding:revision:d1c28dbbc7c222ca7dd06f980228dcb7931bdac5dec5eff0d375e9e1fd17e53c\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"prohibition\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:6f03a3d9a62f071e7a04e5bfc0efa2bddca6856704206b6d1813f9c6e228c0ce\",\"modality\":\"must_not\",\"modality_quote\":\"may not\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:e089b583c017de3961369b122c79834e10ee1def33d6e3d92d7ff2fe72203679\",\"origin\":\"aiSuggested\",\"quote\":\"(c) In checked baggage. A passenger may not transport or offer for transport in checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23 of this chapter:\\n\\n(1) Any loaded firearm(s).\",\"references\":[\"§ 1562.23\"],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:a5091bf84c1544049e259a8a7493e7b65f2ff02914a9f30f68c9f416e9c7a951\",\"scope_quotes\":[\"(c) In checked baggage. A passenger may not transport or offer for transport in checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23 of this chapter:\"],\"scope_text\":\"For a passenger transporting or offering for transport in checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23 of this chapter.\",\"section_id\":\"section-1\",\"start\":1376,\"summary\":\"A passenger may not transport or offer for transport any loaded firearm(s) in checked baggage or in baggage carried in an inaccessible cargo hold under § 1562.23.\",\"target_ids\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:bf74da410cd19010ee29f61601ab3f4b40aaa6277d8bcdcee567ad4b822acde4"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:95961626d157c71ca246ce320aad8d18bdb47f082710f6d28db49a07322ade3d"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:1a63e2c70416d39073397da77a3664d780d168bbfb42731d8d91ac49e4f65d36"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:6f03a3d9a62f071e7a04e5bfc0efa2bddca6856704206b6d1813f9c6e228c0ce"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:2059:2291:sha256-a31581aba563017ba66278b6c67ef76bae96945bec1063ae465670c6bcc41d4a",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentContentDigest": "sha256:a31581aba563017ba66278b6c67ef76bae96945bec1063ae465670c6bcc41d4a",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(d) Ammunition. This section does not prohibit the carriage of ammunition in checked baggage or in the same container as a firearm. Title 49 CFR part 175 provides additional requirements governing carriage of ammunition on aircraft."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 2059,
+          "oa:end": 2291,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:2075:2291:sha256-df5f185f2fb8f35412996e48e2718830bbd9456316cdf624e784ac44f13db472",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentContentDigest": "sha256:df5f185f2fb8f35412996e48e2718830bbd9456316cdf624e784ac44f13db472",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "This section does not prohibit the carriage of ammunition in checked baggage or in the same container as a firearm. Title 49 CFR part 175 provides additional requirements governing carriage of ammunition on aircraft."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 2075,
+          "oa:end": 2291,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:2088:2105:sha256-d37f1b3411738f35d2f9e0d1ec9dfcc353c624367c0e413d025135b13dae3a2c",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:ab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460",
+      "rkaf:fragmentContentDigest": "sha256:d37f1b3411738f35d2f9e0d1ec9dfcc353c624367c0e413d025135b13dae3a2c",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "does not prohibit"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 2088,
+          "oa:end": 2105,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:addb53e9df0df945c7997593865dce9010acc8d1bb5d65cb769b03774d48faf2",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:8a282c3bf4ba619af7a8f37582c6bf73a39f52cd582d7e1d97286d4c417d7eb1",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:42d4d9c451663ad4300a1d9e4f50c03ab6844aeb1a0763247eb8605fd98d777c",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-statement",
+      "rkaf:assertsValue": {
+        "@value": "Section 1540.111 does not prohibit the carriage of ammunition in checked baggage or in the same container as a firearm, while Title 49 CFR part 175 provides additional requirements governing ammunition carriage on aircraft.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:032ab80ad108edbd2087412485d5690a6bf9a837f4479656834bad0530f76fea",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:addb53e9df0df945c7997593865dce9010acc8d1bb5d65cb769b03774d48faf2",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:2059:2291:sha256-a31581aba563017ba66278b6c67ef76bae96945bec1063ae465670c6bcc41d4a"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:02e07e5df985ddf196c8e94f2f51f983c77d48ed7ba16cbc64c216ea80bb4fdb",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:8a282c3bf4ba619af7a8f37582c6bf73a39f52cd582d7e1d97286d4c417d7eb1",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:42d4d9c451663ad4300a1d9e4f50c03ab6844aeb1a0763247eb8605fd98d777c",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:logic_text",
+      "rkaf:assertsValue": {
+        "@value": "This section does not prohibit the carriage of ammunition in checked baggage or in the same container as a firearm. Title 49 CFR part 175 provides additional requirements governing carriage of ammunition on aircraft.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:b404756c950482d7b77a07f4c89289ce7ab2dee824b3b8e38b21c0848172d2e8",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:02e07e5df985ddf196c8e94f2f51f983c77d48ed7ba16cbc64c216ea80bb4fdb",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:2075:2291:sha256-df5f185f2fb8f35412996e48e2718830bbd9456316cdf624e784ac44f13db472"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:2ab07e96545279c33fbe24c72a3360789d5c163c0ed03b384e3b86c311429964",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:8a282c3bf4ba619af7a8f37582c6bf73a39f52cd582d7e1d97286d4c417d7eb1",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:42d4d9c451663ad4300a1d9e4f50c03ab6844aeb1a0763247eb8605fd98d777c",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "not_stated",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:5abca61ab00ae8d4862d4c9787e3f25309bb41acb6d3afc2f4a4e19f625bdb67",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:2ab07e96545279c33fbe24c72a3360789d5c163c0ed03b384e3b86c311429964",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:2088:2105:sha256-d37f1b3411738f35d2f9e0d1ec9dfcc353c624367c0e413d025135b13dae3a2c"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:86911e05f1c81979628996746469582d4a1b2bf79a79d5a28b67b5c0c24468cb",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:85b926afb80a3124d5936ccbb593b45162910d2d7ab9aa64cdd4c8d9a1d384ca",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:8a282c3bf4ba619af7a8f37582c6bf73a39f52cd582d7e1d97286d4c417d7eb1",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:42d4d9c451663ad4300a1d9e4f50c03ab6844aeb1a0763247eb8605fd98d777c",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"action\":\"\",\"actor\":\"\",\"alternative_quotes\":[],\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"effective_periods\":[],\"jurisdiction\":\"\",\"kind\":\"statement\",\"logic_text\":\"This section does not prohibit the carriage of ammunition in checked baggage or in the same container as a firearm. Title 49 CFR part 175 provides additional requirements governing carriage of ammunition on aircraft.\",\"modality\":\"not_stated\",\"object\":\"\",\"scope_text\":\"\",\"summary\":\"Section 1540.111 does not prohibit the carriage of ammunition in checked baggage or in the same container as a firearm, while Title 49 CFR part 175 provides additional requirements governing ammunition carriage on aircraft.\",\"typed_values\":[]}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:83858ecea27ce8b2eb746d0d8a0dcd9b699ce206151c691eca8fa2e663a70ed9",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:86911e05f1c81979628996746469582d4a1b2bf79a79d5a28b67b5c0c24468cb",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:2059:2291:sha256-a31581aba563017ba66278b6c67ef76bae96945bec1063ae465670c6bcc41d4a",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:2075:2291:sha256-df5f185f2fb8f35412996e48e2718830bbd9456316cdf624e784ac44f13db472",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:2088:2105:sha256-d37f1b3411738f35d2f9e0d1ec9dfcc353c624367c0e413d025135b13dae3a2c"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:19a44dde2bba906f8005b061fb5ff62352170cb04c7e0edb6a78f08531d32cf3",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:19a44dde2bba906f8005b061fb5ff62352170cb04c7e0edb6a78f08531d32cf3",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:69d7f971f9f07a1b603346231a50cab281fe5ea3279f11d635d91d10a987acf8",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:addb53e9df0df945c7997593865dce9010acc8d1bb5d65cb769b03774d48faf2\",\"urn:rulespec:document-understanding:assertion:02e07e5df985ddf196c8e94f2f51f983c77d48ed7ba16cbc64c216ea80bb4fdb\",\"urn:rulespec:document-understanding:assertion:2ab07e96545279c33fbe24c72a3360789d5c163c0ed03b384e3b86c311429964\",\"urn:rulespec:document-understanding:assertion:86911e05f1c81979628996746469582d4a1b2bf79a79d5a28b67b5c0c24468cb\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"effective_periods\":[],\"end\":2291,\"evidence\":[{\"end\":2291,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:2059:2291:sha256-a31581aba563017ba66278b6c67ef76bae96945bec1063ae465670c6bcc41d4a\",\"quote\":\"(d) Ammunition. This section does not prohibit the carriage of ammunition in checked baggage or in the same container as a firearm. Title 49 CFR part 175 provides additional requirements governing carriage of ammunition on aircraft.\",\"start\":2059},{\"end\":2291,\"field\":\"logic_text\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:2075:2291:sha256-df5f185f2fb8f35412996e48e2718830bbd9456316cdf624e784ac44f13db472\",\"quote\":\"This section does not prohibit the carriage of ammunition in checked baggage or in the same container as a firearm. Title 49 CFR part 175 provides additional requirements governing carriage of ammunition on aircraft.\",\"start\":2075},{\"end\":2105,\"field\":\"modality\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Aab45ff8a7d213a548ba64b9bd9efdd9202dcd2f94cc0c1045a1b5fb69fe86460:2088:2105:sha256-d37f1b3411738f35d2f9e0d1ec9dfcc353c624367c0e413d025135b13dae3a2c\",\"quote\":\"does not prohibit\",\"start\":2088}],\"id\":\"urn:rulespec:document-understanding:revision:19a44dde2bba906f8005b061fb5ff62352170cb04c7e0edb6a78f08531d32cf3\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"statement\",\"logic_text\":\"This section does not prohibit the carriage of ammunition in checked baggage or in the same container as a firearm. Title 49 CFR part 175 provides additional requirements governing carriage of ammunition on aircraft.\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:86911e05f1c81979628996746469582d4a1b2bf79a79d5a28b67b5c0c24468cb\",\"modality\":\"not_stated\",\"modality_quote\":\"does not prohibit\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:b1ef710ccfdc0a3d002e6dbe55b63ec70774d3db5a74f840a5ecd6941a3f9cff\",\"origin\":\"aiSuggested\",\"quote\":\"(d) Ammunition. This section does not prohibit the carriage of ammunition in checked baggage or in the same container as a firearm. Title 49 CFR part 175 provides additional requirements governing carriage of ammunition on aircraft.\",\"references\":[\"Title 49 CFR part 175\"],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:42d4d9c451663ad4300a1d9e4f50c03ab6844aeb1a0763247eb8605fd98d777c\",\"scope_quotes\":[],\"scope_text\":\"\",\"section_id\":\"section-1\",\"start\":2059,\"summary\":\"Section 1540.111 does not prohibit the carriage of ammunition in checked baggage or in the same container as a firearm, while Title 49 CFR part 175 provides additional requirements governing ammunition carriage on aircraft.\",\"target_ids\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:addb53e9df0df945c7997593865dce9010acc8d1bb5d65cb769b03774d48faf2"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:02e07e5df985ddf196c8e94f2f51f983c77d48ed7ba16cbc64c216ea80bb4fdb"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:2ab07e96545279c33fbe24c72a3360789d5c163c0ed03b384e3b86c311429964"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:86911e05f1c81979628996746469582d4a1b2bf79a79d5a28b67b5c0c24468cb"
+        }
+      ]
+    }
+  ]
+}

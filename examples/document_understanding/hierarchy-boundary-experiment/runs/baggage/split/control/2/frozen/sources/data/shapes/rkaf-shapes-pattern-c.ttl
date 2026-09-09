@@ -1,0 +1,236 @@
+# Rulespec Pattern-C cross-property invariants
+# Profile: Pattern C only (no sh:if / sh:then)
+#
+# These shapes encode multi-property contracts that the JSON Schema target
+# can't express in v0.2 (no cross-property conditionals at compile time).
+# Each shape is normative; failures are L3 violations.
+#
+# Spec anchors:
+#   §3.5 — Assertion AI-lineage symmetry
+#   §4.4 — Warrant family/kind agreement. CUE #WarrantFamilyKindAgreement now
+#          compiles its composed #Warrant fields into every target, but the
+#          projector emits NO SHACL NodeShape for it: the definition declares
+#          no `@type` of its own and composition does not inherit #Warrant's,
+#          precisely so nothing generated re-binds rkaf:Warrant and collides
+#          with rkaf:WarrantFamilyKindAgreementShape below. The generated
+#          JSON Schema `anyOf` is the only generated agreement check; the
+#          generated Rust/TypeScript carriers enforce nothing. This
+#          hand-authored shape is therefore the sole SHACL enforcement of §4.4.
+#   §5.2 — BridgeValidationResult rejected → remediation required
+
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rkaf:  <https://rulespec.org/ns/v1#> .
+
+<https://rulespec.org/shapes/pattern-c>
+  a owl:Ontology ;
+  rdfs:label "Rulespec Pattern-C cross-property SHACL shapes" ;
+  rdfs:comment "Hand-authored cross-property invariants. JSON Schema target can't express these in v0.2; compiled SHACL is per-property only." .
+
+# ---------------------------------------------------------------------------
+# §3.5 — Assertion construction-origin inverse:
+# Only an AI-constructed assertion may carry hasAILineage.
+# (The forward rule — aiSuggested MUST carry — already lives in
+#  rkaf:AssertionAILineageShape in rkaf-shapes-core.ttl.)
+# ---------------------------------------------------------------------------
+rkaf:AssertionNonAITouchedNoLineageShape a sh:NodeShape ;
+  sh:targetClass rkaf:Assertion ;
+  sh:or (
+    [ sh:property [ sh:path rkaf:assertionOrigin ;
+        sh:hasValue rkaf:aiSuggested ] ]
+    [ sh:property [ sh:path rkaf:hasAILineage ; sh:maxCount 0 ] ]
+  ) ;
+  sh:message "Only assertionOrigin rkaf:aiSuggested may carry rkaf:hasAILineage; review and promotion are separate records (§3.5)." .
+
+# ---------------------------------------------------------------------------
+# §4.4 — Warrant family/kind agreement:
+# A Warrant's warrantFamily MUST be the family of its warrantKind.
+# Pattern-C disjunction: for every (kind-set, family) pair, exclude
+# the conjunction (kind ∈ set, family ≠ matching family).
+# ---------------------------------------------------------------------------
+rkaf:WarrantFamilyKindAgreementShape a sh:NodeShape ;
+  sh:targetClass rkaf:Warrant ;
+  sh:or (
+    # Legal family kinds
+    [ sh:property [ sh:path rkaf:warrantKind ;
+        sh:in ( rkaf:legal rkaf:statutory rkaf:regulatory rkaf:delegated
+                 rkaf:organizational rkaf:contractual rkaf:localOperational
+                 rkaf:publication ) ] ;
+      sh:property [ sh:path rkaf:warrantFamily ; sh:hasValue rkaf:legal ] ]
+    # Scientific family kinds
+    [ sh:property [ sh:path rkaf:warrantKind ;
+        sh:in ( rkaf:methodological rkaf:empirical rkaf:replication
+                 rkaf:peerReview ) ] ;
+      sh:property [ sh:path rkaf:warrantFamily ; sh:hasValue rkaf:scientific ] ]
+    # Editorial family kinds
+    [ sh:property [ sh:path rkaf:warrantKind ;
+        sh:in ( rkaf:editorial rkaf:factCheck rkaf:correction ) ] ;
+      sh:property [ sh:path rkaf:warrantFamily ; sh:hasValue rkaf:editorial ] ]
+    # Cryptographic family kinds
+    [ sh:property [ sh:path rkaf:warrantKind ;
+        sh:in ( rkaf:cryptographic rkaf:commitment ) ] ;
+      sh:property [ sh:path rkaf:warrantFamily ; sh:hasValue rkaf:cryptographic ] ]
+    # Social family kinds
+    [ sh:property [ sh:path rkaf:warrantKind ;
+        sh:in ( rkaf:consensus rkaf:expertOpinion rkaf:communityEndorsement ) ] ;
+      sh:property [ sh:path rkaf:warrantFamily ; sh:hasValue rkaf:social ] ]
+    # Source-class family kinds
+    [ sh:property [ sh:path rkaf:warrantKind ;
+        sh:in ( rkaf:sourceReliability rkaf:provenanceClass ) ] ;
+      sh:property [ sh:path rkaf:warrantFamily ; sh:hasValue rkaf:source-class ] ]
+  ) ;
+  sh:message "Warrant.warrantFamily MUST agree with the family of its warrantKind (§4.4). E.g., warrantKind=rkaf:statutory requires warrantFamily=rkaf:legal." .
+
+# ---------------------------------------------------------------------------
+# §4.6 — PointInTimeException MUST retain at least one of {Assertion, WorkProduct}
+# CUE can't express "exactly-one-of-these-two-properties is required"; this
+# Pattern-C shape enforces "at least one of retainsAssertion / retainsWorkProduct
+# is present".
+# ---------------------------------------------------------------------------
+rkaf:PointInTimeExceptionRetainsShape a sh:NodeShape ;
+  sh:targetClass rkaf:PointInTimeException ;
+  sh:or (
+    [ sh:property [ sh:path rkaf:retainsAssertion   ; sh:minCount 1 ] ]
+    [ sh:property [ sh:path rkaf:retainsWorkProduct ; sh:minCount 1 ] ]
+  ) ;
+  sh:message "PointInTimeException MUST carry rkaf:retainsAssertion OR rkaf:retainsWorkProduct (Core v0.1 §4.6)." .
+
+# ---------------------------------------------------------------------------
+# §5.2 — BridgeValidationResult rejected → remediation required:
+# When result=rkaf:rejected, the BVR MUST carry either suggestedRemediation
+# OR noRemediationReason.
+# ---------------------------------------------------------------------------
+rkaf:BridgeValidationResultRejectedRemediationShape a sh:NodeShape ;
+  sh:targetClass rkaf:BridgeValidationResult ;
+  sh:or (
+    [ sh:property [ sh:path rkaf:result ;
+        sh:not [ sh:hasValue rkaf:rejected ] ] ]
+    [ sh:property [ sh:path rkaf:suggestedRemediation ; sh:minCount 1 ] ]
+    [ sh:property [ sh:path rkaf:noRemediationReason  ; sh:minCount 1 ] ]
+  ) ;
+  sh:message "BridgeValidationResult with result=rkaf:rejected MUST carry suggestedRemediation OR noRemediationReason (§5.2)." .
+
+# ---------------------------------------------------------------------------
+# Rulemaking §2 — a regulations.gov identifier never identifies a Proceeding.
+# Partner-defined is an escape hatch for a stable proceeding identifier, not a
+# way to relabel a docket identifier.
+# ---------------------------------------------------------------------------
+rkaf:ProceedingIdentifierBoundaryShape a sh:NodeShape ;
+  sh:targetClass rkaf:Proceeding ;
+  sh:property [
+    sh:path rkaf:hasProceedingIdentifier ;
+    sh:not [ sh:pattern "^urn:rkaf:us:regsgov:" ]
+  ] ;
+  sh:message "A Proceeding identifier MUST NOT be a regulations.gov docket, document, or comment identifier (rulemaking §2)." .
+
+# ---------------------------------------------------------------------------
+# Rulemaking §3 — a CommentPeriod needs at least one semantic anchor. A
+# docket-only interval remains publishable while Proceeding identity is
+# unresolved; a joint interval may name multiple anchors.
+# ---------------------------------------------------------------------------
+rkaf:CommentPeriodAnchorShape a sh:NodeShape ;
+  sh:targetClass rkaf:CommentPeriod ;
+  sh:or (
+    [ sh:property [ sh:path rkaf:commentPeriodFor ; sh:minCount 1 ] ]
+    [ sh:property [ sh:path rkaf:commentPeriodDocket ; sh:minCount 1 ] ]
+  ) ;
+  sh:message "CommentPeriod MUST name at least one Proceeding or Docket anchor (rulemaking §3)." .
+
+# ---------------------------------------------------------------------------
+# Rulemaking §§2 and 5 — stage is a Proceeding-only property.
+# ---------------------------------------------------------------------------
+rkaf:ProceedingStageDomainShape a sh:NodeShape ;
+  sh:targetSubjectsOf rkaf:proceedingStage ;
+  sh:class rkaf:Proceeding ;
+  sh:message "rkaf:proceedingStage may appear only on rkaf:Proceeding nodes (rulemaking §§2, 5)." .
+
+# Agency stage-family events seed only Proceedings. Judicial/congressional
+# events use the separate shape below because they may additionally scope a
+# partial action to affected Artifacts.
+rkaf:ProceedingStageEventTargetShape a sh:NodeShape ;
+  sh:targetClass rkaf:LifecycleEvent ;
+  sh:or (
+    [ sh:property [
+        sh:path rkaf:lifecycleEventKind ;
+        sh:not [ sh:in (
+          rkaf:proceedingPrerule rkaf:proceedingProposed
+          rkaf:proceedingSupplemental rkaf:proceedingFinal
+          rkaf:proceedingWithdrawn rkaf:proceedingLongterm
+          rkaf:proceedingConcluded
+        ) ]
+      ] ]
+    [ sh:property [ sh:path rkaf:appliesTo ; sh:class rkaf:Proceeding ] ]
+  ) ;
+  sh:message "A proceeding stage-family LifecycleEvent MUST apply only to rkaf:Proceeding nodes (rulemaking §5)." .
+
+rkaf:ProceedingExternalLegalEventTargetShape a sh:NodeShape ;
+  sh:targetClass rkaf:LifecycleEvent ;
+  sh:or (
+    [ sh:property [
+        sh:path rkaf:lifecycleEventKind ;
+        sh:not [ sh:in (
+          rkaf:proceedingVacated rkaf:proceedingStayed
+          rkaf:proceedingRemanded rkaf:proceedingReinstated
+          rkaf:proceedingDisapproved
+        ) ]
+      ] ]
+    [
+      sh:property [
+        sh:path rkaf:appliesTo ;
+        sh:or (
+          [ sh:class rkaf:Proceeding ]
+          [ sh:class rkaf:Artifact ]
+        )
+      ] ;
+      sh:property [
+        sh:path rkaf:appliesTo ;
+        sh:qualifiedValueShape [ sh:class rkaf:Proceeding ] ;
+        sh:qualifiedMinCount 1
+      ]
+    ]
+  ) ;
+  sh:message "A judicial or congressional proceeding event MUST apply to a Proceeding and MAY also name affected Artifacts (rulemaking §5)." .
+
+# When a graph carries both a current stage and stage-family events, the current
+# value must equal the latest dated event kind. Equal-date disagreement is a
+# violation because no unique latest state exists.
+rkaf:ProceedingLatestStageAgreementShape a sh:NodeShape ;
+  sh:targetClass rkaf:Proceeding ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "proceedingStage MUST equal the latest stage-family LifecycleEvent kind (rulemaking §5)." ;
+    sh:select """
+      PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+      PREFIX rkaf: <https://rulespec.org/ns/v1#>
+      SELECT $this
+      WHERE {
+        $this rkaf:proceedingStage ?stage .
+        ?event rdf:type rkaf:LifecycleEvent ;
+               rkaf:appliesTo $this ;
+               rkaf:lifecycleEventKind ?kind ;
+               rkaf:effectiveDate ?date .
+        FILTER (?kind IN (
+          rkaf:proceedingPrerule, rkaf:proceedingProposed,
+          rkaf:proceedingSupplemental, rkaf:proceedingFinal,
+          rkaf:proceedingWithdrawn, rkaf:proceedingLongterm,
+          rkaf:proceedingConcluded
+        ))
+        FILTER NOT EXISTS {
+          ?later rdf:type rkaf:LifecycleEvent ;
+                 rkaf:appliesTo $this ;
+                 rkaf:lifecycleEventKind ?laterKind ;
+                 rkaf:effectiveDate ?laterDate .
+          FILTER (?laterKind IN (
+            rkaf:proceedingPrerule, rkaf:proceedingProposed,
+            rkaf:proceedingSupplemental, rkaf:proceedingFinal,
+            rkaf:proceedingWithdrawn, rkaf:proceedingLongterm,
+            rkaf:proceedingConcluded
+          ))
+          FILTER (?laterDate > ?date)
+        }
+        FILTER (?stage != ?kind)
+      }
+    """
+  ] .

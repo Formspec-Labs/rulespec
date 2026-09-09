@@ -1,0 +1,15 @@
+# Higher thinking effort: completed experiment
+
+Decision: keep explicit high thinking and provider-controlled generation available through `--thinking-level high --max-output-tokens provider`. No thinking_budget or max_output_tokens is sent in this mode. Preserve the cheap defaults until broader evidence supports changing them.
+
+User asked to raise thinking effort and remove the thinking budget. The previous extractor sent neither level nor budget; Google documents medium as the current default for gemini-3.8-flash. LangExtract 1.6 filters thinking_config, so the existing SDK recording boundary now sets it before capture and transmission. Settings survive replay/reprocessing. Provider-limit mode omits the application token cap; model metadata reports 65,536 output limit. Timeout increased from 120 to 300 seconds without enabling retries.
+
+Evidence: examples/document_understanding/thinking-level-experiment/README.md and source-review.json. Initial eight fresh medium/high calls at 32,768 output tokens completed 4/4 medium and 2/4 high. High display and second leave failed MAX_TOKENS after about 31.5K thinking tokens. Preserved both failures. Four follow-up high calls without the application cap completed 4/4, with identical request bodies except the omitted max_output_tokens field; one took 133 seconds. Two repeats each of full leave and display, no fresh medium controls in follow-up.
+
+Quality: high repeatedly retained teacher/inaccurate-record context, leave schedule variants, qualified future-headcount example, reference topics and more separately usable meanings. Leave 23/20 meanings versus medium11/11. High baggage preserved declaration recipient/content in its one completed capped comparison, but negative-force labels remain wrong. Display core meanings were already strong at medium and high benefits were inconsistent. Standalone permissions still lose inherited conditions; component evidence can cover only a lead-in. Detailed findings are revisable source assessments, not gold labels.
+
+Effort: uncapped high averaged 3.4x reported tokens for leave and 2.3x for display relative to the medium controls. Entire experiment 12 model calls, 314,197 reported tokens, 156 accepted meanings; ten complete and two preserved failed runs. No repair/retry calls. One read-only model metadata request is separate from generation calls.
+
+Verification: 327 package tests passed after final runtime changes, 100 focused extraction tests, CLI help and diff check. All 12 captures replayed identically without provider calls: first eight before the provider-limit runtime extension, last four under final runtime. Frozen runtimes and original captures retained. No prompt/schema/UI changes or new Core representations. No commit requested this turn; work remains local/uncommitted.
+
+Natural stopping point reached. Next useful work, if requested: test high/provider mode on varied longer documents with predeclared source-coverage criteria; separately target prohibition-exception labels and context loss when splitting. Do not spend another iteration merely increasing limits on these same cases.

@@ -1,0 +1,249 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/warrant.json",
+  "title": "warrant",
+  "$defs": {
+    "WarrantFamily": {
+      "type": "string",
+      "enum": [
+        "rkaf:legal",
+        "rkaf:scientific",
+        "rkaf:editorial",
+        "rkaf:cryptographic",
+        "rkaf:social",
+        "rkaf:source-class"
+      ]
+    },
+    "WarrantKindLegal": {
+      "type": "string",
+      "enum": [
+        "rkaf:legal",
+        "rkaf:statutory",
+        "rkaf:regulatory",
+        "rkaf:delegated",
+        "rkaf:organizational",
+        "rkaf:contractual",
+        "rkaf:localOperational",
+        "rkaf:publication"
+      ]
+    },
+    "WarrantKindScientific": {
+      "type": "string",
+      "enum": [
+        "rkaf:methodological",
+        "rkaf:empirical",
+        "rkaf:replication",
+        "rkaf:peerReview"
+      ]
+    },
+    "WarrantKindEditorial": {
+      "type": "string",
+      "enum": [
+        "rkaf:editorial",
+        "rkaf:factCheck",
+        "rkaf:correction"
+      ]
+    },
+    "WarrantKindCryptographic": {
+      "type": "string",
+      "enum": [
+        "rkaf:cryptographic",
+        "rkaf:commitment"
+      ]
+    },
+    "WarrantKindSocial": {
+      "type": "string",
+      "enum": [
+        "rkaf:consensus",
+        "rkaf:expertOpinion",
+        "rkaf:communityEndorsement"
+      ]
+    },
+    "WarrantKindSourceClass": {
+      "type": "string",
+      "enum": [
+        "rkaf:sourceReliability",
+        "rkaf:provenanceClass"
+      ]
+    },
+    "WarrantKind": {
+      "type": "string",
+      "enum": [
+        "rkaf:legal",
+        "rkaf:statutory",
+        "rkaf:regulatory",
+        "rkaf:delegated",
+        "rkaf:organizational",
+        "rkaf:contractual",
+        "rkaf:localOperational",
+        "rkaf:publication",
+        "rkaf:methodological",
+        "rkaf:empirical",
+        "rkaf:replication",
+        "rkaf:peerReview",
+        "rkaf:editorial",
+        "rkaf:factCheck",
+        "rkaf:correction",
+        "rkaf:cryptographic",
+        "rkaf:commitment",
+        "rkaf:consensus",
+        "rkaf:expertOpinion",
+        "rkaf:communityEndorsement",
+        "rkaf:sourceReliability",
+        "rkaf:provenanceClass"
+      ]
+    },
+    "Warrant": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:Warrant"
+        },
+        "rkaf:warrantKind": {
+          "$ref": "#/$defs/WarrantKind"
+        },
+        "rkaf:warrantFamily": {
+          "$ref": "#/$defs/WarrantFamily"
+        },
+        "rkaf:hasPredecessor": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "rkaf:defeasible": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:warrantKind",
+        "rkaf:warrantFamily"
+      ]
+    },
+    "WarrantFamilyKindAgreement": {
+      "type": "object",
+      "properties": {
+        "rkaf:warrantKind": {
+          "$ref": "#/$defs/WarrantKind"
+        },
+        "rkaf:warrantFamily": {
+          "$ref": "#/$defs/WarrantFamily"
+        },
+        "rkaf:hasPredecessor": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "rkaf:defeasible": {
+          "type": "boolean"
+        }
+      },
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "properties": {
+                "rkaf:warrantKind": {
+                  "$ref": "#/$defs/WarrantKindLegal"
+                },
+                "rkaf:warrantFamily": {
+                  "const": "rkaf:legal"
+                }
+              },
+              "required": [
+                "rkaf:warrantKind",
+                "rkaf:warrantFamily"
+              ]
+            },
+            {
+              "properties": {
+                "rkaf:warrantKind": {
+                  "$ref": "#/$defs/WarrantKindScientific"
+                },
+                "rkaf:warrantFamily": {
+                  "const": "rkaf:scientific"
+                }
+              },
+              "required": [
+                "rkaf:warrantKind",
+                "rkaf:warrantFamily"
+              ]
+            },
+            {
+              "properties": {
+                "rkaf:warrantKind": {
+                  "$ref": "#/$defs/WarrantKindEditorial"
+                },
+                "rkaf:warrantFamily": {
+                  "const": "rkaf:editorial"
+                }
+              },
+              "required": [
+                "rkaf:warrantKind",
+                "rkaf:warrantFamily"
+              ]
+            },
+            {
+              "properties": {
+                "rkaf:warrantKind": {
+                  "$ref": "#/$defs/WarrantKindCryptographic"
+                },
+                "rkaf:warrantFamily": {
+                  "const": "rkaf:cryptographic"
+                }
+              },
+              "required": [
+                "rkaf:warrantKind",
+                "rkaf:warrantFamily"
+              ]
+            },
+            {
+              "properties": {
+                "rkaf:warrantKind": {
+                  "$ref": "#/$defs/WarrantKindSocial"
+                },
+                "rkaf:warrantFamily": {
+                  "const": "rkaf:social"
+                }
+              },
+              "required": [
+                "rkaf:warrantKind",
+                "rkaf:warrantFamily"
+              ]
+            },
+            {
+              "properties": {
+                "rkaf:warrantKind": {
+                  "$ref": "#/$defs/WarrantKindSourceClass"
+                },
+                "rkaf:warrantFamily": {
+                  "const": "rkaf:source-class"
+                }
+              },
+              "required": [
+                "rkaf:warrantKind",
+                "rkaf:warrantFamily"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

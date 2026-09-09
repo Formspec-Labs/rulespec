@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/trust-and-safety.json",
+  "title": "trust-and-safety",
+  "$defs": {
+    "SafetyLabel": {
+      "type": "string",
+      "enum": [
+        "rkaf:D0DisplayOnly",
+        "rkaf:S1Suggestion",
+        "rkaf:R2Review",
+        "rkaf:A3Advisory",
+        "rkaf:A3AdvisoryAggregated",
+        "rkaf:A3AuthorityCritical",
+        "rkaf:P4Production",
+        "rkaf:permits-axiomatic",
+        "rkaf:permits-consensus-without-citation",
+        "rkaf:permits-all"
+      ]
+    },
+    "SafetyLabelCarrier": {
+      "type": "object",
+      "properties": {
+        "rkaf:hasSafetyLabel": {
+          "$ref": "#/$defs/SafetyLabel"
+        }
+      }
+    }
+  }
+}
