@@ -17,8 +17,9 @@ settings and conclusions of their own runs.
 Start with **low-thinking extraction**. Add a **medium-thinking audit** when its
 diagnostic feedback is useful. Keep full source passages available to downstream
 search alongside the extracted statements. Relationship refinement and structured
-concept/value enrichment are optional; ordinary extraction preserves complete
-meaning in prose without requiring those extra passes.
+concept/value enrichment are optional. Ordinary extraction represents meaning in
+prose, but can still omit qualifications. Retain `logic_text` and source evidence
+with short statements so downstream users can inspect their governing context.
 
 The [earlier full-section run](../../examples/document_understanding/low-extract-medium-audit/README.md)
 used a saved 6,919-character leave-eligibility regulation before the inventory
@@ -31,8 +32,8 @@ evidence change below:
   plus remaining weaknesses in standalone wording that the audit missed.
 - The three calls used 64,117 reported tokens and about 48 seconds of request
   time. This is one measured run, not a typical-document cost estimate.
-- Extraction, audit and discovery export replay identically. All 333 package
-  tests, six schema-generator tests and native CUE generation checks pass.
+- Extraction, audit and discovery export replay identically. At that historical snapshot, all 333 package
+  tests, six schema-generator tests and native CUE generation checks passed.
 
 The [small medium/high comparison](../../examples/document_understanding/medium-audit-experiment/README.md)
 retained detection of two deliberate omissions while reducing token volume by
@@ -53,10 +54,11 @@ condition, while semantic defects remained in both. This is one development
 sample per arm, not a general accuracy estimate.
 
 The integrated request exactly matches that successful passage-ID request, and
-the current parser reproduces all 20 saved inventory records unchanged. All 347
-package and generator tests and native CUE drift checks pass. No new provider
-calls were made during integration; a fresh complete extraction-plus-comparison
-run under this runtime remains unmeasured.
+the parser reproduced all 20 saved inventory records unchanged. At that
+integration snapshot, all 347 package and generator tests and native CUE drift
+checks passed. Subsequent [passport and waste full workflows](../../examples/document_understanding/passage-id-transfer/README.md)
+measured extraction, inventory and comparison on two additional sources; their
+processing success does not establish semantic completeness.
 
 The [subsequent small-improvement check](../../examples/document_understanding/minor-audit-improvements/README.md)
 adds `logic_text` to discovery exports. Extra classification guidance and unit
@@ -78,6 +80,22 @@ The [passage-ID integration](../../examples/document_understanding/passage-id-in
 now uses that existing source-reference path in comparison as a narrowly scoped
 citation-reliability improvement. It reproduces both saved ID runs, preserving all
 36 judgments per run. The broader semantic-quality gate remains unmet.
+
+The [explicit-contradiction check](../../examples/document_understanding/audit-mutation-sensitivity/README.md)
+caught four planted changes to actors, exemptions, alternatives and deadlines,
+and accepted their four original counterparts. It also preserved the named nearby
+correct rules. These selected development cases support audit as review triage;
+they do not establish a general detection rate. One rationale incorrectly called
+an either/or choice “mutually exclusive,” so explanations also need scrutiny.
+
+Stronger statement instructions and diagnostic passage joining did not repair the
+standalone notice statement. The [maintained case index](../../examples/document_understanding/evaluation-cases.md)
+keeps desired field behavior separate from observed successes and misses, with
+source hashes and original captures. The [quality decision](../../thoughts/reviews/2026-09-09-extraction-quality-decision.md)
+explains why these results support retaining the current extraction semantics.
+For discovery, users can correct source-backed drafts over time. Before deriving
+an executable workflow, review governing conditions and exceptions against the
+source; a passed model audit does not certify complete rules.
 
 ## Run the workflow
 
@@ -301,10 +319,12 @@ change; neither check proves those meanings complete. Remaining priorities are:
    in only one of two same-scope runs. Existing fields can express the result;
    the instruction is not adopted. Further work should check segmentation
    adherence separately from semantic completeness.
-2. Verify standalone wording independently of full-record meaning. The audit
-   already asks for this distinction but missed exceptions absent from summary
-   and scope while retained in `logic_text`. Test complete wording, qualifications
-   retained only in `logic_text`, and qualifications absent everywhere.
+2. Preserve standalone qualifications and assess each meaning field separately.
+   The completed [field-distinction test](../../examples/document_understanding/audit-field-distinction/README.md)
+   compared original wording, complete logic only, and a complete statement. The
+   auditor missed the original defect twice despite citing its governing source;
+   neither logic-only run met the strong field-distinction criterion. Complete
+   statements passed both times. This remains a known failure, not a pending test.
 3. Check modal classification and duty bearers. Existing fields distinguish
    recommendation, permission, exemption and descriptive possibility, but the
    prototype mislabeled an exemption as permission and a later output used

@@ -5,17 +5,22 @@ current workflow. Use low-thinking extraction with an optional medium-thinking
 audit. Retain full source passages for discovery and human review before deriving
 executable workflows. Default settings have not changed.
 
+The latest [quality decision](2026-09-09-extraction-quality-decision.md) consolidates
+four completed experiments: retain the current workflow; audit helps with the
+tested explicit contradictions but does not guarantee inherited qualifications.
+
 ## Integrated
 
 - Audit inventory selects passage IDs through a CUE-generated schema and resolves
   them through the existing source resolver. Missing, out-of-focus and inserted
   evidence remains refused. Exact source text, offsets, raw responses, rejected
-  observations and provenance remain available. Comparison judgments still use
-  exact quotations and produce existing Core `Finding` records.
+  observations and provenance remain available. Comparison now also selects
+  passage references, resolves exact source text, and produces existing Core
+  `Finding` records.
 - The successful example-inheritance wording lives in CUE `#Summary`. Extraction,
   refinement and audit share it. Native CUE now generates four schema views,
   including `inventory.schema.json`; Python has no competing inventory definition.
-- Audit version 3 records the changed response shape. Historical version 2
+- Audit version 4 records the current response shape. Historical version 2
   experiments retain their original captures and frozen runtimes. Their manifests
   were not rewritten. No legacy response conversion was added.
 
@@ -30,7 +35,7 @@ per arm on development data, with agent-authored, revisable meaning judgments.
 The changed schema and instructions form a bundle; the comparison does not
 isolate identifier syntax as the cause or establish general semantic accuracy.
 
-Integration verification:
+Historical inventory-integration verification (later checks are recorded below):
 
 - All 347 package and schema-generator tests pass; native CUE drift check passes.
 - The integrated provider request exactly equals the saved successful passage-ID
@@ -180,3 +185,103 @@ prioritizes self-contained qualifications using existing fields and the clearer
 notice failure, with the successful waste groups as regression controls. No further
 prompt/schema/matcher experiment was run. The bounded integration and transfer work
 is complete; further condition-profile changes remain a separate iteration.
+
+## Standalone-description experiment completed without adoption
+
+The [eight-call follow-up](../../examples/document_understanding/standalone-qualification-experiment/README.md)
+changed only one native CUE statement description. Both arms retained the passport
+qualification and both still lost the notice permission's governing conditions
+from its statement and scope. Waste semantic groups and the three independent-rule
+controls passed, but treatment added two missing scope-evidence bindings. No
+incremental target benefit was demonstrated; keep the production schema unchanged.
+
+All 106 raw statements survive conversion unchanged; all 420 retained evidence
+spans match source offsets. Eight runs completed without parser refusals and replay
+identically. Eight calls used 44,851 reported tokens. Masked self-review, raw outputs,
+warnings, metrics and the unmet decision gate are saved. One sample per case/arm
+does not establish repeatability. This latest research is local and uncommitted.
+
+The notice row is identical in both raw outputs and selects only F004, after a
+blank-line split within its governing sentence. The next proposed diagnostic tests
+that passage boundary while keeping source bytes and runtime settings fixed, with
+repeat notice pairs and independent-rule controls. This is a different hypothesis,
+not evidence for a generic merge policy. It is saved in the experiment README and
+has not been executed. Stop further description tuning at this checkpoint.
+
+## Passage-boundary diagnostic completed without adoption
+
+After the user asked to continue with the test-hypotheses skill, the
+[boundary diagnostic](../../examples/document_understanding/passage-boundary-experiment/README.md)
+ran the proposed eight-call comparison. Joining only the known sentence break
+preserved the notice lead-in in selected logic in 2/2 treatment runs versus 0/2
+baselines. It fixed the standalone statement in 0/2 treatment runs and 0/2
+baselines; one treatment partially improved scope. Both constructed independent-rule
+controls passed in both arms. Modality labels still varied. The semantic gate is
+unmet, and the catalog intervention remains experimental.
+
+All eight captures completed: 80 accepted records, no rejected rows or parser
+refusals, 314 exact retained evidence spans. Raw-to-record checks and full replays
+pass. Eight calls used 32,961 reported tokens. Both experiments in this continuation
+used 16 calls and 77,812 reported tokens total; no further calls are pending.
+
+Stop this iteration here. Source-context retention improved under the diagnostic,
+but complete short statements did not. The next useful decision is whether the
+existing audit can distinguish qualifications absent from the statement from
+qualifications absent from both statement and evidence, using the now-saved
+contrasting cases. No audit comparison or repair was run in this iteration.
+Production remains unchanged; latest research and this handoff remain uncommitted.
+
+## Existing audit field distinction tested
+
+The [six-call audit diagnostic](../../examples/document_understanding/audit-field-distinction/README.md)
+held the full notice source, 18 claims and 18 inventory units fixed and varied only
+the target draft. Original failure: audit passed it 2/2. Same short statement with
+full governing logic: scope error 2/2, summary error 1/2. Constructed complete
+statement: correct 2/2. No rationale explicitly made the complete logic-versus-
+statement distinction. All six selected the full governing F003:F004 evidence.
+The preregistered reliability gate is unmet; valid evidence does not make this an
+automatic standalone-quality gate.
+
+All 216 judgments have valid exact evidence and complete reciprocal accounting.
+Six calls used 326,531 reported tokens. The initial replay hit a harness manifest
+mismatch; an isolated comparison-manifest wrapper preserves the frozen runner and
+reproduces all six judgments/reports exactly. Raw captures, constructed-input
+provenance, masked review, metrics and the replay failure are saved. Production and
+original Core graphs/history are unchanged. Latest research remains uncommitted.
+
+Do not keep tuning this notice sentence. A broader audit sensitivity evaluation
+on different losses of negation, alternatives, actors and deadlines is the next
+candidate. The overall goal remains active pending clarification of whether the
+user wants a tested recommendation or a verified improvement integrated. No further
+provider calls are pending for this completed six-call experiment.
+
+## Broader audit sensitivity checked
+
+The [four-call mutation test](../../examples/document_understanding/audit-mutation-sensitivity/README.md)
+caught four planted actor, negation, AND/OR and deadline changes and accepted the
+four original target records. Nearby named correct rules remained correct. One
+rationale overstates OR as exclusive; the underlying AND-to-OR finding is valid.
+The previously known passport qualification issue still went unflagged. This is
+bounded sensitivity evidence, not a general accuracy rate or completeness gate.
+
+All 132 judgments have complete accounting and 225 exact evidence spans. Four
+calls used 163,702 reported tokens and replay identically. The consolidated
+[quality decision](2026-09-09-extraction-quality-decision.md) recommends preserving
+the current workflow and using audit for review triage. No additional prompt,
+schema, matcher or approval feature is adopted. Latest research is uncommitted;
+the overall goal remains active pending the requested endpoint clarification.
+
+## Production propagation aggregated at the user's request
+
+The current experiment and its verification are complete. The
+[production propagation plan](../plans/2026-09-09-production-propagation.md)
+maps all candidates to current code: update operating guidance and maintain the
+selected evaluation cases; separately decide whether low extraction / medium audit
+should become explicit thinking defaults. Existing code supports those settings,
+but currently defaults to the provider's unspecified thinking level. Output caps
+and window sizes are separate decisions, not bundled promotions.
+
+Passage IDs, source-preserving discovery, CUE guidance and completeness limitations
+are already integrated. The plan excludes unsupported wording, merge, fuzzy and
+automatic-approval changes. This is an aggregation, not newly implemented runtime
+behavior or a commit/release. No further experiment is required to deliver it.

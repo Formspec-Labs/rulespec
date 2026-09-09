@@ -1,0 +1,151 @@
+{
+  "type": "object",
+  "properties": {
+    "extractions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "unit": {
+            "type": "string",
+            "description": "Select ONE focus passage or contiguous focus range. Never comma-separate\ndisconnected passages. Select the main clause here and its remote lead-in\nin scope_quotes; preserve the full governing case in statement and scope.\nContext is support only.",
+            "title": "One focus passage or contiguous range",
+            "pattern": "^F[0-9]{3,}(:F[0-9]{3,})?$"
+          },
+          "unit_attributes": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "authority",
+                  "condition",
+                  "definition",
+                  "exception",
+                  "exemption",
+                  "permission",
+                  "prohibition",
+                  "recommendation",
+                  "requirement",
+                  "statement",
+                  "threshold"
+                ],
+                "description": "Semantic kind; must agree with modality and relationship role. Classify the complete meaning, including headings' inherited context. A recommendation remains recommendation; descriptive possibility is statement. Conditions and exceptions are separate qualifications of a baseline; retain the baseline itself. Definitions and useful descriptive explanations also deserve units.",
+                "title": "Kind"
+              },
+              "scope_quotes": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "description": "Select a supplied focus (F000) or context (C000) passage, or a contiguous\ninclusive range such as F003:F009. These locate exact source text; they do\nnot prove that the text supports the proposed meaning. Never invent IDs.",
+                  "title": "Source passage reference"
+                },
+                "description": "Select every passage needed for inherited conditions, cases and timing."
+              },
+              "scope_text": {
+                "type": "string",
+                "description": "ALL source-supported conditions governing this unit, including inherited parent cases and timing; do not transfer neighboring branch scope. Combine all governing conditions for this unit, including inherited lead-ins and antecedents outside its main quotation. Preserve alternative branches and timing boundaries. A split child must still describe the complete case in which it applies; do not import conditions from neighboring independent cases.",
+                "title": "Scope text"
+              },
+              "context_quotes": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "description": "Select a supplied focus (F000) or context (C000) passage, or a contiguous\ninclusive range such as F003:F009. These locate exact source text; they do\nnot prove that the text supports the proposed meaning. Never invent IDs.",
+                  "title": "Source passage reference"
+                },
+                "description": "Select explanatory support without turning it into prerequisites."
+              },
+              "modality_quote": {
+                "type": "string",
+                "description": "Exact support for modal force; preserve generally, might, should and negation. Include qualifiers that establish the force, such as generally or might. A neighboring must cannot supply the force of a separate recommendation or description. A companion condition can have not_stated while its baseline retains must or should. For factual not_stated meaning, leave this empty rather than quoting a bare copula such as is; quote only wording that establishes modal force.",
+                "title": "Modality quote"
+              },
+              "modality": {
+                "type": "string",
+                "description": "Normative force: must, should, permission may, prohibition must_not, exemption not_required, descriptive possible, not_stated or uncertain. Use should for recommendations, may for permission, possible for descriptive may/might, and not_required only for an explicit absence of duty. not_stated fits factual definitions and qualifications with no independent normative force. An exception to a recommendation does not itself declare absence of a legal duty. Generally is not universally.",
+                "enum": [
+                  "must",
+                  "should",
+                  "may",
+                  "must_not",
+                  "not_required",
+                  "possible",
+                  "not_stated",
+                  "uncertain"
+                ],
+                "title": "Modality"
+              },
+              "alternative_quotes": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "description": "Select a supplied focus (F000) or context (C000) passage, or a contiguous\ninclusive range such as F003:F009. These locate exact source text; they do\nnot prove that the text supports the proposed meaning. Never invent IDs.",
+                  "title": "Source passage reference"
+                },
+                "description": "Select passages supporting EVERY leaf option with its full qualifications\nand nested groups. One passage ID may support several options; select it\nonce. Preserve each option and qualification explicitly in choice_text\nand statement; a shared evidence passage does not restore omitted meaning."
+              },
+              "choice_quote": {
+                "type": "string",
+                "description": "Select the complete choice/grouping passage or range; empty if absent.",
+                "title": "Source passage reference"
+              },
+              "choice_text": {
+                "type": "string",
+                "description": "Complete source choice/grouping in words, including nested AND/OR and qualifications. Explain the complete choice and its nesting: all required elements, independently sufficient options, one-or-more groups, and alternatives inside an option. Preserve each option's qualifiers. Do not equate a grammatical conjunction in a category description with a requirement that both categories hold.",
+                "title": "Choice text"
+              },
+              "logic_quote": {
+                "type": "string",
+                "description": "Select a passage/range retaining complete AND/OR, comparators, units,\nreference events and negation. Empty if inapplicable. The application\ncopies the original wording; never write or splice logical text here.",
+                "title": "Source passage reference"
+              },
+              "references": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Source section labels for cross-references, including unresolved remote targets. Keep source cross-reference labels even when their content is unavailable. Preserve the topic of each reference in the unit's meaning; a nearby reference is not a license to infer the missing rule.",
+                "title": "References"
+              },
+              "statement": {
+                "type": "string",
+                "description": "Complete meaning of this unit, preserving governing scope, qualifications and modal force. Make this a self-contained reading of the source. Include every governing parent case, time limit, negation, exception and qualification needed to avoid broadening or narrowing its meaning. A long supporting quote does not compensate for omitted meaning in this field. Keep descriptive and advisory material at its source force.\nWhen a passage gives an example of a rule (for example, signaled by 'for example' or 'such as'), preserve that relationship: if you extract the example as its own unit, include the governing rule's conditions in that unit's meaning. Do not turn an illustration into an unconditional duty. If the source explicitly changes the example's scope, use that scope instead; do not inherit a condition the source overrides.",
+                "title": "Source-faithful statement"
+              }
+            },
+            "required": [
+              "kind",
+              "scope_quotes",
+              "scope_text",
+              "context_quotes",
+              "modality_quote",
+              "modality",
+              "alternative_quotes",
+              "choice_quote",
+              "choice_text",
+              "logic_quote",
+              "references",
+              "statement"
+            ],
+            "additionalProperties": false,
+            "description": "Complete meanings first. Preserve conditions and exceptions in every split\nstatement and its scope; this pass does not create relationship records."
+          }
+        },
+        "required": [
+          "unit",
+          "unit_attributes"
+        ],
+        "additionalProperties": false,
+        "title": "One semantic unit",
+        "description": "One independently referenceable source meaning. Separate distinct actions when useful, while preserving their inherited scope and connected qualifications. Overlapping main quotations are allowed. Retain substantive notes and cautions even when they impose no duty, including explanations that one event or document date does not establish the date of its underlying evidence. Keep these as descriptive statements at their source force."
+      }
+    }
+  },
+  "required": [
+    "extractions"
+  ],
+  "additionalProperties": false,
+  "title": "Source-grounded document meanings",
+  "description": "Retain independently useful rules, definitions, recommendations, permissions, exemptions, qualifications and descriptive statements with exact evidence. Empty collections express absent supported content, never proof of completeness."
+}
