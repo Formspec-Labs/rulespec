@@ -155,3 +155,28 @@ Audit format is version 4. Previous research/runtime is committed at `68de277`;
 old captures retain their original schemas and observations. This adoption does
 not retroactively pass the broader semantic gate. Two-document transfer evaluation
 is the next bounded task, with no semantic prompt tuning in that evaluation.
+
+## New-source transfer check completed
+
+Integration is committed as `83caace`. The
+[two-source check](../../examples/document_understanding/passage-id-transfer/README.md)
+ran complete 8 FAM 801.2-1 and Ohio rule 3745-52-15 through low extraction, medium
+inventory and medium comparison. Six calls used 104,909 reported tokens. Passport:
+16 accepted claims, 15 substantive inventory units, 31 accepted judgments. Waste:
+14 accepted claims, 21 substantive units, 35 accepted judgments. Both audits say
+passed and review complete; all citations resolve, and both full workflows and
+discovery exports replay identically.
+
+Direct review preserves this distinction: passport C0005/C0006 split cleared-language
+use from qualified local adaptation; both meanings survive collectively, but the
+standalone duty lacks that qualification. Treat severity as consumption-dependent,
+not a proven universal prohibition. The waste nested exceptions, AND/OR groups and
+three-day disposal destinations survive well. One noncontiguous passport modality
+component was withheld; five component warnings across both documents remain.
+Three local waste citation records lack graph targets. No outputs were repaired.
+
+The [next focused task](../plans/2026-09-09-preserve-standalone-qualifications.md)
+prioritizes self-contained qualifications using existing fields and the clearer
+notice failure, with the successful waste groups as regression controls. No further
+prompt/schema/matcher experiment was run. The bounded integration and transfer work
+is complete; further condition-profile changes remain a separate iteration.
