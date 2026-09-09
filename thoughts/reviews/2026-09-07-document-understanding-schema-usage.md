@@ -6,6 +6,21 @@ Originally inspected after rich-schema adoption on 2026-09-07. Updated on
 2026-09-08 as shared-schema integrations are implemented. This is the active
 reuse checklist; moving the model schema to CUE did not complete these integrations.
 
+For current settings and the completed extraction handoff, use the
+[operating guide](../../packages/rulespec-extrapolator/README.md) and
+[final checkpoint](2026-09-09-extraction-handoff.md). The table below tracks
+schema capabilities, not a requirement to add every optional field to extraction.
+
+The normal extraction pass now selects complete statements, modal force, scope,
+context, alternatives, references and exact evidence from this same CUE profile.
+Concepts, attribution, typed values, effectivity, actor/action/object components
+and explicit relationship records remain connected through Core and optional
+refinement. They are not requested on every first pass. `meaning.schema.json`
+keeps the full generated field definitions independent of `provider.schema.json`.
+The [adoption record](2026-09-08-meaning-first-adoption.md) explains the measured
+tradeoff. `discovery-export` now connects the source/scope/context view without
+additional model inference and retains unlinked passages and pending review state.
+
 ## What is connected now
 
 [`build_graph` and `validate_graph`](../../packages/rulespec-extrapolator/src/rulespec_extrapolator/core.py)
@@ -34,7 +49,7 @@ its scope evidence remain intact.
 
 | Existing definitions | Current extraction use | Practical use and remaining work |
 | --- | --- | --- |
-| [LocalConcept, RegisteredConcept, ConceptScheme](../../constraints/core/concept.cue), [ConceptAssignment](../../constraints/core/concept-assignment.cue) | Connected: source-supported local concepts and role-specific assignments to source fragments, pinned to actual content-derived releases. `vocabulary.annotate` remains a separate label-suggestion path. | Concepts come first in each model unit. The producer derives local identity from document, label and distinguishing definition. Shared labels do not establish cross-document identity or RefSpec registration. |
+| [LocalConcept, RegisteredConcept, ConceptScheme](../../constraints/core/concept.cue), [ConceptAssignment](../../constraints/core/concept-assignment.cue) | Connected: source-supported local concepts and role-specific assignments to source fragments, pinned to actual content-derived releases. `vocabulary.annotate` remains a separate label-suggestion path. | Concepts come first in the full meaning schema used for refinement. The producer derives local identity from document, label and distinguishing definition. Shared labels do not establish cross-document identity or RefSpec registration. |
 | [ConceptMapping](../../constraints/core/concept-mapping.cue), [ConceptResolutionResult](../../constraints/core/concept-resolution-result.cue), [ReferenceResourceRelease](../../constraints/core/reference-resource-release.cue) | Local concept releases now have real membership, content distributions and verified RDFC-1.0 digests. External mapping/resolution remains unconnected; the optional RefSpec label snapshot is not an identity decision. | Connect local concepts to RefSpec, retain exact/close/broader/narrower/related mappings, and preserve unresolved or conflicting identity. Release membership and evidence must support each selected mapping; matching labels alone is insufficient. |
 | [SourceClaimant](../../constraints/core/source-claimant.cue) | Connected: separate source text, attribution role and exact evidence, linked to the complete meaning. | Distinguishes source claimant, actor, extractor and reviewer. Audit now assesses attribution explicitly. Live review found two incorrect model attributions despite exact text grounding. |
 | [Authority](../../constraints/core/authority.cue), [Warrant](../../constraints/core/warrant.cue), [Justification](../../constraints/core/justification.cue) | Unused as graph records. `kind: authority` currently creates a text assertion, not an authority chain. | Represent an explicitly supported statutory, regulatory, or delegated basis and its justification. Source quotations and citations must establish the chain; a schema does not infer legal authority. |

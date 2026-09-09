@@ -1,51 +1,90 @@
 # Rulespec document understanding
 
-This experimental application turns exact document text into individually
-referenceable rules, requirements, permissions, definitions, conditions, and
-exceptions. It preserves the source, model responses, uncertainties, corrections,
-and review decisions. The local workflow produces useful drafts for discovery
-and a source-linked starting point for reviewed workflows or forms. Automatic
-extraction and automatic checks remain fallible; review can happen upfront or
-through later user feedback.
+Rulespec turns exact document text into individually referenceable statements of
+rules, requirements, permissions, definitions and qualifications. It retains the
+source, evidence, model responses, rejected suggestions and review history.
 
-Start with the [recorded passport-manual example](../../examples/document_understanding/manual-slice/README.md).
-It includes five Gemini 3.8 Flash runs, offline replay, independent agent review,
-and a small persistent review interface. No model credentials are needed to
-inspect the saved results.
+Use the resulting drafts for search, tagging, embeddings and knowledge discovery,
+with corrections arriving over time. For a form or executable workflow, use the
+same records as a source-linked starting point for human review. This package
+does not generate Formspec or WOS artifacts or certify complete rule coverage.
 
-The [quality iteration](../../examples/document_understanding/quality-iteration/README.md)
-adds explicit modal force, inherited scope, alternatives and source-first gap
-checks, with saved before/after cases and their remaining failures.
+This is the current operating guide. Earlier experiment reports preserve the
+settings and conclusions of their own runs.
 
-The [refinement experiment](../../examples/document_understanding/refinement-iteration/README.md)
-adds bounded recovery and relationship passes. It records proposed corrections,
-separate source checks, applied review events and a final audit.
+## Current recommendation and evidence
 
-Extraction and refinement now share the richer schema guidance tested in the
-[schema experiment](../../examples/document_understanding/schema-order-experiment/README.md).
-It explains inherited conditions, complete alternatives, modal force, and the
-evidence needed to assign an actor or object. That experiment preserved its output
-order; the current profile also adds concepts, attribution, typed values and
-effectivity. Historical [adoption checks](../../examples/document_understanding/schema-guidance-adoption/README.md)
-record the exact schema comparison and saved-output compatibility.
+Start with **low-thinking extraction**. Add a **medium-thinking audit** when its
+diagnostic feedback is useful. Keep full source passages available to downstream
+search alongside the extracted statements. Relationship refinement and structured
+concept/value enrichment are optional; ordinary extraction preserves complete
+meaning in prose without requiring those extra passes.
 
-## Use the local example
+The [final full-section run](../../examples/document_understanding/low-extract-medium-audit/README.md)
+used a saved 6,919-character leave-eligibility regulation:
 
-From the repository root, the environment used for the recorded experiment is:
+- Low extraction produced 19 accepted statements with no rejected candidates.
+- Medium inventory and comparison completed, but four inventory entries failed
+  exact-evidence checks. The audit correctly reports `review_complete=false`.
+- Direct review found the main conditions, alternatives and examples retained,
+  plus remaining weaknesses in standalone wording that the audit missed.
+- The three calls used 64,117 reported tokens and about 48 seconds of request
+  time. This is one measured run, not a typical-document cost estimate.
+- Extraction, audit and discovery export replay identically. All 333 package
+  tests, six schema-generator tests and native CUE generation checks pass.
+
+The [small medium/high comparison](../../examples/document_understanding/medium-audit-experiment/README.md)
+retained detection of two deliberate omissions while reducing token volume by
+79%. Its fixture limitation and single samples prevent a general accuracy claim.
+The full-section result confirms that a completed model response can still leave
+an incomplete review. Neither experiment justifies automatic approval or repair.
+
+## Run the workflow
+
+From the repository root, the existing experimental environment exposes
+`.tools/document-poc-venv/bin/rulespec-understand`. With its `bin` directory on
+`PATH`, run:
 
 ```sh
-.tools/document-poc-venv/bin/rulespec-understand serve \
-  examples/document_understanding/manual-slice/reprocessed/section-01
+rulespec-understand prepare manual.txt --title "Manual section" \
+  --source-url https://example.org/manual --output prepared.json
+
+rulespec-understand extract prepared.json --model gemini-3.8-flash \
+  --thinking-level low --temperature 0 --max-chars 24000 \
+  --max-output-tokens provider --env-file /path/to/local.env --output my-run
+
+# Optional: inventory the source before comparing it with the extracted draft.
+rulespec-understand audit my-run/rulebook.json --model gemini-3.8-flash \
+  --thinking-level medium --max-chars 24000 --max-output-tokens provider \
+  --env-file /path/to/local.env --output my-audit
+
+# Retain source passages and links, including passages without an extracted rule.
+rulespec-understand discovery-export my-run --output discovery.json
+
+# Reproduce the saved processing without provider calls.
+rulespec-understand replay my-run --output my-replay
+rulespec-understand audit-replay my-audit --output my-audit-replay
 ```
 
-Open the printed localhost address. The browser shows exact source passages,
-candidate meanings, component evidence, qualification links, and unresolved work.
-It supports Add rule, Edit, Split, Merge, Reject, and Approve. Every action records
-an explicit reviewer and reason. SQLite preserves the event history on reopening.
-Review approval records an assessment; assertions remain `reviewQueueOnly`.
+Supply `GEMINI_API_KEY` through the environment or the explicitly selected env
+file. Each new run needs a new output directory. The commands above select the
+evaluated settings explicitly; library defaults remain unchanged:
 
-For a fresh environment, compile only the required Core JSON Schemas, then
-install the application and its shared Rulespec packages:
+| Setting | Extraction default | Audit default | Recipe above |
+|---|---|---|---|
+| Focus characters | 24,000 | 3,000 | 24,000 for both |
+| Generation allowance | 16,384 tokens | 32,768 tokens | provider limit |
+| Thinking level | provider default | provider default | low / medium |
+| Temperature | 0 | 0 | 0 |
+
+`--max-output-tokens provider` omits the application's cap; provider limits still
+apply. `--thinking-level` accepts low, medium or high and sends no numeric
+`thinking_budget`. Requests allow up to five minutes, with no automatic retries.
+Settings and actual SDK requests are recorded and checked during replay. Fresh
+calls can differ even at temperature zero.
+
+For a fresh environment, compile the required Core schemas and install the local
+packages:
 
 ```sh
 uv venv --python 3.12 .tools/document-understanding
@@ -59,280 +98,170 @@ uv pip install --python .tools/document-understanding/bin/python \
   -e packages/rulespec-projection -e packages/rulespec-extrapolator
 ```
 
-Use `.tools/document-understanding/bin/rulespec-understand` with that environment.
-Model, parser, dependency, and schema versions are recorded for each run. Strict
-replay refuses a run when those versions differ. Explicit reprocessing applies
-the installed code to saved responses in the current format; it does not migrate
-retired formats.
+Use that environment's `bin/rulespec-understand` for subsequent commands.
 
-Reprocessing also recovers source and model responses saved before a compiler
-failure. The saved run and validation record must both identify that failure;
-missing outputs from a nominally successful run remain an integrity error.
+## What goes in, what happens, what comes out
 
-## Core workflow
+**Input:** UTF-8 text or prepared JSON with exact text, its SHA-256 digest and
+named section coordinates. Newlines remain intact; offsets count Unicode
+codepoints in half-open intervals, `text[start:end]`. Optional source maps
+identify inserted separators. Preparation does not discover a manual's section
+hierarchy. PDF, OCR and layout extraction are outside this package.
 
-**Input:** UTF-8 text, or a prepared JSON document with exact text, its SHA-256
-digest, and named section coordinates. Text loading preserves original newlines.
-Offsets count Unicode codepoints in half-open intervals: `text[start:end]`.
-Optional source maps distinguish copied source passages from inserted separators.
-PDF, OCR, and layout extraction are outside this first slice.
+**Processing:** the application indexes paragraphs and list items, plans bounded
+windows, and supplies parent/neighbor context. Fitting list groups stay together;
+larger groups can split. Structural parents are clues, not proven governing
+conditions. The model emits complete statements, scope, modal force, choices and
+source references using the CUE-generated schema. LangExtract supplies its Gemini
+adapter; Rulespec supplies evidence resolution, validation, identities and Core
+records.
 
-**Processing:** Rulespec partitions the text into recorded windows and supplies
-bounded context from paragraph/list parents and neighboring passages. The
-explicit Gemini JSON Schema retains meaning, scope, alternatives and evidence;
-LangExtract supplies its native schema adapter and provider. Invented semantic
-examples guide interpretation. Rulespec parses each response, checks exact evidence, resolves
-available section and qualification references, and converts candidates into
-existing Core records. It supplies identities and provenance itself.
+`unit` selects a focus passage such as `F003` or a contiguous range such as
+`F003:F009`. Supporting fields can also select context passages (`C000`). The
+application resolves those selections to exact original text. `logic_quote`
+becomes verbatim `logic_text`; model `statement` becomes candidate `summary`.
+One passage can support several meanings or alternatives. Every option and
+qualification must still survive in the explicit meaning; a quotation alone is
+not proof of semantic completeness.
 
-The [CUE application profile](src/rulespec_extrapolator/schema_data/document-understanding.cue)
-owns shared field types, classifications, rich descriptions, titles, and model
-field order. Native CUE generates the candidate and model schemas that ship with
-the Python package. Local candidates add stricter evidence checks; model output
-allows empty placeholders for unstated information. Extraction and refinement
-use that same generated model schema. The profile imports Core attribution,
-assignment-role, datatype and period definitions directly. The build stages the
-Core sources as a native CUE import and fingerprints them. Existing Core record
-generation stays on its current build path.
+Invalid main references refuse a row. Invalid supporting references withhold the
+component and preserve the statement, raw suggestion and field-specific refusal.
+Schema and kind/modality contradictions can reject candidates. The application
+does not silently guess replacements. Optional component uncertainty can remain
+on accepted records.
 
-To change the application schema, edit that CUE source, then run
-`python tools/build_extraction_schemas.py` from the repository root.
-`python tools/build_extraction_schemas.py --check` detects generated-file drift.
-Generation needs Go 1.25 or newer; installed extraction and replay use packaged
-JSON and need neither Go nor CUE. The loader checks source/output hashes, and
-each run freezes the schema inputs and build manifest. See the
-[native generation checks](../../examples/document_understanding/native-extraction-schema/README.md).
+**Output:** `rulebook.json`, a Core JSON-LD graph, exact source, requests,
+responses, candidates, refusals, validation results and frozen runtime inputs.
+The discovery export retains every source paragraph/list item, linked statements,
+exact evidence and review/processing status. It makes no model calls and creates
+no embeddings or inferred legal relationships.
 
-The parser accepts the CUE-defined `unit` / `unit_attributes` format and requires
-all model fields, including explicit empty values for unstated meaning. Field
-lists come from the generated schema. Retired per-kind responses, context-free
-windows, JSON prompt examples, and reduced review checks are unsupported.
-Local candidate input may omit unstated components; compilation records them
-as empty or uncertain and always creates the complete meaning assertion.
+**Audit:** a separate source-first inventory, followed by a draft comparison,
+produces raw judgments, a detailed report and existing Core `Finding` records in
+`findings.jsonld`. It does not modify the draft. Inventories and judgments remain
+fallible observations; missing or invalid inventory entries limit what was checked.
 
-Use existing Core schemas for assertions, evidence, applicability and provenance.
-Keep document-specific extraction guidance in this application profile. When a
-shared Core definition needs improvement, fix it there and regenerate its outputs
-instead of maintaining a competing application definition. The
-[active schema reuse checklist](../../thoughts/reviews/2026-09-07-document-understanding-schema-usage.md)
-tracks connected capabilities and the next integrations. Supported conditions
-use `ApplicabilityScope` even when no territory is asserted; audit quality issues
-use `Finding`. Model lineage records the actual request temperature.
+## How to interpret the checks
 
-The [temperature-zero polish results](../../examples/document_understanding/extraction-polish/README.md)
-preserve twelve live trials, including rejected changes. They show remaining
-exception-link and discovery gaps; lower temperature does not guarantee completeness.
+| Result | What it establishes |
+|---|---|
+| Accepted candidate | Passed compiler checks; meaning may still be wrong |
+| Exact evidence | The cited text exists at the saved offsets |
+| Schema / SHACL validation | Records and graph satisfy structural constraints |
+| Processing complete | Planned work reached its recorded terminal outcome |
+| Review complete | Audit judgments passed its accounting and consistency checks |
+| Covered inventory units | The checker assessed those accepted units as covered |
+| Identical replay | Saved responses reproduce the same processing results |
 
-The [provider-free discovery trial](../../examples/document_understanding/discovery-trial/README.md)
-compares summary search with source passages and linked evidence. It also verifies
-narrow attribution and duration checks: unsupported structured suggestions remain
-visible with issues but do not emit specialized Core records. Direct named speakers
-and simple year/month/day durations are supported; issuer metadata, implied speakers,
-and more complex duration wording still need review or a later integration.
+None establishes that every source meaning was discovered. Read `audit_issues`
+and `review_complete` before interpreting coverage counts: the final example
+marks 20 accepted units covered while four substantive inventory entries were
+refused. It is not 100% source coverage. No check emits a `ClosureClaim`.
 
-The [composition experiment](../../examples/document_understanding/composed-extraction-experiment/README.md)
-compares all-fields extraction with complete statements first and optional
-relationship enrichment. The smaller pass performed best in that four-excerpt
-trial; it remains an experimental candidate, with production defaults unchanged.
-
-The optional structured collections add useful detail without requiring invented
-values. `concepts` comes first in each unit and supplies a label, distinguishing
-definition, topical role and exact quotation. Rulespec creates `LocalConcept`,
-`ConceptScheme` and `ConceptAssignment` records with content-derived releases,
-actual membership and verified release digests. Repeated label/definition pairs
-within a document share an identity; cross-document identity still needs RefSpec
-resolution. These local concepts do not claim RefSpec registration.
-
-`claimants` records source attribution separately from the actor. `typed_values`
-becomes typed Core `ValueAssertion` records; their predicates reference retained
-JSON descriptions of the value's name, source comparator, unit and reference
-event. `effective_periods` links the complete meaning through `ApplicabilityScope`
-to `EffectivePeriod`. Date-only effectivity stays a typed date: the profile does
-not invent midnight or a timezone. Relative deadlines remain values, not periods
-in force. Invalid or unsupported components remain visible as issues and produce
-no structured Core record. Review corrections retain the original records.
-
-The extractor reads Core schemas, context and shapes from `rulespec-conformance`
-and reuses its release-digest implementation. It no longer packages another copy
-of those validation files. See the [integration checks and live captures](../../examples/document_understanding/schema-reuse-finish/README.md).
-
-**Output:** a local rulebook and Core JSON-LD graph, with the exact source,
-requests, responses, accepted and refused candidates, processing outcomes,
-unresolved issues, and validation results. Here, `accepted` means a candidate
-passed the compiler's checks; it does not mean its interpretation is correct.
-
-**Checks:** exact source re-slicing; compiled Core JSON Schema; SHACL, the graph
-constraint language; raw-response replay; and separate source-based judgments of
-meaning, omissions, actors, scope, links, and rule boundaries. A run can finish
-processing and still omit rules. Semantic evaluation is a distinct result.
+## Review, refinement and changed runtimes
 
 ```sh
-# Prepare exact text. Preparation does not discover a manual's section hierarchy.
-rulespec-understand prepare manual.txt --title "Manual section" \
-  --source-url https://example.org/manual --output prepared.json
-
-# A new run makes provider calls. Supply GEMINI_API_KEY in the environment,
-# or use an explicitly selected env file. Existing output directories are refused.
-rulespec-understand extract prepared.json --model gemini-3.8-flash \
-  --env-file /path/to/local.env --output my-run
-
-# Temperature defaults to 0; specify it explicitly for a recorded comparison.
-# Fresh model calls can still differ at 0. Replay reproduces saved responses.
-rulespec-understand extract prepared.json --temperature 0 \
-  --env-file /path/to/local.env --output my-run-t0
-
-# Verify frozen requests, parse saved responses, and reproduce candidates/graph.
-# This makes no provider call and refuses runtime or artifact drift.
-rulespec-understand replay my-run --output my-replay
-
-# Intentionally apply changed processing code to the original captures.
-# This makes no provider call, preserves the original, and records the change.
-rulespec-understand reprocess my-run --output my-reprocessed-run
-rulespec-understand replay my-reprocessed-run --output my-reprocessed-replay
-
-# The same durable review actions are available without a browser.
-rulespec-understand review my-reprocessed-run --action correction.json
-rulespec-understand export my-reprocessed-run --output reviewed-rulebook.json
-
-# Unjudged or stale judgments remain unknown; schema checks cannot fill them in.
+rulespec-understand serve my-run --audit my-audit
+rulespec-understand review my-run --action correction.json
+rulespec-understand export my-run --output reviewed-rulebook.json
 rulespec-understand evaluate reviewed-rulebook.json --labels expected.json \
   --judgments judgments.json --output evaluation.json
 
-# Inventory source meanings before seeing the draft, then challenge the claims.
-# Model observations expose gaps; they are not human approval or evaluation gold.
-rulespec-understand audit my-run/rulebook.json --env-file /path/to/local.env \
-  --output my-audit
-rulespec-understand audit-replay my-audit --output my-audit-replay
-rulespec-understand serve my-run --audit my-audit
+# Explicitly apply the installed parser/compiler to saved responses.
+rulespec-understand reprocess my-run --output my-reprocessed-run
 
-# my-audit/findings.jsonld contains Core Findings with stable references.
-# The detailed report and source judgments retain their evidence and rationale.
-
-# Refine the current review snapshot, including earlier corrections.
-# This appends AI-attributed review events in my-run; original captures stay intact.
-rulespec-understand refine my-run --env-file /path/to/local.env \
-  --output my-refinement
+# Optional model-proposed recovery and qualification links, with source checks.
+rulespec-understand refine my-run --output my-refinement \
+  --env-file /path/to/local.env
 rulespec-understand refine-replay my-refinement --output my-refinement-replay
 ```
 
-The commands above assume the environment's `bin` directory is on `PATH`.
-See the [review demonstration](../../examples/document_understanding/manual-slice/review-demo/README.md)
-for source-backed action files. Changes use an expected review revision to prevent
-one editor from silently overwriting another editor's work.
+Review supports add, edit, split, merge, reject and approve, recording the reviewer,
+reason and expected revision. SQLite preserves review history. Approval records
+an assessment; assertions remain `reviewQueueOnly`. See the
+[review action examples](../../examples/document_understanding/manual-slice/review-demo/README.md).
 
-`refine` performs one recovery pass, one qualification-link pass and a final
-audit. Each proposed addition or edit must pass the existing source/Core checks
-and a separate model challenge before it becomes a review event. It saves the
-proposal, its rationale and any refusal. `--audit my-audit` reuses an
-audit only when it matches the complete current snapshot. Export first when
-auditing a workspace with review history. Replaying makes no provider calls and
-checks proposals, requests, actions, history and the resulting graph.
+Export the current review state before auditing corrections. Refinement appends
+AI-attributed review events only after local checks and a separate model challenge;
+it preserves refused proposals. It performs bounded recovery, qualification-link
+and final-audit passes, with at most 60 current claims and eight proposals per
+focus group. `--audit` can reuse an assessment only when it matches the current
+snapshot. This optional path was not part of the final low/medium run.
 
-Each refinement request contains at most 60 current claims; other claims are
-counted as omitted context. Each focus group allows at most eight proposals per
-pass. The model input keeps complete meaning, citations, exact evidence and
-positions, using short aliases for opaque identifiers. Full identifiers remain
-in saved packets and Core records. Refused or unresolved findings remain visible;
-the process does not loop until the checker agrees with itself. Tokens and elapsed
-time are recorded in `refinement.json`, including the initial and final audits.
+Strict replay checks saved artifacts and runtime fingerprints and refuses drift.
+Reprocessing preserves the original capture and records the changed processing;
+it supports the current response format, not retired formats. Recorded compiler
+failures can be reprocessed when both run and validation metadata identify the
+failure. Missing outputs from a nominally successful run remain an integrity error.
+Old experiments retain their own frozen runtime; do not rewrite their manifests
+to make an older capture pass under newer code.
 
-## What is reused and what the application adds
+## Schema ownership and reuse
 
-| Need | Implementation |
-| --- | --- |
-| Exact evidence, fragment hashes, canonical IDs | Existing `rulespec-projection` helpers |
-| Source, assertions, qualifications, model lineage, attestations | Existing Core schemas and SHACL shapes |
-| Stable rule handles and immutable revisions | `document-understanding/3` application format; each revision is also a Core `Artifact` |
-| Actor, action, object, modality, scope, alternatives and preserved logic | Source-backed component assertions and a complete meaning assertion using experimental application predicates |
-| Governing conditions and explanatory context | Existing `EvidenceBinding` functions `definesScope` and `providesContext`; `ApplicabilityScope` for supported conditions or explicit effectivity, with no inferred territory |
-| Missing or ambiguous target links | Explicit unresolved records; a partial target set emits no misleading complete link |
-| Source-to-rule extraction and failure accounting | New application package, recorded windows and attempts |
-| Reproducibility | Frozen acquisition artifacts, strict replay, and explicitly recorded reprocessing |
-| Corrections and review | Append-only SQLite events, retained revisions, Core supersession and `Attestation` records |
-| Omission discovery | Source-first model inventory, separate claim comparison, existing evaluator and exact passage accounting |
-| Automatic corrections | Bounded recovery and relationship proposals, real review validation, separate source challenge and appended AI review events |
-| Concepts and vocabulary | Source-supported local concepts and release-pinned assignments; optional RefSpec label suggestions remain separate from semantic identity |
-| Attribution, typed values and effectivity | Existing `SourceClaimant`, typed `ValueAssertion`, `EffectivePeriod` and `ApplicabilityScope` |
+The [CUE application profile](src/rulespec_extrapolator/schema_data/document-understanding.cue)
+owns interpretation fields, descriptions, titles and field order. Native CUE
+produces three views of shared definitions: `provider.schema.json` for normal
+extraction, `meaning.schema.json` for complete defaults/refinement and audit field
+guidance, and `candidate.schema.json` for local validation. Python does not
+maintain a competing copy of those field definitions.
 
-Core assertion identity covers its proposition. Evidence changes do not invent
-a different proposition. A rule handle survives ordinary edits; each revision
-records its predecessor, component assertions, and exact evidence. Restoring an
-earlier value preserves the intervening revisions without changing the original
-assertion's origin or creating a supersession cycle. Split, merge, and addition
-create new rule handles. These are stable references within the recorded review
-history, not claims of identity across independent model runs.
+The profile imports existing Core attribution, assignment-role, datatype and
+period definitions. The application reuses Core assertions, evidence bindings,
+`ApplicabilityScope`, provenance, review records and `Finding`; shared evidence
+and release-digest helpers come from Rulespec packages. Fix shared definitions
+upstream when needed. The [schema usage assessment](../../thoughts/reviews/2026-09-07-document-understanding-schema-usage.md)
+records connected and unused capabilities.
 
-The complete meaning assertion includes scope in its value. A scope-only edit
-creates a new proposition while preserving the old one. `ApplicabilityScope`
-does not discover governing conditions; selecting them remains an interpretation.
-When jurisdiction is unstated, scope remains explicitly recorded in the meaning
-and evidence without inventing a territorial code.
-
-The audit saves raw requests/responses, an inventory, judgments, a report and
-passage accounting. Its default focus is 3,000 characters with at most 2,400
-additional context characters; its output budget is 32,768 tokens. Extraction
-keeps its separate 6,000-character focus and 16,384-token budget. Each phase is
-bounded, and incomplete or refused responses remain visible. The browser shows
-missing/partial units and marks a saved assessment stale after corrections.
-Neither processing completeness nor a clean assessment emits a `ClosureClaim`.
+Full meaning records support optional concepts, source claimants, typed values
+and effective periods. They create existing Core records only when their source
+and value checks pass. Local concepts have document-local identities and do not
+claim RefSpec registration. Date-only effectivity does not invent a timezone;
+relative deadlines are not periods in force. These richer collections are not
+requested by the normal meaning-first pass.
 
 Rulespec requires no DocSpec or SpicyRegs service or release. RefSpec is the only
-optional platform integration. Ordinary Python/model libraries live in this
-application package; Core and the projection package gain no new dependencies.
-
-## Optional RefSpec vocabulary
-
-`vocabulary` accepts a normalized, version-identified snapshot:
-
-```json
-{
-  "source": "RefSpec",
-  "release_id": "urn:refspec:example:release:1",
-  "concepts": [
-    {"id": "urn:refspec:example:applicant", "label": "Applicant", "aliases": ["Passport applicant"]}
-  ]
-}
-```
+optional platform integration. `vocabulary` accepts a normalized versioned
+snapshot containing `source: RefSpec`, `release_id`, and `concepts` with `id`,
+`label` and `aliases`. It matches actor/object labels, records ambiguity and pins
+digests; it does not fetch/authenticate a RefSpec release or assert equivalence.
+The normal extraction pass leaves actor/object components empty, so vocabulary
+matching needs enriched or reviewed components.
 
 ```sh
-rulespec-understand vocabulary my-run/rulebook.json \
-  --snapshot vocabulary.json --output vocabulary-suggestions.json
+python tools/build_extraction_schemas.py
+python tools/build_extraction_schemas.py --check
+.tools/document-poc-venv/bin/python -m pytest \
+  packages/rulespec-extrapolator/tests tools/test_extraction_schemas.py -q
 ```
 
-Matches use exact case-insensitive labels or aliases on actor/object text. The
-sidecar binds the source rulebook and vocabulary digests and distinguishes a
-suggestion, ambiguity, and an unmapped mention. It does not fetch RefSpec,
-authenticate a release, or automatically assert semantic equivalence. This
-adapter's input format is experimental, not a new RefSpec release format.
+Generation needs Go 1.25 or newer. Installed extraction/replay load packaged JSON
+and need neither Go nor CUE. Hashes bind sources, generated files and each run.
 
-## Present limits and next extraction work
+## Remaining work and research evidence
 
-The saved source review found missing document alternatives, lost shared
-conditions, omitted weaker guidance, and inconsistent exception links. The
-application exposes and records correction work; the producer does not yet
-consistently avoid it. See the [detailed findings](evaluation/results/FINDINGS.md).
+The next narrow priorities are reliable audit inventory evidence and faithful
+standalone scope. In the final run, bare section markers caused four inventory
+refusals, while the checker missed exceptions absent from a statement's summary
+and scope but retained in `logic_text`. Do not discard that retained meaning or
+claim the short statement is independently complete. Recommendations, descriptive
+possibility, non-prohibition and explicit permission still need careful assessment.
 
-Prioritize explicit source-unit accounting, inherited scope, exception targets,
-and representative development examples before expanding input size. Retain
-complex logic verbatim and unresolved until a tested representation exists.
-Context selection uses exact paragraph/list structure and a bounded character
-budget. Omitted context passages are recorded; structural proximity does not
-establish governing scope. Remote references resolve only when the named section
-is present. There is no general semantic
-duplicate detector, complete entity model, or executable rule engine.
+Explicit exception targets belong to optional refinement and remain imperfect.
+There is no general duplicate detector, complete entity model, automatic
+cross-document concept resolution or executable rule engine. Human accuracy,
+correction effort and time savings have not been measured. Source reviews are
+agent-authored and revisable; saved legal excerpts are not current legal guidance.
 
-All quality judgments in this delivery are agent-authored and uncalibrated.
-Human accuracy, correction time, and time savings have not been measured. The
-recorded manual passages are pinned examples, not current legal guidance.
+| Evidence | What it explains |
+|---|---|
+| [Final low → medium run](../../examples/document_understanding/low-extract-medium-audit/README.md) | Current end-to-end result, raw review and unresolved issues |
+| [Medium audit comparison](../../examples/document_understanding/medium-audit-experiment/README.md) | Thinking-level savings on three isolated cases |
+| [Alternative evidence](../../examples/document_understanding/alternative-evidence-experiment/README.md) | Shared passages, omitted options and signature qualifications |
+| [Meaning-first adoption](../../examples/document_understanding/meaning-first-adoption/README.md) | Normal extraction and discovery export |
+| [Low extraction](../../examples/document_understanding/low-thinking-experiment/README.md) | Four low-thinking runs and quality variation |
+| [Context and budget](../../examples/document_understanding/context-budget-experiment/README.md) | Window/list handling and remaining omissions |
+| [Schema reuse](../../examples/document_understanding/schema-reuse-finish/README.md) | Core reuse and evidence-backed structured components |
+| [Passport example](../../examples/document_understanding/manual-slice/README.md) | Earlier saved manual extraction and review interface |
 
-## Check the implementation
-
-```sh
-.tools/document-poc-venv/bin/python -m pytest packages/rulespec-extrapolator/tests -q
-```
-
-Tests cover source drift, malformed and partial responses, failed windows,
-replay/reprocessing drift, evidence and identity, revisions, review concurrency,
-first-open integrity, HTTP protections, and evaluation that detects corrupted
-meaning or actors. The [execution record](../../thoughts/plans/2026-09-07-document-understanding-execution.md)
-links the saved verification and independent implementation review.
+Historical reports retain the recommendations and limitations measured at their
+own snapshots. Use this guide and the final run for the current handoff.

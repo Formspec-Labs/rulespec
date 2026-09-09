@@ -50,11 +50,13 @@ workflow needs; a DocSpec release or service is not a prerequisite.
 
 Rulespec Core defines how the results are represented and checked. An
 [experimental local application](packages/rulespec-extrapolator/README.md) now
-extracts from exact text, preserves model responses for replay, and supports
-persistent corrections and review. Its
-[passport-manual results](packages/rulespec-extrapolator/evaluation/results/FINDINGS.md)
-expose remaining omissions and scope errors. The complete standalone workflow
-remains an implementation objective. Existing
+extracts from exact text, preserves model responses for replay, exports source-linked
+discovery records, and supports persistent corrections and optional audits. The
+[current operating guide](packages/rulespec-extrapolator/README.md) explains low-thinking
+extraction and medium-thinking audit; the
+[final saved run](examples/document_understanding/low-extract-medium-audit/README.md)
+records both the useful output and remaining inventory and scope weaknesses.
+Complete semantic coverage and executable workflow generation remain objectives. Existing
 [Extrapolation release formats](spec/rulespec-releases.md#3-extrapolationrelease)
 describe an exchange path using prepared upstream inputs; they do not define
 the prerequisites for a local validation run. The
