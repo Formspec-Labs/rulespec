@@ -30,6 +30,13 @@ measured 57–79% fewer audit input tokens while retaining four planted-error
 detections. The known qualification miss remains, and two additional modality
 flags leave the broader quality comparison unresolved.
 
+Dedicated logic and modality explanations remain experimental. The
+[fresh-source comparison](../../examples/document_understanding/fresh-explanation-check/README.md)
+found no dependable accuracy gain across three previously unused regulatory
+sections. Keep the current optional, nullable enrichment fields; the stricter
+omission-only variants were experimental controls and are not the default. Preserve
+these evaluation sources without tuning prompts against their observed failures.
+
 The [earlier full-section run](../../examples/document_understanding/low-extract-medium-audit/README.md)
 used a saved 6,919-character leave-eligibility regulation before the inventory
 evidence change below:

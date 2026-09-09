@@ -1,0 +1,158 @@
+{
+  "type": "object",
+  "properties": {
+    "extractions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "unit": {
+            "type": "string",
+            "description": "Select ONE focus passage or contiguous focus range. Never comma-separate\ndisconnected passages. Select the main clause here and its remote lead-in\nin scope_quotes when useful; always preserve the full case in statement.\nContext is support only.",
+            "title": "One focus passage or contiguous range",
+            "pattern": "^F[0-9]{3,}(:F[0-9]{3,})?$"
+          },
+          "unit_attributes": {
+            "type": "object",
+            "properties": {
+              "modality_explanation": {
+                "type": "string",
+                "description": "Write at most two concise, source-grounded sentences about this field's interpretive decision, not a transcript of deliberation. Do not copy the entire passage or restate the final statement. The statement must still be independently complete. This note is model interpretation, not source evidence. Explain the source wording that determines whether this unit is an obligation, recommendation, permission, prohibition, absence of duty, descriptive possibility or factual statement. Preserve negation, generally, examples and uncertainty; may not be required does not by itself establish an unconditional exemption. Omit when modal force is straightforward and unambiguous.",
+                "title": "Modality explanation",
+                "minLength": 1
+              },
+              "statement": {
+                "type": "string",
+                "description": "Complete meaning of this unit, preserving governing scope, qualifications and modal force. Make this a self-contained reading of the source. Include every governing parent case, time limit, negation, exception and qualification needed to avoid broadening or narrowing its meaning. A long supporting quote does not compensate for omitted meaning in this field. Keep descriptive and advisory material at its source force.\nWhen a passage gives an example of a rule (for example, signaled by 'for example' or 'such as'), preserve that relationship: if you extract the example as its own unit, include the governing rule's conditions in that unit's meaning. Do not turn an illustration into an unconditional duty. If the source explicitly changes the example's scope, use that scope instead; do not inherit a condition the source overrides.",
+                "title": "Complete source-faithful statement",
+                "minLength": 1
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "authority",
+                  "condition",
+                  "definition",
+                  "exception",
+                  "exemption",
+                  "permission",
+                  "prohibition",
+                  "recommendation",
+                  "requirement",
+                  "statement",
+                  "threshold"
+                ],
+                "description": "Semantic kind; must agree with modality and relationship role. Classify the complete meaning, including headings' inherited context. A recommendation remains recommendation; descriptive possibility is statement. Conditions and exceptions are separate qualifications of a baseline; retain the baseline itself. Definitions and useful descriptive explanations also deserve units.",
+                "title": "Kind"
+              },
+              "modality": {
+                "type": "string",
+                "description": "Normative force: must, should, permission may, prohibition must_not, exemption not_required, descriptive possible, not_stated or uncertain. Use should for recommendations, may for permission, possible for descriptive may/might, and not_required only for an explicit absence of duty. not_stated fits factual definitions and qualifications with no independent normative force. An exception to a recommendation does not itself declare absence of a legal duty. Generally is not universally.",
+                "enum": [
+                  "must",
+                  "should",
+                  "may",
+                  "must_not",
+                  "not_required",
+                  "possible",
+                  "not_stated",
+                  "uncertain"
+                ],
+                "title": "Modality"
+              },
+              "scope_text": {
+                "type": "string",
+                "description": "Optional structured applicability for filtering or review. Populate only\nwhen useful; retain ALL governing conditions in statement even when omitted.",
+                "title": "Scope text",
+                "minLength": 1
+              },
+              "scope_quotes": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "description": "Select a supplied focus (F000) or context (C000) passage, or a contiguous\ninclusive range such as F003:F009. These locate exact source text; they do\nnot prove that the text supports the proposed meaning. Never invent IDs.",
+                  "title": "Source passage reference",
+                  "minLength": 1
+                },
+                "description": "Evidence for populated scope_text, especially inherited lead-ins. Omit\nwhen no separate applicability field is recorded; main evidence remains."
+              },
+              "context_quotes": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "description": "Select a supplied focus (F000) or context (C000) passage, or a contiguous\ninclusive range such as F003:F009. These locate exact source text; they do\nnot prove that the text supports the proposed meaning. Never invent IDs.",
+                  "title": "Source passage reference",
+                  "minLength": 1
+                },
+                "description": "Additional explanatory context only when needed beyond the main passage."
+              },
+              "modality_quote": {
+                "type": "string",
+                "description": "Exact modal words only when useful as separate support; never splice words.",
+                "title": "Modality quote",
+                "minLength": 1
+              },
+              "choice_text": {
+                "type": "string",
+                "description": "Optional explanation of a nontrivial choice or nested AND/OR structure.\nOmit for a simple choice already fully stated in statement. Never shorten\nthe statement because this field exists; preserve every option and qualifier.",
+                "title": "Choice text",
+                "minLength": 1
+              },
+              "choice_quote": {
+                "type": "string",
+                "description": "Optional support for populated choice_text. Omit when choice_text is absent.",
+                "title": "Source passage reference",
+                "minLength": 1
+              },
+              "alternative_quotes": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "description": "Select a supplied focus (F000) or context (C000) passage, or a contiguous\ninclusive range such as F003:F009. These locate exact source text; they do\nnot prove that the text supports the proposed meaning. Never invent IDs.",
+                  "title": "Source passage reference",
+                  "minLength": 1
+                },
+                "description": "Optional evidence for individual components of a nontrivial choice.\nA shared passage is allowed but is not a reason to populate this field.\nOmit when the complete statement and main evidence suffice."
+              },
+              "logic_quote": {
+                "type": "string",
+                "description": "Optional verbatim logic needed to inspect complex nesting or thresholds.\nOmit when statement and main evidence suffice. Do not copy the main\npassage here merely because it contains a conjunction, negation or may.",
+                "title": "Source passage reference",
+                "minLength": 1
+              },
+              "references": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "description": "Retain actual cross-references, including unresolved ones. Null if absent.",
+                "title": "References"
+              }
+            },
+            "required": [
+              "statement",
+              "kind",
+              "modality"
+            ],
+            "additionalProperties": false,
+            "description": "The statement is the complete default reading. Optional fields add useful\nstructure, never substitute for qualifications omitted from the statement."
+          }
+        },
+        "required": [
+          "unit",
+          "unit_attributes"
+        ],
+        "additionalProperties": false,
+        "title": "One semantic unit",
+        "description": "One independently referenceable source meaning. Separate distinct actions when useful, while preserving their inherited scope and connected qualifications. Overlapping main quotations are allowed. Retain substantive notes and cautions even when they impose no duty, including explanations that one event or document date does not establish the date of its underlying evidence. Keep these as descriptive statements at their source force."
+      }
+    }
+  },
+  "required": [
+    "extractions"
+  ],
+  "additionalProperties": false,
+  "title": "Source-grounded document meanings",
+  "description": "Retain independently useful rules, definitions, recommendations, permissions, exemptions, qualifications and descriptive statements with exact evidence. Empty collections express absent supported content, never proof of completeness."
+}

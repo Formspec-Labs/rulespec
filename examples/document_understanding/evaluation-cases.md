@@ -66,6 +66,23 @@ notice intervention. The standalone experiment's
 schema descriptions. Neither treatment improved the target notice statement;
 these positive controls do not justify adopting either treatment.
 
+## Fresh-source explanation comparison
+
+The [fresh-source comparison](fresh-explanation-check/README.md) tested complete
+official eCFR sections for oxygen (14 CFR 91.211), employee alarms (29 CFR 1910.165)
+and procurement (2 CFR 200.320). The [30 checks](fresh-explanation-check/REVIEW.md)
+were frozen before the twelve calls; each source had current, omission-only,
+logic-explanation and modality-explanation arms.
+
+Neither explanation field met its accuracy gate. Preserve these sections as frozen
+evaluation evidence rather than tuning fixtures. The
+[source files](fresh-explanation-check/sources),
+[statement judgments](fresh-explanation-check/statement-review.json),
+[raw captures](fresh-explanation-check/runs) and
+[manifest](fresh-explanation-check/manifest.json) retain the evidence needed to
+revisit those judgments. Passing schema validation does not establish that a
+statement preserves every condition or that extraction found every rule.
+
 ## Pinned sources
 
 Hashes below cover the exact UTF-8 document text, as in `document.sha256`.

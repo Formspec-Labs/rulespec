@@ -310,3 +310,141 @@ adaptation qualification. These are retained limitations, not a failed configura
 promotion or a demonstrated semantic improvement. No further calls are pending.
 The implemented scope is complete. This entry accompanies the separate runtime
 configuration commit; no push, release or deployment is included.
+
+## Statement-first extraction and compact audit input
+
+Implemented the requested reduction in repeated fields. Canonical CUE now requires
+a complete nonempty statement, kind and modality; other lean extraction fields
+accept omission/null. Parser version 6 keeps current Core empty-value conventions
+and original raw captures. Audit version 5 omits empty request fields and replaces
+exact catalog quotations with passage references. Populated meaning and evidence
+roles remain separate, and saved source/records/history remain full.
+
+The [eight-call check](../../examples/document_understanding/sparse-meaning-check/README.md)
+measured 57–79% fewer audit input tokens, with all four planted errors still caught
+and the passport/waste neighboring controls intact. The notice qualification miss
+persists; two new modality flags leave the broad quality gate unresolved. This is
+a bounded noise/token reduction, not general accuracy validation. Fresh passport
+and waste extractions omitted all redundant scope/choice/logic enrichment while
+retaining the reviewed governing conditions, alternatives and deadlines. Some
+cross-record overlap and mixed-modality segmentation remain.
+
+All eight captures replay identically without provider calls. Native CUE drift
+and the full 377-test suite passed; all 35 audit tests passed after adding two
+quote-reference counterexamples. This work and the preceding compact evidence UI remain local;
+no new commit, push or deployment was requested in this iteration.
+
+## Interpretation-order experiment — no adoption
+
+The [nine-call interpretation check](../../examples/document_understanding/interpretation-order-check/README.md)
+compared current extraction with an instruction to populate existing scope/choice
+interpretations, placed before versus after the statement. All arms passed 17/18
+selected statement checks and missed the same notice qualification. Early output
+omitted interpretation on both real documents. Late output added explanations but
+used 22% more output tokens overall and produced some incomplete structured scopes.
+The actual requests and observed key order were verified; absence of optional
+fields means order compliance alone did not demonstrate the intended mechanism.
+
+No prompt/order change was adopted. A separate concise interpretation-note field
+remains untested. If revisiting this idea, first measure whether the known failure
+receives an actual condition-binding explanation, then whether its statement
+improves without harming counterexamples. Preserve the raw secondary differences
+and nonfatal issues recorded in the report; this is not a general accuracy score.
+
+## Dedicated explanation fields tested separately
+
+The [fifteen-call field comparison](../../examples/document_understanding/field-explanation-check/README.md)
+tested actor, modality, logic and applicability explanations independently against
+fresh baselines on the same three real sources. Each isolated CUE-generated variant
+required one nullable field before statement; production remained unchanged.
+Logic gave selective, supported decompositions; modality exposed classification
+choices and a possible uncertainty-handling improvement; actor was nearly all null;
+applicability mostly produced generic descriptions and missed the known notice
+qualification. No field met its predefined matching statement-repair criterion.
+
+Required-note variants also emitted many unrelated optional nulls: output rose
+52–62%, partly because of those placeholders rather than explanation content.
+All fifteen captures replay identically. Keep the per-field outcomes separate;
+do not infer that all explanation fields are equally useful or that notes improve
+statements merely by preceding them. No additional calls or adoption are pending.
+
+## Logic/modality omission experiment — no adoption
+
+The [eight-call omission check](../../examples/document_understanding/omit-empty-explanation-check/README.md)
+tested logic and modality independently with fresh required-nullable controls.
+Optional non-null CUE fields plus omission instructions removed all 438 optional
+null placeholders and reduced output tokens by 35–55% per pair. However, the same
+change omitted every explanation, including useful control notes. Logic retained
+the named statement checks; modality's waste output also lost the satellite-
+exemption setting on five independent statements. The known notice qualification
+miss persists. One repeat per cell does not establish a causal quality regression.
+
+Neither field meets the full retention gate; production remains unchanged by this
+experiment. A useful next isolation is to keep the required-nullable explanation
+while omitting empty values only from other enrichment fields, which accounted
+for 400 of the control nulls. Field-specific explanation inclusion criteria can
+then be tested separately. Native generation rejected minimum-length source-ref
+lists before calls; the documented trial instead enforced non-null/nonempty
+strings and requested empty-list omission in the prompt. All eight saved runs
+are complete; no further model calls are pending.
+
+## Omit other empty enrichment, retain the explanation slot
+
+The [eight-call scoped enrichment check](../../examples/document_understanding/scoped-enrichment-check/README.md)
+kept each required-nullable explanation definition identical and changed only the
+other enrichment to omission. It removed 390 other-field nulls, retained every
+useful control explanation observed, and reduced output tokens by 24–43% per pair.
+All named statement checks were unchanged; the notice qualification miss persists.
+A control also changed “may not be required” to “is not required,” while its paired
+intervention retained uncertainty. One call per cell does not establish causation
+or a repeatable accuracy gain.
+
+Logic remained selective but supplied no notice explanations in either arm.
+Modality supplied an explanation for every intervention record, including many
+straightforward restatements. Twenty-three required note nulls remain deliberately;
+this isolation removes the larger overhead without claiming all-null elimination.
+The result supports separating omission from explanation generation. It does not
+justify adding explanation fields to production, which currently has none.
+
+Stop repeating these development sources for now. If pursuing explanations, judge
+their marginal value on untouched documents against current statement-first
+extraction, separately for logic and modality. A schema-only omission change
+without explanation fields is a separate production decision. All eight runs are
+saved; no additional calls, adoption or commits are pending from this experiment.
+
+## Fresh-source accuracy comparison — leave explanations out
+
+The [twelve-call fresh-source check](../../examples/document_understanding/fresh-explanation-check/README.md)
+compared current extraction, omission-only cleanup, logic explanation and modality
+explanation on previously unused oxygen, employee-alarm and procurement sections
+retrieved from the official eCFR API (September 4 version). Schemas and 30 source
+checks were frozen before calls; no guidance was tuned to these sources.
+
+Logic supplied no field-relevant repair over both controls. Modality alone retained
+the all-employees-can-hear limit on a separate alarm backup exemption, but lost an
+oxygen exemption boundary and omitted a procurement possibility that both controls
+retained. Logic misclassified that procurement possibility as permission. An
+additional alarm-testing scope judgment is interpretation-sensitive; excluding it
+does not change either failed accuracy gate. Most other selected checks passed.
+
+The result is a tradeoff, not a case for production explanation fields. Logic
+used 10.4% more output tokens than omission-only; modality used 15.7% fewer, partly
+alongside omitted content. The 289 emitted records all passed mechanical validation,
+which did not catch these semantic issues. Preserve the raw captures and revisable
+review judgments. Stop this explanation-field hypothesis branch and keep the new
+sections frozen rather than tuning against them. Production remains unchanged;
+no further calls, adoption or commits are pending from this experiment.
+
+## Integration and verification
+
+Runtime commit `376183f` integrates complete statements with optional nullable
+enrichment, compact audit input and grouped review evidence. The dedicated
+explanation fields and stricter omission-only variants remain experimental.
+The package guide and evaluation index now point to the fresh-source decision.
+
+Verification passed: 379 tests, native CUE generation, and offline replay of all
+60 captures across the six new experiments. Browser inspection confirmed compact
+evidence display, component highlighting and keyboard access to field details.
+Original captures, source files, manifests and review judgments remain intact.
+No additional provider calls were made for integration. Commits are local; no
+push or deployment was requested.
