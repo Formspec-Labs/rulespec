@@ -5,7 +5,7 @@ from pathlib import Path
 
 SCHEMA_DATA = Path(__file__).with_name("schema_data")
 PROFILE_SOURCES = ("document-understanding.cue", "cue.mod/module.cue")
-SCHEMA_FILES = {name: name + ".schema.json" for name in ("candidate", "meaning", "provider")}
+SCHEMA_FILES = {name: name + ".schema.json" for name in ("candidate", "meaning", "provider", "inventory")}
 
 
 def load_schema(name: str) -> dict:

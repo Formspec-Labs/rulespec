@@ -21,8 +21,8 @@ def draft():
 
 
 def answers():
-    inventory = {'units': [{'quote': 'an invoice', 'meaning': 'An invoice is an acceptable alternative.',
-                           'kind': 'alternative', 'scope_quotes': []}]}
+    inventory = {'units': [{'quote_ref': 'F000', 'meaning': 'An invoice is an acceptable alternative.',
+                           'kind': 'alternative', 'scope_refs': []}]}
     comparison = {'claim_judgments': [{'claim_id': 'C0000', 'unit_ids': [], 'dimensions': {
         d: 'error' if d == 'alternatives' else 'correct' for d in MEANING_DIMENSIONS},
         'rationale': 'The meaning narrows the choice to a receipt; the quote alone does not restore the missing alternative.',
@@ -160,3 +160,46 @@ def test_checker_receives_existing_reference_and_component_evidence():
     assert row['references'] == ['Part 2']
     for field in ['reference_links', 'actor_quote', 'action_quote', 'object_quote', 'evidence', 'section_id', 'start', 'end']:
         assert row[field] == claim[field]
+
+
+def inventory_capture(tmp_path, document, window, **changes):
+    row = {'quote_ref': 'F000', 'scope_refs': [], 'kind': 'requirement', 'meaning': 'Staff must log requests.', **changes}
+    raw = {'candidates': [{'content': {'parts': [{'text': json.dumps({'units': [row]})}]}, 'finish_reason': 'STOP'}]}
+    e._save(tmp_path / 'response.json', raw)
+    result = a._inventory(tmp_path, document, [window], [{'response_file': 'response.json'}])
+    assert e._load(tmp_path / 'response.json') == raw
+    return result
+
+
+def test_inventory_passage_ids_disambiguate_repeated_text_and_preserve_scope(tmp_path):
+    doc = prepare_document('For licensed staff:\n\nStaff must log requests.\n\nFor volunteers:\n\nStaff must log requests.')
+    window = e.plan_windows(doc)[0]
+    result = inventory_capture(tmp_path, doc, window, quote_ref='F003', scope_refs=['F002', 'F003', 'F002'])
+    assert not result['issues'] and len(result['units']) == 1
+    spans = result['units'][0]['source_spans']
+    assert len(spans) == 2
+    assert spans[0]['start'] == doc['text'].rindex('Staff must log requests.')
+    assert spans[1]['quote'] == 'For volunteers:'
+    assert all(doc['text'][s['start']:s['end']] == s['quote'] for s in spans)
+    assert result['completeness'] == 'not_established'
+
+
+@pytest.mark.parametrize('change', [{'quote_ref': 'F999'}, {'quote_ref': 'C000'},
+    {'scope_refs': ['C000:C001']}, {'scope_refs': ['F999']}, {'quote_ref': 'F0000'}])
+def test_inventory_refuses_unavailable_or_out_of_focus_evidence(tmp_path, change):
+    doc = prepare_document('Before.\n\nUnseen material.\n\nStaff must log requests.\n\nAfter.')
+    start = doc['text'].index('Staff')
+    window = {'id': 'focus', 'start': start, 'end': start + len('Staff must log requests.'),
+              'context_spans': [{'start': 0, 'end': len('Before.')},
+                                {'start': doc['text'].index('After'), 'end': len(doc['text'])}]}
+    result = inventory_capture(tmp_path, doc, window, **change)
+    assert not result['units']
+    assert result['issues'][0]['code'] == 'invalid_inventory_unit'
+    assert result['issues'][0]['row_index'] == 0
+
+
+def test_inventory_never_treats_inserted_text_as_source(tmp_path):
+    doc = prepare_document('Staff must log requests.')
+    doc['source_map'] = [{'kind': 'inserted', 'start': 0, 'end': len(doc['text']), 'text': doc['text']}]
+    result = inventory_capture(tmp_path, doc, e.plan_windows(doc)[0])
+    assert not result['units'] and result['issues'][0]['code'] == 'invalid_inventory_unit'

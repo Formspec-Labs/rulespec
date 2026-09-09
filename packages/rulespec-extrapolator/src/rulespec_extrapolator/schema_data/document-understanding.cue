@@ -11,8 +11,10 @@ import (
 // Shared field types and extraction guidance. The records below select their
 // required fields and add local evidence constraints without repeating meaning.
 
+#CommonKinds: ["requirement", "permission", "prohibition", "threshold", "definition", "condition", "exception", "recommendation", "exemption", "statement"]
+
 // Semantic kind; must agree with modality and relationship role. Classify the complete meaning, including headings' inherited context. A recommendation remains recommendation; descriptive possibility is statement. Conditions and exceptions are separate qualifications of a baseline; retain the baseline itself. Definitions and useful descriptive explanations also deserve units.
-#Kind: "requirement" | "permission" | "prohibition" | "authority" | "threshold" | "definition" | "condition" | "exception" | "recommendation" | "exemption" | "statement" @title("Kind") @sortEnum()
+#Kind: or(list.Concat([#CommonKinds, ["authority"]])) @title("Kind") @sortEnum()
 
 // Exact source passages defining the governing conditions, including parent lead-ins outside the main quote. Provide every source passage needed to substantiate scope_text. Parent cases may appear elsewhere in the supplied focus or context. Every item must be contiguous and exact; use separate items for separate passages.
 #ScopeQuotes: [...string] @title("Scope quotes")
@@ -75,6 +77,7 @@ import (
 #References: [...string] @title("References")
 
 // Complete meaning of this unit, preserving governing scope, qualifications and modal force. Make this a self-contained reading of the source. Include every governing parent case, time limit, negation, exception and qualification needed to avoid broadening or narrowing its meaning. A long supporting quote does not compensate for omitted meaning in this field. Keep descriptive and advisory material at its source force.
+// When a passage gives an example of a rule (for example, signaled by 'for example' or 'such as'), preserve that relationship: if you extract the example as its own unit, include the governing rule's conditions in that unit's meaning. Do not turn an illustration into an unconditional duty. If the source explicitly changes the example's scope, use that scope instead; do not inherit a condition the source overrides.
 #Summary: string @title("Summary")
 
 #NonemptyText: string & strings.MinRunes(1)
@@ -174,6 +177,26 @@ import (
 // not prove that the text supports the proposed meaning. Never invent IDs.
 #SourceRef: string @title("Source passage reference")
 
+#FocusSourceRef: string & =~"^F[0-9]{3,}(:F[0-9]{3,})?$"
+#InventoryKind: or(list.Concat([#CommonKinds, ["alternative", "background"]]))
+
+// Source-first meanings to check against a draft. Several meanings may share
+// one source passage; selecting a passage does not prove complete enumeration.
+#InventoryResponse: {
+    units!: [...{
+        // Select a focus passage or contiguous focus range supporting this meaning.
+        quote_ref!: #FocusSourceRef
+        // Select substantive governing lead-ins from focus or context passages,
+        // not bare section labels. Use [] when no additional scope is needed.
+        scope_refs!: [...#SourceRef]
+        kind!: #InventoryKind @sortEnum()
+        // Complete source-supported meaning, including inherited conditions,
+        // timing, AND/OR, negation and modal distinctions. Evidence alone does
+        // not restore an omitted condition, alternative or qualification.
+        meaning!: string & strings.MinRunes(1)
+    }]
+}
+
 // Complete meanings first. Preserve conditions and exceptions in every split
 // statement and its scope; this pass does not create relationship records.
 #FirstMeaning: {
@@ -209,7 +232,7 @@ import (
 	// disconnected passages. Select the main clause here and its remote lead-in
 	// in scope_quotes; preserve the full governing case in statement and scope.
 	// Context is support only.
-	unit!:            string & =~"^F[0-9]{3,}(:F[0-9]{3,})?$" @title("One focus passage or contiguous range")
+	unit!:            #FocusSourceRef @title("One focus passage or contiguous range")
 	unit_attributes!: #FirstMeaning
 }
 

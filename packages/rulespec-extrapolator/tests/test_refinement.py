@@ -39,8 +39,8 @@ def proposal(*, kind='exemption', target='', qualifies=None, operation='add'):
 
 
 def inventory():
-    return {'units': [{'quote': 'Volunteers are not required to carry a badge.',
-        'meaning': 'Volunteers need not carry a badge.', 'kind': 'exemption', 'scope_quotes': []}]}
+    return {'units': [{'quote_ref': 'F000',
+        'meaning': 'Volunteers need not carry a badge.', 'kind': 'exemption', 'scope_refs': []}]}
 
 
 def empty():

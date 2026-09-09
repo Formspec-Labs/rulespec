@@ -41,7 +41,7 @@ def test_provider_requires_explicit_empty_scope_list():
 
 
 @pytest.mark.parametrize("filename", ["document-understanding.cue", "cue.mod/module.cue",
-                                     "candidate.schema.json", "meaning.schema.json", "provider.schema.json"])
+                                     "candidate.schema.json", "meaning.schema.json", "provider.schema.json", "inventory.schema.json"])
 def test_inconsistent_source_or_output_refuses_to_load(tmp_path, monkeypatch, filename):
     copied = tmp_path / "schema_data"
     shutil.copytree(schemas.SCHEMA_DATA, copied)
