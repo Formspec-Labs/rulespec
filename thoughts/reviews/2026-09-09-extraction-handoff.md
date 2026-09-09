@@ -74,3 +74,72 @@ original adoption decisions and settings; this handoff states what is integrated
 
 Implementation and research are committed separately. No push, deployment, release
 or global memory change is part of this work.
+
+## Subsequent small improvements
+
+Discovery now exports existing `logic_text` alongside short statements. Fourteen
+focused tests pass; the field preserves qualifications in both the saved accounting
+case and a fresh notice-procedure case. Full source passage records remain intact.
+
+The [two controlled comparisons](../../examples/document_understanding/minor-audit-improvements/README.md)
+used 16 calls. Added CUE classification guidance improved labels but lost teacher
+scope in one result; no adoption. Unit judgment order passed the primary verdict
+checks 6/6 in both arms; no measured improvement and no adoption.
+
+A reserved 29 CFR 825.303 section then produced 18 accepted extraction statements
+and 19 accepted inventory observations. Comparison refused three claim/unit pairs
+because copied quotations changed whitespace, leaving review incomplete. The raw
+audit caught one overbroad permission but could not admit its evidence. Detailed
+source reviews, refusals and identical replay are saved in the linked experiment.
+The next candidate is comparison-stage passage references, not more prompt tuning.
+These subsequent changes are local and uncommitted.
+
+## Whitespace fallback tested, not adopted
+
+The [follow-up experiment](../../examples/document_understanding/whitespace-evidence-experiment/README.md)
+reprocessed the saved comparison with a whitespace-only fallback. All six refused
+judgments recovered with original source offsets and unchanged raw verdicts;
+accounting became complete, while the audit correctly remained failed. Of 17
+expected-refusal controls, 15 remained refused, but two constructed table/list
+joins were accepted. This fails the broad acceptance gate. No production matcher
+change or provider calls; preserved artifacts include all 23 controls. General
+whitespace matching and its superiority to passage IDs are not established.
+
+## Known-library fuzzy comparison
+
+The [library comparison](../../examples/document_understanding/library-fuzzy-evidence-experiment/README.md)
+tests fuzzysearch 0.8.1 and installed LangExtract 1.6.0 across nine configurations
+and 29 controls. Strict LangExtract (token coverage/density 1.0/1.0) recovers all six
+judgments while rejecting seven content-change counterexamples; three ambiguity
+and two layout cases remain accepted. Disabling fuzzy alignment produces identical
+controls and audit, proving token-exact alignment suffices for these recoveries.
+Reuse of that existing aligner is a concrete next candidate, with explicit
+uniqueness/layout policy; no production alignment change was adopted.
+
+The full-grid replay has stable printed outcome counts but fails exact equality.
+A short-control diagnostic finds the asymmetric fuzzysearch configuration choose
+a different occurrence of repeated text. The token-exact follow-up replays exactly.
+All observations and counterexamples are saved; no model calls were made.
+
+## Comparison passage-ID experiment executed
+
+The [four-call comparison](../../examples/document_understanding/comparison-passage-ids/README.md)
+kept the saved full source, draft and inventory fixed. Current exact matching accepted
+32/36 then 36/36 judgments; token alignment accepted 36/36 in both; passage IDs
+accepted 36/36 in both. Both ID runs cite the governing phone-call lead-in that the
+second quote run leaves out of its selected evidence. All four detect the known
+scope defect, but none explicitly identifies qualifications retained in logic_text.
+The strict adoption gate is unmet; no production matcher or comparison change.
+
+IDs used 22.6% fewer mean output tokens, but only 3.0% fewer total tokens because
+input repetition remained fixed. All four calls used 254,201 reported tokens.
+Local controls show cross-passage disambiguation but unresolved within-passage
+ambiguity, layout joins and loss of separately selected conditions when narrowing.
+Passage-only comparison is the simpler candidate for a separately narrowed
+reliability decision; no evidence supports adding a fuzzy layer. Stop this bounded
+experiment here. Captures, masked/unmasked review and identical replay are saved.
+
+Source correction: C0014.logic_text starts mid-sentence at F004. It retains unusual-
+circumstances/emergency qualifications but lacks F003's unforeseeable-leave lead-in;
+it is not the complete original paragraph. Preserve that distinction in later
+field-specific quality work. These results remain local and uncommitted.

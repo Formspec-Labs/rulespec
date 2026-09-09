@@ -1,0 +1,9 @@
+{
+  "grid": "Full nine-configuration replay emitted the same per-configuration acceptance/recovery counts, but exact results equality failed.",
+  "diagnostic": "Recomputing the 26 short controls isolated a changed repeated_exact source location under the asymmetric fuzzysearch configuration: original 18:34, later 0:16. Other short-control records matched in that diagnostic run.",
+  "limitation": "The failed full replay did not save its in-memory results, so other candidate-order/location differences in that particular replay have not been exhaustively excluded. Original results are preserved.",
+  "library_source_observation": "fuzzysearch.common.get_best_match_in_group selects min(distance, negative span length) without a source-location tie-break; consolidate_overlapping_matches selects one best match per group. This is consistent with the observed ambiguity.",
+  "token_exact_followup": "Run and replay both recover six judgments with exactly the same 29 control records and audit as strict LangExtract.",
+  "provider_calls": 0,
+  "production_changes": false
+}

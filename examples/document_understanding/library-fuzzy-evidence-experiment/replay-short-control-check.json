@@ -1,0 +1,129 @@
+[
+  {
+    "configuration": {
+      "name": "fuzzysearch-1",
+      "library": "fuzzysearch",
+      "max_l_dist": 1
+    },
+    "differences": []
+  },
+  {
+    "configuration": {
+      "name": "fuzzysearch-2",
+      "library": "fuzzysearch",
+      "max_l_dist": 2
+    },
+    "differences": []
+  },
+  {
+    "configuration": {
+      "name": "fuzzysearch-5pct",
+      "library": "fuzzysearch",
+      "edit_fraction": 0.05,
+      "edit_cap": 64
+    },
+    "differences": []
+  },
+  {
+    "configuration": {
+      "name": "fuzzysearch-10pct",
+      "library": "fuzzysearch",
+      "edit_fraction": 0.1,
+      "edit_cap": 64
+    },
+    "differences": []
+  },
+  {
+    "configuration": {
+      "name": "fuzzysearch-15pct",
+      "library": "fuzzysearch",
+      "edit_fraction": 0.15,
+      "edit_cap": 64
+    },
+    "differences": []
+  },
+  {
+    "configuration": {
+      "name": "fuzzysearch-insertions32-substitution1",
+      "library": "fuzzysearch",
+      "max_l_dist": 33,
+      "max_insertions": 32,
+      "max_deletions": 0,
+      "max_substitutions": 1
+    },
+    "differences": [
+      {
+        "case": "repeated_exact",
+        "original": {
+          "case": "repeated_exact",
+          "expected_accept": false,
+          "baseline": {
+            "accepted": false,
+            "expectation_met": true
+          },
+          "treatment": {
+            "accepted": true,
+            "source_span": {
+              "source_id": "urn:rulespec:document-understanding:document:ccbbe38ac891741b0bbe4a7f4d780c046e30e9c6d7db0007689599330243c80e",
+              "quote": "Staff must file.",
+              "start": 18,
+              "end": 34
+            },
+            "expectation_met": false
+          }
+        },
+        "new": {
+          "case": "repeated_exact",
+          "expected_accept": false,
+          "baseline": {
+            "accepted": false,
+            "expectation_met": true
+          },
+          "treatment": {
+            "accepted": true,
+            "source_span": {
+              "source_id": "urn:rulespec:document-understanding:document:ccbbe38ac891741b0bbe4a7f4d780c046e30e9c6d7db0007689599330243c80e",
+              "quote": "Staff must file.",
+              "start": 0,
+              "end": 16
+            },
+            "expectation_met": false
+          }
+        }
+      }
+    ]
+  },
+  {
+    "configuration": {
+      "name": "langextract-0.75-0.333",
+      "library": "langextract",
+      "fuzzy_alignment_threshold": 0.75,
+      "fuzzy_alignment_min_density": 0.3333333333333333,
+      "accept_match_lesser": false,
+      "fuzzy_alignment_algorithm": "lcs"
+    },
+    "differences": []
+  },
+  {
+    "configuration": {
+      "name": "langextract-0.95-0.95",
+      "library": "langextract",
+      "fuzzy_alignment_threshold": 0.95,
+      "fuzzy_alignment_min_density": 0.95,
+      "accept_match_lesser": false,
+      "fuzzy_alignment_algorithm": "lcs"
+    },
+    "differences": []
+  },
+  {
+    "configuration": {
+      "name": "langextract-1-1",
+      "library": "langextract",
+      "fuzzy_alignment_threshold": 1.0,
+      "fuzzy_alignment_min_density": 1.0,
+      "accept_match_lesser": false,
+      "fuzzy_alignment_algorithm": "lcs"
+    },
+    "differences": []
+  }
+]

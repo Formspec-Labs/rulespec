@@ -58,6 +58,22 @@ package and generator tests and native CUE drift checks pass. No new provider
 calls were made during integration; a fresh complete extraction-plus-comparison
 run under this runtime remains unmeasured.
 
+The [subsequent small-improvement check](../../examples/document_understanding/minor-audit-improvements/README.md)
+adds `logic_text` to discovery exports. Extra classification guidance and unit
+judgment ordering remain experimental: the former showed a scope regression,
+and the latter improved none of the primary verdict checks. A fresh notice section
+produced 18 accepted statements and no inventory refusals, but comparison rejected
+three claim/unit pairs for inexact copied quotations. Review remained incomplete.
+A [whitespace-only fallback experiment](../../examples/document_understanding/whitespace-evidence-experiment/README.md)
+recovers those pairs, but accepts two constructed table/list joins against the
+declared expectations. It remains experimental; production comparison matching
+is still exact. A [known-library comparison](../../examples/document_understanding/library-fuzzy-evidence-experiment/README.md)
+then found that installed LangExtract can recover all six judgments through its
+token-exact alignment, even with fuzzy matching disabled. That path still selects
+ambiguous and layout-sensitive spans in the constructed controls; it remains
+experimental. Configurable character-edit matching showed broader content-change
+acceptances, and one fuzzysearch setting varied its selected repeated-text location.
+
 ## Run the workflow
 
 From the repository root, the existing experimental environment exposes
@@ -152,7 +168,9 @@ on accepted records.
 **Output:** `rulebook.json`, a Core JSON-LD graph, exact source, requests,
 responses, candidates, refusals, validation results and frozen runtime inputs.
 The discovery export retains every source paragraph/list item, linked statements,
-exact evidence and review/processing status. It makes no model calls and creates
+exact evidence and review/processing status. Statement records also retain existing
+`logic_text`, so detailed wording survives alongside the shorter statement. It
+makes no model calls and creates
 no embeddings or inferred legal relationships.
 
 **Audit:** a separate source-first inventory selects focus passage IDs for each

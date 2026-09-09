@@ -86,5 +86,6 @@ def test_discovery_export_keeps_unlinked_source_and_pending_meaning_separate():
     assert export['accounting']['passages_without_linked_statements'] == 1
     assert export['accounting']['semantic_completeness'] == 'not_established'
     assert ''.join(r['text'] for r in export['records']) == doc['text']
+    assert export['statements'][0]['logic_text'] == book['accepted'][0]['logic_text']
     assert export['statements'][0]['review_status'] == 'pending'
     assert export['statements'][0]['statement'] == row()['unit_attributes']['statement']

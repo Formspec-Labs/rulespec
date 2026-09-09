@@ -1,0 +1,166 @@
+[
+  {
+    "name": "exact_prose",
+    "source": "Staff must file notice.",
+    "quote": "Staff must file notice.",
+    "expected_accept": true
+  },
+  {
+    "name": "wrapped_prose",
+    "source": "Staff must\n    file notice.",
+    "quote": "Staff must file notice.",
+    "expected_accept": true
+  },
+  {
+    "name": "unicode_thin_space",
+    "source": "See § 825.303(c).",
+    "quote": "See § 825.303(c).",
+    "expected_accept": true
+  },
+  {
+    "name": "nbsp_crlf",
+    "source": "Staff must\r\nfile notice.",
+    "quote": "Staff must file notice.",
+    "expected_accept": true
+  },
+  {
+    "name": "repeated_exact",
+    "source": "Staff must file.\n\nStaff must file.",
+    "quote": "Staff must file.",
+    "expected_accept": false
+  },
+  {
+    "name": "repeated_normalized",
+    "source": "Staff  must file.\n\nStaff\tmust file.",
+    "quote": "Staff must file.",
+    "expected_accept": false
+  },
+  {
+    "name": "overlapping_normalized",
+    "source": "a  a  a",
+    "quote": "a a",
+    "expected_accept": false
+  },
+  {
+    "name": "missing_negation",
+    "source": "Staff must not enter.",
+    "quote": "Staff must enter.",
+    "expected_accept": false
+  },
+  {
+    "name": "changed_threshold",
+    "source": "File within 30 days.",
+    "quote": "File within 3 days.",
+    "expected_accept": false
+  },
+  {
+    "name": "changed_choice",
+    "source": "Provide A and B.",
+    "quote": "Provide A or B.",
+    "expected_accept": false
+  },
+  {
+    "name": "changed_punctuation",
+    "source": "Pay 1,000 dollars.",
+    "quote": "Pay 1000 dollars.",
+    "expected_accept": false
+  },
+  {
+    "name": "stitched_quotation",
+    "source": "Staff must file. Managers may waive this. Within 30 days.",
+    "quote": "Staff must file. Within 30 days.",
+    "expected_accept": false
+  },
+  {
+    "name": "out_of_focus",
+    "source": "Outside rule.\n\nInside rule.",
+    "quote": "Outside rule.",
+    "expected_accept": false,
+    "start": 15
+  },
+  {
+    "name": "allowed_context",
+    "source": "Outside\nrule.\n\nInside rule.",
+    "quote": "Outside rule.",
+    "expected_accept": true,
+    "start": 15,
+    "context_spans": [
+      {
+        "start": 0,
+        "end": 13
+      }
+    ]
+  },
+  {
+    "name": "unsupplied_gap",
+    "source": "Staff\nMISSING\nmust file.",
+    "quote": "Staff must file.",
+    "expected_accept": false,
+    "start": 0,
+    "end": 5,
+    "context_spans": [
+      {
+        "start": 14,
+        "end": 24
+      }
+    ]
+  },
+  {
+    "name": "inserted_separator",
+    "source": "Staff\n\nmust file.",
+    "quote": "Staff must file.",
+    "expected_accept": false,
+    "source_map": [
+      {
+        "kind": "inserted",
+        "start": 5,
+        "end": 7
+      }
+    ]
+  },
+  {
+    "name": "empty_quote",
+    "source": "Staff must file.",
+    "quote": "",
+    "expected_accept": false
+  },
+  {
+    "name": "whitespace_only",
+    "source": "Staff must file.",
+    "quote": " \t ",
+    "expected_accept": false
+  },
+  {
+    "name": "case_change",
+    "source": "Staff must file.",
+    "quote": "staff must file.",
+    "expected_accept": false
+  },
+  {
+    "name": "zero_width_change",
+    "source": "Staff​ must file.",
+    "quote": "Staff must file.",
+    "expected_accept": false
+  },
+  {
+    "name": "table_cells_joined",
+    "source": "Permission wording\tSubject of restriction\nMay\tNot enter",
+    "quote": "May Not enter",
+    "expected_accept": false,
+    "layout": "TSV: May and Not enter are values of different columns; joining them creates a false prohibition."
+  },
+  {
+    "name": "separate_list_entries_joined",
+    "source": "Common permission phrases\nmay\nnot required",
+    "quote": "may not required",
+    "expected_accept": false,
+    "layout": "Three separate list lines; may and not required are separate categories, not a single qualified modal phrase."
+  },
+  {
+    "name": "exact_fragment_semantic_risk",
+    "source": "A replacement is not required.",
+    "quote": "required.",
+    "expected_accept": true,
+    "semantic_risk": "Already a unique exact substring. Both resolvers may locate it; neither establishes that a replacement is required."
+  }
+]
