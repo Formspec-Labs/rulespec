@@ -276,3 +276,71 @@ def test_valid_comparison_id_does_not_prove_semantic_relevance(tmp_path):
     assert not issues
     assert judgments['claim_judgments'][0]['source_spans'][0]['quote'] == 'The sky is blue.'
     assert judgments['review_provenance']['reviewer_kind'] == 'aiAgent'
+
+
+def test_compact_input_preserves_meaning_and_source_offsets_without_repeating_quotes():
+    book = draft()
+    window = e.plan_windows(book['document'])[0]
+    original = deepcopy(book)
+    labels = {'expected_units': []}
+    packet = a._comparison_model_input(book, labels, window)
+    claim = packet['claims']['C0000']
+    assert claim['summary'] == book['accepted'][0]['summary']
+    assert claim['choice_text'] == book['accepted'][0]['choice_text']
+    assert claim['quote'] == {'source_ref': 'F000'}
+    assert claim['evidence'][0]['quote'] == {'source_ref': 'F000'}
+    assert claim['evidence'][0]['start'] == 0
+    assert claim['actor_quote'] == 'Visitors'  # partial words remain explicit
+    assert 'logic_text' not in claim and 'scope_text' not in claim
+    assert 'concepts' not in claim and 'relation' not in claim
+    assert book == original
+
+
+def test_compact_quotes_do_not_collapse_repeated_locations_or_change_logic_role():
+    text = 'Staff may enter.\n\nStaff may enter.'
+    doc = prepare_document(text)
+    book = compile_candidates(doc, [{'kind': 'permission', 'modality': 'may',
+        'summary': 'Staff may enter.', 'actor': '', 'quote': 'Staff may enter.',
+        'logic_text': 'Staff may enter.', 'start': pos, 'end': pos + 16}
+        for pos in [0, 18]], {})
+    assert len(book['accepted']) == 2
+    packet = a._comparison_model_input(book, {'expected_units': []}, e.plan_windows(doc)[0])
+    for alias, ref in [('C0000', 'F000'), ('C0001', 'F001')]:
+        claim = packet['claims'][alias]
+        assert claim['summary'] == 'Staff may enter.'
+        assert claim['quote'] == claim['logic_text'] == {'source_ref': ref}
+        assert claim['evidence'][0]['quote'] == {'source_ref': ref}
+
+
+def test_compact_input_keeps_unknown_values_false_and_zero():
+    book = draft()
+    # Synthetic diagnostics: false/zero are values, not absent enrichment.
+    book['accepted'][0]['issues'] = [{'code': 'example', 'observed': False, 'count': 0}]
+    packet = a._comparison_model_input(book, {'expected_units': []}, e.plan_windows(book['document'])[0])
+    assert packet['claims']['C0000']['issues'] == [{'code': 'example', 'observed': False, 'count': 0}]
+
+
+def test_compact_quotes_preserve_ambiguous_and_outside_catalog_text():
+    doc = prepare_document('Staff may enter.\n\nStaff may enter.\n\nVisitors must wait.')
+    book = compile_candidates(doc, [{'kind': 'permission', 'modality': 'may',
+        'summary': 'Staff may enter.', 'actor': '', 'quote': 'Staff may enter.', 'start': 0, 'end': 16}], {})
+    # One quote matches the main locator; the other lies outside the catalog.
+    book['accepted'][0]['context_quotes'] = ['Staff may enter.', 'Visitors must wait.']
+    window = {'id': 'focus', 'start': 0, 'end': 16, 'context_spans': []}
+    claim = a._comparison_model_input(book, {'expected_units': []}, window)['claims']['C0000']
+    assert claim['quote'] == {'source_ref': 'F000'}
+    # The main locator disambiguates the identical context quote as well.
+    assert claim['context_quotes'] == [{'source_ref': 'F000'}, 'Visitors must wait.']
+    book['accepted'][0]['evidence'].append({'field': 'context', 'quote': 'Staff may enter.'})
+    claim = a._comparison_model_input(book, {'expected_units': []}, window)['claims']['C0000']
+    assert claim['evidence'][-1]['quote'] == 'Staff may enter.'
+
+
+def test_compact_quotes_use_exact_contiguous_ranges():
+    text = 'Staff must file.\n\nUnless exempt.'
+    doc = prepare_document(text)
+    book = compile_candidates(doc, [{'kind': 'requirement', 'modality': 'must',
+        'summary': 'Staff must file unless exempt.', 'actor': '', 'quote': text, 'logic_text': text}], {})
+    claim = a._comparison_model_input(book, {'expected_units': []}, e.plan_windows(doc)[0])['claims']['C0000']
+    assert claim['quote'] == claim['logic_text'] == {'source_ref': 'F000:F001'}
+    assert claim['summary'] == 'Staff must file unless exempt.'

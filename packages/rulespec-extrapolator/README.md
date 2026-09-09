@@ -18,8 +18,17 @@ Start with **low-thinking extraction**. Add a **medium-thinking audit** when its
 diagnostic feedback is useful. Keep full source passages available to downstream
 search alongside the extracted statements. Relationship refinement and structured
 concept/value enrichment are optional. Ordinary extraction represents meaning in
-prose, but can still omit qualifications. Retain `logic_text` and source evidence
-with short statements so downstream users can inspect their governing context.
+prose, but can still omit qualifications. Keep complete statements and their source
+passages available together. When populated, `logic_text` retains verbatim wording
+for inspection; it does not replace qualifications missing from a statement.
+
+Normal extraction now requires one complete `statement`, `kind` and `modality`.
+Optional enrichment may be omitted or null; it should add useful structure.
+Audit requests omit empty fields and reuse passage references for exact repeated
+quotations. The [sparse-meaning check](../../examples/document_understanding/sparse-meaning-check/README.md)
+measured 57–79% fewer audit input tokens while retaining four planted-error
+detections. The known qualification miss remains, and two additional modality
+flags leave the broader quality comparison unresolved.
 
 The [earlier full-section run](../../examples/document_understanding/low-extract-medium-audit/README.md)
 used a saved 6,919-character leave-eligibility regulation before the inventory
@@ -181,8 +190,9 @@ hierarchy. PDF, OCR and layout extraction are outside this package.
 **Processing:** the application indexes paragraphs and list items, plans bounded
 windows, and supplies parent/neighbor context. Fitting list groups stay together;
 larger groups can split. Structural parents are clues, not proven governing
-conditions. The model emits complete statements, scope, modal force, choices and
-source references using the CUE-generated schema. LangExtract supplies its Gemini
+conditions. The model emits complete statements, kind, modal force and source
+references using the CUE-generated schema. Scope, choice and other enrichment are
+optional. LangExtract supplies its Gemini
 adapter; Rulespec supplies evidence resolution, validation, identities and Core
 records.
 
@@ -193,6 +203,13 @@ becomes verbatim `logic_text`; model `statement` becomes candidate `summary`.
 One passage can support several meanings or alternatives. Every option and
 qualification must still survive in the explicit meaning; a quotation alone is
 not proof of semantic completeness.
+
+Omitted or null model enrichment becomes an empty string/list in the existing Core
+record shape; the raw capture preserves what the model actually emitted. Separate
+scope, choice or logic fields are not required to repeat a complete statement.
+Audit input omits empty fields and replaces exact catalog quotations with passage
+references while preserving every populated meaning field and its role. Saved
+evidence, review history and source text remain complete.
 
 Invalid main references refuse a row. Invalid supporting references withhold the
 component and preserve the statement, raw suggestion and field-specific refusal.

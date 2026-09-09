@@ -90,28 +90,79 @@ function renderClaims() {
     card.append(checkbox, button); $("claim-list").append(card);
   }
 }
+function evidenceLabel(field) {
+  const name = field.split(":")[0];
+  return ({summary: "Statement", actor: "Actor", action: "Action", object: "Object",
+    logic_text: "Logic", modality: "Modal wording",
+    scope_text: "Applicability", context: "Context", choice_text: "Choice",
+    alternative: "Alternatives"})[name] || readable(name);
+}
+function evidenceGroups(evidence) {
+  const groups = new Map();
+  for (const item of evidence) {
+    // Source positions matter: identical words at different locations stay separate.
+    const key = JSON.stringify([item.source_id, item.start, item.end, item.quote]);
+    if (!groups.has(key)) groups.set(key, {evidence: item, fields: new Set()});
+    groups.get(key).fields.add(item.field);
+  }
+  return [...groups.values()];
+}
+function renderEvidence(detail, evidence) {
+  const groups = evidenceGroups(evidence);
+  const contains = (outer, inner) => outer.evidence.source_id === inner.evidence.source_id
+    && outer.evidence.start <= inner.evidence.start && outer.evidence.end >= inner.evidence.end
+    && (outer.evidence.start < inner.evidence.start || outer.evidence.end > inner.evidence.end);
+  const passages = groups.filter((group) => !groups.some((other) => contains(other, group)));
+  const shown = new Set();
+  for (const group of passages) {
+    const passage = node("section", undefined, "source-evidence");
+    const roles = [...new Set([...group.fields].map(evidenceLabel))];
+    passage.append(node("p", roles.join(" · "), "evidence-roles"));
+    const quote = node("button", group.evidence.quote, "evidence-button"); quote.type = "button";
+    quote.title = "Highlight this passage in the source";
+    quote.addEventListener("click", () => highlight([group.evidence], true));
+    passage.append(quote);
+    const components = node("div", undefined, "evidence-components");
+    for (const child of groups.filter((item) => contains(group, item) && !shown.has(item))) {
+      shown.add(child);
+      const label = [...new Set([...child.fields].map(evidenceLabel))].join(" / ");
+      const button = node("button", `${label}: ${child.evidence.quote}`, "component-evidence"); button.type = "button";
+      button.addEventListener("click", () => highlight([child.evidence], true)); components.append(button);
+    }
+    if (components.childElementCount) passage.append(components);
+    detail.append(passage);
+  }
+}
 function renderDetail() {
   for (const prior of $("claim-list").querySelectorAll("[data-claim-detail]")) prior.remove();
   const claim = currentClaims().find((c) => c.id === state.active);
   const card = [...$("claim-list").querySelectorAll(".claim-card")].find((item) => item.dataset.claimId === state.active);
   if (!claim || !card) return;
-  const detail = node("section", undefined, "detail"); detail.dataset.claimDetail = "true"; detail.append(node("h3", "Meaning and supporting evidence"));
+  const detail = node("section", undefined, "detail"); detail.dataset.claimDetail = "true";
+  if (claim.scope_text) {
+    const scope = node("p", undefined, "claim-scope");
+    scope.append(node("strong", "Scope: "), document.createTextNode(claim.scope_text)); detail.append(scope);
+  }
+  detail.append(node("h3", "Supporting source"));
+  renderEvidence(detail, claim.evidence || []);
+  const technical = node("details", undefined, "technical-details");
+  technical.append(node("summary", "Field details and evidence links"));
   const fields = node("dl");
   for (const [key, label] of [["modality", "Source meaning"], ["actor", "Actor"], ["action", "Action"], ["object", "Object"], ["scope_text", "When this applies"], ["choice_text", "How the alternatives fit together"], ["logic_text", "Logic to review"], ["relation", "Qualification"]]) {
-    if (claim[key] && claim[key] !== "none") fields.append(node("dt", label), node("dd", claim[key]));
+    if (claim[key] && claim[key] !== "none") fields.append(node("dt", label), node("dd", key === "modality" ? readable(claim[key]) : claim[key]));
   }
-  detail.append(fields);
+  technical.append(fields);
   if (claim.alternative_quotes?.length) {
-    detail.append(node("h3", "Alternatives"));
+    technical.append(node("h3", "Alternative source quotations"));
     const choices = node("ul");
     for (const option of claim.alternative_quotes) choices.append(node("li", option));
-    detail.append(choices);
+    technical.append(choices);
   }
   for (const evidence of claim.evidence || []) {
-    const button = node("button", undefined, "evidence-button"); button.type = "button";
-    button.append(node("span", evidence.field === "summary" ? "Main evidence" : `${readable(evidence.field)} evidence`, "evidence-label"), document.createTextNode(evidence.quote));
-    button.addEventListener("click", () => highlight([evidence], true)); detail.append(button);
+    const button = node("button", `${evidence.field} · characters ${evidence.start}–${evidence.end}`, "text-button"); button.type = "button";
+    button.addEventListener("click", () => highlight([evidence], true)); technical.append(button);
   }
+  detail.append(technical);
   if ((claim.applies_to || []).length) {
     detail.append(node("h3", "Affected rules"));
     for (const quote of claim.applies_to) detail.append(node("p", quote, "muted"));

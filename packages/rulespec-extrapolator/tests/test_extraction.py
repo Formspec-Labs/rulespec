@@ -11,8 +11,8 @@ from rulespec_extrapolator import extraction as e
 
 
 def row(reference="F000", **attributes):
-    fields = {name: [] if schema['type'] == 'array' else ''
-              for name, schema in e.PROVIDER_FIELDS.items()}
+    fields = {name: [] if name in e.core.LIST_FIELDS else ''
+              for name in e.PROVIDER_FIELDS}
     fields.update(kind="requirement", statement="Staff must log requests",
                   modality="must", modality_quote="must")
     fields.update(attributes)
@@ -128,7 +128,7 @@ def test_overflow_refusal_is_serializable_and_preserves_valid_neighbor():
     assert "1e999" in serialized
 
 
-@pytest.mark.parametrize("field", ["statement", "scope_quotes", "modality", "alternative_quotes"])
+@pytest.mark.parametrize("field", ["statement", "kind", "modality"])
 def test_missing_required_attributes_are_not_invented(field):
     malformed = row()
     del malformed["unit_attributes"][field]
@@ -391,7 +391,7 @@ def test_native_schema_preserves_closed_meaning_fields_without_json_prompt_examp
     schema = e.provider_schema().schema_dict
     row_schema = schema["properties"]["extractions"]["items"]
     attrs = row_schema["properties"]["unit_attributes"]
-    assert set(attrs["required"]) == set(e.PROVIDER_FIELDS)
+    assert attrs["required"] == ["statement", "kind", "modality"]
     assert "concepts" not in attrs["properties"]
     assert "statement" in attrs["properties"]
     assert attrs["additionalProperties"] is False

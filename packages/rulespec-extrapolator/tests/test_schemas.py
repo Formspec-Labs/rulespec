@@ -31,13 +31,15 @@ def test_candidate_retains_evidence_and_offset_constraints(change, valid):
     assert Draft202012Validator(schemas.load_schema("candidate")).is_valid(candidate) == valid
 
 
-def test_provider_requires_explicit_empty_scope_list():
+def test_provider_allows_omitted_or_null_scope_list():
     from test_extraction import row
     payload = {"extractions": [row()]}
     validator = Draft202012Validator(schemas.load_schema("provider"))
     assert validator.is_valid(payload)
     del payload["extractions"][0]["unit_attributes"]["scope_quotes"]
-    assert not validator.is_valid(payload)
+    assert validator.is_valid(payload)
+    payload["extractions"][0]["unit_attributes"]["scope_quotes"] = None
+    assert validator.is_valid(payload)
 
 
 @pytest.mark.parametrize("filename", ["document-understanding.cue", "cue.mod/module.cue",

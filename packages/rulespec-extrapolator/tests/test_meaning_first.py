@@ -89,3 +89,31 @@ def test_discovery_export_keeps_unlinked_source_and_pending_meaning_separate():
     assert export['statements'][0]['logic_text'] == book['accepted'][0]['logic_text']
     assert export['statements'][0]['review_status'] == 'pending'
     assert export['statements'][0]['statement'] == row()['unit_attributes']['statement']
+
+
+@pytest.mark.parametrize('explicit_null', [False, True])
+def test_statement_first_accepts_absent_enrichment_without_inventing_components(explicit_null):
+    attrs = {'statement': 'Staff must log requests.', 'kind': 'requirement', 'modality': 'must'}
+    if explicit_null:
+        attrs.update({name: None for name in e.PROVIDER_FIELDS if name not in attrs})
+    original = deepcopy(attrs)
+    doc = prepare_document('Staff must log requests.')
+    parsed = e.parse_response_text(json.dumps({'extractions': [{'unit': 'F000', 'unit_attributes': attrs}]}),
+                                   doc, e.plan_windows(doc)[0])
+    assert parsed['status'] == 'complete' and not parsed['refusals']
+    book = compile_candidates(doc, parsed['candidates'], {})
+    claim, = book['accepted']
+    assert attrs == original
+    assert claim['summary'] == attrs['statement']
+    assert claim['scope_text'] == claim['logic_text'] == claim['choice_text'] == ''
+    assert claim['alternative_quotes'] == []
+    assert not claim['issues']
+    assert [span['field'] for span in claim['evidence']] == ['summary']
+
+
+@pytest.mark.parametrize('statement', [None, ''])
+def test_complete_statement_cannot_be_null_or_empty(statement):
+    doc = prepare_document('Staff must log requests.')
+    parsed = e.parse_response_text(json.dumps({'extractions': [row(statement=statement)]}), doc, e.plan_windows(doc)[0])
+    assert not parsed['candidates']
+    assert parsed['refusals'][0]['code'] == 'invalid_semantic_unit'
