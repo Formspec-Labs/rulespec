@@ -357,18 +357,23 @@ def test_real_langextract_adapter_records_explicit_schema_and_generation_setting
     assert request["config"] == expected
 
 
-def test_thinking_level_survives_replay_and_reprocessing_without_budget(offline, tmp_path):
+@pytest.mark.parametrize("settings, level", [({}, "low"), *[({"thinking_level": v}, v) for v in (None, "low", "medium", "high")]])
+def test_thinking_level_survives_replay_and_reprocessing_without_budget(offline, tmp_path, settings, level):
     install, _ = offline
     env = install([raw([row()])])
-    original = tmp_path / "high-thinking"
-    e.extract_run(prepare_document("Staff must log requests."), original, env_file=env, thinking_level="high")
+    original = tmp_path / "thinking"
+    e.extract_run(prepare_document("Staff must log requests."), original, env_file=env, **settings)
     config = e._load(original / "attempt-0000.request.json")["config"]
-    assert config["thinking_config"] == {"thinking_level": "high"}
-    assert e.replay_run(original, tmp_path / "replayed")["run"]["thinking_level"] == "high"
-    assert e.reprocess_run(original, tmp_path / "reprocessed")["run"]["thinking_level"] == "high"
-    assert e.replay_run(tmp_path / "reprocessed", tmp_path / "reprocessed-replay")["run"]["thinking_level"] == "high"
+    assert config.get("thinking_config") == ({"thinking_level": level} if level is not None else None)
+    assert "thinking_budget" not in config.get("thinking_config", {})
+    assert config["max_output_tokens"] == 16384
+    assert e.replay_run(original, tmp_path / "replayed")["run"]["thinking_level"] == level
+    reprocessed = e.reprocess_run(original, tmp_path / "reprocessed")["run"]
+    assert reprocessed["thinking_level"] == level
+    assert reprocessed["reprocessing"]["acquisition_matches_current"]["requests"] is (level == "low")
+    assert e.replay_run(tmp_path / "reprocessed", tmp_path / "reprocessed-replay")["run"]["thinking_level"] == level
     run = e._load(original / "run.json")
-    run["thinking_level"] = "medium"
+    run["thinking_level"] = "high" if level != "high" else "medium"
     e._save(original / "run.json", run)
     e._write_manifest(original)
     with pytest.raises(e.ReplayDriftError, match="generation"):

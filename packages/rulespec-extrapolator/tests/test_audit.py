@@ -57,16 +57,18 @@ def provider(monkeypatch, tmp_path, responses):
     return env, requests
 
 
-@pytest.mark.parametrize("settings", [{}, {"thinking_level": "high", "max_output_tokens": None}])
+@pytest.mark.parametrize("settings", [{}, *[{"thinking_level": v, "max_output_tokens": None} for v in (None, "low", "medium", "high")]])
 def test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote(monkeypatch, tmp_path, settings):
     book = draft()
     before = deepcopy(book)
     env, requests = provider(monkeypatch, tmp_path, answers())
     report = a.audit_run(book, tmp_path / 'audit', env_file=env, **settings)
-    if settings:
-        for request in requests:
-            assert request['config']['thinking_config'] == {'thinking_level': 'high'}
-            assert 'max_output_tokens' not in request['config']
+    level = settings.get('thinking_level', 'medium')
+    for request in requests:
+        assert request['config'].get('thinking_config') == ({'thinking_level': level} if level is not None else None)
+        assert 'thinking_budget' not in request['config'].get('thinking_config', {})
+        assert request['config'].get('max_output_tokens') == settings.get('max_output_tokens', 32768)
+    assert e._load(tmp_path / 'audit/audit.json')['thinking_level'] == level
     assert report['status'] == 'failed'
     assert report['coverage']['missing'] == 1
     assert report['dimensions']['alternatives']['error'] == 1

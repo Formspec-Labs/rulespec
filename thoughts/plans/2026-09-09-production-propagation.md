@@ -1,5 +1,11 @@
 # Production propagation plan
 
+Implementation status: the user authorized this plan on 2026-09-09. The operating
+guide and maintained case index are committed in `beb3fbf`, together with all four
+experiments. Low extraction / medium audit defaults are now implemented locally;
+final verification and delivery are recorded in the [implementation check](../../examples/document_understanding/production-defaults-check/README.md).
+The proposal below preserves the original decision context.
+
 The current experiment is complete. Propagate the evidence into the operating
 guide and maintained evaluation cases. Consider making the recommended thinking
 levels explicit defaults. Preserve the current extraction semantics: the recent

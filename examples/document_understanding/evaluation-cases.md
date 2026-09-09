@@ -81,8 +81,7 @@ Fixture and capture file hashes are separately pinned by each linked manifest.
 | [standalone-qualification-experiment/fixtures/controls.json](standalone-qualification-experiment/fixtures/controls.json) | `9639c22d96d2c938434fca2ebdfb7f5d26eb140456f8911fd19d3875332b5aff` |
 
 Historical experiments pin their pre-default-change runtime. All 26 calls replayed
-successfully before the runtime change. Use that historical checkout and recorded
-dependencies for those runners; current-runtime drift refusal is intentional.
+successfully before the runtime change. Use commit `beb3fbf` and its recorded dependencies for those runners; current-runtime drift refusal is intentional.
 For the comparison field test use `replay.py`; its original `run.py replay`
 incorrectly selects an extraction-only manifest verifier. Preserve that recorded
 failure and its corrective wrapper. No manifest or raw output was rewritten.

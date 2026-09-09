@@ -3,7 +3,9 @@
 The [operating guide](../../packages/rulespec-extrapolator/README.md) describes the
 current workflow. Use low-thinking extraction with an optional medium-thinking
 audit. Retain full source passages for discovery and human review before deriving
-executable workflows. Default settings have not changed.
+executable workflows. CLI and library thinking defaults are now low extraction
+and medium audit; window sizes and output caps retain their earlier values.
+See the latest implementation entry below; older entries describe their snapshots.
 
 The latest [quality decision](2026-09-09-extraction-quality-decision.md) consolidates
 four completed experiments: retain the current workflow; audit helps with the
@@ -285,3 +287,26 @@ Passage IDs, source-preserving discovery, CUE guidance and completeness limitati
 are already integrated. The plan excludes unsupported wording, merge, fuzzy and
 automatic-approval changes. This is an aggregation, not newly implemented runtime
 behavior or a commit/release. No further experiment is required to deliver it.
+
+## Production propagation implemented
+
+The user explicitly requested implementation of the plan. Research, revised
+operating guidance and the maintained evaluation case index are committed in
+`beb3fbf`; all 26 historical calls replayed before runtime changes. Historical
+uncommitted/pending statements above describe their earlier checkpoints.
+
+The only runtime change makes low extraction and medium audit the CLI/library
+thinking defaults and updates reprocessing's current-settings comparison. Explicit
+levels and Python `None` remain supported. Output caps/windows, CUE definitions,
+meaning generation, evidence matching and review behavior retain their prior design.
+All 371 package/schema-generator tests and native CUE drift checks pass.
+
+The [bounded live check](../../examples/document_understanding/production-defaults-check/README.md)
+used three calls and 33,025 reported tokens. Actual requests match the new defaults;
+extraction, audit and discovery replay identically. It produced 16 accepted records,
+one withheld non-verbatim modality quote and three unresolved reference records.
+Extraction is partial; the audit passed but still overlooked the standalone local-
+adaptation qualification. These are retained limitations, not a failed configuration
+promotion or a demonstrated semantic improvement. No further calls are pending.
+The implemented scope is complete. This entry accompanies the separate runtime
+configuration commit; no push, release or deployment is included.

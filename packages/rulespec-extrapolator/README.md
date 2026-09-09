@@ -32,8 +32,9 @@ evidence change below:
   plus remaining weaknesses in standalone wording that the audit missed.
 - The three calls used 64,117 reported tokens and about 48 seconds of request
   time. This is one measured run, not a typical-document cost estimate.
-- Extraction, audit and discovery export replay identically. At that historical snapshot, all 333 package
-  tests, six schema-generator tests and native CUE generation checks passed.
+- Extraction, audit and discovery export replay identically. At that historical
+  snapshot, all 333 package tests, six schema-generator tests and native CUE
+  generation checks passed.
 
 The [small medium/high comparison](../../examples/document_understanding/medium-audit-experiment/README.md)
 retained detection of two deliberate omissions while reducing token volume by
@@ -97,6 +98,12 @@ For discovery, users can correct source-backed drafts over time. Before deriving
 an executable workflow, review governing conditions and exceptions against the
 source; a passed model audit does not certify complete rules.
 
+The [default-configuration check](../../examples/document_understanding/production-defaults-check/README.md)
+verified the promoted thinking defaults through three live calls and identical
+offline replays. All 371 package/schema-generator tests and native CUE drift checks
+passed. The live extraction remained partial because one component quote was
+withheld; the audit still missed the known standalone qualification risk.
+
 ## Run the workflow
 
 From the repository root, the existing experimental environment exposes
@@ -125,19 +132,24 @@ rulespec-understand audit-replay my-audit --output my-audit-replay
 ```
 
 Supply `GEMINI_API_KEY` through the environment or the explicitly selected env
-file. Each new run needs a new output directory. The commands above select the
-evaluated settings explicitly; library defaults remain unchanged:
+file. Each new run needs a new output directory. CLI and library calls default to
+low extraction and medium audit. This promotes the operating recommendation; the
+recent experiments did not compare these levels against the provider's implicit
+default. The recipe above also explicitly increases the audit window and removes
+application output caps, which remain separate from the thinking defaults:
 
 | Setting | Extraction default | Audit default | Recipe above |
 |---|---|---|---|
 | Focus characters | 24,000 | 3,000 | 24,000 for both |
 | Generation allowance | 16,384 tokens | 32,768 tokens | provider limit |
-| Thinking level | provider default | provider default | low / medium |
+| Thinking level | low | medium | low / medium |
 | Temperature | 0 | 0 | 0 |
 
 `--max-output-tokens provider` omits the application's cap; provider limits still
 apply. `--thinking-level` accepts low, medium or high and sends no numeric
-`thinking_budget`. Requests allow up to five minutes, with no automatic retries.
+`thinking_budget`. Python callers can explicitly pass `thinking_level=None` to
+use the provider default. Saved requests retain their recorded setting during
+replay and reprocessing. Requests allow up to five minutes, with no automatic retries.
 Settings and actual SDK requests are recorded and checked during replay. Fresh
 calls can differ even at temperature zero.
 
@@ -258,7 +270,7 @@ Reprocessing preserves the original capture and records the changed processing;
 it supports the current response format, not retired formats. Recorded compiler
 failures can be reprocessed when both run and validation metadata identify the
 failure. Missing outputs from a nominally successful run remain an integrity error.
-Audit version 3 uses passage-ID inventory responses. Earlier version 2 captures
+Audit version 4 uses passage IDs in inventory and comparison. Earlier captures
 require their frozen historical runtime. Old experiments retain that runtime; do not rewrite their manifests
 to make an older capture pass under newer code.
 

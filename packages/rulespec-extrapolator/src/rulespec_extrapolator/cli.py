@@ -6,6 +6,7 @@ from pathlib import Path
 from .core import canonical, validate_graph
 from .documents import load_document
 from . import extraction as e
+from . import audit as a
 
 
 def _load(path):
@@ -36,7 +37,8 @@ def main(argv=None):
                          default=e.MAX_OUTPUT_TOKENS, metavar="TOKENS|provider",
                          help="Total generation allowance; 'provider' omits the application cap. Recorded for replay.")
     extract.add_argument("--thinking-level", choices=("low", "medium", "high"),
-                         help="Gemini thinking effort; omitting uses the provider default. No thinking budget is sent.")
+                         default=e.DEFAULT_THINKING_LEVEL,
+                         help="Gemini thinking effort; default %(default)s. No thinking budget is sent.")
     extract.add_argument("--temperature", type=float, default=0,
                          help="Gemini sampling temperature (0–2), recorded for replay; default 0.")
     extract.add_argument("--output", type=Path, required=True)
@@ -73,7 +75,8 @@ def main(argv=None):
                        default=32768, metavar="TOKENS|provider",
                        help="Total generation allowance per audit request; 'provider' omits the application cap.")
     audit.add_argument("--thinking-level", choices=("low", "medium", "high"),
-                       help="Thinking effort for both audit stages; no thinking budget is sent.")
+                       default=a.DEFAULT_THINKING_LEVEL,
+                       help="Thinking effort for both audit stages; default %(default)s. No thinking budget is sent.")
     audit.add_argument("--output", type=Path, required=True)
     audit_replay = sub.add_parser("audit-replay", help="Recompute a saved audit without provider calls.")
     audit_replay.add_argument("input", type=Path)

@@ -1,0 +1,710 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/concept-resolution-result.json",
+  "title": "concept-resolution-result",
+  "$defs": {
+    "ConceptResolutionStatus": {
+      "type": "string",
+      "enum": [
+        "rkaf:resolved",
+        "rkaf:unresolved",
+        "rkaf:ambiguous",
+        "rkaf:conflicting",
+        "rkaf:registryUnavailable",
+        "rkaf:staleCacheFallback"
+      ]
+    },
+    "ConceptResolutionMethod": {
+      "type": "string",
+      "enum": [
+        "rkaf:directRegistry",
+        "rkaf:exactMatchTrusted",
+        "rkaf:closeMatchLocallyAdopted",
+        "rkaf:closeMatchAwaitingAdoption",
+        "rkaf:broadOrNarrowMatchDiscoveryOnly",
+        "rkaf:cacheServed",
+        "rkaf:staleCacheServed"
+      ]
+    },
+    "ConceptResolutionCacheStatus": {
+      "type": "string",
+      "enum": [
+        "rkaf:fresh",
+        "rkaf:stale",
+        "rkaf:notCached"
+      ]
+    },
+    "UsageEligibility": {
+      "type": "string",
+      "enum": [
+        "rkaf:notEligible",
+        "rkaf:searchOnly",
+        "rkaf:reviewQueueOnly",
+        "rkaf:draftGenerationAllowed",
+        "rkaf:localOperationalUse",
+        "rkaf:publicationAllowed",
+        "rkaf:officialUse"
+      ]
+    },
+    "ConceptResolutionResult": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:ConceptResolutionResult"
+        },
+        "rkaf:inputConcept": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:resolutionStatus": {
+          "$ref": "#/$defs/ConceptResolutionStatus"
+        },
+        "rkaf:resolutionMethod": {
+          "$ref": "#/$defs/ConceptResolutionMethod"
+        },
+        "rkaf:resolvedConcept": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:mappingAssertion": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:cacheStatus": {
+          "$ref": "#/$defs/ConceptResolutionCacheStatus"
+        },
+        "rkaf:usageCeiling": {
+          "$ref": "#/$defs/UsageEligibility"
+        },
+        "rkaf:resolvedAt": {
+          "type": "string"
+        },
+        "rkaf:resolverId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:inputConcept",
+        "rkaf:resolutionStatus",
+        "rkaf:resolutionMethod",
+        "rkaf:cacheStatus",
+        "rkaf:usageCeiling",
+        "rkaf:resolvedAt"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "rkaf:resolutionStatus": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:resolved"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:resolved"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:resolutionStatus"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:resolvedConcept": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            },
+            "required": [
+              "rkaf:resolvedConcept"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:resolutionStatus": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:staleCacheFallback"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:staleCacheFallback"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:resolutionStatus"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:resolvedConcept": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            },
+            "required": [
+              "rkaf:resolvedConcept"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:resolutionStatus": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:unresolved"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:unresolved"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:resolutionStatus"
+            ]
+          },
+          "then": {
+            "allOf": [
+              {
+                "not": {
+                  "required": [
+                    "rkaf:resolvedConcept"
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:resolutionStatus": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:ambiguous"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:ambiguous"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:resolutionStatus"
+            ]
+          },
+          "then": {
+            "allOf": [
+              {
+                "not": {
+                  "required": [
+                    "rkaf:resolvedConcept"
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:resolutionStatus": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:conflicting"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:conflicting"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:resolutionStatus"
+            ]
+          },
+          "then": {
+            "allOf": [
+              {
+                "not": {
+                  "required": [
+                    "rkaf:resolvedConcept"
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:resolutionStatus": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:registryUnavailable"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:registryUnavailable"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:resolutionStatus"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:usageCeiling": {
+                "const": "rkaf:notEligible"
+              }
+            },
+            "required": [
+              "rkaf:usageCeiling"
+            ],
+            "allOf": [
+              {
+                "not": {
+                  "required": [
+                    "rkaf:resolvedConcept"
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:resolutionStatus": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:conflicting"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:conflicting"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:resolutionStatus"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:usageCeiling": {
+                "const": "rkaf:notEligible"
+              }
+            },
+            "required": [
+              "rkaf:usageCeiling"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:resolutionStatus": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:unresolved"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:unresolved"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:resolutionStatus"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:usageCeiling": {
+                "type": "string",
+                "enum": [
+                  "rkaf:notEligible",
+                  "rkaf:searchOnly"
+                ]
+              }
+            },
+            "required": [
+              "rkaf:usageCeiling"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:resolutionStatus": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:staleCacheFallback"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:staleCacheFallback"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:resolutionStatus"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:cacheStatus": {
+                "const": "rkaf:stale"
+              }
+            },
+            "required": [
+              "rkaf:cacheStatus"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:resolutionMethod": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:exactMatchTrusted"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:exactMatchTrusted"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:resolutionMethod"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:mappingAssertion": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            },
+            "required": [
+              "rkaf:mappingAssertion"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:resolutionMethod": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:closeMatchLocallyAdopted"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:closeMatchLocallyAdopted"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:resolutionMethod"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:mappingAssertion": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "rkaf:usageCeiling": {
+                "type": "string",
+                "enum": [
+                  "rkaf:notEligible",
+                  "rkaf:searchOnly",
+                  "rkaf:reviewQueueOnly",
+                  "rkaf:draftGenerationAllowed",
+                  "rkaf:localOperationalUse"
+                ]
+              }
+            },
+            "required": [
+              "rkaf:mappingAssertion",
+              "rkaf:usageCeiling"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:resolutionMethod": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:closeMatchAwaitingAdoption"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:closeMatchAwaitingAdoption"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:resolutionMethod"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:mappingAssertion": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "rkaf:usageCeiling": {
+                "type": "string",
+                "enum": [
+                  "rkaf:notEligible",
+                  "rkaf:searchOnly",
+                  "rkaf:reviewQueueOnly",
+                  "rkaf:draftGenerationAllowed"
+                ]
+              }
+            },
+            "required": [
+              "rkaf:mappingAssertion",
+              "rkaf:usageCeiling"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:resolutionMethod": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:broadOrNarrowMatchDiscoveryOnly"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:broadOrNarrowMatchDiscoveryOnly"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:resolutionMethod"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:mappingAssertion": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              },
+              "rkaf:resolutionStatus": {
+                "const": "rkaf:unresolved"
+              },
+              "rkaf:usageCeiling": {
+                "type": "string",
+                "enum": [
+                  "rkaf:notEligible",
+                  "rkaf:searchOnly"
+                ]
+              }
+            },
+            "required": [
+              "rkaf:mappingAssertion",
+              "rkaf:resolutionStatus",
+              "rkaf:usageCeiling"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:resolutionMethod": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:directRegistry"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:directRegistry"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:resolutionMethod"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:cacheStatus": {
+                "const": "rkaf:notCached"
+              }
+            },
+            "required": [
+              "rkaf:cacheStatus"
+            ],
+            "allOf": [
+              {
+                "not": {
+                  "required": [
+                    "rkaf:mappingAssertion"
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:resolutionMethod": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:cacheServed"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:cacheServed"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:resolutionMethod"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:resolutionStatus": {
+                "const": "rkaf:resolved"
+              },
+              "rkaf:cacheStatus": {
+                "const": "rkaf:fresh"
+              }
+            },
+            "required": [
+              "rkaf:resolutionStatus",
+              "rkaf:cacheStatus"
+            ],
+            "allOf": [
+              {
+                "not": {
+                  "required": [
+                    "rkaf:mappingAssertion"
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:resolutionMethod": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:staleCacheServed"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:staleCacheServed"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:resolutionMethod"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:resolutionStatus": {
+                "const": "rkaf:staleCacheFallback"
+              },
+              "rkaf:cacheStatus": {
+                "const": "rkaf:stale"
+              },
+              "rkaf:usageCeiling": {
+                "type": "string",
+                "enum": [
+                  "rkaf:notEligible",
+                  "rkaf:searchOnly"
+                ]
+              }
+            },
+            "required": [
+              "rkaf:resolutionStatus",
+              "rkaf:cacheStatus",
+              "rkaf:usageCeiling"
+            ],
+            "allOf": [
+              {
+                "not": {
+                  "required": [
+                    "rkaf:mappingAssertion"
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

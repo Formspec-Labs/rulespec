@@ -54,3 +54,13 @@ separates ready documentation/evaluation updates, an explicit thinking-default
 decision, already-integrated capabilities and unsupported changes. No further
 provider calls are pending. Do not manufacture a semantic change to turn a negative
 experiment into an implementation milestone.
+
+## Subsequent implementation
+
+The user authorized the propagation plan. Research and the maintained evaluation
+index are committed in `beb3fbf`; the operating guide now reflects the completed
+checks. CLI/library thinking defaults are low extraction and medium audit. This
+is configuration promotion, not a demonstrated semantic improvement. See the
+[implementation check](../../examples/document_understanding/production-defaults-check/README.md)
+for fresh verification and the retained failures. Original reports and captures
+preserve their historical decisions.
