@@ -1,0 +1,61 @@
+{
+  "type": "object",
+  "properties": {
+    "units": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "quote_ref": {
+            "type": "string",
+            "description": "Select a focus passage or contiguous focus range supporting this meaning.",
+            "pattern": "^F[0-9]{3,}(:F[0-9]{3,})?$"
+          },
+          "scope_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Select a supplied focus (F000) or context (C000) passage, or a contiguous\ninclusive range such as F003:F009. These locate exact source text; they do\nnot prove that the text supports the proposed meaning. Never invent IDs.",
+              "title": "Source passage reference"
+            },
+            "description": "Select substantive governing lead-ins from focus or context passages,\nnot bare section labels. Use [] when no additional scope is needed."
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "alternative",
+              "background",
+              "condition",
+              "definition",
+              "exception",
+              "exemption",
+              "permission",
+              "prohibition",
+              "recommendation",
+              "requirement",
+              "statement",
+              "threshold"
+            ]
+          },
+          "meaning": {
+            "type": "string",
+            "description": "Complete source-supported meaning, including inherited conditions,\ntiming, AND/OR, negation and modal distinctions. Evidence alone does\nnot restore an omitted condition, alternative or qualification.\nWhen a passage gives an example of a rule (for example, signaled by 'for example' or 'such as'), preserve that relationship: if you extract the example as its own unit, include the governing rule's conditions in that unit's meaning. Do not turn an illustration into an unconditional duty. If the source explicitly changes the example's scope, use that scope instead; do not inherit a condition the source overrides.",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "quote_ref",
+          "scope_refs",
+          "kind",
+          "meaning"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "units"
+  ],
+  "additionalProperties": false,
+  "description": "Source-first meanings to check against a draft. Several meanings may share\none source passage; selecting a passage does not prove complete enumeration."
+}

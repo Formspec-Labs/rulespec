@@ -1,0 +1,471 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "Action": {
+      "type": "string",
+      "description": "Source-supported action; empty when inapplicable or unstated. Represent the action actually attributed to the actor. Distinguish taking an action, being permitted to take it, and an event merely being possible; normative force is recorded in modality."
+    },
+    "ActionQuote": {
+      "type": "string",
+      "description": "Exact source support for action. Copy source wording that supports this action, preserving its direction and negation. Do not rewrite the quoted passage to match a normalized action label."
+    },
+    "Actor": {
+      "type": "string",
+      "description": "Source-supported responsible person or entity; empty if unstated. If the source addresses you without naming a role, retain you rather than inventing a job title. Resolve a pronoun only when the source establishes its antecedent. Do not invent a duty bearer for an impersonal requirement, definition or factual statement. Do not substitute a neighboring actor from a different branch."
+    },
+    "ActorQuote": {
+      "type": "string",
+      "description": "Exact source support for actor, including antecedent if needed. Copy a contiguous passage supporting the actor assignment. An inherited actor may be supported in supplied context. Empty actor has empty support; a matching word alone does not establish its semantic role."
+    },
+    "AlternativeQuotes": {
+      "type": "array",
+      "description": "Exact source passages supporting EVERY leaf option and its qualifications, not just the list introduction. One passage may support several options; separate strings or substrings for each option are not required. Retain every option, nested grouping and qualification explicitly in the meaning, including choice_text when applicable. Evidence granularity does not determine whether alternatives are complete: a shared passage is sufficient evidence, but evidence alone does not restore an option or qualification omitted from the meaning. A grouped faithful rule can contain all options without creating a separate duty for each option.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "AppliesTo": {
+      "type": "array",
+      "description": "Exact main-rule quotations targeted by this condition or exception; never summaries or invented remote text. Select the actual baseline whose meaning changes, preserving its complete scope. Never target an unrelated rule just because its quotation is exact. Match the complete main quotation of an emitted baseline unit exactly, including punctuation; a substring may not identify that unit. Leave remote targets unresolved rather than supplying text absent from the request.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ChoiceQuote": {
+      "type": "string",
+      "description": "One exact contiguous source passage supporting choice/grouping; never join separate phrases with invented separators. Select a contiguous passage that actually supports the grouping; an entire short list can be appropriate. Do not splice disjoint quotations or invent separators inside the quote."
+    },
+    "ChoiceText": {
+      "type": "string",
+      "description": "Complete source choice/grouping in words, including nested AND/OR and qualifications. Explain the complete choice and its nesting: all required elements, independently sufficient options, one-or-more groups, and alternatives inside an option. Preserve each option's qualifiers. Do not equate a grammatical conjunction in a category description with a requirement that both categories hold."
+    },
+    "Claimant": {
+      "type": "object",
+      "description": "Who the SOURCE attributes this statement to, separately from who must act.\nLeave the collection empty when attribution was not established. NotStated\nrecords an assessed absence, supported by the examined passage; it is not a\nmodel confidence score. The quotation must establish attribution of THIS\nstatement, not merely mention an institution. \"Under Agency guidance\" or a\ncitation identifies a reference, not necessarily the party asserting the claim.\nDo not transfer an agency mentioned in another paragraph to this statement.\nAn issuer attribution needs supplied text establishing issuer and coverage.\nNever infer the issuer from a URL or the model. Empty is better than an\nunsupported attribution; it does not make the underlying rule uncertain.",
+      "additionalProperties": false,
+      "properties": {
+        "attribution": {
+          "$ref": "#/$defs/ClaimantAttribution"
+        },
+        "quote": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "attribution",
+        "quote",
+        "text"
+      ]
+    },
+    "ClaimantAttribution": {
+      "description": "Closed enum (§2.4). How the SOURCE attributes the claim — not how confident\nthe extractor is, and not whether anyone approved it.\n\n`rkaf:claimantNotStated` is a real, honest answer: many documents assert\nwithout naming an asserter. It is not a failure and not a low-confidence\nsignal; it says the source did not attribute the claim.",
+      "enum": [
+        "rkaf:claimantNamedInSource",
+        "rkaf:claimantImpliedBySource",
+        "rkaf:claimantIsDocumentIssuer",
+        "rkaf:claimantNotStated"
+      ]
+    },
+    "ConceptAssignmentPredicate": {
+      "description": "ConceptAssignment is a strict RelationshipAssertion specialization. The\npredicate records the assignment role; the subject is the Artifact or\nSourceFragment being tagged; the object is the concept. There are no parallel\nassignmentSubject/assignedConcept/assignmentRole fields.",
+      "enum": [
+        "rkaf:assignmentPrimary",
+        "rkaf:assignmentSubstantive",
+        "rkaf:assignmentMention",
+        "rkaf:assignmentContextual"
+      ]
+    },
+    "ConceptTag": {
+      "type": "object",
+      "description": "A source-supported topic, not the identity of an actor or object. Reuse the\nsame label and definition for the same sense. Different senses need different\ndefinitions. Local discovery does not establish RefSpec registration.",
+      "additionalProperties": false,
+      "properties": {
+        "definition": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "quote": {
+          "type": "string",
+          "description": "Exact passage supporting this topic's relevance and meaning."
+        },
+        "role": {
+          "description": "Primary = central topic; substantive = discussed; mention = passing;\ncontextual = background. This is topical association, not entity identity.",
+          "$ref": "#/$defs/ConceptAssignmentPredicate"
+        }
+      },
+      "required": [
+        "definition",
+        "label",
+        "quote",
+        "role"
+      ]
+    },
+    "ContextQuotes": {
+      "type": "array",
+      "description": "Exact explanatory passages that aid interpretation without asserting conditions. Use for explanations and background that help interpret this unit without turning them into prerequisites. Useful descriptive or advisory meaning should also be retained as a unit when independently substantive.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "EvidenceQuotes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/NonemptyText"
+      },
+      "uniqueItems": true
+    },
+    "Jurisdiction": {
+      "type": "string",
+      "description": "Territorial scope only when explicitly supported in supplied text; never infer from URL. Use only territory explicitly provided by source wording. The document title, institution or web address is not evidence for an inferred territorial applicability claim."
+    },
+    "JurisdictionQuote": {
+      "type": "string",
+      "description": "Exact source support for jurisdiction; empty when unstated. Quote the supplied source's territorial wording. When there is no explicit territorial scope, leave both jurisdiction fields empty."
+    },
+    "Kind": {
+      "description": "Semantic kind; must agree with modality and relationship role. Classify the complete meaning, including headings' inherited context. A recommendation remains recommendation; descriptive possibility is statement. Conditions and exceptions are separate qualifications of a baseline; retain the baseline itself. Definitions and useful descriptive explanations also deserve units.",
+      "enum": [
+        "requirement",
+        "permission",
+        "prohibition",
+        "threshold",
+        "definition",
+        "condition",
+        "exception",
+        "recommendation",
+        "exemption",
+        "statement",
+        "authority"
+      ]
+    },
+    "LogicText": {
+      "type": "string",
+      "description": "Verbatim source wording retaining AND/OR, thresholds, units, dates and negation; no invented executable logic. Retain the source's complete logical wording when relevant. Do not uppercase a conjunction to imply executable Boolean logic. A list of independent categories need not require simultaneous membership in all categories. Preserve exact comparators, units and reference dates."
+    },
+    "Modality": {
+      "description": "Normative force: must, should, permission may, prohibition must_not, exemption not_required, descriptive possible, not_stated or uncertain. Use should for recommendations, may for permission, possible for descriptive may/might, and not_required only for an explicit absence of duty. not_stated fits factual definitions and qualifications with no independent normative force. An exception to a recommendation does not itself declare absence of a legal duty. Generally is not universally.",
+      "enum": [
+        "must",
+        "should",
+        "may",
+        "must_not",
+        "not_required",
+        "possible",
+        "not_stated",
+        "uncertain"
+      ]
+    },
+    "ModalityQuote": {
+      "type": "string",
+      "description": "Exact support for modal force; preserve generally, might, should and negation. Include qualifiers that establish the force, such as generally or might. A neighboring must cannot supply the force of a separate recommendation or description. A companion condition can have not_stated while its baseline retains must or should. For factual not_stated meaning, leave this empty rather than quoting a bare copula such as is; quote only wording that establishes modal force."
+    },
+    "NonemptyText": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Object": {
+      "type": "string",
+      "description": "What the action concerns; preserve option grouping; empty if unstated. Identify the semantic object of the action, not merely a nearby quoted noun. A form named in a timing condition is not necessarily what the action changes. Leave uncertain components empty while retaining the complete source meaning."
+    },
+    "ObjectQuote": {
+      "type": "string",
+      "description": "Exact source support for object. Copy source wording supporting the chosen object and its option grouping. Do not convert a contextual form, date or actor into the object simply because those words occur nearby."
+    },
+    "Period": {
+      "type": "object",
+      "description": "An explicit period during which this rule is in force. This is not a filing\ndeadline, age threshold or passport validity duration. Only normalize fully\nspecified timestamps; preserve date-only effectivity as a typed xsd:date\nvalue instead of inventing a time or timezone. Empty end means open-ended.",
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "type": "string"
+        },
+        "quote": {
+          "type": "string"
+        },
+        "start": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "end",
+        "quote",
+        "start"
+      ]
+    },
+    "References": {
+      "type": "array",
+      "description": "Source section labels for cross-references, including unresolved remote targets. Keep source cross-reference labels even when their content is unavailable. Preserve the topic of each reference in the unit's meaning; a nearby reference is not a license to infer the missing rule.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "Relation": {
+      "description": "A condition/exception's relationship to its baseline; none for other kinds. The source decides which baseline a qualification governs. Contextual proximity alone does not. An even-though or despite clause may preserve a duty rather than remove it. The qualification must retain the baseline's scope and the limits of the modification. When a locally stated rule has an explicit exception, retain the complete baseline with its original kind and relation none, and also emit a separate exception unit linked to it. Do not turn the baseline itself into an exception or strip the exception from its meaning. A conditional permission does not by itself cancel a neighboring duty.",
+      "enum": [
+        "none",
+        "scope",
+        "prerequisite",
+        "trigger",
+        "exception"
+      ]
+    },
+    "ScopeQuotes": {
+      "type": "array",
+      "description": "Exact source passages defining the governing conditions, including parent lead-ins outside the main quote. Provide every source passage needed to substantiate scope_text. Parent cases may appear elsewhere in the supplied focus or context. Every item must be contiguous and exact; use separate items for separate passages.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ScopeText": {
+      "type": "string",
+      "description": "ALL source-supported conditions governing this unit, including inherited parent cases and timing; do not transfer neighboring branch scope. Combine all governing conditions for this unit, including inherited lead-ins and antecedents outside its main quotation. Preserve alternative branches and timing boundaries. A split child must still describe the complete case in which it applies; do not import conditions from neighboring independent cases."
+    },
+    "Summary": {
+      "type": "string",
+      "description": "Complete meaning of this unit, preserving governing scope, qualifications and modal force. Make this a self-contained reading of the source. Include every governing parent case, time limit, negation, exception and qualification needed to avoid broadening or narrowing its meaning. A long supporting quote does not compensate for omitted meaning in this field. Keep descriptive and advisory material at its source force."
+    },
+    "TypedValue": {
+      "type": "object",
+      "description": "One source-supported value for later workflow preparation. Preserve the\nexact passage, including comparator, unit and reference event. Give the XSD\nlexical value only when normalization is unambiguous (e.g. one year -> P1Y).\nDo not convert years to days or invent a calendar date for a relative limit.",
+      "additionalProperties": false,
+      "properties": {
+        "anchor": {
+          "type": "string",
+          "description": "Exact source phrase in quote naming the reference event; do not paraphrase.\nThis is the event from which a relative limit is measured; empty if absent."
+        },
+        "comparator": {
+          "type": "string",
+          "description": "Source wording, e.g. more than, at least, no later than; empty if absent."
+        },
+        "datatype": {
+          "$ref": "#/$defs/ValueDatatype"
+        },
+        "name": {
+          "type": "string"
+        },
+        "quote": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string",
+          "description": "Exact unit wording from quote, including singular/plural; empty if absent."
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "anchor",
+        "comparator",
+        "datatype",
+        "name",
+        "quote",
+        "unit",
+        "value"
+      ]
+    },
+    "ValueDatatype": {
+      "description": "Closed enum (§2.2). The datatypes a ValueAssertion object may carry, drawn\nfrom XSD so that every RDF consumer already knows how to read them.\n\nThe set is deliberately narrow: text and enumerated tokens, the three\nnumeric kinds, the three calendar kinds, a duration, and an IRI-as-value.\nIt covers the typed data a document pipeline must keep typed — dates,\nidentifiers, authorities, and document states — without opening the door to\narbitrary datatype IRIs, which would make \"typed\" mean nothing.",
+      "enum": [
+        "xsd:string",
+        "xsd:token",
+        "xsd:boolean",
+        "xsd:integer",
+        "xsd:decimal",
+        "xsd:double",
+        "xsd:date",
+        "xsd:dateTime",
+        "xsd:time",
+        "xsd:duration",
+        "xsd:anyURI"
+      ]
+    }
+  },
+  "type": "object",
+  "description": "Local candidates require nonempty evidence; unstated components remain optional.\nShared field types are narrowed here; empty model placeholders may be rejected.",
+  "additionalProperties": false,
+  "properties": {
+    "concepts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ConceptTag"
+      }
+    },
+    "claimants": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Claimant"
+      }
+    },
+    "typed_values": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/TypedValue"
+      }
+    },
+    "effective_periods": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Period"
+      }
+    },
+    "kind": {
+      "$ref": "#/$defs/Kind"
+    },
+    "summary": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/NonemptyText"
+        },
+        {
+          "$ref": "#/$defs/Summary"
+        }
+      ]
+    },
+    "actor": {
+      "$ref": "#/$defs/Actor"
+    },
+    "quote": {
+      "$ref": "#/$defs/NonemptyText"
+    },
+    "action": {
+      "$ref": "#/$defs/Action"
+    },
+    "object": {
+      "$ref": "#/$defs/Object"
+    },
+    "actor_quote": {
+      "$ref": "#/$defs/ActorQuote"
+    },
+    "action_quote": {
+      "$ref": "#/$defs/ActionQuote"
+    },
+    "object_quote": {
+      "$ref": "#/$defs/ObjectQuote"
+    },
+    "logic_text": {
+      "$ref": "#/$defs/LogicText"
+    },
+    "relation": {
+      "$ref": "#/$defs/Relation"
+    },
+    "section_id": {
+      "type": "string"
+    },
+    "window_id": {
+      "type": "string"
+    },
+    "modality": {
+      "$ref": "#/$defs/Modality"
+    },
+    "modality_quote": {
+      "$ref": "#/$defs/ModalityQuote"
+    },
+    "scope_text": {
+      "$ref": "#/$defs/ScopeText"
+    },
+    "choice_text": {
+      "$ref": "#/$defs/ChoiceText"
+    },
+    "choice_quote": {
+      "$ref": "#/$defs/ChoiceQuote"
+    },
+    "jurisdiction": {
+      "$ref": "#/$defs/Jurisdiction"
+    },
+    "jurisdiction_quote": {
+      "$ref": "#/$defs/JurisdictionQuote"
+    },
+    "scope_quotes": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/EvidenceQuotes"
+        },
+        {
+          "$ref": "#/$defs/ScopeQuotes"
+        }
+      ]
+    },
+    "context_quotes": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/EvidenceQuotes"
+        },
+        {
+          "$ref": "#/$defs/ContextQuotes"
+        }
+      ]
+    },
+    "alternative_quotes": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/EvidenceQuotes"
+        },
+        {
+          "$ref": "#/$defs/AlternativeQuotes"
+        }
+      ]
+    },
+    "start": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "allOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "integer",
+              "minimum": 0
+            }
+          ]
+        }
+      ]
+    },
+    "end": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "allOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "integer",
+              "minimum": 0
+            }
+          ]
+        }
+      ]
+    },
+    "applies_to": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/NonemptyText"
+      },
+      "$ref": "#/$defs/AppliesTo"
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/NonemptyText"
+      },
+      "$ref": "#/$defs/References"
+    }
+  },
+  "required": [
+    "kind",
+    "summary",
+    "actor",
+    "quote"
+  ]
+}

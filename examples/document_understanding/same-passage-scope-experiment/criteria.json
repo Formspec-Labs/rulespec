@@ -1,0 +1,26 @@
+{
+  "hypothesis": "Selecting a passage containing both condition and duty can lead the model to omit that condition from the independently referenceable meaning. Explicit same-passage guidance improves retention without inventing scope.",
+  "independent_change": "Append exactly the proposed instruction to meaning.description in a copy of the existing CUE-generated inventory request. Prompt and all validation constraints are unchanged; no production schema change.",
+  "addition": "Include every governing condition in meaning, even when it appears inside the selected main passage. Empty scope_refs means no additional evidence passage is needed—not that the rule is unconditional.",
+  "expected_duties": [
+    "Employer must document how employee hours of service were calculated.",
+    "Employer must retain that calculation for three years."
+  ],
+  "conditional_cases": [
+    "same-paragraph",
+    "separate-parent"
+  ],
+  "required_condition": "Accurate records of working hours are unavailable. Every meaning asserting either duty must retain this condition. A separate condition-only record or evidence span does not restore it to a duty.",
+  "unconditional_control": "Both duties remain unconditional; do not invent an inaccurate-record prerequisite, other circumstances or exceptions.",
+  "assessment": "Read raw and normalized outputs. Grouped duties are allowed when both complete duties and governing condition remain in the grouped meaning; splitting is not required. Check modal force, actor, retention object and three-year duration. Count omissions and unsupported additions separately from structural failures.",
+  "support": "Treatment consistently improves same-paragraph condition retention across repeats, preserves separate-parent scope and invents no conditions for the unconditional control.",
+  "inconclusive": "Both arms already succeed, or inconsistent repeats give no clear improvement.",
+  "scope": "Three invented short cases, two repetitions per arm: 12 calls maximum. No extractions, comparison audits, repairs, retries or full-document calls. No production adoption from this test alone.",
+  "settings": {
+    "model": "gemini-3.8-flash",
+    "thinking_level": "medium",
+    "temperature": 0,
+    "max_output_tokens": null,
+    "thinking_budget": null
+  }
+}

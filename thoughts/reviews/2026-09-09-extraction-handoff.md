@@ -1,40 +1,76 @@
-# Extraction handoff
+# Extraction handoff — September 9, 2026
 
-The current operating guide is packages/rulespec-extrapolator/README.md. Historical
-experiment reports remain immutable evidence of their own runtime and settings;
-they are not competing current implementation plans.
+The [operating guide](../../packages/rulespec-extrapolator/README.md) describes the
+current workflow. Use low-thinking extraction with an optional medium-thinking
+audit. Retain full source passages for discovery and human review before deriving
+executable workflows. Default settings have not changed.
 
-Final fresh check: one saved 6,919-character leave-eligibility regulation through
-low extraction, medium source-first inventory and medium comparison. Three STOP
-responses, 19 accepted statements, no extraction refusals or rejected candidates.
-64,117 reported tokens and 48.24 seconds of request time. Four inventory entries
-failed absent/ambiguous bare marker grounding, so the final audit correctly reports
-needs_review and review_complete=false despite 20/20 accepted units marked covered.
+## Integrated
 
-Direct source review finds the principal rules, alternatives and examples retained.
-Accounting exceptions remain in logic_text but are missing from standalone summary
-and scope; the audit misses that distinction. Similar split-statement limitations,
-modal classifications and compressed explanatory detail remain. There are no
-explicit exception edges in the normal pass; their accuracy was not tested.
+- Audit inventory selects passage IDs through a CUE-generated schema and resolves
+  them through the existing source resolver. Missing, out-of-focus and inserted
+  evidence remains refused. Exact source text, offsets, raw responses, rejected
+  observations and provenance remain available. Comparison judgments still use
+  exact quotations and produce existing Core `Finding` records.
+- The successful example-inheritance wording lives in CUE `#Summary`. Extraction,
+  refinement and audit share it. Native CUE now generates four schema views,
+  including `inventory.schema.json`; Python has no competing inventory definition.
+- Audit version 3 records the changed response shape. Historical version 2
+  experiments retain their original captures and frozen runtimes. Their manifests
+  were not rewritten. No legacy response conversion was added.
 
-Verification: 333 package tests, 6 schema-generator tests, native CUE drift check,
-identical production extraction/audit replay, and identical discovery export.
-Discovery retains all 17 source passages. Detailed evidence and eleven revisable
-source checks are in examples/document_understanding/low-extract-medium-audit/.
+## Evidence and verification
 
-Decision: useful draft/discovery tooling with optional medium audit, not automatic
-certification for executable workflows. No default thinking changes or additional
-prompt tuning. Preserve feedback/review as a normal part of both user workflows.
+The [fresh full-section inventory comparison](../../examples/document_understanding/full-inventory-evidence-comparison/README.md)
+used the same 6,919-character source and current example guidance in both arms.
+Quotation-based inventory refused 6 of 22 observations; passage-ID inventory
+accepted all 20. Both retained the teacher example's governing condition. Both
+still omitted details and produced imperfect classifications. This is one call
+per arm on development data, with agent-authored, revisable meaning judgments.
+The changed schema and instructions form a bundle; the comparison does not
+isolate identifier syntax as the cause or establish general semantic accuracy.
 
-Next focused work when resumed:
-1. Inventory should cite substantive governing text or existing passage IDs rather
-   than absent/ambiguous bare section labels. Reuse existing passage/evidence
-   machinery; retain refused captures rather than silently repairing quotations.
-2. Evaluate short statement/scope completeness separately from conditions retained
-   in logic_text, with source-backed positive and omission controls.
-3. Check optional relationship refinement and cross-file concept resolution only
-   when a consumer needs them; do not expand the cheap pass for schema coverage.
+Integration verification:
 
-Commit grouping: coupled extractor/schema/test changes; preserved experiment and
-research evidence; consolidated operating guidance and this final full-run record.
-No push, deployment, release or global memory change is part of this handoff.
+- All 347 package and schema-generator tests pass; native CUE drift check passes.
+- The integrated provider request exactly equals the saved successful passage-ID
+  request. The current parser reproduces all 20 saved inventory records unchanged.
+- All eight newly saved experiment/check directories replay with their frozen
+  inputs and runtimes; all 547 artifacts pinned by their outer manifests retain
+  their recorded hashes.
+- No fresh provider calls were made during integration. A new complete
+  extraction-plus-comparison run under this runtime remains unmeasured.
+
+The [earlier end-to-end run](../../examples/document_understanding/low-extract-medium-audit/README.md)
+produced 19 accepted extraction statements, but four inventory refusals made its
+review incomplete. Its three calls used 64,117 tokens and 48.24 seconds. Those
+counts predate the integrated evidence and guidance changes. The
+[deterministic evidence check](../../examples/document_understanding/refused-evidence-check/README.md)
+reproduces all four refusals and resolves them using reviewed substantive quotes
+or passage IDs without changing meaning. An unrelated valid ID still passes the
+mechanical check: source existence does not prove interpretation.
+
+## Remaining focused work
+
+1. Test whether audit distinguishes complete standalone wording, qualifications
+   retained only in `logic_text`, and qualifications absent everywhere. Existing
+   instructions ask for this distinction, but the earlier audit missed it.
+2. Check exemption/permission classification and duty-bearer wording against saved
+   failures. Existing schemas express these distinctions; no new Core type is
+   needed.
+3. If revisiting dependent deadlines, measure segmentation-instruction adherence
+   separately from meaning preservation. The
+   [grouping experiment](../../examples/document_understanding/deadline-grouping-experiment/README.md)
+   followed the grouping instruction in only one of two same-scope runs. No
+   grouping instruction is adopted; existing fields support the successful form.
+4. Before claiming broader improvement, repeat a complete workflow and evaluate
+   new source material with independent, revisable judgments. Neither schema
+   validity, accepted evidence nor replay establishes complete source coverage.
+
+The [example-inheritance experiment](../../examples/document_understanding/example-inheritance-experiment/README.md)
+and [transfer cases](../../examples/document_understanding/example-inheritance-transfer-experiment/README.md)
+support the adopted wording narrowly. Detailed historical reports preserve their
+original adoption decisions and settings; this handoff states what is integrated.
+
+Implementation and research are committed separately. No push, deployment, release
+or global memory change is part of this work.

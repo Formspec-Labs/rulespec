@@ -20,8 +20,9 @@ search alongside the extracted statements. Relationship refinement and structure
 concept/value enrichment are optional; ordinary extraction preserves complete
 meaning in prose without requiring those extra passes.
 
-The [final full-section run](../../examples/document_understanding/low-extract-medium-audit/README.md)
-used a saved 6,919-character leave-eligibility regulation:
+The [earlier full-section run](../../examples/document_understanding/low-extract-medium-audit/README.md)
+used a saved 6,919-character leave-eligibility regulation before the inventory
+evidence change below:
 
 - Low extraction produced 19 accepted statements with no rejected candidates.
 - Medium inventory and comparison completed, but four inventory entries failed
@@ -38,6 +39,24 @@ retained detection of two deliberate omissions while reducing token volume by
 79%. Its fixture limitation and single samples prevent a general accuracy claim.
 The full-section result confirms that a completed model response can still leave
 an incomplete review. Neither experiment justifies automatic approval or repair.
+
+The profile now also tells the model to preserve the governing conditions of an
+example when extracting it as a separate unit, while respecting explicit scope
+changes. The audit reads this guidance from the same generated CUE description.
+[Paired inventory experiments](../../examples/document_understanding/example-inheritance-experiment/README.md)
+and [new synthetic cases](../../examples/document_understanding/example-inheritance-transfer-experiment/README.md)
+support the wording. The passage-ID inventory is now integrated: a
+[fresh full-section comparison](../../examples/document_understanding/full-inventory-evidence-comparison/README.md)
+produced six evidence refusals among 22 quotation-based observations and none
+among 20 passage-ID observations. Both retained the teacher example's governing
+condition, while semantic defects remained in both. This is one development
+sample per arm, not a general accuracy estimate.
+
+The integrated request exactly matches that successful passage-ID request, and
+the current parser reproduces all 20 saved inventory records unchanged. All 347
+package and generator tests and native CUE drift checks pass. No new provider
+calls were made during integration; a fresh complete extraction-plus-comparison
+run under this runtime remains unmeasured.
 
 ## Run the workflow
 
@@ -136,7 +155,10 @@ The discovery export retains every source paragraph/list item, linked statements
 exact evidence and review/processing status. It makes no model calls and creates
 no embeddings or inferred legal relationships.
 
-**Audit:** a separate source-first inventory, followed by a draft comparison,
+**Audit:** a separate source-first inventory selects focus passage IDs for each
+observation and focus/context IDs for its scope. The existing resolver turns these
+into exact source text and offsets; invalid selections refuse the observation.
+A subsequent draft comparison still uses exact quotations for its judgments and
 produces raw judgments, a detailed report and existing Core `Finding` records in
 `findings.jsonld`. It does not modify the draft. Inventories and judgments remain
 fallible observations; missing or invalid inventory entries limit what was checked.
@@ -193,16 +215,18 @@ Reprocessing preserves the original capture and records the changed processing;
 it supports the current response format, not retired formats. Recorded compiler
 failures can be reprocessed when both run and validation metadata identify the
 failure. Missing outputs from a nominally successful run remain an integrity error.
-Old experiments retain their own frozen runtime; do not rewrite their manifests
+Audit version 3 uses passage-ID inventory responses. Earlier version 2 captures
+require their frozen historical runtime. Old experiments retain that runtime; do not rewrite their manifests
 to make an older capture pass under newer code.
 
 ## Schema ownership and reuse
 
 The [CUE application profile](src/rulespec_extrapolator/schema_data/document-understanding.cue)
 owns interpretation fields, descriptions, titles and field order. Native CUE
-produces three views of shared definitions: `provider.schema.json` for normal
+produces four views of shared definitions: `provider.schema.json` for normal
 extraction, `meaning.schema.json` for complete defaults/refinement and audit field
-guidance, and `candidate.schema.json` for local validation. Python does not
+guidance, `candidate.schema.json` for local validation, and `inventory.schema.json`
+for audit evidence selection and observations. Python does not
 maintain a competing copy of those field definitions.
 
 The profile imports existing Core attribution, assignment-role, datatype and
@@ -239,12 +263,31 @@ and need neither Go nor CUE. Hashes bind sources, generated files and each run.
 
 ## Remaining work and research evidence
 
-The next narrow priorities are reliable audit inventory evidence and faithful
-standalone scope. In the final run, bare section markers caused four inventory
-refusals, while the checker missed exceptions absent from a statement's summary
-and scope but retained in `logic_text`. Do not discard that retained meaning or
-claim the short statement is independently complete. Recommendations, descriptive
-possibility, non-prohibition and explicit permission still need careful assessment.
+The example-inheritance wording and passage-ID inventory are integrated through
+CUE and the existing resolver. The
+[deterministic check](../../examples/document_understanding/refused-evidence-check/README.md)
+resolves the original four refusals with reviewed source selections, leaving
+meanings unchanged. The fresh comparison above supports this evidence-selection
+change; neither check proves those meanings complete. Remaining priorities are:
+
+1. Preserve applicability when separating dependent details such as deadlines.
+   The [grouping comparison](../../examples/document_understanding/deadline-grouping-experiment/README.md)
+   produced one complete grouped result, but followed the grouping instruction
+   in only one of two same-scope runs. Existing fields can express the result;
+   the instruction is not adopted. Further work should check segmentation
+   adherence separately from semantic completeness.
+2. Verify standalone wording independently of full-record meaning. The audit
+   already asks for this distinction but missed exceptions absent from summary
+   and scope while retained in `logic_text`. Test complete wording, qualifications
+   retained only in `logic_text`, and qualifications absent everywhere.
+3. Check modal classification and duty bearers. Existing fields distinguish
+   recommendation, permission, exemption and descriptive possibility, but the
+   prototype mislabeled an exemption as permission and a later output used
+   ambiguous exemption-actor wording.
+
+Do not discard meaning retained in `logic_text` or claim that an incomplete short
+statement is independently complete. These remaining failures do not negate the
+narrow improvements measured in the example experiments.
 
 Explicit exception targets belong to optional refinement and remain imperfect.
 There is no general duplicate detector, complete entity model, automatic
@@ -254,7 +297,7 @@ agent-authored and revisable; saved legal excerpts are not current legal guidanc
 
 | Evidence | What it explains |
 |---|---|
-| [Final low → medium run](../../examples/document_understanding/low-extract-medium-audit/README.md) | Current end-to-end result, raw review and unresolved issues |
+| [Final low → medium run](../../examples/document_understanding/low-extract-medium-audit/README.md) | Earlier end-to-end result, raw review and unresolved issues |
 | [Medium audit comparison](../../examples/document_understanding/medium-audit-experiment/README.md) | Thinking-level savings on three isolated cases |
 | [Alternative evidence](../../examples/document_understanding/alternative-evidence-experiment/README.md) | Shared passages, omitted options and signature qualifications |
 | [Meaning-first adoption](../../examples/document_understanding/meaning-first-adoption/README.md) | Normal extraction and discovery export |
@@ -264,4 +307,6 @@ agent-authored and revisable; saved legal excerpts are not current legal guidanc
 | [Passport example](../../examples/document_understanding/manual-slice/README.md) | Earlier saved manual extraction and review interface |
 
 Historical reports retain the recommendations and limitations measured at their
-own snapshots. Use this guide and the final run for the current handoff.
+own snapshots. Use this guide and the
+[current handoff](../../thoughts/reviews/2026-09-09-extraction-handoff.md) for the
+integrated state.
