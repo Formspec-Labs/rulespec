@@ -85,7 +85,7 @@ function renderClaims() {
     meta.append(node("span", claim.kind), node("span", claim.review_status === "pending" ? "Needs review" : readable(claim.review_status), "badge " + claim.review_status), node("span", originLabel(claim.origin)));
     const issues = [...(claim.issues || []), ...(claim.link_issues || [])];
     if (issues.length) meta.append(node("span", `${issues.length} open ${issues.length === 1 ? "issue" : "issues"}`, "badge issue"));
-    button.append(meta, node("p", claim.summary, "claim-summary"), node("p", claim.actor || "Actor not stated", "claim-actor"));
+    button.append(meta, node("p", claim.summary, "claim-summary"), node("p", claim.actor || "Actor not recorded", "claim-actor"));
     button.addEventListener("click", () => { state.active = claim.id; state.selected = new Set([claim.id]); renderClaims(); renderDetail(); updateActions(); highlight(claim.evidence || [], true); });
     card.append(checkbox, button); $("claim-list").append(card);
   }
@@ -142,6 +142,30 @@ function renderDetail() {
   if (claim.scope_text) {
     const scope = node("p", undefined, "claim-scope");
     scope.append(node("strong", "Scope: "), document.createTextNode(claim.scope_text)); detail.append(scope);
+  }
+  const terms = state.snapshot.terms || {};
+  for (const term of Object.values(terms).filter((t) => t.claim_id === claim.id)) {
+    const line = node("p");
+    line.append(node("strong", "Defines: "), document.createTextNode(term.label + (term.aliases.length ? ` (${term.aliases.join(", ")})` : "")));
+    detail.append(line);
+  }
+  const uses = (claim.term_refs || []).filter((id) => terms[id]?.claim_id !== claim.id);
+  if (uses.length) {
+    const line = node("p"); line.append(node("strong", "Terms: "));
+    for (const [index, id] of uses.entries()) {
+      if (index) line.append(document.createTextNode(" · "));
+      const term = terms[id];
+      if (!term) { line.append(node("span", "Definition unavailable", "muted")); continue; }
+      const button = node("button", term.label, "text-button"); button.type = "button";
+      button.addEventListener("click", () => {
+        state.active = term.claim_id; state.selected = new Set([term.claim_id]);
+        $("status-filter").value = "all"; renderClaims(); renderDetail(); updateActions();
+        highlight(term.evidence, true);
+        const target = [...$("claim-list").querySelectorAll(".claim-card")].find((c) => c.dataset.claimId === term.claim_id);
+        target?.querySelector(".claim-open")?.focus();
+      }); line.append(button);
+    }
+    detail.append(line);
   }
   detail.append(node("h3", "Supporting source"));
   renderEvidence(detail, claim.evidence || []);

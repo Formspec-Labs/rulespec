@@ -33,7 +33,7 @@ def test_candidate_retains_evidence_and_offset_constraints(change, valid):
 
 def test_provider_allows_omitted_or_null_scope_list():
     from test_extraction import row
-    payload = {"extractions": [row()]}
+    payload = {"terms": [], "extractions": [row()]}
     validator = Draft202012Validator(schemas.load_schema("provider"))
     assert validator.is_valid(payload)
     del payload["extractions"][0]["unit_attributes"]["scope_quotes"]
@@ -43,7 +43,7 @@ def test_provider_allows_omitted_or_null_scope_list():
 
 
 @pytest.mark.parametrize("filename", ["document-understanding.cue", "cue.mod/module.cue",
-                                     "candidate.schema.json", "meaning.schema.json", "provider.schema.json", "inventory.schema.json"])
+                                     "candidate.schema.json", "meaning.schema.json", "provider.schema.json", "inventory.schema.json", "enrichment.schema.json"])
 def test_inconsistent_source_or_output_refuses_to_load(tmp_path, monkeypatch, filename):
     copied = tmp_path / "schema_data"
     shutil.copytree(schemas.SCHEMA_DATA, copied)

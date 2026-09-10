@@ -17,7 +17,7 @@ from test_extraction import row
 def test_bad_component_preserves_main_statement_and_original_suggestion(field, value):
     doc = prepare_document('Staff must log requests.')
     item = row(**{field: value})
-    parsed = e.parse_response_text(json.dumps({'extractions': [item]}), doc, e.plan_windows(doc)[0])
+    parsed = e.parse_response_text(json.dumps({'terms': [], 'extractions': [item]}), doc, e.plan_windows(doc)[0])
     assert parsed['status'] == 'partial'
     assert parsed['candidates'][0]['summary'] == item['unit_attributes']['statement']
     assert parsed['candidates'][0]['logic_text' if field == 'logic_quote' else field] == ([] if isinstance(value, list) else '')
@@ -58,13 +58,14 @@ def test_saved_good_statements_survive_bad_optional_enrichment(sample, index):
     saved = Path(__file__).resolve().parents[3] / 'examples/document_understanding/composed-extraction-experiment'
     doc = e._load(saved / f'{sample}.json')
     original = e._load(saved / f'runs/{sample}/all/output.json')['extractions'][index]
-    attrs = {k: deepcopy(original['unit_attributes'][k]) for k in e.PROVIDER_FIELDS if k != 'logic_quote'}
+    attrs = {k: deepcopy(original['unit_attributes'][k]) for k in e.PROVIDER_FIELDS if k not in {'logic_quote', 'defines_term', 'term_refs', 'actor', 'actor_quote'}}
+    attrs.update(actor=None, actor_quote=None)
     attrs['logic_quote'] = original['unit'].replace('P', 'F') if original['unit_attributes']['logic_text'] else ''
     for field in ('scope_quotes', 'context_quotes', 'alternative_quotes'):
         attrs[field] = [ref.replace('P', 'F') for ref in attrs[field]]
     attrs['choice_quote'] = attrs['choice_quote'].replace('P', 'F')
     item = {'unit': original['unit'].replace('P', 'F'), 'unit_attributes': attrs}
-    parsed = e.parse_response_text(json.dumps({'extractions': [item]}), doc, e.plan_windows(doc, len(doc['text']))[0])
+    parsed = e.parse_response_text(json.dumps({'terms': [], 'extractions': [item]}), doc, e.plan_windows(doc, len(doc['text']))[0])
     book = compile_candidates(doc, parsed['candidates'], {})
     assert not book['rejected'] and len(book['accepted']) == 1
     claim = book['accepted'][0]
@@ -79,7 +80,7 @@ def test_saved_good_statements_survive_bad_optional_enrichment(sample, index):
 def test_discovery_export_keeps_unlinked_source_and_pending_meaning_separate():
     doc = prepare_document('Staff must log requests.\n\nA substantive note not extracted.')
     window = e.plan_windows(doc)[0]
-    parsed = e.parse_response_text(json.dumps({'extractions': [row()]}), doc, window)
+    parsed = e.parse_response_text(json.dumps({'terms': [], 'extractions': [row()]}), doc, window)
     book = compile_candidates(doc, parsed['candidates'], {'windows': [{**window, 'status': 'complete'}]})
     export = export_discovery(book)
     assert export['accounting']['processed_passages'] == 2
@@ -93,12 +94,12 @@ def test_discovery_export_keeps_unlinked_source_and_pending_meaning_separate():
 
 @pytest.mark.parametrize('explicit_null', [False, True])
 def test_statement_first_accepts_absent_enrichment_without_inventing_components(explicit_null):
-    attrs = {'statement': 'Staff must log requests.', 'kind': 'requirement', 'modality': 'must'}
+    attrs = {'actor': None, 'actor_quote': None, 'statement': 'Staff must log requests.', 'kind': 'requirement', 'modality': 'must'}
     if explicit_null:
         attrs.update({name: None for name in e.PROVIDER_FIELDS if name not in attrs})
     original = deepcopy(attrs)
     doc = prepare_document('Staff must log requests.')
-    parsed = e.parse_response_text(json.dumps({'extractions': [{'unit': 'F000', 'unit_attributes': attrs}]}),
+    parsed = e.parse_response_text(json.dumps({'terms': [], 'extractions': [{'unit': 'F000', 'unit_attributes': attrs}]}),
                                    doc, e.plan_windows(doc)[0])
     assert parsed['status'] == 'complete' and not parsed['refusals']
     book = compile_candidates(doc, parsed['candidates'], {})
@@ -114,6 +115,6 @@ def test_statement_first_accepts_absent_enrichment_without_inventing_components(
 @pytest.mark.parametrize('statement', [None, ''])
 def test_complete_statement_cannot_be_null_or_empty(statement):
     doc = prepare_document('Staff must log requests.')
-    parsed = e.parse_response_text(json.dumps({'extractions': [row(statement=statement)]}), doc, e.plan_windows(doc)[0])
+    parsed = e.parse_response_text(json.dumps({'terms': [], 'extractions': [row(statement=statement)]}), doc, e.plan_windows(doc)[0])
     assert not parsed['candidates']
     assert parsed['refusals'][0]['code'] == 'invalid_semantic_unit'

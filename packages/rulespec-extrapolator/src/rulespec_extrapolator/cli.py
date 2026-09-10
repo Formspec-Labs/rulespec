@@ -91,6 +91,15 @@ def main(argv=None):
     refine_replay = sub.add_parser("refine-replay", help="Verify captured refinement and review history without provider calls.")
     refine_replay.add_argument("input", type=Path)
     refine_replay.add_argument("--output", type=Path, required=True)
+    enrich = sub.add_parser("enrich", help="Add actors and defined terms while preserving existing claim fields.")
+    enrich.add_argument("run", type=Path)
+    enrich.add_argument("--model", default=e.DEFAULT_MODEL)
+    enrich.add_argument("--env-file", type=Path)
+    enrich.add_argument("--max-chars", type=int, default=e.DEFAULT_MAX_CHARS)
+    enrich.add_argument("--output", type=Path, required=True)
+    enrich_replay = sub.add_parser("enrich-replay", help="Verify structural enrichment without provider calls.")
+    enrich_replay.add_argument("input", type=Path)
+    enrich_replay.add_argument("--output", type=Path, required=True)
     vocab = sub.add_parser("vocabulary", help="Suggest RefSpec labels without dropping unmatched text.")
     vocab.add_argument("rulebook", type=Path)
     vocab.add_argument("--snapshot", type=Path)
@@ -137,6 +146,11 @@ def main(argv=None):
         from .vocabulary import annotate, load_vocabulary
         result = annotate(_load(args.rulebook), load_vocabulary(args.snapshot) if args.snapshot else None)
         _write_new(args.output, result)
+    elif args.command in ("enrich", "enrich-replay"):
+        from .structure import enrich_run, replay_enrichment
+        result = (enrich_run(args.run, args.output, args.model, env_file=args.env_file, max_chars=args.max_chars)
+                  if args.command == "enrich" else replay_enrichment(args.input, args.output))
+        print(json.dumps({k: result[k] for k in ("status", "applied_actions")}))
     elif args.command in ("refine", "refine-replay"):
         from .refinement import refine_run, replay_refinement
         if args.command == "refine":

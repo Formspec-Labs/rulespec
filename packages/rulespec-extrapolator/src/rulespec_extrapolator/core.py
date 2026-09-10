@@ -24,7 +24,8 @@ MEANING_TEXT_FIELDS = ("modality", "modality_quote", "scope_text", "choice_text"
                        "choice_quote", "jurisdiction", "jurisdiction_quote")
 MEANING_LIST_FIELDS = ("scope_quotes", "context_quotes", "alternative_quotes")
 STRUCTURED_FIELDS = ("concepts", "claimants", "typed_values", "effective_periods")
-MEANING_FIELDS = MEANING_TEXT_FIELDS + MEANING_LIST_FIELDS + STRUCTURED_FIELDS
+TERM_FIELDS = ("defined_terms", "term_refs")
+MEANING_FIELDS = MEANING_TEXT_FIELDS + MEANING_LIST_FIELDS + STRUCTURED_FIELDS + TERM_FIELDS
 MODALITIES = tuple(CANDIDATE_SCHEMA["$defs"]["Modality"]["enum"])
 MODALITY_KINDS = {"must": {"requirement"}, "should": {"recommendation"},
                   "may": {"permission", "authority"}, "must_not": {"prohibition"},
@@ -45,6 +46,9 @@ def evidence_expectations(claim):
         expected.update({f"{field}:{i}": quote for i, quote in enumerate(claim.get(quotes, []))})
     for field in STRUCTURED_FIELDS:
         expected.update({f"{field}:{i}": item["quote"] for i, item in enumerate(claim.get(field, []))})
+    for i, item in enumerate(claim.get("defined_terms", [])):
+        expected[f"defined_terms:{i}"] = item["quote"]
+        expected.update({f"defined_terms:{i}:source:{j}": quote for j, quote in enumerate(item["source_quotes"])})
     return expected
 
 
@@ -174,6 +178,10 @@ def _claim(document, candidate, *, rule_id, occurrence_id, origin="aiSuggested")
     semantic.update({k: c[k] for k in MEANING_FIELDS})
     from .enrichment import check_components
     issues.extend(check_components(c))
+    from .terms import definition_error
+    for i, term in enumerate(c.get("defined_terms", [])):
+        if error := definition_error(c, term):
+            issues.append(_issue("term_definition_unresolved", f"defined_terms:{i}", error))
     c.update(id=NS + "revision:" + digest([rule_id, semantic, evidence]),
              rule_id=rule_id, occurrence_id=occurrence_id, origin=origin,
              evidence=evidence, issues=issues, target_ids=[], assertion_ids=[])
@@ -195,7 +203,8 @@ def assertion_id(proposition):
 
 def _component_family(node):
     if node["@type"] == "rkaf:RelationshipAssertion":
-        return "qualification"
+        predicate = node["rkaf:assertsPredicate"]
+        return "qualification" if predicate in {NS + relation for relation in RELATIONS if relation != "none"} else predicate
     predicate = node.get("rkaf:assertsPredicate", "")
     return "summary" if predicate.startswith(NS + "states-") else predicate
 
@@ -206,9 +215,11 @@ def _component_nodes(claim, disposition):
     values.update({f"alternative:{i}": quote for i, quote in enumerate(claim.get("alternative_quotes", []))})
     # Scope is part of this proposition's value, so a changed scope creates
     # a new proposition without mutating a reused summary or its history.
-    values["meaning"] = canonical({field: claim.get(field) for field in (
+    meaning = {field: claim.get(field) for field in (
         "kind", "summary", "actor", "action", "object", "logic_text", "modality",
-        "scope_text", "choice_text", "alternative_quotes", "jurisdiction", *STRUCTURED_FIELDS)})
+        "scope_text", "choice_text", "alternative_quotes", "jurisdiction", *STRUCTURED_FIELDS)}
+    meaning.update({field: claim[field] for field in TERM_FIELDS if claim.get(field)})
+    values["meaning"] = canonical(meaning)
     for field, value in values.items():
         if not value:
             continue
@@ -227,7 +238,8 @@ def _component_nodes(claim, disposition):
 
 
 def resolve_links(document, claims):
-    unresolved = []
+    from .terms import term_link_issues
+    unresolved = term_link_issues(document, claims)
     by_quote = {}
     for c in claims:
         if c["kind"] not in ("condition", "exception"):
@@ -414,6 +426,8 @@ def build_graph(document, claims, run, attestations=None):
                  "rkaf:bindsSourceFragment": qualification_evidence,
                  "rkaf:evidenceRole": "rkaf:textualEvidence", "rkaf:evidentiaryFunction": "rkaf:qualifies"})
         enrich_graph(document, c, disposition, add)
+        from .terms import add_term_graph
+        add_term_graph(document, c, disposition, add)
         # Each stored application revision is also an immutable digital artifact.
         # Its derivation chain records A -> B -> A corrections without rewriting
         # the origin of a reused proposition or creating proposition-level cycles.

@@ -448,3 +448,73 @@ evidence display, component highlighting and keyboard access to field details.
 Original captures, source files, manifests and review judgments remain intact.
 No additional provider calls were made for integration. Commits are local; no
 push or deployment was requested.
+
+## Explicit actors and definition links — first-pass tradeoff
+
+The [six-call actor/definition check](../../examples/document_understanding/actor-definition-check/README.md)
+compared current extraction, actors alone, and actors plus a definition index on
+the exact passport UI source and authored counterexamples. Both enriched arms
+got the ten checked actor assignments right, retained the checked nulls, and
+preserved actor evidence in Core. The index identified IRLs/INs and RN/SR with
+correct definition/usage links and no invented terms or dangling references.
+
+Both enriched passport outputs separated Posts' cleared-language requirement
+from its local-modification qualification. The fresh baseline kept the qualification
+in the independent requirement. This fails the broader no-regression gate despite
+useful structure. One sample per cell does not establish causation. Output tokens
+grew 64% for actors and another 50% for the index bundle across these calls.
+
+All six schemas/graphs passed, all 74 records were accepted, and six offline
+replays matched. Production and the UI remain unchanged by this experiment.
+The next hypothesis is enrichment of saved statements without rewriting their
+wording, assessed for marginal cost and role/link correctness. No further calls,
+adoption or commits are authorized by this experiment result alone.
+
+## Fixed-statement enrichment — useful boundary, no overall accuracy win
+
+The [six-call fixed-enrichment check](../../examples/document_understanding/fixed-enrichment-check/README.md)
+tested fresh baseline extraction, the combined actor/index first pass, and a
+separate enrichment of the fresh baseline on passport plus new scoped RN controls.
+The separate step preserved all 23 baseline rows and their original fields,
+added the ten directly checked actors, and correctly distinguished two senses
+sharing review notice/RN with correct definitions and usage links. Passive IN
+alteration actor stayed null; the combined pass populated it.
+
+Both fresh passport extractions preserved the Posts qualification, so the prior
+combined-pass failure did not repeat. The scoped baseline added an archive-event
+condition to email retention; fixed enrichment preserved it, while the combined
+pass avoided it. That judgment is interpretation-sensitive, but neither reading
+demonstrates better overall accuracy from separate enrichment. This step prevents
+rewriting; it does not correct existing statements.
+
+Baseline plus enrichment used 22.3% more reported total tokens than the combined
+first pass, with 23.6% fewer output tokens. Both cases passed the predeclared 2x
+total-token budget. All six responses/Core checks and offline replays passed;
+the original fields remained unchanged. No retries, further calls, production
+changes, UI changes or commits occurred. Preserve this as a candidate enrichment
+step for existing/reviewed extracts; no default-switch or general accuracy claim.
+
+## Actors and explicit definitions integrated
+
+The [implementation check](../../examples/document_understanding/actor-term-integration/README.md)
+records new first-pass actor/index extraction and fixed enrichment of existing
+claims. Generated CUE schemas reuse existing Core LocalConcept, ConceptScheme,
+RelationshipAssertion and EvidenceBinding records. The UI/discovery export now
+show defined names, aliases, uses and responsible actors; definition changes leave
+unresolved references visible. Fixed enrichment adds only empty components through
+append-only AI review edits; statement text, existing fields and history survive.
+
+The fresh two-source comparison found 16 definitions/17 actors with both methods;
+fixed enrichment used 55% more total tokens. Neither establishes complete actor
+coverage. Live passport integration found six actors/two definitions in each path.
+Fixed enrichment retained all 14 prior statements. Fresh first-pass extraction
+repeated the standalone requirement's lost local-modification qualification even
+though a separate permission retained it. This remains a known accuracy limitation,
+not solved by adding structure or exact evidence.
+
+The live captures replayed with their recorded runtime; final code independently
+reproduced their proposals, review history and original-run extraction graph after
+a small qualification-family fix. Full package and generator tests, native CUE
+checks, and rendered term navigation are recorded in the integration report.
+The UI at port 63694 serves the enriched original draft. No new prompt tuning,
+commit, push, deployment or global memory update was performed in this continuation.

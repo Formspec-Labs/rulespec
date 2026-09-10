@@ -101,7 +101,7 @@ def generate():
         shutil.copytree(SOURCE, module)
         shutil.copytree(ROOT / "constraints/core", module / "cue.mod/pkg/rulespec.invalid/core")
         exports = {}
-        for definition in ("Candidate", "UnitMeaning", "ExtractionResponse", "InventoryResponse"):
+        for definition in ("Candidate", "UnitMeaning", "ExtractionResponse", "InventoryResponse", "EnrichmentResponse"):
             result = subprocess.run([str(binary), "-definition", "#" + definition, str(module)],
                                     cwd=SOURCE, check=True, capture_output=True, text=True)
             exports[definition] = json.loads(result.stdout)
@@ -119,7 +119,8 @@ def generate():
     files = {"candidate.schema.json": serialized(candidate),
              "meaning.schema.json": serialized(model_schema(meaning["schema"], meaning["metadata"])),
              "provider.schema.json": serialized(model_schema(provider["schema"], provider["metadata"])),
-             "inventory.schema.json": serialized(model_schema(inventory["schema"], inventory["metadata"]))}
+             "inventory.schema.json": serialized(model_schema(inventory["schema"], inventory["metadata"])),
+             "enrichment.schema.json": serialized(model_schema(exports["EnrichmentResponse"]["schema"], exports["EnrichmentResponse"]["metadata"]))}
     inputs = [SOURCE / "document-understanding.cue", SOURCE / "cue.mod/module.cue", Path(__file__),
               GENERATOR / "main.go", GENERATOR / "go.mod", GENERATOR / "go.sum",
               *sorted((ROOT / "constraints/core").glob("*.cue"))]

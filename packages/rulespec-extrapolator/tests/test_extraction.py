@@ -13,7 +13,7 @@ from rulespec_extrapolator import extraction as e
 def row(reference="F000", **attributes):
     fields = {name: [] if name in e.core.LIST_FIELDS else ''
               for name in e.PROVIDER_FIELDS}
-    fields.update(kind="requirement", statement="Staff must log requests",
+    fields.update(defines_term=None, actor=None, actor_quote=None, kind="requirement", statement="Staff must log requests",
                   modality="must", modality_quote="must")
     fields.update(attributes)
     return {"unit": reference, "unit_attributes": fields}
@@ -21,7 +21,7 @@ def row(reference="F000", **attributes):
 
 def raw(payload=None, *, text=None, finish="STOP"):
     if text is None:
-        text = json.dumps({"extractions": [row()] if payload is None else payload})
+        text = json.dumps({"terms": [], "extractions": [row()] if payload is None else payload})
     return {"candidates": [{"content": {"parts": [{"text": text}]}, "finish_reason": finish}],
             "model_version": "gemini-3.8-flash"}
 
@@ -75,7 +75,7 @@ def test_legacy_per_kind_output_is_refused():
 
 
 def test_fenced_json_and_split_text_parts_replay_faithfully():
-    text = "```json\n" + json.dumps({"extractions": [row()]}) + "\n```"
+    text = "```json\n" + json.dumps({"terms": [], "extractions": [row()]}) + "\n```"
     response = raw(text=text)
     response["candidates"][0]["content"]["parts"] = [
         {"text": "Internal thought", "thought": True}, {"text": text[:27]}, {"text": text[27:]},
@@ -391,7 +391,7 @@ def test_native_schema_preserves_closed_meaning_fields_without_json_prompt_examp
     schema = e.provider_schema().schema_dict
     row_schema = schema["properties"]["extractions"]["items"]
     attrs = row_schema["properties"]["unit_attributes"]
-    assert attrs["required"] == ["statement", "kind", "modality"]
+    assert attrs["required"] == ["statement", "actor", "actor_quote", "kind", "modality"]
     assert "concepts" not in attrs["properties"]
     assert "statement" in attrs["properties"]
     assert attrs["additionalProperties"] is False

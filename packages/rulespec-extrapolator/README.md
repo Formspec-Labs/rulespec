@@ -22,8 +22,11 @@ prose, but can still omit qualifications. Keep complete statements and their sou
 passages available together. When populated, `logic_text` retains verbatim wording
 for inspection; it does not replace qualifications missing from a statement.
 
-Normal extraction now requires one complete `statement`, `kind` and `modality`.
-Optional enrichment may be omitted or null; it should add useful structure.
+Normal extraction requires one complete `statement`, `kind`, `modality`, and an
+explicit actor assessment (`actor` and `actor_quote`, both nullable). A small
+source-backed term index precedes the statements: definitions identify what they
+define, aliases retain the source wording, and uses link to the local definition.
+Other enrichment may be omitted or null; it should add useful structure.
 Audit requests omit empty fields and reuse passage references for exact repeated
 quotations. The [sparse-meaning check](../../examples/document_understanding/sparse-meaning-check/README.md)
 measured 57–79% fewer audit input tokens while retaining four planted-error
@@ -327,8 +330,8 @@ optional platform integration. `vocabulary` accepts a normalized versioned
 snapshot containing `source: RefSpec`, `release_id`, and `concepts` with `id`,
 `label` and `aliases`. It matches actor/object labels, records ambiguity and pins
 digests; it does not fetch/authenticate a RefSpec release or assert equivalence.
-The normal extraction pass leaves actor/object components empty, so vocabulary
-matching needs enriched or reviewed components.
+Normal extraction supplies supported actors; object components still require
+enrichment or review before vocabulary matching.
 
 ```sh
 python tools/build_extraction_schemas.py
@@ -339,6 +342,46 @@ python tools/build_extraction_schemas.py --check
 
 Generation needs Go 1.25 or newer. Installed extraction/replay load packaged JSON
 and need neither Go nor CUE. Hashes bind sources, generated files and each run.
+
+## Actors and defined terms
+
+New extraction requests include actor assessment and a document-local definition
+index. `defined_terms` stores source-backed names and aliases on defining claims;
+`term_refs` links uses to those definitions. These become existing Core
+`LocalConcept`, `ConceptScheme`, `RelationshipAssertion`, and `EvidenceBinding`
+records. They do not declare matching labels or acronyms globally equivalent.
+A rejected or changed definition leaves its previous references visibly unresolved.
+Historical assertions and review decisions remain available.
+
+For an existing draft, add structure without rewriting its meaning:
+
+```sh
+rulespec-understand enrich path/to/review-workspace \
+  --env-file path/to/credentials.env --output path/to/new-enrichment-capture
+rulespec-understand enrich-replay path/to/new-enrichment-capture \
+  --output path/to/new-replay-result
+```
+
+`enrich` adds only empty actor/definition/reference fields through ordinary AI
+review edits. Existing statements, evidence, modality and populated fields remain
+unchanged. New revisions need their own review; prior approvals remain in history.
+The capture retains requests, responses, component refusals, before/after snapshots
+and every applied action. Replay verifies these without contacting the model.
+The review UI shows actors, defined names and clickable term uses; discovery
+exports retain the same structure and flag unavailable definitions.
+
+The [fresh-source comparison](../../examples/document_understanding/fresh-structure-check/README.md)
+found 16 definitions and 17 actors with both approaches on two regulatory section
+bundles. The separate pass used 55% more total tokens. This supports a cost choice,
+not a complete-meaning guarantee: a subsequent live passport extraction repeated
+the known loss of a local-modification qualification from a standalone requirement.
+Fixed enrichment preserved all 14 existing passport statements while adding six
+actors and two definitions. Keep the full source and related permission available.
+
+Definition links are resolved within each source window, including its supplied
+context. Cross-window/cross-document sense reconciliation remains future work;
+the resolver does not guess from matching words. Exact evidence verifies location,
+not correct actor roles, term senses, or complete coverage.
 
 ## Remaining work and research evidence
 

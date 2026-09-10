@@ -33,7 +33,7 @@ def test_condition_outside_focus_is_present_as_context_and_can_support_child():
     prompt = _window_prompt(Generator(), doc, target)
     assert 'If a card is lost' in prompt
     quote = 'The visitor must request a replacement.'
-    payload = {'extractions': [row(statement='If a card is lost, the visitor must request a replacement.',
+    payload = {'terms': [], 'extractions': [row(statement='If a card is lost, the visitor must request a replacement.',
         scope_text='If a card is lost', scope_quotes=['C000'])]}
     parsed = parse_response_text(json.dumps(payload), doc, target)
     assert len(parsed['candidates']) == 1
