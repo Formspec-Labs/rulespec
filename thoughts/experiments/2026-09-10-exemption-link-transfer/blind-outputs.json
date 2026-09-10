@@ -1,0 +1,327 @@
+[
+  {
+    "label": "output-1",
+    "case": "extinguishers",
+    "payload": {
+      "proposals": [
+        {
+          "rationale": "In § 1910.157(c)(4), 'except during use' is an explicit exception embedded in the baseline requirement that extinguishers be kept in their designated places at all times (C0001). Under the relationship pass, an explicit exception must be emitted as a separate exception unit qualifying its baseline rule with relation exception and modality not_stated.",
+          "operation": "add",
+          "target": "",
+          "qualifies": [
+            "C0001"
+          ],
+          "quote": "except during use",
+          "fields": {
+            "kind": "exception",
+            "context_quotes": [
+              "(4) The employer shall assure that portable fire extinguishers are maintained in a fully charged and operable condition and kept in their designated places at all times except during use."
+            ],
+            "modality": "not_stated",
+            "logic_text": "except during use",
+            "relation": "exception",
+            "summary": "Portable fire extinguishers are not required to be kept in their designated places during use, acting as an exception to the requirement that they be kept in designated places at all times."
+          }
+        },
+        {
+          "rationale": "In § 1910.157(a), the source states that paragraph (d) does not apply to extinguishers provided for employee use on the outside of workplace buildings or structures. C0000 is a distribution requirement under paragraph (d)(2). C0003 is edited from a standalone exemption with an overly broad quotation into an exception qualifying C0000 with relation exception and modality not_stated.",
+          "operation": "edit",
+          "target": "C0003",
+          "qualifies": [
+            "C0000"
+          ],
+          "quote": "Paragraph (d) of this section does not apply to extinguishers provided for employee use on the outside of workplace buildings or structures.",
+          "fields": {
+            "kind": "exception",
+            "modality": "not_stated",
+            "logic_text": "Paragraph (d) of this section does not apply to extinguishers provided for employee use on the outside of workplace buildings or structures.",
+            "object_quote": "extinguishers provided for employee use on the outside of workplace buildings or structures",
+            "object": "extinguishers provided for employee use on the outside of workplace buildings or structures",
+            "relation": "exception",
+            "references": [
+              "(d)"
+            ],
+            "summary": "Paragraph (d) selection and distribution requirements, including Class A distribution under § 1910.157(d)(2), do not apply to extinguishers provided for employee use on the outside of workplace buildings or structures."
+          }
+        }
+      ],
+      "observations": [
+        {
+          "quote": "(2) Where the employer has an emergency action plan meeting the requirements of § 1910.38 which designates certain employees to be the only employees authorized to use the available portable fire extinguishers, and which requires all other employees in the fire area to immediately evacuate the affected work area upon the sounding of the fire alarm, the employer is exempt from the distribution requirements in paragraph (d) of this section.",
+          "rationale": "This provision is a standalone exemption with modality not_required. Under extraction guidance, standalone not-required is an exemption without a forced target and is already properly captured in C0002.",
+          "disposition": "already_represented"
+        },
+        {
+          "quote": "Where extinguishers are provided but are not intended for employee use and the employer has an emergency action plan and a fire prevention plan that meet the requirements of 29 CFR 1910.38 and 29 CFR 1910.39 respectively, then only the requirements of paragraphs (e) and (f) of this section apply.",
+          "rationale": "This scoping limitation restricting application to paragraphs (e) and (f) is already represented in the scope_text and scope_quotes of C0001.",
+          "disposition": "already_represented"
+        },
+        {
+          "quote": "provided that such systems meet the respective requirements of § 1910.158 or § 1910.159, that they provide total coverage of the area to be protected, and that employees are trained at least annually in their use.",
+          "rationale": "These conditions qualify the alternative permission in § 1910.157(d)(3) to substitute standpipe systems or hose stations for Class A extinguishers. Because the baseline permission is not an existing claim in the supplied draft, this qualification cannot be linked and remains unresolved.",
+          "disposition": "unresolved"
+        }
+      ]
+    },
+    "errors": []
+  },
+  {
+    "label": "output-2",
+    "case": "recordkeeping",
+    "payload": {
+      "proposals": [
+        {
+          "rationale": "C0003 represents the exception in § 1904.1(a)(2) that relieves an establishment from the recordkeeping mandate of C0000 if it is classified as a partially exempt industry under § 1904.2. In this relationship pass, reclassify C0003 as kind exception with relation exception, set its modality to not_stated, and connect it to target rule C0000 via qualifies.",
+          "operation": "edit",
+          "target": "C0003",
+          "qualifies": [
+            "C0000"
+          ],
+          "quote": "unless your establishment is classified as a partially exempt industry under § 1904.2.",
+          "fields": {
+            "kind": "exception",
+            "scope_quotes": [
+              "If your company had more than ten (10) employees at any time during the last calendar year,"
+            ],
+            "scope_text": "Applies when the company had more than 10 employees at any time during the last calendar year.",
+            "modality": "not_stated",
+            "logic_text": "unless your establishment is classified as a partially exempt industry under § 1904.2.",
+            "actor_quote": "your establishment",
+            "actor": "establishment",
+            "action_quote": "is classified as a partially exempt industry",
+            "action": "classified as a partially exempt industry",
+            "object_quote": "partially exempt industry",
+            "object": "partially exempt industry",
+            "relation": "exception",
+            "references": [
+              "§ 1904.2"
+            ],
+            "summary": "An establishment is excepted from the recordkeeping requirement for companies with more than 10 employees if the establishment is classified as a partially exempt industry under § 1904.2."
+          }
+        }
+      ],
+      "observations": [
+        {
+          "quote": "unless OSHA or the Bureau of Labor Statistics informs you in writing that you must keep records under § 1904.41 or § 1904.42.",
+          "rationale": "The qualification regarding written notice from OSHA or BLS is already fully integrated into the baseline exemption claim C0002; creating a separate modifier is unnecessary.",
+          "disposition": "already_represented"
+        },
+        {
+          "quote": "However, as required by § 1904.39, all employers covered by the OSH Act must report to OSHA any work-related incident that results in a fatality, the in-patient hospitalization of one or more employees, an employee amputation, or an employee loss of an eye.",
+          "rationale": "The reporting mandate is an independent baseline requirement already represented in C0001 rather than a condition or exception modifying C0002.",
+          "disposition": "already_represented"
+        }
+      ]
+    },
+    "errors": []
+  },
+  {
+    "label": "output-3",
+    "case": "extinguishers",
+    "payload": {
+      "proposals": [
+        {
+          "rationale": "Link existing exemption C0002 to distribution requirement C0000 in paragraph (d), setting relation to exception as specified.",
+          "operation": "edit",
+          "target": "C0002",
+          "qualifies": [
+            "C0000"
+          ],
+          "quote": "(2) Where the employer has an emergency action plan meeting the requirements of § 1910.38 which designates certain employees to be the only employees authorized to use the available portable fire extinguishers, and which requires all other employees in the fire area to immediately evacuate the affected work area upon the sounding of the fire alarm, the employer is exempt from the distribution requirements in paragraph (d) of this section.",
+          "fields": {
+            "kind": "exemption",
+            "modality_quote": "(2) Where the employer has an emergency action plan meeting the requirements of § 1910.38 which designates certain employees to be the only employees authorized to use the available portable fire extinguishers, and which requires all other employees in the fire area to immediately evacuate the affected work area upon the sounding of the fire alarm, the employer is exempt from the distribution requirements in paragraph (d) of this section.",
+            "modality": "not_required",
+            "actor_quote": "(2) Where the employer has an emergency action plan meeting the requirements of § 1910.38 which designates certain employees to be the only employees authorized to use the available portable fire extinguishers, and which requires all other employees in the fire area to immediately evacuate the affected work area upon the sounding of the fire alarm, the employer is exempt from the distribution requirements in paragraph (d) of this section.",
+            "actor": "employer",
+            "relation": "exception",
+            "summary": "Where an employer has an emergency action plan meeting section 1910.38 that designates certain employees as the only authorized users of available portable fire extinguishers and requires all other employees in the fire area to immediately evacuate the affected work area when the fire alarm sounds, the employer is exempt from paragraph (d) distribution requirements."
+          }
+        },
+        {
+          "rationale": "Link existing exemption C0003 to distribution requirement C0000 in paragraph (d), setting relation to exception as specified.",
+          "operation": "edit",
+          "target": "C0003",
+          "qualifies": [
+            "C0000"
+          ],
+          "quote": "(a) \n            Scope and application.\n             The requirements of this section apply to the placement, use, maintenance, and testing of portable fire extinguishers provided for the use of employees. Paragraph (d) of this section does not apply to extinguishers provided for employee use on the outside of workplace buildings or structures. Where extinguishers are provided but are not intended for employee use and the employer has an emergency action plan and a fire prevention plan that meet the requirements of 29 CFR 1910.38 and 29 CFR 1910.39 respectively, then only the requirements of paragraphs (e) and (f) of this section apply.",
+          "fields": {
+            "kind": "exemption",
+            "modality_quote": "(a) \n            Scope and application.\n             The requirements of this section apply to the placement, use, maintenance, and testing of portable fire extinguishers provided for the use of employees. Paragraph (d) of this section does not apply to extinguishers provided for employee use on the outside of workplace buildings or structures. Where extinguishers are provided but are not intended for employee use and the employer has an emergency action plan and a fire prevention plan that meet the requirements of 29 CFR 1910.38 and 29 CFR 1910.39 respectively, then only the requirements of paragraphs (e) and (f) of this section apply.",
+            "modality": "not_required",
+            "relation": "exception",
+            "summary": "Paragraph (d) does not apply to extinguishers provided for employee use on the outside of workplace buildings or structures."
+          }
+        },
+        {
+          "rationale": "Add companion exception for the explicit exception 'except during use' qualifying the C0001 baseline requirement that portable fire extinguishers be kept in designated places at all times.",
+          "operation": "add",
+          "target": "",
+          "qualifies": [
+            "C0001"
+          ],
+          "quote": "except during use",
+          "fields": {
+            "kind": "exception",
+            "scope_quotes": [
+              "(4) The employer shall assure that portable fire extinguishers are maintained in a fully charged and operable condition and kept in their designated places at all times except during use."
+            ],
+            "scope_text": "During use of portable fire extinguishers.",
+            "modality": "not_stated",
+            "logic_text": "except during use",
+            "object_quote": "portable fire extinguishers",
+            "object": "portable fire extinguishers",
+            "relation": "exception",
+            "summary": "Extinguishers are not required to be kept in their designated places during use, constituting an exception to the requirement to keep them in designated places at all times."
+          }
+        }
+      ],
+      "observations": [
+        {
+          "quote": "(1) Where the employer has established and implemented a written fire safety policy which requires the immediate and total evacuation of employees from the workplace upon the sounding of a fire alarm signal and which includes an emergency action plan and a fire prevention plan which meet the requirements of 29 CFR 1910.38 and 29 CFR 1910.39 respectively, and when extinguishers are not available in the workplace, the employer is exempt from all requirements of this section unless a specific standard in part 1910 requires \n            \n            that a portable fire extinguisher be provided.",
+          "rationale": "The exemption under § 1910.157(b)(1) covers all requirements of the section, but is not currently represented as an independent claim in the draft, leaving its qualification link unresolved.",
+          "disposition": "unresolved"
+        }
+      ]
+    },
+    "errors": []
+  },
+  {
+    "label": "output-4",
+    "case": "process-safety",
+    "payload": {
+      "proposals": [
+        {
+          "rationale": "Link exemption C0004 to affected substantive requirements in this section (C0000, C0001, C0002) by changing relation to exception and updating qualifies.",
+          "operation": "edit",
+          "target": "C0004",
+          "qualifies": [
+            "C0000",
+            "C0001",
+            "C0002"
+          ],
+          "quote": "(2) This section does not apply to:\n\n(i) Retail facilities;\n\n(ii) Oil or gas well drilling or servicing operations; or,\n\n(iii) Normally unoccupied remote facilities.",
+          "fields": {
+            "kind": "exemption",
+            "modality": "not_required",
+            "relation": "exception",
+            "summary": "Section 1910.119 does not apply to retail facilities, oil or gas well drilling or servicing operations, or normally unoccupied remote facilities."
+          }
+        }
+      ],
+      "observations": [
+        {
+          "quote": "(1) This section applies to the following:\n\n(i) A process which involves a chemical at or above the specified threshold quantities listed in appendix A to this section;\n\n(ii) A process which involves a Category 1 flammable gas (as defined in 1910.1200(c)) or a flammable liquid with a flashpoint below 100 °F (37.8 °C) on site in one location, in a quantity of 10,000 pounds (4535.9 kg) or more except for:\n\n(A) Hydrocarbon fuels used solely for workplace consumption as a fuel (e.g., propane used for comfort heating, gasoline for vehicle refueling), if such fuels are not a part of a process containing another highly hazardous chemical covered by this standard;\n\n(B) Flammable liquids with a flashpoint below 100 °F (37.8 °C) stored in atmospheric tanks or transferred which are kept below their normal boiling point without benefit of chilling or refrigeration.",
+          "rationale": "General positive application conditions and thresholds governing section applicability remain unmodeled as claims in this draft.",
+          "disposition": "unresolved"
+        }
+      ]
+    },
+    "errors": []
+  },
+  {
+    "label": "output-5",
+    "case": "process-safety",
+    "payload": {
+      "proposals": [
+        {
+          "rationale": "Paragraph (a)(1) establishes the overarching scope condition governing the applicability of the standard, directly determining when the requirements in this section (including the employee participation duties in C0000, C0001, and C0002) are in force.",
+          "operation": "add",
+          "target": "",
+          "qualifies": [
+            "C0000",
+            "C0001",
+            "C0002"
+          ],
+          "quote": "(a) \n            Application.\n             (1) This section applies to the following:\n\n(i) A process which involves a chemical at or above the specified threshold quantities listed in appendix A to this section;\n\n(ii) A process which involves a Category 1 flammable gas (as defined in 1910.1200(c)) or a flammable liquid with a flashpoint below 100 °F (37.8 °C) on site in one location, in a quantity of 10,000 pounds (4535.9 kg) or more except for:\n\n(A) Hydrocarbon fuels used solely for workplace consumption as a fuel (e.g., propane used for comfort heating, gasoline for vehicle refueling), if such fuels are not a part of a process containing another highly hazardous chemical covered by this standard;\n\n(B) Flammable liquids with a flashpoint below 100 °F (37.8 °C) stored in atmospheric tanks or transferred which are kept below their normal boiling point without benefit of chilling or refrigeration.",
+          "fields": {
+            "concepts": [
+              {
+                "label": "Process safety management application",
+                "definition": "The processes and chemical quantities that trigger the application of requirements under section 1910.119.",
+                "quote": "(1) This section applies to the following:",
+                "role": "rkaf:assignmentPrimary"
+              }
+            ],
+            "typed_values": [
+              {
+                "name": "flammable_quantity_threshold",
+                "quote": "10,000 pounds (4535.9 kg) or more",
+                "value": "10000",
+                "datatype": "xsd:decimal",
+                "comparator": "or more",
+                "unit": "pounds",
+                "anchor": ""
+              }
+            ],
+            "kind": "condition",
+            "modality": "not_stated",
+            "alternative_quotes": [
+              "(i) A process which involves a chemical at or above the specified threshold quantities listed in appendix A to this section;",
+              "(ii) A process which involves a Category 1 flammable gas (as defined in 1910.1200(c)) or a flammable liquid with a flashpoint below 100 °F (37.8 °C) on site in one location, in a quantity of 10,000 pounds (4535.9 kg) or more"
+            ],
+            "choice_quote": "(1) This section applies to the following:\n\n(i) A process which involves a chemical at or above the specified threshold quantities listed in appendix A to this section;\n\n(ii) A process which involves a Category 1 flammable gas (as defined in 1910.1200(c)) or a flammable liquid with a flashpoint below 100 °F (37.8 °C) on site in one location, in a quantity of 10,000 pounds (4535.9 kg) or more",
+            "choice_text": "The section applies to either: (i) a process involving a chemical at or above the specified threshold quantities listed in appendix A; or (ii) a process involving a Category 1 flammable gas or flammable liquid with flashpoint below 100 °F on site in one location in a quantity of 10,000 pounds or more, subject to exceptions (A) and (B).",
+            "logic_text": "This section applies to the following: (i) A process which involves a chemical at or above the specified threshold quantities listed in appendix A to this section; (ii) A process which involves a Category 1 flammable gas (as defined in 1910.1200(c)) or a flammable liquid with a flashpoint below 100 °F (37.8 °C) on site in one location, in a quantity of 10,000 pounds (4535.9 kg) or more except for: (A) ... (B) ...",
+            "action_quote": "applies",
+            "action": "apply",
+            "object_quote": "This section",
+            "object": "This section",
+            "relation": "scope",
+            "references": [
+              "appendix A",
+              "1910.1200(c)"
+            ],
+            "summary": "This section applies to any process involving a chemical at or above appendix A threshold quantities, or a process involving a Category 1 flammable gas or flammable liquid with a flashpoint below 100 °F on site in one location in a quantity of 10,000 pounds or more, except for hydrocarbon fuels used solely for workplace consumption as fuel not part of a covered process and flammable liquids with flashpoint below 100 °F kept in atmospheric storage or transfer below boiling point without refrigeration."
+          }
+        }
+      ],
+      "observations": [
+        {
+          "quote": "(2) This section does not apply to:\n\n(i) Retail facilities;\n\n(ii) Oil or gas well drilling or servicing operations; or,\n\n(iii) Normally unoccupied remote facilities.",
+          "rationale": "Paragraph (a)(2) establishes an explicit absence of application and is already captured as a standalone exemption in C0004 with not_required modality and no target link required.",
+          "disposition": "already_represented"
+        },
+        {
+          "quote": "except for:\n\n(A) Hydrocarbon fuels used solely for workplace consumption as a fuel (e.g., propane used for comfort heating, gasoline for vehicle refueling), if such fuels are not a part of a process containing another highly hazardous chemical covered by this standard;\n\n(B) Flammable liquids with a flashpoint below 100 °F (37.8 °C) stored in atmospheric tanks or transferred which are kept below their normal boiling point without benefit of chilling or refrigeration.",
+          "rationale": "These exceptions qualify the flammable process application rule in (a)(1)(ii); their specific baseline is not registered as an independent non-modifier rule alias in the draft inventory, so discrete qualification targeting remains unresolved outside the grouped condition.",
+          "disposition": "unresolved"
+        }
+      ]
+    },
+    "errors": []
+  },
+  {
+    "label": "output-6",
+    "case": "recordkeeping",
+    "payload": {
+      "proposals": [
+        {
+          "rationale": "Link the partial industry exemption to baseline requirement C0000, which it qualifies by excepting classified establishments from the recordkeeping duty.",
+          "operation": "edit",
+          "target": "C0003",
+          "qualifies": [
+            "C0000"
+          ],
+          "quote": "(2) If your company had more than ten (10) employees at any time during the last calendar year, you must keep OSHA injury and illness records unless your establishment is classified as a partially exempt industry under § 1904.2.",
+          "fields": {
+            "kind": "exemption",
+            "modality": "not_required",
+            "actor": "company",
+            "relation": "exception",
+            "summary": "The recordkeeping requirement for companies with more than ten employees does not apply when their establishment is classified as a partially exempt industry under section 1904.2."
+          }
+        }
+      ],
+      "observations": [
+        {
+          "quote": "(1) If your company had 10 or fewer employees at all times during the last calendar year, you do not need to keep OSHA injury and illness records unless OSHA or the Bureau of Labor Statistics informs you in writing that you must keep records under § 1904.41 or § 1904.42.",
+          "rationale": "The general recordkeeping duty baseline that this size exemption relieves is not established within the supplied focus, so its target remains unresolved.",
+          "disposition": "unresolved"
+        }
+      ]
+    },
+    "errors": []
+  }
+]

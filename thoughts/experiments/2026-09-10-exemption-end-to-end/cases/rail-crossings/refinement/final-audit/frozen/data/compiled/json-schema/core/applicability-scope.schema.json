@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/applicability-scope.json",
+  "title": "applicability-scope",
+  "$defs": {
+    "ApplicabilityScope": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:ApplicabilityScope"
+        },
+        "rkaf:appliesInJurisdiction": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "rkaf:appliesToSubject": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "rkaf:hasEffectivePeriod": {
+          "type": "string"
+        },
+        "rkaf:applicabilityCondition": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:appliesInJurisdiction"
+      ]
+    }
+  }
+}

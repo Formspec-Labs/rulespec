@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/generated-work-product.json",
+  "title": "generated-work-product",
+  "$defs": {
+    "ConsumerLifecycleState": {
+      "type": "string",
+      "enum": [
+        "rkaf:draft",
+        "rkaf:proposedForOperational",
+        "rkaf:operational",
+        "rkaf:staleForCurrentUse",
+        "rkaf:published"
+      ]
+    },
+    "GeneratedWorkProduct": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:GeneratedWorkProduct"
+        },
+        "rkaf:justifiedByAssertion": {
+          "type": "string"
+        },
+        "rkaf:consumerLifecycleState": {
+          "$ref": "#/$defs/ConsumerLifecycleState"
+        },
+        "rkaf:proposedUsageEligibility": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:justifiedByAssertion"
+      ]
+    }
+  }
+}

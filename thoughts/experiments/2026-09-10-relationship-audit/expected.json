@@ -1,0 +1,77 @@
+{
+  "emergency-plan": [
+    {
+      "label": "E0",
+      "faithful_reading": "An employer must have an emergency action plan whenever an OSHA standard in this part requires one.",
+      "shown_reading": "An employer must have an emergency action plan.",
+      "expected_error": true,
+      "reason": "Drops the OSHA-standard-requires-one applicability trigger.",
+      "claim_id": "urn:rulespec:document-understanding:revision:3a41ecbd50e27613af28c30ed8bb8440493bd01b15acb9821b60ed645201af3f"
+    },
+    {
+      "label": "E1",
+      "faithful_reading": "When an OSHA standard in this part requires an emergency action plan, it must be written, kept in the workplace and available for employee review, but employers with 10 or fewer employees may communicate it orally.",
+      "shown_reading": "When an OSHA standard in this part requires an emergency action plan, it must be in writing, kept in the workplace, and available to employees for review.",
+      "expected_error": true,
+      "reason": "Drops the <=10-employee oral alternative.",
+      "claim_id": "urn:rulespec:document-understanding:revision:75c7a8924e194c245537fd0421b86de1e983bfc9d0bf5a661efa6db7c7ee6237"
+    },
+    {
+      "label": "E2",
+      "faithful_reading": "When an OSHA standard in this part requires an emergency action plan, an employer with 10 or fewer employees may communicate the plan orally to employees.",
+      "shown_reading": "When an OSHA standard in this part requires an emergency action plan, an employer with 10 or fewer employees may communicate the plan orally to employees.",
+      "expected_error": false,
+      "reason": "Correct oral permission with required-plan scope; do not demand writing for <=10.",
+      "claim_id": "urn:rulespec:document-understanding:revision:6d093411813c883620bd35032e80e8356ce650aea45c7939a0702e956dc0c6b4"
+    },
+    {
+      "label": "E3",
+      "faithful_reading": "When an OSHA standard in this part requires an emergency action plan, an employer must designate and train employees to assist in a safe and orderly evacuation of other employees.",
+      "shown_reading": "When an OSHA standard in this part requires an emergency action plan, an employer must designate and train employees to assist in a safe and orderly evacuation of other employees.",
+      "expected_error": false,
+      "reason": "The small-employer oral-plan exception does not remove evacuation training.",
+      "claim_id": "urn:rulespec:document-understanding:revision:58c1fe5b41470d6ee09686c5ec5cd917672e36d880412094c0b537d388ae1cdf"
+    }
+  ],
+  "extinguishers": [
+    {
+      "label": "F0",
+      "faithful_reading": "Where paragraph (d) applies, subject to the (a) and (b) exemptions, employers must distribute Class A extinguishers so employee travel distance is at most 75 feet (22.9 m).",
+      "shown_reading": "The employer shall distribute portable fire extinguishers for use by employees on Class A fires so that the travel distance for employees to any extinguisher is 75 feet (22.9 m) or less.",
+      "expected_error": true,
+      "reason": "Omits (a)/(b) exclusions governing distribution (d).",
+      "claim_id": "urn:rulespec:document-understanding:revision:9132d6af3914b91342cf1d96a2d165df8ab7819eb9fbfb1f78a7bd8011cab4f9"
+    },
+    {
+      "label": "F1",
+      "faithful_reading": "For employee-use portable extinguishers to which paragraph (c) applies, excluding workplaces exempt under (b)(1) and the non-employee-use situation in (a) where only (e) and (f) apply, the employer shall assure they are fully charged and operable and kept in designated places at all times except during use.",
+      "shown_reading": "For employee-use portable extinguishers to which paragraph (c) applies, excluding workplaces exempt under (b)(1) and the non-employee-use situation in (a) where only (e) and (f) apply, the employer shall assure they are fully charged and operable and kept in designated places at all times.",
+      "expected_error": true,
+      "reason": "Drops the explicit during-use exception.",
+      "claim_id": "urn:rulespec:document-understanding:revision:9bafd8d37909767748c8a95b7c33caeb36fa71abf7e9c9676dd82ad3b2d2d00c"
+    },
+    {
+      "label": "F2",
+      "faithful_reading": "Where an employer has an emergency action plan meeting section 1910.38 that designates certain employees as the only authorized users of available portable fire extinguishers and requires all other employees in the fire area to immediately evacuate the affected work area when the fire alarm sounds, the employer is exempt from paragraph (d) distribution requirements.",
+      "shown_reading": "Where an employer has an emergency action plan meeting section 1910.38 that designates certain employees as the only authorized users of available portable fire extinguishers and requires all other employees in the fire area to immediately evacuate the affected work area when the fire alarm sounds, the employer is exempt from paragraph (d) distribution requirements.",
+      "expected_error": false,
+      "reason": "All (b)(2) conditions retained; exemption is only from distribution, not paragraph (c).",
+      "claim_id": "urn:rulespec:document-understanding:revision:4b4221ec5c246963939b76f975a5dfc78000da17953c088fcf8e32844631c006"
+    },
+    {
+      "label": "F3",
+      "faithful_reading": "Paragraph (d) does not apply to extinguishers provided for employee use on the outside of workplace buildings or structures.",
+      "shown_reading": "Paragraph (d) does not apply to extinguishers provided for employee use on the outside of workplace buildings or structures.",
+      "expected_error": false,
+      "reason": "Accurate limited paragraph-(d) exemption, not a blanket exemption.",
+      "claim_id": "urn:rulespec:document-understanding:revision:9df457cd09913580c4f626826e10eb409bd8c3569325ca804dd7e470ffd7b2a1"
+    }
+  ],
+  "seatbelts": [
+    {
+      "claim_id": "urn:rulespec:document-understanding:revision:d1fe2614c6635c052be429d75e5618a7f5f23f0800167385ac00e595564acf98",
+      "expected_error": true,
+      "reason": "Initial takeoff duty omits remote part 121/125/135 exclusions."
+    }
+  ]
+}

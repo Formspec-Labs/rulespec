@@ -1,0 +1,425 @@
+{
+  "provider_calls": 0,
+  "new_provider_cost": 0,
+  "git_head": "bc337a0d3b09de2331e13ba43dc7ba9fad72a207",
+  "inputs": {
+    "examples/document_understanding/consistency-transfer/cells/cell-00/raw-model-text.txt": "496ccb9c55c1e3446d41b6e0f81ac5b6d626bed9c391a6eabaf3228a20e4bf3c",
+    "examples/document_understanding/consistency-transfer/cells/cell-00/rulebook.json": "5b13017a873c665d5ce3b775f457d49430f0f45d665fa85042d4e49545c445d7",
+    "examples/document_understanding/consistency-transfer/cells/cell-01/raw-model-text.txt": "d0f75d0e98a72dfff6b4506595657f3c8542a80aa46d42c77ca2a94d8873c3e5",
+    "examples/document_understanding/consistency-transfer/cells/cell-01/rulebook.json": "e6c316e86778270fed3e031740050c4806a638b7465be28fc446cd1d1e0daf42",
+    "examples/document_understanding/consistency-transfer/cells/cell-03/raw-model-text.txt": "0a4cd0d6575d8233dee590636c7d236149db09a800b4f4733c200fe7c1107dfa",
+    "examples/document_understanding/consistency-transfer/cells/cell-03/rulebook.json": "3dfa930cd981f8ef72bdeb834e87c812fba8bcf865c6db564f6cf093491a013c",
+    "examples/document_understanding/consistency-transfer/cells/cell-04/raw-model-text.txt": "079e236653abbd913dcffe16438fb37b637afc087fc866835662bffc03e2c40b",
+    "examples/document_understanding/consistency-transfer/cells/cell-04/rulebook.json": "5dd7b3265936fadc0d2c8bc31fbfe1cec8230a1dce873c7a40e35f0b374747d3",
+    "examples/document_understanding/consistency-transfer/cells/cell-05/raw-model-text.txt": "91d8878871a8b686506341bbd713db6904686af07a20eb202b87ff9c29c91eca",
+    "examples/document_understanding/consistency-transfer/cells/cell-05/rulebook.json": "2b5dfb7bf794263ac8b270109822e94284c8ce55db02789f21f912eb4dbaecdc",
+    "thoughts/experiments/2026-09-10-retrieval-context/PLAN.md": "d34749ca498ca28c1b134dd459bfa7d1a19ce3d162433737016ee052206186f0",
+    "thoughts/experiments/2026-09-10-retrieval-context/experiment.py": "1dd658d8a45902ba59ba0b4e08c5760bef1483a358e7f1d222d72d83c7589b84"
+  },
+  "runtime": {
+    "packages/rulespec-extrapolator/src/rulespec_extrapolator/discovery.py": "ce969be91e06bd440f0a5051302dd115e9e51843f4f38a5ab3292ac96740e662",
+    "packages/rulespec-extrapolator/src/rulespec_extrapolator/documents.py": "d5946fd4df22a4c11e7eef496cd25d141a9db376c7936e41d7c72904771e2152",
+    "packages/rulespec-extrapolator/src/rulespec_extrapolator/core.py": "f8df70c48ba1090a3336f10674a9cab171d7f768f9adea5e37bed0a3c852670b"
+  },
+  "cases": [
+    {
+      "case": "passport",
+      "capture": "cell-01",
+      "claim_id": "urn:rulespec:document-understanding:revision:930b0aaa5e194ff7776dc0f6bfcef69841870403d30e71caf80d82d826984daf",
+      "packet_ids": [
+        "urn:rulespec:document-understanding:passage:85a181b366c33b5ecbdb8987c9f1d0446ef1f57bd9e59da9830d97830b55c711"
+      ],
+      "arms": {
+        "A": {
+          "statement": "Posts must use the cleared language in the IRLs.",
+          "spans": [],
+          "characters": 48,
+          "text": "Posts must use the cleared language in the IRLs."
+        },
+        "B": {
+          "statement": "Posts must use the cleared language in the IRLs.",
+          "spans": [
+            {
+              "start": 1142,
+              "end": 1332,
+              "quote": "(2) Posts must use the cleared language in the IRLs, but are authorized to modify the language to suit local logistical requirements and other local concerns such as available documentation.",
+              "roles": [
+                "summary"
+              ]
+            }
+          ],
+          "characters": 240,
+          "text": "Posts must use the cleared language in the IRLs.\n\n(2) Posts must use the cleared language in the IRLs, but are authorized to modify the language to suit local logistical requirements and other local concerns such as available documentation."
+        },
+        "C": {
+          "statement": "Posts must use the cleared language in the IRLs.",
+          "spans": [
+            {
+              "start": 1142,
+              "end": 1332,
+              "quote": "(2) Posts must use the cleared language in the IRLs, but are authorized to modify the language to suit local logistical requirements and other local concerns such as available documentation.",
+              "roles": [
+                "summary"
+              ]
+            },
+            {
+              "start": 1142,
+              "end": 1334,
+              "quote": "(2) Posts must use the cleared language in the IRLs, but are authorized to modify the language to suit local logistical requirements and other local concerns such as available documentation.\n\n",
+              "roles": [
+                "source"
+              ]
+            }
+          ],
+          "characters": 434,
+          "text": "Posts must use the cleared language in the IRLs.\n\n(2) Posts must use the cleared language in the IRLs, but are authorized to modify the language to suit local logistical requirements and other local concerns such as available documentation.\n\n(2) Posts must use the cleared language in the IRLs, but are authorized to modify the language to suit local logistical requirements and other local concerns such as available documentation.\n\n"
+        }
+      }
+    },
+    {
+      "case": "seatbelts",
+      "capture": "cell-00",
+      "claim_id": "urn:rulespec:document-understanding:revision:d1fe2614c6635c052be429d75e5618a7f5f23f0800167385ac00e595564acf98",
+      "packet_ids": [
+        "urn:rulespec:document-understanding:passage:f0e4a55290ab1f7090c87f390c78506b078eb1f5941acb84ac24fb9d0474d112",
+        "urn:rulespec:document-understanding:passage:00fc0c90af1693e5136de3f499e1576fc5e4d719a8c7b2cfcfbe5a3f9339b9a5"
+      ],
+      "arms": {
+        "A": {
+          "statement": "Unless otherwise authorized by the Administrator, no pilot may take off a U.S.-registered civil aircraft (except a free balloon that incorporates a basket or gondola, or an airship type certificated before November 2, 1987) unless the pilot in command of that aircraft ensures that each person on board is briefed on how to fasten and unfasten that person's safety belt and, if installed, shoulder harness.",
+          "spans": [],
+          "characters": 406,
+          "text": "Unless otherwise authorized by the Administrator, no pilot may take off a U.S.-registered civil aircraft (except a free balloon that incorporates a basket or gondola, or an airship type certificated before November 2, 1987) unless the pilot in command of that aircraft ensures that each person on board is briefed on how to fasten and unfasten that person's safety belt and, if installed, shoulder harness."
+        },
+        "B": {
+          "statement": "Unless otherwise authorized by the Administrator, no pilot may take off a U.S.-registered civil aircraft (except a free balloon that incorporates a basket or gondola, or an airship type certificated before November 2, 1987) unless the pilot in command of that aircraft ensures that each person on board is briefed on how to fasten and unfasten that person's safety belt and, if installed, shoulder harness.",
+          "spans": [
+            {
+              "start": 136,
+              "end": 496,
+              "quote": "(1) No pilot may take off a U.S.-registered civil aircraft (except a free balloon that incorporates a basket or gondola, or an airship type certificated before November 2, 1987) unless the pilot in command of that aircraft ensures that each person on board is briefed on how to fasten and unfasten that person's safety belt and, if installed, shoulder harness.",
+              "roles": [
+                "summary"
+              ]
+            }
+          ],
+          "characters": 768,
+          "text": "Unless otherwise authorized by the Administrator, no pilot may take off a U.S.-registered civil aircraft (except a free balloon that incorporates a basket or gondola, or an airship type certificated before November 2, 1987) unless the pilot in command of that aircraft ensures that each person on board is briefed on how to fasten and unfasten that person's safety belt and, if installed, shoulder harness.\n\n(1) No pilot may take off a U.S.-registered civil aircraft (except a free balloon that incorporates a basket or gondola, or an airship type certificated before November 2, 1987) unless the pilot in command of that aircraft ensures that each person on board is briefed on how to fasten and unfasten that person's safety belt and, if installed, shoulder harness."
+        },
+        "C": {
+          "statement": "Unless otherwise authorized by the Administrator, no pilot may take off a U.S.-registered civil aircraft (except a free balloon that incorporates a basket or gondola, or an airship type certificated before November 2, 1987) unless the pilot in command of that aircraft ensures that each person on board is briefed on how to fasten and unfasten that person's safety belt and, if installed, shoulder harness.",
+          "spans": [
+            {
+              "start": 81,
+              "end": 134,
+              "quote": "(a) Unless otherwise authorized by the Administrator\u2014",
+              "roles": [
+                "scope_text:0"
+              ]
+            },
+            {
+              "start": 81,
+              "end": 136,
+              "quote": "(a) Unless otherwise authorized by the Administrator\u2014\n\n",
+              "roles": [
+                "source"
+              ]
+            },
+            {
+              "start": 136,
+              "end": 496,
+              "quote": "(1) No pilot may take off a U.S.-registered civil aircraft (except a free balloon that incorporates a basket or gondola, or an airship type certificated before November 2, 1987) unless the pilot in command of that aircraft ensures that each person on board is briefed on how to fasten and unfasten that person's safety belt and, if installed, shoulder harness.",
+              "roles": [
+                "summary",
+                "scope_text:1"
+              ]
+            },
+            {
+              "start": 136,
+              "end": 498,
+              "quote": "(1) No pilot may take off a U.S.-registered civil aircraft (except a free balloon that incorporates a basket or gondola, or an airship type certificated before November 2, 1987) unless the pilot in command of that aircraft ensures that each person on board is briefed on how to fasten and unfasten that person's safety belt and, if installed, shoulder harness.\n\n",
+              "roles": [
+                "source"
+              ]
+            },
+            {
+              "start": 498,
+              "end": 896,
+              "quote": "(2) No pilot may cause to be moved on the surface, take off, or land a U.S.-registered civil aircraft (except a free balloon that incorporates a basket or gondola, or an airship type certificated before November 2, 1987) unless the pilot in command of that aircraft ensures that each person on board has been notified to fasten his or her safety belt and, if installed, his or her shoulder harness.",
+              "roles": [
+                "summary",
+                "scope_text:1"
+              ]
+            },
+            {
+              "start": 898,
+              "end": 1651,
+              "quote": "(3) Except as provided in this paragraph, each person on board a U.S.-registered civil aircraft (except a free balloon that incorporates a basket or gondola or an airship type certificated before November 2, 1987) must occupy an approved seat or berth with a safety belt and, if installed, shoulder harness, properly secured about him or her during movement on the surface, takeoff, and landing. For seaplane and float equipped rotorcraft operations during movement on the surface, the person pushing off the seaplane or rotorcraft from the dock and the person mooring the seaplane or rotorcraft at the dock are excepted from the preceding seating and safety belt requirements. Notwithstanding the preceding requirements of this paragraph, a person may:",
+              "roles": [
+                "summary",
+                "scope_text:1"
+              ]
+            },
+            {
+              "start": 1653,
+              "end": 1886,
+              "quote": "(i) Be held by an adult, except as outlined in \u00a7 91.108(j), who is occupying an approved seat or berth, provided that the person being held has not reached his or her second birthday and does not occupy or use any restraining device;",
+              "roles": [
+                "summary",
+                "scope_text:2"
+              ]
+            },
+            {
+              "start": 1888,
+              "end": 2023,
+              "quote": "(ii) Use the floor of the aircraft as a seat, provided that the person is on board for the purpose of engaging in sport parachuting; or",
+              "roles": [
+                "summary",
+                "scope_text:2"
+              ]
+            }
+          ],
+          "characters": 2771,
+          "text": "Unless otherwise authorized by the Administrator, no pilot may take off a U.S.-registered civil aircraft (except a free balloon that incorporates a basket or gondola, or an airship type certificated before November 2, 1987) unless the pilot in command of that aircraft ensures that each person on board is briefed on how to fasten and unfasten that person's safety belt and, if installed, shoulder harness.\n\n(a) Unless otherwise authorized by the Administrator\u2014\n\n(a) Unless otherwise authorized by the Administrator\u2014\n\n\n\n(1) No pilot may take off a U.S.-registered civil aircraft (except a free balloon that incorporates a basket or gondola, or an airship type certificated before November 2, 1987) unless the pilot in command of that aircraft ensures that each person on board is briefed on how to fasten and unfasten that person's safety belt and, if installed, shoulder harness.\n\n(1) No pilot may take off a U.S.-registered civil aircraft (except a free balloon that incorporates a basket or gondola, or an airship type certificated before November 2, 1987) unless the pilot in command of that aircraft ensures that each person on board is briefed on how to fasten and unfasten that person's safety belt and, if installed, shoulder harness.\n\n\n\n(2) No pilot may cause to be moved on the surface, take off, or land a U.S.-registered civil aircraft (except a free balloon that incorporates a basket or gondola, or an airship type certificated before November 2, 1987) unless the pilot in command of that aircraft ensures that each person on board has been notified to fasten his or her safety belt and, if installed, his or her shoulder harness.\n\n(3) Except as provided in this paragraph, each person on board a U.S.-registered civil aircraft (except a free balloon that incorporates a basket or gondola or an airship type certificated before November 2, 1987) must occupy an approved seat or berth with a safety belt and, if installed, shoulder harness, properly secured about him or her during movement on the surface, takeoff, and landing. For seaplane and float equipped rotorcraft operations during movement on the surface, the person pushing off the seaplane or rotorcraft from the dock and the person mooring the seaplane or rotorcraft at the dock are excepted from the preceding seating and safety belt requirements. Notwithstanding the preceding requirements of this paragraph, a person may:\n\n(i) Be held by an adult, except as outlined in \u00a7 91.108(j), who is occupying an approved seat or berth, provided that the person being held has not reached his or her second birthday and does not occupy or use any restraining device;\n\n(ii) Use the floor of the aircraft as a seat, provided that the person is on board for the purpose of engaging in sport parachuting; or"
+        }
+      }
+    },
+    {
+      "case": "recording-experimental",
+      "capture": "cell-05",
+      "claim_id": "urn:rulespec:document-understanding:revision:6ff99d68776f53c93637d3866e9cca08493923bf52bb4510dc15e8b75a81eba0",
+      "packet_ids": [
+        "urn:rulespec:document-understanding:passage:30c28463dcd7ace97197b8ddfb3cc99e5138b56a9629effcbf91872c8c61268d"
+      ],
+      "arms": {
+        "A": {
+          "statement": "If a physician or other licensed health care professional recommends medical treatment, you should encourage the injured or ill employee to follow that recommendation.",
+          "spans": [],
+          "characters": 167,
+          "text": "If a physician or other licensed health care professional recommends medical treatment, you should encourage the injured or ill employee to follow that recommendation."
+        },
+        "B": {
+          "statement": "If a physician or other licensed health care professional recommends medical treatment, you should encourage the injured or ill employee to follow that recommendation.",
+          "spans": [
+            {
+              "start": 17078,
+              "end": 17245,
+              "quote": "If a physician or other licensed health care professional recommends medical treatment, you should encourage the injured or ill employee to follow that recommendation.",
+              "roles": [
+                "summary"
+              ]
+            }
+          ],
+          "characters": 336,
+          "text": "If a physician or other licensed health care professional recommends medical treatment, you should encourage the injured or ill employee to follow that recommendation.\n\nIf a physician or other licensed health care professional recommends medical treatment, you should encourage the injured or ill employee to follow that recommendation."
+        },
+        "C": {
+          "statement": "If a physician or other licensed health care professional recommends medical treatment, you should encourage the injured or ill employee to follow that recommendation.",
+          "spans": [
+            {
+              "start": 16929,
+              "end": 17077,
+              "quote": "(v) What if a physician or other licensed health care professional recommends medical treatment but the employee does not follow the recommendation?",
+              "roles": [
+                "context:0"
+              ]
+            },
+            {
+              "start": 16929,
+              "end": 17408,
+              "quote": "(v) What if a physician or other licensed health care professional recommends medical treatment but the employee does not follow the recommendation? If a physician or other licensed health care professional recommends medical treatment, you should encourage the injured or ill employee to follow that recommendation. However, you must record the case even if the injured or ill employee does not follow the physician or other licensed health care professional's recommendation.\n\n",
+              "roles": [
+                "source"
+              ]
+            },
+            {
+              "start": 17078,
+              "end": 17245,
+              "quote": "If a physician or other licensed health care professional recommends medical treatment, you should encourage the injured or ill employee to follow that recommendation.",
+              "roles": [
+                "summary",
+                "scope_text:0",
+                "context:1"
+              ]
+            },
+            {
+              "start": 17246,
+              "end": 17406,
+              "quote": "However, you must record the case even if the injured or ill employee does not follow the physician or other licensed health care professional's recommendation.",
+              "roles": [
+                "summary"
+              ]
+            }
+          ],
+          "characters": 1129,
+          "text": "If a physician or other licensed health care professional recommends medical treatment, you should encourage the injured or ill employee to follow that recommendation.\n\n(v) What if a physician or other licensed health care professional recommends medical treatment but the employee does not follow the recommendation?\n\n(v) What if a physician or other licensed health care professional recommends medical treatment but the employee does not follow the recommendation? If a physician or other licensed health care professional recommends medical treatment, you should encourage the injured or ill employee to follow that recommendation. However, you must record the case even if the injured or ill employee does not follow the physician or other licensed health care professional's recommendation.\n\n\n\nIf a physician or other licensed health care professional recommends medical treatment, you should encourage the injured or ill employee to follow that recommendation.\n\nHowever, you must record the case even if the injured or ill employee does not follow the physician or other licensed health care professional's recommendation."
+        }
+      }
+    },
+    {
+      "case": "first-aid-uncertainty",
+      "capture": "cell-04",
+      "claim_id": "urn:rulespec:document-understanding:revision:bada4dbde97d35922ad47848e71b66edf88fe9e527b0339080951da7e24dd7e2",
+      "packet_ids": [
+        "urn:rulespec:document-understanding:passage:b2b60dce941628ccff7d44fe3d28753b768de19815bd24a808e9bf1d4662365f"
+      ],
+      "arms": {
+        "A": {
+          "statement": "Adequate first aid supplies shall be readily available.",
+          "spans": [],
+          "characters": 55,
+          "text": "Adequate first aid supplies shall be readily available."
+        },
+        "B": {
+          "statement": "Adequate first aid supplies shall be readily available.",
+          "spans": [
+            {
+              "start": 176,
+              "end": 449,
+              "quote": "(b) In the absence of an infirmary, clinic, or hospital in near proximity to the workplace which is used for the treatment of all injured employees, a person or persons shall be adequately trained to render first aid. Adequate first aid supplies shall be readily available.",
+              "roles": [
+                "summary"
+              ]
+            }
+          ],
+          "characters": 330,
+          "text": "Adequate first aid supplies shall be readily available.\n\n(b) In the absence of an infirmary, clinic, or hospital in near proximity to the workplace which is used for the treatment of all injured employees, a person or persons shall be adequately trained to render first aid. Adequate first aid supplies shall be readily available."
+        },
+        "C": {
+          "statement": "Adequate first aid supplies shall be readily available.",
+          "spans": [
+            {
+              "start": 176,
+              "end": 449,
+              "quote": "(b) In the absence of an infirmary, clinic, or hospital in near proximity to the workplace which is used for the treatment of all injured employees, a person or persons shall be adequately trained to render first aid. Adequate first aid supplies shall be readily available.",
+              "roles": [
+                "summary",
+                "scope_text:0"
+              ]
+            },
+            {
+              "start": 176,
+              "end": 451,
+              "quote": "(b) In the absence of an infirmary, clinic, or hospital in near proximity to the workplace which is used for the treatment of all injured employees, a person or persons shall be adequately trained to render first aid. Adequate first aid supplies shall be readily available.\n\n",
+              "roles": [
+                "source"
+              ]
+            }
+          ],
+          "characters": 607,
+          "text": "Adequate first aid supplies shall be readily available.\n\n(b) In the absence of an infirmary, clinic, or hospital in near proximity to the workplace which is used for the treatment of all injured employees, a person or persons shall be adequately trained to render first aid. Adequate first aid supplies shall be readily available.\n\n(b) In the absence of an infirmary, clinic, or hospital in near proximity to the workplace which is used for the treatment of all injured employees, a person or persons shall be adequately trained to render first aid. Adequate first aid supplies shall be readily available.\n\n"
+        }
+      }
+    },
+    {
+      "case": "separate-exemptions-constructed",
+      "capture": "cell-03",
+      "claim_id": "urn:rulespec:document-understanding:revision:d6c9f2692903d4fc89b93e0bef563e05b0b60c68473cf438a5474b71ca51fbfb",
+      "packet_ids": [
+        "urn:rulespec:document-understanding:passage:bccd7c5387488834de5641604cad6d61ecce7b4c7b194a4115923faab59a6cd9"
+      ],
+      "arms": {
+        "A": {
+          "statement": "Visitors do not need an access record for a public tour.",
+          "spans": [],
+          "characters": 56,
+          "text": "Visitors do not need an access record for a public tour."
+        },
+        "B": {
+          "statement": "Visitors do not need an access record for a public tour.",
+          "spans": [
+            {
+              "start": 443,
+              "end": 621,
+              "quote": "Visitors do not need an access record for a public tour, and librarians do not need an access record to enter the archive. These are separate exemptions for different activities.",
+              "roles": [
+                "summary"
+              ]
+            }
+          ],
+          "characters": 236,
+          "text": "Visitors do not need an access record for a public tour.\n\nVisitors do not need an access record for a public tour, and librarians do not need an access record to enter the archive. These are separate exemptions for different activities."
+        },
+        "C": {
+          "statement": "Visitors do not need an access record for a public tour.",
+          "spans": [
+            {
+              "start": 443,
+              "end": 621,
+              "quote": "Visitors do not need an access record for a public tour, and librarians do not need an access record to enter the archive. These are separate exemptions for different activities.",
+              "roles": [
+                "summary",
+                "scope_text:0"
+              ]
+            },
+            {
+              "start": 443,
+              "end": 623,
+              "quote": "Visitors do not need an access record for a public tour, and librarians do not need an access record to enter the archive. These are separate exemptions for different activities.\n\n",
+              "roles": [
+                "source"
+              ]
+            }
+          ],
+          "characters": 418,
+          "text": "Visitors do not need an access record for a public tour.\n\nVisitors do not need an access record for a public tour, and librarians do not need an access record to enter the archive. These are separate exemptions for different activities.\n\nVisitors do not need an access record for a public tour, and librarians do not need an access record to enter the archive. These are separate exemptions for different activities.\n\n"
+        }
+      }
+    },
+    {
+      "case": "and-duty-constructed",
+      "capture": "cell-03",
+      "claim_id": "urn:rulespec:document-understanding:revision:71bc2f7cee0a2d3545bc07ce3e72e1265e87d6d4fd28b184078be83ce7bfc2fe",
+      "packet_ids": [
+        "urn:rulespec:document-understanding:passage:1da6761c367a431809aa58ac82624389ee2128b8144e900027f9ec3411776d93"
+      ],
+      "arms": {
+        "A": {
+          "statement": "You must sign and date the AR before submitting it, as signing and dating are both required.",
+          "spans": [],
+          "characters": 92,
+          "text": "You must sign and date the AR before submitting it, as signing and dating are both required."
+        },
+        "B": {
+          "statement": "You must sign and date the AR before submitting it, as signing and dating are both required.",
+          "spans": [
+            {
+              "start": 352,
+              "end": 441,
+              "quote": "You must sign and date the AR before submitting it. Signing and dating are both required.",
+              "roles": [
+                "summary"
+              ]
+            }
+          ],
+          "characters": 183,
+          "text": "You must sign and date the AR before submitting it, as signing and dating are both required.\n\nYou must sign and date the AR before submitting it. Signing and dating are both required."
+        },
+        "C": {
+          "statement": "You must sign and date the AR before submitting it, as signing and dating are both required.",
+          "spans": [
+            {
+              "start": 352,
+              "end": 441,
+              "quote": "You must sign and date the AR before submitting it. Signing and dating are both required.",
+              "roles": [
+                "summary",
+                "scope_text:0"
+              ]
+            },
+            {
+              "start": 352,
+              "end": 443,
+              "quote": "You must sign and date the AR before submitting it. Signing and dating are both required.\n\n",
+              "roles": [
+                "source"
+              ]
+            }
+          ],
+          "characters": 276,
+          "text": "You must sign and date the AR before submitting it, as signing and dating are both required.\n\nYou must sign and date the AR before submitting it. Signing and dating are both required.\n\nYou must sign and date the AR before submitting it. Signing and dating are both required.\n\n"
+        }
+      }
+    }
+  ]
+}

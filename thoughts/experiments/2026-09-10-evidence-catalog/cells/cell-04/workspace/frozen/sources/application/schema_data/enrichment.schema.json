@@ -1,0 +1,116 @@
+{
+  "type": "object",
+  "properties": {
+    "terms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "label": {
+            "type": "string",
+            "description": "Exact source name for the defined sense, preferably its supplied full name.",
+            "minLength": 1
+          },
+          "aliases": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Exact alternative names/acronyms explicitly equated in the source.",
+            "uniqueItems": true
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Select a supplied focus (F000) or context (C000) passage, or a contiguous\ninclusive range such as F003:F009. These locate exact source text; they do\nnot prove that the text supports the proposed meaning. Never invent IDs.",
+              "title": "Source passage reference"
+            },
+            "description": "Passage IDs supporting definition, name and every alias. Introductory\nacronym expansions may need an additional passage beyond the definition."
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "aliases",
+          "source_refs"
+        ],
+        "additionalProperties": false,
+        "description": "Only terms explicitly defined by this supplied document. This is a local\ndefinition index, not a list of all nouns, actors or external references.\nKeep different senses separate; never expand an acronym from world knowledge."
+      }
+    },
+    "enrichments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "claim_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "actor": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "description": "Source-supported responsible person or entity; empty if unstated. If the source addresses you without naming a role, retain you rather than inventing a job title. Resolve a pronoun only when the source establishes its antecedent. Do not invent a duty bearer for an impersonal requirement, definition or factual statement. Do not substitute a neighboring actor from a different branch."
+              }
+            ]
+          },
+          "actor_quote": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "description": "Exact source support for actor, including antecedent if needed. Copy a contiguous passage supporting the actor assignment. An inherited actor may be supported in supplied context. Empty actor has empty support; a matching word alone does not establish its semantic role."
+              }
+            ]
+          },
+          "defines_term": {
+            "description": "Term defined by this claim, not a mere mention. Null if inapplicable.",
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "minLength": 1
+              }
+            ]
+          },
+          "term_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Local defined-term IDs explicitly used by the claim, excluding its\nown definiendum. Context alone is not a use; distinguish senses."
+          }
+        },
+        "required": [
+          "claim_id",
+          "actor",
+          "actor_quote",
+          "defines_term",
+          "term_refs"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "terms",
+    "enrichments"
+  ],
+  "additionalProperties": false,
+  "description": "Add only supported structure to fixed claims; never rewrite their meaning."
+}

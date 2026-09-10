@@ -1,0 +1,79 @@
+{
+  "alcohol": {
+    "required_meanings": [
+      "shipment exclusion retained and limited to possession",
+      "passenger exclusion retained and limited to possession",
+      "State reporting review alternative retained; employer notice unchanged"
+    ],
+    "expected_links": [
+      {
+        "meaning": "shipment exception",
+        "targets": [
+          "C0002"
+        ]
+      },
+      {
+        "meaning": "passenger exception",
+        "targets": [
+          "C0002"
+        ]
+      }
+    ],
+    "forbidden_exception_targets": [
+      "C0000",
+      "C0001",
+      "C0008"
+    ],
+    "grouped_deadline_allowed": true
+  },
+  "rail-crossings": {
+    "existing_exemptions": [
+      "C0009",
+      "C0010",
+      "C0011",
+      "C0012",
+      "C0013"
+    ],
+    "expected_targets": [
+      "C0000"
+    ],
+    "forbidden_targets": [
+      "C0001",
+      "C0002",
+      "C0014"
+    ],
+    "all_five_meanings_and_all_other_original_fields_must_survive": true
+  },
+  "refrigerants": {
+    "existing_exemptions": {
+      "C0001": {
+        "expected_targets": [
+          "C0000",
+          "C0004"
+        ],
+        "optional_targets": [
+          "C0003"
+        ],
+        "reason": "Listed substitutes/end uses excluded from venting and subpart requirements; C0003 already expressly refers to non-exempt substitutes, so a limited explanatory link there is acceptable but not required."
+      },
+      "C0002": {
+        "expected_targets": [
+          "C0000"
+        ],
+        "forbidden_targets": [
+          "C0003",
+          "C0004"
+        ],
+        "reason": "Good-faith de minimis release exception does not excuse knowing post-recovery release or dispense with the separate service prerequisites."
+      }
+    },
+    "required_meanings": [
+      "all ten substitute categories with specified end uses",
+      "propane added end use effective July 15 2024",
+      "good faith plus full first compliance conjunction OR subpart B route",
+      "class I/II limitation within first route",
+      "section b applicable practices AND certified equipment"
+    ],
+    "uncertainty": "Whether already explicit non-exempt wording benefits from a separate C0001 link is representational judgment; report it separately from incorrect relaxation. C0003 is extracted as a statement of violation, not a prohibition; unchanged baseline classification is not attributable to encoding."
+  }
+}

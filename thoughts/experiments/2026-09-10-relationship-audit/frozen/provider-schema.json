@@ -1,0 +1,245 @@
+{
+  "type": "object",
+  "properties": {
+    "claim_judgments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "claim_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "unit_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Select a supplied focus (F000) or context (C000) passage, or a contiguous\ninclusive range such as F003:F009. These locate exact source text; they do\nnot prove that the text supports the proposed meaning. Never invent IDs.",
+              "title": "Source passage reference"
+            }
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 1
+          },
+          "dimensions": {
+            "type": "object",
+            "properties": {
+              "summary": {
+                "type": "string",
+                "enum": [
+                  "correct",
+                  "error",
+                  "not_applicable",
+                  "unknown"
+                ]
+              },
+              "actor": {
+                "type": "string",
+                "enum": [
+                  "correct",
+                  "error",
+                  "not_applicable",
+                  "unknown"
+                ]
+              },
+              "support": {
+                "type": "string",
+                "enum": [
+                  "correct",
+                  "error",
+                  "not_applicable",
+                  "unknown"
+                ]
+              },
+              "scope": {
+                "type": "string",
+                "enum": [
+                  "correct",
+                  "error",
+                  "not_applicable",
+                  "unknown"
+                ]
+              },
+              "links": {
+                "type": "string",
+                "enum": [
+                  "correct",
+                  "error",
+                  "not_applicable",
+                  "unknown"
+                ]
+              },
+              "boundary": {
+                "type": "string",
+                "enum": [
+                  "correct",
+                  "error",
+                  "not_applicable",
+                  "unknown"
+                ]
+              },
+              "modality": {
+                "type": "string",
+                "enum": [
+                  "correct",
+                  "error",
+                  "not_applicable",
+                  "unknown"
+                ]
+              },
+              "action": {
+                "type": "string",
+                "enum": [
+                  "correct",
+                  "error",
+                  "not_applicable",
+                  "unknown"
+                ]
+              },
+              "object": {
+                "type": "string",
+                "enum": [
+                  "correct",
+                  "error",
+                  "not_applicable",
+                  "unknown"
+                ]
+              },
+              "alternatives": {
+                "type": "string",
+                "enum": [
+                  "correct",
+                  "error",
+                  "not_applicable",
+                  "unknown"
+                ]
+              },
+              "thresholds": {
+                "type": "string",
+                "enum": [
+                  "correct",
+                  "error",
+                  "not_applicable",
+                  "unknown"
+                ]
+              },
+              "concepts": {
+                "type": "string",
+                "enum": [
+                  "correct",
+                  "error",
+                  "not_applicable",
+                  "unknown"
+                ]
+              },
+              "source_attribution": {
+                "type": "string",
+                "enum": [
+                  "correct",
+                  "error",
+                  "not_applicable",
+                  "unknown"
+                ]
+              },
+              "effectivity": {
+                "type": "string",
+                "enum": [
+                  "correct",
+                  "error",
+                  "not_applicable",
+                  "unknown"
+                ]
+              }
+            },
+            "required": [
+              "summary",
+              "actor",
+              "support",
+              "scope",
+              "links",
+              "boundary",
+              "modality",
+              "action",
+              "object",
+              "alternatives",
+              "thresholds",
+              "concepts",
+              "source_attribution",
+              "effectivity"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "claim_id",
+          "unit_ids",
+          "source_refs",
+          "rationale",
+          "dimensions"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "unit_judgments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "unit_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "claim_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "covered",
+              "missing",
+              "partial",
+              "unknown"
+            ]
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Select a supplied focus (F000) or context (C000) passage, or a contiguous\ninclusive range such as F003:F009. These locate exact source text; they do\nnot prove that the text supports the proposed meaning. Never invent IDs.",
+              "title": "Source passage reference"
+            }
+          }
+        },
+        "required": [
+          "unit_id",
+          "claim_ids",
+          "status",
+          "rationale",
+          "source_refs"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "claim_judgments",
+    "unit_judgments"
+  ],
+  "additionalProperties": false
+}

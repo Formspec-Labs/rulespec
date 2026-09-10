@@ -1,0 +1,535 @@
+{
+  "cells": [
+    {
+      "id": "cell-00",
+      "case": "extinguishers",
+      "arm": "A",
+      "errors": [],
+      "raw_proposals": 2,
+      "accepted_proposals": 1,
+      "refused_proposals": 1,
+      "issues": [
+        {
+          "index": 1,
+          "code": "proposal_refused",
+          "reason": "A qualification must not replace its duty or permission"
+        },
+        {
+          "index": 0,
+          "code": "ungrounded_observation"
+        },
+        {
+          "index": 1,
+          "code": "already_represented",
+          "quote": "Where extinguishers are provided but are not intended for employee use and the employer has an emergency action plan and a fire prevention plan that meet the requirements of 29 CFR 1910.38 and 29 CFR 1910.39 respectively, then only the requirements of paragraphs (e) and (f) of this section apply.",
+          "rationale": "This scoping limitation restricting application to paragraphs (e) and (f) is already represented in the scope_text and scope_quotes of C0001.",
+          "disposition": "already_represented"
+        },
+        {
+          "index": 2,
+          "code": "ungrounded_observation"
+        }
+      ],
+      "exemptions": [
+        {
+          "exemption": "C0002",
+          "expected": [
+            "C0000"
+          ],
+          "raw_targets": [],
+          "accepted_targets": [],
+          "correct_raw": 0,
+          "wrong_raw": [],
+          "correct_accepted": 0,
+          "wrong_accepted": [],
+          "raw_exact": false,
+          "accepted_exact": false
+        },
+        {
+          "exemption": "C0003",
+          "expected": [
+            "C0000"
+          ],
+          "raw_targets": [
+            "C0000"
+          ],
+          "accepted_targets": [],
+          "correct_raw": 1,
+          "wrong_raw": [],
+          "correct_accepted": 0,
+          "wrong_accepted": [],
+          "raw_exact": true,
+          "accepted_exact": false
+        }
+      ],
+      "previews": [
+        {
+          "proposal": "P0000",
+          "operation": "add",
+          "preview": "passed"
+        }
+      ],
+      "usage": {
+        "cache_tokens_details": null,
+        "cached_content_token_count": null,
+        "candidates_token_count": 1367,
+        "candidates_tokens_details": null,
+        "prompt_token_count": 5011,
+        "prompt_tokens_details": [
+          {
+            "modality": "TEXT",
+            "token_count": 5011
+          }
+        ],
+        "thoughts_token_count": 12165,
+        "tool_use_prompt_token_count": null,
+        "tool_use_prompt_tokens_details": null,
+        "total_token_count": 18543,
+        "traffic_type": null
+      },
+      "seconds": 40.162325
+    },
+    {
+      "id": "cell-01",
+      "case": "process-safety",
+      "arm": "A",
+      "errors": [],
+      "raw_proposals": 1,
+      "accepted_proposals": 0,
+      "refused_proposals": 1,
+      "issues": [
+        {
+          "index": 0,
+          "code": "proposal_refused",
+          "reason": "Quotation is absent from supplied source evidence"
+        },
+        {
+          "index": 0,
+          "code": "already_represented",
+          "quote": "(2) This section does not apply to:\n\n(i) Retail facilities;\n\n(ii) Oil or gas well drilling or servicing operations; or,\n\n(iii) Normally unoccupied remote facilities.",
+          "rationale": "Paragraph (a)(2) establishes an explicit absence of application and is already captured as a standalone exemption in C0004 with not_required modality and no target link required.",
+          "disposition": "already_represented"
+        },
+        {
+          "index": 1,
+          "code": "unresolved",
+          "quote": "except for:\n\n(A) Hydrocarbon fuels used solely for workplace consumption as a fuel (e.g., propane used for comfort heating, gasoline for vehicle refueling), if such fuels are not a part of a process containing another highly hazardous chemical covered by this standard;\n\n(B) Flammable liquids with a flashpoint below 100 °F (37.8 °C) stored in atmospheric tanks or transferred which are kept below their normal boiling point without benefit of chilling or refrigeration.",
+          "rationale": "These exceptions qualify the flammable process application rule in (a)(1)(ii); their specific baseline is not registered as an independent non-modifier rule alias in the draft inventory, so discrete qualification targeting remains unresolved outside the grouped condition.",
+          "disposition": "unresolved"
+        }
+      ],
+      "exemptions": [
+        {
+          "exemption": "C0004",
+          "expected": [
+            "C0000",
+            "C0001",
+            "C0002"
+          ],
+          "raw_targets": [],
+          "accepted_targets": [],
+          "correct_raw": 0,
+          "wrong_raw": [],
+          "correct_accepted": 0,
+          "wrong_accepted": [],
+          "raw_exact": false,
+          "accepted_exact": false
+        }
+      ],
+      "previews": [],
+      "usage": {
+        "cache_tokens_details": null,
+        "cached_content_token_count": null,
+        "candidates_token_count": 1626,
+        "candidates_tokens_details": null,
+        "prompt_token_count": 3356,
+        "prompt_tokens_details": [
+          {
+            "modality": "TEXT",
+            "token_count": 3356
+          }
+        ],
+        "thoughts_token_count": 11044,
+        "tool_use_prompt_token_count": null,
+        "tool_use_prompt_tokens_details": null,
+        "total_token_count": 16026,
+        "traffic_type": null
+      },
+      "seconds": 34.137443
+    },
+    {
+      "id": "cell-02",
+      "case": "extinguishers",
+      "arm": "B",
+      "errors": [],
+      "raw_proposals": 3,
+      "accepted_proposals": 3,
+      "refused_proposals": 0,
+      "issues": [
+        {
+          "index": 0,
+          "code": "unresolved",
+          "quote": "(1) Where the employer has established and implemented a written fire safety policy which requires the immediate and total evacuation of employees from the workplace upon the sounding of a fire alarm signal and which includes an emergency action plan and a fire prevention plan which meet the requirements of 29 CFR 1910.38 and 29 CFR 1910.39 respectively, and when extinguishers are not available in the workplace, the employer is exempt from all requirements of this section unless a specific standard in part 1910 requires \n            \n            that a portable fire extinguisher be provided.",
+          "rationale": "The exemption under § 1910.157(b)(1) covers all requirements of the section, but is not currently represented as an independent claim in the draft, leaving its qualification link unresolved.",
+          "disposition": "unresolved"
+        }
+      ],
+      "exemptions": [
+        {
+          "exemption": "C0002",
+          "expected": [
+            "C0000"
+          ],
+          "raw_targets": [
+            "C0000"
+          ],
+          "accepted_targets": [
+            "C0000"
+          ],
+          "correct_raw": 1,
+          "wrong_raw": [],
+          "correct_accepted": 1,
+          "wrong_accepted": [],
+          "raw_exact": true,
+          "accepted_exact": true
+        },
+        {
+          "exemption": "C0003",
+          "expected": [
+            "C0000"
+          ],
+          "raw_targets": [
+            "C0000"
+          ],
+          "accepted_targets": [
+            "C0000"
+          ],
+          "correct_raw": 1,
+          "wrong_raw": [],
+          "correct_accepted": 1,
+          "wrong_accepted": [],
+          "raw_exact": true,
+          "accepted_exact": true
+        }
+      ],
+      "previews": [
+        {
+          "proposal": "P0000",
+          "operation": "edit",
+          "preview": "passed",
+          "unchanged_meaning_and_evidence": true,
+          "same_rule_id": true,
+          "new_revision": true,
+          "target_count": 1
+        },
+        {
+          "proposal": "P0001",
+          "operation": "edit",
+          "preview": "passed",
+          "unchanged_meaning_and_evidence": true,
+          "same_rule_id": true,
+          "new_revision": true,
+          "target_count": 1
+        },
+        {
+          "proposal": "P0002",
+          "operation": "add",
+          "preview": "passed"
+        }
+      ],
+      "usage": {
+        "cache_tokens_details": null,
+        "cached_content_token_count": null,
+        "candidates_token_count": 1821,
+        "candidates_tokens_details": null,
+        "prompt_token_count": 5092,
+        "prompt_tokens_details": [
+          {
+            "modality": "TEXT",
+            "token_count": 5092
+          }
+        ],
+        "thoughts_token_count": 7427,
+        "tool_use_prompt_token_count": null,
+        "tool_use_prompt_tokens_details": null,
+        "total_token_count": 14340,
+        "traffic_type": null
+      },
+      "seconds": 25.491565
+    },
+    {
+      "id": "cell-03",
+      "case": "recordkeeping",
+      "arm": "B",
+      "errors": [],
+      "raw_proposals": 1,
+      "accepted_proposals": 1,
+      "refused_proposals": 0,
+      "issues": [
+        {
+          "index": 0,
+          "code": "unresolved",
+          "quote": "(1) If your company had 10 or fewer employees at all times during the last calendar year, you do not need to keep OSHA injury and illness records unless OSHA or the Bureau of Labor Statistics informs you in writing that you must keep records under § 1904.41 or § 1904.42.",
+          "rationale": "The general recordkeeping duty baseline that this size exemption relieves is not established within the supplied focus, so its target remains unresolved.",
+          "disposition": "unresolved"
+        }
+      ],
+      "exemptions": [
+        {
+          "exemption": "C0003",
+          "expected": [
+            "C0000"
+          ],
+          "raw_targets": [
+            "C0000"
+          ],
+          "accepted_targets": [
+            "C0000"
+          ],
+          "correct_raw": 1,
+          "wrong_raw": [],
+          "correct_accepted": 1,
+          "wrong_accepted": [],
+          "raw_exact": true,
+          "accepted_exact": true
+        },
+        {
+          "exemption": "C0002",
+          "expected": [],
+          "raw_targets": [],
+          "accepted_targets": [],
+          "correct_raw": 0,
+          "wrong_raw": [],
+          "correct_accepted": 0,
+          "wrong_accepted": [],
+          "raw_exact": true,
+          "accepted_exact": true
+        }
+      ],
+      "previews": [
+        {
+          "proposal": "P0000",
+          "operation": "edit",
+          "preview": "passed",
+          "unchanged_meaning_and_evidence": true,
+          "same_rule_id": true,
+          "new_revision": true,
+          "target_count": 1
+        }
+      ],
+      "usage": {
+        "cache_tokens_details": null,
+        "cached_content_token_count": null,
+        "candidates_token_count": 535,
+        "candidates_tokens_details": null,
+        "prompt_token_count": 3041,
+        "prompt_tokens_details": [
+          {
+            "modality": "TEXT",
+            "token_count": 3041
+          }
+        ],
+        "thoughts_token_count": 2948,
+        "tool_use_prompt_token_count": null,
+        "tool_use_prompt_tokens_details": null,
+        "total_token_count": 6524,
+        "traffic_type": null
+      },
+      "seconds": 10.016191
+    },
+    {
+      "id": "cell-04",
+      "case": "process-safety",
+      "arm": "B",
+      "errors": [],
+      "raw_proposals": 1,
+      "accepted_proposals": 1,
+      "refused_proposals": 0,
+      "issues": [
+        {
+          "index": 0,
+          "code": "unresolved",
+          "quote": "(1) This section applies to the following:\n\n(i) A process which involves a chemical at or above the specified threshold quantities listed in appendix A to this section;\n\n(ii) A process which involves a Category 1 flammable gas (as defined in 1910.1200(c)) or a flammable liquid with a flashpoint below 100 °F (37.8 °C) on site in one location, in a quantity of 10,000 pounds (4535.9 kg) or more except for:\n\n(A) Hydrocarbon fuels used solely for workplace consumption as a fuel (e.g., propane used for comfort heating, gasoline for vehicle refueling), if such fuels are not a part of a process containing another highly hazardous chemical covered by this standard;\n\n(B) Flammable liquids with a flashpoint below 100 °F (37.8 °C) stored in atmospheric tanks or transferred which are kept below their normal boiling point without benefit of chilling or refrigeration.",
+          "rationale": "General positive application conditions and thresholds governing section applicability remain unmodeled as claims in this draft.",
+          "disposition": "unresolved"
+        }
+      ],
+      "exemptions": [
+        {
+          "exemption": "C0004",
+          "expected": [
+            "C0000",
+            "C0001",
+            "C0002"
+          ],
+          "raw_targets": [
+            "C0000",
+            "C0001",
+            "C0002"
+          ],
+          "accepted_targets": [
+            "C0000",
+            "C0001",
+            "C0002"
+          ],
+          "correct_raw": 3,
+          "wrong_raw": [],
+          "correct_accepted": 3,
+          "wrong_accepted": [],
+          "raw_exact": true,
+          "accepted_exact": true
+        }
+      ],
+      "previews": [
+        {
+          "proposal": "P0000",
+          "operation": "edit",
+          "preview": "passed",
+          "unchanged_meaning_and_evidence": true,
+          "same_rule_id": true,
+          "new_revision": true,
+          "target_count": 3
+        }
+      ],
+      "usage": {
+        "cache_tokens_details": null,
+        "cached_content_token_count": null,
+        "candidates_token_count": 699,
+        "candidates_tokens_details": null,
+        "prompt_token_count": 3437,
+        "prompt_tokens_details": [
+          {
+            "modality": "TEXT",
+            "token_count": 3437
+          }
+        ],
+        "thoughts_token_count": 5416,
+        "tool_use_prompt_token_count": null,
+        "tool_use_prompt_tokens_details": null,
+        "total_token_count": 9552,
+        "traffic_type": null
+      },
+      "seconds": 18.13978
+    },
+    {
+      "id": "cell-05",
+      "case": "recordkeeping",
+      "arm": "A",
+      "errors": [],
+      "raw_proposals": 1,
+      "accepted_proposals": 0,
+      "refused_proposals": 1,
+      "issues": [
+        {
+          "index": 0,
+          "code": "proposal_refused",
+          "reason": "A qualification must not replace its duty or permission"
+        },
+        {
+          "index": 0,
+          "code": "already_represented",
+          "quote": "unless OSHA or the Bureau of Labor Statistics informs you in writing that you must keep records under § 1904.41 or § 1904.42.",
+          "rationale": "The qualification regarding written notice from OSHA or BLS is already fully integrated into the baseline exemption claim C0002; creating a separate modifier is unnecessary.",
+          "disposition": "already_represented"
+        },
+        {
+          "index": 1,
+          "code": "already_represented",
+          "quote": "However, as required by § 1904.39, all employers covered by the OSH Act must report to OSHA any work-related incident that results in a fatality, the in-patient hospitalization of one or more employees, an employee amputation, or an employee loss of an eye.",
+          "rationale": "The reporting mandate is an independent baseline requirement already represented in C0001 rather than a condition or exception modifying C0002.",
+          "disposition": "already_represented"
+        }
+      ],
+      "exemptions": [
+        {
+          "exemption": "C0003",
+          "expected": [
+            "C0000"
+          ],
+          "raw_targets": [
+            "C0000"
+          ],
+          "accepted_targets": [],
+          "correct_raw": 1,
+          "wrong_raw": [],
+          "correct_accepted": 0,
+          "wrong_accepted": [],
+          "raw_exact": true,
+          "accepted_exact": false
+        },
+        {
+          "exemption": "C0002",
+          "expected": [],
+          "raw_targets": [],
+          "accepted_targets": [],
+          "correct_raw": 0,
+          "wrong_raw": [],
+          "correct_accepted": 0,
+          "wrong_accepted": [],
+          "raw_exact": true,
+          "accepted_exact": true
+        }
+      ],
+      "previews": [],
+      "usage": {
+        "cache_tokens_details": null,
+        "cached_content_token_count": null,
+        "candidates_token_count": 783,
+        "candidates_tokens_details": null,
+        "prompt_token_count": 2960,
+        "prompt_tokens_details": [
+          {
+            "modality": "TEXT",
+            "token_count": 2960
+          }
+        ],
+        "thoughts_token_count": 7058,
+        "tool_use_prompt_token_count": null,
+        "tool_use_prompt_tokens_details": null,
+        "total_token_count": 10801,
+        "traffic_type": null
+      },
+      "seconds": 22.876561
+    }
+  ],
+  "totals": {
+    "A": {
+      "correct_raw": 2,
+      "correct_accepted": 0,
+      "wrong_raw": 0,
+      "wrong_accepted": 0,
+      "positive_target_sets_raw": 2,
+      "positive_target_sets_accepted": 0,
+      "empty_target_controls_pass": 1,
+      "usage": {
+        "prompt_token_count": 11327,
+        "candidates_token_count": 3776,
+        "thoughts_token_count": 30267,
+        "total_token_count": 45370
+      },
+      "seconds": 97.176329
+    },
+    "B": {
+      "correct_raw": 6,
+      "correct_accepted": 6,
+      "wrong_raw": 0,
+      "wrong_accepted": 0,
+      "positive_target_sets_raw": 4,
+      "positive_target_sets_accepted": 4,
+      "empty_target_controls_pass": 1,
+      "usage": {
+        "prompt_token_count": 11570,
+        "candidates_token_count": 3055,
+        "thoughts_token_count": 15791,
+        "total_token_count": 30416
+      },
+      "seconds": 53.647536
+    }
+  },
+  "request_checks": {
+    "recordkeeping": "Only prompt and schema guidance differ in actual requests.",
+    "process-safety": "Only prompt and schema guidance differ in actual requests.",
+    "extinguishers": "Only prompt and schema guidance differ in actual requests."
+  },
+  "limitation": "Six single samples on fixed constructed drafts; no new extraction, automated challenge, approval or applied user edits."
+}
