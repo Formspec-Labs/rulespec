@@ -308,6 +308,14 @@ require exact grounding. The [integration check](../../thoughts/experiments/2026
 retains the live railroad result and refusal controls; reference validity alone
 does not establish that a judgment is correct.
 
+Existing exemptions use a compact `link` proposal containing the current claim
+alias, target aliases and rationale. Rulespec copies the existing CUE-derived
+meaning fields and original evidence, retains existing links, and runs the normal
+preview, source challenge and review edit. Other qualification additions/edits
+still carry their complete fields. Links cannot rewrite an exemption, silently
+remove existing targets or bypass current-record/revision checks. See the
+[integration check](../../thoughts/experiments/2026-09-10-compact-link-integration/README.md).
+
 Strict replay checks saved artifacts and runtime fingerprints and refuses drift.
 Reprocessing preserves the original capture and records the changed processing;
 it supports the current response format, not retired formats. Recorded compiler
