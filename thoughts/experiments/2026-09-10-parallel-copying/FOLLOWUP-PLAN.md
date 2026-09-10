@@ -1,0 +1,11 @@
+# Follow-up: current distinctive-quote advice
+
+Added after the initial comparison started, before these follow-up calls. The initial actor A deliberately asks for shortest quotations, unlike current production COMMON guidance to use longer distinctive quotes when short words repeat. Its failures diagnose copying ambiguity but cannot estimate improvement over current production advice. Preserve all initial observations unchanged.
+
+Decision: compare passage references with the actual distinctive-quote guidance in the same bounded actor-support task. This remains fixed-label support selection, not full extraction or actor discovery.
+
+A uses: 'Use exact contiguous quotations. Use longer distinctive quotes when short words repeat.' B selects source_refs. Both otherwise receive the same claims, actor labels, source catalog, task, model and temperature0. Use the same frozen alcohol and constructed Staff-versus-Director cases. Four fresh calls in randomized order, one sample per case/arm, no retries. Overall bound becomes twelve calls, expressly authorized by the parent task. Initial eight-call result remains separate. This is a comparator correction, not retuning against output or repeating until success.
+
+Expected: two alcohol actor labels receive unambiguous support for their governing driver duty; two Staff claims remain linked to their respective Staff passages. Assess whether evidence establishes the particular duty as well as exact substring validity. References must select F003 for alcohol and F000/F002 respectively for Staff cases. A distinctive short clause can validly establish driver role, but failure to retain specific possession context is reported separately, not retroactively treated as an automatic invalidity.
+
+Passage refs should improve usable grounding or context over distinctive quoting without wrong roles/occurrences to justify further integration research. If both pass, conclude no measured grounding advantage in these calls and report evidence-context/cost differences separately. No adoption. Existing actor_quote persistence cannot preserve arbitrarily many selected spans or occurrence offsets of identical full passages; this experiment records Core support records with offsets but does not close that gap.
