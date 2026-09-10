@@ -254,7 +254,7 @@ def _decode_proposals(payload, errors, document, window, packet, stage):
                 raise ValueError("Qualification targets must be baseline rules")
             fields = {**deepcopy(item["fields"]), "quote": item["quote"],
                       "start": span["start"], "end": span["end"],
-                      "applies_to": [c["quote"] for c in targets]}
+                      "applies_to": [c["id"] for c in targets]}
             for quote in e.core.evidence_expectations(fields).values():
                 if quote:
                     _source_quote(document, packet, quote)
@@ -339,19 +339,7 @@ def _copy_run(source, output):
 
 
 def _usage(directory, *, reused_audit=False):
-    calls, tokens, incomplete = 0, {}, 0
-    for path in directory.rglob("attempt-*.request.json"):
-        if "base-run" in path.relative_to(directory).parts or (reused_audit and "initial-audit" in path.relative_to(directory).parts):
-            continue
-        calls += 1
-        response = path.with_name(path.name.replace(".request.", ".response."))
-        if response.exists():
-            raw = e._load(response)
-            for k, v in raw.get("usage_metadata", {}).items():
-                if isinstance(v, int) and not isinstance(v, bool):
-                    tokens[k] = tokens.get(k, 0) + v
-            incomplete += any(c.get("finish_reason") != "STOP" for c in raw.get("candidates", []))
-    return {"recorded_requests": calls, "tokens": tokens, "incomplete_responses": incomplete}
+    return e.recorded_usage(directory, exclude=('base-run', 'previous', 'frozen', *(['initial-audit'] if reused_audit else [])))
 
 
 def refine_run(run_dir, output, model_id=e.DEFAULT_MODEL, *, audit_dir=None, env_file=None, max_chars=3000):
@@ -407,6 +395,8 @@ def refine_run(run_dir, output, model_id=e.DEFAULT_MODEL, *, audit_dir=None, env
                 if attempt.get("error_code") == "interrupted":
                     setup_error = "interrupted"
                 proposals, problems = _decode_proposals(payload, errors, current["document"], window, packet, stage)
+                provenance = e.captured_provenance(directory / 'proposal', attempt,
+                                                  directory.relative_to(output).as_posix() + '/proposal')
                 prepared = []
                 for proposal in proposals:
                     try:
@@ -414,7 +404,7 @@ def refine_run(run_dir, output, model_id=e.DEFAULT_MODEL, *, audit_dir=None, env
                         preview = store.preview(action)
                         replacement = preview["history"][-1]["replacements"][0]
                         if set(replacement["target_ids"]) != set(proposal["qualification_ids"]):
-                            raise ValueError("Exact target quotations do not resolve to the selected records")
+                            raise ValueError("Qualification IDs do not resolve to the selected records")
                         prepared.append(proposal)
                     except (ValueError, ReviewError) as exc:
                         problems.append({"proposal_id": proposal["id"], "code": "invalid_correction", "reason": str(exc)})
@@ -437,6 +427,8 @@ def refine_run(run_dir, output, model_id=e.DEFAULT_MODEL, *, audit_dir=None, env
                             if content_digest(live) != expected:
                                 raise RevisionConflict(current["revision"], live["revision"])
                             action = _action(proposal, live, model_id)
+                            if provenance:
+                                action['provenance'] = provenance
                             result = store.apply(action)
                             expected = content_digest(result)
                             outcome.update(status="applied", action=action, event=result["history"][-1])
@@ -544,6 +536,10 @@ def replay_refinement(directory, output):
                     "expected_revision": event["sequence"] - 1,
                     "targets": [proposal["target_id"]] if proposal["target_id"] else [],
                     "rationale": proposal["proposal"]["rationale"], "replacements": [proposal["fields"]]}
+                provenance = e.captured_provenance(step / 'proposal', record['proposal_attempt'],
+                                                  step.relative_to(directory).as_posix() + '/proposal')
+                if provenance:
+                    action['provenance'] = provenance
                 if action != outcome["action"] or any(event[k] != action[k] for k in ("action", "actor", "actor_kind", "targets", "rationale")) or event["replacement_fields"] != action["replacements"]:
                     raise e.ReplayDriftError("Applied correction action differs from proposal or saved event")
                 if len(event["replacements"]) != 1 or set(event["replacements"][0]["target_ids"]) != set(proposal["qualification_ids"]):

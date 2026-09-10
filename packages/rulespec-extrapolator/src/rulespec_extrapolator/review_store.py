@@ -18,7 +18,7 @@ from rulespec_projection.attestations import attestation_row, parse_targets
 from rulespec_projection.projection import OffsetVerificationError, verify_fragment
 from rulespec_projection.provenance import RunContext
 
-from .core import SCHEMA_VERSION, MEANING_FIELDS, build_graph, canonical, evidence_expectations, resolve_links, revise_claim
+from .core import NS, SCHEMA_VERSION, MEANING_FIELDS, build_graph, canonical, evidence_expectations, resolve_links, revise_claim
 
 
 class ReviewError(ValueError):
@@ -43,7 +43,7 @@ _CANDIDATE_FIELDS = frozenset({
     "actor_quote", "action_quote", "object_quote", "logic_text", "relation",
     "applies_to", "references", "section_id", *MEANING_FIELDS,
 })
-_ACTIONS = frozenset({"add", "edit", "split", "merge", "approve", "reject"})
+_ACTIONS = frozenset({"add", "edit", "split", "merge", "approve", "reject", "observe"})
 _DB_SCHEMA = """
 CREATE TABLE IF NOT EXISTS metadata (key TEXT PRIMARY KEY, value TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS events (
@@ -274,6 +274,8 @@ class ReviewStore:
                 raise ReviewIntegrityError("A saved action targets a claim that was already replaced.")
             details = {key: deepcopy(event[key]) for key in ("actor", "actor_kind", "at", "rationale")}
             details["event_id"] = event["id"]
+            if event['action'] == 'observe':
+                continue
             if event["action"] in {"add", "edit", "split", "merge"}:
                 if event["action"] == "add" and (event["targets"] or event["assertion_targets"]):
                     raise ReviewIntegrityError("A saved addition cannot replace an existing claim.")
@@ -301,6 +303,17 @@ class ReviewStore:
             claim["review"] = deepcopy(decisions.get(claim["id"], {"status": "pending"}))
             claim["review_status"] = claim["review"]["status"]
         current_claims = [deepcopy(claim) for claim in revisions if claim["id"] in current]
+        observations = [{**deepcopy(issue), 'event_id': event['id']} for event in events
+                        for issue in event.get('observations', [])]
+        for event in events:
+            for issue in event.get('observations', []):
+                graph['@graph'].append({'@id': NS + 'finding:' + _sha(canonical([event['id'], issue])),
+                    '@type': 'rkaf:Finding', 'rkaf:findingKind': 'rkaf:warning',
+                    'rkaf:detectedAt': event['at'], 'rkaf:detectedBy': event['id'],
+                    'rkaf:subject': issue.get('claim_id', self.document['id']),
+                    'rkaf:rationale': canonical(issue)})
+        for claim in current_claims:
+            claim['issues'].extend(issue for issue in observations if issue.get('claim_id') == claim['id'])
         effective = [claim for claim in current_claims if claim["review_status"] != "rejected"]
         saved_targets = {claim["id"]: list(claim.get("target_ids", [])) for claim in current_claims}
         unresolved = resolve_links(self.document, effective)
@@ -320,10 +333,12 @@ class ReviewStore:
         counts = {status: sum(c["review_status"] == status for c in current_claims) for status in ("pending", "approved", "rejected")}
         current_issues = [{"claim_id": c["id"], "issues": deepcopy(c.get("issues", []) + c.get("link_issues", []))}
                           for c in current_claims if c.get("issues") or c.get("link_issues")]
-        from .terms import term_index
+        from .terms import term_index, term_lookup
         return {
             **deepcopy(self.base),
             "terms": term_index(self.document, effective),
+            "term_lookup": term_lookup({'document': self.document, 'accepted': effective, 'revisions': revisions,
+                                       'rejected': [c for c in current_claims if c['review_status'] == 'rejected']}),
             "accepted": [c for c in current_claims if c["review_status"] != "rejected"],
             "rejected": deepcopy(self.base.get("rejected", [])) + [c for c in current_claims if c["review_status"] == "rejected"],
             "graph": graph,
@@ -334,6 +349,7 @@ class ReviewStore:
             "current": current_claims,
             "revisions": revisions,
             "current_issues": current_issues,
+            "enrichment_issues": [issue for issue in observations if not issue.get('claim_id')],
             "review_summary": {
                 **counts,
                 "total": len(current_claims),
@@ -390,8 +406,19 @@ class ReviewStore:
                 "replacements": [],
                 "attestations": [],
             }
+            if request.get('provenance'):
+                event['provenance'] = deepcopy(request['provenance'])
+            if request['action'] == 'observe':
+                event['observations'] = deepcopy(request['observations'])
             if request["action"] in {"add", "edit", "split", "merge"}:
                 for index, fields in enumerate(request["replacements"]):
+                    fields = deepcopy(fields)
+                    # Request-local references can target an earlier addition in
+                    # this transaction. Persist only its immutable revision ID.
+                    fields['applies_to'] = [
+                        event['replacements'][int(ref[4:])]['id'] if ref.startswith('new:')
+                        and ref[4:].isdigit() and int(ref[4:]) < len(event['replacements']) else ref
+                        for ref in fields.get('applies_to', originals[0].get('applies_to', []) if originals else [])]
                     original = ({"id": f"{event_id}:new:{index}", "assertion_ids": []}
                                 if request["action"] == "add" else deepcopy(originals[0]))
                     if request["action"] != "edit":
@@ -410,6 +437,8 @@ class ReviewStore:
                         replacement["supersedes"] = list(request["targets"])
                         replacement["prior_assertion_ids"] = assertion_targets
                     _assertion_ids(replacement)
+                    if request.get('provenance'):
+                        replacement['review_provenance'] = deepcopy(request['provenance'])
                     event["replacements"].append(replacement)
                 # Resolve the new revisions against current, non-rejected claims.
                 # Older revisions keep the links they originally asserted.
@@ -418,7 +447,7 @@ class ReviewStore:
                 resolve_links(self.document, active + event["replacements"])
                 # The Core builder adds any qualification assertion identities.
                 build_graph(self.document, event["replacements"], self.run)
-            else:
+            elif request['action'] != 'observe':
                 row = attestation_row(
                     attestor_id=attestor_id,
                     attestor_kind="rkaf:" + request["actor_kind"],
@@ -449,14 +478,14 @@ class ReviewStore:
     def _validate_request(value: Any) -> dict[str, Any]:
         if not isinstance(value, dict):
             raise ReviewError("A review action must be a JSON object.")
-        allowed = {"expected_revision", "actor", "actor_kind", "action", "targets", "rationale", "replacements"}
+        allowed = {"expected_revision", "actor", "actor_kind", "action", "targets", "rationale", "replacements", 'observations', 'provenance'}
         if set(value) - allowed:
             raise ReviewError("The review action contains unsupported fields.")
         request = deepcopy(value)
         if type(request.get("expected_revision")) is not int or request["expected_revision"] < 0:
             raise ReviewError("Supply the revision you reviewed before saving.")
         if not isinstance(request.get("action"), str) or request["action"] not in _ACTIONS:
-            raise ReviewError("Choose add, edit, split, merge, approve, or reject.")
+            raise ReviewError("Choose add, edit, split, merge, approve, reject, or observe.")
         if not isinstance(request.get("actor_kind"), str) or request["actor_kind"] not in {"humanUser", "aiAgent"}:
             raise ReviewError("Identify the reviewer as a human user or an AI agent.")
         for key, limit in (("actor", 200), ("rationale", 10000)):
@@ -467,7 +496,7 @@ class ReviewStore:
         action = request["action"]
         if action == "add" and targets != []:
             raise ReviewError("Adding a rule requires an empty target list; it does not replace existing claims.")
-        if not isinstance(targets, list) or not (0 if action == "add" else 1) <= len(targets) <= 100 or any(not isinstance(t, str) or not t for t in targets):
+        if not isinstance(targets, list) or not (0 if action in {'add', 'observe'} else 1) <= len(targets) <= 100 or any(not isinstance(t, str) or not t for t in targets):
             raise ReviewError("Select between 1 and 100 claim revisions.")
         if len(set(targets)) != len(targets):
             raise ReviewError("Select each claim revision only once.")
@@ -475,7 +504,21 @@ class ReviewStore:
             raise ReviewError("Editing or splitting requires exactly one claim.")
         if action == "merge" and len(targets) < 2:
             raise ReviewError("Merging requires at least two claims.")
-        if action in {"approve", "reject"}:
+        if action == 'observe':
+            observations = request.get('observations')
+            if not isinstance(observations, list) or not observations or any(
+                not isinstance(i, dict) or not isinstance(i.get('code'), str)
+                or (i.get('claim_id') and i['claim_id'] not in targets) for i in observations):
+                raise ReviewError('Observations need issue codes and current claim targets when applicable.')
+        elif 'observations' in request:
+            raise ReviewError('Record observations separately from meaning edits and decisions.')
+        if 'provenance' in request:
+            p = request['provenance']
+            if request['actor_kind'] != 'aiAgent' or not isinstance(p, dict) or set(p) != {
+                'model', 'model_version', 'temperature', 'request_sha256', 'input_sha256', 'capture'} or any(
+                    not isinstance(p[k], str) or not p[k] for k in p if k != 'temperature') or type(p['temperature']) not in {int, float}:
+                raise ReviewError('AI provenance needs the captured model, settings, request and input fingerprints.')
+        if action in {"approve", "reject", 'observe'}:
             if "replacements" in request:
                 raise ReviewError("A decision cannot change the text or evidence of a claim.")
         else:

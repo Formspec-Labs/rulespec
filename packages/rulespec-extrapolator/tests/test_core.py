@@ -125,6 +125,21 @@ def test_partial_target_set_emits_no_misleading_qualification_link():
     assert not any(n["@type"] == "rkaf:RelationshipAssertion" for n in result["graph"]["@graph"])
 
 
+def test_qualification_selects_one_of_two_claims_with_identical_source():
+    doc = prepare_document('Posts must use cleared language but may adapt it locally. Except during closure.')
+    quote = 'Posts must use cleared language but may adapt it locally.'
+    candidates = [
+        {'kind': 'requirement', 'summary': 'Use cleared language, subject to local adaptation.', 'quote': quote, 'actor': 'Posts'},
+        {'kind': 'permission', 'summary': 'Posts may adapt language locally.', 'quote': quote, 'actor': 'Posts'}]
+    target = compile_candidates(doc, candidates, {})['accepted'][1]['id']
+    candidates.append({'kind': 'exception', 'summary': 'Local adaptation is excepted during closure.',
+                       'quote': 'Except during closure.', 'actor': '', 'relation': 'exception', 'applies_to': [target]})
+    book = compile_candidates(doc, candidates, {})
+    assert not book['unresolved']
+    assert book['accepted'][2]['target_ids'] == [target]
+    validate_graph(book['graph'])
+
+
 def test_bad_candidates_retained_and_changed_source_rejected():
     document, candidate, run = fixture()
     invalid = deepcopy(candidate)

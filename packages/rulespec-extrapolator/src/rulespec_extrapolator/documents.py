@@ -115,8 +115,9 @@ def source_passages(document):
             parent = parents.get(level - 1)
             parents = {depth: identity for depth, identity in parents.items() if depth < level}
         identity = NS + "passage:" + digest([document["id"], start, end])
+        note = bool(re.match(r'\s*NOTE\s*:', content, re.IGNORECASE))
         passage = {"id": identity, "start": start, "end": end, "text_sha256": digest(content),
-                   "section_id": section_id, "kind": "list_item" if marker else "paragraph",
+                   "section_id": section_id, "kind": "list_item" if marker else 'note' if note else "paragraph",
                    "parent_id": parent, "structure_method": "text-paragraphs-and-list-markers/2"}
         passages.append(passage)
         if marker:

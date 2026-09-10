@@ -87,6 +87,11 @@ exactly one `skos:inScheme`, an absolute `rkaf:managedByRegistry` IRI,
 `rkaf:LocalConcept` carries a non-empty `skos:prefLabel` language map, exactly
 one `skos:inScheme`, `rkaf:definedInScope`, and `rkaf:conceptScope`.
 
+`rkaf:conceptScope` is an `xsd:string` describing the domain in which the sense
+is defined, such as `benefits/eligibility`. It is not an IRI-valued relation or
+a copy of `skos:definition`. A document-local producer may use its document
+identifier as the scope's text; `rkaf:definedInScope` carries the actual IRI link.
+
 `skos:broader`, `skos:narrower`, and `skos:related` are zero-or-more IRI
 relations. A concept may have multiple `skos:broader` parents, and every
 conforming projection MUST preserve all of them. Every such relation MUST

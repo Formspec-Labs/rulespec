@@ -31,6 +31,7 @@ def make_run(tmp_path, *, extra_source="", extraction_refusals=None):
     run = {"id": "fixture-review-run", "model": "fixture", "status": "partial_failure", "windows": [
         {"id": "good-window", "status": "complete"}, {"id": "bad-window", "status": "failed"},
     ]}
+    candidates[-1]['applies_to'] = [compile_candidates(document, candidates[:2], run)['accepted'][1]['id']]
     rulebook = compile_candidates(document, candidates, run)
     rulebook["extraction_refusals"] = extraction_refusals or []
     assert len(rulebook["accepted"]) == 3
@@ -154,7 +155,7 @@ def test_qualifications_require_confirmation_after_their_rule_changes(tmp_path):
     retained = next(c for c in edited["revisions"] if c["id"] == qualification["id"])
     assert retained["target_ids"] == [permission["id"]]
     assert retained["assertion_ids"] == old_assertions
-    confirmed = store.apply(action(edited, "edit", [qualification["id"]], replacements=[{"applies_to": [PERMISSION]}]))
+    confirmed = store.apply(action(edited, "edit", [qualification["id"]], replacements=[{"applies_to": [edited['history'][-1]['replacements'][0]['id']]}]))
     new_qualification = confirmed["history"][-1]["replacements"][0]
     new_permission = edited["history"][-1]["replacements"][0]
     assert new_qualification["id"] != qualification["id"]
@@ -305,7 +306,7 @@ def test_add_missing_rules_keeps_history_without_fabricating_predecessors(tmp_pa
     added = store.apply(action(before, "add", [], actor="Fixture human reviewer", actor_kind="humanUser", replacements=[
         missed_candidate(),
         {"kind": "exception", "summary": "Canceled trips do not require a log.", "actor": "Operators",
-         "actor_quote": "Operators", "quote": MISSED_EXCEPTION, "relation": "exception", "applies_to": [MISSED_RULE]},
+         "actor_quote": "Operators", "quote": MISSED_EXCEPTION, "relation": "exception", "applies_to": ['new:0']},
     ]))
     event = added["history"][-1]
     assert event["action"] == "add"

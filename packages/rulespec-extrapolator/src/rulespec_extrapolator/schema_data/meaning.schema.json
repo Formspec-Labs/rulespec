@@ -154,6 +154,9 @@
       "items": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string"
+          },
           "label": {
             "type": "string",
             "minLength": 1
@@ -186,7 +189,7 @@
           "source_quotes"
         ],
         "additionalProperties": false,
-        "description": "Source-supported definition stored on its defining claim. Local identity\nincludes source position and meaning, so equal labels need not mean equal senses."
+        "description": "Source-supported definition stored on its defining claim. The application\nmints identity once and retains it across editorial revisions. Remove id to\nexplicitly replace the sense; equal labels need not mean equal senses."
       }
     },
     "term_refs": {
@@ -334,7 +337,7 @@
       "items": {
         "type": "string"
       },
-      "description": "Exact main-rule quotations targeted by this condition or exception; never summaries or invented remote text. Select the actual baseline whose meaning changes, preserving its complete scope. Never target an unrelated rule just because its quotation is exact. Match the complete main quotation of an emitted baseline unit exactly, including punctuation; a substring may not identify that unit. Leave remote targets unresolved rather than supplying text absent from the request.",
+      "description": "Immutable claim revision IDs targeted by this condition or exception. Evidence\npassages may support multiple rules and must never serve as target identities.\nSelect the actual baseline whose meaning changes. Changed or rejected targets\nrequire review; never silently retarget by wording or source proximity.",
       "title": "Applies to"
     },
     "references": {

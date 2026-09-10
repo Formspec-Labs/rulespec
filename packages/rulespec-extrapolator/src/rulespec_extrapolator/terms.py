@@ -9,11 +9,18 @@ def term_identity(document, claim, term):
     support = _evidence(document, term['quote'], 'definition', within=(claim['start'], claim['end']))
     if support is None:
         raise ValueError('Term definition needs exact, unambiguous source evidence')
+    if term.get('id'):
+        if not term['id'].startswith(NS + 'term:'):
+            raise ValueError('Local term identity must use the document-understanding term namespace')
+        return term['id']
     return NS + 'term:' + digest([document['id'], support['start'], support['end'],
                                   term['label'], claim['summary']])
 
 
 def definition_error(claim, term):
+    from .core import NS
+    if term.get('id') and not term['id'].startswith(NS + 'term:'):
+        return 'Local term identity must use the document-understanding term namespace'
     if claim['kind'] != 'definition':
         return 'A term must be attached to a defining claim'
     text = '\n'.join([term['quote'], *term['source_quotes']]).casefold()
@@ -22,7 +29,7 @@ def definition_error(claim, term):
     return None
 
 
-def resolve_components(document, window, terms, rows):
+def resolve_components(document, window, terms, rows, *, existing_claims=()):
     """Add grounded definitions/IRIs; retain per-component failures and raw data.
 
     rows contains (candidate, original model attributes, original row index).
@@ -30,6 +37,8 @@ def resolve_components(document, window, terms, rows):
     """
     from . import extraction as e
     errors, resolved = [], {}
+    existing = {(c['rule_id'], t['label'], t['evidence'][0]['quote']): t['id']
+                for c in existing_claims for t in definition_records(document, c)}
     if not isinstance(terms, list):
         return [{'code': 'invalid_term_registry', 'raw': terms, 'disposition': 'component_withheld'}]
     schema = e.load_schema('provider')['properties']['terms']['items']
@@ -51,9 +60,12 @@ def resolve_components(document, window, terms, rows):
                 raise ValueError('Term needs definition and name evidence')
             stored = {'label': term['label'], 'aliases': term['aliases'],
                       'quote': claim['quote'], 'source_quotes': list(dict.fromkeys(sources))}
+            if identity := existing.get((claim.get('rule_id'), stored['label'], stored['quote'])):
+                stored['id'] = identity
             if error := definition_error(claim, stored):
                 raise ValueError(error)
             identity = term_identity(document, claim, stored)
+            stored['id'] = identity
             claim.setdefault('defined_terms', []).append(stored)
             resolved[key] = identity
         except (ValueError, TypeError, KeyError) as exc:
@@ -68,6 +80,8 @@ def resolve_components(document, window, terms, rows):
             errors.append({'code': 'defined_term_unresolved', 'row_index': index,
                            'raw': defined, 'disposition': 'component_withheld'})
         for ref in dict.fromkeys(refs):
+            if ref == defined:
+                continue
             if ref in resolved:
                 candidate.setdefault('term_refs', []).append(resolved[ref])
             else:
@@ -90,6 +104,21 @@ def definition_records(document, claim):
 
 def term_index(document, claims):
     return {term['id']: term for claim in claims for term in definition_records(document, claim)}
+
+
+def term_lookup(book):
+    """Current senses and named historical targets, with availability explicit."""
+    current = term_index(book['document'], book['accepted'])
+    history = term_index(book['document'], book.get('revisions', []))
+    rejected = {c['id'] for c in book.get('rejected', []) if c.get('id')}
+    result = {key: {**term, 'status': 'unavailable',
+                    'reason': 'Definition rejected' if term['claim_id'] in rejected else 'Definition replaced'}
+              for key, term in history.items() if key not in current}
+    result.update({key: {**term, 'status': 'available'} for key, term in current.items()})
+    for claim in book['accepted']:
+        for key in claim.get('term_refs', []):
+            result.setdefault(key, {'id': key, 'status': 'unavailable', 'reason': 'Definition not recorded'})
+    return result
 
 
 def term_link_issues(document, claims):
@@ -122,7 +151,7 @@ def add_term_graph(document, claim, disposition, add):
         node = {'@id': term['id'], '@type': 'rkaf:LocalConcept',
                 'skos:prefLabel': {'en': term['label']}, 'skos:definition': {'en': term['definition']},
                 'skos:inScheme': scheme_id, 'rkaf:definedInScope': document['id'],
-                'rkaf:conceptScope': term['definition']}
+                'rkaf:conceptScope': document['id']}
         if term['aliases']:
             node['skos:altLabel'] = {'en': term['aliases']}
         add(node)

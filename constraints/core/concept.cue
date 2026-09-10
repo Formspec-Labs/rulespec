@@ -19,6 +19,7 @@ package rkaf
 	"@type":                  "rkaf:RegisteredConcept"
 	"skos:inScheme":          string & =~"^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
 	"rkaf:managedByRegistry": string & =~"^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+	// Text identifying the domain in which this sense is defined; not an IRI link.
 	"rkaf:conceptScope":      string
 	"rkaf:registeredAt":      string // xsd:dateTime
 	"skos:broader"?:          [...(string & =~"^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$")]
@@ -31,6 +32,7 @@ package rkaf
 	"@type":               "rkaf:LocalConcept"
 	"skos:inScheme":       string & =~"^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
 	"rkaf:definedInScope": string & =~"^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+	// Text identifying the domain in which this sense is defined; not its definition.
 	"rkaf:conceptScope":   string
 	"skos:broader"?:       [...(string & =~"^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$")]
 	"skos:narrower"?:      [...(string & =~"^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$")]

@@ -22,6 +22,15 @@ def test_source_passages_preserve_every_character_and_nested_list_parent():
     assert passages[4]['parent_id'] is None
 
 
+def test_note_is_structural_metadata_without_invented_rule_scope():
+    text = 'b. Language rules.\n\n(1) Agencies must request approval.\n\nNOTE : Letters are not adjudicative guidance.'
+    doc = prepare_document(text)
+    passages = source_passages(doc)
+    assert passages[1]['parent_id'] == passages[0]['id']
+    assert passages[2]['kind'] == 'note' and passages[2]['parent_id'] is None
+    assert ''.join(text[p['start']:p['end']] for p in passages) == text
+
+
 def test_condition_outside_focus_is_present_as_context_and_can_support_child():
     text = "a. If a card is lost, the service pauses.\n\n(1) The visitor must request a replacement."
     doc = prepare_document(text)

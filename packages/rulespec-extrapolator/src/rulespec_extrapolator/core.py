@@ -39,6 +39,8 @@ def evidence_expectations(claim):
         if claim.get(field):
             quote_field = "choice_quote" if field == "choice_text" else field + "_quote"
             expected[field] = claim.get(quote_field, "")
+            if field == 'choice_text' and not expected[field]:
+                expected[field] = claim['quote']
     if claim.get("logic_text"):
         expected["logic_text"] = claim["logic_text"]
     for field, quotes in (("scope_text", "scope_quotes"), ("context", "context_quotes"),
@@ -70,6 +72,15 @@ def _scope_record(claim):
 
 def canonical(value):
     return canonical_json(value)
+
+
+def sparse(value):
+    """Omit absent optional values for consumers; retain zero and false."""
+    if isinstance(value, dict):
+        return {k: cleaned for k, v in value.items() if (cleaned := sparse(v)) not in (None, '', [], {})}
+    if isinstance(value, list):
+        return [sparse(v) for v in value]
+    return value
 
 
 def digest(value):
@@ -123,6 +134,10 @@ def _claim(document, candidate, *, rule_id, occurrence_id, origin="aiSuggested")
     if main is None:
         raise ValueError("Main quotation is absent or ambiguous in the pinned source")
     c.update(start=main["start"], end=main["end"])
+    from .terms import term_identity, definition_error
+    for term in c['defined_terms']:
+        if not definition_error(c, term) and _evidence(document, term['quote'], 'definition', within=(main['start'], main['end'])):
+            term['id'] = term_identity(document, c, term)
     containing = [s for s in document["sections"]
                   if s["start"] <= c["start"] and c["end"] <= s["end"]]
     if c["section_id"] and not any(s["id"] == c["section_id"] for s in containing):
@@ -146,6 +161,9 @@ def _claim(document, candidate, *, rule_id, occurrence_id, origin="aiSuggested")
                             within=(main["start"], main["end"]))
         if support:
             evidence.append(support)
+        else:
+            issues.append(_issue('component_evidence_unresolved', 'logic_text',
+                                 'Exact logical wording is absent or ambiguous.'))
         issues.append(_issue("logic_requires_review", "logic_text",
                              "Logical grouping, quantities or timing remain uninterpreted."))
     for field, quote in evidence_expectations(c).items():
@@ -219,7 +237,7 @@ def _component_nodes(claim, disposition):
         "kind", "summary", "actor", "action", "object", "logic_text", "modality",
         "scope_text", "choice_text", "alternative_quotes", "jurisdiction", *STRUCTURED_FIELDS)}
     meaning.update({field: claim[field] for field in TERM_FIELDS if claim.get(field)})
-    values["meaning"] = canonical(meaning)
+    values["meaning"] = canonical(sparse(meaning))
     for field, value in values.items():
         if not value:
             continue
@@ -240,21 +258,17 @@ def _component_nodes(claim, disposition):
 def resolve_links(document, claims):
     from .terms import term_link_issues
     unresolved = term_link_issues(document, claims)
-    by_quote = {}
-    for c in claims:
-        if c["kind"] not in ("condition", "exception"):
-            by_quote.setdefault(c["quote"], []).append(c)
+    baselines = {c['id']: c for c in claims if c['kind'] not in ('condition', 'exception')}
     for c in claims:
         c["target_ids"] = []
         incomplete = False
-        for quote in c["applies_to"]:
-            matches = by_quote.get(quote, [])
-            if len(matches) == 1:
-                c["target_ids"].append(matches[0]["id"])
+        for identity in c["applies_to"]:
+            if identity in baselines:
+                c["target_ids"].append(identity)
             else:
                 incomplete = True
-                unresolved.append({"claim_id": c["id"], "reference": quote,
-                    "code": "ambiguous_target" if matches else "missing_target"})
+                unresolved.append({"claim_id": c["id"], "reference": identity,
+                    "code": "missing_target"})
         c["target_ids"] = [] if incomplete else sorted(set(c["target_ids"]))
         c["reference_links"] = []
         for label in c["references"]:
@@ -304,6 +318,11 @@ def revise_claim(document, original_claim, replacement_fields, event_id, origin=
     if set(replacement_fields) - allowed:
         raise ValueError("Correction contains unsupported fields")
     candidate.update(deepcopy(replacement_fields))
+    for index, term in enumerate(candidate.get('defined_terms', [])):
+        if not term.get('id'):
+            # Removing identity explicitly replaces a sense, even when its
+            # initial wording matches a previous description.
+            term['id'] = NS + 'term:' + digest([document['id'], event_id, index])
     claim = _claim(document, candidate, rule_id=original_claim["rule_id"],
                    occurrence_id=NS + "occurrence:" + digest(event_id), origin=origin)
     claim["id"] = NS + "revision:" + digest([claim["id"], event_id])
@@ -318,6 +337,11 @@ def build_graph(document, claims, run, attestations=None):
     from .enrichment import enrich_graph
     claims_by_id = {c["id"]: c for c in claims}
     def add(node):
+        # Concepts describe the latest observed sense. Immutable revision artifacts
+        # retain every prior description; assertion origins still remain immutable.
+        if node['@type'] == 'rkaf:LocalConcept':
+            nodes[node['@id']] = node
+            return
         # The first creation's origin is immutable when propositions are reused.
         nodes.setdefault(node["@id"], node)
     add({"@id": document["id"], "@type": "rkaf:Artifact",
@@ -349,11 +373,13 @@ def build_graph(document, claims, run, attestations=None):
         origin = c.get("origin", "aiSuggested")
         claim_lineage = lineage_id
         if origin == "aiSuggested" and c.get("review_event_id"):
+            provenance = c.get('review_provenance', {})
             claim_lineage = NS + "lineage:" + digest(c["review_event_id"])
             add({"@id": claim_lineage, "@type": "rkaf:AILineage",
-                 "rkaf:modelId": "review-agent", "rkaf:modelVersion": "not-recorded",
-                 "rkaf:temperature": 0.0, "rkaf:promptTemplateRef": c["review_event_id"],
-                 "rkaf:inputContextHash": "sha256:" + document["sha256"]})
+                 "rkaf:modelId": provenance.get('model', 'review-agent'), "rkaf:modelVersion": provenance.get('model_version', 'not-recorded'),
+                 "rkaf:temperature": float(provenance.get('temperature', 0.0)),
+                 "rkaf:promptTemplateRef": NS + 'request:' + provenance['request_sha256'] if provenance else c['review_event_id'],
+                 "rkaf:inputContextHash": "sha256:" + provenance.get('input_sha256', document['sha256'])})
         disposition = {"rkaf:assertionOrigin": "rkaf:" + origin,
                        "rkaf:epistemicBasis": "rkaf:statisticalInference" if origin == "aiSuggested" else "rkaf:userAssertion",
                        "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
@@ -396,11 +422,15 @@ def build_graph(document, claims, run, attestations=None):
                 fragments = list(dict.fromkeys(fragments))
                 if not fragments and function != "supports":
                     continue
+                if not fragments:
+                    # A failed component locator is not a declared hypothesis.
+                    # Preserve the examined source as context, not verified support.
+                    fragments = [c['evidence'][0]['fragment_id']]
+                    function = 'providesContext'
                 binding = {"@id": NS + "binding:" + digest([node["@id"], fragments, c["occurrence_id"], function]),
                            "@type": "rkaf:EvidenceBinding", "rkaf:bindsAssertion": node["@id"],
                            "rkaf:evidenceRole": "rkaf:textualEvidence", "rkaf:evidentiaryFunction": "rkaf:" + function}
-                binding.update({"rkaf:bindsSourceFragment": fragments} if fragments else
-                               {"rkaf:noEvidenceReason": "rkaf:declared-hypothesis"})
+                binding['rkaf:bindsSourceFragment'] = fragments
                 add(binding)
         for target in c.get("target_ids", []):
             proposition = {"rkaf:assertsSubject": c["id"],
@@ -435,7 +465,7 @@ def build_graph(document, claims, run, attestations=None):
             "id", "rule_id", "occurrence_id", "kind", "summary", "actor", "action",
             "object", "logic_text", "relation", "applies_to", "references", "quote",
             "start", "end", "section_id", "evidence", "target_ids", "assertion_ids",
-            "origin", "supersedes", "review_event_id") if k in c}
+            "origin", "supersedes", "review_event_id", 'review_provenance') if k in c}
         payload.update({k: deepcopy(c[k]) for k in (*MEANING_FIELDS, "meaning_assertion_id") if k in c})
         body = canonical(payload)
         revision = {"@id": c["id"], "@type": "rkaf:Artifact",

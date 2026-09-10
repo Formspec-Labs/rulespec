@@ -145,6 +145,9 @@ rulespec-understand audit my-run/rulebook.json --model gemini-3.8-flash \
 # Retain source passages and links, including passages without an extracted rule.
 rulespec-understand discovery-export my-run --output discovery.json
 
+# Provider-reported token counts, separately from local JSON storage.
+rulespec-understand usage my-run
+
 # Reproduce the saved processing without provider calls.
 rulespec-understand replay my-run --output my-replay
 rulespec-understand audit-replay my-audit --output my-audit-replay
@@ -229,11 +232,16 @@ on accepted records.
 
 **Output:** `rulebook.json`, a Core JSON-LD graph, exact source, requests,
 responses, candidates, refusals, validation results and frozen runtime inputs.
-The discovery export retains every source paragraph/list item, linked statements,
-exact evidence and review/processing status. Statement records also retain existing
-`logic_text`, so detailed wording survives alongside the shorter statement. It
-makes no model calls and creates
-no embeddings or inferred legal relationships.
+The `rulespec-discovery/2` export stores source text once in ordered `records`,
+statements once in `statements`, definitions in `terms`, and shared source offsets
+in `evidence`. Each `evidence_refs` entry identifies a shared span and its support
+roles. Concatenating record text reconstructs the pinned source; slicing its
+`start:end` retrieves any evidence quotation. Statements carry both `rule_id`
+(logical identity) and `id` (immutable revision); term IDs survive editorial
+corrections. Empty optional fields and choice/logic text identical to the statement
+are omitted from this consumer export. Original captures and review history stay
+complete. Existing list parents and note markers are retained as structural clues,
+not inferred governing conditions. Export makes no model calls or embeddings.
 
 **Audit:** a separate source-first inventory selects focus passage IDs for each
 observation and focus/context IDs for its scope. The existing resolver turns these
@@ -350,8 +358,13 @@ index. `defined_terms` stores source-backed names and aliases on defining claims
 `term_refs` links uses to those definitions. These become existing Core
 `LocalConcept`, `ConceptScheme`, `RelationshipAssertion`, and `EvidenceBinding`
 records. They do not declare matching labels or acronyms globally equivalent.
-A rejected or changed definition leaves its previous references visibly unresolved.
-Historical assertions and review decisions remain available.
+Term identities persist across wording, name and alias corrections. The review
+editor's **Replace this sense** control creates a new identity; API callers remove
+the term's `id` when submitting that replacement. Rejected or explicitly replaced
+definitions leave previous uses visibly unresolved, retaining the former name.
+Historical descriptions, assertions and review decisions remain available.
+`term_refs` represents explicit uses of a defined sense, not background topical
+association. A definition uses `defines` without a redundant self-use relationship.
 
 For an existing draft, add structure without rewriting its meaning:
 
@@ -362,12 +375,18 @@ rulespec-understand enrich-replay path/to/new-enrichment-capture \
   --output path/to/new-replay-result
 ```
 
-`enrich` adds only empty actor/definition/reference fields through ordinary AI
-review edits. Existing statements, evidence, modality and populated fields remain
-unchanged. New revisions need their own review; prior approvals remain in history.
+`enrich` fills empty actor fields and adds missing definition/reference list entries
+through ordinary AI review edits. Existing wording and conflicting populated
+components remain unchanged. Withheld or conflicting suggestions become recorded
+observations and Core Findings, visible on the assessed revision; a later correction
+supersedes that revision while retaining its observations in history. Document-level
+provider failures stay visible separately. New revisions need their own review;
+prior approvals remain in history. AI revisions retain the captured model version,
+request fingerprint, fixed-claim input fingerprint and capture location.
 The capture retains requests, responses, component refusals, before/after snapshots
 and every applied action. Replay verifies these without contacting the model.
-The review UI shows actors, defined names and clickable term uses; discovery
+The review UI edits defined names, aliases and uses, shows component changes in
+history, and identifies unavailable definitions by name. Discovery
 exports retain the same structure and flag unavailable definitions.
 
 The [fresh-source comparison](../../examples/document_understanding/fresh-structure-check/README.md)
@@ -434,3 +453,27 @@ Historical reports retain the recommendations and limitations measured at their
 own snapshots. Use this guide and the
 [current handoff](../../thoughts/reviews/2026-09-09-extraction-handoff.md) for the
 integrated state.
+
+
+Qualification edits use immutable claim IDs in `applies_to`. Two rules can share
+a quotation; selecting one must not select the other. Editing a target creates a
+new revision and requires confirming any affected qualification links. Within a
+single add action, `new:0` can refer to the first earlier addition in that action;
+the saved record contains the resulting immutable claim ID. Future or unavailable
+targets remain unresolved.
+
+Provider output tokens and local storage measure different things. `usage`
+counts each retained request/response once, excludes copied base runs, and reports
+missing usage as unknown. It also reports local JSON bytes, including local copies;
+those copies do not imply additional model output or charges. Recorded provider
+usage is not a billing invoice.
+
+
+The [fresh-source reference comparison](../../examples/document_understanding/consistency-transfer/README.md)
+keeps paragraph references as the production default. Sentence references reduced
+location ambiguity but introduced standalone-condition regressions and higher
+output cost. The consistency update adds persistent term identity, claim-ID
+qualification targets, reviewable enrichment findings, actual AI request provenance,
+and sparse discovery output. It improves data continuity and review; it does not
+establish a new extraction-accuracy rate. The [implementation checklist](../../thoughts/plans/2026-09-10-extraction-consistency.md)
+records verification and the remaining limits.

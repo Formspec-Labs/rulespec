@@ -128,17 +128,52 @@ Before returning, check each source passage for missed recommendations,
 permissions, exemptions, explanations, list options and qualifiers. Check every
 split statement against its governing case, not just its own sentence. Check
 each statement for all governing qualifications, not just matching evidence.
-Return only the schema's JSON object with extractions. Empty collections do not
+Return only the schema's JSON object with terms and extractions. Empty collections do not
 establish semantic completeness.
 
-This pass does not extract concepts, claimants, normalized values, effective dates,
-separate actor/action/object fields, or relationship records. Preserve any such
+This pass extracts an actor assessment and explicit defined terms as specified
+by the schema. It does not extract topic concepts, source claimants, normalized
+values, effective dates, separate action/object fields, or qualification relationship records. Preserve any such
 source meaning in the complete statement without inventing normalized details.
 """
 
 
 class ReplayDriftError(ValueError):
     """A recorded artifact or the runtime differs from the frozen run."""
+
+
+def captured_provenance(directory, attempt, capture):
+    """Describe the actual retained request, including its fixed-claim input."""
+    if not attempt.get('request_file'):
+        return None
+    request = _load(Path(directory) / attempt['request_file'])
+    response = _load(Path(directory) / attempt['response_file']) if attempt.get('response_file') else {}
+    return {'model': request['model'], 'model_version': response.get('model_version') or 'not-recorded',
+            'temperature': request['config']['temperature'], 'request_sha256': _digest(request),
+            'input_sha256': _digest(request['contents']), 'capture': capture + '/' + attempt['request_file']}
+
+
+def recorded_usage(directory, *, exclude=('base-run', 'previous', 'frozen')):
+    """Sum each recorded response once; copied runs and SDK parsed copies do not count twice."""
+    directory = Path(directory)
+    calls, tokens, incomplete, missing, unanswered = 0, {}, 0, 0, 0
+    for path in sorted(directory.rglob('attempt-*.request.json')):
+        if set(path.relative_to(directory).parts) & set(exclude):
+            continue
+        calls += 1
+        response = path.with_name(path.name.replace('.request.', '.response.'))
+        if not response.exists():
+            unanswered += 1
+            continue
+        raw = _load(response)
+        usage = raw.get('usage_metadata') or {}
+        missing += not any(type(value) is int for value in usage.values())
+        for key, value in usage.items():
+            if type(value) is int:
+                tokens[key] = tokens.get(key, 0) + value
+        incomplete += any(c.get('finish_reason') != 'STOP' for c in raw.get('candidates', []))
+    return {'recorded_requests': calls, 'tokens': tokens, 'incomplete_responses': incomplete,
+            'responses_without_usage': missing, 'requests_without_response': unanswered}
 
 
 class _DuplicateKey(ValueError):

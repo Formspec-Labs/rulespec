@@ -104,7 +104,17 @@ def main(argv=None):
     vocab.add_argument("rulebook", type=Path)
     vocab.add_argument("--snapshot", type=Path)
     vocab.add_argument("--output", type=Path, required=True)
+    usage = sub.add_parser('usage', help='Read provider token usage separately from local JSON storage size.')
+    usage.add_argument('run', type=Path)
     args = parser.parse_args(argv)
+    if args.command == 'usage':
+        if not args.run.is_dir():
+            parser.error('Usage requires an existing capture directory')
+        result = e.recorded_usage(args.run)
+        result['local_json_bytes'] = sum(p.stat().st_size for p in args.run.rglob('*.json') if p.is_file())
+        result['limitation'] = 'Tokens are provider-reported usage of retained requests, not a billing invoice. Missing usage is unknown. Local JSON copies do not create output tokens; replay makes no provider calls.'
+        print(json.dumps(result, indent=2))
+        return
     if args.command == "prepare":
         _write_new(args.output, load_document(args.source, title=args.title, source_url=args.source_url))
     elif args.command in ("extract", "replay", "reprocess"):

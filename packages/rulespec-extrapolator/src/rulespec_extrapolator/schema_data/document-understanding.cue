@@ -70,7 +70,10 @@ import (
 // A condition/exception's relationship to its baseline; none for other kinds. The source decides which baseline a qualification governs. Contextual proximity alone does not. An even-though or despite clause may preserve a duty rather than remove it. The qualification must retain the baseline's scope and the limits of the modification. When a locally stated rule has an explicit exception, retain the complete baseline with its original kind and relation none, and also emit a separate exception unit linked to it. Do not turn the baseline itself into an exception or strip the exception from its meaning. A conditional permission does not by itself cancel a neighboring duty.
 #Relation: "none" | "scope" | "prerequisite" | "trigger" | "exception" @title("Relation")
 
-// Exact main-rule quotations targeted by this condition or exception; never summaries or invented remote text. Select the actual baseline whose meaning changes, preserving its complete scope. Never target an unrelated rule just because its quotation is exact. Match the complete main quotation of an emitted baseline unit exactly, including punctuation; a substring may not identify that unit. Leave remote targets unresolved rather than supplying text absent from the request.
+// Immutable claim revision IDs targeted by this condition or exception. Evidence
+// passages may support multiple rules and must never serve as target identities.
+// Select the actual baseline whose meaning changes. Changed or rejected targets
+// require review; never silently retarget by wording or source proximity.
 #AppliesTo: [...string] @title("Applies to")
 
 // Source section labels for cross-references, including unresolved remote targets. Keep source cross-reference labels even when their content is unavailable. Preserve the topic of each reference in the unit's meaning; a nearby reference is not a license to infer the missing rule.
@@ -83,9 +86,11 @@ import (
 #NonemptyText: string & strings.MinRunes(1)
 #EvidenceQuotes: [...#NonemptyText] & list.UniqueItems()
 
-// Source-supported definition stored on its defining claim. Local identity
-// includes source position and meaning, so equal labels need not mean equal senses.
+// Source-supported definition stored on its defining claim. The application
+// mints identity once and retains it across editorial revisions. Remove id to
+// explicitly replace the sense; equal labels need not mean equal senses.
 #TermDefinition: {
+    id?: #TermReference
     label!: #NonemptyText
     aliases!: #EvidenceQuotes
     quote!: #NonemptyText
@@ -228,8 +233,9 @@ import (
 #FirstMeaning: {
     // Index ID of the term this unit explicitly defines. Null on a use or mention.
     defines_term?: *null | #NonemptyText
-    // IDs of defined terms discussed by this unit, including a definition's own
-    // subject. Reuse the index; do not invent equivalence from shared wording.
+    // IDs of defined terms explicitly used in this unit's meaning. Context alone
+    // is not a use. Omit the term this unit defines: defines_term records that
+    // relationship. Reuse the index; do not infer equivalence from shared wording.
     term_refs?: *null | [...#NonemptyText]
     statement!: #Summary @title("Complete source-faithful statement")
     // Responsible source-supported actor, not the approving authority or a
@@ -294,7 +300,8 @@ import (
         actor_quote!: *null | #ActorQuote
         // Term defined by this claim, not a mere mention. Null if inapplicable.
         defines_term!: *null | #NonemptyText
-        // Local defined-term IDs discussed by the claim; distinguish senses.
+        // Local defined-term IDs explicitly used by the claim, excluding its
+        // own definiendum. Context alone is not a use; distinguish senses.
         term_refs!: [...#NonemptyText]
     }]
 }

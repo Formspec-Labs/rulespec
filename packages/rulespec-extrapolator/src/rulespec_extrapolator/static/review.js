@@ -85,7 +85,8 @@ function renderClaims() {
     meta.append(node("span", claim.kind), node("span", claim.review_status === "pending" ? "Needs review" : readable(claim.review_status), "badge " + claim.review_status), node("span", originLabel(claim.origin)));
     const issues = [...(claim.issues || []), ...(claim.link_issues || [])];
     if (issues.length) meta.append(node("span", `${issues.length} open ${issues.length === 1 ? "issue" : "issues"}`, "badge issue"));
-    button.append(meta, node("p", claim.summary, "claim-summary"), node("p", claim.actor || "Actor not recorded", "claim-actor"));
+    button.append(meta, node("p", claim.summary, "claim-summary"));
+    if (claim.actor) button.append(node("p", claim.actor, "claim-actor"));
     button.addEventListener("click", () => { state.active = claim.id; state.selected = new Set([claim.id]); renderClaims(); renderDetail(); updateActions(); highlight(claim.evidence || [], true); });
     card.append(checkbox, button); $("claim-list").append(card);
   }
@@ -155,7 +156,10 @@ function renderDetail() {
     for (const [index, id] of uses.entries()) {
       if (index) line.append(document.createTextNode(" · "));
       const term = terms[id];
-      if (!term) { line.append(node("span", "Definition unavailable", "muted")); continue; }
+      if (!term) {
+        const prior = state.snapshot.term_lookup?.[id];
+        line.append(node("span", `${prior?.label || "Unnamed term"}: ${prior?.reason || "definition unavailable"}`, "muted")); continue;
+      }
       const button = node("button", term.label, "text-button"); button.type = "button";
       button.addEventListener("click", () => {
         state.active = term.claim_id; state.selected = new Set([term.claim_id]);
@@ -240,27 +244,43 @@ function renderHistory() {
     for (const id of event.targets) {
       const old = state.snapshot.revisions.find((c) => c.id === id);
       if (!old) continue;
-      const button = node("button", "Reviewed: " + old.summary, "text-button"); button.type = "button";
+      const button = node("button", (event.action === "approve" || event.action === "reject" ? "Assessed: " : "Previous: ") + old.summary, "text-button"); button.type = "button";
       button.addEventListener("click", () => highlight(old.evidence, true)); entry.append(button);
-      entry.append(node("p", `Actor: ${old.actor || "Unknown"}${old.action ? "\nAction: " + old.action : ""}${old.object ? "\nObject: " + old.object : ""}\nSource: ${old.quote}`, "history-change"));
     }
     for (const replacement of event.replacements || []) {
-      entry.append(node("p", `Saved ${originLabel(replacement.origin).toLowerCase()}: ${replacement.summary}`, "history-change"));
-      entry.append(node("p", `Actor: ${replacement.actor || "Unknown"}${replacement.action ? "\nAction: " + replacement.action : ""}${replacement.object ? "\nObject: " + replacement.object : ""}\nSource: ${replacement.quote}`, "history-change"));
+      const old = state.snapshot.revisions.find((c) => c.id === event.targets[0]);
+      const changes = node("dl", undefined, "history-change");
+      for (const key of ["summary", "kind", "modality", "actor", "action", "object", "quote", "scope_text", "choice_text", "logic_text", "defined_terms", "term_refs", "applies_to"]) {
+        if (JSON.stringify(old?.[key]) === JSON.stringify(replacement[key])) continue;
+        const describe = (value) => {
+          if (key === "defined_terms") return (value || []).map((term) => {
+            const previous = old?.defined_terms?.find((item) => item.id === term.id);
+            const aliases = term.aliases.length ? ` (${term.aliases.join(", ")})` : "";
+            const supportChanged = previous && JSON.stringify([previous.quote, previous.source_quotes]) !== JSON.stringify([term.quote, term.source_quotes]);
+            return `${term.label}${aliases}${previous ? "" : " [new sense]"}${supportChanged ? " [source support changed]" : ""}`;
+          }).join("; ") || "None";
+          if (key === "term_refs") return (value || []).map((id) => state.snapshot.term_lookup?.[id]?.label || id).join(", ") || "None";
+          if (key === "applies_to") return (value || []).map((id) => state.snapshot.revisions.find((c) => c.id === id)?.summary || "Unavailable rule").join("; ") || "None";
+          return value || "None";
+        };
+        changes.append(node("dt", readable(key)), node("dd", `${describe(old?.[key])} → ${describe(replacement[key])}`));
+      }
+      entry.append(changes);
     }
+    for (const issue of event.observations || []) entry.append(node('p', issueText(issue), 'history-change'));
     $("history-panel").append(entry);
   }
 }
 function renderProblems() {
   const originalRejections = (state.snapshot.rejected || []).filter((item) => item.candidate || item.reason);
-  const refusals = state.snapshot.extraction_refusals || [];
-  const failure = state.snapshot.run?.failure_code;
   const audit = state.snapshot.source_audit;
+  const refusals = [...(state.snapshot.extraction_refusals || []), ...(state.snapshot.enrichment_issues || []), ...(audit?.report?.audit_issues || []).map((issue) => typeof issue === "string" ? {code: issue} : issue)];
+  const failure = state.snapshot.run?.failure_code;
   const gaps = audit?.report?.coverage?.missing_examples || [];
   const semanticErrors = Object.entries(audit?.report?.dimensions || {}).flatMap(([dimension, value]) => (value.error_examples || []).map((item) => ({...item, dimension})));
-  const count = originalRejections.length + refusals.length + (failure ? 1 : 0) + gaps.length + semanticErrors.length + (audit ? 1 : 0);
-  $("extraction-problems").hidden = !count;
-  $("extraction-problems").querySelector("summary").textContent = `${count} extraction ${count === 1 ? "issue" : "issues"}`;
+  const count = originalRejections.length + refusals.length + (failure ? 1 : 0) + gaps.length + semanticErrors.length;
+  $("extraction-problems").hidden = !count && !audit;
+  $("extraction-problems").querySelector("summary").textContent = count ? `${count} extraction ${count === 1 ? "issue" : "issues"}` : audit?.current ? "Source check · no recorded findings" : "Source check · earlier draft";
   $("extraction-problem-list").replaceChildren();
   if (audit) {
     $("extraction-problem-list").append(node("p", audit.current ? "Model-assisted source check. Its findings may need correction; completeness is not established." : "This source check assessed an earlier draft. Re-run the audit after corrections to refresh its findings.", "muted"));
@@ -312,8 +332,13 @@ function field(parent, key, label, value, {textarea = false, options, wide = fal
   if (type === "number") { input.min = "0"; input.step = "1"; }
   wrapper.append(input); parent.append(wrapper); return input;
 }
-function targetRow(parent, quote) {
-  const row = node("div", undefined, "target-row"); const input = node("textarea"); input.rows = 2; input.value = quote; input.dataset.targetQuote = "true"; input.setAttribute("aria-label", "Exact quotation of an affected rule");
+function targetRow(parent, id) {
+  const row = node("div", undefined, "target-row"); const input = node("select");
+  input.dataset.targetId = "true"; input.setAttribute("aria-label", "Affected rule");
+  const choices = [{id: "", summary: "Choose an affected rule"}, ...currentClaims().filter((c) => !["condition", "exception"].includes(c.kind) && c.review_status !== "rejected")];
+  if (id && !choices.some((c) => c.id === id)) choices.push({id, summary: "Previous target unavailable — choose its current rule"});
+  for (const c of choices) { const option = node("option", c.summary); option.value = c.id; input.append(option); }
+  input.value = id;
   const remove = node("button", "Remove"); remove.type = "button"; remove.addEventListener("click", () => row.remove()); row.append(input, remove); parent.append(row);
 }
 function blankClaim(prefill = {}) {
@@ -328,6 +353,49 @@ function blankClaim(prefill = {}) {
   if (!relations.includes(claim.relation)) claim.relation = "none";
   return claim;
 }
+function termEditor(editor, claim) {
+  const details = node('details', undefined, 'editor-details');
+  details.open = Boolean(claim.defined_terms?.length || claim.term_refs?.length);
+  details.append(node('summary', 'Defined terms and uses'));
+  const definitions = node('div'); details.append(definitions);
+  function addDefinition(term = {label: '', aliases: [], quote: claim.quote || '', source_quotes: []}) {
+    const row = node('fieldset'); row.dataset.termDefinition = term.id || '';
+    row.append(node('legend', 'Defined sense'));
+    function input(key, label, value) {
+      const wrapper = node('label', label); const control = node('textarea'); control.rows = 2;
+      control.dataset.termField = key; control.value = value; wrapper.append(control); row.append(wrapper);
+    }
+    input('label', 'Defined name', term.label);
+    input('aliases', 'Explicit aliases (one per line)', term.aliases.join('\n'));
+    input('quote', 'Exact passage defining this term', term.quote);
+    const sources = node('div'); row.append(sources);
+    function addSource(text) {
+      const wrapper = node('label', 'Additional name or alias evidence'); const control = node('textarea');
+      control.dataset.termSource = 'true'; control.value = text; wrapper.append(control);
+      const remove = node('button', 'Remove evidence'); remove.type = 'button'; remove.addEventListener('click', () => wrapper.remove());
+      wrapper.append(remove); sources.append(wrapper);
+    }
+    for (const quote of term.source_quotes) addSource(quote);
+    const add = node('button', 'Add name or alias evidence'); add.type = 'button'; add.addEventListener('click', () => addSource('')); row.append(add);
+    const label = node('label', 'Replace this sense (existing uses will need relinking)');
+    const replace = node('input'); replace.type = 'checkbox'; replace.dataset.newSense = 'true'; label.prepend(replace);
+    label.hidden = !term.id; row.append(label);
+    const remove = node('button', 'Remove definition'); remove.type = 'button'; remove.addEventListener('click', () => row.remove()); row.append(remove);
+    definitions.append(row);
+  }
+  for (const term of claim.defined_terms || []) addDefinition(term);
+  const add = node('button', 'Add defined term'); add.type = 'button'; add.addEventListener('click', () => addDefinition()); details.append(add);
+  const uses = node('fieldset'); uses.append(node('legend', 'Terms explicitly used in this statement'));
+  const lookup = state.snapshot.term_lookup || state.snapshot.terms || {};
+  for (const [id, term] of Object.entries(lookup)) {
+    if (term.status === 'unavailable' && !(claim.term_refs || []).includes(id)) continue;
+    if ((claim.defined_terms || []).some((t) => t.id === id)) continue;
+    const label = node('label', `${term.label || 'Unnamed term'}${term.status === 'unavailable' ? ` — ${term.reason}` : ''}`);
+    const checkbox = node('input'); checkbox.type = 'checkbox'; checkbox.dataset.termRef = 'true'; checkbox.value = id;
+    checkbox.checked = (claim.term_refs || []).includes(id); label.prepend(checkbox); uses.append(label);
+  }
+  details.append(uses); editor.append(details);
+}
 function addEditor(claim) {
   const editor = node("fieldset", undefined, "claim-editor");
   editor.append(node("legend", state.action === "add" ? "New rule" : "Replacement claim"));
@@ -340,6 +408,7 @@ function addEditor(claim) {
   field(grid, "action", "Action", claim.action);
   field(grid, "object", "Object or subject of the action", claim.object);
   const quoteInput = field(grid, "quote", "Exact source quotation", claim.quote, {textarea: true, wide: true, required: true});
+  termEditor(editor, claim);
   const evidence = node("details", undefined, "editor-details"); evidence.open = true; evidence.append(node("summary", "Component evidence and source position"));
   const evidenceGrid = node("div", undefined, "field-grid"); evidence.append(evidenceGrid);
   field(evidenceGrid, "actor_quote", "Exact words supporting the actor", claim.actor_quote, {textarea: true});
@@ -374,9 +443,9 @@ function addEditor(claim) {
   }
   field(qualificationGrid, "jurisdiction", "Jurisdiction, if stated", claim.jurisdiction);
   field(qualificationGrid, "jurisdiction_quote", "Exact words supporting jurisdiction", claim.jurisdiction_quote, {textarea: true});
-  const targetFields = node("div", undefined, "target-fields field-wide"); targetFields.append(node("label", "Exact quotations of affected rules"));
+  const targetFields = node("div", undefined, "target-fields field-wide"); targetFields.append(node("p", "Affected rules"));
   const rows = node("div"); for (const quote of claim.applies_to || []) targetRow(rows, quote);
-  const add = node("button", "Add affected rule quotation"); add.type = "button"; add.addEventListener("click", () => targetRow(rows, ""));
+  const add = node("button", "Add affected rule"); add.type = "button"; add.addEventListener("click", () => targetRow(rows, ""));
   targetFields.append(rows, add); qualificationGrid.append(targetFields); editor.append(qualifications);
   $("replacements").append(editor);
 }
@@ -401,7 +470,15 @@ function replacements() {
       const key = input.dataset.field;
       result[key] = ["start", "end"].includes(key) ? (input.value === "" ? null : Number(input.value)) : key === "references" ? input.value.split("\n").map((x) => x.trim()).filter(Boolean) : input.value;
     }
-    result.applies_to = [...editor.querySelectorAll("[data-target-quote]")].map((input) => input.value).filter((value) => value.trim());
+    result.applies_to = [...editor.querySelectorAll("[data-target-id]")].map((input) => input.value).filter(Boolean);
+    result.term_refs = [...editor.querySelectorAll('[data-term-ref]:checked')].map((input) => input.value);
+    result.defined_terms = [...editor.querySelectorAll('[data-term-definition]')].map((row) => {
+      const term = Object.fromEntries([...row.querySelectorAll('[data-term-field]')].map((input) => [input.dataset.termField, input.value]));
+      term.aliases = term.aliases.split('\n').map((x) => x.trim()).filter(Boolean);
+      term.source_quotes = [...row.querySelectorAll('[data-term-source]')].map((input) => input.value).filter(Boolean);
+      if (row.dataset.termDefinition && !row.querySelector('[data-new-sense]').checked) term.id = row.dataset.termDefinition;
+      return term;
+    });
     for (const key of quoteLists) result[key] = [...editor.querySelectorAll(`[data-quote-list="${key}"]`)].map((input) => input.value).filter((value) => value.trim());
     if ((result.start === null) !== (result.end === null)) throw new Error("Supply both source positions, or leave both empty.");
     return result;

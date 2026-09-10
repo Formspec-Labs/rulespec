@@ -181,7 +181,7 @@ def enrich_graph(document, claim, disposition, add):
         concepts[identity] = {"@id": identity, "@type": "rkaf:LocalConcept",
             "skos:prefLabel": {"en": item["label"]}, "skos:definition": {"en": item["definition"]},
             "skos:inScheme": scheme_id, "rkaf:definedInScope": document["id"],
-            "rkaf:conceptScope": item["definition"]}
+            "rkaf:conceptScope": document["id"]}
     content = {"@context": resources.context()["@context"], "@graph": [scheme, *[concepts[k] for k in sorted(concepts)]]}
     version = digest(content)
     distribution_id = NS + "concept-content:" + version
