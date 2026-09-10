@@ -243,6 +243,13 @@ are omitted from this consumer export. Original captures and review history stay
 complete. Existing list parents and note markers are retained as structural clues,
 not inferred governing conditions. Export makes no model calls or embeddings.
 
+The browser review groups overlapping verified evidence into one source passage.
+Role buttons highlight each original interval without repeating its quotation;
+identical words at distinct source positions remain separate. This changes only
+presentation, not saved evidence or model input. Run its focused checks with
+`node --test packages/rulespec-extrapolator/tests/review_evidence.test.cjs`
+from the repository root.
+
 **Audit:** a separate source-first inventory selects focus passage IDs for each
 observation and focus/context IDs for its scope. The existing resolver turns these
 into exact source text and offsets; invalid selections refuse the observation.

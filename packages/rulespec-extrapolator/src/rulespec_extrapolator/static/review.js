@@ -108,26 +108,44 @@ function evidenceGroups(evidence) {
   }
   return [...groups.values()];
 }
+function evidencePassages(evidence, source) {
+  const text = Array.from(source.text);
+  const groups = evidenceGroups(evidence), verified = [], other = [];
+  for (const group of groups) {
+    const item = group.evidence;
+    const local = !item.source_id || item.source_id === source.id;
+    const exact = Number.isInteger(item.start) && Number.isInteger(item.end)
+      && item.start >= 0 && item.end > item.start && item.end <= text.length
+      && text.slice(item.start, item.end).join("") === item.quote;
+    (local && exact ? verified : other).push(group);
+  }
+  const passages = [];
+  for (const group of verified.sort((a, b) => a.evidence.start - b.evidence.start)) {
+    const last = passages.at(-1), item = group.evidence;
+    if (last && item.start < last.evidence.end) {
+      last.evidence.end = Math.max(last.evidence.end, item.end);
+      last.evidence.quote = text.slice(last.evidence.start, last.evidence.end).join("");
+      last.members.push(group);
+    } else passages.push({evidence: {...item}, members: [group]});
+  }
+  // Never hide or rewrite evidence that could not be verified against this source.
+  return [...passages, ...other.map((group) => ({evidence: group.evidence, members: [group]}))];
+}
 function renderEvidence(detail, evidence) {
-  const groups = evidenceGroups(evidence);
-  const contains = (outer, inner) => outer.evidence.source_id === inner.evidence.source_id
-    && outer.evidence.start <= inner.evidence.start && outer.evidence.end >= inner.evidence.end
-    && (outer.evidence.start < inner.evidence.start || outer.evidence.end > inner.evidence.end);
-  const passages = groups.filter((group) => !groups.some((other) => contains(other, group)));
-  const shown = new Set();
-  for (const group of passages) {
+  for (const group of evidencePassages(evidence, state.snapshot.document)) {
     const passage = node("section", undefined, "source-evidence");
-    const roles = [...new Set([...group.fields].map(evidenceLabel))];
+    const roles = [...new Set(group.members.flatMap((member) => [...member.fields].map(evidenceLabel)))];
     passage.append(node("p", roles.join(" · "), "evidence-roles"));
     const quote = node("button", group.evidence.quote, "evidence-button"); quote.type = "button";
     quote.title = "Highlight this passage in the source";
     quote.addEventListener("click", () => highlight([group.evidence], true));
     passage.append(quote);
     const components = node("div", undefined, "evidence-components");
-    for (const child of groups.filter((item) => contains(group, item) && !shown.has(item))) {
-      shown.add(child);
+    for (const child of group.members.length > 1 ? group.members : []) {
       const label = [...new Set([...child.fields].map(evidenceLabel))].join(" / ");
-      const button = node("button", `${label}: ${child.evidence.quote}`, "component-evidence"); button.type = "button";
+      const button = node("button", label, "component-evidence"); button.type = "button";
+      button.title = child.evidence.quote;
+      button.setAttribute("aria-label", `${label}, source positions ${child.evidence.start}–${child.evidence.end}`);
       button.addEventListener("click", () => highlight([child.evidence], true)); components.append(button);
     }
     if (components.childElementCount) passage.append(components);
