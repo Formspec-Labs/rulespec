@@ -22,7 +22,7 @@ This checklist remains open until each outcome has direct evidence.
 - [x] Audit names, aliases, senses, and uses separately from target existence.
 - [x] Export logical rule and term identities alongside immutable revisions.
 - [x] Bind AI revisions to actual model/request/input provenance.
-- [ ] Support term names, aliases, references and explicit sense replacement in review. Implemented and backend-tested; remaining browser interactions await unlock.
+- [x] Support term names, aliases, references and explicit sense replacement in review. Implemented, backend-tested and manually inspected in saved data; user requested data inspection instead of the remaining browser pass.
 - [x] Render component diffs and distinguish AI changes from human decisions.
 - [x] Explain unavailable definitions with retained names and reasons.
 
@@ -148,3 +148,19 @@ Current-code preview is running at http://127.0.0.1:63696/ against the isolated
 `.tools/consistency-ui-preview` workspace. Original user tab/server at 63694 was
 not changed. Resume the remaining interactions after unlock; do not spend more
 on provider trials for this completed experiment.
+
+
+### Closeout after user-directed manual inspection
+
+The user subsequently requested “Just look at the data manually yourself,” replacing
+the blocked final browser pass with direct data review. The browser-pending notes
+above describe the earlier stopping point, not a current request to unlock the Mac.
+
+[Manual closeout](../reviews/2026-09-10-manual-data-closeout.md) records inspection of
+actual source/output, enrichment edits, old/new actor evidence, consumer exports,
+Core Findings, read-only passport review events and retained regression-test events
+for alias edits, explicit sense replacement and qualification retargeting. The
+implementation/data checks are complete under that direction. Remaining browser
+interactions were not performed or represented as verified. No new model calls or
+runtime changes were needed. Known semantic limits and residual repetition remain
+explicitly documented; completion does not mean perfect extraction.
