@@ -390,6 +390,49 @@ def _usage(directory, *, reused_audit=False):
     return e.recorded_usage(directory, exclude=('base-run', 'previous', 'frozen', *(['initial-audit'] if reused_audit else [])))
 
 
+def _withheld_observations(record, capture, provenance):
+    """Keep a withheld bundle as an assessment, never as accepted rule meaning."""
+    proposals = {p['id']: p for p in record['prepared']}
+    rows = []
+    for outcome in record['outcomes']:
+        if outcome['status'] == 'applied':
+            continue
+        proposal = proposals[outcome['proposal_id']]
+        judgment = outcome.get('judgment')
+        verdict = judgment['verdict'] if judgment else 'unjudged'
+        row = {'code': 'refinement_withheld', 'assessment_kind': 'model_assessment',
+               'message': f'Proposed change was not applied ({verdict}). '
+                          + (judgment['rationale'] if judgment else 'No valid source judgment was available.'),
+               'proposal_id': proposal['id'], 'capture': capture, 'stage': record['stage'],
+               'status': outcome['status'], 'verdict': verdict,
+               'proposed_statement': proposal['fields']['summary'],
+               'proposed_target_ids': proposal['qualification_ids'],
+               'reviewed_claim_id': proposal['target_id'],
+               'judgment': deepcopy(judgment)}
+        if outcome.get('reason'):
+            row['reason'] = outcome['reason']
+        if provenance:
+            row['provenance'] = provenance
+        rows.append(row)
+    return rows
+
+
+def _observation_action(rows, snapshot, model):
+    if not rows:
+        return None
+    active = {c['id'] for c in snapshot['accepted']}
+    observations = deepcopy(rows)
+    for row in observations:
+        related = row['reviewed_claim_id'] or (row['proposed_target_ids'][0] if len(row['proposed_target_ids']) == 1 else None)
+        if related in active:
+            row['claim_id'] = related
+    return {'action': 'observe', 'expected_revision': snapshot['revision'],
+            'actor': model + ' source refinement', 'actor_kind': 'aiAgent',
+            'targets': sorted({r['claim_id'] for r in observations if r.get('claim_id')}),
+            'observations': observations,
+            'rationale': 'Record withheld model proposals for review; preserve claim meaning and approval.'}
+
+
 def refine_run(run_dir, output, model_id=e.DEFAULT_MODEL, *, audit_dir=None, env_file=None, max_chars=3000):
     """Append supported AI corrections to this workspace; preserve its raw base."""
     run_dir, output = Path(run_dir), Path(output)
@@ -418,7 +461,8 @@ def refine_run(run_dir, output, model_id=e.DEFAULT_MODEL, *, audit_dir=None, env
         "challenge_prompt": CHECK, "proposal_schemas": {stage: proposal_schema(stage)
             for stage in ("recovery", "relationships")}, "challenge_schema": CHECK_SCHEMA})
     e._save(output / "refinement.json", run)
-    key, setup_error, issues, changes = "", None, [], []
+    key, setup_error, issues, changes, withheld = "", None, [], [], []
+    observation = None
     try:
         key = e._credential(env_file)
     except Exception:
@@ -490,10 +534,19 @@ def refine_run(run_dir, output, model_id=e.DEFAULT_MODEL, *, audit_dir=None, env
                           "proposals": proposals, "prepared": prepared, "checks": checks,
                           "issues": problems, "outcomes": outcomes}
                 e._save(directory / "result.json", record)
+                attempt = challenge_attempt or record['proposal_attempt']
+                stage_dir = 'challenge' if challenge_attempt else 'proposal'
+                withheld.extend(_withheld_observations(record, directory.relative_to(output).as_posix(),
+                    e.captured_provenance(directory / stage_dir, attempt,
+                        directory.relative_to(output).as_posix() + '/' + stage_dir)))
                 run["steps"].append(directory.relative_to(output).as_posix())
                 issues.extend({"step": run["steps"][-1], **p} for p in problems)
                 e._save(output / "refinement.json", run)
         after = store.snapshot()
+        action = _observation_action(withheld, after, model_id)
+        if action:
+            after = store.apply(action)
+            observation = {'action': action, 'event': after['history'][-1]}
         if setup_error != "interrupted":
             a.audit_run(after, output / "final-audit", model_id, env_file=env_file, max_chars=max_chars)
         else:
@@ -509,6 +562,7 @@ def refine_run(run_dir, output, model_id=e.DEFAULT_MODEL, *, audit_dir=None, env
         e._save(output / "changes.json", changes)
         e._save(output / "comparison.json", compare_runs(before, after))
         e._save(output / "issues.json", issues)
+        e._save(output / "observations.json", observation)
         run.update(finished_at=e._now(), after_sha256=content_digest(after), applied_actions=len(changes))
         run["usage"] = _usage(output, reused_audit=audit_dir is not None)
         run["elapsed_seconds"] = (datetime.fromisoformat(run["finished_at"]) - datetime.fromisoformat(run["started_at"])).total_seconds()
@@ -526,7 +580,7 @@ def replay_refinement(directory, output):
     if output.exists() or output.resolve().is_relative_to(directory.resolve()):
         raise ValueError("Refinement replay needs a new output outside its input")
     manifest = e._load(directory / "manifest.json")
-    required = {"refinement.json", "configuration.json", "before.json", "after.json", "changes.json", "comparison.json", "issues.json"}
+    required = {"refinement.json", "configuration.json", "before.json", "after.json", "changes.json", "comparison.json", "issues.json", "observations.json"}
     if not required <= manifest.get("artifacts_sha256", {}).keys():
         raise e.ReplayDriftError("Refinement manifest omits required records")
     for name, sha in manifest["artifacts_sha256"].items():
@@ -543,7 +597,7 @@ def replay_refinement(directory, output):
     if audit["book"] != before:
         raise e.ReplayDriftError("Refinement input audit differs")
     from langextract.providers.schemas.gemini import GeminiSchema
-    all_changes = []
+    all_changes, withheld = [], []
     for name in run["steps"]:
         step = e._contained(directory, name)
         record, snapshot = e._load(step / "result.json"), e._load(step / "before.json")
@@ -572,6 +626,15 @@ def replay_refinement(directory, output):
                           **GeminiSchema(schema, _use_json_schema=True).to_provider_config()}
                 if e._load(step / stage / attempt["request_file"]) != {"model": run["model"], "contents": contents, "config": config}:
                     raise e.ReplayDriftError("Refinement recorded request differs")
+        attempt = record['challenge_attempt'] or record['proposal_attempt']
+        stage_dir = 'challenge' if record['challenge_attempt'] else 'proposal'
+        if [o['proposal_id'] for o in record['outcomes']] != [p['id'] for p in record['prepared']]:
+            raise e.ReplayDriftError('Refinement outcome accounting differs')
+        for outcome in record['outcomes']:
+            if outcome['judgment'] != record['checks'].get(outcome['proposal_id']):
+                raise e.ReplayDriftError('Refinement outcome differs from source judgment')
+        withheld.extend(_withheld_observations(record, name,
+            e.captured_provenance(step / stage_dir, attempt, name + '/' + stage_dir)))
         for outcome in record["outcomes"]:
             if outcome["status"] == "applied":
                 if record["checks"].get(outcome["proposal_id"], {}).get("verdict") != "supported" or outcome["event"] not in after["history"]:
@@ -596,12 +659,24 @@ def replay_refinement(directory, output):
                 all_changes.append({"stage": record["stage"], "window_id": record["window"]["id"], **outcome})
     if all_changes != e._load(directory / "changes.json") or compare_runs(before, after) != e._load(directory / "comparison.json"):
         raise e.ReplayDriftError("Refinement change accounting differs")
-    if after["history"][:len(before["history"])] != before["history"] or after["history"][len(before["history"]):] != [c["event"] for c in all_changes]:
+    observation = e._load(directory / 'observations.json')
+    events = [c['event'] for c in all_changes]
+    if observation:
+        events.append(observation['event'])
+    if after["history"][:len(before["history"])] != before["history"] or after["history"][len(before["history"]):] != events:
         raise e.ReplayDriftError("Refinement lost or invented review history")
     with tempfile.TemporaryDirectory() as temporary:
         workspace = Path(temporary) / "workspace"
         _copy_run(directory / "base-run", workspace)
         store = ReviewStore(workspace)
+        prior = store._snapshot(before['history'] + [c['event'] for c in all_changes])
+        expected_action = _observation_action(withheld, prior, run['model'])
+        if observation:
+            event = observation['event']
+            if expected_action is None or observation['action'] != expected_action or any(event[k] != expected_action[k] for k in ('action', 'actor', 'actor_kind', 'targets', 'rationale', 'observations')):
+                raise e.ReplayDriftError('Refinement observations differ from withheld proposals')
+        elif expected_action and run['status'] == 'complete':
+            raise e.ReplayDriftError('Refinement lost withheld proposal observations')
         if store._snapshot(before["history"]) != before or store._snapshot(after["history"]) != after:
             raise e.ReplayDriftError("Refinement review/evidence reconstruction differs")
     output.mkdir(parents=True)

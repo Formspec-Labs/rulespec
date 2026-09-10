@@ -316,6 +316,13 @@ still carry their complete fields. Links cannot rewrite an exemption, silently
 remove existing targets or bypass current-record/revision checks. See the
 [integration check](../../thoughts/experiments/2026-09-10-compact-link-integration/README.md).
 
+Withheld refinement proposals remain visible as model assessments in review and
+discovery issues. They retain their proposed targets, source judgment and request
+provenance through the existing `observe` history action. They do not change claim
+meaning or approval. Observations about superseded claims stay at document level;
+Rulespec does not silently attach them to a replacement. Replay checks these
+observations against the saved proposal and source judgment.
+
 Strict replay checks saved artifacts and runtime fingerprints and refuses drift.
 Reprocessing preserves the original capture and records the changed processing;
 it supports the current response format, not retired formats. Recorded compiler

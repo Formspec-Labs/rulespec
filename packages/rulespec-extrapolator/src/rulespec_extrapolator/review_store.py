@@ -349,7 +349,7 @@ class ReviewStore:
             "current": current_claims,
             "revisions": revisions,
             "current_issues": current_issues,
-            "enrichment_issues": [issue for issue in observations if not issue.get('claim_id')],
+            "enrichment_issues": [issue for issue in observations if issue.get('claim_id') not in current],
             "review_summary": {
                 **counts,
                 "total": len(current_claims),

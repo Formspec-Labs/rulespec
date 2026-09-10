@@ -98,15 +98,85 @@ def test_live_pipeline_restores_omission_and_replays_without_provider(monkeypatc
         r.replay_refinement(tmp_path / 'refine', tmp_path / 'bad-replay')
 
 
-def test_source_challenge_can_refuse_exactly_grounded_wrong_meaning(monkeypatch, tmp_path):
+@pytest.mark.parametrize('verdict', ['unsupported', 'unknown'])
+def test_source_challenge_keeps_withheld_assessment_without_changing_meaning(monkeypatch, tmp_path, verdict):
     path = workspace(tmp_path)
     before = ReviewStore(path).snapshot()
-    env, _ = provider(monkeypatch, tmp_path, answers('unsupported'))
+    env, _ = provider(monkeypatch, tmp_path, answers(verdict))
     result = r.refine_run(path, tmp_path / 'refused', env_file=env)
-    assert result['rulebook'] == before
+    after = result['rulebook']
+    assert after['accepted'] == before['accepted']
+    assert after['revision'] == before['revision'] + 1
+    observation = after['enrichment_issues'][0]
+    assert observation['code'] == 'refinement_withheld'
+    assert observation['verdict'] == verdict
+    assert observation['assessment_kind'] == 'model_assessment'
+    assert observation['judgment']['source_refs'] == ['F000']
+    assert observation['provenance']['request_sha256']
+    assert ReviewStore(path).snapshot() == after
+    from rulespec_extrapolator.discovery import export_discovery
+    assert export_discovery(after)['enrichment_issues'] == after['enrichment_issues']
     assert result['run']['applied_actions'] == 0
     row = e._load(tmp_path / 'refused/recovery/window-0000/result.json')['outcomes'][0]
-    assert row['status'] == 'not_applied' and row['judgment']['verdict'] == 'unsupported'
+    assert row['status'] == 'not_applied' and row['judgment']['verdict'] == verdict
+    assert r.replay_refinement(tmp_path / 'refused', tmp_path / 'replayed')['applied_actions'] == 0
+
+
+def test_withheld_link_observation_preserves_approval_and_survives_target_revision(monkeypatch, tmp_path):
+    store = ReviewStore(workspace(tmp_path))
+    claim_id = store.snapshot()['accepted'][0]['id']
+    store.apply({'action': 'approve', 'actor': 'reviewer', 'actor_kind': 'aiAgent',
+        'expected_revision': 0, 'targets': [claim_id], 'rationale': 'Checked source.'})
+    env, _ = provider(monkeypatch, tmp_path, answers('unsupported', linked=True))
+    result = r.refine_run(tmp_path / 'workspace', tmp_path / 'refused', env_file=env)
+    claim = result['rulebook']['accepted'][0]
+    assert claim['review_status'] == 'approved' and claim['target_ids'] == []
+    issue = next(i for i in claim['issues'] if i['code'] == 'refinement_withheld')
+    assert issue['proposed_target_ids'] == [claim_id]
+    from rulespec_extrapolator.discovery import export_discovery
+    from rulespec_extrapolator.core import sparse
+    assert sparse(issue) in export_discovery(result['rulebook'])['statements'][0]['issues']
+    after = store.apply({'action': 'edit', 'actor': 'reviewer', 'actor_kind': 'aiAgent',
+        'expected_revision': 2, 'targets': [claim_id], 'rationale': 'Clarify wording.',
+        'replacements': [{'summary': 'All visitors must carry a badge.'}]})
+    assert issue in after['enrichment_issues']
+    assert issue not in after['accepted'][0]['issues']
+
+
+def test_withheld_bundle_keeps_all_targets_without_choosing_one(tmp_path):
+    book = ReviewStore(workspace(tmp_path)).snapshot()
+    targets = [book['accepted'][0]['id'], 'another-target']
+    rows = [{'reviewed_claim_id': None, 'proposed_target_ids': targets}]
+    action = r._observation_action(rows, book, 'test')
+    assert action['targets'] == []
+    assert action['observations'][0]['proposed_target_ids'] == targets
+    assert 'claim_id' not in action['observations'][0]
+
+
+def test_unjudged_proposal_remains_visible_in_partial_run(monkeypatch, tmp_path):
+    path = workspace(tmp_path)
+    responses = answers()
+    responses[3] = {'judgments': []}
+    env, _ = provider(monkeypatch, tmp_path, responses)
+    result = r.refine_run(path, tmp_path / 'unjudged', env_file=env)
+    assert result['run']['status'] == 'partial'
+    assert result['run']['applied_actions'] == 0
+    assert result['rulebook']['enrichment_issues'][0]['verdict'] == 'unjudged'
+    assert r.replay_refinement(tmp_path / 'unjudged', tmp_path / 'replayed')['applied_actions'] == 0
+
+
+def test_replay_rejects_altered_withheld_judgment_even_with_updated_manifest(monkeypatch, tmp_path):
+    path = workspace(tmp_path)
+    env, _ = provider(monkeypatch, tmp_path, answers('unsupported'))
+    output = tmp_path / 'refused'
+    r.refine_run(path, output, env_file=env)
+    record_path = output / 'recovery/window-0000/result.json'
+    record = e._load(record_path)
+    record['outcomes'][0]['judgment']['rationale'] = 'A different interpretation.'
+    e._save(record_path, record)
+    e._write_manifest(output)
+    with pytest.raises(e.ReplayDriftError, match='outcome differs'):
+        r.replay_refinement(output, tmp_path / 'replay')
 
 
 def test_qualification_uses_exact_current_target_and_preserves_baseline(monkeypatch, tmp_path):
