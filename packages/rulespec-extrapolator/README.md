@@ -300,6 +300,14 @@ and final-audit passes, with at most 60 current claims and eight proposals per
 focus group. `--audit` can reuse an assessment only when it matches the current
 snapshot. This optional path was not part of the final low/medium run.
 
+Refinement challenges use the same CUE-derived passage-reference schema and exact
+source resolver as the audit. The model selects supplied passages; Rulespec records
+their original text and offsets with the judgment. This avoids quotation-copying
+errors without introducing whitespace or fuzzy matching. Proposal quotations still
+require exact grounding. The [integration check](../../thoughts/experiments/2026-09-10-challenge-source-refs/README.md)
+retains the live railroad result and refusal controls; reference validity alone
+does not establish that a judgment is correct.
+
 Strict replay checks saved artifacts and runtime fingerprints and refuses drift.
 Reprocessing preserves the original capture and records the changed processing;
 it supports the current response format, not retired formats. Recorded compiler

@@ -67,10 +67,10 @@ import (
 // Territorial scope only when explicitly supported in supplied text; never infer from URL. Use only territory explicitly provided by source wording. The document title, institution or web address is not evidence for an inferred territorial applicability claim.
 #Jurisdiction: string @title("Jurisdiction")
 
-// A condition/exception's relationship to its baseline; none for other kinds. The source decides which baseline a qualification governs. Contextual proximity alone does not. An even-though or despite clause may preserve a duty rather than remove it. The qualification must retain the baseline's scope and the limits of the modification. When a locally stated rule has an explicit exception, retain the complete baseline with its original kind and relation none, and also emit a separate exception unit linked to it. Do not turn the baseline itself into an exception or strip the exception from its meaning. A conditional permission does not by itself cancel a neighboring duty.
+// A condition/exception's relationship to its baseline. An exemption may use exception to connect its explicit absence of duty to affected rules, preserving kind exemption and modality not_required; leave none when no target is established. Other kinds use none. The source decides which baseline a qualification governs. Contextual proximity alone does not. An even-though or despite clause may preserve a duty rather than remove it. The qualification must retain the baseline's scope and the limits of the modification. When a locally stated rule has an explicit exception, retain the complete baseline with its original kind and relation none, and also emit a separate exception unit linked to it. Reuse an existing exemption by linking it without reclassifying or duplicating its statement. Do not turn the baseline itself into an exception or strip the exception from its meaning. A conditional permission does not by itself cancel a neighboring duty.
 #Relation: "none" | "scope" | "prerequisite" | "trigger" | "exception" @title("Relation")
 
-// Immutable claim revision IDs targeted by this condition or exception. Evidence
+// Immutable claim revision IDs targeted by this condition, exception or exemption. Evidence
 // passages may support multiple rules and must never serve as target identities.
 // Select the actual baseline whose meaning changes. Changed or rejected targets
 // require review; never silently retarget by wording or source proximity.

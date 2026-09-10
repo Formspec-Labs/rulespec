@@ -48,7 +48,7 @@ def empty():
 
 
 def judgment(verdict='supported'):
-    return {'judgments': [{'proposal_id': 'P0000', 'quotes': ['Volunteers are not required to carry a badge.'],
+    return {'judgments': [{'proposal_id': 'P0000', 'source_refs': ['F000'],
         'rationale': 'The source explicitly removes this duty for volunteers.', 'verdict': verdict}]}
 
 

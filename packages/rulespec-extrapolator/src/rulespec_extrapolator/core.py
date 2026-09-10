@@ -186,8 +186,12 @@ def _claim(document, candidate, *, rule_id, occurrence_id, origin="aiSuggested")
         if c["relation"] == "none" or not c["applies_to"]:
             issues.append(_issue("qualification_target_missing", "applies_to",
                                  "This qualification needs its affected rule or rules."))
+    elif c["kind"] == "exemption":
+        if c["relation"] != "none" or c["applies_to"]:
+            if c["relation"] != "exception" or not c["applies_to"] or c['modality'] != 'not_required':
+                raise ValueError("A linked exemption needs not_required force, an exception relationship and affected rules")
     elif c["relation"] != "none" or c["applies_to"]:
-        raise ValueError("Only condition or exception candidates may qualify other rules")
+        raise ValueError("Only condition, exception or exemption candidates may qualify other rules")
     if c["kind"] == "exception" and c["relation"] != "exception":
         raise ValueError("An exception must use the exception relationship")
     # Application revision identity is not a Core assertion identity.
@@ -263,7 +267,7 @@ def resolve_links(document, claims):
         c["target_ids"] = []
         incomplete = False
         for identity in c["applies_to"]:
-            if identity in baselines:
+            if identity in baselines and identity != c['id']:
                 c["target_ids"].append(identity)
             else:
                 incomplete = True
