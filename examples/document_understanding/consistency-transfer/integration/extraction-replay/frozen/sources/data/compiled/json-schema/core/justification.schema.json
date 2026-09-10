@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/justification.json",
+  "title": "justification",
+  "$defs": {
+    "Justification": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:Justification"
+        },
+        "rkaf:hasWarrant": {
+          "type": "string"
+        },
+        "rkaf:basedOnEvidence": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "rkaf:asserted_by": {
+          "type": "string"
+        },
+        "rkaf:assertedAt": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:hasWarrant"
+      ]
+    }
+  }
+}

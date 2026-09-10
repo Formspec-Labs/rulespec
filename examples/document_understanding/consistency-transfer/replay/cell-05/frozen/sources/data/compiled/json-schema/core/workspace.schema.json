@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/workspace.json",
+  "title": "workspace",
+  "$defs": {
+    "Workspace": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:Workspace"
+        },
+        "rkaf:workspaceId": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]+$"
+        },
+        "rkaf:workspaceTrustList": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:workspaceId"
+      ]
+    }
+  }
+}

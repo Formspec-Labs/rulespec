@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/revalidation-event.json",
+  "title": "revalidation-event",
+  "$defs": {
+    "RevalidationClosureDecision": {
+      "type": "string",
+      "enum": [
+        "rkaf:revalidated",
+        "rkaf:supersededBySuccessor",
+        "rkaf:retainedForPointInTime",
+        "rkaf:retired"
+      ]
+    },
+    "RevalidationEvent": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:RevalidationEvent"
+        },
+        "rkaf:revalidationFor": {
+          "type": "string"
+        },
+        "rkaf:triggeredBy": {
+          "type": "string"
+        },
+        "rkaf:openedAt": {
+          "type": "string"
+        },
+        "rkaf:bridgeContractVersion": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:revalidationFor",
+        "rkaf:triggeredBy",
+        "rkaf:openedAt",
+        "rkaf:bridgeContractVersion"
+      ]
+    },
+    "RevalidationClosureEvent": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:RevalidationClosureEvent"
+        },
+        "rkaf:closesRevalidation": {
+          "type": "string"
+        },
+        "rkaf:closureDecision": {
+          "$ref": "#/$defs/RevalidationClosureDecision"
+        },
+        "rkaf:successorAssertion": {
+          "type": "string"
+        },
+        "rkaf:successorWorkProduct": {
+          "type": "string"
+        },
+        "rkaf:closedAt": {
+          "type": "string"
+        },
+        "rkaf:bridgeContractVersion": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:closesRevalidation",
+        "rkaf:closureDecision",
+        "rkaf:closedAt",
+        "rkaf:bridgeContractVersion"
+      ]
+    }
+  }
+}

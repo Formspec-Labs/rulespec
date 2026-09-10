@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/registry-conflict.json",
+  "title": "registry-conflict",
+  "$defs": {
+    "ConflictSeverity": {
+      "type": "string",
+      "enum": [
+        "rkaf:informational",
+        "rkaf:operationalConflict",
+        "rkaf:publicationBlocking",
+        "rkaf:authorityCritical"
+      ]
+    },
+    "RegistryConflict": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:RegistryConflict"
+        },
+        "rkaf:conflictingEntries": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+          },
+          "minItems": 2
+        },
+        "rkaf:severity": {
+          "$ref": "#/$defs/ConflictSeverity"
+        },
+        "rkaf:conflictingScope": {
+          "type": "string"
+        },
+        "rkaf:detectedAt": {
+          "type": "string"
+        },
+        "rkaf:detectedBy": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:conflictingEntries",
+        "rkaf:severity",
+        "rkaf:detectedAt"
+      ]
+    }
+  }
+}

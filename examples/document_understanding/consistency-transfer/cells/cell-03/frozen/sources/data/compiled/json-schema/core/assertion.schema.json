@@ -1,0 +1,603 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/assertion.json",
+  "title": "assertion",
+  "$defs": {
+    "AssertionOrigin": {
+      "type": "string",
+      "enum": [
+        "rkaf:humanAsserted",
+        "rkaf:aiSuggested",
+        "rkaf:imported",
+        "rkaf:deterministicExtraction"
+      ]
+    },
+    "EpistemicBasis": {
+      "type": "string",
+      "enum": [
+        "rkaf:sourceExplicit",
+        "rkaf:deterministicDerivation",
+        "rkaf:statisticalInference",
+        "rkaf:editorialAssertion",
+        "rkaf:userAssertion"
+      ]
+    },
+    "ProvisionalAIUsageEligibility": {
+      "type": "string",
+      "enum": [
+        "rkaf:notEligible",
+        "rkaf:searchOnly",
+        "rkaf:reviewQueueOnly"
+      ]
+    },
+    "AssertionPolarity": {
+      "type": "string",
+      "enum": [
+        "rkaf:affirmed",
+        "rkaf:denied"
+      ]
+    },
+    "UsageEligibility": {
+      "type": "string",
+      "enum": [
+        "rkaf:notEligible",
+        "rkaf:searchOnly",
+        "rkaf:reviewQueueOnly",
+        "rkaf:draftGenerationAllowed",
+        "rkaf:localOperationalUse",
+        "rkaf:publicationAllowed",
+        "rkaf:officialUse"
+      ]
+    },
+    "ConsumerLifecycleState": {
+      "type": "string",
+      "enum": [
+        "rkaf:draft",
+        "rkaf:proposedForOperational",
+        "rkaf:operational",
+        "rkaf:staleForCurrentUse",
+        "rkaf:published"
+      ]
+    },
+    "SafetyLabel": {
+      "type": "string",
+      "enum": [
+        "rkaf:D0DisplayOnly",
+        "rkaf:S1Suggestion",
+        "rkaf:R2Review",
+        "rkaf:A3Advisory",
+        "rkaf:A3AdvisoryAggregated",
+        "rkaf:A3AuthorityCritical",
+        "rkaf:P4Production",
+        "rkaf:permits-axiomatic",
+        "rkaf:permits-consensus-without-citation",
+        "rkaf:permits-all"
+      ]
+    },
+    "AssertionProposition": {
+      "type": "object",
+      "properties": {
+        "rkaf:assertsSubject": {
+          "type": "string"
+        },
+        "rkaf:assertsPredicate": {
+          "type": "string"
+        },
+        "rkaf:assertionPolarity": {
+          "$ref": "#/$defs/AssertionPolarity"
+        }
+      },
+      "required": [
+        "rkaf:assertsSubject",
+        "rkaf:assertsPredicate",
+        "rkaf:assertionPolarity"
+      ]
+    },
+    "ConsumerDisposition": {
+      "type": "object",
+      "properties": {
+        "rkaf:usageEligibility": {
+          "$ref": "#/$defs/UsageEligibility"
+        },
+        "rkaf:consumerLifecycleState": {
+          "$ref": "#/$defs/ConsumerLifecycleState"
+        },
+        "rkaf:hasAccessScope": {
+          "type": "string"
+        }
+      }
+    },
+    "AssertionEnvelope": {
+      "type": "object",
+      "properties": {
+        "rkaf:usageEligibility": {
+          "$ref": "#/$defs/UsageEligibility"
+        },
+        "rkaf:consumerLifecycleState": {
+          "$ref": "#/$defs/ConsumerLifecycleState"
+        },
+        "rkaf:hasAccessScope": {
+          "type": "string"
+        },
+        "rkaf:assertionOrigin": {
+          "$ref": "#/$defs/AssertionOrigin"
+        },
+        "rkaf:epistemicBasis": {
+          "$ref": "#/$defs/EpistemicBasis"
+        },
+        "rkaf:hasApplicability": {
+          "type": "string"
+        },
+        "rkaf:hasJustification": {
+          "type": "string"
+        },
+        "rkaf:hasWarrant": {
+          "type": "string"
+        },
+        "rkaf:hasAuthority": {
+          "type": "string"
+        },
+        "rkaf:hasRetentionPolicy": {
+          "type": "string"
+        },
+        "prov:wasDerivedFrom": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            }
+          ]
+        },
+        "rkaf:hasSourceClaimant": {
+          "type": "string"
+        },
+        "rkaf:hasExtractionProvenance": {
+          "type": "string"
+        },
+        "rkaf:hasConfidence": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "rkaf:supersedesAssertion": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "rkaf:assertedAt": {
+          "type": "string"
+        },
+        "rkaf:hasAILineage": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "rkaf:assertionOrigin"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "rkaf:assertionOrigin": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:aiSuggested"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:aiSuggested"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:assertionOrigin"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:hasAILineage": {
+                "type": "string"
+              },
+              "rkaf:usageEligibility": {
+                "$ref": "#/$defs/ProvisionalAIUsageEligibility"
+              }
+            },
+            "required": [
+              "rkaf:hasAILineage",
+              "rkaf:usageEligibility"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:assertionOrigin": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:deterministicExtraction"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:deterministicExtraction"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:assertionOrigin"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:hasExtractionProvenance": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "rkaf:hasExtractionProvenance"
+            ]
+          }
+        }
+      ]
+    },
+    "DurableAssertionEnvelope": {
+      "type": "object",
+      "properties": {
+        "rkaf:usageEligibility": {
+          "$ref": "#/$defs/UsageEligibility"
+        },
+        "rkaf:consumerLifecycleState": {
+          "$ref": "#/$defs/ConsumerLifecycleState"
+        },
+        "rkaf:hasAccessScope": {
+          "type": "string"
+        },
+        "rkaf:assertionOrigin": {
+          "$ref": "#/$defs/AssertionOrigin"
+        },
+        "rkaf:epistemicBasis": {
+          "$ref": "#/$defs/EpistemicBasis"
+        },
+        "rkaf:hasApplicability": {
+          "type": "string"
+        },
+        "rkaf:hasJustification": {
+          "type": "string"
+        },
+        "rkaf:hasWarrant": {
+          "type": "string"
+        },
+        "rkaf:hasAuthority": {
+          "type": "string"
+        },
+        "rkaf:hasRetentionPolicy": {
+          "type": "string"
+        },
+        "prov:wasDerivedFrom": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            }
+          ]
+        },
+        "rkaf:hasSourceClaimant": {
+          "type": "string"
+        },
+        "rkaf:hasExtractionProvenance": {
+          "type": "string"
+        },
+        "rkaf:hasConfidence": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "rkaf:supersedesAssertion": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "rkaf:assertedAt": {
+          "type": "string"
+        },
+        "rkaf:hasAILineage": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "rkaf:assertionOrigin",
+        "rkaf:epistemicBasis"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "rkaf:assertionOrigin": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:aiSuggested"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:aiSuggested"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:assertionOrigin"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:hasAILineage": {
+                "type": "string"
+              },
+              "rkaf:usageEligibility": {
+                "$ref": "#/$defs/ProvisionalAIUsageEligibility"
+              }
+            },
+            "required": [
+              "rkaf:hasAILineage",
+              "rkaf:usageEligibility"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:assertionOrigin": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:deterministicExtraction"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:deterministicExtraction"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:assertionOrigin"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:hasExtractionProvenance": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "rkaf:hasExtractionProvenance"
+            ]
+          }
+        }
+      ]
+    },
+    "Assertion": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:Assertion"
+        },
+        "rkaf:usageEligibility": {
+          "$ref": "#/$defs/UsageEligibility"
+        },
+        "rkaf:consumerLifecycleState": {
+          "$ref": "#/$defs/ConsumerLifecycleState"
+        },
+        "rkaf:hasAccessScope": {
+          "type": "string"
+        },
+        "rkaf:assertionOrigin": {
+          "$ref": "#/$defs/AssertionOrigin"
+        },
+        "rkaf:epistemicBasis": {
+          "$ref": "#/$defs/EpistemicBasis"
+        },
+        "rkaf:hasApplicability": {
+          "type": "string"
+        },
+        "rkaf:hasJustification": {
+          "type": "string"
+        },
+        "rkaf:hasWarrant": {
+          "type": "string"
+        },
+        "rkaf:hasAuthority": {
+          "type": "string"
+        },
+        "rkaf:hasRetentionPolicy": {
+          "type": "string"
+        },
+        "prov:wasDerivedFrom": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            }
+          ]
+        },
+        "rkaf:hasSourceClaimant": {
+          "type": "string"
+        },
+        "rkaf:hasExtractionProvenance": {
+          "type": "string"
+        },
+        "rkaf:hasConfidence": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "rkaf:supersedesAssertion": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "rkaf:assertedAt": {
+          "type": "string"
+        },
+        "rkaf:hasSafetyLabel": {
+          "$ref": "#/$defs/SafetyLabel"
+        },
+        "rkaf:hasAILineage": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:assertionOrigin",
+        "rkaf:epistemicBasis"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "rkaf:assertionOrigin": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:aiSuggested"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:aiSuggested"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:assertionOrigin"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:hasAILineage": {
+                "type": "string"
+              },
+              "rkaf:usageEligibility": {
+                "$ref": "#/$defs/ProvisionalAIUsageEligibility"
+              }
+            },
+            "required": [
+              "rkaf:hasAILineage",
+              "rkaf:usageEligibility"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rkaf:assertionOrigin": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:deterministicExtraction"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:deterministicExtraction"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:assertionOrigin"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:hasExtractionProvenance": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "rkaf:hasExtractionProvenance"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
