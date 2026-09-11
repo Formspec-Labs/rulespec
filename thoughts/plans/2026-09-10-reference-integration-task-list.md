@@ -6,7 +6,7 @@ extraction/discovery consumers. R1–R26 are stable identifiers for follow-up wo
 This update includes retention, optional-reader capture, qualified USC delivery,
 removal of unused citation copies, compilation occurrence delivery and the
 independent part-zero minter correction and complete CFR range delivery. The latest
-application suite passes 645 tests from source and its installed wheel; the graph
+application suite passes 662 tests from source and its installed wheel; the graph
 package's preceding checkpoint passes 30 tests from source and its isolated wheel.
 Earlier counts belong to their linked checkpoints. Original captures and reviews
 remain intact; no model call, publication or deployment was needed for this cleanup.
@@ -22,8 +22,13 @@ The [range/prose comparison](../experiments/2026-09-11-cfr-range-prose/README.md
 is now complete and failed adoption: requiring a readable numeric endpoint
 recovers eight fresh publisher examples but accepts eleven incomplete-range
 controls; a narrow prose rule recovers none of those eight. Preserve the installed
-reader and retain the defect for a different hypothesis. Stable reference-feedback
-anchors and one discovery consumer are the next independent R17/R18 slice. The
+reader and retain the defect for a different hypothesis. The saved-run
+[reference-feedback route is now installed](../experiments/2026-09-11-reference-feedback/README.md):
+comments, accepted/rejected readings, repeated occurrences, reader/source pins and
+supplied-source diagnostics survive review and discovery. Seventeen focused
+checks and 662 source/installed application tests pass. A concrete discovery
+comparison is the next independent R17/R18 slice; source-only reporting, missed
+mentions and resolution display remain open. The
 [expanded reader comparison](../experiments/2026-09-11-ecfr-text/README.md) directly
 checked SpicySearch, DocSpec and SpicyDocs. DocSpec already supplies XML visible
 text and byte maps; its current table/line-break behavior does not replace native
@@ -96,6 +101,18 @@ are proposed approaches, not completed integrations. In particular, discovery
 feedback and exact publisher-address lookup need not wait for inferred citation
 context, graph-parser migration, or another model pass. Keep the shared source
 evidence while evaluating those outcomes independently.
+
+The latest independent surveys revisit those recommendations against the
+feedback implementation: [source and feedback](../reviews/2026-09-11-source-feedback-cross-relevance.md),
+[consumer experiments](../reviews/2026-09-11-consumer-experiment-cross-relevance.md),
+and [sibling ownership](../reviews/2026-09-11-sibling-owner-cross-relevance.md).
+Their shared recommendation is to use the delivered evidence in one discovery
+comparison, keep reviewed workflow preparation separate, and require a named
+consumer before expanding parsers or upgrading sibling dependencies. The source
+survey's reproduced diagnostic-retention omission is fixed and tested in the
+feedback delivery. Other recommendations remain proposals.
+The feedback implementation and retained checks are committed locally as `02c482b`;
+the reports describe their inspection snapshots. No push or deployment occurred.
 
 | Order | Outcome | Tasks | Completion evidence |
 | --- | --- | --- | --- |
@@ -232,7 +249,7 @@ release. Preserve the completed foundation and make one bounded change at a time
 | R15 | Bounded context from sections and located references | Experiment selector and controls complete; adoption deferred after failed gate | M |
 | R16 | Measured comprehension gain from that context | Twelve-call comparison complete; no targeted gain, new modality defect, one incomplete response | L |
 | R17 | Better search and discovery using source and meaning | Retrieval pilot regressed; narrower alternatives open | M–L |
-| R18 | Persistent corrections and review identity | Changed-ID delivery controls pass; reference feedback and optional continuity work remain open | S–M |
+| R18 | Persistent corrections and review identity | Saved-run reference feedback installed; source-only/missed-mention reporting, consumer display, resolution and optional continuity remain open | S–M |
 | R19 | One reviewed workflow/forms preparation example | Planned | L |
 | R20 | Verified inventory of useful sibling code and corpus inputs | Partial inventory; selected SpicySearch, DocSpec and SpicyDocs readers directly checked; remaining compatibility checks open | S–M |
 | R21 | Reuse structured publication metadata and useful associations | Existing producers/consumers; new connection unverified | M |
@@ -252,14 +269,17 @@ reprocessing output starts pending, including when claim IDs change. The
 [capture result](../experiments/2026-09-11-reader-runtime-capture/README.md) adds
 reader/helper sources and versions without changing those statements or discovery
 output. That checkpoint passed 559 source and installed tests; the latest
-application delivery passes 645.
+application delivery passes 662.
 
-1. **Prove one discovery correction path — R3/R17/R18/R24; effort S–M.**
-   Reuse the existing observation/reload/export route for accepted, rejected,
-   repeated and rescanned references. Preserve the challenged reading and its
-   source/reader version. Then compare source-only retrieval with separately
-   ranked statement results and bounded evidence expansion. Do not compare raw
-   scores from differently populated indexes as though they were calibrated.
+1. **Measure one discovery use — R3/R17/R18/R24; effort S–M.**
+   The saved-run observation/reload/export route is delivered for accepted,
+   rejected, repeated and rescanned references, including source diagnostics.
+   First compare fixed source-ranked results with and without bounded evidence
+   expansion; retain current versus challenged reading in a selected consumer.
+   Test separately ranked statement results only if ranking failures warrant it.
+   Do not compare raw scores from differently populated indexes as though they
+   were calibrated. Missing-mention reporting and source-only workspaces remain
+   independent entry points, not reasons to rerun the persistence experiment.
 2. **Choose one additional source or vocabulary benefit — R11/R12/R20–R23;
    effort S–M.** Exact current-document publisher addresses, stated metadata and
    agency/general-label suggestions are independent candidates. Select one named
@@ -316,7 +336,7 @@ estimates describe relative scope; they are not delivery promises.
 | Next source work | R9/R10/R11/R12 | Exact publisher addresses can be assessed independently; inferred context and general prose addresses retain separate gates |
 | Consolidate when a replacement is ready | R8 | Trace callers and prove parity before removing superseded code; avoid dependency cycles |
 | Choose for a demonstrated consumer | R12, remaining R13, R17, R21, R22, remaining R23 | Verify required data under R20 and connect one useful capability |
-| Demonstrate consumer value | R17/R18; separately R19 | Reference feedback can start now; a reviewed workflow example shares source evidence without requiring the same process |
+| Demonstrate consumer value | R17/R18; separately R19 | Saved-run reference feedback is delivered; use it in one discovery comparison. A reviewed workflow example shares source evidence without requiring the same process |
 | Separate model experiments | R16/R25 → relevant R26 work | Fix deterministic loss first; test one semantic change or cost reduction at a time |
 | Validate claims of benefit | R24 | Fresh source meanings and product outcomes, distinct from package tests or schema validity |
 
@@ -1219,23 +1239,31 @@ source-plus-summary concatenation by default; its saved comparison regressed.
   Let users report a wrong citation reading, wrong edition/target, or missing
   reference against stable occurrence and source identities. Distinguish that
   correction from a claim about the legal relationship between provisions.
-- [ ] First cover rejected readings as well as accepted ones: `references.record`
+  The saved-run CLI now covers existing accepted and rejected readings; a
+  dedicated consumer interface and wholly missed mentions remain open.
+- [x] Cover rejected readings as well as accepted ones: `references.record`
   currently returns rejections before assigning its accepted occurrence ID.
   Reuse source-fragment identity, written reading and reader provenance for a
   stable feedback anchor, including repeated identical mentions. Existing
   `ReviewStore` observations can carry reference feedback without claim targets;
-  validate that route before introducing another feedback store or ID system.
-  Start with an existing saved run: `ReviewStore` expects document, run and
-  rulebook files. Source-only reference feedback needs an explicit entry point;
-  it should not acquire a model-extraction prerequisite by accident.
-- [ ] Reuse review events and provenance. Preserve observations when claims or
-  parser readings are superseded, and show what was resolved versus still disputed.
+  the [feedback delivery](../experiments/2026-09-11-reference-feedback/README.md)
+  verifies that route without another store or ID system. The command uses an
+  existing saved run: `ReviewStore` expects document, run and rulebook files.
+- [ ] Add a source-only entry point or exact-span report for a wholly missed
+  mention when the selected consumer needs one. Neither should acquire a model
+  prerequisite or fabricate a scanner candidate.
+- [x] Reuse review events and provenance. Original observations retain their
+  challenged reading, comment, parser/index pins, source metadata, selected
+  targets and source diagnostics through reload/export. Claims and approvals stay
+  unchanged; the final source and isolated suites each pass 662 tests.
+- [ ] Show what was resolved versus still disputed when claims or readings change.
   Avoid requiring a person to approve every discovery candidate.
-- [ ] Pin the challenged reading as well as its source occurrence: the same
+- [x] Pin the challenged reading as well as its source occurrence: the same
   accepted ID can be rescanned with a changed interpretation. Human observations
   can hold parser/index/source details in their data; top-level action `provenance`
   is reserved for AI captures. Test accepted/rejected readings, repeated mentions
-  and a changed rescan through reload/export. An observation records feedback;
+  and a changed rescan through reload/export; all are covered in the 17 focused
+  feedback checks. An observation records feedback;
   it does not currently override scanner output or choose a target.
 
 **Done when:** a correction survives reload/export and is connected to the version
@@ -1373,6 +1401,9 @@ adds value. Declared source references remain distinct from inferred association
   original occurrence evidence and lookup pins: the query result lacks raw source
   offsets. Check language scope and agency ID domains explicitly; Federal Register
   slug/name IDs are not interchangeable with regulations.gov agency IDs.
+  Current `suggest` and `resolve` return `None` for ambiguity; they do not expose
+  competing identities. If a chosen consumer needs that detail, extend the owning
+  SpicySearch API rather than copying its label maps into Rulespec.
 
 **Done when:** a named tagging or cross-document lookup task gains useful links
 without false identity merges or larger mandatory model output. Broader/narrower
@@ -1389,12 +1420,18 @@ not become an asserted legal relationship.
   structure needs a separate explicit representation decision; do not imply that
   adding spaces restores row/column meaning. This is independent of R12's native
   XML reference-source integration.
+  The visible-text helper has no current production caller in DocSpec/SpicySearch
+  source; normal DocSpec XML extraction preserves XML bytes. The saved probe is a
+  concrete caller, but a helper fix alone cannot establish a search improvement.
 - [ ] Before a DocSpec wheel upgrade, validate its pairing with SpicySearch.
   Live `platform_source_catalog` imports the removed
   `docspec.adapters.source_catalog_artifact` module; the existing definitions
   moved under `catalog_artifact`, and the requested public streaming API remains
   unimplemented. Resolve the owning API boundary and run focused sibling-wheel
   checks. This source mismatch does not establish a fault in the installed pair.
+  The inspected vendored/installed wheel still contains the old module. Preserve
+  SpicySearch's validation of counts/tallies before delivering any rows, along
+  with located streaming and bounded memory; moving an import alone is insufficient.
 
 The R10 comparison now supplies specific source cases: italic deep-level markers
 in the saved seatbelt XML, `(i)` embedded in a definition's physical paragraph,
