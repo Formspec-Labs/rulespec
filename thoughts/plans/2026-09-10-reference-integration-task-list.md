@@ -3,14 +3,17 @@
 Updated 2026-09-11 against the local code and saved evidence. This is the current
 backlog for the reference work, useful sibling-repository capabilities, and their
 extraction/discovery consumers. R1–R26 are stable identifiers for follow-up work.
-This update includes completed retention and optional-reader capture delivery.
-The current source and isolated package suites each pass 559 tests. Working commands
-match isolated results; original captures/reviews remain intact. Counts belong to
-their linked checkpoints. No new model call, commit, publication or deployment
-occurred during these two deliveries.
+This update includes retention, optional-reader capture, qualified USC delivery
+and removal of unused citation copies. The latest application source suite passes
+579 tests; the graph package passes 30 tests from source and its isolated wheel.
+Earlier counts belong to their linked checkpoints. Original captures and reviews
+remain intact; no model call, publication or deployment was needed for this cleanup.
 
-**Recommended next slice:** trace the remaining citation copies and their actual
-consumers under R8, then choose the smallest safe consolidation. The selected
+**Recommended next slice:** fix complete CFR tokens, ranges and compilation
+context upstream, then migrate the remaining R8 graph readers with their
+structured-input behavior preserved. The [caller trace and direct comparison](../experiments/2026-09-11-citation-ownership/README.md)
+are complete; unused act-name and compilation-locator copies are removed.
+The selected
 USC reader is [connected and installed](../experiments/2026-09-11-usc-delivery/README.md),
 including an upstream fix for the newly observed `et seq.` qualification loss.
 Retention, review-boundary checks and reader capture are delivered. The upstream,
@@ -136,7 +139,7 @@ release. Preserve the completed foundation and make one bounded change at a time
 | R5 | Complete qualified CFR/USC readings | USC comparison complete; RefSpec selected for extension | M |
 | R6 | Upstream occurrence fixes and qualified USC integration | Selected USC readings installed; 579 application tests and both commands verified | M |
 | R7 | Additional reference families with individual acceptance checks | RIN helper reuse and upstream explanation corrections delivered; further families remain experimental | M per further family |
-| R8 | Remove divergent production citation copies | Existing callers identified; migration open | M |
+| R8 | Remove divergent production citation copies | Caller comparison complete; unused copies removed; live migration open | M |
 | R9 | Source-supported context for omitted citation titles | General support missing | M |
 | R10 | Exact local paragraph address index | Marker extension tested; ambiguity/inline-child gate failed; production unchanged | M |
 | R11 | Local paragraph and range lookup | Publisher targets delivered; general prose addresses and ranges remain open | M–L |
@@ -167,11 +170,13 @@ reprocessing output starts pending, including when claim IDs change. The
 reader/helper sources and versions without changing those statements or discovery
 output. Its current source and installed suites each pass 559 tests.
 
-1. **Trace remaining citation copies — R8; Rulespec projection, RefSpec and
-   SpicySearch; effort M.** Inspect actual callers and dependency boundaries before
-   moving code. Distinguish shared identity rules from deliberately different
-   query, authority-field and source-occurrence policies. Consolidate only the
-   demonstrated duplication, with old behavior retained as a comparison oracle.
+1. **Complete CFR readings before migrating graph callers — R8; RefSpec,
+   Rulespec projection and SpicySearch; effort M.** Caller tracing is complete.
+   The direct comparison found 189 compound-part truncations in RefSpec's
+   reading of constructed index citations and confirmed that the strict
+   SpicySearch reader retains but refuses them. Read original prose for compound
+   versus range meaning, preserve the entire occurrence, and test the existing
+   graph's dictionary/compact inputs before replacing its live parser.
 2. **Select the next useful reader or consumer — R7/R20/R22; effort M.** Use the
    existing inventory to choose a concrete application need. Compare the callable
    native reader on actual source and misleading controls before connecting it.
@@ -714,9 +719,15 @@ does not promote the entire previously failed broader bundle.
 
 ### R8 — Consolidate divergent citation copies without changing package boundaries blindly
 
-- [ ] **Owner: Rulespec projection + RefSpec + SpicySearch; effort M.** Trace
+- [x] **Owner: Rulespec projection + RefSpec + SpicySearch; effort M.** Trace
   actual consumers of `rulespec_projection.citations`, including `projection.py`'s
   calls. Inventory behavior that is shared, richer, outdated, or deliberately different.
+  [Verified caller map and comparison](../experiments/2026-09-11-citation-ownership/README.md):
+  the graph readers remain live; source extraction already uses RefSpec. Seven
+  unused act-name/compilation definitions and their private constants were removed
+  from Rulespec, with unchanged surviving code and graph fixtures. The comparison
+  also records SpicySearch's ten five-digit-part misses and its useful parenthetical
+  compilation refusal for follow-up upstream. This cleanup does not complete migration.
 - [ ] Address known `7 CFR 15a` / compound-part truncation in the owning production
   path. Determine whether callers can consume upstream observations directly or
   whether a shared small grammar package is warranted. Do not introduce a Core ↔
