@@ -1,0 +1,10 @@
+The first native prototype invocation stopped while importing citation_grammar.py,
+before either the copied field oracle or the new occurrence reader ran:
+
+  File "src/refspec/registry/citation_grammar.py", line 1681, in <module>
+    "note": (_USC_NOTE_TAIL.pattern, " note"),
+AttributeError: 'dict' object has no attribute 'pattern'
+
+The existing glued-token repair table also reads the note pattern. Keep that
+consumer on the unchanged field pattern; the occurrence reader uses the prose
+pattern. No parser observation was collected by this invocation.

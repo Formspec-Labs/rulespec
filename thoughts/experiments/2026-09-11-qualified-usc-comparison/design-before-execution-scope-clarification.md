@@ -39,21 +39,3 @@ evidence of a malformed token. If neither path passes, name the smallest owning
 API extension and retain current production behavior. Improvements in individual
 dimensions do not turn the combined gate into a pass. Keep this a diagnostic
 comparison; do not claim a general accuracy rate from selected development cases.
-
-## Execution scope correction before collecting parser results
-
-The first attempt imported SpicySearch's repository-specific measurement gate
-into this Rulespec experiment. It reached the five-minute wait bound without
-calling either reader. SpicySearch's `AGENTS.md` applies to work in that repository;
-this comparison changes only Rulespec experiment files, calls unchanged readers,
-and makes no timing or SpicySearch test-suite claim. Its load threshold does not
-apply here. Use an exclusive output directory and record host load without waiting
-for a performance measurement slot. A later SpicySearch-owned test or performance
-run must still follow that repository's instructions.
-
-The original design and runner are copied to `*-before-execution-scope-clarification`
-files; `not-run.json` remains untouched. The next attempt uses the same 29 input
-strings, labels, readers, source hashes, one pass and one replay, and the same
-substantive acceptance criteria. This changes the execution gate before results
-exist; it does not turn an unrun original attempt into a pass. Stop after these
-observations and manual review. Any upstream implementation is a separate step.

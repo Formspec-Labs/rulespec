@@ -9,8 +9,8 @@ match isolated results; original captures/reviews remain intact. Counts belong t
 their linked checkpoints. No new model call, commit, publication or deployment
 occurred during these two deliveries.
 
-**Recommended next slice:** compare qualified USC readings under R5, extend the
-owning occurrence API under R6 where needed, then connect only the passing behavior.
+**Recommended next slice:** connect the tested RefSpec USC occurrence reader under
+R6, preserving its qualifications and refusals, then verify rebuilt wheels.
 Retention, review-boundary checks and reader capture are delivered. The upstream,
 Core and application changes are now [committed locally](../reviews/2026-09-11-commit-checkpoint.md),
 with research preserved separately. The 26 workstreams
@@ -130,8 +130,8 @@ release. Preserve the completed foundation and make one bounded change at a time
 | R2 | RefSpec CFR reader in both application commands | Implemented and verified locally | S–M |
 | R3 | One evidence-backed representation of richer readings | Unique containment installed; all four observed overlaps resolved; ambiguity and refusals preserved | S–M |
 | R4 | Combined reader and extraction retention checks | Reader and retention delivered; 552 source/installed tests, two review controls and normal CLI checks pass | S–M |
-| R5 | Complete qualified CFR/USC readings | CFR-subpart comparison passed; qualified USC open | M |
-| R6 | Upstream occurrence fixes and qualified USC integration | CFR subparts/appendices delivered; qualified USC open | M |
+| R5 | Complete qualified CFR/USC readings | USC comparison complete; RefSpec selected for extension | M |
+| R6 | Upstream occurrence fixes and qualified USC integration | USC native checks pass; adapter and wheels open | M |
 | R7 | Additional reference families with individual acceptance checks | RIN helper reuse and upstream explanation corrections delivered; further families remain experimental | M per further family |
 | R8 | Remove divergent production citation copies | Existing callers identified; migration open | M |
 | R9 | Source-supported context for omitted citation titles | General support missing | M |
@@ -298,6 +298,7 @@ Broader reuse remains open.
 | SpicySearch `extract_citations(..., strict=True, keep_rejected=True)` | Implemented and tested; remains experiment comparison data | R2, R5; avoid a second default CFR reader |
 | SpicySearch `extract_usc_citations(..., strict=True, keep_rejected=True)` | Implemented and tested; not connected; strict syntax still loses some qualified meanings | R5–R6 |
 | RefSpec `parse_authority_citation` | Richer qualified readings tested; most lack occurrence offsets; some damaged tokens become shortened readings | R5–R7 |
+| RefSpec `find_usc_citations` | Source implementation tested; preserves qualifiers, occurrence positions and refusals; not installed or connected | R6 |
 | RefSpec FR pages and EO compilation locators | Callable and tested in the broader bundle; not connected | R7 |
 | RefSpec named-act recognition and resolution | Occurrence API fixed upstream and installed; optional act/source-credit indexes connected through both commands | R13 follow-up cases; R24 fresh quality |
 | RefSpec USC section/subsection oracle | Source-inspected; not yet connected or exercised in this application | R12, R20 |
@@ -599,15 +600,16 @@ CFR reference or establish that qualifiers are all retained.
 
 ### R5 — Settle qualified CFR/USC readings before adding more families
 
-- [ ] **Owner: Rulespec + RefSpec + SpicySearch; effort M.** Compare the existing
+- [x] **Owner: Rulespec + RefSpec + SpicySearch; effort M.** Compare the existing
   strict USC reader with RefSpec's authority readings on the frozen failures.
   Decide which producer supplies each field before connecting USC to the adapter.
   The [qualified USC comparison](../experiments/2026-09-11-qualified-usc-comparison/README.md)
-  now freezes 29 cases, including three publisher paragraphs read in their original
-  context. The first execution reached its five-minute host-load wait limit before
-  calling either reader; its refusal and source identities are retained. No job
-  remains running. Execution and manual outcome assessment remain open;
-  preparation alone does not justify changing or connecting the producer.
+  now covers 29 cases, including three publisher paragraphs read in their original
+  context. Every raw output was reviewed; replay is identical. Neither existing API
+  passes the complete integration gate. Extend RefSpec's shared matcher under R6:
+  retain qualifications and original positions together, and separate prose list
+  continuation from whole-authority-field interpretation. The first load-gated
+  non-run and the documented execution-scope correction remain saved.
 - [x] Add the actual Ohio source example:
   `49 CFR Part 172 subpart E (labeling) or subpart F (placarding)`.
   The original occurrence ended at `Part 172`. The upstream fix now preserves E/F,
@@ -631,12 +633,17 @@ ambiguity can stay explicit instead of becoming a confident section identity.
 
 ### R6 — Extend the owning occurrence APIs, then connect qualified readings
 
-- [ ] **Owner: RefSpec first, Rulespec second; effort M; depends on R5.** Reuse
+- [x] **Owner: RefSpec first, Rulespec second; effort M; depends on R5.** Reuse
   RefSpec's internal authority matchers to expose occurrence offsets and qualified
   readings. Separate completeness of a token from unrelated surrounding prose.
   Preserve the existing API for its current callers where required.
-- [ ] Fix demonstrated truncation in the owning matcher; do not recover positions
+- [x] Fix demonstrated truncation in the owning matcher; do not recover positions
   by searching for normalized output or add a Rulespec repair regex.
+  The [native checkpoint](../experiments/2026-09-11-qualified-usc-comparison/native-review.md)
+  records 468 passing tests, 14 slow tests deselected, and unchanged whole-field
+  results on 31 inputs with seven variants each. The source occurrence reader
+  retains the full damaged token with an explicit refusal. It does not repair
+  damage or establish legal existence. The copied prior reader stays test-only.
 - [ ] Verify direct imports, owner tests and null controls before rebuilding the
   wheel. Connect the selected USC behavior to the same adapter and replay the
   frozen combined cases.

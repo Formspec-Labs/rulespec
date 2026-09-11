@@ -1,4 +1,4 @@
-"""Capture unchanged readers: run.py NEW_ATTEMPT_DIRECTORY (under this experiment)."""
+"""Capture existing reader outputs unchanged; no production adapter or new parser."""
 from dataclasses import asdict
 from datetime import datetime, timezone
 import hashlib
@@ -7,14 +7,14 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+import time
 
 from refspec.registry import citation_grammar as ref
 from spicysearch import cfr_citations as spicy
 
 HERE = Path(__file__).resolve().parent
 WORK = HERE.parents[3]
-OUTPUT = HERE / sys.argv[1]
-OUTPUT.mkdir(exist_ok=False)
+LOCK = WORK / "spicysearch/compositions/measurement.lock"
 
 
 def sha(path):
@@ -22,7 +22,7 @@ def sha(path):
 
 
 def save(name, value):
-    with (OUTPUT / name).open("x") as stream:
+    with (HERE / name).open("x") as stream:
         json.dump(value, stream, indent=2, ensure_ascii=False)
         stream.write("\n")
 
@@ -30,8 +30,6 @@ def save(name, value):
 cases = json.loads((HERE / "cases.json").read_text())
 metadata = {"python": sys.executable, "network_calls": 0,
             "design_sha256": sha(HERE / "design.md"),
-            "original_design_sha256": sha(HERE / "design-before-execution-scope-clarification.md"),
-            "runner_sha256": sha(Path(__file__)),
             "cases_sha256": sha(HERE / "cases.json"), "modules": {}, "repos": {}}
 for name, module in tuple(sys.modules.items()):
     if name.startswith(("refspec.", "spicysearch.")) and getattr(module, "__file__", None):
@@ -45,15 +43,27 @@ for name in ("rulespec", "RefSpec", "spicysearch"):
     }
 print(json.dumps({name: str(Path(module.__file__).resolve())
                   for name, module in (("refspec", ref), ("spicysearch", spicy))}), flush=True)
-original = json.loads((HERE / "not-run.json").read_text())
-assert metadata["cases_sha256"] == original["cases_sha256"]
-assert metadata["original_design_sha256"] == original["design_sha256"]
-assert metadata["modules"] == original["modules"], "Reader code changed since preparation"
-LOCK = HERE / "run.lock"
-with LOCK.open("x") as stream:
-    json.dump({"pid": os.getpid(), "output": str(OUTPUT)}, stream)
+deadline = time.monotonic() + 300
+while True:
+    load = os.getloadavg()
+    if load[0] < 4:
+        try:
+            stream = LOCK.open("x")
+        except FileExistsError:
+            pass
+        else:
+            with stream:
+                json.dump({"holder": "rulespec-qualified-usc", "pid": os.getpid(),
+                           "start": datetime.now(timezone.utc).isoformat(),
+                           "purpose": "deterministic USC reader comparison", "start_load": load}, stream)
+            break
+    if time.monotonic() >= deadline:
+        save("not-run.json", {**metadata, "reason": "measurement lock or load threshold", "load": load})
+        raise SystemExit("No parser run: measurement lock or load threshold.")
+    print(f"Waiting for measurement slot; load={load[0]:.2f}", flush=True)
+    time.sleep(10)
 try:
-    metadata.update(started=datetime.now(timezone.utc).isoformat(), start_load=os.getloadavg())
+    metadata.update(started=datetime.now(timezone.utc).isoformat(), start_load=load)
     arms = {"spicysearch_strict": lambda text: spicy.extract_usc_citations(text, strict=True, keep_rejected=True),
             "refspec_authority": ref.parse_authority_citation}
 

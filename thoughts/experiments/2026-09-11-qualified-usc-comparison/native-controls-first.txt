@@ -1,0 +1,77 @@
+.................................................................F...FFF [ 97%]
+..                                                                       [100%]
+=================================== FAILURES ===================================
+_ test_bare_title_or_appendix_does_not_invent_a_section[Under 5 U.S.C. App. other provisions apply.-True-5 U.S.C. App.] _
+
+text = 'Under 5 U.S.C. App. other provisions apply.', appendix = True
+quote = '5 U.S.C. App.'
+
+    @pytest.mark.parametrize('text,appendix,quote', [
+        ('5 U.S.C.', False, '5 U.S.C.'),
+        ('5 U.S.C. App.', True, '5 U.S.C. App.'),
+        ('Under 5 U.S.C. App. other provisions apply.', True, '5 U.S.C. App.'),
+    ])
+    def test_bare_title_or_appendix_does_not_invent_a_section(text, appendix, quote):
+        item, = find_usc_citations(text)
+>       assert item.text == quote and item.citation.usc_title == 5
+E       AssertionError: assert ('5 U.S.C. App. other' == '5 U.S.C. App.'
+E         
+E         - 5 U.S.C. App.
+E         + 5 U.S.C. App. other
+E         ?              ++++++)
+
+tests/test_usc_occurrences.py:108: AssertionError
+_____ test_declared_but_missing_subchapter_is_not_broadened_to_the_chapter _____
+
+    def test_declared_but_missing_subchapter_is_not_broadened_to_the_chapter():
+        text = '5 USC chapter 81, subchapter'
+        item, = find_usc_citations(text)
+>       assert item.text == text and item.refusal == 'usc_subchapter_unresolved'
+E       AssertionError: assert ('5 USC chapter 81' == '5 USC chapter 81, subchapter'
+E         
+E         - 5 USC chapter 81, subchapter
+E         + 5 USC chapter 81)
+
+tests/test_usc_occurrences.py:132: AssertionError
+_ test_subchapter_names_and_written_ranges_are_preserved[5 USC chapter 81, subchapters I-II-I-II] _
+
+text = '5 USC chapter 81, subchapters I-II', first = 'I', last = 'II'
+
+    @pytest.mark.parametrize('text,first,last', [
+        ('5 USC chapter 81, subchapters I-II', 'I', 'II'),
+        ('5 USC chapter 81, subchapter I-A', 'I-A', None),
+        ('5 USC chapter 81, subchapters I through II', 'I', 'II'),
+    ])
+    def test_subchapter_names_and_written_ranges_are_preserved(text, first, last):
+        item, = find_usc_citations(text)
+>       assert item.text == text and item.subchapter == first and item.subchapter_end == last
+E       AssertionError: assert ('5 USC chapter 81' == '5 USC chapte...chapters I-II'
+E         
+E         - 5 USC chapter 81, subchapters I-II
+E         + 5 USC chapter 81)
+
+tests/test_usc_occurrences.py:142: AssertionError
+_ test_subchapter_names_and_written_ranges_are_preserved[5 USC chapter 81, subchapter I-A-I-A-None] _
+
+text = '5 USC chapter 81, subchapter I-A', first = 'I-A', last = None
+
+    @pytest.mark.parametrize('text,first,last', [
+        ('5 USC chapter 81, subchapters I-II', 'I', 'II'),
+        ('5 USC chapter 81, subchapter I-A', 'I-A', None),
+        ('5 USC chapter 81, subchapters I through II', 'I', 'II'),
+    ])
+    def test_subchapter_names_and_written_ranges_are_preserved(text, first, last):
+        item, = find_usc_citations(text)
+>       assert item.text == text and item.subchapter == first and item.subchapter_end == last
+E       AssertionError: assert ('5 USC chapter 81' == '5 USC chapte...ubchapter I-A'
+E         
+E         - 5 USC chapter 81, subchapter I-A
+E         + 5 USC chapter 81)
+
+tests/test_usc_occurrences.py:142: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_usc_occurrences.py::test_bare_title_or_appendix_does_not_invent_a_section[Under 5 U.S.C. App. other provisions apply.-True-5 U.S.C. App.]
+FAILED tests/test_usc_occurrences.py::test_declared_but_missing_subchapter_is_not_broadened_to_the_chapter
+FAILED tests/test_usc_occurrences.py::test_subchapter_names_and_written_ranges_are_preserved[5 USC chapter 81, subchapters I-II-I-II]
+FAILED tests/test_usc_occurrences.py::test_subchapter_names_and_written_ranges_are_preserved[5 USC chapter 81, subchapter I-A-I-A-None]
+4 failed, 70 passed in 0.13s
