@@ -503,3 +503,74 @@ enum value, and landing the companion first would document a promotion path
 with a known hole in it. RS-P3 is independent of both. All three are enum or
 companion additions, so they belong in whatever release the open
 "decide the release shape" item above settles on, not in tags of their own.
+
+## Dataset consumer requests
+
+These open tasks own the Rulespec work requested by DocSpec and the source
+providers. DocSpec retains domain conversion, document semantics, dataset
+capture, transactions, and consumer integration. Source packages retain source
+publication. The linked tasks own those changes in their respective repositories.
+Planning sources: DocSpec `3e3e43e` and SpicyDocs `40921d3`; adding this section
+does not establish implementation or package qualification.
+
+<a id="rs01"></a>
+
+- [ ] **RS01 — Decide and qualify the shared canonical encoder's supported values.**
+  **Owner: Rulespec.** With the source-format owners, establish the exact values
+  required by [DocSpec D28](../DocSpec/docs/dataset-experiments-todo.md#d28) and
+  [SpicyDocs S30](../spicy-docs/docs/simplification-todo.md#s30). Start with
+  [platform-artifacts §2](spec/platform-artifacts.md#2-canonical-json): UTF-16
+  key ordering, safe integers, and refusal of duplicate keys and floating-point
+  values. A large-integer optimization test alone does not justify widening that
+  domain. Implement a shared extension only for demonstrated required values,
+  with an exact representation and the applicable format/identity change.
+  **Done when:** the decision names supported and refused values; shared golden
+  cases cover numeric boundaries, Unicode ordering and duplicate keys; required
+  source values survive exactly; and current reader checks qualify any changed
+  format through installed wheels. DocSpec D28 owns domain conversion,
+  contextual validation, adopting this encoder and removing its old emitter;
+  source producers adopt it in S30. Do not round values or stringify them
+  indiscriminately. If required domains prevent convergence, record the evidence
+  and defer the shared-emitter change in all linked tasks; separate encoders do
+  not satisfy that acceptance.
+
+<a id="rs02"></a>
+
+- [ ] **RS02 — Qualify the existing generic artifact APIs for dataset consumers.**
+  **Owner: Rulespec.** Compare the current `rulespec_artifacts` public API with
+  the concrete membership, byte-integrity, structural-validation and publication
+  needs in [DocSpec D27](../DocSpec/docs/dataset-experiments-todo.md#d27).
+  Reuse existing capabilities first; add only a bounded missing operation that
+  belongs in the shared package. Assess concrete compiled-schema-gate gaps from
+  [SpicySearch SC02](../spicysearch/PLAN.md#sc02) and
+  [DocSpec D31](../DocSpec/docs/dataset-experiments-todo.md#d31) only where they
+  fit an existing suitable shared API; this task does not create a schema
+  framework or require moving a working gate. Depends on [RS01](#rs01) for any
+  encoding decision that affects the selected artifact path.
+  **Done when:** named consumer requirements map to supported public operations
+  or an evidenced reason to remain local; selected Rulespec changes preserve
+  admission/refusal behavior and pass focused installed-wheel checks; and the
+  handoff records package version, wheel digest and required consumer updates.
+  D27 owns DocSpec's conversion and integration, including removal of its
+  replaced generic checks; SC02 and D31 own their local gate reuse/removal.
+  Product semantics and coverage checks remain with each consumer.
+
+<a id="rs03"></a>
+
+- [ ] **RS03 — Decide whether an existing shared primitive should own bounded blob writes.**
+  **Owner: Rulespec for suitability and any selected shared implementation.**
+  Compare actual caller requirements with
+  [DocSpec D31](../DocSpec/docs/dataset-experiments-todo.md#d31) and
+  [SpicyDocs S22](../spicy-docs/docs/simplification-todo.md#s22): hard streaming
+  bounds, known or computed digest, verified reuse, directory pinning, no-follow
+  behavior, cleanup, durability and returned evidence. Choose an existing owner
+  on demonstrated code reduction and independent source use. Implement here
+  only if that decision selects Rulespec; keep dataset capture and transactions
+  in DocSpec, and media-type/reference mapping with callers.
+  **Done when:** the joint suitability decision names one bounded operation and
+  its owner, or records concrete reasons to retain separate implementations. If
+  Rulespec is selected, its public wheel operation satisfies both required use
+  cases with race, corruption and bound checks; D31 and S22 own their migrations
+  and removal of replaced physical writers. A decision to defer remains a
+  deferral in each linked task. This task introduces no storage platform and no
+  source-package dependency on DocSpec's lifecycle.
