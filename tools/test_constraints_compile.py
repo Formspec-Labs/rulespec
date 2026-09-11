@@ -3909,6 +3909,41 @@ class ProvenanceRoleSeparationTests(unittest.TestCase):
         self.assertNotIn("rkaf:decision", envelope)
 
 
+class ShaclStringMappingTests(unittest.TestCase):
+    """String fields retain the shipped context's literal/identifier distinction."""
+
+    def test_plain_text_is_checked_without_retyping_identifiers_or_dates(self):
+        import rdflib
+        from pyshacl import validate
+
+        with tempfile.TemporaryDirectory() as folder:
+            source = Path(folder) / "literal.cue"
+            source.write_text('''package rkaf
+#LiteralProbe: {
+    "@type": "rkaf:LiteralProbe"
+    "rdf:value": string
+    "oa:hasSource": string
+    "prov:generatedAtTime": string
+}
+''')
+            shapes = rdflib.Graph().parse(
+                data=target_shacl(parse_cue_file(source)), format="turtle"
+            )
+        context = json.loads(
+            (REPO_ROOT / "context/rkaf-context.jsonld").read_text()
+        )["@context"]
+        for value, expected in (("/*[1]", True), (12, False), (True, False)):
+            with self.subTest(value=value):
+                payload = {"@context": context, "@id": "urn:test:literal",
+                           "@type": "rkaf:LiteralProbe", "rdf:value": value,
+                           "oa:hasSource": "urn:test:source",
+                           "prov:generatedAtTime": "2026-09-11T00:00:00Z"}
+                graph = rdflib.Graph().parse(data=json.dumps(payload), format="json-ld")
+                self.assertIsInstance(next(graph.objects(predicate=rdflib.URIRef(
+                    "http://www.w3.org/ns/oa#hasSource"))), rdflib.URIRef)
+                self.assertEqual(validate(graph, shacl_graph=shapes)[0], expected)
+
+
 class SourceFragmentIdentityTests(unittest.TestCase):
     """Core §4.2 — a SourceFragment names ONE region of ONE Artifact state.
 
@@ -3977,6 +4012,21 @@ class SourceFragmentIdentityTests(unittest.TestCase):
             ],
             IRI_PATTERN,
         )
+
+    def test_xpath_selector_has_the_standard_required_path_payload(self) -> None:
+        """Publisher XML evidence uses the existing OA type and rdf:value."""
+        from jsonschema import Draft202012Validator, ValidationError
+
+        shape = self.schema["$defs"]["XPathSelector"]
+        self.assertIn("rdf:value", shape["required"])
+        validator = Draft202012Validator({**self.schema, "$ref": "#/$defs/XPathSelector"})
+        validator.validate({"@type": "oa:XPathSelector", "rdf:value": "/*[1]/*[2]"})
+        for value in ({"@type": "oa:XPathSelector"},
+                      {"@type": "oa:XPathSelector", "rdf:value": 12}):
+            with self.assertRaises(ValidationError):
+                validator.validate(value)
+        self.assertIn("sh:targetClass oa:XPathSelector", self.shacl)
+        self.assertRegex(self.shacl, r"sh:path rdf:value ;[^\n]*sh:datatype xsd:string")
 
     def test_position_selector_declares_its_coordinate_system(self) -> None:
         """An offset with no declared unit is not a coordinate.

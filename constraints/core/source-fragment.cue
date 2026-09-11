@@ -73,6 +73,14 @@ import "list"
 	"oa:suffix"?: string // optional — text immediately after the quote
 }
 
+// XPathSelector — Web Annotation Data Model §4.2.3.
+// The path addresses the pinned XML/HTML DOM, not text or byte offsets.
+// Core checks the payload shape; the source reader must verify what it selects.
+#XPathSelector: {
+	"@type":    "oa:XPathSelector"
+	"rdf:value": string
+}
+
 // TextPositionSelector — OA 1.0's offset selector (§9.1 Cohort A import).
 //
 // `oa:start` and `oa:end` are the offsets of the region; the ordering branch

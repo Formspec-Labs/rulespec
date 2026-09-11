@@ -108,6 +108,27 @@ impl TextQuoteSelector {
     fn default_type() -> String { "oa:TextQuoteSelector".into() }
 }
 
+/// Generated JSON-LD carrier for `XPathSelector`.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct XPathSelector {
+    /// JSON-LD resource type.
+    #[serde(rename = "@type", default = "XPathSelector::default_type")]
+    pub type_: String,
+    /// Optional JSON-LD resource identifier.
+    #[serde(rename = "@id", skip_serializing_if = "Option::is_none", default)]
+    pub id: Option<String>,
+    /// JSON-LD property `rdf:value`.
+    #[serde(rename = "rdf:value")]
+    pub value: String,
+    /// Additional JSON-LD properties preserved during round trips.
+    #[serde(flatten)]
+    pub extra: BTreeMap<String, serde_json::Value>,
+}
+
+impl XPathSelector {
+    fn default_type() -> String { "oa:XPathSelector".into() }
+}
+
 /// Generated JSON-LD carrier for `TextPositionSelector`.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct TextPositionSelector {
