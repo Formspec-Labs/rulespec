@@ -1,10 +1,13 @@
-"""Citation grammars and Rulespec canonical identifier expansion."""
+"""Citation readers and identifiers used by published-row graph assembly.
+
+Document source extraction uses RefSpec's occurrence readers. Act-name and
+compilation-locator extraction also live in RefSpec.
+"""
 
 from __future__ import annotations
 
 import re
 from dataclasses import dataclass, replace
-from collections.abc import Container
 from typing import cast
 from urllib.parse import quote
 
@@ -39,9 +42,8 @@ _CFR_TITLE_COUNT = 50
 #:
 #: Ported from SpicySearch ``identifiers.py:149``. That module's ``_LEFT`` and
 #: ``_RIGHT`` boundary guards are deliberately not part of this port: they fix
-#: a different defect, and this file's 25 compiled patterns carry no boundary
-#: lookbehind at all, so importing the guards for one of them would state a
-#: discipline the other 24 do not keep.
+#: a different defect, and this file's remaining patterns carry no boundary
+#: lookbehind at all. A boundary change needs its own comparison.
 _CFR_SECTION_CAPTURE = r"[A-Za-z0-9](?:[A-Za-z0-9.-]*[A-Za-z0-9])?"
 
 _CFR_STANDARD = re.compile(
@@ -50,7 +52,7 @@ _CFR_STANDARD = re.compile(
     rf"(?P<part>\d+)(?:\.(?P<section>{_CFR_SECTION_CAPTURE}))?",
     re.IGNORECASE,
 )
-#: The other 24 compiled patterns in this module, including this one and
+#: The other compiled patterns in this module, including this one and
 #: :data:`_CFR_COMPACT`, keep their own section spelling. The port is scoped to
 #: the one expression the two regression cases reach; widening it is a separate
 #: decision about a grammar nobody has measured.
@@ -324,39 +326,6 @@ class UscChapterCitation:
     @property
     def iri(self) -> str:
         return canonical_usc_chapter_iri(self.title, self.chapter)
-
-
-@dataclass(frozen=True)
-class ExecutiveOrderCompilation:
-    """Where an Executive Order was printed, not which order it is.
-
-    "3 CFR, 1977 Comp., p. 123" locates a presidential document by the page of
-    the Title 3 annual compilation it appears on. The order is what the string
-    identifies; the page is only how it points there.
-
-    **This type carries no identifier, and that is the whole point.** Two wrong
-    answers are available and both are refused. Reading it as a CFR section
-    mints ``urn:rkaf:us:cfr:3:1977`` for a section that does not exist — the
-    reading the bakeoff found in CiteURL (``title=3, section=1977``), which
-    additionally discards the page, the one component that identifies the order.
-    Reading it as an Executive Order requires an order number that is not in the
-    string, so publishing one would be an invention.
-
-    Resolving it honestly needs an index this repo does not have: a mapping from
-    (Title 3 compilation volume, page) to Executive Order number. The Federal
-    Register tables carry ``executive_order_number`` beside an *FR* volume and
-    page, which is a different citation system; ``cfr_sections`` carries
-    current-edition section metadata from GovInfo, not historical compilations.
-    A resolver would need the compilation's own front matter or GovInfo's
-    Title 3 compilation packages, neither of which is ingested.
-
-    Until then the honest output is the locator itself, typed so a consumer
-    cannot mistake it for an identifier.
-    """
-
-    compilation_start: str
-    compilation_end: str | None = None
-    page: str | None = None
 
 
 @dataclass(frozen=True)
@@ -651,7 +620,7 @@ def parse_cfr_citation(value: object) -> list[CfrCitation]:
     # something a CFR expression can read as title-and-part, and the reading is
     # wrong: it names a page in the presidential compilation, not a section.
     # Refusing its span — rather than the whole string — leaves a real citation
-    # standing beside it. See :class:`ExecutiveOrderCompilation`.
+    # standing beside it. RefSpec owns compilation-locator extraction.
     compilations = [match.span() for match in _EO_COMPILATION.finditer(text)]
 
     def locates_a_compilation(position: int) -> bool:
@@ -693,131 +662,6 @@ def parse_cfr_citation(value: object) -> list[CfrCitation]:
                 if candidate not in found:
                     found.append(candidate)
     return found
-
-
-#: A section reference, in the spellings the corpus uses after an act name:
-#: "sec. 112", "section 111", "secs. 2791", "§112".
-_ACT_SECTION = re.compile(
-    r"(?:sec(?:tion)?s?\.?|§{1,2})\s*(?P<section>\d+[A-Za-z]?)",
-    re.IGNORECASE,
-)
-
-#: "div. L", "division J", "Division EE" — the division of the enacting public
-#: law a citation names, when it names one. A public law may enact dozens of
-#: acts, one per division, so this is the discriminator the source text carries.
-_CITED_DIVISION = re.compile(r"\bdiv(?:ision)?\.?\s+(?P<division>[A-Z]{1,3})\b")
-
-#: The inverted spelling: "sec. 3505 of the Modernization of Cosmetics ... Act".
-_ACT_SECTION_OF_THE = re.compile(r"\A\s*of\s+(?:the\s+)?", re.IGNORECASE)
-
-#: No popular name in the Popular Name Tool is longer than this many words, and
-#: bounding the backward scan keeps recognition linear in the length of the text
-#: rather than quadratic.
-_MAX_ACT_NAME_WORDS = 24
-
-#: Punctuation a name may pick up from the sentence around it.
-_NAME_EDGE = re.compile(r"^[\s(\"'“”]+|[\s,;:.)\"'“”]+$")
-_CURLY_APOSTROPHE = re.compile(r"[’‘`]")
-_LONG_DASH = re.compile(r"[–—]")
-
-
-def normalize_popular_name(name: object) -> str:
-    """The key a popular name joins on.
-
-    Case, whitespace, sentence punctuation and the difference between a curly
-    and a straight apostrophe are all spelling, not identity: the Popular Name
-    Tool writes "Workers’ Compensation Act" and prose writes "Workers'
-    Compensation Act", and they are one act. Internal commas are kept, because
-    "Federal Food, Drug, and Cosmetic Act" is how that act is named.
-    """
-    text = _NAME_EDGE.sub("", str(name or ""))
-    text = _CURLY_APOSTROPHE.sub("'", _LONG_DASH.sub("-", text))
-    return re.sub(r"\s+", " ", text).strip().lower()
-
-
-@dataclass(frozen=True)
-class ActRelativeCitation:
-    """A provision cited through the act that created it.
-
-    "Clean Air Act section 111" identifies a real provision, but names no code,
-    title or section number — it resolves only through the Office of the Law
-    Revision Counsel's tables (``spicy_regs.sources.uscode_olrc``), so this type
-    carries what the text said and nothing it did not.
-    """
-
-    act_name: str
-    act_key: str
-    section: str
-    #: The division the citation itself names, when it names one. ``None`` means
-    #: the text stated none — never that it stated the whole law.
-    division: str | None = None
-
-
-def find_act_relative_citations(text: object, *, act_names: Container[str]) -> list[ActRelativeCitation]:
-    """Find act-relative citations whose act ``act_names`` knows.
-
-    **The index is the grammar.** ``act_names`` holds normalized popular names —
-    in production, the 13,627 the OLRC publishes — and a span is an act name
-    only if the index says so. The alternative, recognizing a shape
-    (capitalized words ending in "Act"), was measured against the 4,777 sealed
-    authority strings and matched "U.S.C." 108 times.
-
-    Longest match wins, because one popular name may end with another: the Clean
-    Air Act Amendments of 1977 are not the Clean Air Act, and a shortest-match
-    rule would silently cite the wrong statute.
-
-    An act this index does not name is not read. The corpus writes "INA sec.
-    103(a)(1)" and "PHS Act secs. 2791(b)(5)", and inferring which acts those
-    abbreviate is precisely the guess the identity fence exists to stop.
-    """
-    document = "" if text is None else str(text)
-    found: list[ActRelativeCitation] = []
-    for marker in _ACT_SECTION.finditer(document):
-        section = _section(marker.group("section"))
-        named = _longest_name_before(document[: marker.start()], act_names) or _longest_name_after(
-            document[marker.end() :], act_names
-        )
-        if section is None or named is None:
-            continue
-        # A division stated anywhere across the citation's own span belongs to
-        # it: "Consolidated Appropriations Act of 2018, div. L, title IV, sec.
-        # 410" puts it between the name and the section, and the inverted
-        # spelling puts it after. The window is the span, not the string, so a
-        # second citation's division is never borrowed.
-        window = document[max(0, marker.start() - len(named) - 40) : marker.end() + 40]
-        stated_division = _CITED_DIVISION.search(window)
-        citation = ActRelativeCitation(
-            act_name=named,
-            act_key=normalize_popular_name(named),
-            section=section,
-            division=stated_division.group("division") if stated_division else None,
-        )
-        if citation not in found:
-            found.append(citation)
-    return found
-
-
-def _longest_name_before(before: str, act_names: Container[str]) -> str | None:
-    """The longest known act name ending where a section reference begins."""
-    words = before.split()
-    for length in range(min(_MAX_ACT_NAME_WORDS, len(words)), 0, -1):
-        candidate = " ".join(words[-length:])
-        if normalize_popular_name(candidate) in act_names:
-            return _NAME_EDGE.sub("", candidate)
-    return None
-
-
-def _longest_name_after(after: str, act_names: Container[str]) -> str | None:
-    """The longest known act name in "… of the <Act>" following a section."""
-    opening = _ACT_SECTION_OF_THE.match(after)
-    if opening is None:
-        return None
-    words = after[opening.end() :].split()
-    for length in range(min(_MAX_ACT_NAME_WORDS, len(words)), 0, -1):
-        candidate = " ".join(words[:length])
-        if normalize_popular_name(candidate) in act_names:
-            return _NAME_EDGE.sub("", candidate)
-    return None
 
 
 def parse_usc_chapter_citation(value: object) -> list[UscChapterCitation]:
@@ -869,29 +713,6 @@ def _listed_chapters(text: str, match: re.Match[str], later: list[re.Match[str]]
     stop = later[0].start() if later else len(text)
     listed = (_section(tail.group("section")) for tail in _USC_LIST_TAIL.finditer(text[match.end() : stop]))
     return [chapter for chapter in listed if chapter]
-
-
-def parse_eo_compilation_citation(value: object) -> list[ExecutiveOrderCompilation]:
-    """Recognize Title 3 compilation locators without identifying anything.
-
-    Returns one :class:`ExecutiveOrderCompilation` per locator in the text, in
-    order of appearance. The type carries no identifier on purpose — see its
-    docstring for the two wrong answers this refuses and the index that would
-    make a right one possible.
-    """
-    if value is None:
-        return []
-    text = str(value).strip()
-    if not text:
-        return []
-    return [
-        ExecutiveOrderCompilation(
-            compilation_start=match.group("start"),
-            compilation_end=match.group("end"),
-            page=match.group("page"),
-        )
-        for match in _EO_COMPILATION.finditer(text)
-    ]
 
 
 def _usc_list_expansion(text: str) -> list[tuple[str, str, str | None]]:

@@ -27,6 +27,13 @@ library.
 - `citations` carries the CFR, U.S.C., Public Law, RIN, Federal Register, and
   regulations.gov parsers and canonical IRI minters.
 
+Document source extraction uses RefSpec's occurrence readers through
+`rulespec-extrapolator`. RefSpec also owns act-name and compilation-locator
+extraction (`find_act_relative_occurrences`, `parse_eo_compilation_locators`).
+Unused copies of those helpers have been removed here. The remaining citation
+readers serve the published-row graph functions; their dictionary and compact
+key inputs need to be accounted for before a reader migration.
+
 ## The two seams
 
 The producer read Parquet in two places. Both are Protocols here, and the
