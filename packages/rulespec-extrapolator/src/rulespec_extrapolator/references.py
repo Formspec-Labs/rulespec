@@ -29,6 +29,7 @@ def scan_references(document, *, act_index=None, source_credit_index=None):
     parsers = [('spicysearch.identifiers.detect_identifiers', 'spicysearch', identifiers),
                ('refspec.registry.citation_grammar.find_cfr_citations', 'refspec', grammar),
                ('refspec.registry.citation_grammar.find_usc_citations', 'refspec', grammar),
+               ('refspec.registry.citation_grammar.find_eo_compilation_locators', 'refspec', grammar),
                ('refspec.registry.iri_minting.mint_rin_iri', 'refspec', iri_minting)]
     indexes = {}
     def evidence(start, end, field):
@@ -95,6 +96,9 @@ def scan_references(document, *, act_index=None, source_credit_index=None):
                    'cfr_' + match.qualifier_status if match.qualifier_status else None)
         record('cfr', value, match.start, match.end, reading=reading, context=context,
                refusal=refusal, source_text=match.text)
+    for match in grammar.find_eo_compilation_locators(text):
+        record('eo_compilation', match.text, match.start, match.end,
+               reading=sparse(asdict(match.locator)), refusal=match.refusal, source_text=match.text)
     for match in grammar.find_usc_citations(text):
         reading = sparse({**asdict(match.citation), **{key: getattr(match, key) for key in
                           ('pinpoint', 'range_end_pinpoint', 'subchapter', 'subchapter_end')}})
@@ -136,7 +140,7 @@ def scan_references(document, *, act_index=None, source_credit_index=None):
                          'module_sha256': digest(Path(module.__file__).read_bytes())}
                         for name, package, module in parsers],
             **({'indexes': indexes} if indexes else {}),
-            'supported_kinds': sorted(SPICYSEARCH_KINDS | {'cfr', 'usc'} | ({'act_relative'} if act_index is not None else set())),
+            'supported_kinds': sorted(SPICYSEARCH_KINDS | {'cfr', 'usc', 'eo_compilation'} | ({'act_relative'} if act_index is not None else set())),
             'candidates': candidates, 'rejected': rejected,
             'target_resolution': 'named_act_section_identity_only' if indexes else 'not_performed',
             'semantic_completeness': 'not_established',

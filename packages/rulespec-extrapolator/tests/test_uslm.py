@@ -96,6 +96,43 @@ def test_merged_rejected_reading_keeps_its_reason_and_discovery_evidence():
     assert all(r['id'] in exported['evidence'] for r in saved['evidence_refs'])
 
 
+def test_publisher_xml_compilations_keep_separate_occurrences_and_editorial_uncertainty():
+    doc = load_document(FIXTURE.with_name('compilation-title-18.xml'))
+    scan = scan_references(doc)
+    assert len([r for r in scan['candidates'] if r['kind'] == 'publisher_reference']) == 12
+    first, second = [r for r in scan['candidates'] if r['kind'] == 'eo_compilation']
+    assert first['id'] != second['id']
+    for row in (first, second):
+        assert row['reading'] == {'compilation_start': '1950', 'page': '71'}
+        support, = row['evidence']
+        assert doc['text'][support['start']:support['end']] == row['value'] == support['quote']
+    assert 'probably should refer to Proc. 2914' in doc['text']
+    assert not any(r['kind'] == 'cfr' for r in scan['candidates'])
+
+
+def test_compilation_text_reading_retains_publisher_link_and_shared_evidence():
+    # Constructed disagreement: a publisher link does not prove that its label
+    # names the same target. Use a supported USLM identifier family.
+    doc = document('<p><ref href="/us/usc/t50/s1">3 CFR 60–61 (1971–1975 Comp.)</ref></p>')
+    exported = export_discovery(compile_candidates(doc, [], {}), include_references=True)
+    row, = exported['reference_scan']['candidates']
+    assert row['kind'] == 'publisher_reference' and row['value'] == '/us/usc/t50/s1'
+    assert row['resolution']['status'] == 'not_in_selected_source'
+    reading, = row['text_readings']
+    assert reading['kind'] == 'eo_compilation'
+    assert reading['reading'] == {'compilation_start': '1971', 'compilation_end': '1975', 'page': '60', 'page_end': '61'}
+    support, = reading['evidence_refs']
+    position = exported['evidence'][support['id']]
+    assert doc['text'][position['start']:position['end']] == '3 CFR 60–61 (1971–1975 Comp.)'
+    assert row['xml_evidence_refs']
+
+
+def test_compilation_like_xml_attributes_are_not_visible_references():
+    doc = document('<p title="3 CFR 127 (1981 Comp.)">Ordinary text.</p>')
+    assert '3 CFR' not in doc['text']
+    assert not scan_references(doc)['candidates']
+
+
 @pytest.mark.parametrize('case', json.loads((Path(__file__).parent/'fixtures/uslm/containment.json').read_text()), ids=lambda c: c['id'])
 def test_unique_publisher_containment_preserves_ambiguity_and_reading_targets(case):
     doc = document(case['body'])

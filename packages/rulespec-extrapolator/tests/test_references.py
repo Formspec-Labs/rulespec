@@ -262,7 +262,8 @@ def test_cfr_context_from_inserted_text_cannot_ground_a_list_continuation():
 
 
 @pytest.mark.parametrize('reader, text', [('find_cfr_citations', '40 CFR 82.155(a)'),
-                                         ('find_usc_citations', '5 USC 552(a)')])
+                                         ('find_usc_citations', '5 USC 552(a)'),
+                                         ('find_eo_compilation_locators', '3 CFR 127 (1981 Comp.)')])
 def test_parser_text_mismatch_is_not_replaced_with_plausible_source(monkeypatch, reader, text):
     from dataclasses import replace
     from refspec.registry import citation_grammar
@@ -273,6 +274,46 @@ def test_parser_text_mismatch_is_not_replaced_with_plausible_source(monkeypatch,
         scan_references(doc)
 
 
-@pytest.mark.parametrize('text', ['§ 82.155(a)', 'paragraph (b) of this section', '3 CFR, 1977 Comp., p. 123'])
-def test_cfr_does_not_invent_local_titles_or_ordinary_compilation_sections(text):
+@pytest.mark.parametrize('text', ['§ 82.155(a)', 'paragraph (b) of this section'])
+def test_cfr_does_not_invent_local_titles(text):
     assert not scan_references(prepare_document(text))['candidates']
+
+
+def test_year_first_compilation_is_a_locator_not_a_cfr_part():
+    row, = scan_references(prepare_document('3 CFR, 1977 Comp., p. 123'))['candidates']
+    assert row['kind'] == 'eo_compilation'
+    assert row['reading'] == {'compilation_start': '1977', 'page': '123'}
+
+
+def test_compilation_locators_preserve_endpoints_repeats_and_discovery_evidence():
+    text = '3 CFR 60–61 (1971–1975 Comp.); 3 CFR 100; 3 CFR 60–61 (1971–1975 Comp.).'
+    doc = prepare_document(text)
+    result = scan_references(doc)
+    first, part, repeated = result['candidates']
+    assert first['kind'] == repeated['kind'] == 'eo_compilation'
+    assert first['id'] != repeated['id']
+    assert first['reading'] == repeated['reading'] == {
+        'compilation_start': '1971', 'compilation_end': '1975', 'page': '60', 'page_end': '61'}
+    assert part['kind'] == 'cfr' and part['reading']['cfr_part'] == '100'
+    for candidate in (first, repeated):
+        support, = candidate['evidence']
+        assert candidate['value'] == support['quote'] == text[support['start']:support['end']]
+    exported = export_discovery({'document': doc, 'accepted': []}, include_references=True)
+    for source, saved in zip(result['candidates'], exported['reference_scan']['candidates'], strict=True):
+        assert {k: v for k, v in saved.items() if k != 'evidence_refs'} == {
+            k: v for k, v in source.items() if k != 'evidence'}
+        for support, reference in zip(source['evidence'], saved['evidence_refs'], strict=True):
+            position = exported['evidence'][reference['id']]
+            assert text[position['start']:position['end']] == support['quote']
+    assert result['target_resolution'] == 'not_performed'
+    assert result['semantic_completeness'] == 'not_established'
+
+
+def test_unclosed_compilation_parenthetical_remains_a_refusal():
+    text = '3 CFR 127 (1981 Comp.'
+    result = scan_references(prepare_document(text))
+    assert not result['candidates']
+    refused, = result['rejected']
+    assert refused['code'] == 'compilation_parenthetical_unclosed'
+    assert refused['reading'] == {'compilation_start': '1981', 'page': '127'}
+    assert refused['evidence'][0]['quote'] == text

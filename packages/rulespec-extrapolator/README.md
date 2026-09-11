@@ -310,6 +310,12 @@ becoming a plain section. Open-ended forms such as `38 U.S.C. 4301, et seq.`
 retain their full wording with `usc_open_ended_reference_unresolved`; the reader
 does not infer an ending section. These readings do not establish target existence.
 
+Title 3 compilation citations retain their volume years and page endpoints.
+`3 CFR 60–61 (1971–1975 Comp.)` yields a compilation locator, with pages 60–61
+and years 1971–1975. It does not identify CFR part 60 or infer an executive order.
+The existing year-first spelling is also supported. Repeated mentions stay
+separate, and an unclosed parenthetical retains an explicit refusal.
+
 Rulespec's existing document validation, exact evidence resolver, fragment identity
 and passage index provide grounding; no new citation grammar or Core assertion
 type is introduced. A mention is not a resolved target, an applicability judgment,
@@ -332,21 +338,26 @@ uv pip install --python .tools/document-poc-venv/bin/python \
   --constraint thoughts/experiments/2026-09-11-uslm-source-links/dependency-constraints.txt \
   dist/production-20260910/rulespec_artifacts-1.0.11-py3-none-any.whl \
   dist/reference-integration-20260911-uslm-text/rulespec_conformance-0.2.0rc18-py3-none-any.whl \
-  dist/production-20260910/rulespec_projection-0.1.0-py3-none-any.whl \
+  dist/citation-ownership-20260911/rulespec_projection-0.1.0-py3-none-any.whl \
   dist/reference-tools-20260910-parenthetical/spicysearch-0.1.4-py3-none-any.whl \
-  dist/reference-integration-20260911-usc-open-ended/refspec-0.1.0.dev0-py3-none-any.whl \
-  dist/reference-integration-20260911-usc-open-ended/rulespec_extrapolator-0.1.0.dev0-py3-none-any.whl \
+  dist/reference-integration-20260911-compilations/refspec-0.1.0.dev0-py3-none-any.whl \
+  dist/reference-integration-20260911-compilations-final/rulespec_extrapolator-0.1.0.dev0-py3-none-any.whl \
   ../DocSpec/dist/docspec-0.2.11-py3-none-any.whl
 ```
 
 Use the Python environment where you installed the extractor. The scan records
 each parser's version and module digest. The latest
-[wheel inputs](../../thoughts/experiments/2026-09-11-reader-runtime-capture/wheel-inputs.json)
-pin the matching builds, including the RIN, containment and retention changes; the
+[wheel inputs](../../thoughts/experiments/2026-09-11-compilation-occurrences/wheel-inputs.json)
+pin the matching builds, including compilation locators and the RIN, containment
+and retention changes; the
 [act-name comparison](../../thoughts/experiments/2026-09-11-act-name-multiplicity/README.md)
 retains an earlier checkpoint. The full installation includes DocSpec because of
 SpicySearch's existing dependency metadata; document segmentation and Core
 validation do not call DocSpec.
+
+Prefer publisher XML when it contains the required document text in a supported
+format. Supply that XML directly instead of first flattening it to text or
+extracting a PDF copy. Format selection is currently the caller's responsibility.
 
 With these packages, `prepare`, `extract` and `references` accept USLM `.xml`
 files. RefSpec supplies readable heading/list/table boundaries; Rulespec retains
