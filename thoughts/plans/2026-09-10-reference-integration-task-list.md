@@ -87,6 +87,14 @@ not separate implementations:
 These are implementation/prioritization judgments, not new measured accuracy
 claims. Do not close conditional work solely because it was grouped or deferred.
 
+Three additional surveys refine this grouping: [reference dependencies](../reviews/2026-09-11-reference-dependency-followup.md),
+[consumer priorities](../reviews/2026-09-11-consumer-priority-followup.md), and
+[sibling reuse](../reviews/2026-09-11-sibling-reuse-followup.md). Their suggestions
+are proposed approaches, not completed integrations. In particular, discovery
+feedback and exact publisher-address lookup need not wait for inferred citation
+context, graph-parser migration, or another model pass. Keep the shared source
+evidence while evaluating those outcomes independently.
+
 | Order | Outcome | Tasks | Completion evidence |
 | --- | --- | --- | --- |
 | 1 — Delivered | Preserve generated statements in the working installation | R1, R4, R23 | Installed tests; reprocess/replay/export/reload; exact source and wheel identities |
@@ -241,34 +249,33 @@ kind/modality contradictions remaining. Original reviews stay intact and new
 reprocessing output starts pending, including when claim IDs change. The
 [capture result](../experiments/2026-09-11-reader-runtime-capture/README.md) adds
 reader/helper sources and versions without changing those statements or discovery
-output. Its current source and installed suites each pass 559 tests.
+output. That checkpoint passed 559 source and installed tests; the latest
+application delivery passes 645.
 
-1. **Complete CFR readings before migrating graph callers — R8; RefSpec,
-   Rulespec projection and SpicySearch; effort M.** Caller tracing is complete.
-   The direct comparison found 189 compound-part truncations in RefSpec's
-   reading of constructed index citations and confirmed that the strict
-   SpicySearch reader retains but refuses them. Original publisher XML now
-   distinguishes the observed compounds from explicit ranges. The token-only
-   gate failed; the coordinated successor now delivers one complete item reader
-   plus endpoint representation, preserves/refuses scope through authority and
-   typed rows, guards single-part lookups/explanations, and uses original
-   occurrence text in Rulespec. Before a graph migration, test
-   the existing graph's dictionary/compact inputs before replacing its live parser.
-2. **Select the next useful reader or consumer — R7/R20/R22; effort M.** Use the
-   existing inventory to choose a concrete application need. Compare the callable
-   native reader on actual source and misleading controls before connecting it.
-   R5/R6's selected USC integration is delivered; do not restart that comparison
-   or add more syntax without a demonstrated missing use case.
-3. **Scoped commits complete — R1.** Upstream reader fixes, Core selector
-   generation, application integration and retention/capture changes are committed
-   locally. Research is preserved separately. The
-   [checkpoint](../reviews/2026-09-11-commit-checkpoint.md) identifies the commits
-   and source/wheel checks. Publication and deployment remain separate.
-4. **Select one consumer or semantic experiment — R16/R17/R22/R24/R25.** Do not
-   assume more citation syntax improves rule meaning. Choose a named discovery task
-   or one observed semantic failure, with fresh cases and a distinct intervention.
-   Define baseline, counterexamples, fixed settings, case/cost bounds and an
-   adopt/defer rule. Keep the failed context and explanation bundles experimental.
+1. **Fix the demonstrated range/prose boundary — R8/R9; RefSpec; effort S.**
+   Compare ordinary following prose with complete, truncated and unread ranges.
+   Preserve existing qualifier refusals. This isolated grammar defect does not
+   require native-title inference, a graph migration or model calls. Qualified
+   USC, complete CFR compounds/ranges and reverse explicit titles are delivered.
+2. **Prove one discovery correction path — R3/R17/R18/R24; effort S–M.**
+   Reuse the existing observation/reload/export route for accepted, rejected,
+   repeated and rescanned references. Preserve the challenged reading and its
+   source/reader version. Then compare source-only retrieval with separately
+   ranked statement results and bounded evidence expansion. Do not compare raw
+   scores from differently populated indexes as though they were calibrated.
+3. **Choose one additional source or vocabulary benefit — R11/R12/R20–R23;
+   effort S–M.** Exact current-document publisher addresses, stated metadata and
+   agency/general-label suggestions are independent candidates. Select one named
+   caller and its smallest comparison. Check current SpicySearch–DocSpec source
+   compatibility before upgrading the DocSpec wheel; installed behavior and live
+   source compatibility are separate checks. R8 graph migration remains conditional
+   on a caller needing those facts.
+4. **Keep workflow preparation and semantic experiments focused — R19/R16/R25/R26.**
+   Prepare one reviewed decision flow, then select any model intervention from its
+   demonstrated failures. A fixed-target relationship trial must also check
+   supported-subset application through the existing preview/revision path.
+   Keep failed context and explanation variants experimental. Smaller public
+   investigation APIs need a measured caller benefit before implementation.
 
 **Natural stopping point reached:** the two small deliveries are in the working
 installation with captured evidence and explicit review/replay behavior. The broad
@@ -302,12 +309,12 @@ estimates describe relative scope; they are not delivery promises.
 | Priority | Tasks | Dependency or stopping condition |
 | --- | --- | --- |
 | Preserve the delivered foundation | R2, R14; completed portions of R1/R3/R4/R11/R13/R23 | Use current readers, schemas and evidence; do not rebuild them |
-| Do now | R5 → R6 qualified USC | Compare complete native readings and actual failures, then expose source occurrences upstream |
+| Small deterministic fix | R8/R9 range/prose boundary | Preserve complete and refused ranges while distinguishing ordinary following prose |
 | Preserve delivery records and commits | R1 scoped changes | Reader capture and scoped local commits are complete; retain their original receipts |
-| Next reader work | R5 → R6; R9/R10 → R11 | Qualified USC and general local addresses need separate gates |
+| Next source work | R9/R10/R11/R12 | Exact publisher addresses can be assessed independently; inferred context and general prose addresses retain separate gates |
 | Consolidate when a replacement is ready | R8 | Trace callers and prove parity before removing superseded code; avoid dependency cycles |
 | Choose for a demonstrated consumer | R12, remaining R13, R17, R21, R22, remaining R23 | Verify required data under R20 and connect one useful capability |
-| Follow real use | R18, R19 | Persistent feedback and a reviewed workflow example share the source/evidence foundation |
+| Demonstrate consumer value | R17/R18; separately R19 | Reference feedback can start now; a reviewed workflow example shares source evidence without requiring the same process |
 | Separate model experiments | R16/R25 → relevant R26 work | Fix deterministic loss first; test one semantic change or cost reduction at a time |
 | Validate claims of benefit | R24 | Fresh source meanings and product outcomes, distinct from package tests or schema validity |
 
@@ -383,14 +390,14 @@ Broader reuse remains open.
 | RefSpec `find_usc_citations` | Connected and installed; native fields, source/context evidence and refusals retained in both commands | R6 delivered; broader coverage under R24 |
 | RefSpec FR pages and EO compilation locators | Compilation occurrences connected and installed with exact evidence; FR pages remain unconnected | R7 |
 | RefSpec named-act recognition and resolution | Occurrence API fixed upstream and installed; optional act/source-credit indexes connected through both commands | R13 follow-up cases; R24 fresh quality |
-| RefSpec USC section/subsection oracle | Source-inspected; not yet connected or exercised in this application | R12, R20 |
+| RefSpec USC section/subsection oracle | Exercised against pinned artifacts in the body-reader comparison; not connected to application target decisions | R12, R20 |
 | RefSpec publisher USLM link extraction | Shared `iter_edges`, `read_text`, XML ingestion/export and unique text-reading association installed and verified | R15/R16 consumer context; broader R3 ambiguity if a new case requires it |
 | Spicy Regs CFR section metadata | Existing catalog reader inspected; no target lookup integration | R12 |
 | Document-local paragraph addresses and inherited CFR titles | General resolver still missing; exact supplied section-label matching exists | R9–R11 |
 | Rulespec projection citation copies | Existing callers remain; known divergence from newer readers | R8 |
 | Reference-driven audit/context/retrieval | Candidate export exists; these downstream uses are not connected or proven | R15–R18 |
 | RefSpec vocabularies / SpicySearch Atlas and agency readers | Existing implementations; current Rulespec concept-assignment and local-term foundations also exist; new extractor-to-vocabulary connection unverified | R22 |
-| Corpus publication metadata and publisher links | Local Unified Agenda tables and eCFR/USC source directories located; presence is not loader compatibility or target-text verification | R12–R14, R20–R21 |
+| Corpus publication metadata and publisher links | Selected USLM/eCFR source and target readers installed; Unified Agenda tables verified; publication-metadata consumer remains open | R12–R14, R20–R21 |
 | Fresh end-to-end benefit | Selected experiments and regression cases exist; general extraction quality, reviewer effort and cross-document discovery gains remain unmeasured | R24 |
 
 Older records saying RefSpec cannot retain CFR subsection paths describe the
@@ -801,6 +808,9 @@ The CFR fix and USC integration are separate deliverable slices.
 - [ ] Distinguish FR volume/page, FR document number, docket, Regulations.gov
   document ID, and RIN. Apply document-number variants only with the source metadata
   or context they require; keep bare ranges and Ohio rule numbers as controls.
+  The existing FR identity reader retains only a starting page for the probed
+  range/note forms. A future occurrence API must preserve supported endings or
+  refuse unsupported scope; adding offsets alone is insufficient.
 - [ ] For each addition, require a real positive source, a misleading lookalike,
   exact occurrence evidence, and a useful consumer field. Leave families disabled
   when that small test fails or there is no current demand.
@@ -952,6 +962,13 @@ an exemption or applicability relationship.
   [delivery](../experiments/2026-09-11-ecfr-text/application.md) verifies four actual
   target bodies, 84 retained native combined-section issues and 89 XML fragments;
   source/isolated/working command output agrees. Full-title memory remains material.
+- [ ] For a selected navigation consumer, first exercise exact current-document
+  lookup using the existing `--reference-source` option with the primary XML.
+  Supported native USC pinpoints already resolve through that route. Only if this
+  becomes the normal caller path, share its verified `SourceIndex` to avoid reading
+  the same XML twice; preserve output and passage identities without a global cache.
+  Distinguish unsupported lookup shapes from absent/ambiguous targets. A retained
+  publisher/text disagreement does not currently trigger lookup of both readings.
 - [ ] Keep edition/date, catalog release, original citation, selected target and
   source digest together. Distinguish missing data from an invalid citation or a
   provision absent from the selected edition. Handle repeal/renumbering as recorded
@@ -1162,6 +1179,10 @@ change remains unproven. Reference recognition does not justify a mandatory audi
   provisions, duplicate results, complete supporting context, unresolved targets,
   payload size and cost on fresh labeled queries. Reuse the existing retrieval
   harness before building another index or search product.
+- [ ] If combining separately ranked source and statement lists, predeclare a
+  rank/identity rule; the current diagnostic scorer computes statistics separately
+  for each collection. Measure duplicate result slots separately from repeated
+  source intervals in evidence expansion, retaining source/edition identity.
 
 **Done when:** reference features improve a named discovery task. Do not revive
 source-plus-summary concatenation by default; its saved comparison regressed.
@@ -1198,9 +1219,18 @@ source-plus-summary concatenation by default; its saved comparison regressed.
   stable feedback anchor, including repeated identical mentions. Existing
   `ReviewStore` observations can carry reference feedback without claim targets;
   validate that route before introducing another feedback store or ID system.
+  Start with an existing saved run: `ReviewStore` expects document, run and
+  rulebook files. Source-only reference feedback needs an explicit entry point;
+  it should not acquire a model-extraction prerequisite by accident.
 - [ ] Reuse review events and provenance. Preserve observations when claims or
   parser readings are superseded, and show what was resolved versus still disputed.
   Avoid requiring a person to approve every discovery candidate.
+- [ ] Pin the challenged reading as well as its source occurrence: the same
+  accepted ID can be rescanned with a changed interpretation. Human observations
+  can hold parser/index/source details in their data; top-level action `provenance`
+  is reserved for AI captures. Test accepted/rejected readings, repeated mentions
+  and a changed rescan through reload/export. An observation records feedback;
+  it does not currently override scanner output or choose a target.
 
 **Done when:** a correction survives reload/export and is connected to the version
 of the reading it corrects. Operational approval remains a distinct decision.
@@ -1234,7 +1264,8 @@ legal automation approval.
   metadata-only section catalog, strict SpicySearch identity fields, and three
   pinned eCFR bodies. The [bounded inventory](../experiments/2026-09-11-reference-bodies/README.md)
   separates the installed USLM consumer from available eCFR data and missing
-  body-reader integration. It retains suspension notes, tables, missing targets,
+  body-reader integration at that checkpoint; the later eCFR delivery closes the
+  selected exact-section path. It retains suspension notes, tables, missing targets,
   wrong pins and edition mismatch; no source or corpus rebuild was needed.
 
 - [x] Verify the USLM release 119-102 archive/member pins and capture title 29
@@ -1260,8 +1291,8 @@ legal automation approval.
 | `RefSpec/output/usc-act-index-2026-08-22` | `ActIndex.from_artifact`: verified and exercised | R13 named-act sections and popular names; now connected |
 | `RefSpec/output/usc-source-credit-index-2026-08-02` | `SourceCreditIndex.from_artifact`: verified; real positive and multi-target rows exercised | R13 mappings and tested source-composition policies delivered; reused independently for each act candidate |
 | `RefSpec/research/evidence/usc-regeneration-2026-08-31/popularnames.htm.gz` | Existing popular-name builder reproduces all 20,865 normalized frozen rows; ambiguous entries inspected with raw HTML context | Shared builder/runtime record type and multi-law/scope lookup delivered under R13 |
-| `RefSpec/output/usc-annual-2026-08-24/xml_uscAll_119-102.zip` | Archive verified against source-credit pins; title 10/18 credit sections inspected; title 5/42 reader controls delivered; title 29/38/20 chapters and natural windows captured | R14 supplied-XML lookup delivered; R15/R16 comparison complete with adoption deferred; R12 external edition/body lookup open |
-| `RefSpec/output/ecfr-title-xml-2026-08-24` | Manifest and title 21/40/49 file digests verified; exact sections and paragraph text exercised in the subpart comparison; production source/target loader still open | R9–R12 headings, paragraphs and target text |
+| `RefSpec/output/usc-annual-2026-08-24/xml_uscAll_119-102.zip` | Archive verified against source-credit pins; title 10/18 credit sections inspected; title 5/42 reader controls delivered; title 29/38/20 chapters and natural windows captured | R14 publisher navigation and selected R12 external section/pinpoint bodies delivered; R15/R16 adoption deferred; edition correspondence open |
+| `RefSpec/output/ecfr-title-xml-2026-08-24` | Selected file digests and native structure verified; exact-section source/target lookup now installed through the bounded eCFR profile | R9–R12 broader context, paragraph scopes and edition correspondence remain open |
 | `corpora/refspec-registry-unified-agenda-parquet` | Existing verifier accepts all four output hashes and declared schema; RIN comparison exercises 241,726 actions / 46,562 distinct values from 60 editions. `PublishedTables` is an interface, not an on-disk loader; metadata consumption remains unconnected | R7 compatibility check delivered; R21 stated CFR/authority metadata and RIN links open |
 | `corpora/supply-2026-09-02/releases` and `corpora/fr-mirrulations-1k-v1` | Existing release manifests and source readers; verify a selected small source | R7/R23 real positive inputs; R24 fresh documents |
 | RefSpec vocabulary/Atlas releases | Existing release verification; SpicySearch `AtlasSearchView` where compatible | R22 stable concepts, labels and agency suggestions |
@@ -1270,13 +1301,13 @@ Paths above are relative to `/Users/mikewolfd/Work`. The populated corpus root i
 `/Users/mikewolfd/Work/corpora`; `~/corpora` was absent at inspection. The source
 repository is `spicy-regs`, not `spicyregs`. Artifact presence is verified. The two
 act indexes are verified and connected. Selected eCFR XML is now verified and
-usable for experiments. The USLM archive and selected title 10/18 sections are
+used by the installed source/target reader. The USLM archive and selected title 10/18 sections are
 captured in the [policy source evidence](../experiments/2026-09-11-act-resolution-policy/raw-credit-context.json).
 The [USLM cases](../experiments/2026-09-11-uslm-source-links/cases.json) also pin
 title 5/42 members and the exact source selections used for publisher-link checks.
 Its release point is 119-102; a directory named `usc-annual` does not establish an
-annual legal edition. A production target-text connection and the remaining
-artifact/loader compatibility checks stay open.
+annual legal edition. Selected USLM/eCFR target-text connections are delivered;
+broader scope, historical correspondence and remaining artifact/loader checks stay open.
 
 The [paragraph comparison](../experiments/2026-09-11-local-paragraph-addresses/README.md)
 also pins whole sections 21 CFR 1.276 and 49 CFR 1.25a from the verified source.
@@ -1299,6 +1330,12 @@ products unless a concrete Rulespec consumer needs them.
 - [ ] Compare stated metadata with text occurrences from the same pinned record.
   Retain both when they serve different purposes or disagree. Metadata has its own
   source field evidence; never invent a quotation span for it in a document body.
+  DocSpec already retains `sourceNativeFacts`, normalization outcomes and source
+  paths; CFR/authority fields require the native record. For a metadata-search
+  caller, assess SpicySearch's `prepare_metadata_subject`, which preserves field
+  evidence in decoded JSON-value UTF-8 byte coordinates. Do not import its whole
+  search policy merely to display a date, or wait for graph-facts migration to
+  expose one verified publisher field.
 - [ ] Inspect SpicySearch's existing `citation_bridge` only for a discovery use
   that needs USC-to-CFR suggestions. Its Unified Agenda co-occurrence evidence is
   a suggested association, not proof that one provision legally implements another.
@@ -1325,6 +1362,11 @@ adds value. Declared source references remain distinct from inferred association
   and ambiguity through existing records. Resolve exact unambiguous names only
   within the reader's supported scope; preserve broader matches as suggestions.
   An agency-name match does not establish that the agency is the actor of a rule.
+  For whole extracted mentions, start with `VocabularyLookup.build/suggest`; for
+  query prose, assess `build_lookup_label_index/resolve_query_concepts`. Preserve
+  original occurrence evidence and lookup pins: the query result lacks raw source
+  offsets. Check language scope and agency ID domains explicitly; Federal Register
+  slug/name IDs are not interchangeable with regulations.gov agency IDs.
 
 **Done when:** a named tagging or cross-document lookup task gains useful links
 without false identity merges or larger mandatory model output. Broader/narrower
@@ -1341,6 +1383,12 @@ not become an asserted legal relationship.
   structure needs a separate explicit representation decision; do not imply that
   adding spaces restores row/column meaning. This is independent of R12's native
   XML reference-source integration.
+- [ ] Before a DocSpec wheel upgrade, validate its pairing with SpicySearch.
+  Live `platform_source_catalog` imports the removed
+  `docspec.adapters.source_catalog_artifact` module; the existing definitions
+  moved under `catalog_artifact`, and the requested public streaming API remains
+  unimplemented. Resolve the owning API boundary and run focused sibling-wheel
+  checks. This source mismatch does not establish a fault in the installed pair.
 
 The R10 comparison now supplies specific source cases: italic deep-level markers
 in the saved seatbelt XML, `(i)` embedded in a definition's physical paragraph,
@@ -1484,6 +1532,11 @@ schema, agent verdict or small selected sample is called a general accuracy rate
   revision checks. Preserve unsupported/unknown targets as review observations;
   stale claims or mixed outcomes must not erase a supported link or change an
   exemption's `not_required` meaning. Keep original captures and corrections.
+  Build one supported-subset replacement per qualification and keep every supplied
+  target's verdict/evidence. Core and review snapshots deliberately clear incomplete
+  or changed target sets; preserve those checks rather than globally accepting
+  partial links. Record excluded or disputed targets as observations, and keep
+  one shared request before considering separate calls per target.
 
 **Done when:** the declared gate passes for both retained correct links and avoided
 wrong links, or the intervention remains experimental. The earlier 2/5 → 4/5 gain
