@@ -352,14 +352,14 @@ uv pip install --python .tools/document-poc-venv/bin/python \
   dist/citation-ownership-20260911/rulespec_projection-0.1.0-py3-none-any.whl \
   dist/reference-tools-20260910-parenthetical/spicysearch-0.1.4-py3-none-any.whl \
   dist/reference-integration-20260911-reverse-title/refspec-0.1.0.dev0-py3-none-any.whl \
-  dist/reference-integration-20260911-ecfr/rulespec_extrapolator-0.1.0.dev0-py3-none-any.whl \
+  dist/reference-feedback-20260911-source-issues/rulespec_extrapolator-0.1.0.dev0-py3-none-any.whl \
   ../DocSpec/dist/docspec-0.2.11-py3-none-any.whl
 ```
 
 Use the Python environment where you installed the extractor. The scan records
 each parser's version and module digest. The latest
-[wheel inputs](../../thoughts/experiments/2026-09-11-cfr-reverse-title/wheel-inputs.json)
-pin the matching builds, including optional supplied-source lookup, complete CFR compounds/ranges, the part-zero
+[wheel inputs](../../thoughts/experiments/2026-09-11-reference-feedback/wheel-inputs.json)
+pin the matching builds, including reference feedback, optional supplied-source lookup, complete CFR compounds/ranges, the part-zero
 minter fix, compilation locators and the RIN, containment
 and retention changes; the
 [act-name comparison](../../thoughts/experiments/2026-09-11-act-name-multiplicity/README.md)
@@ -559,10 +559,33 @@ rulespec-understand refine my-run --output my-refinement \
 rulespec-understand refine-replay my-refinement --output my-refinement-replay
 ```
 
-Review supports add, edit, split, merge, reject and approve, recording the reviewer,
+Review supports add, edit, split, merge, reject, approve and observe, recording the reviewer,
 reason and expected revision. SQLite preserves review history. Approval records
 an assessment; assertions remain `reviewQueueOnly`. See the
 [review action examples](../../examples/document_understanding/manual-slice/review-demo/README.md).
+
+Reference feedback uses the same history. Save the scan you inspected, select its
+zero-based candidate index (or use `--rejected`), and supply the current review
+revision from `export` or the review workspace:
+
+```sh
+rulespec-understand references my-run --output reference-scan.json
+rulespec-understand reference-feedback my-run --scan reference-scan.json \
+  --candidate 0 --expected-revision 0 --actor "Review user" \
+  --rationale "Please check the cited section and its edition."
+rulespec-understand discovery-export my-run --references --output discovery-with-feedback.json
+```
+
+The command preserves the comment, selected reading, source evidence, reader/index
+pins, supplied-source diagnostics and referenced target context. Repeated mentions retain separate positions;
+refused readings retain their reasons even when they have no accepted reference ID.
+Discovery includes the observations under `enrichment_issues`, with their event
+IDs. A later scan can differ while the earlier observation remains unchanged.
+Feedback records a reported problem; it does not approve claims, modify scanner
+output or resolve the report automatically. The operation uses an existing saved
+run and makes no model call. Its Python helper is
+`reference_feedback.reference_observation(document, scan, collection, index, message=...)`;
+the returned observation can also use the existing `review --action` route.
 
 Export the current review state before auditing corrections. Refinement appends
 AI-attributed review events only after local checks and a separate model challenge;

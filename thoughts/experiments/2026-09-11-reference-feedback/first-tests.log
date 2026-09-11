@@ -1,0 +1,24 @@
+..F............                                                          [100%]
+=================================== FAILURES ===================================
+____ test_feedback_cli_preserves_claim_approval_and_rejects_stale_revision _____
+
+tmp_path = PosixPath('/private/var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/pytest-of-mikewolfd/pytest-4125/test_feedback_cli_preserves_cl0')
+capsys = <_pytest.capture.CaptureFixture object at 0x10b4b3c50>
+
+    def test_feedback_cli_preserves_claim_approval_and_rejects_stale_revision(tmp_path, capsys):
+        text = 'Visitors must retain records. See 40 CFR 82.155.'
+        doc = prepare_document(text)
+        statement = 'Visitors must retain records.'
+        run = make_run(tmp_path, doc, [{'kind': 'requirement', 'quote': statement, 'summary': statement,
+                                       'modality': 'must', 'modality_quote': 'must'}])
+        store = ReviewStore(run)
+        before = store.snapshot()
+        approval = action({}, 0)
+>       approval.update(action='approve', targets=[before['accepted'][0]['id']])
+                                                   ^^^^^^^^^^^^^^^^^^^^^
+E       IndexError: list index out of range
+
+packages/rulespec-extrapolator/tests/test_reference_feedback.py:91: IndexError
+=========================== short test summary info ============================
+FAILED packages/rulespec-extrapolator/tests/test_reference_feedback.py::test_feedback_cli_preserves_claim_approval_and_rejects_stale_revision
+1 failed, 14 passed, 1 warning in 0.28s

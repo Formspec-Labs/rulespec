@@ -1,0 +1,28 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__________ test_unlocated_target_feedback_keeps_native_source_issues ___________
+
+tmp_path = PosixPath('/private/var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/pytest-of-mikewolfd/pytest-4135/test_unlocated_target_feedback0')
+
+    def test_unlocated_target_feedback_keeps_native_source_issues(tmp_path):
+        # Constructed source using the native combined-section form observed in title 49.
+        external = uslm.prepare_xml(
+            '<ECFR><DIV1 N="49" TYPE="TITLE"><DIV5 N="11" TYPE="PART">'
+            '<DIV8 N="11.105-11.106" TYPE="SECTION">'
+            '<HEAD>§§ 11.105-11.106 [Reserved]</HEAD></DIV8>'
+            '</DIV5></DIV1></ECFR>')
+        doc = prepare_document('49 CFR 11.105.')
+        scan = scan_references(doc, reference_sources=[external])
+        observation = reference_observation(doc, scan, 'candidates', 0)
+        source, = scan['reference_sources'].values()
+        retained, = observation['context']['reference_sources'].values()
+        assert observation['reference']['resolution']['status'] == 'not_in_selected_sources'
+        assert not scan['targets'] and 'records' not in retained
+>       assert retained['issues'] == source['issues']
+               ^^^^^^^^^^^^^^^^^^
+E       KeyError: 'issues'
+
+packages/rulespec-extrapolator/tests/test_reference_feedback.py:204: KeyError
+=========================== short test summary info ============================
+FAILED packages/rulespec-extrapolator/tests/test_reference_feedback.py::test_unlocated_target_feedback_keeps_native_source_issues
+1 failed in 2.00s

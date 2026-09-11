@@ -55,6 +55,16 @@ def main(argv=None):
     review = sub.add_parser("review", help="Append an explicit review action from JSON.")
     review.add_argument("run", type=Path)
     review.add_argument("--action", type=Path, required=True)
+    feedback = sub.add_parser('reference-feedback', help='Record feedback on a saved reference reading without changing claims.')
+    feedback.add_argument('run', type=Path)
+    feedback.add_argument('--scan', type=Path, required=True, help='Saved references command output.')
+    selection = feedback.add_mutually_exclusive_group(required=True)
+    selection.add_argument('--candidate', type=int, help='Zero-based index in the scan candidates list.')
+    selection.add_argument('--rejected', type=int, help='Zero-based index in the scan rejected list.')
+    feedback.add_argument('--expected-revision', type=int, required=True)
+    feedback.add_argument('--actor', required=True)
+    feedback.add_argument('--actor-kind', choices=('humanUser', 'aiAgent'), default='humanUser')
+    feedback.add_argument('--rationale', required=True, help='What appears wrong, missing or disputed in this reading.')
     export = sub.add_parser("export", help="Export and validate the current review state.")
     export.add_argument("run", type=Path)
     export.add_argument("--output", type=Path, required=True)
@@ -153,6 +163,16 @@ def main(argv=None):
             result = store.snapshot()
             result["validation"] = validate_graph(result["graph"])
             _write_new(args.output, result)
+    elif args.command == 'reference-feedback':
+        from .reference_feedback import reference_observation
+        from .review_store import ReviewStore
+        store = ReviewStore(args.run)
+        collection, index = ('candidates', args.candidate) if args.candidate is not None else ('rejected', args.rejected)
+        observation = reference_observation(store.document, _load(args.scan), collection, index, message=args.rationale)
+        result = store.apply({'expected_revision': args.expected_revision, 'actor': args.actor,
+                              'actor_kind': args.actor_kind, 'action': 'observe', 'targets': [],
+                              'rationale': args.rationale, 'observations': [observation]})
+        print(canonical({'revision': result['revision'], 'event': result['history'][-1]}))
     elif args.command == "discovery-export":
         from .discovery import export_discovery
         from .review_store import ReviewStore

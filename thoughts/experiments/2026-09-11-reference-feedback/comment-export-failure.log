@@ -1,0 +1,46 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____ test_feedback_cli_preserves_claim_approval_and_rejects_stale_revision _____
+
+tmp_path = PosixPath('/private/var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/pytest-of-mikewolfd/pytest-4128/test_feedback_cli_preserves_cl0')
+capsys = <_pytest.capture.CaptureFixture object at 0x10b30c740>
+
+    def test_feedback_cli_preserves_claim_approval_and_rejects_stale_revision(tmp_path, capsys):
+        text = 'Visitors must retain records. See 40 CFR 82.155.'
+        doc = prepare_document(text)
+        statement = 'Visitors must retain records.'
+        run = make_run(tmp_path, doc, [{'kind': 'requirement', 'quote': statement, 'summary': statement,
+                                       'actor': 'Visitors', 'actor_quote': 'Visitors',
+                                       'modality': 'must', 'modality_quote': 'must'}])
+        store = ReviewStore(run)
+        before = store.snapshot()
+        approval = action({}, 0)
+        approval.update(action='approve', targets=[before['accepted'][0]['id']])
+        approval.pop('observations')
+        before = store.apply(approval)
+        scan_path = tmp_path / 'scan.json'
+        cli.main(['references', str(run), '--output', str(scan_path)])
+        capsys.readouterr()
+        args = ['reference-feedback', str(run), '--scan', str(scan_path), '--candidate', '0',
+                '--expected-revision', '1', '--actor', 'Fixture reviewer', '--rationale', 'Check this reference.']
+        assert cli.main(args) == 0
+        response = json.loads(capsys.readouterr().out)
+        assert response['revision'] == 2 and response['event']['actor_kind'] == 'humanUser'
+        after = ReviewStore(run).snapshot()
+        assert after['accepted'] == before['accepted'] and after['attestations'] == before['attestations']
+        assert after['history'][:1] == before['history']
+        with pytest.raises(RevisionConflict):
+            cli.main(args)
+        assert ReviewStore(run).snapshot() == after
+        output = tmp_path / 'discovery.json'
+        cli.main(['discovery-export', str(run), '--references', '--output', str(output)])
+        saved = json.loads(output.read_text())
+        assert saved['enrichment_issues'][0]['code'] == 'reference_feedback'
+>       assert saved['enrichment_issues'][0]['message'] == 'Check this reference.'
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'message'
+
+packages/rulespec-extrapolator/tests/test_reference_feedback.py:113: KeyError
+=========================== short test summary info ============================
+FAILED packages/rulespec-extrapolator/tests/test_reference_feedback.py::test_feedback_cli_preserves_claim_approval_and_rejects_stale_revision
+1 failed in 0.19s
