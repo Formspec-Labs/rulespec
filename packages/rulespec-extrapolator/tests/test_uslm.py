@@ -10,14 +10,14 @@ from rulespec_extrapolator.discovery import export_discovery
 from rulespec_extrapolator.documents import load_document
 from rulespec_extrapolator.extraction import _window_prompt, plan_windows
 from rulespec_extrapolator.references import scan_references
-from rulespec_extrapolator.uslm import prepare_uslm, read_uslm
+from rulespec_extrapolator.uslm import prepare_xml, read_xml
 
 NS = 'http://xml.house.gov/schemas/uslm/1.0'
 FIXTURE = Path(__file__).parent/'fixtures/uslm/fresh-title-05-pair.xml'
 
 
 def document(body):
-    return prepare_uslm(f'<uscDoc xmlns="{NS}" identifier="/us/usc/t5"><section identifier="/us/usc/t5/s1">{body}</section></uscDoc>')
+    return prepare_xml(f'<uscDoc xmlns="{NS}" identifier="/us/usc/t5"><section identifier="/us/usc/t5/s1">{body}</section></uscDoc>')
 
 
 def test_fresh_definition_target_and_core_fragments():
@@ -141,7 +141,7 @@ def test_unique_publisher_containment_preserves_ambiguity_and_reading_targets(ca
     associated = [(parent, row) for parent in publisher for row in parent.get('text_readings', [])]
     assert len(associated) == case['associated']
     assert sum(row['kind'] != 'publisher_reference' for row in scan['candidates'] + scan['rejected']) == case['separate']
-    nodes = read_uslm(doc)['nodes']
+    nodes = read_xml(doc)['nodes']
     spans = {parent['id']: nodes[scan['xml_fragments'][parent['xml_evidence_refs'][0]]['oa:hasSelector'][0]['rdf:value']]
              for parent in publisher}
     for parent, reading in associated:
@@ -167,11 +167,11 @@ def test_saved_transformation_mutations_are_refused(mutation):
     elif mutation=='text': doc['text']='Changed.'
     elif mutation=='source_map': doc['source_map'][0]['source_start']+=1
     else: doc['uslm_source']['preparation']='unknown-version'
-    with pytest.raises(ValueError): read_uslm(doc)
+    with pytest.raises(ValueError): read_xml(doc)
 
 
 def test_raw_xml_attributes_do_not_enter_model_prompt():
-    doc=prepare_uslm(f'<uscDoc xmlns="{NS}" id="XML_ONLY_SENTINEL"><section><p>Source sentence.</p></section></uscDoc>')
+    doc=prepare_xml(f'<uscDoc xmlns="{NS}" id="XML_ONLY_SENTINEL"><section><p>Source sentence.</p></section></uscDoc>')
     window, = plan_windows(doc, 1000)
     generator=SimpleNamespace(render=lambda text, additional_context: text+additional_context)
     prompt=_window_prompt(generator, doc, window)

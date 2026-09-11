@@ -113,7 +113,8 @@ def export_discovery(book, *, include_references=False, act_index=None, source_c
         scan = scan_references(doc, act_index=act_index, source_credit_index=source_credit_index,
                                reference_sources=reference_sources)
         scan.pop('document')  # The export already pins this exact document.
-        source_documents = {NS + 'xml:' + d['uslm_source']['sha256']: d for d in reference_sources}
+        from .uslm import xml_source
+        source_documents = {NS + 'xml:' + xml_source(d)['sha256']: d for d in reference_sources}
         for candidate in scan['candidates'] + scan['rejected'] + list(scan.get('targets', {}).values()):
             for reading in [candidate] + candidate.get('text_readings', []):
                 if 'evidence' in reading:

@@ -65,8 +65,8 @@ def load_document(path, *, title=None, source_url=""):
         document = json.loads(text)
         return validate_document(document)
     if path.suffix.lower() == '.xml':
-        from .uslm import prepare_uslm
-        return prepare_uslm(text, title=title or path.stem, source_url=source_url)
+        from .uslm import prepare_xml
+        return prepare_xml(text, title=title or path.stem, source_url=source_url)
     return prepare_document(text, title=title or path.stem, source_url=source_url)
 
 

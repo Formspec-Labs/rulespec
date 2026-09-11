@@ -64,11 +64,11 @@ def main(argv=None):
     discovery.add_argument("--references", action="store_true",
                            help="Add source reference candidates using the optional RefSpec and SpicySearch readers.")
     references = sub.add_parser("references", help="Locate supported reference mentions without model calls.")
-    references.add_argument("source", type=Path, help="Text, USLM XML, prepared document, rulebook JSON, or extraction directory.")
+    references.add_argument("source", type=Path, help="Text, USLM/eCFR XML, prepared document, rulebook JSON, or extraction directory.")
     references.add_argument("--output", type=Path, required=True)
     for command in (references, discovery):
         command.add_argument("--reference-source", type=Path, action="append", default=[],
-                             help="Look up exact targets in this USLM XML/prepared document; repeat to supply additional sources or editions.")
+                             help="Look up exact targets in supplied USLM/eCFR XML or a prepared document; repeat for additional sources or editions.")
         command.add_argument("--act-index", type=Path, help="Use a pinned RefSpec act-index directory for named-act references.")
         command.add_argument("--source-credit-index", type=Path, help="Also consult pinned RefSpec source credits; requires --act-index.")
     evaluate = sub.add_parser("evaluate", help="Score content-bound independent source judgments.")

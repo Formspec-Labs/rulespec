@@ -15,7 +15,7 @@ NS = 'http://xml.house.gov/schemas/uslm/1.0'
 
 
 def source(body='', edition='119-102', extra=''):
-    return uslm.prepare_uslm(f'<uscDoc xmlns="{NS}" {extra}><meta><docPublicationName>{edition}</docPublicationName></meta>'
+    return uslm.prepare_xml(f'<uscDoc xmlns="{NS}" {extra}><meta><docPublicationName>{edition}</docPublicationName></meta>'
         '<main><section identifier="/us/usc/t5/s553"><num>553</num><heading>Rule making</heading>'
         '<subsection identifier="/us/usc/t5/s553/b"><continuation>Except when notice or hearing is required by statute, this subsection does not apply—</continuation>'
         '<subparagraph identifier="/us/usc/t5/s553/b/B"><num>(B)</num><content>when the agency finds good cause.</content></subparagraph>'
@@ -96,11 +96,11 @@ def test_duplicate_identifiers_are_not_first_match_wins():
 
 def test_supplied_source_is_parsed_once_despite_repeated_mentions(monkeypatch):
     external = source()
-    actual, calls = uslm.read_uslm, []
+    actual, calls = uslm.read_xml, []
     def observed(document):
         calls.append(document['id'])
         return actual(document)
-    monkeypatch.setattr(uslm, 'read_uslm', observed)
+    monkeypatch.setattr(uslm, 'read_xml', observed)
     scan_references(prepare_document('5 USC 553(b)(B).\n' * 20), reference_sources=[external, external])
     assert calls == [external['id']]
 
@@ -121,7 +121,7 @@ def test_wrong_format_is_not_accepted_as_an_external_body():
 
 
 def test_publisher_and_text_disagreement_does_not_resolve_the_text_target():
-    doc = uslm.prepare_uslm(f'<uscDoc xmlns="{NS}"><section><p><ref href="/us/usc/t5/s999">5 USC 553(b)(B)</ref></p></section></uscDoc>')
+    doc = uslm.prepare_xml(f'<uscDoc xmlns="{NS}"><section><p><ref href="/us/usc/t5/s999">5 USC 553(b)(B)</ref></p></section></uscDoc>')
     scan = scan_references(doc, reference_sources=[source()])
     row, = scan['candidates']
     assert row['value'] == '/us/usc/t5/s999'
@@ -145,8 +145,8 @@ def test_references_cli_matches_api(tmp_path):
 
 
 def test_broad_publisher_targets_do_not_export_whole_titles():
-    external = uslm.prepare_uslm(f'<uscDoc xmlns="{NS}" identifier="/us/usc/t5"><main><title identifier="/us/usc/t5"><section identifier="/us/usc/t5/s553">Body.</section></title></main></uscDoc>')
-    doc = uslm.prepare_uslm(f'<uscDoc xmlns="{NS}"><section><ref href="/us/usc/t5">Title 5</ref></section></uscDoc>')
+    external = uslm.prepare_xml(f'<uscDoc xmlns="{NS}" identifier="/us/usc/t5"><main><title identifier="/us/usc/t5"><section identifier="/us/usc/t5/s553">Body.</section></title></main></uscDoc>')
+    doc = uslm.prepare_xml(f'<uscDoc xmlns="{NS}"><section><ref href="/us/usc/t5">Title 5</ref></section></uscDoc>')
     scan = scan_references(doc, reference_sources=[external])
     assert scan['candidates'][0]['resolution']['status'] == 'target_scope_not_supported'
     assert not scan['targets']

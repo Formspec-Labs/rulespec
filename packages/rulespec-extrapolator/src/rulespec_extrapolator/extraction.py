@@ -520,7 +520,7 @@ def _runtime_sources() -> dict[str, Path]:
     sources.update(runtime_sources())
     # Optional readers are captured when installed, without making them a
     # dependency of plain-text extraction. Include the helpers behind their APIs.
-    for name in ("refspec.registry.uslm", "refspec.registry.citation_grammar", "refspec.registry.usc_section_oracle",
+    for name in ("refspec.registry.uslm", "refspec.registry.xml_text", "refspec.registry.ecfr", "refspec.registry.citation_grammar", "refspec.registry.usc_section_oracle",
                  "refspec.registry.iri_minting", "refspec.registry.identifier_shapes",
                  "refspec.registry.hand_validated_interpretations", "refspec.registry.act_resolution",
                  "spicysearch.identifiers", "spicysearch.identifier_normalization", "spicysearch.canonical"):

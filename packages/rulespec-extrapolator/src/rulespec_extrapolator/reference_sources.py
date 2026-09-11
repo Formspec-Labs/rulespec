@@ -1,17 +1,17 @@
-"""Optional navigation to exact targets in caller-supplied, pinned USLM sources."""
+"""Optional navigation to exact targets in caller-supplied, pinned XML sources."""
 from collections import defaultdict
 from importlib.metadata import version
 from pathlib import Path
 
 from .core import NS, digest
-from .uslm import SourceIndex
+from .uslm import SourceIndex, xml_source
 
 
 def _key(identifier):
     # Reuse the oracle's section spelling policy, preserving pinpoint case.
-    from refspec.registry.usc_section_oracle import normalize_section
     parts = identifier.split('/')
     if len(parts) >= 5 and parts[1:3] == ['us', 'usc'] and parts[4].startswith('s'):
+        from refspec.registry.usc_section_oracle import normalize_section
         parts[4] = normalize_section(parts[4])
     return tuple(parts)
 
@@ -25,16 +25,17 @@ def _identifier(row):
         if reading.get('usc_title') and reading.get('usc_section'):
             return '/us/usc/t{usc_title}/s{usc_section}'.format(**reading) + ''.join(
                 '/' + label for label in reading.get('pinpoint', ()))
+    if row['kind'] == 'cfr' and fields <= {'cfr_title', 'cfr_part', 'cfr_section', 'title_is_possible', 'part_is_plausible'}:
+        if reading.get('cfr_title') and reading.get('cfr_section') and reading.get('cfr_part') is not None:
+            return '{cfr_title} CFR {cfr_part}.{cfr_section}'.format(**reading)
     return None
 
 
 def attach_reference_sources(scan, documents):
-    from refspec.registry import uslm, usc_section_oracle
+    from refspec.registry import usc_section_oracle, xml_text, ecfr
     indexes, by_identifier, sources = {}, defaultdict(list), {}
     for document in documents:
-        if 'uslm_source' not in document:
-            raise ValueError('Reference sources must be pinned USLM documents')
-        source_id = NS + 'xml:' + document['uslm_source']['sha256']
+        source_id = NS + 'xml:' + xml_source(document)['sha256']
         if source_id in indexes:
             if document != indexes[source_id].document:
                 raise ValueError('Conflicting prepared documents for one XML source')
@@ -49,9 +50,19 @@ def attach_reference_sources(scan, documents):
                     fragment, _ = index.support(path, node, 'publication', include_text=False)
                     publication.append({'field': node['tag'], 'value': document['text'][node['start']:node['end']],
                                         'xml_evidence_refs': [fragment]})
+            if node.get('attributes', {}).get('TYPE') == 'TITLE':
+                fragment, _ = index.support(path, node, 'publication', include_text=False)
+                publication.append({'field': 'cfr_title', 'value': node['attributes']['N'],
+                                    'xml_evidence_refs': [fragment]})
         sources[source_id] = {'document': {k: document[k] for k in ('id', 'sha256', 'title', 'source_url')},
             'publisher_source': index.artifact(), 'publication': publication,
             'xml_fragments': index.fragments, 'records': {}}
+        if index.issues:
+            issues = sources[source_id]['issues'] = []
+            for issue in index.issues:
+                path = issue['source_path']
+                fragment, _ = index.support(path, index.prepared['nodes'][path], 'unresolved_section', include_text=False)
+                issues.append({k: v for k, v in issue.items() if k != 'source_path'} | {'xml_evidence_refs': [fragment]})
         for identifier, nodes in index.identifiers.items():
             by_identifier[_key(identifier)].extend((index, path, node) for path, node in nodes)
 
@@ -67,7 +78,7 @@ def attach_reference_sources(scan, documents):
             container_path = path
             while container_path:
                 container = index.prepared['nodes'][container_path]
-                if container['tag'] in uslm.UNIT_TAGS:
+                if container_path in index.unit_paths:
                     break
                 container_path = container_path.rsplit('/', 1)[0]
             if not container_path:
@@ -93,8 +104,9 @@ def attach_reference_sources(scan, documents):
     scan['limitation'] += (' Supplied-source matches locate text, not the edition intended by a citation or its legal applicability. '
                           'Containing sections retain context and notes without asserting inherited conditions. '
                           'Ranges, notes and refused text readings are not reduced to section anchors; external links are not followed recursively.')
-    for name, module in [('refspec.registry.uslm.read_text', uslm),
-                         ('refspec.registry.usc_section_oracle.normalize_section', usc_section_oracle)]:
+    for name, module in [('refspec.registry.xml_text.read_text', xml_text),
+                         *([('refspec.registry.ecfr.section_addresses', ecfr)] if any('ecfr_source' in i.document for i in indexes.values()) else []),
+                         *([('refspec.registry.usc_section_oracle.normalize_section', usc_section_oracle)] if any('uslm_source' in i.document for i in indexes.values()) else [])]:
         if not any(p['name'] == name for p in scan['parsers']):
             scan['parsers'].append({'name': name, 'version': version('refspec'),
                                    'module_sha256': digest(Path(module.__file__).read_bytes())})

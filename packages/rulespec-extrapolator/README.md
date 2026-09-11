@@ -362,18 +362,22 @@ retains an earlier checkpoint. The full installation includes DocSpec because of
 SpicySearch's existing dependency metadata; document segmentation and Core
 validation do not call DocSpec.
 
-Optional provision lookup reuses RefSpec's USLM text reader and section-name
-normalizer. Supply captured XML or a prepared USLM document to either command:
+Optional provision lookup reuses RefSpec's native XML reader and section-address
+helpers. Supply captured USLM or eCFR XML, or a prepared document, to either command:
 
 ```sh
 rulespec-understand references prepared.json --reference-source usc05.xml --output references-with-text.json
 rulespec-understand discovery-export my-run --reference-source usc05.xml --output discovery-with-text.json
+rulespec-understand references section.xml --reference-source title-49.xml --output cfr-with-text.json
 ```
 
 Repeat `--reference-source` to supply additional sources or editions. The Python
 APIs accept prepared documents through `reference_sources=[document, ...]`.
 Exact accepted USC sections/pinpoints and publisher links can locate targets
-inside supplied sections. Each target retains its XML selector, digest and source
+inside supplied sections. Exact CFR sections can also resolve when the supplied
+eCFR XML contains native `TITLE` ancestry. A bare eCFR `SECTION` is readable input,
+but cannot supply a title for external lookup. CFR pinpoints, ranges, subparts and
+appendices do not fall back to a whole section. Each target retains its XML selector, digest and source
 identity. `reference_sources` stores publication metadata and containing section
 records once; `target.record_id` selects a record, and target offsets address that
 source's prepared text. For a record-local slice, subtract `record.start`.
@@ -385,15 +389,19 @@ ambiguous. Open-ended citations, ranges and notes are not reduced to plain secti
 anchors; broad external title/chapter bodies return `target_scope_not_supported`.
 Containing sections preserve parent conditions and editorial notes for reading,
 without deciding their legal effect. This adds no model call, prompt text or
-recursive fetching. eCFR `DIV` XML requires a different reader and is not accepted
-as USLM. The [source comparison](../../thoughts/experiments/2026-09-11-reference-bodies/README.md)
-records the tested scope, counterexamples and installed delivery.
+recursive fetching. Format detection distinguishes USLM and eCFR native XML.
+The [reader comparison](../../thoughts/experiments/2026-09-11-ecfr-text/README.md)
+records the source-preservation checks and current delivery status. Full-title
+inputs use substantial memory: the saved Title 40 reader check peaked near 3.4 GB.
+Each lookup scan builds one index per distinct supplied source and shares targets
+across mentions; it does not reparse the full title per citation. Preparation and
+later source verification are separate reads.
 
 Prefer publisher XML when it contains the required document text in a supported
 format. Supply that XML directly instead of first flattening it to text or
 extracting a PDF copy. Format selection is currently the caller's responsibility.
 
-With these packages, `prepare`, `extract` and `references` accept USLM `.xml`
+With these packages, `prepare`, `extract` and `references` accept USLM and eCFR `.xml`
 files. RefSpec supplies readable heading/list/table boundaries; Rulespec retains
 the original UTF-8 XML and maps prepared text back to it. Inserted separators never
 become source quotations, and raw XML attributes stay out of model prompts.
