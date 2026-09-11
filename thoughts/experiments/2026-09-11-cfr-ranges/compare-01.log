@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-cfr-ranges/compare.py", line 109, in <module>
+    main()
+  File "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-cfr-ranges/compare.py", line 79, in main
+    save('controls.json',[{'text':t,'baseline':readings(baseline,t),'current':readings(current,t),
+                                                                              ^^^^^^^^^^^^^^^^^^^
+  File "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-cfr-ranges/compare.py", line 28, in readings
+    return [asdict(row) for row in reader.find_cfr_citations(text)]
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mikewolfd/Work/RefSpec/src/refspec/registry/citation_grammar.py", line 2716, in find_cfr_citations
+    _parse_cfr_citations(text, list_expansion=list_expansion, record=collect)
+  File "/Users/mikewolfd/Work/RefSpec/src/refspec/registry/citation_grammar.py", line 2823, in _parse_cfr_citations
+    position = collect(item)
+               ^^^^^^^^^^^^^
+  File "/Users/mikewolfd/Work/RefSpec/src/refspec/registry/citation_grammar.py", line 2812, in collect
+    end = record(item) if record is not None else item.end
+          ^^^^^^^^^^^^
+  File "/Users/mikewolfd/Work/RefSpec/src/refspec/registry/citation_grammar.py", line 2706, in collect
+    end = record(base)
+          ^^^^^^^^^^^^
+  File "/Users/mikewolfd/Work/RefSpec/src/refspec/registry/citation_grammar.py", line 2696, in record
+    if start == span[0]:
+                ^^^^
+NameError: name 'span' is not defined

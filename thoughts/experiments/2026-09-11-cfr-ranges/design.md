@@ -41,3 +41,21 @@ type branching but allow old consumers to ignore the end silently. Existing
 tabular authority records will use explicit endpoint columns. No new Core
 identifier scheme is needed. The root owns application integration and delivery;
 two agents own grammar and RefSpec consumers in separate files.
+
+## Follow-up boundaries recorded during implementation
+
+- Flat Authority/Arrow rows cannot represent endpoint pinpoints. They preserve
+  coordinates and raw input but explicitly refuse that finer scope as
+  `range_pinpoints_not_represented`. Native occurrences and the Rulespec adapter
+  preserve both endpoint labels. No new Core fields were introduced for this.
+- The full authority-note comparison identified existing hyphenated-section
+  forms such as `48 CFR 1.301-1.304`. Those stay complete observed tokens with
+  explicit refusal; this iteration does not add another interpretation grammar.
+- Root boundary probes caught a new overlap defect: refusing a range end that
+  starts another explicit CFR citation consumed that citation's title. Fixing
+  this is necessary to preserve the original other-citation stop rule. The
+  before results are retained in `boundary-probes-before.json`.
+- User requested an overall status/value assessment. After this bounded fix,
+  prioritize useful reference text/context and an end-to-end consumer over
+  accumulating more parser families. This is a prioritization judgment, not a
+  measured ranking of every backlog item.

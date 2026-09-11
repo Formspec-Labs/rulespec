@@ -5,23 +5,25 @@ backlog for the reference work, useful sibling-repository capabilities, and thei
 extraction/discovery consumers. R1–R26 are stable identifiers for follow-up work.
 This update includes retention, optional-reader capture, qualified USC delivery,
 removal of unused citation copies, compilation occurrence delivery and the
-independent part-zero minter correction. The latest
-application suite passes 585 tests from source and its installed wheel; the graph
+independent part-zero minter correction and complete CFR range delivery. The latest
+application suite passes 595 tests from source and its installed wheel; the graph
 package's preceding checkpoint passes 30 tests from source and its isolated wheel.
 Earlier counts belong to their linked checkpoints. Original captures and reviews
 remain intact; no model call, publication or deployment was needed for this cleanup.
 
-**Recommended next slice:** fix complete CFR tokens and ranges upstream, then
-migrate the remaining R8 graph readers with their
-structured-input behavior preserved. The [caller trace and direct comparison](../experiments/2026-09-11-citation-ownership/README.md)
+**Recommended next slice:** demonstrate useful reference text/context in one
+discovery or workflow consumer. Migrate remaining R8 graph readers when that
+consumer needs them, preserving structured-input behavior. The [caller trace and direct comparison](../experiments/2026-09-11-citation-ownership/README.md)
 are complete; unused act-name and compilation-locator copies are removed.
 The [whole-token experiment](../experiments/2026-09-11-cfr-whole-tokens/README.md)
-recovers 189 compound tokens but fails the complete-range gate: explicit endings
-still disappear. No token/range patch has been adopted. Independent
+recovered 189 compound tokens but failed the complete-range gate: explicit endings
+still disappeared. Its [coordinated successor](../experiments/2026-09-11-cfr-ranges/README.md)
+is now installed: complete compound keys, explicit endpoints, consumer guards and
+source evidence survive. Independent
 [representation](../reviews/2026-09-11-cfr-range-representation.md) and
 [consumer](../reviews/2026-09-11-cfr-range-consumers.md) reviews identify the
 coordinated grammar, authority/Arrow rows, comparisons, explanations and application
-changes now being tested. The [part-zero utility correction](../experiments/2026-09-11-cfr-zero-parts/README.md)
+changes delivered together. The [part-zero utility correction](../experiments/2026-09-11-cfr-zero-parts/README.md)
 is separately installed: nine verified keys now mint, all 8,415 nonzero keys keep
 their prior results, and 112 upstream tests pass. The current CFR scanner does
 not use this minter; this does not claim better extraction or migration of R8.
@@ -137,6 +139,12 @@ end-to-end quality experiment. They are planning estimates, not delivery promise
 
 ## Task index
 
+**Current count: 19 tasks contain open items, six are fully delivered
+(R1, R2, R4, R5, R6, R14), and one experiment is closed with adoption deferred
+(R15).** R16's completed experiment is closed, but its new semantic follow-up
+remains open. This count includes conditional work and optional research inside
+broad workstreams; many already contain delivered capabilities.
+
 This index separates existing code from completed integration. **Installed** means
 verified in the intended local environment, not published or deployed. **Source
 tested** means the working implementation passed its recorded checks but still
@@ -154,11 +162,11 @@ release. Preserve the completed foundation and make one bounded change at a time
 | R1 | Reproducible installation and scoped delivery | Reader, retention and capture wheels delivered; scoped local commits complete | S |
 | R2 | RefSpec CFR reader in both application commands | Implemented and verified locally | S–M |
 | R3 | One evidence-backed representation of richer readings | Unique containment installed; all four observed overlaps resolved; ambiguity and refusals preserved | S–M |
-| R4 | Combined reader and extraction retention checks | Reader and retention delivered; 552 source/installed tests, two review controls and normal CLI checks pass | S–M |
-| R5 | Complete qualified CFR/USC readings | USC comparison complete; RefSpec selected for extension | M |
+| R4 | Combined reader and extraction retention checks | Delivered; 595 source/installed tests, six fresh XML cases, review controls and normal CLI checks pass | S–M |
+| R5 | Complete qualified CFR/USC readings | Selected qualifiers, complete compounds and explicit ranges installed; unsupported scope retains refusals | M |
 | R6 | Upstream occurrence fixes and qualified USC integration | Selected USC readings installed; 579 application tests and both commands verified | M |
 | R7 | Additional reference families with individual acceptance checks | RIN helper reuse and upstream explanation corrections delivered; further families remain experimental | M per further family |
-| R8 | Remove divergent production citation copies | Caller comparison complete; unused copies removed; live migration open | M |
+| R8 | Remove divergent production citation copies | Caller comparison and upstream range delivery complete; unused copies removed; live graph migration open | M |
 | R9 | Source-supported context for omitted citation titles | General support missing | M |
 | R10 | Exact local paragraph address index | Marker extension tested; ambiguity/inline-child gate failed; production unchanged | M |
 | R11 | Local paragraph and range lookup | Publisher targets delivered; general prose addresses and ranges remain open | M–L |
@@ -195,9 +203,10 @@ output. Its current source and installed suites each pass 559 tests.
    reading of constructed index citations and confirmed that the strict
    SpicySearch reader retains but refuses them. Original publisher XML now
    distinguishes the observed compounds from explicit ranges. The token-only
-   gate failed. Test one complete item reader plus endpoint representation,
-   preserve/refuse scope through authority and typed rows, guard single-part
-   lookups/explanations, and use original occurrence text in Rulespec. Then test
+   gate failed; the coordinated successor now delivers one complete item reader
+   plus endpoint representation, preserves/refuses scope through authority and
+   typed rows, guards single-part lookups/explanations, and uses original
+   occurrence text in Rulespec. Before a graph migration, test
    the existing graph's dictionary/compact inputs before replacing its live parser.
 2. **Select the next useful reader or consumer — R7/R20/R22; effort M.** Use the
    existing inventory to choose a concrete application need. Compare the callable
@@ -590,8 +599,11 @@ in diagnostics unless a real consumer needs the disagreement.
   consumer cases. Assert that adding CFR leaves the five-family results and existing
   extracted statements intact. Check both commands, source-map boundaries, repeated
   occurrences, parser absence, and installed-wheel behavior.
-- [ ] Add independently selected real CFR passages before making a broader accuracy
+- [x] Add independently selected real CFR passages before making a broader accuracy
   claim. Label complete occurrences and supporting title context before execution.
+  The [six-paragraph fresh XML review](../experiments/2026-09-11-cfr-ranges/fresh-review/README.md)
+  froze judgments before parsing. Final installed replay preserves all six results.
+  This is a bounded diagnostic result; no general accuracy claim is made.
 - [x] Update CLI help, support inventory and install instructions to name the actual
   connected families. Refresh stale *current-status* summaries with links to the new
   evidence; preserve original experiment results.
@@ -644,15 +656,18 @@ CFR reference or establish that qualifiers are all retained.
   publisher paragraphs also exposed appendix targets and ambiguous multi-part scope;
   those now retain their native readings and explicit refusal where needed. See the
   [subpart comparison](../experiments/2026-09-11-cfr-subparts/README.md).
-- [ ] Include `42 U.S.C. 1983 note`, `5 U.S.C. App. 3`, chapter references,
+- [x] Include `42 U.S.C. 1983 note`, `5 U.S.C. App. 3`, chapter references,
   subsection labels, compound section names, and stated versus abbreviated ranges.
   Include the valid embedded `5 U.S.C. 552` and damaged `1983affirmed` controls.
-- [ ] Preserve a range's written endpoints and expansion basis. Do not invent every
+- [x] Preserve a range's written endpoints and expansion basis. Do not invent every
   intermediate member, merge an appendix with the title body, or discard `note`.
-- [ ] Retain native validity flags without treating them as edition-existence
+- [x] Retain native validity flags without treating them as edition-existence
   checks. Include historical CFR title 35 as a positive control: current RefSpec
   explicitly admits titles 1–50, including that title. An unavailable present-day
   target must not turn a historical citation into an impossible one.
+  R6's USC delivery and the [CFR range delivery](../experiments/2026-09-11-cfr-ranges/README.md)
+  cover these selected cases. Ambiguous or unsupported scope remains explicit;
+  the minter and remaining independent graph parsers are still separate R8 work.
 
 **Done when:** the chosen path preserves the intended kind of target and its exact
 source. Plain strict token matching alone does not satisfy this task. A remaining

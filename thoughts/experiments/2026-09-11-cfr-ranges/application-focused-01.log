@@ -1,0 +1,267 @@
+........F.............................F.F.F...........                   [100%]
+=================================== FAILURES ===================================
+___________________ test_frozen_source_occurrences[source-3] ___________________
+
+case = {'id': 'source-3', 'name': 'Ohio Administrative Code 3745-52-15', 'raw': 'Rule 3745-52-15 | Satellite accumulation are..."Incorporated by reference."]', 'text_sha256': '43f75aaf4a19870db19d481dd6883f99ef4c606c7cb4914012a118a12fbce149', ...}
+
+    @pytest.mark.parametrize('case', CASES, ids=lambda c: c['id'])
+    def test_frozen_source_occurrences(case):
+        assert digest(case['raw']) == case['text_sha256']
+        doc = prepare_document(case['raw'])
+>       result = scan_references(doc)
+                 ^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_references.py:23: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/references.py:76: in scan_references
+    for match in grammar.find_cfr_citations(text):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../RefSpec/src/refspec/registry/citation_grammar.py:2716: in find_cfr_citations
+    _parse_cfr_citations(text, list_expansion=list_expansion, record=collect)
+../RefSpec/src/refspec/registry/citation_grammar.py:2823: in _parse_cfr_citations
+    position = collect(item)
+               ^^^^^^^^^^^^^
+../RefSpec/src/refspec/registry/citation_grammar.py:2812: in collect
+    end = record(item) if record is not None else item.end
+          ^^^^^^^^^^^^
+../RefSpec/src/refspec/registry/citation_grammar.py:2706: in collect
+    end = record(base)
+          ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = CfrCitationOccurrence(citation=CfrCitation(cfr_title=49, cfr_part='172', cfr_section=None, title_is_possible=True, par...xt_end=None, subpart=None, subpart_end=None, appendix=None, qualifier_status=None, range_end_pinpoint=(), refusal=None)
+
+    def record(base: CfrCitationOccurrence) -> int:
+        citation, start, end = base.citation, base.start, base.end
+        context = None if base.context_start is None else (base.context_start, base.context_end)
+        if (isinstance(citation, CfrCitation) and not base.refusal
+                and citation.cfr_section is None and citation.cfr_part is not None
+                and (subpart := _CFR_SUBPART.match(text, end)) is not None):
+            if not _CITATION_PARAGRAPH_BREAK.search(text, end, subpart.end()):
+                appendix = subpart.group('appendix')
+                plural = bool(subpart.group('plural'))
+                status = 'ambiguous_part_scope' if context is not None else None
+                while subpart is not None:
+                    end = subpart.end()
+                    range_end = None
+                    if (tail := _CFR_SUBPART_RANGE.match(text, end)) is not None:
+                        if not _CITATION_PARAGRAPH_BREAK.search(text, end, tail.end()):
+                            range_end, end = tail.group('end'), tail.end()
+                    if (description := _CFR_SUBPART_CONTEXT.match(text, end)) is not None:
+                        end = description.end()
+                    found.append(CfrCitationOccurrence(
+                        citation, start, end, text[start:end], (),
+                        context[0] if context else None, context[1] if context else None,
+                        subpart.group('subpart'), range_end, appendix, status,
+                    ))
+                    if range_end is not None:
+                        break
+                    next_item = _CFR_SUBPART_ITEM.match(text, end)
+                    if (next_item is None or (not plural and not next_item.group('label'))
+                            or _CITATION_PARAGRAPH_BREAK.search(text, end, next_item.end())):
+                        break
+                    # Keep the whole written anchor when a part list is ambiguous.
+>                   if start == span[0]:
+                                ^^^^
+E                   NameError: name 'span' is not defined
+
+../RefSpec/src/refspec/registry/citation_grammar.py:2696: NameError
+_______ test_subpart_alternatives_preserve_source_roles_and_distinct_ids _______
+
+    def test_subpart_alternatives_preserve_source_roles_and_distinct_ids():
+        text = '49 CFR Part 172 subpart E (labeling) or subpart F (placarding)'
+        doc = prepare_document(text)
+>       scan = scan_references(doc)
+               ^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_reference_qualifiers.py:10: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/references.py:76: in scan_references
+    for match in grammar.find_cfr_citations(text):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../RefSpec/src/refspec/registry/citation_grammar.py:2716: in find_cfr_citations
+    _parse_cfr_citations(text, list_expansion=list_expansion, record=collect)
+../RefSpec/src/refspec/registry/citation_grammar.py:2823: in _parse_cfr_citations
+    position = collect(item)
+               ^^^^^^^^^^^^^
+../RefSpec/src/refspec/registry/citation_grammar.py:2812: in collect
+    end = record(item) if record is not None else item.end
+          ^^^^^^^^^^^^
+../RefSpec/src/refspec/registry/citation_grammar.py:2706: in collect
+    end = record(base)
+          ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = CfrCitationOccurrence(citation=CfrCitation(cfr_title=49, cfr_part='172', cfr_section=None, title_is_possible=True, par...xt_end=None, subpart=None, subpart_end=None, appendix=None, qualifier_status=None, range_end_pinpoint=(), refusal=None)
+
+    def record(base: CfrCitationOccurrence) -> int:
+        citation, start, end = base.citation, base.start, base.end
+        context = None if base.context_start is None else (base.context_start, base.context_end)
+        if (isinstance(citation, CfrCitation) and not base.refusal
+                and citation.cfr_section is None and citation.cfr_part is not None
+                and (subpart := _CFR_SUBPART.match(text, end)) is not None):
+            if not _CITATION_PARAGRAPH_BREAK.search(text, end, subpart.end()):
+                appendix = subpart.group('appendix')
+                plural = bool(subpart.group('plural'))
+                status = 'ambiguous_part_scope' if context is not None else None
+                while subpart is not None:
+                    end = subpart.end()
+                    range_end = None
+                    if (tail := _CFR_SUBPART_RANGE.match(text, end)) is not None:
+                        if not _CITATION_PARAGRAPH_BREAK.search(text, end, tail.end()):
+                            range_end, end = tail.group('end'), tail.end()
+                    if (description := _CFR_SUBPART_CONTEXT.match(text, end)) is not None:
+                        end = description.end()
+                    found.append(CfrCitationOccurrence(
+                        citation, start, end, text[start:end], (),
+                        context[0] if context else None, context[1] if context else None,
+                        subpart.group('subpart'), range_end, appendix, status,
+                    ))
+                    if range_end is not None:
+                        break
+                    next_item = _CFR_SUBPART_ITEM.match(text, end)
+                    if (next_item is None or (not plural and not next_item.group('label'))
+                            or _CITATION_PARAGRAPH_BREAK.search(text, end, next_item.end())):
+                        break
+                    # Keep the whole written anchor when a part list is ambiguous.
+>                   if start == span[0]:
+                                ^^^^
+E                   NameError: name 'span' is not defined
+
+../RefSpec/src/refspec/registry/citation_grammar.py:2696: NameError
+____________ test_part_list_does_not_create_guessed_subpart_targets ____________
+
+    def test_part_list_does_not_create_guessed_subpart_targets():
+        doc = prepare_document('45 CFR parts 160 and 164, subparts A and E')
+>       scan = scan_references(doc)
+               ^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_reference_qualifiers.py:35: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/references.py:76: in scan_references
+    for match in grammar.find_cfr_citations(text):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../RefSpec/src/refspec/registry/citation_grammar.py:2716: in find_cfr_citations
+    _parse_cfr_citations(text, list_expansion=list_expansion, record=collect)
+../RefSpec/src/refspec/registry/citation_grammar.py:2835: in _parse_cfr_citations
+    position = collect(item)
+               ^^^^^^^^^^^^^
+../RefSpec/src/refspec/registry/citation_grammar.py:2812: in collect
+    end = record(item) if record is not None else item.end
+          ^^^^^^^^^^^^
+../RefSpec/src/refspec/registry/citation_grammar.py:2706: in collect
+    end = record(base)
+          ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = CfrCitationOccurrence(citation=CfrCitation(cfr_title=45, cfr_part='164', cfr_section=None, title_is_possible=True, par...text_end=16, subpart=None, subpart_end=None, appendix=None, qualifier_status=None, range_end_pinpoint=(), refusal=None)
+
+    def record(base: CfrCitationOccurrence) -> int:
+        citation, start, end = base.citation, base.start, base.end
+        context = None if base.context_start is None else (base.context_start, base.context_end)
+        if (isinstance(citation, CfrCitation) and not base.refusal
+                and citation.cfr_section is None and citation.cfr_part is not None
+                and (subpart := _CFR_SUBPART.match(text, end)) is not None):
+            if not _CITATION_PARAGRAPH_BREAK.search(text, end, subpart.end()):
+                appendix = subpart.group('appendix')
+                plural = bool(subpart.group('plural'))
+                status = 'ambiguous_part_scope' if context is not None else None
+                while subpart is not None:
+                    end = subpart.end()
+                    range_end = None
+                    if (tail := _CFR_SUBPART_RANGE.match(text, end)) is not None:
+                        if not _CITATION_PARAGRAPH_BREAK.search(text, end, tail.end()):
+                            range_end, end = tail.group('end'), tail.end()
+                    if (description := _CFR_SUBPART_CONTEXT.match(text, end)) is not None:
+                        end = description.end()
+                    found.append(CfrCitationOccurrence(
+                        citation, start, end, text[start:end], (),
+                        context[0] if context else None, context[1] if context else None,
+                        subpart.group('subpart'), range_end, appendix, status,
+                    ))
+                    if range_end is not None:
+                        break
+                    next_item = _CFR_SUBPART_ITEM.match(text, end)
+                    if (next_item is None or (not plural and not next_item.group('label'))
+                            or _CITATION_PARAGRAPH_BREAK.search(text, end, next_item.end())):
+                        break
+                    # Keep the whole written anchor when a part list is ambiguous.
+>                   if start == span[0]:
+                                ^^^^
+E                   NameError: name 'span' is not defined
+
+../RefSpec/src/refspec/registry/citation_grammar.py:2696: NameError
+____ test_inserted_subpart_context_does_not_license_the_second_alternative _____
+
+    def test_inserted_subpart_context_does_not_license_the_second_alternative():
+        doc = prepare_document('49 CFR part 172 subpart E or subpart F')
+        end = doc['text'].index(' or')
+        doc['source_map'] = [
+            {'kind': 'inserted', 'start': 0, 'end': end, 'text': doc['text'][:end]},
+            {'kind': 'source', 'start': end, 'end': len(doc['text']), 'source_id': 'original',
+             'source_start': 0, 'source_end': len(doc['text']) - end},
+        ]
+>       scan = scan_references(doc)
+               ^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_reference_qualifiers.py:62: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/references.py:76: in scan_references
+    for match in grammar.find_cfr_citations(text):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../RefSpec/src/refspec/registry/citation_grammar.py:2716: in find_cfr_citations
+    _parse_cfr_citations(text, list_expansion=list_expansion, record=collect)
+../RefSpec/src/refspec/registry/citation_grammar.py:2823: in _parse_cfr_citations
+    position = collect(item)
+               ^^^^^^^^^^^^^
+../RefSpec/src/refspec/registry/citation_grammar.py:2812: in collect
+    end = record(item) if record is not None else item.end
+          ^^^^^^^^^^^^
+../RefSpec/src/refspec/registry/citation_grammar.py:2706: in collect
+    end = record(base)
+          ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = CfrCitationOccurrence(citation=CfrCitation(cfr_title=49, cfr_part='172', cfr_section=None, title_is_possible=True, par...xt_end=None, subpart=None, subpart_end=None, appendix=None, qualifier_status=None, range_end_pinpoint=(), refusal=None)
+
+    def record(base: CfrCitationOccurrence) -> int:
+        citation, start, end = base.citation, base.start, base.end
+        context = None if base.context_start is None else (base.context_start, base.context_end)
+        if (isinstance(citation, CfrCitation) and not base.refusal
+                and citation.cfr_section is None and citation.cfr_part is not None
+                and (subpart := _CFR_SUBPART.match(text, end)) is not None):
+            if not _CITATION_PARAGRAPH_BREAK.search(text, end, subpart.end()):
+                appendix = subpart.group('appendix')
+                plural = bool(subpart.group('plural'))
+                status = 'ambiguous_part_scope' if context is not None else None
+                while subpart is not None:
+                    end = subpart.end()
+                    range_end = None
+                    if (tail := _CFR_SUBPART_RANGE.match(text, end)) is not None:
+                        if not _CITATION_PARAGRAPH_BREAK.search(text, end, tail.end()):
+                            range_end, end = tail.group('end'), tail.end()
+                    if (description := _CFR_SUBPART_CONTEXT.match(text, end)) is not None:
+                        end = description.end()
+                    found.append(CfrCitationOccurrence(
+                        citation, start, end, text[start:end], (),
+                        context[0] if context else None, context[1] if context else None,
+                        subpart.group('subpart'), range_end, appendix, status,
+                    ))
+                    if range_end is not None:
+                        break
+                    next_item = _CFR_SUBPART_ITEM.match(text, end)
+                    if (next_item is None or (not plural and not next_item.group('label'))
+                            or _CITATION_PARAGRAPH_BREAK.search(text, end, next_item.end())):
+                        break
+                    # Keep the whole written anchor when a part list is ambiguous.
+>                   if start == span[0]:
+                                ^^^^
+E                   NameError: name 'span' is not defined
+
+../RefSpec/src/refspec/registry/citation_grammar.py:2696: NameError
+=========================== short test summary info ============================
+FAILED packages/rulespec-extrapolator/tests/test_references.py::test_frozen_source_occurrences[source-3]
+FAILED packages/rulespec-extrapolator/tests/test_reference_qualifiers.py::test_subpart_alternatives_preserve_source_roles_and_distinct_ids
+FAILED packages/rulespec-extrapolator/tests/test_reference_qualifiers.py::test_part_list_does_not_create_guessed_subpart_targets
+FAILED packages/rulespec-extrapolator/tests/test_reference_qualifiers.py::test_inserted_subpart_context_does_not_license_the_second_alternative
+4 failed, 50 passed in 0.49s

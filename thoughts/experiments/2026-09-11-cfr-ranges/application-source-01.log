@@ -1,0 +1,313 @@
+...............F........................................................ [ 12%]
+........................................................................ [ 24%]
+........................................................................ [ 36%]
+........................................................................ [ 48%]
+........................................................................ [ 60%]
+........................................................................ [ 72%]
+........................................................................ [ 84%]
+........................................................................ [ 96%]
+...................                                                      [100%]
+=================================== FAILURES ===================================
+_ test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings4] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1112fc4d0>
+tmp_path = PosixPath('/private/var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/pytest-of-mikewolfd/pytest-4002/test_missing_alternative_is_vi4')
+settings = {'thinking_level': 'high', 'max_output_tokens': None}
+
+    @pytest.mark.parametrize("settings", [{}, *[{"thinking_level": v, "max_output_tokens": None} for v in (None, "low", "medium", "high")]])
+    def test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote(monkeypatch, tmp_path, settings):
+        book = draft()
+        before = deepcopy(book)
+        env, requests = provider(monkeypatch, tmp_path, answers())
+        report = a.audit_run(book, tmp_path / 'audit', env_file=env, **settings)
+        level = settings.get('thinking_level', 'medium')
+        for request in requests:
+            assert request['config'].get('thinking_config') == ({'thinking_level': level} if level is not None else None)
+            assert 'thinking_budget' not in request['config'].get('thinking_config', {})
+            assert request['config'].get('max_output_tokens') == settings.get('max_output_tokens', 32768)
+        assert e._load(tmp_path / 'audit/audit.json')['thinking_level'] == level
+        assert report['status'] == 'failed'
+        assert report['coverage']['missing'] == 1
+        assert report['dimensions']['alternatives']['error'] == 1
+        assert report['semantic_completeness'] == 'not_established'
+        assert e._load(tmp_path / 'audit/audit.json')['status'] == 'complete'
+        assert 'C0000' not in requests[0]['contents']
+        assert 'Draft and inventory:' not in requests[0]['contents']
+        assert 'C0000' in requests[1]['contents']
+        assert 'CUE-generated field definitions:' in requests[1]['contents']
+        assert a.load_schema('meaning')['properties']['choice_text']['description'] in requests[1]['contents']
+        assert 'CUE-generated field definitions:' not in requests[0]['contents']
+        assert book == before
+        findings = e._load(tmp_path / 'audit/findings.jsonld')
+        nodes = [n for n in findings['@graph'] if n['@type'] == 'rkaf:Finding']
+        assert len(nodes) == 2
+        assert {n['rkaf:subject'] for n in nodes} == {book['document']['id'], book['accepted'][0]['id']}
+        assert all(n['rkaf:findingKind'] == 'rkaf:warning' for n in nodes)
+        assert all('Model-assisted audit' in n['rkaf:rationale'] for n in nodes)
+        assert a.validate_graph(findings)['shacl_conforms']
+        monkeypatch.setattr(e, '_create_model', lambda *args: pytest.fail('Replay called a provider'))
+>       assert a.replay_audit(tmp_path / 'audit', tmp_path / 'replay') == report
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_audit.py:92: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+directory = PosixPath('/private/var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/pytest-of-mikewolfd/pytest-4002/test_missing_alternative_is_vi4/audit')
+output = PosixPath('/private/var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/pytest-of-mikewolfd/pytest-4002/test_missing_alternative_is_vi4/replay')
+
+    def replay_audit(directory, output):
+        """Verify all captures and recompute judgments without calling a provider."""
+        directory, output = Path(directory), Path(output)
+        if output.exists() or output.resolve().is_relative_to(directory.resolve()):
+            raise ValueError("Audit replay needs a new directory outside its input")
+        loaded = load_audit(directory)
+        manifest, run, book = loaded["manifest"], loaded["run"], loaded["book"]
+        if ("max_output_tokens" not in run
+                or (run["max_output_tokens"] is not None
+                    and (type(run["max_output_tokens"]) is not int or run["max_output_tokens"] < 1))
+                or run.get("thinking_level") not in (None, "low", "medium", "high")):
+            raise e.ReplayDriftError("Audit generation settings are invalid")
+        if run["windows"] != e.plan_windows(book["document"], run["max_chars"]):
+            raise e.ReplayDriftError("Audit request coverage changed")
+        current = {name: e._digest(path.read_bytes()) for name, path in e._runtime_sources().items()}
+        if run["sources_sha256"] != current or run["runtime"] != e._runtime_versions() or run["rulebook_sha256"] != content_digest(book):
+>           raise e.ReplayDriftError("Audit runtime or input differs from its frozen version")
+E           rulespec_extrapolator.extraction.ReplayDriftError: Audit runtime or input differs from its frozen version
+
+packages/rulespec-extrapolator/src/rulespec_extrapolator/audit.py:559: ReplayDriftError
+=============================== warnings summary ===============================
+tests/test_audit.py: 27 warnings
+tests/test_compound_evidence.py: 8 warnings
+tests/test_core.py: 10 warnings
+tests/test_enrichment.py: 45 warnings
+tests/test_exemption_links.py: 4 warnings
+tests/test_extraction.py: 80 warnings
+tests/test_meaning.py: 5 warnings
+tests/test_refinement.py: 42 warnings
+tests/test_review_http.py: 2 warnings
+tests/test_review_reprocessing.py: 6 warnings
+tests/test_review_store.py: 2 warnings
+tests/test_runtime_readers.py: 8 warnings
+tests/test_terms.py: 4 warnings
+tests/test_uslm.py: 1 warning
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/parsers/jsonld.py:159: DeprecationWarning: ConjunctiveGraph is deprecated, use Dataset instead.
+    conj_sink = ConjunctiveGraph(store=sink.store, identifier=sink.identifier)
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:173: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    IRIREF.setParseAction(lambda x: rdflib.URIRef(x[0]))
+
+tests/test_audit.py: 206 warnings
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parserutils.py:129: PyparsingDeprecationWarning: 'setName' deprecated - use 'set_name'
+    self.setName(name)
+
+tests/test_audit.py: 206 warnings
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parserutils.py:130: PyparsingDeprecationWarning: 'addParseAction' deprecated - use 'add_parse_action'
+    self.addParseAction(self.postParse2)
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:212: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    PNAME_NS = Optional(Param("prefix", PN_PREFIX)) + Suppress(":").leaveWhitespace()
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:245: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    PNAME_LN = PNAME_NS + Param("localname", PN_LOCAL.leaveWhitespace())
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:252: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    BLANK_NODE_LABEL.setParseAction(lambda x: rdflib.BNode(x[0][2:]))
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:273: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    INTEGER.setParseAction(lambda x: rdflib.Literal(x[0], datatype=rdflib.XSD.integer))
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:281: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    DECIMAL.setParseAction(lambda x: rdflib.Literal(x[0], datatype=rdflib.XSD.decimal))
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:286: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    DOUBLE.setParseAction(lambda x: rdflib.Literal(x[0], datatype=rdflib.XSD.double))
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:290: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    INTEGER_POSITIVE = Suppress("+") + INTEGER.copy().leaveWhitespace()
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:291: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    INTEGER_POSITIVE.setParseAction(
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:296: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    DECIMAL_POSITIVE = Suppress("+") + DECIMAL.copy().leaveWhitespace()
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:299: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    DOUBLE_POSITIVE = Suppress("+") + DOUBLE.copy().leaveWhitespace()
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:302: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    INTEGER_NEGATIVE = Suppress("-") + INTEGER.copy().leaveWhitespace()
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:303: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    INTEGER_NEGATIVE.setParseAction(lambda x: neg(x[0]))
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:306: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    DECIMAL_NEGATIVE = Suppress("-") + DECIMAL.copy().leaveWhitespace()
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:307: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    DECIMAL_NEGATIVE.setParseAction(lambda x: neg(x[0]))
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:310: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    DOUBLE_NEGATIVE = Suppress("-") + DOUBLE.copy().leaveWhitespace()
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:311: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    DOUBLE_NEGATIVE.setParseAction(lambda x: neg(x[0]))
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:321: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    STRING_LITERAL_LONG1.setParseAction(
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:329: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    STRING_LITERAL_LONG2.setParseAction(
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:338: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    STRING_LITERAL1.setParseAction(
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:347: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    STRING_LITERAL2.setParseAction(
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:353: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    NIL.setParseAction(lambda x: rdflib.RDF.nil)
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:360: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    ANON.setParseAction(lambda x: rdflib.BNode())
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:364: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    A.setParseAction(lambda x: rdflib.RDF.type)
+
+tests/test_audit.py: 126 warnings
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parserutils.py:239: PyparsingDeprecationWarning: 'setName' deprecated - use 'set_name'
+    self.setName(name)
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:380: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    Var.setParseAction(lambda x: rdflib.term.Variable(x[0]))
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:397: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    Param("lang", LANGTAG.leaveWhitespace())
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:398: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    | Literal("^^").leaveWhitespace() + Param("datatype", iri).leaveWhitespace()
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:417: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    BooleanLiteral = Keyword("true").setParseAction(lambda: rdflib.Literal(True)) | Keyword(
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:419: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    ).setParseAction(lambda: rdflib.Literal(False))
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:505: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    Param("part", PathPrimary) + Optional(Param("mod", PathMod.leaveWhitespace())),
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:545: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    Collection.setParseAction(expandCollection)
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:549: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    CollectionPath.setParseAction(expandCollection)
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:576: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    BlankNodePropertyList.setParseAction(expandBNodeTriples)
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:582: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    BlankNodePropertyListPath.setParseAction(expandBNodeTriples)
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:592: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    TriplesSameSubject.setParseAction(expandTriples)
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:632: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    TriplesSameSubjectPath.setParseAction(expandTriples)
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:657: PyparsingDeprecationWarning: 'delimitedList' deprecated - use 'DelimitedList'
+    ExpressionList = NIL | Group(Suppress("(") + delimitedList(Expression) + Suppress(")"))
+
+tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings0]
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:1018: PyparsingDeprecationWarning: 'delimitedList' deprecated - use 'DelimitedList'
+    + delimitedList(ParamList("expr", Expression))
+
+tests/test_audit.py: 364 warnings
+tests/test_compound_evidence.py: 120 warnings
+tests/test_core.py: 312 warnings
+tests/test_enrichment.py: 735 warnings
+tests/test_exemption_links.py: 56 warnings
+tests/test_extraction.py: 936 warnings
+tests/test_meaning.py: 342 warnings
+tests/test_refinement.py: 450 warnings
+tests/test_review_http.py: 28 warnings
+tests/test_review_reprocessing.py: 143 warnings
+tests/test_review_store.py: 230 warnings
+tests/test_runtime_readers.py: 104 warnings
+tests/test_terms.py: 77 warnings
+tests/test_uslm.py: 76 warnings
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:1553: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+    return Query.parseString(q, parseAll=True)
+
+tests/test_audit.py: 364 warnings
+tests/test_compound_evidence.py: 120 warnings
+tests/test_core.py: 312 warnings
+tests/test_enrichment.py: 735 warnings
+tests/test_exemption_links.py: 56 warnings
+tests/test_extraction.py: 936 warnings
+tests/test_meaning.py: 342 warnings
+tests/test_refinement.py: 450 warnings
+tests/test_review_http.py: 28 warnings
+tests/test_review_reprocessing.py: 143 warnings
+tests/test_review_store.py: 230 warnings
+tests/test_runtime_readers.py: 104 warnings
+tests/test_terms.py: 77 warnings
+tests/test_uslm.py: 76 warnings
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/pyparsing/util.py:466: PyparsingDeprecationWarning: 'parseAll' argument is deprecated, use 'parse_all'
+    return fn(self, *args, **kwargs)
+
+tests/test_compound_evidence.py: 132 warnings
+tests/test_enrichment.py: 970 warnings
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/graph.py:2205: DeprecationWarning: Dataset.default_context is deprecated, use Dataset.default_graph instead.
+    c = self.default_context if default else None
+
+tests/test_compound_evidence.py: 66 warnings
+tests/test_enrichment.py: 485 warnings
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdfcanon/main.py:170: DeprecationWarning: Dataset.default_context is deprecated, use Dataset.default_graph instead.
+    if graph == self.dataset.default_context.identifier:
+
+tests/test_compound_evidence.py: 66 warnings
+tests/test_enrichment.py: 485 warnings
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/serializers/nquads.py:41: DeprecationWarning: Dataset.contexts is deprecated, use Dataset.graphs instead.
+    for context in self.store.contexts():
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED packages/rulespec-extrapolator/tests/test_audit.py::test_missing_alternative_is_visible_despite_complete_processing_and_exact_quote[settings4]
+1 failed, 594 passed, 10971 warnings in 49.47s
