@@ -347,20 +347,47 @@ uv pip install --python .tools/document-poc-venv/bin/python \
   dist/citation-ownership-20260911/rulespec_projection-0.1.0-py3-none-any.whl \
   dist/reference-tools-20260910-parenthetical/spicysearch-0.1.4-py3-none-any.whl \
   dist/reference-integration-20260911-cfr-ranges/refspec-0.1.0.dev0-py3-none-any.whl \
-  dist/reference-integration-20260911-cfr-ranges/rulespec_extrapolator-0.1.0.dev0-py3-none-any.whl \
+  dist/reference-integration-20260911-bodies/rulespec_extrapolator-0.1.0.dev0-py3-none-any.whl \
   ../DocSpec/dist/docspec-0.2.11-py3-none-any.whl
 ```
 
 Use the Python environment where you installed the extractor. The scan records
 each parser's version and module digest. The latest
-[wheel inputs](../../thoughts/experiments/2026-09-11-cfr-ranges/wheel-inputs.json)
-pin the matching builds, including complete CFR compounds/ranges, the part-zero
+[wheel inputs](../../thoughts/experiments/2026-09-11-reference-bodies/wheel-inputs.json)
+pin the matching builds, including optional supplied-source lookup, complete CFR compounds/ranges, the part-zero
 minter fix, compilation locators and the RIN, containment
 and retention changes; the
 [act-name comparison](../../thoughts/experiments/2026-09-11-act-name-multiplicity/README.md)
 retains an earlier checkpoint. The full installation includes DocSpec because of
 SpicySearch's existing dependency metadata; document segmentation and Core
 validation do not call DocSpec.
+
+Optional provision lookup reuses RefSpec's USLM text reader and section-name
+normalizer. Supply captured XML or a prepared USLM document to either command:
+
+```sh
+rulespec-understand references prepared.json --reference-source usc05.xml --output references-with-text.json
+rulespec-understand discovery-export my-run --reference-source usc05.xml --output discovery-with-text.json
+```
+
+Repeat `--reference-source` to supply additional sources or editions. The Python
+APIs accept prepared documents through `reference_sources=[document, ...]`.
+Exact accepted USC sections/pinpoints and publisher links can locate targets
+inside supplied sections. Each target retains its XML selector, digest and source
+identity. `reference_sources` stores publication metadata and containing section
+records once; `target.record_id` selects a record, and target offsets address that
+source's prepared text. For a record-local slice, subtract `record.start`.
+Discovery stores external evidence in that source's own `evidence` table.
+
+Matching text in a supplied release does not establish the citation's intended
+edition: `edition_match` remains `not_established`. Multiple target versions remain
+ambiguous. Open-ended citations, ranges and notes are not reduced to plain section
+anchors; broad external title/chapter bodies return `target_scope_not_supported`.
+Containing sections preserve parent conditions and editorial notes for reading,
+without deciding their legal effect. This adds no model call, prompt text or
+recursive fetching. eCFR `DIV` XML requires a different reader and is not accepted
+as USLM. The [source comparison](../../thoughts/experiments/2026-09-11-reference-bodies/README.md)
+records the tested scope, counterexamples and installed delivery.
 
 Prefer publisher XML when it contains the required document text in a supported
 format. Supply that XML directly instead of first flattening it to text or

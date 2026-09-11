@@ -10,7 +10,7 @@ from .documents import source_passages, validate_document
 SPICYSEARCH_KINDS = frozenset({"public_law", "statutes_at_large", "executive_order", "docket", "rin"})
 
 
-def scan_references(document, *, act_index=None, source_credit_index=None):
+def scan_references(document, *, act_index=None, source_credit_index=None, reference_sources=()):
     """Scan pinned source with existing readers, preserving occurrences and evidence."""
     validate_document(document)
     if source_credit_index is not None and act_index is None:
@@ -142,5 +142,8 @@ def scan_references(document, *, act_index=None, source_credit_index=None):
                           'Optional act mappings identify code sections in the supplied indexes, not target text or matching historical editions.'}
     if 'uslm_source' in document:
         from .uslm import attach_publisher_links
-        return attach_publisher_links(document, result, passages)
+        attach_publisher_links(document, result, passages)
+    if reference_sources:
+        from .reference_sources import attach_reference_sources
+        attach_reference_sources(result, reference_sources)
     return result

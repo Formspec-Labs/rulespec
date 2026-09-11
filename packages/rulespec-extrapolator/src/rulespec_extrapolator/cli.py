@@ -67,6 +67,8 @@ def main(argv=None):
     references.add_argument("source", type=Path, help="Text, USLM XML, prepared document, rulebook JSON, or extraction directory.")
     references.add_argument("--output", type=Path, required=True)
     for command in (references, discovery):
+        command.add_argument("--reference-source", type=Path, action="append", default=[],
+                             help="Look up exact targets in this USLM XML/prepared document; repeat to supply additional sources or editions.")
         command.add_argument("--act-index", type=Path, help="Use a pinned RefSpec act-index directory for named-act references.")
         command.add_argument("--source-credit-index", type=Path, help="Also consult pinned RefSpec source credits; requires --act-index.")
     evaluate = sub.add_parser("evaluate", help="Score content-bound independent source judgments.")
@@ -155,7 +157,8 @@ def main(argv=None):
         from .discovery import export_discovery
         from .review_store import ReviewStore
         _write_new(args.output, export_discovery(ReviewStore(args.run).snapshot(), include_references=args.references,
-                                               act_index=args.act_index, source_credit_index=args.source_credit_index))
+                                               act_index=args.act_index, source_credit_index=args.source_credit_index,
+                                               reference_sources=[load_document(p) for p in args.reference_source]))
     elif args.command == "references":
         from .references import scan_references
         source = args.source / 'document.json' if args.source.is_dir() else args.source
@@ -164,7 +167,8 @@ def main(argv=None):
             document = value.get('document', value)
         else:
             document = load_document(source)
-        _write_new(args.output, scan_references(document, act_index=args.act_index, source_credit_index=args.source_credit_index))
+        _write_new(args.output, scan_references(document, act_index=args.act_index, source_credit_index=args.source_credit_index,
+                                               reference_sources=[load_document(p) for p in args.reference_source]))
     elif args.command == "evaluate":
         from .evaluation import evaluate
         result = evaluate(_load(args.rulebook), _load(args.labels),

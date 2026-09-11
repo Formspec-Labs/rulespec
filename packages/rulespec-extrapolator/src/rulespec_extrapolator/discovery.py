@@ -1,6 +1,6 @@
 """Source-backed discovery export; evidence overlap is not semantic completeness."""
 from copy import deepcopy
-from .core import _evidence, sparse
+from .core import NS, _evidence, sparse
 from .documents import source_passages, source_slicer, validate_document
 
 
@@ -49,7 +49,7 @@ def records(book, source, mode):
 
 
 
-def export_discovery(book, *, include_references=False, act_index=None, source_credit_index=None):
+def export_discovery(book, *, include_references=False, act_index=None, source_credit_index=None, reference_sources=()):
     """Keep every source passage, including passages with no extracted statement."""
     from .terms import term_lookup
     doc = validate_document(book["document"])
@@ -107,13 +107,32 @@ def export_discovery(book, *, include_references=False, act_index=None, source_c
             "extraction_issues": book.get("extraction_refusals", []),
             'enrichment_issues': book.get('enrichment_issues', []),
             "limitation": "Evidence links locate related source passages. A linked passage may still contain omitted or misinterpreted meaning; an unlinked passage is not necessarily an omission."}
-    if include_references or act_index is not None or source_credit_index is not None:
+    reference_sources = tuple(reference_sources)
+    if include_references or act_index is not None or source_credit_index is not None or reference_sources:
         from .references import scan_references
-        scan = scan_references(doc, act_index=act_index, source_credit_index=source_credit_index)
+        scan = scan_references(doc, act_index=act_index, source_credit_index=source_credit_index,
+                               reference_sources=reference_sources)
         scan.pop('document')  # The export already pins this exact document.
+        source_documents = {NS + 'xml:' + d['uslm_source']['sha256']: d for d in reference_sources}
         for candidate in scan['candidates'] + scan['rejected'] + list(scan.get('targets', {}).values()):
             for reading in [candidate] + candidate.get('text_readings', []):
                 if 'evidence' in reading:
-                    reading['evidence_refs'] = references(reading.pop('evidence'))
+                    items = reading.pop('evidence')
+                    if 'source_id' not in reading:
+                        reading['evidence_refs'] = references(items)
+                        continue
+                    # External coordinates belong to their own source/evidence table.
+                    source_id = reading['source_id']
+                    source = scan['reference_sources'][source_id]
+                    supports = verified({'document': source_documents[source_id]}, items)
+                    if len(supports) != len(items):
+                        raise ValueError('External target evidence does not resolve in its source')
+                    table = source.setdefault('evidence', {})
+                    reading['evidence_refs'] = []
+                    for support in supports:
+                        identity = support['fragment_id']
+                        table[identity] = {k: support[k] for k in ('start', 'end')}
+                        table[identity]['record_ids'] = [reading['record_id']]
+                        reading['evidence_refs'].append({'id': identity, 'roles': [support['field']]})
         result['reference_scan'] = scan
     return result

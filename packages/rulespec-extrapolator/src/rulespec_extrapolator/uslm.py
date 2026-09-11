@@ -51,29 +51,41 @@ def read_uslm(document):
     return prepared
 
 
-def attach_publisher_links(document, scan, passages):
-    """Add native XML occurrences and shared targets to the existing scan result."""
-    from refspec.registry import uslm
-    prepared = read_uslm(document)
-    source = document['uslm_source']
-    source_id = NS + 'xml:' + source['sha256']
-    source_parts = [p for p in document['source_map'] if p['kind'] == 'source']
-    starts, ends = [p['start'] for p in source_parts], [p['end'] for p in source_parts]
-    passage_starts, passage_ends = [p['start'] for p in passages], [p['end'] for p in passages]
-    fragments, targets, publisher_rows = {}, {}, []
-    identifiers, anchors = defaultdict(list), []
-    for path, node in prepared['nodes'].items():
-        if node.get('identifier'):
-            identifiers[node['identifier']].append((path, node))
+class SourceIndex:
+    """One verified USLM source, shared by publisher links and external lookup."""
 
-    def support(path, node, field):
+    def __init__(self, document):
+        self.document = validate_document(document)
+        self.prepared = read_uslm(document)
+        self.source = document['uslm_source']
+        self.source_id = NS + 'xml:' + self.source['sha256']
+        self.fragments, self.targets = {}, {}
+        self.identifiers = defaultdict(list)
+        for path, node in self.prepared['nodes'].items():
+            if node.get('identifier'):
+                self.identifiers[node['identifier']].append((path, node))
+        self.source_parts = [p for p in document['source_map'] if p['kind'] == 'source']
+        self.starts = [p['start'] for p in self.source_parts]
+        self.ends = [p['end'] for p in self.source_parts]
+
+    def artifact(self):
+        return {'@id': self.source_id, '@type': 'rkaf:Artifact',
+                'rkaf:hasArtifactIdentifier': self.source_id,
+                'rkaf:artifactIdentifierScheme': 'rkaf:hash-sha256',
+                'rkaf:hasContentDigest': 'sha256:' + self.source['sha256'],
+                'dcterms:format': 'application/xml'}
+
+    def support(self, path, node, field, *, include_text=True):
+        document, prepared, source = self.document, self.prepared, self.source
+        source_id, fragments = self.source_id, self.fragments
+        source_parts, starts, ends = self.source_parts, self.starts, self.ends
         fragment_id = NS + 'xml-fragment:' + digest([source_id, path])
         fragments.setdefault(fragment_id, {'@id': fragment_id, '@type': 'rkaf:SourceFragment',
             'oa:hasSource': source_id, 'oa:hasSelector': [{'@type': 'oa:XPathSelector', 'rdf:value': path}],
             'rkaf:selectorKind': ['oa:XPathSelector'], 'rkaf:sourceArtifactDigest': 'sha256:' + source['sha256'],
             'rkaf:fragmentContentDigest': 'sha256:' + digest(prepared['source_text'][node['source_start']:node['source_end']])})
         evidence = []
-        if 'start' in node:
+        if include_text and 'start' in node:
             for part in source_parts[bisect_right(ends, node['start']):bisect_left(starts, node['end'])]:
                 start, end = max(part['start'], node['start']), min(part['end'], node['end'])
                 exact = _evidence(document, document['text'][start:end], field, start, end)
@@ -81,6 +93,26 @@ def attach_publisher_links(document, scan, passages):
                     raise ValueError('Publisher text evidence does not resolve in the prepared source')
                 evidence.append(exact)
         return fragment_id, evidence
+
+    def target(self, path, node):
+        identity = NS + 'reference-target:' + digest([self.source_id, path])
+        if identity not in self.targets:
+            fragment, evidence = self.support(path, node, 'reference_target')
+            self.targets[identity] = {'id': identity, 'value': node['identifier'],
+                **{k: node[k] for k in ('start', 'end') if k in node},
+                'xml_evidence_refs': [fragment], 'evidence': evidence,
+                'text_status': 'available' if evidence else 'no_visible_text'}
+        return self.targets[identity]
+
+
+def attach_publisher_links(document, scan, passages):
+    """Add native XML occurrences and shared targets to the existing scan result."""
+    from refspec.registry import uslm
+    publisher = SourceIndex(document)
+    prepared, source, fragments, targets = publisher.prepared, publisher.source, publisher.fragments, publisher.targets
+    identifiers, support = publisher.identifiers, publisher.support
+    passage_starts, passage_ends = [p['start'] for p in passages], [p['end'] for p in passages]
+    publisher_rows, anchors = [], []
 
     root_id = prepared['nodes']['/*[1]'].get('identifier', '')
     title = root_id.removeprefix('/us/usc/t').split('/')[0] if root_id.startswith('/us/usc/t') else ''
@@ -91,14 +123,7 @@ def attach_publisher_links(document, scan, passages):
         xml_fragment, evidence = support(path, node, 'reference')
         target_ids = []
         for target_path, target in identifiers.get(native['href'], ()):
-            target_id = NS + 'reference-target:' + digest([source_id, target_path])
-            target_ids.append(target_id)
-            if target_id not in targets:
-                fragment, target_evidence = support(target_path, target, 'reference_target')
-                targets[target_id] = {'id': target_id, 'value': native['href'],
-                    **{k: target[k] for k in ('start', 'end') if k in target},
-                    'xml_evidence_refs': [fragment], 'evidence': target_evidence,
-                    'text_status': 'available' if target_evidence else 'no_visible_text'}
+            target_ids.append(publisher.target(target_path, target)['id'])
         row = {'id': NS + 'reference:' + digest([xml_fragment, native['href']]),
                'kind': 'publisher_reference', 'value': native['href'],
                'reading': sparse({k: v for k, v in native.items() if k not in {'href', 'sourceXPath'}}),
@@ -145,9 +170,7 @@ def attach_publisher_links(document, scan, passages):
         scan[group] = remaining
     scan['candidates'].extend(publisher_rows)
     scan['candidates'].sort(key=lambda row: (row['evidence'][0]['start'] if row.get('evidence') else len(document['text']), row['id']))
-    scan['publisher_source'] = {'@id': source_id, '@type': 'rkaf:Artifact',
-        'rkaf:hasArtifactIdentifier': source_id, 'rkaf:artifactIdentifierScheme': 'rkaf:hash-sha256',
-        'rkaf:hasContentDigest': 'sha256:' + source['sha256'], 'dcterms:format': 'application/xml'}
+    scan['publisher_source'] = publisher.artifact()
     scan['xml_fragments'], scan['targets'], scan['publisher_skipped'] = fragments, targets, dict(skipped)
     scan['parsers'].extend({'name': 'refspec.registry.uslm.' + name, 'version': version('refspec'),
                             'module_sha256': digest(Path(uslm.__file__).read_bytes())}

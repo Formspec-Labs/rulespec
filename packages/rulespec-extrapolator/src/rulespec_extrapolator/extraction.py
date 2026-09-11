@@ -516,11 +516,11 @@ def _create_model(model_id: str, key: str, schema):
 def _runtime_sources() -> dict[str, Path]:
     """Find runtime inputs by package location, including installed wheel data."""
     sources = {"application/" + name: Path(__file__).parent / name
-               for name in ("extraction.py", "core.py", "documents.py", "vocabulary.py", "evaluation.py", "audit.py", "refinement.py", "review_store.py", "schemas.py", "enrichment.py", "discovery.py", "terms.py", "structure.py", "references.py", "uslm.py")}
+               for name in ("extraction.py", "core.py", "documents.py", "vocabulary.py", "evaluation.py", "audit.py", "refinement.py", "review_store.py", "schemas.py", "enrichment.py", "discovery.py", "terms.py", "structure.py", "references.py", "uslm.py", "reference_sources.py")}
     sources.update(runtime_sources())
     # Optional readers are captured when installed, without making them a
     # dependency of plain-text extraction. Include the helpers behind their APIs.
-    for name in ("refspec.registry.uslm", "refspec.registry.citation_grammar",
+    for name in ("refspec.registry.uslm", "refspec.registry.citation_grammar", "refspec.registry.usc_section_oracle",
                  "refspec.registry.iri_minting", "refspec.registry.identifier_shapes",
                  "refspec.registry.hand_validated_interpretations", "refspec.registry.act_resolution",
                  "spicysearch.identifiers", "spicysearch.identifier_normalization", "spicysearch.canonical"):
