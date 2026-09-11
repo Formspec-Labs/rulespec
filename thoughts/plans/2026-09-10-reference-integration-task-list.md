@@ -9,8 +9,10 @@ match isolated results; original captures/reviews remain intact. Counts belong t
 their linked checkpoints. No new model call, commit, publication or deployment
 occurred during these two deliveries.
 
-**Recommended next slice:** connect the tested RefSpec USC occurrence reader under
-R6, preserving its qualifications and refusals, then verify rebuilt wheels.
+**Recommended next slice:** trace the remaining citation copies and their actual
+consumers under R8, then choose the smallest safe consolidation. The selected
+USC reader is [connected and installed](../experiments/2026-09-11-usc-delivery/README.md),
+including an upstream fix for the newly observed `et seq.` qualification loss.
 Retention, review-boundary checks and reader capture are delivered. The upstream,
 Core and application changes are now [committed locally](../reviews/2026-09-11-commit-checkpoint.md),
 with research preserved separately. The 26 workstreams
@@ -78,9 +80,10 @@ extraction accuracy or identifier existence. See the
 [RIN result](../experiments/2026-09-11-rin-reference-space/README.md) and
 [containment result](../experiments/2026-09-11-reference-containment/README.md).
 
-Not all useful sibling features have been integrated. Qualified U.S. Code (USC) readings, general
-local paragraph lookup, external target bodies and shared vocabulary links remain
-open. The completed **R15/R16** experiment found zero of three targeted meaning
+Not all useful sibling features have been integrated. Selected U.S. Code (USC)
+readings are now installed; broader qualification coverage, general local paragraph
+lookup, external target bodies and shared vocabulary links remain open.
+The completed **R15/R16** experiment found zero of three targeted meaning
 gains, a repeated modality regression and one incomplete response; B used 8.9%
 more reported tokens. The [result](../experiments/2026-09-11-fresh-reference-context/README.md)
 also identified the two deterministic retention defects for **R4/R23**. Their
@@ -101,8 +104,8 @@ to test, not a measured general ranking of value.
 | Source | Connected or verified | Still available to assess or connect |
 | --- | --- | --- |
 | Rulespec | CUE schemas; statements, terms, scope, evidence, passage IDs, review history, discovery and optional audit/refinement; USLM ingestion/export and XPath validation delivered | Reuse existing records for context and corrections; measure remaining duplication |
-| SpicySearch | Public laws, Statutes at Large, executive orders, dockets and Regulation Identifier Numbers (RINs) in the reference adapter; upstream strict CFR/USC behavior tested | Qualified USC consumer, selected other families, Atlas/agency readers and association suggestions |
-| RefSpec | CFR occurrences, named-act/source-credit lookup and ambiguity fixes in both commands; USLM link and readable-text readers installed | Assess section/subsection oracle, qualified USC occurrences, vocabulary and publication metadata |
+| SpicySearch | Public laws, Statutes at Large, executive orders, dockets and Regulation Identifier Numbers (RINs) in the reference adapter; upstream strict CFR/USC behavior tested | Selected other families, Atlas/agency readers and association suggestions; RefSpec supplies the selected USC consumer |
+| RefSpec | CFR and qualified USC occurrences, named-act/source-credit lookup and ambiguity fixes in both commands; USLM link and readable-text readers installed | Assess section/subsection oracle, broader qualifier forms, vocabulary and publication metadata |
 | Spicy Regs | Source preparation and catalog implementations inspected; no new extractor runtime connection | Verify catalog/body lookup fit and useful source preparation; use RefSpec's newer grammar instead of copying the older one |
 | Local corpora | Selected act indexes and eCFR/USLM source captures verified and used | Check remaining loaders, editions and fresh inputs before use; a directory's presence is not an integration |
 
@@ -131,7 +134,7 @@ release. Preserve the completed foundation and make one bounded change at a time
 | R3 | One evidence-backed representation of richer readings | Unique containment installed; all four observed overlaps resolved; ambiguity and refusals preserved | S–M |
 | R4 | Combined reader and extraction retention checks | Reader and retention delivered; 552 source/installed tests, two review controls and normal CLI checks pass | S–M |
 | R5 | Complete qualified CFR/USC readings | USC comparison complete; RefSpec selected for extension | M |
-| R6 | Upstream occurrence fixes and qualified USC integration | USC native checks pass; adapter and wheels open | M |
+| R6 | Upstream occurrence fixes and qualified USC integration | Selected USC readings installed; 579 application tests and both commands verified | M |
 | R7 | Additional reference families with individual acceptance checks | RIN helper reuse and upstream explanation corrections delivered; further families remain experimental | M per further family |
 | R8 | Remove divergent production citation copies | Existing callers identified; migration open | M |
 | R9 | Source-supported context for omitted citation titles | General support missing | M |
@@ -164,19 +167,16 @@ reprocessing output starts pending, including when claim IDs change. The
 reader/helper sources and versions without changing those statements or discovery
 output. Its current source and installed suites each pass 559 tests.
 
-1. **Compare qualified USC readings — R5; owners RefSpec/SpicySearch and Rulespec;
-   effort M.** Use the frozen note, appendix, chapter, compound-section, range and
-   damaged-token failures. Add actual source positives and misleading lookalikes.
-   RefSpec `AuthorityCitation` already retains richer target distinctions;
-   SpicySearch's strict USC reader provides occurrences but loses some qualifiers.
-   Keep both raw readings and decide which producer owns each needed field.
-2. **Extend the owner and connect passing behavior — R6; RefSpec then Rulespec;
-   effort M.** Inspect `parse_authority_citation` and its shared `_read` matcher
-   before writing a scanner. Retain original occurrence positions, note/appendix/
-   chapter distinctions, stated versus expanded endpoints, and unresolved tails.
-   Do not recover offsets by searching normalized output or add a Rulespec repair
-   regex. Verify actual failures and counterexamples by direct import, then build
-   and test the wheel and both existing consumer commands.
+1. **Trace remaining citation copies — R8; Rulespec projection, RefSpec and
+   SpicySearch; effort M.** Inspect actual callers and dependency boundaries before
+   moving code. Distinguish shared identity rules from deliberately different
+   query, authority-field and source-occurrence policies. Consolidate only the
+   demonstrated duplication, with old behavior retained as a comparison oracle.
+2. **Select the next useful reader or consumer — R7/R20/R22; effort M.** Use the
+   existing inventory to choose a concrete application need. Compare the callable
+   native reader on actual source and misleading controls before connecting it.
+   R5/R6's selected USC integration is delivered; do not restart that comparison
+   or add more syntax without a demonstrated missing use case.
 3. **Scoped commits complete — R1.** Upstream reader fixes, Core selector
    generation, application integration and retention/capture changes are committed
    locally. Research is preserved separately. The
@@ -298,7 +298,7 @@ Broader reuse remains open.
 | SpicySearch `extract_citations(..., strict=True, keep_rejected=True)` | Implemented and tested; remains experiment comparison data | R2, R5; avoid a second default CFR reader |
 | SpicySearch `extract_usc_citations(..., strict=True, keep_rejected=True)` | Implemented and tested; not connected; strict syntax still loses some qualified meanings | R5–R6 |
 | RefSpec `parse_authority_citation` | Richer qualified readings tested; most lack occurrence offsets; some damaged tokens become shortened readings | R5–R7 |
-| RefSpec `find_usc_citations` | Source implementation tested; preserves qualifiers, occurrence positions and refusals; not installed or connected | R6 |
+| RefSpec `find_usc_citations` | Connected and installed; native fields, source/context evidence and refusals retained in both commands | R6 delivered; broader coverage under R24 |
 | RefSpec FR pages and EO compilation locators | Callable and tested in the broader bundle; not connected | R7 |
 | RefSpec named-act recognition and resolution | Occurrence API fixed upstream and installed; optional act/source-credit indexes connected through both commands | R13 follow-up cases; R24 fresh quality |
 | RefSpec USC section/subsection oracle | Source-inspected; not yet connected or exercised in this application | R12, R20 |
@@ -644,9 +644,18 @@ ambiguity can stay explicit instead of becoming a confident section identity.
   results on 31 inputs with seven variants each. The source occurrence reader
   retains the full damaged token with an explicit refusal. It does not repair
   damage or establish legal existence. The copied prior reader stays test-only.
-- [ ] Verify direct imports, owner tests and null controls before rebuilding the
+- [x] Verify direct imports, owner tests and null controls before rebuilding the
   wheel. Connect the selected USC behavior to the same adapter and replay the
   frozen combined cases.
+  The [delivery](../experiments/2026-09-11-usc-delivery/README.md) preserves all 31
+  native inputs, unchanged other-family/default output and six additional USC
+  observations associated with publisher links. The final source and installed
+  suites pass 579 application tests, with 116 focused upstream tests installed.
+  The native owner suite passes 503 tests, with 14 slow tests deselected.
+  The additional actual `38 U.S.C. 4301, et seq.` example exposed a missing open
+  tail; the upstream correction retains it with an explicit unresolved-range
+  refusal. Both installed commands preserve that wording. Earlier captures and
+  failed attempts remain intact. No model call or legacy conversion was added.
 - [x] Extend the existing RefSpec CFR occurrence output for demonstrated subpart
   or other qualifier gaps from R5. Reuse its grammar and native data types; do not
   append a Rulespec regex that guesses the tail of an upstream match.

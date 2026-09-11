@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/finding.json",
+  "title": "finding",
+  "$defs": {
+    "FindingKind": {
+      "type": "string",
+      "enum": [
+        "rkaf:warning",
+        "rkaf:error",
+        "rkaf:staleDependency",
+        "rkaf:registryUnavailable",
+        "rkaf:registryVersionOutOfRange",
+        "rkaf:conceptConflict",
+        "rkaf:authorityBroken",
+        "rkaf:unsupportedAnchor",
+        "rkaf:other"
+      ]
+    },
+    "FindingSeverity": {
+      "type": "string",
+      "enum": [
+        "rkaf:informational",
+        "rkaf:operationalConflict",
+        "rkaf:publicationBlocking",
+        "rkaf:authorityCritical"
+      ]
+    },
+    "Finding": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:Finding"
+        },
+        "rkaf:findingKind": {
+          "$ref": "#/$defs/FindingKind"
+        },
+        "rkaf:detectedAt": {
+          "type": "string"
+        },
+        "rkaf:detectedBy": {
+          "type": "string"
+        },
+        "rkaf:subject": {
+          "type": "string"
+        },
+        "rkaf:severity": {
+          "$ref": "#/$defs/FindingSeverity"
+        },
+        "rkaf:rationale": {
+          "type": "string"
+        },
+        "rkaf:lastVerifiedAt": {
+          "type": "string"
+        },
+        "rkaf:verifiedBy": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:findingKind",
+        "rkaf:detectedAt",
+        "rkaf:detectedBy",
+        "rkaf:subject"
+      ]
+    }
+  }
+}
