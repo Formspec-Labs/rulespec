@@ -3,16 +3,24 @@
 Updated 2026-09-11 against the local code and saved evidence. This is the current
 backlog for the reference work, useful sibling-repository capabilities, and their
 extraction/discovery consumers. R1–R26 are stable identifiers for follow-up work.
-This update includes retention, optional-reader capture, qualified USC delivery
-and removal of unused citation copies. The latest application source suite passes
-579 tests; the graph package passes 30 tests from source and its isolated wheel.
+This update includes retention, optional-reader capture, qualified USC delivery,
+removal of unused citation copies and compilation occurrence delivery. The latest
+application suite passes 585 tests from source and its installed wheel; the graph
+package's preceding checkpoint passes 30 tests from source and its isolated wheel.
 Earlier counts belong to their linked checkpoints. Original captures and reviews
 remain intact; no model call, publication or deployment was needed for this cleanup.
 
-**Recommended next slice:** fix complete CFR tokens, ranges and compilation
-context upstream, then migrate the remaining R8 graph readers with their
+**Recommended next slice:** fix complete CFR tokens and ranges upstream, then
+migrate the remaining R8 graph readers with their
 structured-input behavior preserved. The [caller trace and direct comparison](../experiments/2026-09-11-citation-ownership/README.md)
 are complete; unused act-name and compilation-locator copies are removed.
+Compilation volume/page occurrences are now connected through RefSpec, including
+page-first court citations and the existing publisher XML path. The
+[comparison and delivery](../experiments/2026-09-11-compilation-occurrences/README.md)
+removes nine false CFR parts from the saved opinions. One citation interrupted by
+a PDF footnote remains a source-reading-order failure under R23. Prefer publisher
+XML containing the needed text in a supported format; the caller currently
+chooses the source, and `.xml` support means USLM, not arbitrary XML.
 The selected
 USC reader is [connected and installed](../experiments/2026-09-11-usc-delivery/README.md),
 including an upstream fix for the newly observed `et seq.` qualification loss.
@@ -304,7 +312,7 @@ Broader reuse remains open.
 | SpicySearch `extract_usc_citations(..., strict=True, keep_rejected=True)` | Implemented and tested; not connected; strict syntax still loses some qualified meanings | R5–R6 |
 | RefSpec `parse_authority_citation` | Richer qualified readings tested; most lack occurrence offsets; some damaged tokens become shortened readings | R5–R7 |
 | RefSpec `find_usc_citations` | Connected and installed; native fields, source/context evidence and refusals retained in both commands | R6 delivered; broader coverage under R24 |
-| RefSpec FR pages and EO compilation locators | Callable and tested in the broader bundle; not connected | R7 |
+| RefSpec FR pages and EO compilation locators | Compilation occurrences connected and installed with exact evidence; FR pages remain unconnected | R7 |
 | RefSpec named-act recognition and resolution | Occurrence API fixed upstream and installed; optional act/source-credit indexes connected through both commands | R13 follow-up cases; R24 fresh quality |
 | RefSpec USC section/subsection oracle | Source-inspected; not yet connected or exercised in this application | R12, R20 |
 | RefSpec publisher USLM link extraction | Shared `iter_edges`, `read_text`, XML ingestion/export and unique text-reading association installed and verified | R15/R16 consumer context; broader R3 ambiguity if a new case requires it |
@@ -702,9 +710,17 @@ The CFR fix and USC integration are separate deliverable slices.
   Keep the earlier 46,547-value population historical; the verified local artifact
   supplies the separately measured count above. The upstream runtime AST is
   unchanged by these explanatory edits.
+- [x] **Compilation owner: RefSpec grammar plus Rulespec consumer; effort S.**
+  Reuse SpicySearch's page-first recognition in the existing RefSpec grammar.
+  Export exact occurrences, both year/page endpoints and unclosed-parenthetical
+  refusals through the existing reference/discovery path. Nine contiguous court
+  citations and two real USLM mentions retain their locators; twelve publisher
+  links survive. The [bounded result](../experiments/2026-09-11-compilation-occurrences/README.md)
+  leaves the cross-page PDF failure and the older partial `AuthorityCitation`
+  row's missing range endpoints explicit. No executive-order identity is inferred.
 - [ ] **Owner: RefSpec/SpicySearch plus Rulespec consumer; effort M in bounded
   slices; depends on R3 and any needed occurrence API.** Prioritize Federal Register
-  volume/page citations and EO compilation locators, then corpus-demanded families:
+  volume/page citations, then corpus-demanded families:
   proclamations, reorganization plans, constitutional provisions, treaty citations,
   and court cases. Use existing readers, not a new generic grammar.
 - [ ] Distinguish FR volume/page, FR document number, docket, Regulations.gov
@@ -1189,6 +1205,13 @@ heading such as “In general” directly to the following sentence. Its offsets
 verify, but that alone does not make the prepared document readable or suitable
 for extracting meaning. The subsequent readable-text comparison fixes this join
 and is now installed, while retaining the failed first attempt as evidence.
+
+- [ ] Prefer publisher XML when its supported structure contains the required
+  document text. For PDF-only captures, preserve and test reading order before
+  joining a split citation. The [compilation comparison](../experiments/2026-09-11-compilation-occurrences/page-boundary-case.json)
+  retains a citation crossing printed pages 342–343: a footnote and page header
+  intervene between `3 CFR` and `60–61 (1971–1975 Comp.)`, producing a false part 9
+  in the flat text. Contiguous citation recognition does not solve this failure.
 
 - [x] Close R4's source-passage discovery failure at inserted separators.
   Prepared passage text remains available; only original-source slices become

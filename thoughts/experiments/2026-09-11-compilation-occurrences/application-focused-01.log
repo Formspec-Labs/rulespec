@@ -1,0 +1,26 @@
+....................................F.                                   [100%]
+=================================== FAILURES ===================================
+_ test_compilation_locators_preserve_endpoints_repeats_and_discovery_evidence __
+
+    def test_compilation_locators_preserve_endpoints_repeats_and_discovery_evidence():
+        text = '3 CFR 60–61 (1971–1975 Comp.); 3 CFR 100; 3 CFR 60–61 (1971–1975 Comp.).'
+        doc = prepare_document(text)
+        result = scan_references(doc)
+        first, part, repeated = result['candidates']
+        assert first['kind'] == repeated['kind'] == 'eo_compilation'
+        assert first['id'] != repeated['id']
+        assert first['reading'] == repeated['reading'] == {
+            'compilation_start': '1971', 'compilation_end': '1975', 'page': '60', 'page_end': '61'}
+        assert part['kind'] == 'cfr' and part['reading']['cfr_part'] == '100'
+        for candidate in (first, repeated):
+            support, = candidate['evidence']
+            assert candidate['value'] == support['quote'] == text[support['start']:support['end']]
+        exported = export_discovery({'document': doc, 'accepted': []}, include_references=True)
+>       assert exported['reference_candidates'] == result['candidates']
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'reference_candidates'
+
+packages/rulespec-extrapolator/tests/test_references.py:296: KeyError
+=========================== short test summary info ============================
+FAILED packages/rulespec-extrapolator/tests/test_references.py::test_compilation_locators_preserve_endpoints_repeats_and_discovery_evidence
+1 failed, 37 passed in 0.33s
