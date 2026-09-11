@@ -1,0 +1,74 @@
+[
+  {
+    "id": "duplicate-targets",
+    "xml": "<uscDoc xmlns=\"http://xml.house.gov/schemas/uslm/1.0\"><section identifier=\"/us/usc/t5/s1\"><p><ref href=\"/us/usc/t5/s1/a\">(a)</ref></p><subsection identifier=\"/us/usc/t5/s1/a\">First</subsection><subsection identifier=\"/us/usc/t5/s1/a\">Second</subsection></section></uscDoc>",
+    "expected_target_status": [
+      "ambiguous"
+    ]
+  },
+  {
+    "id": "absent-target",
+    "xml": "<uscDoc xmlns=\"http://xml.house.gov/schemas/uslm/1.0\"><section identifier=\"/us/usc/t5/s1\"><ref href=\"/us/usc/t5/s2\">section 2</ref></section></uscDoc>",
+    "expected_target_status": [
+      "not_in_selected_source"
+    ]
+  },
+  {
+    "id": "repeated-mentions",
+    "xml": "<uscDoc xmlns=\"http://xml.house.gov/schemas/uslm/1.0\"><section identifier=\"/us/usc/t5/s1\"><ref href=\"/us/usc/t5/s1/a\">same</ref> then <ref href=\"/us/usc/t5/s1/a\">same</ref><subsection identifier=\"/us/usc/t5/s1/a\">Target</subsection></section></uscDoc>",
+    "expected_target_status": [
+      "located",
+      "located"
+    ]
+  },
+  {
+    "id": "inline-unicode",
+    "xml": "<uscDoc xmlns=\"http://xml.house.gov/schemas/uslm/1.0\"><section identifier=\"/us/usc/t5/s1\">🧭 before <ref href=\"/us/usc/t5/s1/a\">§ 1<inline>(a)</inline> &amp; details</ref><subsection identifier=\"/us/usc/t5/s1/a\">Target — text</subsection></section></uscDoc>",
+    "expected_target_status": [
+      "located"
+    ]
+  },
+  {
+    "id": "empty-link-text",
+    "xml": "<uscDoc xmlns=\"http://xml.house.gov/schemas/uslm/1.0\"><section identifier=\"/us/usc/t5/s1\"><ref href=\"/us/usc/t5/s1/a\"/><subsection identifier=\"/us/usc/t5/s1/a\">Target</subsection></section></uscDoc>",
+    "expected_target_status": [
+      "located"
+    ]
+  },
+  {
+    "id": "contexts",
+    "xml": "<uscDoc xmlns=\"http://xml.house.gov/schemas/uslm/1.0\"><toc><ref href=\"/us/usc/t5/s1\">Contents</ref></toc><section identifier=\"/us/usc/t5/s1\"><ref href=\"/us/usc/t5/s1/a\">operative</ref><subsection identifier=\"/us/usc/t5/s1/a\">Target</subsection><sourceCredit><ref href=\"/us/usc/t5/s1/a\">credit</ref></sourceCredit><note topic=\"amendments\"><ref href=\"/us/usc/t5/s1/a\">note</ref></note></section></uscDoc>",
+    "expected_target_status": [
+      "located",
+      "located",
+      "located",
+      "located"
+    ]
+  },
+  {
+    "id": "non-section-unit",
+    "xml": "<uscDoc xmlns=\"http://xml.house.gov/schemas/uslm/1.0\"><reorganizationPlan identifier=\"/us/usc/t5a/rp1\"><ref href=\"/us/usc/t5/s2\">section 2</ref></reorganizationPlan></uscDoc>",
+    "expected_target_status": [
+      "not_in_selected_source"
+    ]
+  },
+  {
+    "id": "missing-source-identifier",
+    "xml": "<uscDoc xmlns=\"http://xml.house.gov/schemas/uslm/1.0\"><section status=\"repealed\"><ref href=\"/us/pl/117/1\">Repealed by law</ref></section></uscDoc>",
+    "expected_target_status": [
+      "not_in_selected_source"
+    ]
+  },
+  {
+    "id": "fragment-and-footnote",
+    "xml": "<uscDoc xmlns=\"http://xml.house.gov/schemas/uslm/1.0\"><section identifier=\"/us/usc/t5/s1\"><ref href=\"#local\">table</ref><ref idref=\"footnote\">1</ref><ref href=\"/us/usc/t5/s2\">section 2</ref></section></uscDoc>",
+    "expected_target_status": [
+      "not_in_selected_source"
+    ]
+  },
+  {
+    "id": "unknown-prefix",
+    "xml": "<uscDoc xmlns=\"http://xml.house.gov/schemas/uslm/1.0\"><section identifier=\"/us/usc/t5/s1\"><ref href=\"/us/unknown/2\">unknown</ref></section></uscDoc>",
+    "expected_target_status": null
+  }
+]

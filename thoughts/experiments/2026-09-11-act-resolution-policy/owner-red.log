@@ -1,0 +1,298 @@
+F..FF...F..FF..FF....FFF                                                 [100%]
+=================================== FAILURES ===================================
+_ test_page_exclusion_is_independent_of_row_count_and_requires_known_pages[pages0-act_section_outside_act] _
+
+pages = [100], outcome = 'act_section_outside_act'
+
+    @pytest.mark.parametrize('pages,outcome', [
+        ([100],'act_section_outside_act'),([100,101],'act_section_outside_act'),
+        ([None],'table3'),([None,100],'act_section_ambiguous'),([None,None],'act_section_ambiguous'),
+        ([200],'table3'),([299],'table3'),([300],'table3'),([301],'act_section_outside_act'),
+        ([100,210],'act_section_ambiguous'),([200,250],'act_section_ambiguous'),
+    ])
+    def test_page_exclusion_is_independent_of_row_count_and_requires_known_pages(pages,outcome):
+        answer=resolve(fixture(pages))
+        assert answer.answered_by or answer.unresolved_reason
+>       assert (answer.answered_by or answer.unresolved_reason)==outcome
+E       AssertionError: assert 'table3' == 'act_section_outside_act'
+E         
+E         - act_section_outside_act
+E         + table3
+
+../RefSpec/tests/test_act_resolution_policy.py:33: AssertionError
+_ test_page_exclusion_is_independent_of_row_count_and_requires_known_pages[pages3-act_section_ambiguous] _
+
+pages = [None, 100], outcome = 'act_section_ambiguous'
+
+    @pytest.mark.parametrize('pages,outcome', [
+        ([100],'act_section_outside_act'),([100,101],'act_section_outside_act'),
+        ([None],'table3'),([None,100],'act_section_ambiguous'),([None,None],'act_section_ambiguous'),
+        ([200],'table3'),([299],'table3'),([300],'table3'),([301],'act_section_outside_act'),
+        ([100,210],'act_section_ambiguous'),([200,250],'act_section_ambiguous'),
+    ])
+    def test_page_exclusion_is_independent_of_row_count_and_requires_known_pages(pages,outcome):
+        answer=resolve(fixture(pages))
+        assert answer.answered_by or answer.unresolved_reason
+>       assert (answer.answered_by or answer.unresolved_reason)==outcome
+E       AssertionError: assert 'act_section_outside_act' == 'act_section_ambiguous'
+E         
+E         - act_section_ambiguous
+E         + act_section_outside_act
+
+../RefSpec/tests/test_act_resolution_policy.py:33: AssertionError
+_ test_page_exclusion_is_independent_of_row_count_and_requires_known_pages[pages4-act_section_ambiguous] _
+
+pages = [None, None], outcome = 'act_section_ambiguous'
+
+    @pytest.mark.parametrize('pages,outcome', [
+        ([100],'act_section_outside_act'),([100,101],'act_section_outside_act'),
+        ([None],'table3'),([None,100],'act_section_ambiguous'),([None,None],'act_section_ambiguous'),
+        ([200],'table3'),([299],'table3'),([300],'table3'),([301],'act_section_outside_act'),
+        ([100,210],'act_section_ambiguous'),([200,250],'act_section_ambiguous'),
+    ])
+    def test_page_exclusion_is_independent_of_row_count_and_requires_known_pages(pages,outcome):
+        answer=resolve(fixture(pages))
+        assert answer.answered_by or answer.unresolved_reason
+>       assert (answer.answered_by or answer.unresolved_reason)==outcome
+E       AssertionError: assert 'act_section_outside_act' == 'act_section_ambiguous'
+E         
+E         - act_section_ambiguous
+E         + act_section_outside_act
+
+../RefSpec/tests/test_act_resolution_policy.py:33: AssertionError
+_ test_page_exclusion_is_independent_of_row_count_and_requires_known_pages[pages8-act_section_outside_act] _
+
+pages = [301], outcome = 'act_section_outside_act'
+
+    @pytest.mark.parametrize('pages,outcome', [
+        ([100],'act_section_outside_act'),([100,101],'act_section_outside_act'),
+        ([None],'table3'),([None,100],'act_section_ambiguous'),([None,None],'act_section_ambiguous'),
+        ([200],'table3'),([299],'table3'),([300],'table3'),([301],'act_section_outside_act'),
+        ([100,210],'act_section_ambiguous'),([200,250],'act_section_ambiguous'),
+    ])
+    def test_page_exclusion_is_independent_of_row_count_and_requires_known_pages(pages,outcome):
+        answer=resolve(fixture(pages))
+        assert answer.answered_by or answer.unresolved_reason
+>       assert (answer.answered_by or answer.unresolved_reason)==outcome
+E       AssertionError: assert 'table3' == 'act_section_outside_act'
+E         
+E         - act_section_outside_act
+E         + table3
+
+../RefSpec/tests/test_act_resolution_policy.py:33: AssertionError
+____ test_narrowed_page_spellings_cannot_prove_outside_scope[pages0-table3] ____
+
+pages = [100], outcome = 'table3'
+
+    @pytest.mark.parametrize('pages,outcome',[([100],'table3'),([100,101],'act_section_ambiguous')])
+    def test_narrowed_page_spellings_cannot_prove_outside_scope(pages,outcome):
+>       index=replace(fixture(pages),narrowed_page_sections=frozenset({('93-406','101')}))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+../RefSpec/tests/test_act_resolution_policy.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+obj = ActIndex(table3_key_by_name={'an act': '93-406'}, alias_by_name={}, classifications={'93-406': {'101': (Classification...cited_names=frozenset(), division_by_name={'an act': ('A', 200)}, division_starts={'93-406': (('A', 200), ('B', 300))})
+changes = {'narrowed_page_sections': frozenset({('93-406', '101')}), 'table3_key_by_name': {'an act': '93-406'}, 'alias_by_name'... {'93-406': {'101': (Classification(usc_title='26', usc_section='1', status=None, statutes_at_large_page=100),)}}, ...}
+
+    def replace(obj, /, **changes):
+        """Return a new object replacing specified fields with new values.
+    
+        This is especially useful for frozen classes.  Example usage::
+    
+          @dataclass(frozen=True)
+          class C:
+              x: int
+              y: int
+    
+          c = C(1, 2)
+          c1 = replace(c, x=3)
+          assert c1.x == 3 and c1.y == 2
+        """
+    
+        # We're going to mutate 'changes', but that's okay because it's a
+        # new dict, even if called with 'replace(obj, **my_changes)'.
+    
+        if not _is_dataclass_instance(obj):
+            raise TypeError("replace() should be called on dataclass instances")
+    
+        # It's an error to have init=False fields in 'changes'.
+        # If a field is not in 'changes', read its value from the provided obj.
+    
+        for f in getattr(obj, _FIELDS).values():
+            # Only consider normal fields or InitVars.
+            if f._field_type is _FIELD_CLASSVAR:
+                continue
+    
+            if not f.init:
+                # Error if this field is specified in changes.
+                if f.name in changes:
+                    raise ValueError(f'field {f.name} is declared with '
+                                     'init=False, it cannot be specified with '
+                                     'replace()')
+                continue
+    
+            if f.name not in changes:
+                if f._field_type is _FIELD_INITVAR and f.default is MISSING:
+                    raise ValueError(f"InitVar {f.name!r} "
+                                     'must be specified with replace()')
+                changes[f.name] = getattr(obj, f.name)
+    
+        # Create the new object, which calls __init__() and
+        # __post_init__() (if defined), using all of the init fields we've
+        # added and/or left in 'changes'.  If there are values supplied in
+        # changes that aren't fields, this will correctly raise a
+        # TypeError.
+>       return obj.__class__(**changes)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: ActIndex.__init__() got an unexpected keyword argument 'narrowed_page_sections'
+
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/dataclasses.py:1588: TypeError
+_ test_narrowed_page_spellings_cannot_prove_outside_scope[pages1-act_section_ambiguous] _
+
+pages = [100, 101], outcome = 'act_section_ambiguous'
+
+    @pytest.mark.parametrize('pages,outcome',[([100],'table3'),([100,101],'act_section_ambiguous')])
+    def test_narrowed_page_spellings_cannot_prove_outside_scope(pages,outcome):
+>       index=replace(fixture(pages),narrowed_page_sections=frozenset({('93-406','101')}))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+../RefSpec/tests/test_act_resolution_policy.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+obj = ActIndex(table3_key_by_name={'an act': '93-406'}, alias_by_name={}, classifications={'93-406': {'101': (Classification...cited_names=frozenset(), division_by_name={'an act': ('A', 200)}, division_starts={'93-406': (('A', 200), ('B', 300))})
+changes = {'narrowed_page_sections': frozenset({('93-406', '101')}), 'table3_key_by_name': {'an act': '93-406'}, 'alias_by_name'...s_at_large_page=100), Classification(usc_title='26', usc_section='2', status=None, statutes_at_large_page=101))}}, ...}
+
+    def replace(obj, /, **changes):
+        """Return a new object replacing specified fields with new values.
+    
+        This is especially useful for frozen classes.  Example usage::
+    
+          @dataclass(frozen=True)
+          class C:
+              x: int
+              y: int
+    
+          c = C(1, 2)
+          c1 = replace(c, x=3)
+          assert c1.x == 3 and c1.y == 2
+        """
+    
+        # We're going to mutate 'changes', but that's okay because it's a
+        # new dict, even if called with 'replace(obj, **my_changes)'.
+    
+        if not _is_dataclass_instance(obj):
+            raise TypeError("replace() should be called on dataclass instances")
+    
+        # It's an error to have init=False fields in 'changes'.
+        # If a field is not in 'changes', read its value from the provided obj.
+    
+        for f in getattr(obj, _FIELDS).values():
+            # Only consider normal fields or InitVars.
+            if f._field_type is _FIELD_CLASSVAR:
+                continue
+    
+            if not f.init:
+                # Error if this field is specified in changes.
+                if f.name in changes:
+                    raise ValueError(f'field {f.name} is declared with '
+                                     'init=False, it cannot be specified with '
+                                     'replace()')
+                continue
+    
+            if f.name not in changes:
+                if f._field_type is _FIELD_INITVAR and f.default is MISSING:
+                    raise ValueError(f"InitVar {f.name!r} "
+                                     'must be specified with replace()')
+                changes[f.name] = getattr(obj, f.name)
+    
+        # Create the new object, which calls __init__() and
+        # __post_init__() (if defined), using all of the init fields we've
+        # added and/or left in 'changes'.  If there are values supplied in
+        # changes that aren't fields, this will correctly raise a
+        # TypeError.
+>       return obj.__class__(**changes)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: ActIndex.__init__() got an unexpected keyword argument 'narrowed_page_sections'
+
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/dataclasses.py:1588: TypeError
+__ test_one_table_answer_does_not_override_multiple_credit_targets[targets0] ___
+
+targets = ['1', '2']
+
+    @pytest.mark.parametrize('targets',[['1','2'],['2','3']])
+    def test_one_table_answer_does_not_override_multiple_credit_targets(targets):
+        credits=SourceCreditIndex.from_rows([('93-406','A','101','26',s,'88','205') for s in targets])
+        answer=resolve(fixture([205]),credits)
+>       assert answer.iri is None and answer.answered_by is None
+E       AssertionError: assert ('urn:rkaf:us:usc:26:1' is None)
+E        +  where 'urn:rkaf:us:usc:26:1' = ActResolution(citation=ActRelativeCitation(act_name='An Act', act_key='an act', section='101', division=None), act_key...usc_title='26', usc_section='2', statutes_at_large_volume='88', statutes_at_large_page='205')), conflicting_targets={}).iri
+
+../RefSpec/tests/test_act_resolution_policy.py:55: AssertionError
+__ test_one_table_answer_does_not_override_multiple_credit_targets[targets1] ___
+
+targets = ['2', '3']
+
+    @pytest.mark.parametrize('targets',[['1','2'],['2','3']])
+    def test_one_table_answer_does_not_override_multiple_credit_targets(targets):
+        credits=SourceCreditIndex.from_rows([('93-406','A','101','26',s,'88','205') for s in targets])
+        answer=resolve(fixture([205]),credits)
+>       assert answer.iri is None and answer.answered_by is None
+E       AssertionError: assert ('urn:rkaf:us:usc:26:1' is None)
+E        +  where 'urn:rkaf:us:usc:26:1' = ActResolution(citation=ActRelativeCitation(act_name='An Act', act_key='an act', section='101', division=None), act_key...usc_title='26', usc_section='3', statutes_at_large_volume='88', statutes_at_large_page='205')), conflicting_targets={}).iri
+
+../RefSpec/tests/test_act_resolution_policy.py:55: AssertionError
+________________ test_table_candidate_requires_a_plural_refusal ________________
+
+    def test_table_candidate_requires_a_plural_refusal():
+        with pytest.raises(ValueError,match='Table III candidate'):
+>           ActResolution(ActRelativeCitation('An Act','an act','101'),
+                          iri='urn:rkaf:us:usc:26:1',answered_by='table3',
+                          table3_candidate_iri='urn:rkaf:us:usc:26:1')
+E           TypeError: ActResolution.__init__() got an unexpected keyword argument 'table3_candidate_iri'
+
+../RefSpec/tests/test_act_resolution_policy.py:76: TypeError
+______________ test_real_source_rows_expose_both_policy_failures _______________
+
+    @artifact
+    def test_real_source_rows_expose_both_policy_failures():
+        index=ActIndex.from_artifact(BULK)
+        credits=SourceCreditIndex.from_artifact(CREDITS)
+        for name,section in [('secure 2.0 act of 2022','127'),('defense against weapons of mass destruction act of 1996','1416')]:
+            answer=resolve_act_relative_citation(ActRelativeCitation(name,name,section),index=index,source_credits=credits)
+            assert answer.iri is None
+            if section=='127':
+>               assert answer.table3_reason=='act_section_outside_act'
+E               AssertionError: assert 'usc_section_not_expressible' == 'act_section_outside_act'
+E                 
+E                 - act_section_outside_act
+E                 + usc_section_not_expressible
+
+../RefSpec/tests/test_act_resolution_policy.py:96: AssertionError
+_________ test_classifications_cannot_use_another_artifacts_quarantine _________
+
+tmp_path = PosixPath('/private/var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/pytest-of-mikewolfd/pytest-3844/test_classifications_cannot_us0')
+
+    @artifact
+    def test_classifications_cannot_use_another_artifacts_quarantine(tmp_path):
+        for name in ('receipt.json','usc-popular-names.parquet','usc-act-sections.parquet'):
+            shutil.copyfile(BULK/name,tmp_path/name)
+        shutil.copyfile(OLD/'quarantine.parquet',tmp_path/'quarantine.parquet')
+>       with pytest.raises(ValueError,match='same act artifact'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+../RefSpec/tests/test_act_resolution_policy.py:110: Failed
+=========================== short test summary info ============================
+FAILED ../RefSpec/tests/test_act_resolution_policy.py::test_page_exclusion_is_independent_of_row_count_and_requires_known_pages[pages0-act_section_outside_act]
+FAILED ../RefSpec/tests/test_act_resolution_policy.py::test_page_exclusion_is_independent_of_row_count_and_requires_known_pages[pages3-act_section_ambiguous]
+FAILED ../RefSpec/tests/test_act_resolution_policy.py::test_page_exclusion_is_independent_of_row_count_and_requires_known_pages[pages4-act_section_ambiguous]
+FAILED ../RefSpec/tests/test_act_resolution_policy.py::test_page_exclusion_is_independent_of_row_count_and_requires_known_pages[pages8-act_section_outside_act]
+FAILED ../RefSpec/tests/test_act_resolution_policy.py::test_narrowed_page_spellings_cannot_prove_outside_scope[pages0-table3]
+FAILED ../RefSpec/tests/test_act_resolution_policy.py::test_narrowed_page_spellings_cannot_prove_outside_scope[pages1-act_section_ambiguous]
+FAILED ../RefSpec/tests/test_act_resolution_policy.py::test_one_table_answer_does_not_override_multiple_credit_targets[targets0]
+FAILED ../RefSpec/tests/test_act_resolution_policy.py::test_one_table_answer_does_not_override_multiple_credit_targets[targets1]
+FAILED ../RefSpec/tests/test_act_resolution_policy.py::test_table_candidate_requires_a_plural_refusal
+FAILED ../RefSpec/tests/test_act_resolution_policy.py::test_real_source_rows_expose_both_policy_failures
+FAILED ../RefSpec/tests/test_act_resolution_policy.py::test_classifications_cannot_use_another_artifacts_quarantine
+11 failed, 13 passed in 2.04s

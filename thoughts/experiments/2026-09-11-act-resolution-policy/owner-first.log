@@ -1,0 +1,83 @@
+......................................................FF................ [ 69%]
+............................F...                                         [100%]
+=================================== FAILURES ===================================
+_________ test_the_pins_restate_the_receipts_they_are_meant_to_outrank _________
+
+    @artifact
+    def test_the_pins_restate_the_receipts_they_are_meant_to_outrank() -> None:
+        """Two copies of one digest, deliberately, held together by this test.
+    
+        Reading the pin FROM the receipt beside the tables would authenticate a
+        swapped directory against its own paperwork, so the digests are restated
+        in the module. That duplication only earns its keep if it is kept true.
+        """
+    
+        receipted = {}
+        for directory in (ACT_DIR, BULK_ACT_DIR, CREDIT_DIR):
+            recorded = json.loads((directory / "receipt.json").read_text(encoding="utf-8"))
+            receipted[directory.name] = {
+                path.rsplit("/", 1)[-1]: meta["digest"] for path, meta in recorded["outputs"].items()
+            }
+        assert set(_ARTIFACT_PINS) == set(receipted)
+        for artifact_name, pins in _ARTIFACT_PINS.items():
+            for table, pin in pins.items():
+                assert receipted[artifact_name][table] == pin, f"{artifact_name}/{table}"
+            # Only the tables a loader reads are pinned; the quarantine files are not.
+>           assert set(pins) < set(receipted[artifact_name]), artifact_name
+E           AssertionError: usc-act-index-2026-08-02
+E           assert {'quarantine.p...ames.parquet'} < {'quarantine.p...ames.parquet'}
+E             
+E             Both sets are equal
+
+../RefSpec/tests/test_act_resolution.py:721: AssertionError
+____________ test_only_a_pinned_table_can_be_read_through_this_door ____________
+
+    @artifact
+    def test_only_a_pinned_table_can_be_read_through_this_door() -> None:
+        """The pin is the authentication, so an unpinned table has no way in."""
+    
+        assert (ACT_DIR / "quarantine.parquet").is_file()
+>       with pytest.raises(KeyError):
+             ^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE KeyError
+
+../RefSpec/tests/test_act_resolution.py:729: Failed
+_ test_source_targets_survive_without_changing_the_existing_verdict[rows4-classifications4] _
+
+rows = [('26', '2'), ('26', '3')]
+classifications = (Classification(usc_title='26', usc_section='1', status=None, statutes_at_large_page=1),)
+
+    @pytest.mark.parametrize('rows, classifications', [
+        ([], ()),
+        ([('26','1')], (Classification('26','1',None,1),)),
+        ([('26','2')], (Classification('26','1',None,1),)),
+        ([('26','2'),('26','3')], ()),
+        ([('26','2'),('26','3')], (Classification('26','1',None,1),)),
+    ])
+    def test_source_targets_survive_without_changing_the_existing_verdict(rows, classifications):
+        citation = ActRelativeCitation('An Act','an act','101','A')
+        index = ActIndex(table3_key_by_name={'an act':'99-514'}, classifications={'99-514':{'101':classifications}})
+        credits = SourceCreditIndex.from_rows([('99-514','A','101',title,section,None,None) for title,section in rows])
+        before = original(citation,index=index,source_credits=credits)
+        after = resolve_act_relative_citation(citation,index=index,source_credits=credits)
+        old_fields = asdict(before); new_fields = asdict(after)
+        for key in ('source_credit_targets','conflicting_targets'):
+            old_fields.pop(key, None); new_fields.pop(key, None)
+>       assert old_fields == new_fields
+E       AssertionError: assert {'citation': ...e': '26', ...} == {'citation': ...e': None, ...}
+E         
+E         Omitting 6 identical items, use -vv to show
+E         Differing items:
+E         {'answered_by': 'table3'} != {'answered_by': None}
+E         {'usc_title': '26'} != {'usc_title': None}
+E         {'table3_candidate_iri': None} != {'table3_candidate_iri': 'urn:rkaf:us:usc:26:1'}
+E         {'unresolved_reason': None} != {'unresolved_reason': 'act_section_ambiguous'}...
+E         
+E         ...Full output truncated (4 lines hidden), use '-vv' to show
+
+../RefSpec/tests/test_act_resolution_evidence.py:28: AssertionError
+=========================== short test summary info ============================
+FAILED ../RefSpec/tests/test_act_resolution.py::test_the_pins_restate_the_receipts_they_are_meant_to_outrank
+FAILED ../RefSpec/tests/test_act_resolution.py::test_only_a_pinned_table_can_be_read_through_this_door
+FAILED ../RefSpec/tests/test_act_resolution_evidence.py::test_source_targets_survive_without_changing_the_existing_verdict[rows4-classifications4]
+3 failed, 101 passed in 4.35s

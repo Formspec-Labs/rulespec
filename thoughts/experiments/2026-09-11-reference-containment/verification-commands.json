@@ -1,0 +1,75 @@
+{
+  "holder": "Rulespec containment verification",
+  "pid": 69621,
+  "start_load": [
+    3.75927734375,
+    3.5283203125,
+    3.88818359375
+  ],
+  "start": "2026-09-11T10:58:43.534969+00:00",
+  "preflight": [
+    {
+      "at": "2026-09-11T10:58:33.516817+00:00",
+      "load": [
+        4.0947265625,
+        3.5810546875,
+        3.91064453125
+      ],
+      "lock_exists": false
+    },
+    {
+      "at": "2026-09-11T10:58:38.526996+00:00",
+      "load": [
+        4.0869140625,
+        3.587890625,
+        3.9111328125
+      ],
+      "lock_exists": false
+    },
+    {
+      "at": "2026-09-11T10:58:43.534854+00:00",
+      "load": [
+        3.75927734375,
+        3.5283203125,
+        3.88818359375
+      ],
+      "lock_exists": false
+    }
+  ],
+  "checks": [
+    {
+      "log": "direct-owner-oracle.log",
+      "command": [
+        "uv",
+        "run",
+        "--no-project",
+        "--python",
+        "/Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/bin/python",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-reference-containment/compare.py",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-reference-containment/direct-owner-oracle"
+      ],
+      "returncode": 0
+    },
+    {
+      "log": "application-source-tests.log",
+      "command": [
+        "uv",
+        "run",
+        "--no-project",
+        "--python",
+        "/Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/bin/python",
+        "-m",
+        "pytest",
+        "/Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests"
+      ],
+      "returncode": 0
+    }
+  ],
+  "end": "2026-09-11T10:59:21.939381+00:00",
+  "end_load": [
+    3.76953125,
+    3.5556640625,
+    3.88037109375
+  ],
+  "pythonpath": "/Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/src:/Users/mikewolfd/Work/rulespec/packages/rulespec-projection/src:/Users/mikewolfd/Work/RefSpec/src:/Users/mikewolfd/Work/spicysearch/src"
+}

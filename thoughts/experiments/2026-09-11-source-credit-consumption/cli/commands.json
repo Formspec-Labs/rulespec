@@ -1,0 +1,30 @@
+[
+  {
+    "argv": [
+      "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-credits/bin/rulespec-understand",
+      "references",
+      "--act-index",
+      "/Users/mikewolfd/Work/RefSpec/output/usc-act-index-2026-08-22",
+      "--source-credit-index",
+      "/Users/mikewolfd/Work/RefSpec/output/usc-source-credit-index-2026-08-02",
+      "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-source-credit-consumption/cli",
+      "--output",
+      "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-source-credit-consumption/cli/references.json"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-credits/bin/rulespec-understand",
+      "discovery-export",
+      "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-source-credit-consumption/cli",
+      "--output",
+      "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-source-credit-consumption/cli/default.json"
+    ],
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-credits/bin/rulespec-understand\", line 10, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-credits/lib/python3.12/site-packages/rulespec_extrapolator/cli.py\", line 157, in main\n    _write_new(args.output, export_discovery(ReviewStore(args.run).snapshot(), include_references=args.references,\n                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-credits/lib/python3.12/site-packages/rulespec_extrapolator/discovery.py\", line 72, in export_discovery\n    row['evidence_refs'] = references(row.pop('evidence'))\n                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-credits/lib/python3.12/site-packages/rulespec_extrapolator/discovery.py\", line 58, in references\n    identity = support['fragment_id']\n               ~~~~~~~^^^^^^^^^^^^^^^\nTypeError: 'NoneType' object is not subscriptable\n"
+  }
+]

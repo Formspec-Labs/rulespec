@@ -1,0 +1,63 @@
+................................................FF..                     [100%]
+=================================== FAILURES ===================================
+_ test_optional_paths_select_each_actual_xml_occurrence[title-05-s423.xml-05] __
+
+name = 'title-05-s423.xml', title = '05'
+
+    @pytest.mark.parametrize('name,title', [('title-05-s423.xml', '05'), ('title-42-s242c.xml', '42')])
+    def test_optional_paths_select_each_actual_xml_occurrence(name, title):
+        for mutation, xml in variants((FIXTURES / name).read_bytes()):
+            rows, counts, error = outcome(oracle, xml, title)
+            if error:
+                continue
+            actual_counts = Counter()
+            actual = list(uslm.iter_edges(xml, title, actual_counts, include_source_path=True))
+            assert dict(actual_counts) == counts
+            assert [{k:v for k,v in x.items() if k != 'sourceXPath'} for x in actual] == rows
+            root = ET.fromstring(xml)
+            # ElementTree implements these child-position XPath steps. The root is
+            # already selected, so the initial document-root step is removed.
+            expected = [e for e in root.iter() if e.get('href') and not e.get('href').startswith('#')]
+            selected = []
+            for row in actual:
+                assert row['sourceXPath'].startswith('/*[1]/'), (mutation, row)
+                node = root.find('./' + row['sourceXPath'].removeprefix('/*[1]/'))
+>               assert node is not None, (mutation, row)
+E               AssertionError: ('original', {'title': '05', 'sourceSection': '/us/usc/t5/s423', 'sourceUnit': '/us/usc/t5/s423', 'sourceUnitKind': 'section', ...})
+E               assert None is not None
+
+tests/test_uslm_source_paths.py:87: AssertionError
+_ test_optional_paths_select_each_actual_xml_occurrence[title-42-s242c.xml-42] _
+
+name = 'title-42-s242c.xml', title = '42'
+
+    @pytest.mark.parametrize('name,title', [('title-05-s423.xml', '05'), ('title-42-s242c.xml', '42')])
+    def test_optional_paths_select_each_actual_xml_occurrence(name, title):
+        for mutation, xml in variants((FIXTURES / name).read_bytes()):
+            rows, counts, error = outcome(oracle, xml, title)
+            if error:
+                continue
+            actual_counts = Counter()
+            actual = list(uslm.iter_edges(xml, title, actual_counts, include_source_path=True))
+            assert dict(actual_counts) == counts
+            assert [{k:v for k,v in x.items() if k != 'sourceXPath'} for x in actual] == rows
+            root = ET.fromstring(xml)
+            # ElementTree implements these child-position XPath steps. The root is
+            # already selected, so the initial document-root step is removed.
+            expected = [e for e in root.iter() if e.get('href') and not e.get('href').startswith('#')]
+            selected = []
+            for row in actual:
+                assert row['sourceXPath'].startswith('/*[1]/'), (mutation, row)
+                node = root.find('./' + row['sourceXPath'].removeprefix('/*[1]/'))
+                assert node is not None, (mutation, row)
+>               assert node.get('href') == row['href'], (mutation, row)
+E               AssertionError: ('original', {'title': '42', 'sourceSection': '/us/usc/t42/s242c', 'sourceUnit': '/us/usc/t42/s242c', 'sourceUnitKind': 'section', ...})
+E               assert None == '/us/usc/t42/s9604/i'
+E                +  where None = <built-in method get of xml.etree.ElementTree.Element object at 0x10b6a98f0>('href')
+E                +    where <built-in method get of xml.etree.ElementTree.Element object at 0x10b6a98f0> = <Element '{http://xml.house.gov/schemas/uslm/1.0}p' at 0x10b6a98f0>.get
+
+tests/test_uslm_source_paths.py:88: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_uslm_source_paths.py::test_optional_paths_select_each_actual_xml_occurrence[title-05-s423.xml-05]
+FAILED tests/test_uslm_source_paths.py::test_optional_paths_select_each_actual_xml_occurrence[title-42-s242c.xml-42]
+2 failed, 50 passed in 0.09s

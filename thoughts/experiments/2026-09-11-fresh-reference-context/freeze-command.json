@@ -1,0 +1,38 @@
+{
+  "start": "2026-09-11T11:45:41.105556+00:00",
+  "start_load": [
+    2.9306640625,
+    3.40234375,
+    3.91796875
+  ],
+  "commands": [
+    [
+      "uv",
+      "run",
+      "--no-project",
+      "--python",
+      "/Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/bin/python",
+      "-c",
+      "import sys,json\nfrom pathlib import Path\nbase=Path(sys.argv[1]);sys.path.insert(0,str(base))\nimport context as c\nimport experiment as e\nresult=c.controls()\noriginal=c.select_context\nc.select_context=lambda document,window,scan,**kw:(window,{'added_ranges':[],'added_chars':0})\ntry:\n c.controls()\n raise RuntimeError('Instrument failed to detect no-op mutation')\nexcept AssertionError:\n result['no_op_mutation_detected']=True\nfinally:\n c.select_context=original\nfor case in e.load(base/'source-selection.json')['selected']:\n source=base/'sources'/case['id'];d=e.load(source/'document.json')\n saved=e.load(base/'contexts'/(case['id']+'.json'))\n b,receipt=c.select_context(d,saved['A'],e.load(source/'references.json'))\n assert json.loads(json.dumps({'B':b,'selection':receipt})) == {k:saved[k] for k in ('B','selection')}\n assert receipt['added_chars']<=12000\n a_catalog=e.ex.passage_catalog(d,saved['A']);b_catalog=e.ex.passage_catalog(d,b)\n assert [p for p in a_catalog if p['id'].startswith('F')] == [p for p in b_catalog if p['id'].startswith('F')]\nresult['saved_source_context_replay']='passed'\ne.save(base/'final-controls.json',result)\nprint(json.dumps(result))\n",
+      "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-fresh-reference-context"
+    ],
+    [
+      "uv",
+      "run",
+      "--no-project",
+      "--python",
+      "/Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/bin/python",
+      "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-fresh-reference-context/experiment.py",
+      "freeze"
+    ]
+  ],
+  "results": [
+    2
+  ],
+  "end": "2026-09-11T11:45:41.112358+00:00",
+  "end_load": [
+    2.9306640625,
+    3.40234375,
+    3.91796875
+  ]
+}

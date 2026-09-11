@@ -1,0 +1,81 @@
+FFFFF...                                                                 [100%]
+=================================== FAILURES ===================================
+_______ test_cfr_list_retains_native_readings_and_grounded_title_context _______
+
+    def test_cfr_list_retains_native_readings_and_grounded_title_context():
+        doc = prepare_document('🧭 See 40 CFR §§ 82.155(a), 82.156(b), and Pub. L. 119-20.')
+        result = scan_references(doc)
+>       first, second = [c for c in result['candidates'] if c['kind'] == 'cfr']
+        ^^^^^^^^^^^^^
+E       ValueError: not enough values to unpack (expected 2, got 0)
+
+packages/rulespec-extrapolator/tests/test_references.py:145: ValueError
+____ test_cfr_repeated_occurrences_keep_spaced_pinpoints_and_original_spans ____
+
+    def test_cfr_repeated_occurrences_keep_spaced_pinpoints_and_original_spans():
+        quote = '14 CFR § 91.107(a)(3)(iii)(B)( 4 )'
+        doc = prepare_document(f'😀 {quote}; then {quote}.')
+>       first, second = scan_references(doc)['candidates']
+        ^^^^^^^^^^^^^
+E       ValueError: not enough values to unpack (expected 2, got 0)
+
+packages/rulespec-extrapolator/tests/test_references.py:160: ValueError
+_ test_cfr_native_refusals_preserve_the_reading[99 CFR 1.2-cfr_title_impossible-title_is_possible] _
+
+text = '99 CFR 1.2', code = 'cfr_title_impossible', field = 'title_is_possible'
+
+    @pytest.mark.parametrize('text, code, field', [
+        ('99 CFR 1.2', 'cfr_title_impossible', 'title_is_possible'),
+        ('40 CFR 123456', 'cfr_part_implausible', 'part_is_plausible'),
+    ])
+    def test_cfr_native_refusals_preserve_the_reading(text, code, field):
+        result = scan_references(prepare_document(text))
+        assert not result['candidates']
+>       refused, = result['rejected']
+        ^^^^^^^^
+E       ValueError: not enough values to unpack (expected 1, got 0)
+
+packages/rulespec-extrapolator/tests/test_references.py:176: ValueError
+_ test_cfr_native_refusals_preserve_the_reading[40 CFR 123456-cfr_part_implausible-part_is_plausible] _
+
+text = '40 CFR 123456', code = 'cfr_part_implausible'
+field = 'part_is_plausible'
+
+    @pytest.mark.parametrize('text, code, field', [
+        ('99 CFR 1.2', 'cfr_title_impossible', 'title_is_possible'),
+        ('40 CFR 123456', 'cfr_part_implausible', 'part_is_plausible'),
+    ])
+    def test_cfr_native_refusals_preserve_the_reading(text, code, field):
+        result = scan_references(prepare_document(text))
+        assert not result['candidates']
+>       refused, = result['rejected']
+        ^^^^^^^^
+E       ValueError: not enough values to unpack (expected 1, got 0)
+
+packages/rulespec-extrapolator/tests/test_references.py:176: ValueError
+____ test_cfr_context_from_inserted_text_cannot_ground_a_list_continuation _____
+
+    def test_cfr_context_from_inserted_text_cannot_ground_a_list_continuation():
+        doc = prepare_document('40 CFR §§ 82.155(a), 82.156(b)')
+        doc['source_map'] = [
+            {'kind': 'inserted', 'start': 0, 'end': 7, 'text': doc['text'][:7]},
+            {'kind': 'source', 'start': 7, 'end': len(doc['text']), 'source_id': 'original',
+             'source_start': 0, 'source_end': len(doc['text']) - 7},
+        ]
+        result = scan_references(doc)
+        assert not result['candidates']
+>       assert [c['code'] for c in result['rejected']] == [
+            'reference_not_grounded_in_source', 'reference_context_not_grounded_in_source']
+E       AssertionError: assert [] == ['reference_n...ed_in_source']
+E         
+E         Right contains 2 more items, first extra item: 'reference_not_grounded_in_source'
+E         Use -v to get more diff
+
+packages/rulespec-extrapolator/tests/test_references.py:191: AssertionError
+=========================== short test summary info ============================
+FAILED packages/rulespec-extrapolator/tests/test_references.py::test_cfr_list_retains_native_readings_and_grounded_title_context
+FAILED packages/rulespec-extrapolator/tests/test_references.py::test_cfr_repeated_occurrences_keep_spaced_pinpoints_and_original_spans
+FAILED packages/rulespec-extrapolator/tests/test_references.py::test_cfr_native_refusals_preserve_the_reading[99 CFR 1.2-cfr_title_impossible-title_is_possible]
+FAILED packages/rulespec-extrapolator/tests/test_references.py::test_cfr_native_refusals_preserve_the_reading[40 CFR 123456-cfr_part_implausible-part_is_plausible]
+FAILED packages/rulespec-extrapolator/tests/test_references.py::test_cfr_context_from_inserted_text_cannot_ground_a_list_continuation
+5 failed, 3 passed, 20 deselected in 0.14s

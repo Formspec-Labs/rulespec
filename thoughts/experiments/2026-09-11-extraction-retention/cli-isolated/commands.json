@@ -1,0 +1,39 @@
+[
+  {
+    "name": "dependency-check",
+    "command": [
+      "uv",
+      "pip",
+      "check",
+      "--python",
+      "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/bin/python"
+    ],
+    "cwd": "/tmp",
+    "pythonpath": "",
+    "returncode": 0
+  },
+  {
+    "name": "runtime",
+    "command": [
+      "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/bin/python",
+      "-c",
+      "import rulespec_extrapolator.extraction as e; print(e.__file__)"
+    ],
+    "cwd": "/tmp",
+    "pythonpath": "",
+    "returncode": 0
+  },
+  {
+    "name": "review-boundary",
+    "command": [
+      "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/bin/python",
+      "-m",
+      "pytest",
+      "-q",
+      "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py"
+    ],
+    "cwd": "/tmp",
+    "pythonpath": "/Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests",
+    "returncode": 1
+  }
+]

@@ -1,0 +1,97 @@
+{
+  "schema_version": "document-references/2",
+  "document": {
+    "id": "urn:rulespec:document-understanding:document:d2a5d74d2f126fc0331a47c3a5973e9b78ebc9a9ab2c3bc5c0bca0aa50d4e04a",
+    "sha256": "d2a5d74d2f126fc0331a47c3a5973e9b78ebc9a9ab2c3bc5c0bca0aa50d4e04a",
+    "title": "Untitled document",
+    "source_url": ""
+  },
+  "parsers": [
+    {
+      "name": "spicysearch.identifiers.detect_identifiers",
+      "version": "0.1.4",
+      "module_sha256": "46b7f756e5746672023ba8955b98a317cb451be91a293f0ade33ef59a0762d58"
+    },
+    {
+      "name": "refspec.registry.citation_grammar.find_cfr_citations",
+      "version": "0.1.0.dev0",
+      "module_sha256": "7abc70a436fd05fdac8f25426a9c7a2ec91a4cb4725060f077c0a2266dcd824c"
+    },
+    {
+      "name": "refspec.registry.citation_grammar.find_act_relative_occurrences",
+      "version": "0.1.0.dev0",
+      "module_sha256": "7abc70a436fd05fdac8f25426a9c7a2ec91a4cb4725060f077c0a2266dcd824c"
+    },
+    {
+      "name": "refspec.registry.act_resolution.resolve_act_relative_citation",
+      "version": "0.1.0.dev0",
+      "module_sha256": "dd2bcacf83470e51b886c568ae4f036c4ff2140bb56420751949c467c7f74090"
+    }
+  ],
+  "indexes": {
+    "acts": {
+      "directory": "/Users/mikewolfd/Work/RefSpec/output/usc-act-index-2026-08-22",
+      "sha256": {
+        "receipt.json": "2c8ea5c31fb71a8cc15cafe8a0c5aa246ab058df8b18e912d2812c710ef5b7df",
+        "usc-popular-names.parquet": "603d5b072133d8fe6802736aeaa70b9fb9832e4fb996158a083fae3ce1026a9a",
+        "usc-act-sections.parquet": "9040d4460e90704aef911b4d4f704e9f432cebd7b58717f31f090a3008ca6159"
+      }
+    },
+    "source_credits": {
+      "directory": "/Users/mikewolfd/Work/RefSpec/output/usc-source-credit-index-2026-08-02",
+      "sha256": {
+        "receipt.json": "98d39f27da5391a18d480dfb361cf9d42b47167ed605535fc7910999af936f2d",
+        "usc-source-credits.parquet": "d377545fe60d592a120bda30dffba665380cf82f826ae06cb327a581f0af9d8a"
+      }
+    }
+  },
+  "supported_kinds": [
+    "act_relative",
+    "cfr",
+    "docket",
+    "executive_order",
+    "public_law",
+    "rin",
+    "statutes_at_large"
+  ],
+  "candidates": [
+    {
+      "kind": "act_relative",
+      "value": "Food Security Act of 1985 section 1201",
+      "reading": {
+        "act_name": "Food Security Act of 1985",
+        "act_key": "food security act of 1985",
+        "section": "1201",
+        "division": null,
+        "pinpoint": []
+      },
+      "evidence": [
+        {
+          "field": "reference",
+          "quote": "Food Security Act of 1985, sec 1201",
+          "start": 4,
+          "end": 39,
+          "fragment_id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ad2a5d74d2f126fc0331a47c3a5973e9b78ebc9a9ab2c3bc5c0bca0aa50d4e04a:4:39:sha256-54406cbcb7ab4339019be53d0eca59870181d54ea31875ffc3fa63a07b040a57"
+        }
+      ],
+      "id": "urn:rulespec:document-understanding:reference:beb8b11f06473d8a81558b1c9585484b1d725f9aba060647bd9399f142168b76",
+      "record_ids": [
+        "urn:rulespec:document-understanding:passage:cbacab5cef154ee3b407cbf927f1a9f2ff46b1002ad238abb85a8b9b8be37e06"
+      ],
+      "resolution": {
+        "act_key": "food security act of 1985",
+        "table3_key": "99-198",
+        "usc_title": "16",
+        "usc_section": "3801",
+        "iri": "urn:rkaf:us:usc:16:3801",
+        "answered_by": "table3",
+        "source_credit_status": "no_key",
+        "statutes_at_large_page": "1504"
+      }
+    }
+  ],
+  "rejected": [],
+  "target_resolution": "named_act_section_identity_only",
+  "semantic_completeness": "not_established",
+  "limitation": "Explicit mentions of the supported reference types only. Passage links locate occurrences; they do not establish target existence, legal version, applicability, or citation completeness. Optional act mappings identify code sections in the supplied indexes, not target text or matching historical editions."
+}

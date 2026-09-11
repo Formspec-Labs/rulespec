@@ -1,0 +1,332 @@
+...................................................F...........F........ [ 61%]
+..............FFFFF....................FFFF...                           [100%]
+=================================== FAILURES ===================================
+__________ test_a_session_law_chapter_is_never_offered_to_the_credits __________
+
+index = ActIndex(table3_key_by_name={'1921 silver dollar coin anniversary act': '116-286', '1950 amendment to public law 38': ...0), ('B', 4056)), '106-286': (('B', 891),), '100-687': (('A', 4105), ('B', 4122))}, narrowed_page_sections=frozenset())
+
+    @artifact
+    def test_a_session_law_chapter_is_never_offered_to_the_credits(index) -> None:
+        """1,921 of the index's 8,391 Table III keys pre-date public-law numbering.
+    
+        Public laws were numbered from the 85th Congress (1957); before that an
+        act is identified by year and chapter, which the source credits — keyed by
+        public law — cannot be looked up under. Handing them one would not find
+        nothing, it would ask a question in the wrong language.
+        """
+    
+        keys = set(index.table3_key_by_name.values())
+>       chapters = {k for k in keys if ":" in k}
+                                       ^^^^^^^^
+E       TypeError: argument of type 'NoneType' is not iterable
+
+tests/test_act_resolution.py:829: TypeError
+___________ test_act_section_not_classified_is_mostly_never_fetched ____________
+
+index = ActIndex(table3_key_by_name={'1921 silver dollar coin anniversary act': '116-286', '1950 amendment to public law 38': ...0), ('B', 4056)), '106-286': (('B', 891),), '100-687': (('A', 4105), ('B', 4122))}, narrowed_page_sections=frozenset())
+
+    @artifact
+    def test_act_section_not_classified_is_mostly_never_fetched(index) -> None:
+        """The module's commonest refusal is a false absence, and here is its size.
+    
+        The act-sections table holds Table III's classifications for **24 laws**.
+        The popular-name index names 8,391. So for 12,695 of its 12,963 cited
+        acts, "the section is not classified" is not something OLRC said — it is
+        the shape of a build that requested 27 pages and reached 24. That is the
+        single largest mislabel in this module: 534 of the 752 pairs the Unified
+        Agenda corpus produces refuse under this code, and almost all of them
+        refuse because nobody asked.
+    
+        Nothing needs to be inferred to tell the two apart: a key absent from
+        ``classifications`` was never fetched, and the receipt's ``acts_reached``
+        agrees exactly with how many keys are present. Separating them needs a
+        reason code the sealed receipt does not enumerate, so it is a decision for
+        a rebuild — but the number belongs on the record either way.
+        """
+    
+        receipt = json.loads((ACT_DIR / "receipt.json").read_text(encoding="utf-8"))
+        assert receipt["coverage"]["acts_reached"] == 24
+        assert receipt["coverage"]["acts_requested"] == 27
+        assert len(index.classifications) == 24, "the fetched set IS the classified set"
+    
+        keys = set(index.table3_key_by_name.values())
+>       assert len(keys) == 8_391
+E       AssertionError: assert 8383 == 8391
+E        +  where 8383 = len({'117-14', '117-224', '1930:874', '109-401', '98-43', '1925:443', ...})
+
+tests/test_act_resolution.py:1200: AssertionError
+_ test_source_targets_survive_and_policy_changes_are_explicit[rows0-classifications0] _
+
+rows = [], classifications = ()
+
+    @pytest.mark.parametrize('rows, classifications', [
+        ([], ()),
+        ([('26','1')], (Classification('26','1',None,1),)),
+        ([('26','2')], (Classification('26','1',None,1),)),
+        ([('26','2'),('26','3')], ()),
+        ([('26','2'),('26','3')], (Classification('26','1',None,1),)),
+    ])
+    def test_source_targets_survive_and_policy_changes_are_explicit(rows, classifications):
+        citation = ActRelativeCitation('An Act','an act','101','A')
+        index = ActIndex(table3_key_by_name={'an act':'99-514'}, classifications={'99-514':{'101':classifications}})
+        credits = SourceCreditIndex.from_rows([('99-514','A','101',title,section,None,None) for title,section in rows])
+        before = original(citation,index=index,source_credits=credits)
+        after = resolve_act_relative_citation(citation,index=index,source_credits=credits)
+        old_fields = asdict(before); new_fields = asdict(after)
+        for key in ('source_credit_targets','conflicting_targets','table3_candidate_iri'):
+            old_fields.pop(key, None); new_fields.pop(key, None)
+        if len(rows) > 1 and classifications:
+            # The later policy comparison proved that this singular answer loses
+            # known targets. Retain the old oracle and enumerate the changed fields.
+            assert before.iri == after.table3_candidate_iri == 'urn:rkaf:us:usc:26:1'
+            old_fields.update(iri=None,usc_title=None,usc_section=None,answered_by=None,
+                              statutes_at_large_page=None,unresolved_reason='act_section_ambiguous')
+>       assert old_fields == new_fields
+E       AssertionError: assert {'act_divisio...ons': (), ...} == {'act_divisio...ons': (), ...}
+E         
+E         Omitting 14 identical items, use -vv to show
+E         Differing items:
+E         {'act_division': None} != {'act_division': 'A'}
+E         Use -v to get more diff
+
+tests/test_act_resolution_evidence.py:34: AssertionError
+_ test_source_targets_survive_and_policy_changes_are_explicit[rows1-classifications1] _
+
+rows = [('26', '1')]
+classifications = (Classification(usc_title='26', usc_section='1', status=None, statutes_at_large_page=1),)
+
+    @pytest.mark.parametrize('rows, classifications', [
+        ([], ()),
+        ([('26','1')], (Classification('26','1',None,1),)),
+        ([('26','2')], (Classification('26','1',None,1),)),
+        ([('26','2'),('26','3')], ()),
+        ([('26','2'),('26','3')], (Classification('26','1',None,1),)),
+    ])
+    def test_source_targets_survive_and_policy_changes_are_explicit(rows, classifications):
+        citation = ActRelativeCitation('An Act','an act','101','A')
+        index = ActIndex(table3_key_by_name={'an act':'99-514'}, classifications={'99-514':{'101':classifications}})
+        credits = SourceCreditIndex.from_rows([('99-514','A','101',title,section,None,None) for title,section in rows])
+        before = original(citation,index=index,source_credits=credits)
+        after = resolve_act_relative_citation(citation,index=index,source_credits=credits)
+        old_fields = asdict(before); new_fields = asdict(after)
+        for key in ('source_credit_targets','conflicting_targets','table3_candidate_iri'):
+            old_fields.pop(key, None); new_fields.pop(key, None)
+        if len(rows) > 1 and classifications:
+            # The later policy comparison proved that this singular answer loses
+            # known targets. Retain the old oracle and enumerate the changed fields.
+            assert before.iri == after.table3_candidate_iri == 'urn:rkaf:us:usc:26:1'
+            old_fields.update(iri=None,usc_title=None,usc_section=None,answered_by=None,
+                              statutes_at_large_page=None,unresolved_reason='act_section_ambiguous')
+>       assert old_fields == new_fields
+E       AssertionError: assert {'act_divisio...ons': (), ...} == {'act_divisio...ons': (), ...}
+E         
+E         Omitting 14 identical items, use -vv to show
+E         Differing items:
+E         {'act_division': None} != {'act_division': 'A'}
+E         Use -v to get more diff
+
+tests/test_act_resolution_evidence.py:34: AssertionError
+_ test_source_targets_survive_and_policy_changes_are_explicit[rows2-classifications2] _
+
+rows = [('26', '2')]
+classifications = (Classification(usc_title='26', usc_section='1', status=None, statutes_at_large_page=1),)
+
+    @pytest.mark.parametrize('rows, classifications', [
+        ([], ()),
+        ([('26','1')], (Classification('26','1',None,1),)),
+        ([('26','2')], (Classification('26','1',None,1),)),
+        ([('26','2'),('26','3')], ()),
+        ([('26','2'),('26','3')], (Classification('26','1',None,1),)),
+    ])
+    def test_source_targets_survive_and_policy_changes_are_explicit(rows, classifications):
+        citation = ActRelativeCitation('An Act','an act','101','A')
+        index = ActIndex(table3_key_by_name={'an act':'99-514'}, classifications={'99-514':{'101':classifications}})
+        credits = SourceCreditIndex.from_rows([('99-514','A','101',title,section,None,None) for title,section in rows])
+        before = original(citation,index=index,source_credits=credits)
+        after = resolve_act_relative_citation(citation,index=index,source_credits=credits)
+        old_fields = asdict(before); new_fields = asdict(after)
+        for key in ('source_credit_targets','conflicting_targets','table3_candidate_iri'):
+            old_fields.pop(key, None); new_fields.pop(key, None)
+        if len(rows) > 1 and classifications:
+            # The later policy comparison proved that this singular answer loses
+            # known targets. Retain the old oracle and enumerate the changed fields.
+            assert before.iri == after.table3_candidate_iri == 'urn:rkaf:us:usc:26:1'
+            old_fields.update(iri=None,usc_title=None,usc_section=None,answered_by=None,
+                              statutes_at_large_page=None,unresolved_reason='act_section_ambiguous')
+>       assert old_fields == new_fields
+E       AssertionError: assert {'act_divisio...ons': (), ...} == {'act_divisio...ons': (), ...}
+E         
+E         Omitting 14 identical items, use -vv to show
+E         Differing items:
+E         {'act_division': None} != {'act_division': 'A'}
+E         Use -v to get more diff
+
+tests/test_act_resolution_evidence.py:34: AssertionError
+_ test_source_targets_survive_and_policy_changes_are_explicit[rows3-classifications3] _
+
+rows = [('26', '2'), ('26', '3')], classifications = ()
+
+    @pytest.mark.parametrize('rows, classifications', [
+        ([], ()),
+        ([('26','1')], (Classification('26','1',None,1),)),
+        ([('26','2')], (Classification('26','1',None,1),)),
+        ([('26','2'),('26','3')], ()),
+        ([('26','2'),('26','3')], (Classification('26','1',None,1),)),
+    ])
+    def test_source_targets_survive_and_policy_changes_are_explicit(rows, classifications):
+        citation = ActRelativeCitation('An Act','an act','101','A')
+        index = ActIndex(table3_key_by_name={'an act':'99-514'}, classifications={'99-514':{'101':classifications}})
+        credits = SourceCreditIndex.from_rows([('99-514','A','101',title,section,None,None) for title,section in rows])
+        before = original(citation,index=index,source_credits=credits)
+        after = resolve_act_relative_citation(citation,index=index,source_credits=credits)
+        old_fields = asdict(before); new_fields = asdict(after)
+        for key in ('source_credit_targets','conflicting_targets','table3_candidate_iri'):
+            old_fields.pop(key, None); new_fields.pop(key, None)
+        if len(rows) > 1 and classifications:
+            # The later policy comparison proved that this singular answer loses
+            # known targets. Retain the old oracle and enumerate the changed fields.
+            assert before.iri == after.table3_candidate_iri == 'urn:rkaf:us:usc:26:1'
+            old_fields.update(iri=None,usc_title=None,usc_section=None,answered_by=None,
+                              statutes_at_large_page=None,unresolved_reason='act_section_ambiguous')
+>       assert old_fields == new_fields
+E       AssertionError: assert {'act_divisio...ons': (), ...} == {'act_divisio...ons': (), ...}
+E         
+E         Omitting 14 identical items, use -vv to show
+E         Differing items:
+E         {'act_division': None} != {'act_division': 'A'}
+E         Use -v to get more diff
+
+tests/test_act_resolution_evidence.py:34: AssertionError
+_ test_source_targets_survive_and_policy_changes_are_explicit[rows4-classifications4] _
+
+rows = [('26', '2'), ('26', '3')]
+classifications = (Classification(usc_title='26', usc_section='1', status=None, statutes_at_large_page=1),)
+
+    @pytest.mark.parametrize('rows, classifications', [
+        ([], ()),
+        ([('26','1')], (Classification('26','1',None,1),)),
+        ([('26','2')], (Classification('26','1',None,1),)),
+        ([('26','2'),('26','3')], ()),
+        ([('26','2'),('26','3')], (Classification('26','1',None,1),)),
+    ])
+    def test_source_targets_survive_and_policy_changes_are_explicit(rows, classifications):
+        citation = ActRelativeCitation('An Act','an act','101','A')
+        index = ActIndex(table3_key_by_name={'an act':'99-514'}, classifications={'99-514':{'101':classifications}})
+        credits = SourceCreditIndex.from_rows([('99-514','A','101',title,section,None,None) for title,section in rows])
+        before = original(citation,index=index,source_credits=credits)
+        after = resolve_act_relative_citation(citation,index=index,source_credits=credits)
+        old_fields = asdict(before); new_fields = asdict(after)
+        for key in ('source_credit_targets','conflicting_targets','table3_candidate_iri'):
+            old_fields.pop(key, None); new_fields.pop(key, None)
+        if len(rows) > 1 and classifications:
+            # The later policy comparison proved that this singular answer loses
+            # known targets. Retain the old oracle and enumerate the changed fields.
+            assert before.iri == after.table3_candidate_iri == 'urn:rkaf:us:usc:26:1'
+            old_fields.update(iri=None,usc_title=None,usc_section=None,answered_by=None,
+                              statutes_at_large_page=None,unresolved_reason='act_section_ambiguous')
+>       assert old_fields == new_fields
+E       AssertionError: assert {'act_divisio...ons': (), ...} == {'act_divisio...ons': (), ...}
+E         
+E         Omitting 14 identical items, use -vv to show
+E         Differing items:
+E         {'act_division': None} != {'act_division': 'A'}
+E         Use -v to get more diff
+
+tests/test_act_resolution_evidence.py:34: AssertionError
+_ test_absence_agreement_duplicate_rows_and_disagreement_keep_their_verdicts[targets0] _
+
+targets = []
+
+    @pytest.mark.parametrize('targets',[[],['1'],['1','1'],['2']])
+    def test_absence_agreement_duplicate_rows_and_disagreement_keep_their_verdicts(targets):
+        index=fixture([205])
+        credits=SourceCreditIndex.from_rows([('93-406','A','101','26',s,'88','205') for s in targets])
+        before=asdict(original(ActRelativeCitation('An Act','an act','101'),index=index,source_credits=credits))
+        after=asdict(resolve(index,credits))
+        for key in ('source_credit_targets','conflicting_targets','table3_candidate_iri'):
+            before.pop(key,None);after.pop(key,None)
+>       assert before==after
+E       AssertionError: assert {'act_divisio...ons': (), ...} == {'act_divisio...ons': (), ...}
+E         
+E         Omitting 14 identical items, use -vv to show
+E         Differing items:
+E         {'act_division': None} != {'act_division': 'A'}
+E         Use -v to get more diff
+
+tests/test_act_resolution_policy.py:71: AssertionError
+_ test_absence_agreement_duplicate_rows_and_disagreement_keep_their_verdicts[targets1] _
+
+targets = ['1']
+
+    @pytest.mark.parametrize('targets',[[],['1'],['1','1'],['2']])
+    def test_absence_agreement_duplicate_rows_and_disagreement_keep_their_verdicts(targets):
+        index=fixture([205])
+        credits=SourceCreditIndex.from_rows([('93-406','A','101','26',s,'88','205') for s in targets])
+        before=asdict(original(ActRelativeCitation('An Act','an act','101'),index=index,source_credits=credits))
+        after=asdict(resolve(index,credits))
+        for key in ('source_credit_targets','conflicting_targets','table3_candidate_iri'):
+            before.pop(key,None);after.pop(key,None)
+>       assert before==after
+E       AssertionError: assert {'act_divisio...ons': (), ...} == {'act_divisio...ons': (), ...}
+E         
+E         Omitting 14 identical items, use -vv to show
+E         Differing items:
+E         {'act_division': None} != {'act_division': 'A'}
+E         Use -v to get more diff
+
+tests/test_act_resolution_policy.py:71: AssertionError
+_ test_absence_agreement_duplicate_rows_and_disagreement_keep_their_verdicts[targets2] _
+
+targets = ['1', '1']
+
+    @pytest.mark.parametrize('targets',[[],['1'],['1','1'],['2']])
+    def test_absence_agreement_duplicate_rows_and_disagreement_keep_their_verdicts(targets):
+        index=fixture([205])
+        credits=SourceCreditIndex.from_rows([('93-406','A','101','26',s,'88','205') for s in targets])
+        before=asdict(original(ActRelativeCitation('An Act','an act','101'),index=index,source_credits=credits))
+        after=asdict(resolve(index,credits))
+        for key in ('source_credit_targets','conflicting_targets','table3_candidate_iri'):
+            before.pop(key,None);after.pop(key,None)
+>       assert before==after
+E       AssertionError: assert {'act_divisio...ons': (), ...} == {'act_divisio...ons': (), ...}
+E         
+E         Omitting 14 identical items, use -vv to show
+E         Differing items:
+E         {'act_division': None} != {'act_division': 'A'}
+E         Use -v to get more diff
+
+tests/test_act_resolution_policy.py:71: AssertionError
+_ test_absence_agreement_duplicate_rows_and_disagreement_keep_their_verdicts[targets3] _
+
+targets = ['2']
+
+    @pytest.mark.parametrize('targets',[[],['1'],['1','1'],['2']])
+    def test_absence_agreement_duplicate_rows_and_disagreement_keep_their_verdicts(targets):
+        index=fixture([205])
+        credits=SourceCreditIndex.from_rows([('93-406','A','101','26',s,'88','205') for s in targets])
+        before=asdict(original(ActRelativeCitation('An Act','an act','101'),index=index,source_credits=credits))
+        after=asdict(resolve(index,credits))
+        for key in ('source_credit_targets','conflicting_targets','table3_candidate_iri'):
+            before.pop(key,None);after.pop(key,None)
+>       assert before==after
+E       AssertionError: assert {'act_divisio...ons': (), ...} == {'act_divisio...ons': (), ...}
+E         
+E         Omitting 14 identical items, use -vv to show
+E         Differing items:
+E         {'act_division': None} != {'act_division': 'A'}
+E         Use -v to get more diff
+
+tests/test_act_resolution_policy.py:71: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_act_resolution.py::test_a_session_law_chapter_is_never_offered_to_the_credits
+FAILED tests/test_act_resolution.py::test_act_section_not_classified_is_mostly_never_fetched
+FAILED tests/test_act_resolution_evidence.py::test_source_targets_survive_and_policy_changes_are_explicit[rows0-classifications0]
+FAILED tests/test_act_resolution_evidence.py::test_source_targets_survive_and_policy_changes_are_explicit[rows1-classifications1]
+FAILED tests/test_act_resolution_evidence.py::test_source_targets_survive_and_policy_changes_are_explicit[rows2-classifications2]
+FAILED tests/test_act_resolution_evidence.py::test_source_targets_survive_and_policy_changes_are_explicit[rows3-classifications3]
+FAILED tests/test_act_resolution_evidence.py::test_source_targets_survive_and_policy_changes_are_explicit[rows4-classifications4]
+FAILED tests/test_act_resolution_policy.py::test_absence_agreement_duplicate_rows_and_disagreement_keep_their_verdicts[targets0]
+FAILED tests/test_act_resolution_policy.py::test_absence_agreement_duplicate_rows_and_disagreement_keep_their_verdicts[targets1]
+FAILED tests/test_act_resolution_policy.py::test_absence_agreement_duplicate_rows_and_disagreement_keep_their_verdicts[targets2]
+FAILED tests/test_act_resolution_policy.py::test_absence_agreement_duplicate_rows_and_disagreement_keep_their_verdicts[targets3]
+11 failed, 107 passed in 3.97s

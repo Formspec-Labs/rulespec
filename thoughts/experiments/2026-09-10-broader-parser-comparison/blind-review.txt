@@ -1,0 +1,224 @@
+
+case-01 seatbelt label parent: (B) Except as provided in paragraph (a)(3)(iii)(B)( 4 ) of this action, the approved child restraint system bears one or more labels as follows:
+Expected: ["local|a.3.iii.B.4"]
+Z: [{}, {"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}]
+W: [{}]
+Y: [{"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}, {}, {}, {}]
+X: [{}, {}, {}]
+
+case-02 seatbelt booster restriction: ( 4 ) Except as provided in § 91.107(a)(3)(iii)(B)( 3 )( iii ) and § 91.107(a)(3)(iii)(B)( 3 )( iv ), booster-type child restraint systems (as defined in Federal Motor Vehicle Safety Standard No. 213 (49 CFR 571.213)), vest- and harness-type child restraint systems, and lap held child restraints are not approved for use in aircraft; and
+Expected: ["cfr|49|571|213", "local|91.107.B.3.iii", "local|91.107.B.3.iv"]
+X: [{"output": [{"citation": {"cfr_title": 49, "cfr_part": "571", "cfr_section": "213", "title_is_possible": true, "part_is_plausible": true}, "start": 201, "end": 215, "text": "49 CFR 571.213"}]}, {"output": [{"title": 49, "part": "571", "section": "213", "surface": "49 CFR 571.213", "start": 201, "end": 215}]}, {}]
+Y: [{"output": [{"authority_type": "cfr", "parse_status": "partial", "cfr_title": 49, "cfr_part": "571", "cfr_section": "213", "cfr_part_is_plausible": true}]}, {}, {}, {}, {}]
+Z: [{"output": [{"title": "49", "part": "571", "section": "213"}]}, {"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}]
+W: [{"output": [{"kind": "cfr", "value": "49 CFR 571.213", "span": [201, 215], "components": {"title": "49", "part": "571", "section": "213"}}]}]
+
+case-03 refrigerant compliance route: (i) The applicable practices in §§ 82.155 and 82.156 are observed, the applicable practices in § 82.157 are observed for appliances that contain any class I or class II refrigerant or blend containing a class I or class II refrigerant, recovery and/or recycling machines that meet the requirements in § 82.158 are used whenever refrigerant is removed from an appliance, the technician certification provisions in § 82.161 are observed, and the reclamation requirements in § 82.164 are observed; or
+Expected: ["local|82.155", "local|82.156", "local|82.157", "local|82.158", "local|82.161", "local|82.164"]
+X: [{}, {}, {}]
+W: [{}]
+Y: [{"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}, {}, {}, {}]
+Z: [{}, {"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}]
+
+case-04 lettered-part: 7 CFR 15a
+Expected: ["cfr|7|15a|"]
+W: [{}]
+X: [{"output": [{"citation": {"cfr_title": 7, "cfr_part": "15a", "title_is_possible": true, "part_is_plausible": true}, "start": 0, "end": 9, "text": "7 CFR 15a"}]}, {"output": [{"title": 7, "part": "15a", "surface": "7 CFR 15a", "start": 0, "end": 9}]}, {}]
+Y: [{"output": [{"authority_type": "cfr", "parse_status": "partial", "cfr_title": 7, "cfr_part": "15a", "cfr_part_is_plausible": true}]}, {}, {}, {}, {}]
+Z: [{"output": [{"title": "7", "part": "15"}]}, {"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}]
+
+case-05 compound-usc: 42 U.S.C. 1395w-4
+Expected: ["usc|42|1395w-4"]
+Y: [{"output": [{"authority_type": "usc", "parse_status": "ok", "usc_title": 42, "usc_section": "1395w-4"}]}, {}, {}, {}, {}]
+X: [{}, {}, {"output": [{"title": 42, "section": "1395w-4", "surface": "42 U.S.C. 1395w-4", "start": 0, "end": 17}]}]
+Z: [{}, {"output": [{"authority_type": "usc", "parse_status": "ok", "usc_title": "42", "usc_section": "1395w-4"}]}, {}]
+W: [{"output": [{"kind": "usc", "value": "42 U.S.C. 1395w-4", "span": [0, 17], "components": {"title": "42", "section": "1395w-4"}}]}]
+
+case-06 usc-in-prose: The agency acts under 5 U.S.C. 552, as discussed below.
+Expected: ["usc|5|552"]
+Z: [{}, {"output": [{"authority_type": "usc", "parse_status": "partial", "usc_title": "5", "usc_section": "552"}]}, {}]
+W: [{"output": [{"kind": "usc", "value": "5 U.S.C. 552", "span": [22, 34], "components": {"title": "5", "section": "552"}}]}]
+X: [{}, {}, {"output": [{"title": 5, "section": "552", "surface": "5 U.S.C. 552", "start": 22, "end": 34}]}]
+Y: [{"output": [{"authority_type": "usc", "parse_status": "partial", "usc_title": 5, "usc_section": "552"}]}, {}, {}, {}, {}]
+
+case-07 usc-chapter: 5 U.S.C. chapter 5
+Expected: ["usc_chapter|5|5"]
+Y: [{"output": [{"authority_type": "usc_chapter", "parse_status": "ok", "usc_title": 5, "usc_chapter": "5"}]}, {}, {}, {}, {}]
+Z: [{}, {"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}]
+X: [{}, {}, {}]
+W: [{}]
+
+case-08 usc-appendix: 5 U.S.C. App. 3
+Expected: ["usc_appendix|5|3"]
+W: [{}]
+X: [{}, {}, {}]
+Z: [{}, {"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}]
+Y: [{"output": [{"authority_type": "usc", "parse_status": "ok", "usc_title": 5, "usc_section": "3", "usc_appendix": true}]}, {}, {}, {}, {}]
+
+case-09 usc-note: 42 U.S.C. 1983 note
+Expected: ["usc_note|42|1983"]
+W: [{"output": [{"kind": "usc", "value": "42 U.S.C. 1983", "span": [0, 14], "components": {"title": "42", "section": "1983"}}]}]
+Y: [{"output": [{"authority_type": "usc", "parse_status": "ok", "usc_title": 42, "usc_section": "1983", "usc_note": true}]}, {}, {}, {}, {}]
+X: [{}, {}, {"output": [{"title": 42, "section": "1983", "surface": "42 U.S.C. 1983", "start": 0, "end": 14}]}]
+Z: [{}, {"output": [{"authority_type": "usc", "parse_status": "partial", "usc_title": "42", "usc_section": "1983"}]}, {}]
+
+case-10 public-law: The authority is Pub. L. 117-58.
+Expected: ["public_law|117-58"]
+Y: [{"output": [{"authority_type": "public_law", "parse_status": "partial", "public_law": "117-58"}]}, {}, {}, {}, {}]
+X: [{}, {}, {}]
+W: [{"output": [{"kind": "public_law", "value": "Public Law 117-58", "span": [17, 31], "components": {"congress": "117", "law": "58"}}]}]
+Z: [{}, {"output": [{"authority_type": "public_law", "parse_status": "partial", "pl_number": "117-58"}]}, {}]
+
+case-11 statutes-page: See 135 Stat. 429.
+Expected: ["statute|135|429"]
+Z: [{}, {"output": [{"authority_type": "statute_at_large", "parse_status": "partial", "statute_at_large": "135-429"}]}, {}]
+Y: [{"output": [{"authority_type": "statute_at_large", "parse_status": "partial", "statute_volume": 135, "statute_page": 429}]}, {}, {}, {}, {}]
+W: [{"output": [{"kind": "statutes_at_large", "value": "135 Stat. 429", "span": [4, 17], "components": {"volume": "135", "page": "429"}}]}]
+X: [{}, {}, {}]
+
+case-12 fr-page: See 89 FR 91529.
+Expected: ["federal_register|89|91529"]
+W: [{}]
+X: [{}, {}, {}]
+Z: [{}, {"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}]
+Y: [{"output": [{"authority_type": "federal_register", "parse_status": "partial", "fr_volume": 89, "fr_page": 91529}]}, {}, {"output": [{"volume": 89, "page": 91529}]}, {}, {}]
+
+case-13 executive-order: E.O. 12866 applies.
+Expected: ["executive_order|12866"]
+Z: [{}, {"output": [{"authority_type": "eo", "parse_status": "partial", "executive_order": "12866"}]}, {}]
+W: [{"output": [{"kind": "executive_order", "value": "Executive Order 12866", "span": [0, 10], "components": {"number": "12866"}}]}]
+X: [{}, {}, {}]
+Y: [{"output": [{"authority_type": "executive_order", "parse_status": "partial", "executive_order": "12866"}]}, {}, {}, {}, {}]
+
+case-14 proclamation: Proclamation 9980.
+Expected: ["proclamation|9980"]
+Y: [{"output": [{"authority_type": "presidential_document", "parse_status": "ok", "presidential_doc_kind": "proclamation", "proclamation": "9980"}]}, {}, {}, {}, {}]
+X: [{}, {}, {}]
+W: [{}]
+Z: [{}, {"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}]
+
+case-15 constitution: U.S. Const. art. I, sec. 8
+Expected: ["constitution|I|8"]
+X: [{}, {}, {}]
+W: [{}]
+Z: [{}, {"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}]
+Y: [{"output": [{"authority_type": "constitution", "parse_status": "ok", "constitution_article": "I", "constitution_section": "8"}]}, {}, {}, {}, {}]
+
+case-16 treaty: 27 U.S.T. 1087
+Expected: ["treaty|UST|27|1087"]
+W: [{}]
+Y: [{"output": [{"authority_type": "treaty", "parse_status": "ok", "treaty_series": "UST", "treaty_volume": 27, "treaty_page": 1087}]}, {}, {}, {}, {}]
+X: [{}, {}, {}]
+Z: [{}, {"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}]
+
+case-17 reorganization: Reorganization Plan No. 3 of 1970
+Expected: ["reorganization_plan|3-of-1970"]
+Z: [{}, {"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}]
+W: [{}]
+Y: [{"output": [{"authority_type": "reorganization_plan", "parse_status": "ok", "reorganization_plan": "3-of-1970"}]}, {}, {}, {}, {}]
+X: [{}, {}, {}]
+
+case-18 case-reporter: See 410 U.S. 113 (1973).
+Expected: ["case|U.S.|410|113"]
+Y: [{"output": [{"authority_type": "case_citation", "parse_status": "partial", "case_reporter": "U.S.", "case_volume": 410, "case_page": 113}]}, {}, {}, {}, {}]
+Z: [{}, {"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}]
+X: [{}, {}, {}]
+W: [{}]
+
+case-19 docket: See EPA-HQ-OAR-2023-0234.
+Expected: ["docket|EPA-HQ-OAR-2023-0234"]
+X: [{}, {}, {}]
+Y: [{"output": [{"authority_type": "other", "parse_status": "failed"}]}, {"output": [{"kind": "docket", "value": "EPA-HQ-OAR-2023-0234", "span": [4, 24], "components": {"organization": "EPA-HQ-OAR", "year": "2023", "sequence": "0234"}}]}, {}, {}, {}]
+Z: [{}, {"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}]
+W: [{"output": [{"kind": "docket", "value": "EPA-HQ-OAR-2023-0234", "span": [4, 24], "components": {"organization": "EPA-HQ-OAR", "year": "2023", "sequence": "0234"}}]}]
+
+case-20 rin: RIN 2120-AK94
+Expected: ["rin|2120-AK94"]
+Y: [{"output": [{"authority_type": "other", "parse_status": "failed"}]}, {"output": [{"kind": "rin", "value": "2120-AK94", "span": [4, 13], "components": {}}]}, {}, {}, {}]
+X: [{}, {}, {}]
+Z: [{}, {"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}]
+W: [{"output": [{"kind": "rin", "value": "2120-AK94", "span": [4, 13], "components": {}}]}]
+
+case-21 named-act: Section 112 of the Clean Air Act applies.
+Expected: ["act_relative|clean air act|112"]
+X: [{}, {}, {}]
+W: [{}]
+Y: [{"output": [{"authority_type": "other", "parse_status": "failed", "stated_act_name": "Clean Air Act", "stated_section": "112"}]}, {}, {}, {}, {"output": [{"act_name": "Clean Air Act", "act_key": "clean air act", "section": "112"}]}]
+Z: [{}, {"output": [{"authority_type": "other", "parse_status": "failed"}]}, {"output": [{"act_name": "Clean Air Act", "act_key": "clean air act", "section": "112"}]}]
+
+case-22 eo-compilation: 3 CFR, 1977 Comp., p. 123
+Expected: ["eo_compilation|1977|123"]
+Y: [{"output": [{"authority_type": "eo_compilation", "parse_status": "partial", "eo_compilation_start": "1977", "eo_compilation_page": "123"}]}, {}, {}, {"output": [{"compilation_start": "1977", "page": "123"}]}, {}]
+X: [{}, {}, {}]
+W: [{}]
+Z: [{}, {"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}]
+
+case-23 usc-list: 5 USC 552 and 552a
+Expected: ["usc|5|552", "usc|5|552a"]
+X: [{}, {}, {"output": [{"title": 5, "section": "552", "surface": "5 USC 552", "start": 0, "end": 9}]}]
+Z: [{}, {"output": [{"authority_type": "usc", "parse_status": "partial", "usc_title": "5", "usc_section": "552"}, {"authority_type": "usc", "parse_status": "partial", "usc_title": "5", "usc_section": "552a"}]}, {}]
+W: [{"output": [{"kind": "usc", "value": "5 U.S.C. 552", "span": [0, 9], "components": {"title": "5", "section": "552"}}]}]
+Y: [{"output": [{"authority_type": "usc", "parse_status": "partial", "usc_title": 5, "usc_section": "552"}, {"authority_type": "usc", "parse_status": "partial", "usc_title": 5, "usc_section": "552a"}]}, {}, {}, {}, {}]
+
+case-24 cfr-list: 40 CFR §§ 82.155(a), 82.156(b)
+Expected: ["cfr|40|82|155", "cfr|40|82|156"]
+W: [{"output": [{"kind": "cfr", "value": "40 CFR 82.155", "span": [0, 16], "components": {"title": "40", "part": "82", "section": "155"}}]}]
+X: [{"output": [{"citation": {"cfr_title": 40, "cfr_part": "82", "cfr_section": "155", "title_is_possible": true, "part_is_plausible": true}, "start": 0, "end": 19, "text": "40 CFR §§ 82.155(a)", "pinpoint": ["a"]}, {"citation": {"cfr_title": 40, "cfr_part": "82", "cfr_section": "156", "title_is_possible": true, "part_is_plausible": true}, "start": 19, "end": 30, "text": ", 82.156(b)", "pinpoint": ["b"], "context_start": 0, "context_end": 19}]}, {"output": [{"title": 40, "part": "82", "section": "155", "surface": "40 CFR §§ 82.155", "start": 0, "end": 16}]}, {}]
+Y: [{"output": [{"authority_type": "cfr", "parse_status": "partial", "cfr_title": 40, "cfr_part": "82", "cfr_section": "155", "cfr_part_is_plausible": true}]}, {}, {}, {}, {}]
+Z: [{"output": [{"title": "40", "part": "82", "section": "155"}, {"title": "40", "part": "82"}]}, {"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}]
+
+case-25 plain-roles: Posts may consult the IRL and IN indexes.
+Expected: []
+Y: [{"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}, {}, {}, {}]
+X: [{}, {}, {}]
+W: [{}]
+Z: [{}, {"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}]
+
+case-26 ordinary-prose: Romeo met the staff. They discussed the status of the application.
+Expected: []
+Z: [{}, {"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}]
+X: [{}, {}, {}]
+Y: [{"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}, {}, {}, {}]
+W: [{}]
+
+case-27 bare-range: 5401-5405
+Expected: []
+X: [{}, {}, {}]
+Y: [{"output": [{"authority_type": "other", "parse_status": "failed"}]}, {"output": [{"kind": "federal_register_document", "value": "5401-5405", "span": [0, 9], "components": {}}]}, {}, {}, {}]
+Z: [{}, {"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}]
+W: [{"output": [{"kind": "federal_register_document", "value": "5401-5405", "span": [0, 9], "components": {"form": "standard", "rulespec_scheme": "rkaf:us-frdoc"}}]}]
+
+case-28 malformed-cfr: 17 CFR 15c3-3
+Expected: []
+W: [{}]
+Z: [{"output": [{"title": "17", "part": "15"}]}, {"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}]
+Y: [{"output": [{"authority_type": "cfr", "parse_status": "partial", "cfr_title": 17}]}, {}, {}, {}, {}]
+X: [{"output": [{"citation": {"cfr_title": 17, "title_is_possible": true}, "start": 0, "end": 6, "text": "17 CFR"}]}, {}, {}]
+
+case-29 malformed-usc: 42 USC 1983affirmed
+Expected: []
+X: [{}, {}, {}]
+Y: [{"output": [{"authority_type": "usc", "parse_status": "partial", "usc_title": 42, "usc_section": "1983"}]}, {}, {}, {}, {}]
+W: [{}]
+Z: [{}, {"output": [{"authority_type": "usc", "parse_status": "partial", "usc_title": "42", "usc_section": "1983a"}]}, {}]
+
+case-30 fused-title: 1345 CFR 1370
+Expected: []
+X: [{"output": [{"citation": {"cfr_title": 1345, "cfr_part": "1370", "part_is_plausible": true}, "start": 0, "end": 13, "text": "1345 CFR 1370"}]}, {"output": [{"title": 1345, "part": "1370", "surface": "1345 CFR 1370", "start": 0, "end": 13, "rejected": "fused-digit"}]}, {}]
+Z: [{}, {"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}]
+Y: [{"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}, {}, {}, {}]
+W: [{"output": [{"kind": "cfr", "value": "1345 CFR 1370", "span": [0, 13], "components": {"title": "1345", "part": "1370"}}]}]
+
+case-31 unknown-act: Section 8 of the Imaginary Compliance Act applies.
+Expected: []
+W: [{}]
+Y: [{"output": [{"authority_type": "other", "parse_status": "failed", "stated_act_name": "Imaginary Compliance Act", "stated_section": "8"}]}, {}, {}, {}, {}]
+Z: [{}, {"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}]
+X: [{}, {}, {}]
+
+case-32 lowercase-fr: The tracking text reads 89 fr 91529.
+Expected: []
+X: [{}, {}, {}]
+Z: [{}, {"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}]
+Y: [{"output": [{"authority_type": "other", "parse_status": "failed"}]}, {}, {}, {}, {}]
+W: [{}]

@@ -1,0 +1,146 @@
+{
+  "holder": "rulespec-reader-capture-delivery",
+  "pid": 59769,
+  "purpose": "isolated-delivery",
+  "start": "2026-09-11T13:36:35.638714+00:00",
+  "start_load": [
+    2.62060546875,
+    3.7880859375,
+    4.2861328125
+  ],
+  "status": "passed",
+  "end": "2026-09-11T13:37:35.283535+00:00",
+  "end_load": [
+    5.37451171875,
+    4.234375,
+    4.40869140625
+  ],
+  "commands": [
+    {
+      "name": "dependency-check",
+      "command": [
+        "uv",
+        "pip",
+        "check",
+        "--python",
+        "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-capture/bin/python"
+      ],
+      "cwd": "/tmp",
+      "pythonpath": "",
+      "returncode": 0
+    },
+    {
+      "name": "runtime",
+      "command": [
+        "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-capture/bin/python",
+        "-c",
+        "import rulespec_extrapolator.extraction as e; print(e.__file__)"
+      ],
+      "cwd": "/tmp",
+      "pythonpath": "",
+      "returncode": 0
+    },
+    {
+      "name": "application-suite",
+      "command": [
+        "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-capture/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "/Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests"
+      ],
+      "cwd": "/tmp",
+      "pythonpath": "",
+      "returncode": 0
+    },
+    {
+      "name": "reprocess",
+      "command": [
+        "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-capture/bin/python",
+        "-m",
+        "rulespec_extrapolator.cli",
+        "reprocess",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-10-parallel-compression/fresh-extraction",
+        "--output",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-reader-runtime-capture/cli-isolated/reprocessed"
+      ],
+      "cwd": "/tmp",
+      "pythonpath": "",
+      "returncode": 0
+    },
+    {
+      "name": "replay",
+      "command": [
+        "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-capture/bin/python",
+        "-m",
+        "rulespec_extrapolator.cli",
+        "replay",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-reader-runtime-capture/cli-isolated/reprocessed",
+        "--output",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-reader-runtime-capture/cli-isolated/replayed"
+      ],
+      "cwd": "/tmp",
+      "pythonpath": "",
+      "returncode": 0
+    },
+    {
+      "name": "references",
+      "command": [
+        "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-capture/bin/python",
+        "-m",
+        "rulespec_extrapolator.cli",
+        "references",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-reader-runtime-capture/cli-isolated/reprocessed",
+        "--output",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-reader-runtime-capture/cli-isolated/references.json"
+      ],
+      "cwd": "/tmp",
+      "pythonpath": "",
+      "returncode": 0
+    },
+    {
+      "name": "discovery-export",
+      "command": [
+        "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-capture/bin/python",
+        "-m",
+        "rulespec_extrapolator.cli",
+        "discovery-export",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-reader-runtime-capture/cli-isolated/reprocessed",
+        "--references",
+        "--output",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-reader-runtime-capture/cli-isolated/discovery-export.json"
+      ],
+      "cwd": "/tmp",
+      "pythonpath": "",
+      "returncode": 0
+    },
+    {
+      "name": "export",
+      "command": [
+        "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-capture/bin/python",
+        "-m",
+        "rulespec_extrapolator.cli",
+        "export",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-reader-runtime-capture/cli-isolated/reprocessed",
+        "--output",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-reader-runtime-capture/cli-isolated/export.json"
+      ],
+      "cwd": "/tmp",
+      "pythonpath": "",
+      "returncode": 0
+    },
+    {
+      "name": "usage",
+      "command": [
+        "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-capture/bin/python",
+        "-m",
+        "rulespec_extrapolator.cli",
+        "usage",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-reader-runtime-capture/cli-isolated/reprocessed"
+      ],
+      "cwd": "/tmp",
+      "pythonpath": "",
+      "returncode": 0
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/source-claimant.json",
+  "title": "source-claimant",
+  "$defs": {
+    "ClaimantAttribution": {
+      "type": "string",
+      "enum": [
+        "rkaf:claimantNamedInSource",
+        "rkaf:claimantImpliedBySource",
+        "rkaf:claimantIsDocumentIssuer",
+        "rkaf:claimantNotStated"
+      ]
+    },
+    "SourceClaimant": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:SourceClaimant"
+        },
+        "rkaf:claimsAssertion": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:claimantAttribution": {
+          "$ref": "#/$defs/ClaimantAttribution"
+        },
+        "rkaf:claimantText": {
+          "type": "string"
+        },
+        "rkaf:claimantIdentity": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+        },
+        "rkaf:attributedInFragment": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:claimsAssertion",
+        "rkaf:claimantAttribution"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "rkaf:claimantAttribution": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:claimantNamedInSource"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:claimantNamedInSource"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:claimantAttribution"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:claimantText": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "rkaf:claimantText"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

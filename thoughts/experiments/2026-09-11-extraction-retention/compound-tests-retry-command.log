@@ -1,0 +1,374 @@
+FFFFFFFFFF.F.F.......................................................... [ 68%]
+.................................                                        [100%]
+=================================== FAILURES ===================================
+_ test_complete_statement_keeps_coordinates_core_and_discovery_source_support __
+
+tmp_path = PosixPath('/private/var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/pytest-of-mikewolfd/pytest-3876/test_complete_statement_keeps_0')
+
+    def test_complete_statement_keeps_coordinates_core_and_discovery_source_support(tmp_path):
+        book = statement_book()
+>       assert not book['rejected']
+E       assert not [{'index': 0, 'candidate': {'kind': 'requirement', 'summary': 'Staff must log requests and archive records.', 'quote':...         '\\n'\n                   '(b) archive records.',\n     'modality': 'must',\n     'modality_quote': 'must'}"}]
+
+/Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_compound_evidence.py:37: AssertionError
+_____ test_review_refuses_incomplete_or_changed_compound_support[missing] ______
+
+tmp_path = PosixPath('/private/var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/pytest-of-mikewolfd/pytest-3876/test_review_refuses_incomplete0')
+change = 'missing'
+
+    @pytest.mark.parametrize('change', ['missing', 'duplicate', 'moved', 'fabricated', 'identity', 'wrong-main-position'])
+    def test_review_refuses_incomplete_or_changed_compound_support(tmp_path, change):
+        book = statement_book()
+>       claim = book['accepted'][0]
+                ^^^^^^^^^^^^^^^^^^^
+E       IndexError: list index out of range
+
+/Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_compound_evidence.py:62: IndexError
+____ test_review_refuses_incomplete_or_changed_compound_support[duplicate] _____
+
+tmp_path = PosixPath('/private/var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/pytest-of-mikewolfd/pytest-3876/test_review_refuses_incomplete1')
+change = 'duplicate'
+
+    @pytest.mark.parametrize('change', ['missing', 'duplicate', 'moved', 'fabricated', 'identity', 'wrong-main-position'])
+    def test_review_refuses_incomplete_or_changed_compound_support(tmp_path, change):
+        book = statement_book()
+>       claim = book['accepted'][0]
+                ^^^^^^^^^^^^^^^^^^^
+E       IndexError: list index out of range
+
+/Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_compound_evidence.py:62: IndexError
+______ test_review_refuses_incomplete_or_changed_compound_support[moved] _______
+
+tmp_path = PosixPath('/private/var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/pytest-of-mikewolfd/pytest-3876/test_review_refuses_incomplete2')
+change = 'moved'
+
+    @pytest.mark.parametrize('change', ['missing', 'duplicate', 'moved', 'fabricated', 'identity', 'wrong-main-position'])
+    def test_review_refuses_incomplete_or_changed_compound_support(tmp_path, change):
+        book = statement_book()
+>       claim = book['accepted'][0]
+                ^^^^^^^^^^^^^^^^^^^
+E       IndexError: list index out of range
+
+/Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_compound_evidence.py:62: IndexError
+____ test_review_refuses_incomplete_or_changed_compound_support[fabricated] ____
+
+tmp_path = PosixPath('/private/var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/pytest-of-mikewolfd/pytest-3876/test_review_refuses_incomplete3')
+change = 'fabricated'
+
+    @pytest.mark.parametrize('change', ['missing', 'duplicate', 'moved', 'fabricated', 'identity', 'wrong-main-position'])
+    def test_review_refuses_incomplete_or_changed_compound_support(tmp_path, change):
+        book = statement_book()
+>       claim = book['accepted'][0]
+                ^^^^^^^^^^^^^^^^^^^
+E       IndexError: list index out of range
+
+/Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_compound_evidence.py:62: IndexError
+_____ test_review_refuses_incomplete_or_changed_compound_support[identity] _____
+
+tmp_path = PosixPath('/private/var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/pytest-of-mikewolfd/pytest-3876/test_review_refuses_incomplete4')
+change = 'identity'
+
+    @pytest.mark.parametrize('change', ['missing', 'duplicate', 'moved', 'fabricated', 'identity', 'wrong-main-position'])
+    def test_review_refuses_incomplete_or_changed_compound_support(tmp_path, change):
+        book = statement_book()
+>       claim = book['accepted'][0]
+                ^^^^^^^^^^^^^^^^^^^
+E       IndexError: list index out of range
+
+/Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_compound_evidence.py:62: IndexError
+_ test_review_refuses_incomplete_or_changed_compound_support[wrong-main-position] _
+
+tmp_path = PosixPath('/private/var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/pytest-of-mikewolfd/pytest-3876/test_review_refuses_incomplete5')
+change = 'wrong-main-position'
+
+    @pytest.mark.parametrize('change', ['missing', 'duplicate', 'moved', 'fabricated', 'identity', 'wrong-main-position'])
+    def test_review_refuses_incomplete_or_changed_compound_support(tmp_path, change):
+        book = statement_book()
+>       claim = book['accepted'][0]
+                ^^^^^^^^^^^^^^^^^^^
+E       IndexError: list index out of range
+
+/Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_compound_evidence.py:62: IndexError
+_____ test_nonwhitespace_insertion_cannot_become_statement_evidence[not ] ______
+
+insertion = 'not '
+
+    @pytest.mark.parametrize('insertion', ['not ', '\u200b', 'editorial '])
+    def test_nonwhitespace_insertion_cannot_become_statement_evidence(insertion):
+        doc = mapped_document([('source', 'Staff must '), ('inserted', insertion), ('source', 'file.')])
+        candidate = {'kind': 'requirement', 'summary': 'File.', 'quote': doc['text']}
+        result = compile_candidates(doc, [candidate], {})
+        assert not result['accepted']
+>       assert 'inserted content' in result['rejected'][0]['reason']
+E       assert 'inserted content' in "'actor' is a required property\n\nFailed validating 'required' in schema:\n    {'$schema': 'https://json-schema.org/d...quote']}\n\nOn instance:\n    {'kind': 'requirement',\n     'summary': 'File.',\n     'quote': 'Staff must not file.'}"
+
+/Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_compound_evidence.py:85: AssertionError
+____ test_nonwhitespace_insertion_cannot_become_statement_evidence[\u200b] _____
+
+insertion = '\u200b'
+
+    @pytest.mark.parametrize('insertion', ['not ', '\u200b', 'editorial '])
+    def test_nonwhitespace_insertion_cannot_become_statement_evidence(insertion):
+        doc = mapped_document([('source', 'Staff must '), ('inserted', insertion), ('source', 'file.')])
+        candidate = {'kind': 'requirement', 'summary': 'File.', 'quote': doc['text']}
+        result = compile_candidates(doc, [candidate], {})
+        assert not result['accepted']
+>       assert 'inserted content' in result['rejected'][0]['reason']
+E       assert 'inserted content' in "'actor' is a required property\n\nFailed validating 'required' in schema:\n    {'$schema': 'https://json-schema.org/d...te']}\n\nOn instance:\n    {'kind': 'requirement',\n     'summary': 'File.',\n     'quote': 'Staff must \\u200bfile.'}"
+
+/Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_compound_evidence.py:85: AssertionError
+__ test_nonwhitespace_insertion_cannot_become_statement_evidence[editorial ] ___
+
+insertion = 'editorial '
+
+    @pytest.mark.parametrize('insertion', ['not ', '\u200b', 'editorial '])
+    def test_nonwhitespace_insertion_cannot_become_statement_evidence(insertion):
+        doc = mapped_document([('source', 'Staff must '), ('inserted', insertion), ('source', 'file.')])
+        candidate = {'kind': 'requirement', 'summary': 'File.', 'quote': doc['text']}
+        result = compile_candidates(doc, [candidate], {})
+        assert not result['accepted']
+>       assert 'inserted content' in result['rejected'][0]['reason']
+E       assert 'inserted content' in "'actor' is a required property\n\nFailed validating 'required' in schema:\n    {'$schema': 'https://json-schema.org/d...]}\n\nOn instance:\n    {'kind': 'requirement',\n     'summary': 'File.',\n     'quote': 'Staff must editorial file.'}"
+
+/Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_compound_evidence.py:85: AssertionError
+______ test_compound_definition_retains_all_name_and_definition_evidence _______
+
+    def test_compound_definition_retains_all_name_and_definition_evidence():
+        doc = mapped_document([('source', 'A widget means:'), ('inserted', '\n\n'),
+                               ('source', 'a handled device.')])
+        candidate = {'kind': 'definition', 'summary': 'A widget is a handled device.', 'quote': doc['text'],
+                     'defined_terms': [{'label': 'widget', 'aliases': [], 'quote': doc['text'],
+                                        'source_quotes': [doc['text']]}]}
+        book = compile_candidates(doc, [candidate], {})
+>       assert not book['rejected']
+E       assert not [{'index': 0, 'candidate': {'kind': 'definition', 'summary': 'A widget is a handled device.', 'quote': 'A widget means...\n                                          '\\n'\n                                          'a handled device.']}]}"}]
+
+/Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_compound_evidence.py:110: AssertionError
+_______ test_qualification_and_fallback_context_retain_every_main_piece ________
+
+    def test_qualification_and_fallback_context_retain_every_main_piece():
+        doc = mapped_document([('source', 'Staff must file.'), ('inserted', '\n\n'),
+                               ('source', 'Except'), ('inserted', '\n'), ('source', 'during closure.')])
+        target = {'kind': 'requirement', 'summary': 'Staff must file.', 'quote': 'Staff must file.'}
+>       target_id = compile_candidates(doc, [target], {})['accepted'][0]['id']
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       IndexError: list index out of range
+
+/Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_compound_evidence.py:148: IndexError
+=============================== warnings summary ===============================
+tests/test_compound_evidence.py: 6 warnings
+tests/test_review_store.py: 2 warnings
+tests/test_enrichment.py: 45 warnings
+tests/test_terms.py: 4 warnings
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/parsers/jsonld.py:159: DeprecationWarning: ConjunctiveGraph is deprecated, use Dataset instead.
+    conj_sink = ConjunctiveGraph(store=sink.store, identifier=sink.identifier)
+
+tests/test_compound_evidence.py: 132 warnings
+tests/test_enrichment.py: 970 warnings
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/graph.py:2205: DeprecationWarning: Dataset.default_context is deprecated, use Dataset.default_graph instead.
+    c = self.default_context if default else None
+
+tests/test_compound_evidence.py: 66 warnings
+tests/test_enrichment.py: 485 warnings
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdfcanon/main.py:170: DeprecationWarning: Dataset.default_context is deprecated, use Dataset.default_graph instead.
+    if graph == self.dataset.default_context.identifier:
+
+tests/test_compound_evidence.py: 66 warnings
+tests/test_enrichment.py: 485 warnings
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/serializers/nquads.py:41: DeprecationWarning: Dataset.contexts is deprecated, use Dataset.graphs instead.
+    for context in self.store.contexts():
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:173: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    IRIREF.setParseAction(lambda x: rdflib.URIRef(x[0]))
+
+tests/test_compound_evidence.py: 206 warnings
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parserutils.py:129: PyparsingDeprecationWarning: 'setName' deprecated - use 'set_name'
+    self.setName(name)
+
+tests/test_compound_evidence.py: 206 warnings
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parserutils.py:130: PyparsingDeprecationWarning: 'addParseAction' deprecated - use 'add_parse_action'
+    self.addParseAction(self.postParse2)
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:212: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    PNAME_NS = Optional(Param("prefix", PN_PREFIX)) + Suppress(":").leaveWhitespace()
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:245: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    PNAME_LN = PNAME_NS + Param("localname", PN_LOCAL.leaveWhitespace())
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:252: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    BLANK_NODE_LABEL.setParseAction(lambda x: rdflib.BNode(x[0][2:]))
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:273: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    INTEGER.setParseAction(lambda x: rdflib.Literal(x[0], datatype=rdflib.XSD.integer))
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:281: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    DECIMAL.setParseAction(lambda x: rdflib.Literal(x[0], datatype=rdflib.XSD.decimal))
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:286: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    DOUBLE.setParseAction(lambda x: rdflib.Literal(x[0], datatype=rdflib.XSD.double))
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:290: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    INTEGER_POSITIVE = Suppress("+") + INTEGER.copy().leaveWhitespace()
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:291: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    INTEGER_POSITIVE.setParseAction(
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:296: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    DECIMAL_POSITIVE = Suppress("+") + DECIMAL.copy().leaveWhitespace()
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:299: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    DOUBLE_POSITIVE = Suppress("+") + DOUBLE.copy().leaveWhitespace()
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:302: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    INTEGER_NEGATIVE = Suppress("-") + INTEGER.copy().leaveWhitespace()
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:303: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    INTEGER_NEGATIVE.setParseAction(lambda x: neg(x[0]))
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:306: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    DECIMAL_NEGATIVE = Suppress("-") + DECIMAL.copy().leaveWhitespace()
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:307: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    DECIMAL_NEGATIVE.setParseAction(lambda x: neg(x[0]))
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:310: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    DOUBLE_NEGATIVE = Suppress("-") + DOUBLE.copy().leaveWhitespace()
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:311: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    DOUBLE_NEGATIVE.setParseAction(lambda x: neg(x[0]))
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:321: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    STRING_LITERAL_LONG1.setParseAction(
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:329: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    STRING_LITERAL_LONG2.setParseAction(
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:338: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    STRING_LITERAL1.setParseAction(
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:347: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    STRING_LITERAL2.setParseAction(
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:353: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    NIL.setParseAction(lambda x: rdflib.RDF.nil)
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:360: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    ANON.setParseAction(lambda x: rdflib.BNode())
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:364: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    A.setParseAction(lambda x: rdflib.RDF.type)
+
+tests/test_compound_evidence.py: 126 warnings
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parserutils.py:239: PyparsingDeprecationWarning: 'setName' deprecated - use 'set_name'
+    self.setName(name)
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:380: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    Var.setParseAction(lambda x: rdflib.term.Variable(x[0]))
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:397: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    Param("lang", LANGTAG.leaveWhitespace())
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:398: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    | Literal("^^").leaveWhitespace() + Param("datatype", iri).leaveWhitespace()
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:417: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    BooleanLiteral = Keyword("true").setParseAction(lambda: rdflib.Literal(True)) | Keyword(
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:419: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    ).setParseAction(lambda: rdflib.Literal(False))
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:505: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    Param("part", PathPrimary) + Optional(Param("mod", PathMod.leaveWhitespace())),
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:545: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    Collection.setParseAction(expandCollection)
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:549: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    CollectionPath.setParseAction(expandCollection)
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:576: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    BlankNodePropertyList.setParseAction(expandBNodeTriples)
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:582: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    BlankNodePropertyListPath.setParseAction(expandBNodeTriples)
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:592: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    TriplesSameSubject.setParseAction(expandTriples)
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:632: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    TriplesSameSubjectPath.setParseAction(expandTriples)
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:657: PyparsingDeprecationWarning: 'delimitedList' deprecated - use 'DelimitedList'
+    ExpressionList = NIL | Group(Suppress("(") + delimitedList(Expression) + Suppress(")"))
+
+tests/test_compound_evidence.py::test_structured_components_keep_all_pieces_and_tag_the_complete_region
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:1018: PyparsingDeprecationWarning: 'delimitedList' deprecated - use 'DelimitedList'
+    + delimitedList(ParamList("expr", Expression))
+
+tests/test_compound_evidence.py: 83 warnings
+tests/test_review_store.py: 230 warnings
+tests/test_enrichment.py: 735 warnings
+tests/test_terms.py: 77 warnings
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:1553: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+    return Query.parseString(q, parseAll=True)
+
+tests/test_compound_evidence.py: 83 warnings
+tests/test_review_store.py: 230 warnings
+tests/test_enrichment.py: 735 warnings
+tests/test_terms.py: 77 warnings
+  /Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/pyparsing/util.py:466: PyparsingDeprecationWarning: 'parseAll' argument is deprecated, use 'parse_all'
+    return fn(self, *args, **kwargs)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED ../../Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_compound_evidence.py::test_complete_statement_keeps_coordinates_core_and_discovery_source_support
+FAILED ../../Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_compound_evidence.py::test_review_refuses_incomplete_or_changed_compound_support[missing]
+FAILED ../../Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_compound_evidence.py::test_review_refuses_incomplete_or_changed_compound_support[duplicate]
+FAILED ../../Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_compound_evidence.py::test_review_refuses_incomplete_or_changed_compound_support[moved]
+FAILED ../../Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_compound_evidence.py::test_review_refuses_incomplete_or_changed_compound_support[fabricated]
+FAILED ../../Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_compound_evidence.py::test_review_refuses_incomplete_or_changed_compound_support[identity]
+FAILED ../../Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_compound_evidence.py::test_review_refuses_incomplete_or_changed_compound_support[wrong-main-position]
+FAILED ../../Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_compound_evidence.py::test_nonwhitespace_insertion_cannot_become_statement_evidence[not ]
+FAILED ../../Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_compound_evidence.py::test_nonwhitespace_insertion_cannot_become_statement_evidence[\u200b]
+FAILED ../../Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_compound_evidence.py::test_nonwhitespace_insertion_cannot_become_statement_evidence[editorial ]
+FAILED ../../Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_compound_evidence.py::test_compound_definition_retains_all_name_and_definition_evidence
+FAILED ../../Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_compound_evidence.py::test_qualification_and_fallback_context_retain_every_main_piece
+12 failed, 93 passed, 5088 warnings in 9.07s

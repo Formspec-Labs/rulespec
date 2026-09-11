@@ -1,0 +1,23 @@
+............F........................................................... [ 31%]
+........................................................................ [ 63%]
+........................................................................ [ 95%]
+...........                                                              [100%]
+=================================== FAILURES ===================================
+____ test_unrelated_division_is_not_borrowed[\n\nDivision B is unrelated.] _____
+
+neighbor = '\n\nDivision B is unrelated.'
+
+    @pytest.mark.parametrize('neighbor', [' A different provision names division B.', '; division B of another act.', '\n\nDivision B is unrelated.'])
+    def test_unrelated_division_is_not_borrowed(neighbor):
+        text = 'Clean Air Act section 111.' + neighbor
+        old, = before(text, act_names=NAMES)
+        item, = occurrences(text)
+        # Deliberate legacy divergence: a 40-character window borrowed this label.
+>       assert old.division == 'B'
+E       AssertionError: assert None == 'B'
+E        +  where None = ActRelativeCitation(act_name='Clean Air Act', act_key='clean air act', section='111', division=None).division
+
+tests/test_act_occurrences.py:61: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_act_occurrences.py::test_unrelated_division_is_not_borrowed[\n\nDivision B is unrelated.]
+1 failed, 226 passed in 14.22s

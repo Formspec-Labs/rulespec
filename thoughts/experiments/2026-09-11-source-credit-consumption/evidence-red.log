@@ -1,0 +1,193 @@
+FFFFFFFF                                                                 [100%]
+=================================== FAILURES ===================================
+_ test_source_targets_survive_without_changing_the_existing_verdict[rows0-classifications0] _
+
+rows = [], classifications = ()
+
+    @pytest.mark.parametrize('rows, classifications', [
+        ([], ()),
+        ([('26','1')], (Classification('26','1',None,1),)),
+        ([('26','2')], (Classification('26','1',None,1),)),
+        ([('26','2'),('26','3')], ()),
+        ([('26','2'),('26','3')], (Classification('26','1',None,1),)),
+    ])
+    def test_source_targets_survive_without_changing_the_existing_verdict(rows, classifications):
+        citation = ActRelativeCitation('An Act','an act','101','A')
+        index = ActIndex(table3_key_by_name={'an act':'99-514'}, classifications={'99-514':{'101':classifications}})
+        credits = SourceCreditIndex.from_rows([('99-514','A','101',title,section,None,None) for title,section in rows])
+        before = original(citation,index=index,source_credits=credits)
+        after = resolve_act_relative_citation(citation,index=index,source_credits=credits)
+        old_fields = asdict(before); new_fields = asdict(after)
+        for key in ('source_credit_targets','conflicting_targets'):
+            old_fields.pop(key, None); new_fields.pop(key, None)
+        assert old_fields == new_fields
+        if len(rows) > 1:
+            assert [(r.usc_title,r.usc_section) for r in after.source_credit_targets] == rows
+        else:
+>           assert after.source_credit_targets == ()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'ActResolution' object has no attribute 'source_credit_targets'. Did you mean: 'source_credit_status'?
+
+tests/test_act_resolution_evidence.py:32: AttributeError
+_ test_source_targets_survive_without_changing_the_existing_verdict[rows1-classifications1] _
+
+rows = [('26', '1')]
+classifications = (Classification(usc_title='26', usc_section='1', status=None, statutes_at_large_page=1),)
+
+    @pytest.mark.parametrize('rows, classifications', [
+        ([], ()),
+        ([('26','1')], (Classification('26','1',None,1),)),
+        ([('26','2')], (Classification('26','1',None,1),)),
+        ([('26','2'),('26','3')], ()),
+        ([('26','2'),('26','3')], (Classification('26','1',None,1),)),
+    ])
+    def test_source_targets_survive_without_changing_the_existing_verdict(rows, classifications):
+        citation = ActRelativeCitation('An Act','an act','101','A')
+        index = ActIndex(table3_key_by_name={'an act':'99-514'}, classifications={'99-514':{'101':classifications}})
+        credits = SourceCreditIndex.from_rows([('99-514','A','101',title,section,None,None) for title,section in rows])
+        before = original(citation,index=index,source_credits=credits)
+        after = resolve_act_relative_citation(citation,index=index,source_credits=credits)
+        old_fields = asdict(before); new_fields = asdict(after)
+        for key in ('source_credit_targets','conflicting_targets'):
+            old_fields.pop(key, None); new_fields.pop(key, None)
+        assert old_fields == new_fields
+        if len(rows) > 1:
+            assert [(r.usc_title,r.usc_section) for r in after.source_credit_targets] == rows
+        else:
+>           assert after.source_credit_targets == ()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'ActResolution' object has no attribute 'source_credit_targets'. Did you mean: 'source_credit_status'?
+
+tests/test_act_resolution_evidence.py:32: AttributeError
+_ test_source_targets_survive_without_changing_the_existing_verdict[rows2-classifications2] _
+
+rows = [('26', '2')]
+classifications = (Classification(usc_title='26', usc_section='1', status=None, statutes_at_large_page=1),)
+
+    @pytest.mark.parametrize('rows, classifications', [
+        ([], ()),
+        ([('26','1')], (Classification('26','1',None,1),)),
+        ([('26','2')], (Classification('26','1',None,1),)),
+        ([('26','2'),('26','3')], ()),
+        ([('26','2'),('26','3')], (Classification('26','1',None,1),)),
+    ])
+    def test_source_targets_survive_without_changing_the_existing_verdict(rows, classifications):
+        citation = ActRelativeCitation('An Act','an act','101','A')
+        index = ActIndex(table3_key_by_name={'an act':'99-514'}, classifications={'99-514':{'101':classifications}})
+        credits = SourceCreditIndex.from_rows([('99-514','A','101',title,section,None,None) for title,section in rows])
+        before = original(citation,index=index,source_credits=credits)
+        after = resolve_act_relative_citation(citation,index=index,source_credits=credits)
+        old_fields = asdict(before); new_fields = asdict(after)
+        for key in ('source_credit_targets','conflicting_targets'):
+            old_fields.pop(key, None); new_fields.pop(key, None)
+        assert old_fields == new_fields
+        if len(rows) > 1:
+            assert [(r.usc_title,r.usc_section) for r in after.source_credit_targets] == rows
+        else:
+>           assert after.source_credit_targets == ()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'ActResolution' object has no attribute 'source_credit_targets'. Did you mean: 'source_credit_status'?
+
+tests/test_act_resolution_evidence.py:32: AttributeError
+_ test_source_targets_survive_without_changing_the_existing_verdict[rows3-classifications3] _
+
+rows = [('26', '2'), ('26', '3')], classifications = ()
+
+    @pytest.mark.parametrize('rows, classifications', [
+        ([], ()),
+        ([('26','1')], (Classification('26','1',None,1),)),
+        ([('26','2')], (Classification('26','1',None,1),)),
+        ([('26','2'),('26','3')], ()),
+        ([('26','2'),('26','3')], (Classification('26','1',None,1),)),
+    ])
+    def test_source_targets_survive_without_changing_the_existing_verdict(rows, classifications):
+        citation = ActRelativeCitation('An Act','an act','101','A')
+        index = ActIndex(table3_key_by_name={'an act':'99-514'}, classifications={'99-514':{'101':classifications}})
+        credits = SourceCreditIndex.from_rows([('99-514','A','101',title,section,None,None) for title,section in rows])
+        before = original(citation,index=index,source_credits=credits)
+        after = resolve_act_relative_citation(citation,index=index,source_credits=credits)
+        old_fields = asdict(before); new_fields = asdict(after)
+        for key in ('source_credit_targets','conflicting_targets'):
+            old_fields.pop(key, None); new_fields.pop(key, None)
+        assert old_fields == new_fields
+        if len(rows) > 1:
+>           assert [(r.usc_title,r.usc_section) for r in after.source_credit_targets] == rows
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'ActResolution' object has no attribute 'source_credit_targets'. Did you mean: 'source_credit_status'?
+
+tests/test_act_resolution_evidence.py:30: AttributeError
+_ test_source_targets_survive_without_changing_the_existing_verdict[rows4-classifications4] _
+
+rows = [('26', '2'), ('26', '3')]
+classifications = (Classification(usc_title='26', usc_section='1', status=None, statutes_at_large_page=1),)
+
+    @pytest.mark.parametrize('rows, classifications', [
+        ([], ()),
+        ([('26','1')], (Classification('26','1',None,1),)),
+        ([('26','2')], (Classification('26','1',None,1),)),
+        ([('26','2'),('26','3')], ()),
+        ([('26','2'),('26','3')], (Classification('26','1',None,1),)),
+    ])
+    def test_source_targets_survive_without_changing_the_existing_verdict(rows, classifications):
+        citation = ActRelativeCitation('An Act','an act','101','A')
+        index = ActIndex(table3_key_by_name={'an act':'99-514'}, classifications={'99-514':{'101':classifications}})
+        credits = SourceCreditIndex.from_rows([('99-514','A','101',title,section,None,None) for title,section in rows])
+        before = original(citation,index=index,source_credits=credits)
+        after = resolve_act_relative_citation(citation,index=index,source_credits=credits)
+        old_fields = asdict(before); new_fields = asdict(after)
+        for key in ('source_credit_targets','conflicting_targets'):
+            old_fields.pop(key, None); new_fields.pop(key, None)
+        assert old_fields == new_fields
+        if len(rows) > 1:
+>           assert [(r.usc_title,r.usc_section) for r in after.source_credit_targets] == rows
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'ActResolution' object has no attribute 'source_credit_targets'. Did you mean: 'source_credit_status'?
+
+tests/test_act_resolution_evidence.py:30: AttributeError
+_ test_conflict_evidence_requires_distinct_targets_from_the_named_sources[targets0] _
+
+targets = {'table3': 'urn:x', 'source_credits': 'urn:x'}
+
+    @pytest.mark.parametrize('targets', [
+        {'table3':'urn:x','source_credits':'urn:x'}, {'table3':'urn:x','unknown':'urn:y'},
+    ])
+    def test_conflict_evidence_requires_distinct_targets_from_the_named_sources(targets):
+        with pytest.raises(ValueError,match='conflicting targets'):
+>           ActResolution(ActRelativeCitation('An Act','an act','101'),
+                          unresolved_reason='sources_disagree', conflicting_targets=targets)
+E           TypeError: ActResolution.__init__() got an unexpected keyword argument 'conflicting_targets'
+
+tests/test_act_resolution_evidence.py:45: TypeError
+_ test_conflict_evidence_requires_distinct_targets_from_the_named_sources[targets1] _
+
+targets = {'table3': 'urn:x', 'unknown': 'urn:y'}
+
+    @pytest.mark.parametrize('targets', [
+        {'table3':'urn:x','source_credits':'urn:x'}, {'table3':'urn:x','unknown':'urn:y'},
+    ])
+    def test_conflict_evidence_requires_distinct_targets_from_the_named_sources(targets):
+        with pytest.raises(ValueError,match='conflicting targets'):
+>           ActResolution(ActRelativeCitation('An Act','an act','101'),
+                          unresolved_reason='sources_disagree', conflicting_targets=targets)
+E           TypeError: ActResolution.__init__() got an unexpected keyword argument 'conflicting_targets'
+
+tests/test_act_resolution_evidence.py:45: TypeError
+__________ test_conflict_evidence_cannot_accompany_an_accepted_answer __________
+
+    def test_conflict_evidence_cannot_accompany_an_accepted_answer():
+        with pytest.raises(ValueError,match='conflicting targets'):
+>           ActResolution(ActRelativeCitation('An Act','an act','101'), iri='urn:x',answered_by='table3',
+                          conflicting_targets={'table3':'urn:x','source_credits':'urn:y'})
+E           TypeError: ActResolution.__init__() got an unexpected keyword argument 'conflicting_targets'
+
+tests/test_act_resolution_evidence.py:51: TypeError
+=========================== short test summary info ============================
+FAILED tests/test_act_resolution_evidence.py::test_source_targets_survive_without_changing_the_existing_verdict[rows0-classifications0]
+FAILED tests/test_act_resolution_evidence.py::test_source_targets_survive_without_changing_the_existing_verdict[rows1-classifications1]
+FAILED tests/test_act_resolution_evidence.py::test_source_targets_survive_without_changing_the_existing_verdict[rows2-classifications2]
+FAILED tests/test_act_resolution_evidence.py::test_source_targets_survive_without_changing_the_existing_verdict[rows3-classifications3]
+FAILED tests/test_act_resolution_evidence.py::test_source_targets_survive_without_changing_the_existing_verdict[rows4-classifications4]
+FAILED tests/test_act_resolution_evidence.py::test_conflict_evidence_requires_distinct_targets_from_the_named_sources[targets0]
+FAILED tests/test_act_resolution_evidence.py::test_conflict_evidence_requires_distinct_targets_from_the_named_sources[targets1]
+FAILED tests/test_act_resolution_evidence.py::test_conflict_evidence_cannot_accompany_an_accepted_answer
+8 failed in 0.07s

@@ -1,0 +1,80 @@
+....F.............................F.......                               [100%]
+=================================== FAILURES ===================================
+__ test_the_enacting_years_widening_is_11952_variants_and_moves_nothing_held ___
+
+    @pytest.mark.slow
+    def test_the_enacting_years_widening_is_11952_variants_and_moves_nothing_held() -> None:
+        """Measured against the pinned index and the pinned public-law roster.
+    
+        3,999 of the tool's listed names carry no year and are dated by a source --
+        the session-law Table III key states its own year, the roster dates a
+        public law -- and each takes the three spellings the tool alternates
+        between, 11,952 keys. It is added AFTER the whole closure and never over
+        it: nothing already spelled moves, nothing is lost.
+        """
+    
+        from pathlib import Path as _Path
+    
+        from refspec.registry.act_resolution import ActIndex
+        from refspec.registry.citation_grammar import normalize_popular_name
+        from refspec.registry.unified_agenda_parquet import (
+            _act_enactment_years,
+            _act_name_resolver,
+            _act_name_spelling_closure,
+            _pl_roster,
+            resolvable_act_names,
+        )
+    
+        root = _Path(__file__).resolve().parents[1]
+        index = ActIndex.from_artifact(root / "output/usc-act-index-2026-08-22")
+        names = resolvable_act_names(root / "output/usc-act-index-2026-08-22")
+        years = _act_enactment_years(index, _pl_roster())
+>       assert len(years) == 3_999
+E       AssertionError: assert 3988 == 3999
+E        +  where 3988 = len({'1921 silver dollar coin anniversary act': '2021', '1950 amendment to public law 38': '1950', '1951 amendments to the...y training and service act': '1951', '1955 amendments to the universal military training and service act': '1955', ...})
+
+tests/test_unified_agenda_parquet.py:1015: AssertionError
+______________ test_the_receipt_census_covers_the_act_resolution _______________
+
+con = <_duckdb.DuckDBPyConnection object at 0x10d017db0>
+
+    @pytest.mark.slow
+    def test_the_receipt_census_covers_the_act_resolution(con) -> None:
+        """A declared count that nothing recomputes is a claim, not a pin.
+    
+        Every key is recomputed from the table it describes. Measured on the
+        scratch build of builder sha256:4673ba50; awaits the rebuild.
+        """
+    
+        import json
+    
+        from refspec.registry.unified_agenda_parquet import (
+            ACT_CARRY_RULE,
+            ACT_RESOLUTION_EVIDENCE,
+            ACT_RESOLUTION_REASONS,
+            SIBLING_ACT_RULE,
+        )
+    
+        _awaits_the_rebuild(con, "act_resolution_evidence", _ACT_RESOLUTION_SCRATCH_BUILDER)
+        declared = json.loads((ARTIFACT / "receipt.json").read_text(encoding="utf-8"))["contract"][
+            "declaredClassifications"
+        ]
+        L = "'{d}/unified_agenda_legal_authorities.parquet'"
+        A = f"{L} where authority_type = 'act_relative'"
+        assert declared["actRelativeRowsByStatus"] == dict(
+            _rows(con, f"select parse_status, count(*) from {A} group by 1 order by 1")
+        )
+        # Every declared reason and every declared evidence, listed even at zero: a
+        # refusal that stops being reported is what these columns exist to show.
+>       assert set(declared["actRelativeRowsByResolutionReason"]) == set(ACT_RESOLUTION_REASONS)
+E       AssertionError: assert {'act_alias_t...biguous', ...} == {'act_alias_t...n_index', ...}
+E         
+E         Extra items in the right set:
+E         'act_name_ambiguous'
+E         Use -v to get more diff
+
+tests/test_unified_agenda_parquet.py:6343: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_unified_agenda_parquet.py::test_the_enacting_years_widening_is_11952_variants_and_moves_nothing_held
+FAILED tests/test_unified_agenda_parquet.py::test_the_receipt_census_covers_the_act_resolution
+2 failed, 40 passed, 119 deselected in 55.24s

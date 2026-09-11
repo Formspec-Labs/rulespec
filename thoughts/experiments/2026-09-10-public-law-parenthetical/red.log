@@ -1,0 +1,185 @@
+FFFFFF..........                                                         [100%]
+=================================== FAILURES ===================================
+______________ test_public_law_parenthetical_in_published_source _______________
+
+    def test_public_law_parenthetical_in_published_source() -> None:
+        fixture = json.loads(
+            (Path(__file__).parent / "fixtures/public-law-parenthetical.json").read_text()
+        )
+        text = fixture["raw"]
+        expected = fixture["expected_additions"][0]
+>       candidate = _only(text, IdentifierKind.PUBLIC_LAW)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/search/test_identifiers.py:836: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = 'The United States Senate passed a joint resolution, S.J. Res. 31, \non May 1, 2025, disapproving the 2024 Rule under ...the joint \nresolution and by operation of the CRA, the 2024 Rule has no legal \nforce or effect.\n\nIII. Final Action'
+kind = <IdentifierKind.PUBLIC_LAW: 'public_law'>
+
+    def _only(text: str, kind: IdentifierKind):
+        matches = [candidate for candidate in detect_identifiers(text) if candidate.kind == kind]
+>       assert len(matches) == 1, f"expected exactly one {kind} in {text!r}, got {detect_identifiers(text)}"
+E       AssertionError: expected exactly one public_law in 'The United States Senate passed a joint resolution, S.J. Res. 31, \non May 1, 2025, disapproving the 2024 Rule under the CRA, 5 U.S.C. 801 \net seq. The United States House of Representatives passed S.J. Res. 31 \non May 22, 2025, and President Donald J. Trump signed it into law as \nPublic Law (Pub. L.) 119-20 on June 20, 2025. Under the joint \nresolution and by operation of the CRA, the 2024 Rule has no legal \nforce or effect.\n\nIII. Final Action', got [IdentifierCandidate(kind=<IdentifierKind.USC: 'usc'>, value='5 U.S.C. 801', span=(125, 137), components={'title': '5', 'section': '801'})]
+E       assert 0 == 1
+E        +  where 0 = len([])
+
+tests/search/test_identifiers.py:34: AssertionError
+_ test_public_law_parenthetical_preserves_original_span[Public Law (Pub. L.) 119-20] _
+
+quote = 'Public Law (Pub. L.) 119-20'
+
+    @pytest.mark.parametrize("quote", [
+        "Public Law (Pub. L.) 119-20",
+        "Public Law (Pub. L.) No. 119-20",
+        "Public Law\n(Pub. L.)\n119-20",
+        "Public Law (Pub.\nL.) 119-20",
+        "Public Law (Pub. L.) 119–20",
+    ])
+    def test_public_law_parenthetical_preserves_original_span(quote: str) -> None:
+        text = f"🧭 Under {quote}, action follows."
+>       candidate = _only(text, IdentifierKind.PUBLIC_LAW)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/search/test_identifiers.py:851: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = '🧭 Under Public Law (Pub. L.) 119-20, action follows.'
+kind = <IdentifierKind.PUBLIC_LAW: 'public_law'>
+
+    def _only(text: str, kind: IdentifierKind):
+        matches = [candidate for candidate in detect_identifiers(text) if candidate.kind == kind]
+>       assert len(matches) == 1, f"expected exactly one {kind} in {text!r}, got {detect_identifiers(text)}"
+E       AssertionError: expected exactly one public_law in '🧭 Under Public Law (Pub. L.) 119-20, action follows.', got []
+E       assert 0 == 1
+E        +  where 0 = len([])
+
+tests/search/test_identifiers.py:34: AssertionError
+_ test_public_law_parenthetical_preserves_original_span[Public Law (Pub. L.) No. 119-20] _
+
+quote = 'Public Law (Pub. L.) No. 119-20'
+
+    @pytest.mark.parametrize("quote", [
+        "Public Law (Pub. L.) 119-20",
+        "Public Law (Pub. L.) No. 119-20",
+        "Public Law\n(Pub. L.)\n119-20",
+        "Public Law (Pub.\nL.) 119-20",
+        "Public Law (Pub. L.) 119–20",
+    ])
+    def test_public_law_parenthetical_preserves_original_span(quote: str) -> None:
+        text = f"🧭 Under {quote}, action follows."
+>       candidate = _only(text, IdentifierKind.PUBLIC_LAW)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/search/test_identifiers.py:851: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = '🧭 Under Public Law (Pub. L.) No. 119-20, action follows.'
+kind = <IdentifierKind.PUBLIC_LAW: 'public_law'>
+
+    def _only(text: str, kind: IdentifierKind):
+        matches = [candidate for candidate in detect_identifiers(text) if candidate.kind == kind]
+>       assert len(matches) == 1, f"expected exactly one {kind} in {text!r}, got {detect_identifiers(text)}"
+E       AssertionError: expected exactly one public_law in '🧭 Under Public Law (Pub. L.) No. 119-20, action follows.', got []
+E       assert 0 == 1
+E        +  where 0 = len([])
+
+tests/search/test_identifiers.py:34: AssertionError
+_ test_public_law_parenthetical_preserves_original_span[Public Law\n(Pub. L.)\n119-20] _
+
+quote = 'Public Law\n(Pub. L.)\n119-20'
+
+    @pytest.mark.parametrize("quote", [
+        "Public Law (Pub. L.) 119-20",
+        "Public Law (Pub. L.) No. 119-20",
+        "Public Law\n(Pub. L.)\n119-20",
+        "Public Law (Pub.\nL.) 119-20",
+        "Public Law (Pub. L.) 119–20",
+    ])
+    def test_public_law_parenthetical_preserves_original_span(quote: str) -> None:
+        text = f"🧭 Under {quote}, action follows."
+>       candidate = _only(text, IdentifierKind.PUBLIC_LAW)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/search/test_identifiers.py:851: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = '🧭 Under Public Law\n(Pub. L.)\n119-20, action follows.'
+kind = <IdentifierKind.PUBLIC_LAW: 'public_law'>
+
+    def _only(text: str, kind: IdentifierKind):
+        matches = [candidate for candidate in detect_identifiers(text) if candidate.kind == kind]
+>       assert len(matches) == 1, f"expected exactly one {kind} in {text!r}, got {detect_identifiers(text)}"
+E       AssertionError: expected exactly one public_law in '🧭 Under Public Law\n(Pub. L.)\n119-20, action follows.', got []
+E       assert 0 == 1
+E        +  where 0 = len([])
+
+tests/search/test_identifiers.py:34: AssertionError
+_ test_public_law_parenthetical_preserves_original_span[Public Law (Pub.\nL.) 119-20] _
+
+quote = 'Public Law (Pub.\nL.) 119-20'
+
+    @pytest.mark.parametrize("quote", [
+        "Public Law (Pub. L.) 119-20",
+        "Public Law (Pub. L.) No. 119-20",
+        "Public Law\n(Pub. L.)\n119-20",
+        "Public Law (Pub.\nL.) 119-20",
+        "Public Law (Pub. L.) 119–20",
+    ])
+    def test_public_law_parenthetical_preserves_original_span(quote: str) -> None:
+        text = f"🧭 Under {quote}, action follows."
+>       candidate = _only(text, IdentifierKind.PUBLIC_LAW)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/search/test_identifiers.py:851: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = '🧭 Under Public Law (Pub.\nL.) 119-20, action follows.'
+kind = <IdentifierKind.PUBLIC_LAW: 'public_law'>
+
+    def _only(text: str, kind: IdentifierKind):
+        matches = [candidate for candidate in detect_identifiers(text) if candidate.kind == kind]
+>       assert len(matches) == 1, f"expected exactly one {kind} in {text!r}, got {detect_identifiers(text)}"
+E       AssertionError: expected exactly one public_law in '🧭 Under Public Law (Pub.\nL.) 119-20, action follows.', got []
+E       assert 0 == 1
+E        +  where 0 = len([])
+
+tests/search/test_identifiers.py:34: AssertionError
+_ test_public_law_parenthetical_preserves_original_span[Public Law (Pub. L.) 119\u201320] _
+
+quote = 'Public Law (Pub. L.) 119–20'
+
+    @pytest.mark.parametrize("quote", [
+        "Public Law (Pub. L.) 119-20",
+        "Public Law (Pub. L.) No. 119-20",
+        "Public Law\n(Pub. L.)\n119-20",
+        "Public Law (Pub.\nL.) 119-20",
+        "Public Law (Pub. L.) 119–20",
+    ])
+    def test_public_law_parenthetical_preserves_original_span(quote: str) -> None:
+        text = f"🧭 Under {quote}, action follows."
+>       candidate = _only(text, IdentifierKind.PUBLIC_LAW)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/search/test_identifiers.py:851: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = '🧭 Under Public Law (Pub. L.) 119–20, action follows.'
+kind = <IdentifierKind.PUBLIC_LAW: 'public_law'>
+
+    def _only(text: str, kind: IdentifierKind):
+        matches = [candidate for candidate in detect_identifiers(text) if candidate.kind == kind]
+>       assert len(matches) == 1, f"expected exactly one {kind} in {text!r}, got {detect_identifiers(text)}"
+E       AssertionError: expected exactly one public_law in '🧭 Under Public Law (Pub. L.) 119–20, action follows.', got []
+E       assert 0 == 1
+E        +  where 0 = len([])
+
+tests/search/test_identifiers.py:34: AssertionError
+=========================== short test summary info ============================
+FAILED tests/search/test_identifiers.py::test_public_law_parenthetical_in_published_source
+FAILED tests/search/test_identifiers.py::test_public_law_parenthetical_preserves_original_span[Public Law (Pub. L.) 119-20]
+FAILED tests/search/test_identifiers.py::test_public_law_parenthetical_preserves_original_span[Public Law (Pub. L.) No. 119-20]
+FAILED tests/search/test_identifiers.py::test_public_law_parenthetical_preserves_original_span[Public Law\n(Pub. L.)\n119-20]
+FAILED tests/search/test_identifiers.py::test_public_law_parenthetical_preserves_original_span[Public Law (Pub.\nL.) 119-20]
+FAILED tests/search/test_identifiers.py::test_public_law_parenthetical_preserves_original_span[Public Law (Pub. L.) 119\u201320]
+6 failed, 10 passed, 110 deselected in 0.14s

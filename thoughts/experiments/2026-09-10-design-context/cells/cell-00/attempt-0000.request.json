@@ -1,0 +1,66 @@
+{
+  "model": "gemini-3.8-flash",
+  "contents": "Answer each fixed comprehension question using ONLY the supplied material. The extracted statement may omit qualifications. Do not fill gaps with remembered law or external facts. A source passage selected for proximity, structure or evidence is context, not proof its condition governs this statement. If the supplied material does not settle a question, say unknown; if it supports conflicting readings, say ambiguous and preserve them. Briefly state the actor/action/conditions relevant to the question. Cite supplied source IDs or statement. Do not invent absent requirements. Return the requested JSON.\nMaterial: {\"source_context\":[{\"end\":37,\"id\":\"S000\",\"reason\":\"focus-or-structural-adjacent\",\"start\":0,\"text\":\"(a) \\n            Venting prohibition.\"},{\"end\":102,\"id\":\"S001\",\"reason\":\"focus-or-structural-adjacent\",\"start\":51,\"text\":\"(1) No person maintaining, servicing, repairing, or\"},{\"end\":470,\"id\":\"S002\",\"reason\":\"existing-evidence\",\"roles\":[\"summary\"],\"start\":51,\"text\":\"(1) No person maintaining, servicing, repairing, or \\n            \\n            disposing of an appliance or industrial process refrigeration may knowingly vent or otherwise release into the environment any refrigerant from such appliances. Notwithstanding any other provision of this subpart, the following substitutes in the following end-uses are exempt from this prohibition and from the requirements of this subpart:\"},{\"end\":470,\"id\":\"S003\",\"reason\":\"focus-or-structural-adjacent\",\"start\":129,\"text\":\"disposing of an appliance or industrial process refrigeration may knowingly vent or otherwise release into the environment any refrigerant from such appliances. Notwithstanding any other provision of this subpart, the following substitutes in the following end-uses are exempt from this prohibition and from the requirements of this subpart:\"},{\"end\":510,\"id\":\"S004\",\"reason\":\"focus-or-structural-adjacent\",\"start\":472,\"text\":\"(i) Carbon dioxide in any application;\"}],\"statement\":\"No person maintaining, servicing, repairing, or disposing of an appliance or industrial process refrigeration may knowingly vent or otherwise release into the environment any refrigerant from such appliances, subject to the exemption for specific substitutes in specific end-uses.\"}\nQuestions: [{\"id\":\"q1\",\"question\":\"Does the supplied material establish that every knowing release during maintenance violates this venting prohibition, including a de-minimis release during good-faith recovery that satisfies the applicable compliance route?\"},{\"id\":\"q2\",\"question\":\"Is good faith alone sufficient to establish that a non-exempt refrigerant release qualifies for the de-minimis exemption?\"},{\"id\":\"q3\",\"question\":\"Does the de-minimis venting exemption itself waive the independent servicing practices and certified-equipment duties?\"},{\"id\":\"q4\",\"question\":\"Who does the default venting prohibition regulate, and what conduct does it prohibit?\"}]",
+  "config": {
+    "temperature": 0,
+    "max_output_tokens": 32768,
+    "response_mime_type": "application/json",
+    "candidate_count": 1,
+    "response_json_schema": {
+      "type": "object",
+      "properties": {
+        "answers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "question_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "conclusion": {
+                "type": "string",
+                "enum": [
+                  "yes",
+                  "no",
+                  "unknown",
+                  "ambiguous"
+                ]
+              },
+              "answer": {
+                "type": "string",
+                "minLength": 1
+              },
+              "support_refs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "remaining_uncertainty": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "required": [
+              "question_id",
+              "conclusion",
+              "answer",
+              "support_refs",
+              "remaining_uncertainty"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "answers"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

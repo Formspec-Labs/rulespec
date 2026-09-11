@@ -1,0 +1,2185 @@
+{
+  "@context": {
+    "rkaf": "https://rulespec.org/ns/v1#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "oa": "http://www.w3.org/ns/oa#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "cito": "http://purl.org/spar/cito/",
+    "wos": "https://w3id.org/wos/ns/v1#",
+    "formspec": "https://w3id.org/formspec/ns/v1#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "eli": "http://data.europa.eu/eli/ontology#",
+    "aknt": "http://docs.oasis-open.org/legaldocml/ns/akn/3.0/",
+    "uslm": "https://uslm.gov/2.1.0/",
+    "lrml": "http://docs.oasis-open.org/legalruleml/ns/v1.0/",
+    "rrmv": "http://data.europa.eu/m8g/rrmv/",
+    "eco": "http://purl.obolibrary.org/obo/ECO_",
+    "sepio": "http://purl.obolibrary.org/obo/SEPIO_",
+    "dpv": "https://w3id.org/dpv#",
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "rkaf:Artifact": {
+      "@type": "@id"
+    },
+    "rkaf:hasArtifactIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:artifactIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasRegulatoryIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:regulatoryIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:publishedInProceeding": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:publishedInDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:hasFormat": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:format": {
+      "@type": "xsd:string"
+    },
+    "dcterms:isFormatOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:isVersionOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "prov:wasRevisionOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasContentDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:versionLineageEvidence": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:SourceFragment": {
+      "@type": "@id"
+    },
+    "oa:hasSource": {
+      "@type": "@id"
+    },
+    "oa:hasSelector": {
+      "@type": "@id"
+    },
+    "oa:TextQuoteSelector": {
+      "@type": "@id"
+    },
+    "oa:TextPositionSelector": {
+      "@type": "@id"
+    },
+    "oa:exact": {
+      "@type": "xsd:string"
+    },
+    "oa:prefix": {
+      "@type": "xsd:string"
+    },
+    "oa:suffix": {
+      "@type": "xsd:string"
+    },
+    "oa:start": {
+      "@type": "xsd:integer"
+    },
+    "oa:end": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:selectorKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:coordinateSystem": {
+      "@type": "@vocab"
+    },
+    "rkaf:sourceArtifactDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:fragmentContentDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:EvidenceBinding": {
+      "@type": "@id"
+    },
+    "rkaf:bindsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:bindsSourceFragment": {
+      "@type": "@id"
+    },
+    "rkaf:noEvidenceReason": {
+      "@type": "@id"
+    },
+    "rkaf:Warrant": {
+      "@type": "@id"
+    },
+    "rkaf:hasWarrant": {
+      "@type": "@id"
+    },
+    "rkaf:warrantKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:warrantFamily": {
+      "@type": "@vocab"
+    },
+    "rkaf:defeasible": {
+      "@type": "xsd:boolean"
+    },
+    "rkaf:ConfidenceRecord": {
+      "@type": "@id"
+    },
+    "rkaf:hasConfidence": {
+      "@type": "@id"
+    },
+    "rkaf:confidenceMethod": {
+      "@type": "@vocab"
+    },
+    "rkaf:calibrationStatus": {
+      "@type": "@vocab"
+    },
+    "rkaf:confidenceBasis": {
+      "@type": "@id"
+    },
+    "rkaf:evaluatedAgainst": {
+      "@type": "@id"
+    },
+    "rkaf:generatedBy": {
+      "@type": "@id"
+    },
+    "rkaf:score": {
+      "@type": "xsd:float"
+    },
+    "rkaf:scoreCategorical": {
+      "@type": "@vocab"
+    },
+    "rkaf:AccessScope": {
+      "@type": "@id"
+    },
+    "rkaf:hasAccessScope": {
+      "@type": "@id"
+    },
+    "rkaf:accessScopeKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:regulatoryClass": {
+      "@type": "@vocab"
+    },
+    "rkaf:embargoUntil": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:permittedRole": {
+      "@type": "@id"
+    },
+    "rkaf:AILineage": {
+      "@type": "@id"
+    },
+    "rkaf:hasAILineage": {
+      "@type": "@id"
+    },
+    "rkaf:modelId": {
+      "@type": "xsd:string"
+    },
+    "rkaf:modelVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:promptTemplateRef": {
+      "@type": "@id"
+    },
+    "rkaf:temperature": {
+      "@type": "xsd:float"
+    },
+    "rkaf:seed": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:inputContextHash": {
+      "@type": "xsd:string"
+    },
+    "rkaf:humanApprover": {
+      "@type": "@id"
+    },
+    "rkaf:humanRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:MappingState": {
+      "@type": "@id"
+    },
+    "rkaf:mappingState": {
+      "@type": "@vocab"
+    },
+    "rkaf:RetentionPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:hasRetentionPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:retentionDurationDays": {
+      "@type": "xsd:int"
+    },
+    "rkaf:retentionTrigger": {
+      "@type": "@vocab"
+    },
+    "rkaf:retentionPostExpiry": {
+      "@type": "@vocab"
+    },
+    "rkaf:Workspace": {
+      "@type": "@id"
+    },
+    "rkaf:scopedToWorkspace": {
+      "@type": "@id"
+    },
+    "rkaf:workspaceId": {
+      "@type": "xsd:string"
+    },
+    "rkaf:workspaceTrustList": {
+      "@type": "@id"
+    },
+    "rkaf:projectsTo": {
+      "@type": "@id"
+    },
+    "rkaf:llmHint": {
+      "@type": "@id"
+    },
+    "rkaf:Authority": {
+      "@type": "@id"
+    },
+    "rkaf:Attestation": {
+      "@type": "@id"
+    },
+    "rkaf:LocalAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:ApplicabilityScope": {
+      "@type": "@id"
+    },
+    "rkaf:EffectivePeriod": {
+      "@type": "@id"
+    },
+    "rkaf:LifecycleEvent": {
+      "@type": "@id"
+    },
+    "rkaf:Proceeding": {
+      "@type": "@id"
+    },
+    "rkaf:RegulatoryAgendaItem": {
+      "@type": "@id"
+    },
+    "rkaf:RegulatoryAgendaObservation": {
+      "@type": "@id"
+    },
+    "rkaf:AgendaProceedingRelationship": {
+      "@type": "@id"
+    },
+    "dcat:Resource": {
+      "@type": "@id"
+    },
+    "dcat:CatalogRecord": {
+      "@type": "@id"
+    },
+    "dcat:Relationship": {
+      "@type": "@id"
+    },
+    "rkaf:CommentPeriod": {
+      "@type": "@id"
+    },
+    "rkaf:Docket": {
+      "@type": "@id"
+    },
+    "prov:Entity": {
+      "@type": "@id"
+    },
+    "rkaf:hasDocketIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:docketIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasProceedingIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:proceedingIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasAgendaItemIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:agendaItemIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaScopeStatus": {
+      "@type": "@vocab"
+    },
+    "dcat:qualifiedRelation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "foaf:primaryTopic": {
+      "@type": "@id"
+    },
+    "rkaf:agendaStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaPriority": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaAffectsCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:agendaAuthorityCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:relation": {
+      "@type": "@id"
+    },
+    "dcat:hadRole": {
+      "@type": "@vocab"
+    },
+    "rkaf:identifierRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:proceedingStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:proceedingTerminationCause": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasAuthority": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingAffects": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingAffectsCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingProduces": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasProceedingEvidenceIdentifier": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingEvidenceIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:proceedingSupersedes": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodFor": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodOpenedBy": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodStart": {
+      "@type": "xsd:date"
+    },
+    "rkaf:commentPeriodEnd": {
+      "@type": "xsd:date"
+    },
+    "rkaf:RegisteredConcept": {
+      "@type": "@id"
+    },
+    "rkaf:LocalConcept": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptMapping": {
+      "@type": "@id"
+    },
+    "rkaf:ReferenceResourceRelease": {
+      "@type": "@id"
+    },
+    "rkaf:MappingApplicabilityContext": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptResolutionResult": {
+      "@type": "@id"
+    },
+    "rkaf:BridgeValidationResult": {
+      "@type": "@id"
+    },
+    "rkaf:BridgeConsumerRegistration": {
+      "@type": "@id"
+    },
+    "rkaf:RegistryConflict": {
+      "@type": "@id"
+    },
+    "rkaf:Finding": {
+      "@type": "@id"
+    },
+    "rkaf:Justification": {
+      "@type": "@id"
+    },
+    "rkaf:hasJustification": {
+      "@type": "@id"
+    },
+    "rkaf:PointInTimeException": {
+      "@type": "@id"
+    },
+    "rkaf:evaluationAnchor": {
+      "@type": "@id"
+    },
+    "rkaf:retainsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:retainsWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:GeneratedWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:justifiedByAssertion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:consumerLifecycleState": {
+      "@type": "@id"
+    },
+    "rkaf:proposedUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:RevalidationEvent": {
+      "@type": "@id"
+    },
+    "rkaf:RevalidationClosureEvent": {
+      "@type": "@id"
+    },
+    "rkaf:revalidationFor": {
+      "@type": "@id"
+    },
+    "rkaf:triggeredBy": {
+      "@type": "@id"
+    },
+    "rkaf:closesRevalidation": {
+      "@type": "@id"
+    },
+    "rkaf:openedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:closedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:closureDecision": {
+      "@type": "@id"
+    },
+    "rkaf:successorAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:successorWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:ConsumerEffectiveDeclaration": {
+      "@type": "@id"
+    },
+    "rkaf:forAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:declaredEffective": {
+      "@type": "@vocab"
+    },
+    "rkaf:declaredScope": {
+      "@type": "@id"
+    },
+    "rkaf:declaredAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:BridgeIssueAttestationContract": {
+      "@type": "@id"
+    },
+    "rkaf:attestedIssueKinds": {
+      "@type": "@vocab"
+    },
+    "rkaf:usedAsAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:detectedIssues": {
+      "@type": "@id"
+    },
+    "rkaf:derivesAuthorityFrom": {
+      "@type": "@id"
+    },
+    "rkaf:hasApplicability": {
+      "@type": "@id"
+    },
+    "rkaf:hasEffectivePeriod": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:adoptedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:attestationScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:attestorKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:targets": {
+      "@type": "@id"
+    },
+    "rkaf:attestedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:revokedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:rationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:lifecycleEventKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:bridgeContractVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:maxAttestationStalenessDays": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:evaluationTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectivePeriodStart": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectivePeriodEnd": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:retroactiveFrom": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:sunsetAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:resolvedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:validatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:anchoredBy": {
+      "@type": "@id"
+    },
+    "rkaf:anchorType": {
+      "@type": "@id"
+    },
+    "rkaf:Assertion": {
+      "@type": "@id"
+    },
+    "rkaf:RelationshipAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:ValueAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:assertsSubject": {
+      "@type": "@id"
+    },
+    "rkaf:assertsPredicate": {
+      "@type": "@id"
+    },
+    "rkaf:assertsObject": {
+      "@type": "@id"
+    },
+    "rkaf:assertsValue": {
+      "@id": "https://rulespec.org/ns/v1#assertsValue"
+    },
+    "rkaf:assertionPolarity": {
+      "@type": "@vocab"
+    },
+    "rkaf:assertedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:hasSourceClaimant": {
+      "@type": "@id"
+    },
+    "rkaf:hasExtractionProvenance": {
+      "@type": "@id"
+    },
+    "rkaf:SourceClaimant": {
+      "@type": "@id"
+    },
+    "rkaf:claimsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:claimantAttribution": {
+      "@type": "@vocab"
+    },
+    "rkaf:claimantText": {
+      "@type": "xsd:string"
+    },
+    "rkaf:claimantIdentity": {
+      "@type": "@id"
+    },
+    "rkaf:attributedInFragment": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ExtractionActivity": {
+      "@type": "@id"
+    },
+    "rkaf:extractionMethod": {
+      "@type": "@vocab"
+    },
+    "rkaf:extractionRun": {
+      "@type": "@id"
+    },
+    "rkaf:extractedBy": {
+      "@type": "@id"
+    },
+    "rkaf:extractorVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:requestContractDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:extractionModelRef": {
+      "@type": "@id"
+    },
+    "rkaf:extractionPromptRef": {
+      "@type": "@id"
+    },
+    "rkaf:inputDigest": {
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "rkaf:extractionAttempt": {
+      "@type": "xsd:integer"
+    },
+    "prov:startedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "prov:endedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:hasSafetyLabel": {
+      "@type": "@id"
+    },
+    "rkaf:usageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:capabilityCap": {
+      "@type": "@id"
+    },
+    "rkaf:assertionOrigin": {
+      "@type": "@id"
+    },
+    "rkaf:epistemicBasis": {
+      "@type": "@vocab"
+    },
+    "rkaf:authorityKind": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionAuthorityKind": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionStatus": {
+      "@type": "@id"
+    },
+    "rkaf:result": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionStatus": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionMethod": {
+      "@type": "@id"
+    },
+    "rkaf:cacheStatus": {
+      "@type": "@id"
+    },
+    "rkaf:usageCeiling": {
+      "@type": "@id"
+    },
+    "rkaf:lifecycleEvent": {
+      "@type": "@id"
+    },
+    "rkaf:cascadeAlgorithm": {
+      "@type": "@id"
+    },
+    "rkaf:evidenceRole": {
+      "@type": "@id"
+    },
+    "rkaf:evidentiaryFunction": {
+      "@type": "@vocab"
+    },
+    "rkaf:warningCode": {
+      "@type": "@id"
+    },
+    "rkaf:errorCode": {
+      "@type": "@id"
+    },
+    "rkaf:decision": {
+      "@type": "@id"
+    },
+    "rkaf:scope": {
+      "@type": "@id"
+    },
+    "rkaf:visibility": {
+      "@type": "@id"
+    },
+    "rkaf:attestorType": {
+      "@type": "@id"
+    },
+    "rkaf:role": {
+      "@type": "@id"
+    },
+    "rkaf:transitionTo": {
+      "@type": "@id"
+    },
+    "rkaf:status": {
+      "@type": "@id"
+    },
+    "rkaf:predicate": {
+      "@type": "@id"
+    },
+    "rkaf:conceptScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:governanceModel": {
+      "@type": "@id"
+    },
+    "rkaf:revisedUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:effectiveUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:safeAutomaticMigration": {
+      "@type": "@id"
+    },
+    "rkaf:resourceKind": {
+      "@type": "@id"
+    },
+    "rkaf:officialStatus": {
+      "@type": "@id"
+    },
+    "rkaf:legalValue": {
+      "@type": "@id"
+    },
+    "rkaf:publicationStatus": {
+      "@type": "@id"
+    },
+    "rkaf:remediationAction": {
+      "@type": "@id"
+    },
+    "rkaf:requiredPredicate": {
+      "@type": "@id"
+    },
+    "rkaf:minimumUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:noRemediationReason": {
+      "@type": "@id"
+    },
+    "rkaf:authorityChainStatus": {
+      "@type": "@id"
+    },
+    "rkaf:chainTerminusKind": {
+      "@type": "@id"
+    },
+    "rkaf:fragmentType": {
+      "@type": "@id"
+    },
+    "rkaf:reviewStatus": {
+      "@type": "@id"
+    },
+    "rkaf:newWorkProductStatus": {
+      "@type": "@id"
+    },
+    "rkaf:newUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:newAssertionState": {
+      "@type": "@id"
+    },
+    "rkaf:resourceFamily": {
+      "@type": "@id"
+    },
+    "rkaf:assertedBy": {
+      "@type": "@id"
+    },
+    "rkaf:attestor": {
+      "@type": "@id"
+    },
+    "rkaf:targetAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:targetWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:targetPacket": {
+      "@type": "@id"
+    },
+    "rkaf:sourceConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:targetConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:targetMappingConflict": {
+      "@type": "@id"
+    },
+    "rkaf:targetBridgeValidation": {
+      "@type": "@id"
+    },
+    "rkaf:targetRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:targetAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:authorizedBy": {
+      "@type": "@id"
+    },
+    "rkaf:organization": {
+      "@type": "@id"
+    },
+    "rkaf:packetId": {
+      "@type": "@id"
+    },
+    "rkaf:consumer": {
+      "@type": "@id"
+    },
+    "rkaf:emittedBy": {
+      "@type": "@id"
+    },
+    "rkaf:triggeredByPacket": {
+      "@type": "@id"
+    },
+    "rkaf:closesRevalidationEvent": {
+      "@type": "@id"
+    },
+    "rkaf:successorAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:closedBy": {
+      "@type": "@id"
+    },
+    "rkaf:queuedFor": {
+      "@type": "@id"
+    },
+    "rkaf:supersedesAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:supersedesWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:revalidationOf": {
+      "@type": "@id"
+    },
+    "rkaf:precedingArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:precedingVersion": {
+      "@type": "@id"
+    },
+    "rkaf:supportingEvent": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnClassification": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnEvent": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnAttestation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:basedOnAttestations": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:artifactId": {
+      "@type": "@id"
+    },
+    "rkaf:realizedByArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:resourceLineage": {
+      "@type": "@id"
+    },
+    "rkaf:sourceAuthorityHint": {
+      "@type": "@id"
+    },
+    "rkaf:capturedBy": {
+      "@type": "@id"
+    },
+    "rkaf:subjectArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:priorArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:classifiedBy": {
+      "@type": "@id"
+    },
+    "rkaf:classification": {
+      "@type": "@id"
+    },
+    "rkaf:managedByRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:referenceReleaseDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:versionBasis": {
+      "@type": "@vocab"
+    },
+    "rkaf:membershipMode": {
+      "@type": "@vocab"
+    },
+    "rkaf:hostedByRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:mintingAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionEndpoint": {
+      "@type": "@id"
+    },
+    "rkaf:registeredVia": {
+      "@type": "@id"
+    },
+    "rkaf:replacedBy": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:absorbedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:splitInto": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:conceptLifecycleOperation": {
+      "@type": "@vocab"
+    },
+    "rkaf:predecessorConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:successorConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:predecessorConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:successorConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:subjectConcept": {
+      "@type": "@id"
+    },
+    "rkaf:relatedConcept": {
+      "@type": "@id"
+    },
+    "rkaf:sharedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:relatedPublishedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:conflictingMappings": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:concept": {
+      "@type": "@id"
+    },
+    "rkaf:inputConcept": {
+      "@type": "@id"
+    },
+    "rkaf:resolvedConcept": {
+      "@type": "@id"
+    },
+    "rkaf:mappingAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:openLabelFacet": {
+      "@type": "@id"
+    },
+    "rkaf:openLabelRole": {
+      "@type": "@vocab"
+    },
+    "rkaf:resolutionTrustedVia": {
+      "@type": "@id"
+    },
+    "rkaf:registry": {
+      "@type": "@id"
+    },
+    "rkaf:resolvedToConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:assertion": {
+      "@type": "@id"
+    },
+    "rkaf:object": {
+      "@type": "@id"
+    },
+    "rkaf:dataConcept": {
+      "@type": "@id"
+    },
+    "rkaf:proposedFromLocalConcept": {
+      "@type": "@id"
+    },
+    "rkaf:registeredConcept": {
+      "@type": "@id"
+    },
+    "rkaf:registrationAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:proposedBy": {
+      "@type": "@id"
+    },
+    "rkaf:delegatingAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:delegatedTo": {
+      "@type": "@id"
+    },
+    "rkaf:publisher": {
+      "@type": "@id"
+    },
+    "rkaf:appliesTo": {
+      "@type": "@id"
+    },
+    "rkaf:affectedAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedAuthorityAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedImplementationAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedWorkProducts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedAdoptions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedFragments": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:affectedAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:affectedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:staleDependencies": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:unresolvedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:registryUnavailable": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:staleConceptCache": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedEvaluationAnchors": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedAutomaticMigrations": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedAuthorityKinds": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:justificationBackedBy": {
+      "@type": "@id"
+    },
+    "rkaf:derivedFromFragment": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:associatedWorkflowStep": {
+      "@type": "@id"
+    },
+    "rkaf:generationRun": {
+      "@type": "@id"
+    },
+    "rkaf:fromConcept": {
+      "@type": "@id"
+    },
+    "rkaf:toConcept": {
+      "@type": "@id"
+    },
+    "rkaf:requiredAdoptionScope": {
+      "@type": "@id"
+    },
+    "rkaf:collectsEvidenceType": {
+      "@type": "@id"
+    },
+    "rkaf:requiresEvidenceType": {
+      "@type": "@id"
+    },
+    "rkaf:acceptedDocumentTypes": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:excludesCategory": {
+      "@container": "@set"
+    },
+    "rkaf:evidencePurpose": {
+      "@container": "@set"
+    },
+    "rkaf:excludesPurposes": {
+      "@container": "@set"
+    },
+    "rkaf:jurisdiction": {
+      "@container": "@set"
+    },
+    "prov:wasGeneratedBy": {
+      "@type": "@id"
+    },
+    "prov:wasAttributedTo": {
+      "@type": "@id"
+    },
+    "prov:wasDerivedFrom": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "prov:generatedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "eli:consolidates": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "eli:consolidated_by": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dpv:hasPersonalDataCategory": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dpv:hasLegalBasis": {
+      "@type": "@id"
+    },
+    "dpv:hasPurpose": {
+      "@type": "@id"
+    },
+    "skos:prefLabel": {
+      "@container": "@language"
+    },
+    "skos:altLabel": {
+      "@container": "@language"
+    },
+    "skos:hiddenLabel": {
+      "@container": "@language"
+    },
+    "skos:definition": {
+      "@container": "@language"
+    },
+    "skos:example": {
+      "@container": "@language"
+    },
+    "skos:note": {
+      "@container": "@language"
+    },
+    "skos:scopeNote": {
+      "@container": "@language"
+    },
+    "skos:changeNote": {
+      "@container": "@language"
+    },
+    "skos:editorialNote": {
+      "@container": "@language"
+    },
+    "skos:historyNote": {
+      "@container": "@language"
+    },
+    "skos:notation": {
+      "@id": "http://www.w3.org/2004/02/skos/core#notation"
+    },
+    "skos:broader": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:narrower": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:related": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:inScheme": {
+      "@type": "@id"
+    },
+    "skos:hasTopConcept": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ConceptScheme": {
+      "@type": "@id"
+    },
+    "rkaf:schemeFacet": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptAssignment": {
+      "@type": "@id"
+    },
+    "rkaf:assignedConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:fragmentIdentityScheme": {
+      "@type": "@vocab"
+    },
+    "prov:hadMember": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcat:distribution": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcat:version": {
+      "@type": "xsd:string"
+    },
+    "dcterms:type": {
+      "@type": "@id"
+    },
+    "dcterms:issued": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:capturedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:registeredAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectiveDate": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:exceptionEffectivePeriodEnd": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:exceptionEffectivePeriodStart": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:cachedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:deprecatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:rescissionEffectiveDate": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:detectedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:definedInScope": {
+      "@type": "@id"
+    },
+    "rkaf:findingKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:severity": {
+      "@type": "@vocab"
+    },
+    "rkaf:subject": {
+      "@type": "@id"
+    },
+    "rkaf:detectedBy": {
+      "@type": "@id"
+    },
+    "rkaf:lastVerifiedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:verifiedBy": {
+      "@type": "@id"
+    },
+    "rkaf:targetFinding": {
+      "@type": "@id"
+    },
+    "rkaf:findings": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:RelationChangeEvent": {
+      "@type": "@id"
+    },
+    "rkaf:changeSubject": {
+      "@type": "@id"
+    },
+    "rkaf:changePredicate": {
+      "@type": "@id"
+    },
+    "rkaf:changeObject": {
+      "@type": "@id"
+    },
+    "rkaf:relationChangeOperation": {
+      "@type": "@vocab"
+    },
+    "rkaf:relationChangeStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:relationChangeTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:changeIntendedEffectiveTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:changeEvidence": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:replacementRelationObject": {
+      "@type": "@id"
+    },
+    "rkaf:RelationComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonBaselineArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonObservedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonExpectedAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonConsumer": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonScope": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonEvaluationTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:comparisonPolicyVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonDetector": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonDetectorVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonSnapshot": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonOutcome": {
+      "@type": "@vocab"
+    },
+    "rkaf:comparisonProofRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ResolverProofIssuer": {
+      "@type": "@id"
+    },
+    "rkaf:proofResolver": {
+      "@type": "@id"
+    },
+    "rkaf:proofResolverVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:proofPolicyVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:ResolverProofRecord": {
+      "@type": "@id"
+    },
+    "rkaf:proofType": {
+      "@type": "@vocab"
+    },
+    "rkaf:proofIssuer": {
+      "@type": "@id"
+    },
+    "rkaf:proofComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:proofOutcome": {
+      "@type": "@vocab"
+    },
+    "rkaf:proofRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofInput": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proofInputDigest": {
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "rkaf:proofSupportingRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proofEvaluatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:proofSnapshot": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofRecordDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:independenceGroup": {
+      "@type": "@id"
+    },
+    "rkaf:adjudicationVerdict": {
+      "@type": "@vocab"
+    },
+    "rkaf:sealedRequestDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:sealedResponseArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:RelationFinding": {
+      "@type": "@id"
+    },
+    "rkaf:relationFindingKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:findingComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:findingComparedAssertion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:findingProofRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:findingDetectedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:findingRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:findingFingerprint": {
+      "@type": "xsd:string"
+    },
+    "rkaf:ClosureClaim": {
+      "@type": "@id"
+    },
+    "rkaf:closureClaimStatus": {
+      "@type": "@vocab"
+    },
+    "rkaf:closureArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:closureRegion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:closurePredicateFamily": {
+      "@type": "@id"
+    },
+    "rkaf:closureProfileVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:closureMemberDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:closureReviewedAt": {
+      "@type": "xsd:dateTime"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "urn:rulespec:document-understanding:document:bef2af106d83921dfa412f11d6e34583e85a95724b8a93bb5642e4b417c1cb2e",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:document:bef2af106d83921dfa412f11d6e34583e85a95724b8a93bb5642e4b417c1cb2e",
+      "rkaf:artifactIdentifierScheme": "rkaf:hash-sha256",
+      "rkaf:hasContentDigest": "sha256:bef2af106d83921dfa412f11d6e34583e85a95724b8a93bb5642e4b417c1cb2e",
+      "dcterms:format": "text/plain"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:lineage:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "@type": "rkaf:AILineage",
+      "rkaf:modelId": "fixture",
+      "rkaf:modelVersion": "not-recorded",
+      "rkaf:temperature": 0.0,
+      "rkaf:promptTemplateRef": "urn:rulespec:document-understanding:prompt:f16d05ec6b29248d2c61adb1e9263f78e4f7bace1b955014a2d17872cfe4064d",
+      "rkaf:inputContextHash": "sha256:bef2af106d83921dfa412f11d6e34583e85a95724b8a93bb5642e4b417c1cb2e"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:artifactIdentifierScheme": "rkaf:hash-sha256",
+      "rkaf:hasContentDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "dcterms:format": "application/xml"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:015fb4dee8f1e48e7ba870df9d7c82181047c715ea27a652760d9b8634a428d5",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[1]/*[3]/*[2]/*[1]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:a6e347d3d9f6a0d5c103613ed28ccc0d138c4ff2e1a7b3a3a03e6aabee96b7f0"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:e76d759e48f3ad69ae538859e8409f8847328f93c62c031ce043114c8dc04f41",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[2]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:987a069d407ae5af75038c9c93e4341ef337568e1d828bd1d4d370bc1b3ebc2d"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:8e420562465204bf82e39083f57ee9cce81752a2dce2bb9a666e24a665864d74",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[1]/*[4]/*[4]/*[2]/*[1]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:5339252d6aae557b730c24f6db3f1623f686148861592a4198ff1da7b2676e08"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:f4fd20d26a76f895df18600cb9a1239a37881fb58f43ddee205266bd10439f17",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[1]/*[5]/*[1]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:1fa1f2289b064d079becbe98388f3fefb082c2fb7dd40bc6cc2549c2b3b82f76"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:e68ca8e633e3b50009abb04551c2cf1e3386c8c6b634952b43627c7a89003b3c",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[1]/*[5]/*[3]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:a20bd9b528c6879711e0f7c070c8551ea44f9945987433b59488a55e3cc71198"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:1bb4982fe92571695fb2a470ce701fe486f9a6c23f56850174d9bc40ff743a02",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[1]/*[5]/*[4]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:199a6cd712a7a91fe78e78a017c26eac438fe2788e37a5060e4912d1d4df98df"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:de618b3d2d154e75800d7edfcd1cc92286fe62e566400fb5a9e69917bbc3743f",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[1]/*[5]/*[6]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:de423e87692cd52af6024bef6020dbef3d1c694b825564d6e17b3fd7c2e0a7ad"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:9c089194a52d058d4acc126b6ef864159a2148138876f42f394c313098f90071",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[1]/*[6]/*[1]/*[1]/*[3]/*[1]/*[2]/*[1]/*[1]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:c27bbe78e708f1cdfe5ddd32c9249d57b42f5e021ebcf96f31d010e333aa2b6a"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:f49061dfa4768fa0e1aac5c796753f87f162bee1468cb5174d42c9bddcc95a72",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[1]/*[6]/*[1]/*[1]/*[3]/*[1]/*[3]/*[1]/*[1]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:e6f111932e169bc1d3a12aaa25b81c332fd718185e6603aad2f004b616027e5f"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:c4f81a40b3320c806a860edd4b36c1c6661a977f6b64b84f8060e8a3567f7180",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[1]/*[6]/*[1]/*[1]/*[3]/*[1]/*[3]/*[1]/*[2]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:d9ab48ef10afcd825152cb9c30f74aec203166fdae97dc65dbe5d32f2fee2286"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:a1ed24f7210d7a35c80787c65d6c746139c4891fd4cc4d3bb9701993c4123549",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[1]/*[6]/*[1]/*[2]/*[1]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:79b279ddfe0d7e9614c9d8305a48e44627922b5046befb4201e2928f275124b8"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:a9b39c046e309854d548c6f2975f7a608c8e3a02883bb93e35f4b90207da934f",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[1]/*[6]/*[1]/*[2]/*[2]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:afafe8a1da67c3584eeae2225b687801d534506e7fce64de29a44ea6ff676b4f"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:e03670721d06f7d06d7ddd6bd0394208dfd8cbfc1f9fbca24c1337408a2890db",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[1]/*[6]/*[1]/*[2]/*[3]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:6a6194246b000511c468f2677c15f088b1002b17bba10a50ad4178114260ebaf"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:0c6c50914c96cdac551695da2d8bb4dc413b3540faeee62ed87422a884bfda61",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[1]/*[6]/*[1]/*[3]/*[1]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:9817dcd1fce5cdd5e5d1b52a6c0bd0a0f83241b402864f6d3eca0254611309ff"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:bbbaea480f4c8724f9e480e16cb6b554611526d8ca7ad51aa878ba215c50b0d0",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[1]/*[6]/*[1]/*[3]/*[2]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:ad3037501374943110da5c345a37e95090dceea363ffb668f9b82276df860810"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:37072675f0739c96d17820794b85d74839720ffecc24bd8d50761b2ad40acbdc",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[1]/*[6]/*[3]/*[2]/*[1]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:2c98ba119b8bbd87c5e992472a86091d59318abff314921d2be707e60d5218e7"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:79803b6040b486406a1dc00aa8959f4abed62482843d4659e4cd89d902f1551d",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[2]/*[8]/*[2]/*[1]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:b1036b054101f617b0b375387afe413f2330562b2b1a7f3a21529fba89b7219f"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:3ab1c26480a72936775a12cb9b7e68f7b64ffc4b8ce0b18a83702bb8c6c03a7e",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[2]/*[11]/*[1]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:1fa1f2289b064d079becbe98388f3fefb082c2fb7dd40bc6cc2549c2b3b82f76"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:107ddc5035d049a95c4f097d03026f32f4648631d531adfeb2200ffa9772e76a",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[2]/*[11]/*[3]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:55029690deac6dde5c6c0aa40af16b767f9301738f179c6e836ad2ef9738269c"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:1c048812ebcb03e82881b178f787eb6cbdc3b5666a3f1390c2517cb0ed8c8d52",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[2]/*[11]/*[4]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:6c8063de31cceca0e225f68e73c801d0e2909555e9a2846e3aefea8db3c729fb"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:e33ae85721fa27db65f893635717b9548603bf21667ebdd2cf1cf071349041bc",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[2]/*[11]/*[6]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:7384b061f58c5f0f1af1291f226e11a684f4a4b059f5f41b56aebde0547c9d05"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:7b32183ba072687909b3d97a55592ee9d0fb5bcfe14f51918607d444d26e50da",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[2]/*[11]/*[7]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:623c6cce4a2b2a69fc45a4b27377cfe611b9f64229734ae66f3f01650a67defb"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:dc35f194a4248b47499b36058d31d8e385d585b2cf7aff7df4a6f0cdbf83e6eb",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[2]/*[11]/*[9]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:f941ee9dffe0416c1212557b3ef57b3f3a65c3d08db8aa90ef194b67500a3692"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:26c983aff968e8f4b4d5d0a7f1b2940bdade3dfcf95f3211591d0a7d0b3c510f",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[2]/*[11]/*[10]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:a40c08f9f3702580041576634ba650a8191d220868be9a7384a4b8a864b14be1"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:f25451a6f9fbb8a4ca5adf78fa12520328c9dbceae95d0dd7bf7a419ebd85047",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[2]/*[11]/*[12]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:0983e8efc8e5c14cec79f6a464878068c533be9a8eac01d604ab37a34ea624b4"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:d46e901362bd55b32a8ee1a69dc56b0748847dd10e353d41210548f3c29ebba6",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[2]/*[11]/*[13]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:7c0d4a719a46703813e9b7e27198545b71d8edd1a343569f8ac8511cfe1a6633"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:114e5602ee5d91d4aa13586df633464fa9a77dc038ce31e112ba256e403366d8",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[2]/*[11]/*[15]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:f1a2abcae11d5013f2411971aed875e5a5d528de802cf77fcfd1e6626f0d1e12"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:9c66891f9e2e76af74ffa3549314471be75fbc6508ef9ca2fa3550ab6fab71c3",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[2]/*[12]/*[1]/*[2]/*[1]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:46c74c97d7c5fbc85f801fc1b96271d7a731b2de3aa47d9b5bca3bf853b2a94c"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:2473696145f984e350133d12578d24e402dff02dc65f73a2b7b49159b214dc83",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[2]/*[12]/*[1]/*[2]/*[2]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:ad3037501374943110da5c345a37e95090dceea363ffb668f9b82276df860810"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:49039fc54b51194a6b42c54af67130e5a2e9126250117a3d34269636712c04a4",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[2]/*[12]/*[3]/*[2]/*[1]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:727a0ad607ecf3e72c5594c333e847e5cc4b65901d1eda194c68d7edbf8e31a0"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:fd1127771d96ba2490809cbdce424bbb7bc91c9514a4d56d046b4bf3e2ef3531",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[2]/*[12]/*[3]/*[3]/*[1]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:4836ec67c28f2477a03311d9a9ba8f7bfebb5d13847ca6bf661c3ae515447abd"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:a39b097809ad0e98a819c02c85d47e35df0c1a891db0681c1ca9a6855ddc0479",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[2]/*[12]/*[3]/*[3]/*[3]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:9ee47b9054edf6cd061c110278b2d7aeecec0be041e9ffcae4c6f5ed6ae2aade"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:deb25388bd9e03ef397db1d0fddb8a527441b9d0ebe8a172b4a71c8ad85cad41",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[2]/*[12]/*[3]/*[3]/*[4]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:75ae26bb1baa6eac1480eb2d85f4e4658c6ded75f9c75c610d99a53983dbfca7"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:3843be9d11560f9ecc0dda7314d7c313e2287b086c0dbb65d9fdd539f919391e",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[2]/*[12]/*[4]/*[2]/*[1]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:e1d5b7b2ee4e8ee610a3bfa12ffa41021f514a253c15e2ad2c24448fb21d05ff"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:7be0781769d00913db72d9aca40959c56a4822999ea13116453353aa958a3897",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[2]/*[12]/*[4]/*[3]/*[1]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:39aacd8c642303c10a43f43ace510a3175031362b8a851b51f8c8ee30c4db76a"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:512d95a96212935b4c5779e77e85003bd76a282f0ab5dbf4f20d5a296e3c45c5",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[2]/*[12]/*[4]/*[4]/*[1]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:5b142d40142977f375aaf7520a6310d86252d5e0bd907d0e12503a4c7d7d30e6"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:5d35bfb7bd32cd0a5d0665a16c276c234129b379cdb490bd6e439518a2ed1d92",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[2]/*[12]/*[6]/*[2]/*[1]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:adaf512e7f68802399c931ea831649e9716b4af5c6e112cc50e83997f2931f70"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:xml-fragment:86c86ab739d84737cc1d5cf79ad8ad65900240dcd6c27a6f5edd8707b7251f04",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:xml:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "oa:hasSelector": [
+        {
+          "@type": "oa:XPathSelector",
+          "rdf:value": "/*[1]/*[2]/*[12]/*[6]/*[2]/*[2]"
+        }
+      ],
+      "rkaf:selectorKind": [
+        "oa:XPathSelector"
+      ],
+      "rkaf:sourceArtifactDigest": "sha256:5fb09fe0886ebf34f27699b04f26dfbb5b824854813eec0c17c73d7f565fabbd",
+      "rkaf:fragmentContentDigest": "sha256:f4ce6ca853e460f35ab904cc2a2a28924d3129e6ffbc06155555f92a9a1bda4e"
+    }
+  ]
+}

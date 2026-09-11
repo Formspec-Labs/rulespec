@@ -1,0 +1,17 @@
+# Per-target source challenge pilot
+
+Decision: Whether independently reviewing each proposed qualification target is worth developing as an alternative to the current whole-proposal decision.
+
+Hypothesis: A whole-proposal verdict loses a supported edge when another target is wrong or uncertain. Per-target decisions should retain supported edges as explicit recommendations, reject wrong targets, and make affected-action scope inspectable. Weakened if it accepts wrong edges, hides uncertainty, changes meaning, or fails to identify the known supported targets. This tests a bundle of per-target decisions and affected-action descriptions; it cannot attribute effects to either alone.
+
+Arms: A is current production `_challenge_prompt` and `CHECK_SCHEMA`. B retains the same source catalog, draft/audit, and proposed records; replaces the task and response structure with a meaning verdict and independent per-target verdicts plus affected-action descriptions. Both use existing source_refs and exact resolver. No instruction supplies expected answers. Current existing-exemption compact link decoding prepares link proposals; the phone addition is the unchanged original failed proposal.
+
+Cases: Three selected historical sources: mobile phones (actual two-target failed companion addition), refrigerants (two constructed link bundles including previously omitted exempt-substitute/service target and de-minimis wrong-target negatives), railroad (constructed stop exemption links to grouped crossing baseline and independent gear prohibition). Expected edges and source reasoning are frozen in expected.json before calls. Carrier interpretation is uncertain, excluded from hard correctness counts; its transparency is assessed separately. These are development cases, not independent benchmark labels. Candidate pairs are supplied, so the experiment cannot establish missing-target discovery.
+
+Held constant: Same frozen drafts, proposed meanings, source refs, model Gemini default, provider-default thinking, temperature 0, max output 32768, one call per arm/case, shuffled six-call order. Maximum six calls; no retries, full audits, or tuning. Preserve errors and all token accounting. No dollar or end-to-end savings inference from this challenge-only comparison.
+
+Decision rule: Investigate further only if B recommends every known positive, accepts none of the known negatives, grounds all verdicts, retains source conditions, and visibly limits railroad exemption to stopping. Report carrier uncertainty separately. A narrower gain is not a passed broader gate. Compare tokens and instruction adherence separately. No production adoption from this pilot.
+
+Application boundary: Both arms' decisions are recorded and simulated, not written to a review workspace. A supported whole proposal recommends all its targets. B target support is eligible only when its meaning verdict also supports the proposal. A partial decision on a new addition is not silently applied. A narrowed existing link may be checked through the current decoder, but no graph is changed. Affected-action descriptions have no production relationship field; record them as experimental review output, not operational semantics.
+
+Replay: Verify saved prompts, response schemas, source/runtime hashes, and grounded decoding with zero provider calls. Read raw responses against frozen expectations; same-agent judgments remain revisable.

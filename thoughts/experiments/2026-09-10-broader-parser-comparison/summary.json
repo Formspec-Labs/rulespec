@@ -1,0 +1,497 @@
+{
+  "cases": 32,
+  "expected_references": 33,
+  "actual_source_passages": 3,
+  "negative_cases": 8,
+  "arms": {
+    "A-current": {
+      "correct_distinct_references": 7,
+      "correct_with_native_span": 7,
+      "missed_expected": 26,
+      "misleading_readings": [
+        {
+          "case": "case-09",
+          "observed": "usc|42|1983",
+          "reason": "Loses note qualifier; section body and its statutory note are distinct targets."
+        }
+      ],
+      "negative_case_issues": 0,
+      "duplicate_correct_observations": 3,
+      "additional_reference_kinds": [],
+      "baseline_successes_lost": [],
+      "broader_gate_passed": false
+    },
+    "B-refspec": {
+      "correct_distinct_references": 23,
+      "correct_with_native_span": 2,
+      "missed_expected": 10,
+      "misleading_readings": [
+        {
+          "case": "case-27",
+          "observed": "federal_register_document|5401-5405",
+          "reason": "Plausible shape promoted to an unqualified document candidate from an intentionally bare range; identity is ambiguous without context."
+        },
+        {
+          "case": "case-29",
+          "observed": "usc|42|1983",
+          "reason": "Damaged token 1983affirmed becomes section 1983, with only whole-value partial status."
+        }
+      ],
+      "negative_case_issues": 2,
+      "duplicate_correct_observations": 2,
+      "additional_reference_kinds": [
+        "act_relative",
+        "case",
+        "constitution",
+        "docket",
+        "eo_compilation",
+        "executive_order",
+        "federal_register",
+        "proclamation",
+        "public_law",
+        "reorganization_plan",
+        "rin",
+        "statute",
+        "treaty",
+        "usc_appendix",
+        "usc_chapter",
+        "usc_note"
+      ],
+      "baseline_successes_lost": [
+        [
+          "case-24",
+          "cfr|40|82|156"
+        ]
+      ],
+      "broader_gate_passed": false
+    },
+    "C-spicysearch": {
+      "correct_distinct_references": 10,
+      "correct_with_native_span": 10,
+      "missed_expected": 23,
+      "misleading_readings": [
+        {
+          "case": "case-09",
+          "observed": "usc|42|1983",
+          "reason": "Loses note qualifier."
+        },
+        {
+          "case": "case-27",
+          "observed": "federal_register_document|5401-5405",
+          "reason": "Ambiguous bare number range becomes a document candidate."
+        },
+        {
+          "case": "case-30",
+          "observed": "cfr|1345|1370|",
+          "reason": "Impossible CFR title appears as an ordinary candidate without a title verdict."
+        }
+      ],
+      "negative_case_issues": 2,
+      "duplicate_correct_observations": 0,
+      "additional_reference_kinds": [
+        "docket",
+        "executive_order",
+        "public_law",
+        "rin",
+        "statute"
+      ],
+      "baseline_successes_lost": [
+        [
+          "case-04",
+          "cfr|7|15a|"
+        ],
+        [
+          "case-24",
+          "cfr|40|82|156"
+        ]
+      ],
+      "broader_gate_passed": false
+    },
+    "D-rulespec": {
+      "correct_distinct_references": 10,
+      "correct_with_native_span": 0,
+      "missed_expected": 23,
+      "misleading_readings": [
+        {
+          "case": "case-04",
+          "observed": "cfr|7|15|",
+          "reason": "15a is shortened to a different part."
+        },
+        {
+          "case": "case-09",
+          "observed": "usc|42|1983",
+          "reason": "Loses note qualifier."
+        },
+        {
+          "case": "case-24",
+          "observed": "cfr|40|82|",
+          "reason": "Second section 82.156 becomes an extra part-only reading; loss of requested specificity."
+        },
+        {
+          "case": "case-28",
+          "observed": "cfr|17|15|",
+          "reason": "Unsupported 15c3-3 is shortened to part 15."
+        },
+        {
+          "case": "case-29",
+          "observed": "usc|42|1983a",
+          "reason": "Damaged 1983affirmed is shortened to a different section token."
+        }
+      ],
+      "negative_case_issues": 2,
+      "duplicate_correct_observations": 0,
+      "additional_reference_kinds": [
+        "act_relative",
+        "executive_order",
+        "public_law",
+        "statute"
+      ],
+      "baseline_successes_lost": [
+        [
+          "case-04",
+          "cfr|7|15a|"
+        ],
+        [
+          "case-24",
+          "cfr|40|82|156"
+        ]
+      ],
+      "broader_gate_passed": false
+    }
+  },
+  "replay_equal": true,
+  "provider_calls": 0,
+  "parser_errors": [],
+  "span_checks": [
+    {
+      "case": "case-02",
+      "arm": "A-current",
+      "function": "find_cfr",
+      "span": [
+        201,
+        215
+      ],
+      "source_slice": "49 CFR 571.213",
+      "returned_quote_checked": true
+    },
+    {
+      "case": "case-02",
+      "arm": "A-current",
+      "function": "strict_cfr",
+      "span": [
+        201,
+        215
+      ],
+      "source_slice": "49 CFR 571.213",
+      "returned_quote_checked": true
+    },
+    {
+      "case": "case-02",
+      "arm": "C-spicysearch",
+      "function": "identifiers",
+      "span": [
+        201,
+        215
+      ],
+      "source_slice": "49 CFR 571.213",
+      "returned_quote_checked": false
+    },
+    {
+      "case": "case-04",
+      "arm": "A-current",
+      "function": "find_cfr",
+      "span": [
+        0,
+        9
+      ],
+      "source_slice": "7 CFR 15a",
+      "returned_quote_checked": true
+    },
+    {
+      "case": "case-04",
+      "arm": "A-current",
+      "function": "strict_cfr",
+      "span": [
+        0,
+        9
+      ],
+      "source_slice": "7 CFR 15a",
+      "returned_quote_checked": true
+    },
+    {
+      "case": "case-05",
+      "arm": "A-current",
+      "function": "strict_usc",
+      "span": [
+        0,
+        17
+      ],
+      "source_slice": "42 U.S.C. 1395w-4",
+      "returned_quote_checked": true
+    },
+    {
+      "case": "case-05",
+      "arm": "C-spicysearch",
+      "function": "identifiers",
+      "span": [
+        0,
+        17
+      ],
+      "source_slice": "42 U.S.C. 1395w-4",
+      "returned_quote_checked": false
+    },
+    {
+      "case": "case-06",
+      "arm": "A-current",
+      "function": "strict_usc",
+      "span": [
+        22,
+        34
+      ],
+      "source_slice": "5 U.S.C. 552",
+      "returned_quote_checked": true
+    },
+    {
+      "case": "case-06",
+      "arm": "C-spicysearch",
+      "function": "identifiers",
+      "span": [
+        22,
+        34
+      ],
+      "source_slice": "5 U.S.C. 552",
+      "returned_quote_checked": false
+    },
+    {
+      "case": "case-09",
+      "arm": "A-current",
+      "function": "strict_usc",
+      "span": [
+        0,
+        14
+      ],
+      "source_slice": "42 U.S.C. 1983",
+      "returned_quote_checked": true
+    },
+    {
+      "case": "case-09",
+      "arm": "C-spicysearch",
+      "function": "identifiers",
+      "span": [
+        0,
+        14
+      ],
+      "source_slice": "42 U.S.C. 1983",
+      "returned_quote_checked": false
+    },
+    {
+      "case": "case-10",
+      "arm": "C-spicysearch",
+      "function": "identifiers",
+      "span": [
+        17,
+        31
+      ],
+      "source_slice": "Pub. L. 117-58",
+      "returned_quote_checked": false
+    },
+    {
+      "case": "case-11",
+      "arm": "C-spicysearch",
+      "function": "identifiers",
+      "span": [
+        4,
+        17
+      ],
+      "source_slice": "135 Stat. 429",
+      "returned_quote_checked": false
+    },
+    {
+      "case": "case-13",
+      "arm": "C-spicysearch",
+      "function": "identifiers",
+      "span": [
+        0,
+        10
+      ],
+      "source_slice": "E.O. 12866",
+      "returned_quote_checked": false
+    },
+    {
+      "case": "case-19",
+      "arm": "B-refspec",
+      "function": "identifiers",
+      "span": [
+        4,
+        24
+      ],
+      "source_slice": "EPA-HQ-OAR-2023-0234",
+      "returned_quote_checked": false
+    },
+    {
+      "case": "case-19",
+      "arm": "C-spicysearch",
+      "function": "identifiers",
+      "span": [
+        4,
+        24
+      ],
+      "source_slice": "EPA-HQ-OAR-2023-0234",
+      "returned_quote_checked": false
+    },
+    {
+      "case": "case-20",
+      "arm": "B-refspec",
+      "function": "identifiers",
+      "span": [
+        4,
+        13
+      ],
+      "source_slice": "2120-AK94",
+      "returned_quote_checked": false
+    },
+    {
+      "case": "case-20",
+      "arm": "C-spicysearch",
+      "function": "identifiers",
+      "span": [
+        4,
+        13
+      ],
+      "source_slice": "2120-AK94",
+      "returned_quote_checked": false
+    },
+    {
+      "case": "case-23",
+      "arm": "A-current",
+      "function": "strict_usc",
+      "span": [
+        0,
+        9
+      ],
+      "source_slice": "5 USC 552",
+      "returned_quote_checked": true
+    },
+    {
+      "case": "case-23",
+      "arm": "C-spicysearch",
+      "function": "identifiers",
+      "span": [
+        0,
+        9
+      ],
+      "source_slice": "5 USC 552",
+      "returned_quote_checked": false
+    },
+    {
+      "case": "case-24",
+      "arm": "A-current",
+      "function": "find_cfr",
+      "span": [
+        0,
+        19
+      ],
+      "source_slice": "40 CFR \u00a7\u00a7 82.155(a)",
+      "returned_quote_checked": true
+    },
+    {
+      "case": "case-24",
+      "arm": "A-current",
+      "function": "find_cfr",
+      "span": [
+        19,
+        30
+      ],
+      "source_slice": ", 82.156(b)",
+      "returned_quote_checked": true
+    },
+    {
+      "case": "case-24",
+      "arm": "A-current",
+      "function": "strict_cfr",
+      "span": [
+        0,
+        16
+      ],
+      "source_slice": "40 CFR \u00a7\u00a7 82.155",
+      "returned_quote_checked": true
+    },
+    {
+      "case": "case-24",
+      "arm": "C-spicysearch",
+      "function": "identifiers",
+      "span": [
+        0,
+        16
+      ],
+      "source_slice": "40 CFR \u00a7\u00a7 82.155",
+      "returned_quote_checked": false
+    },
+    {
+      "case": "case-27",
+      "arm": "B-refspec",
+      "function": "identifiers",
+      "span": [
+        0,
+        9
+      ],
+      "source_slice": "5401-5405",
+      "returned_quote_checked": false
+    },
+    {
+      "case": "case-27",
+      "arm": "C-spicysearch",
+      "function": "identifiers",
+      "span": [
+        0,
+        9
+      ],
+      "source_slice": "5401-5405",
+      "returned_quote_checked": false
+    },
+    {
+      "case": "case-28",
+      "arm": "A-current",
+      "function": "find_cfr",
+      "span": [
+        0,
+        6
+      ],
+      "source_slice": "17 CFR",
+      "returned_quote_checked": true
+    },
+    {
+      "case": "case-30",
+      "arm": "A-current",
+      "function": "find_cfr",
+      "span": [
+        0,
+        13
+      ],
+      "source_slice": "1345 CFR 1370",
+      "returned_quote_checked": true
+    },
+    {
+      "case": "case-30",
+      "arm": "A-current",
+      "function": "strict_cfr",
+      "span": [
+        0,
+        13
+      ],
+      "source_slice": "1345 CFR 1370",
+      "returned_quote_checked": true
+    },
+    {
+      "case": "case-30",
+      "arm": "C-spicysearch",
+      "function": "identifiers",
+      "span": [
+        0,
+        13
+      ],
+      "source_slice": "1345 CFR 1370",
+      "returned_quote_checked": false
+    }
+  ]
+}

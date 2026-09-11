@@ -1,0 +1,19 @@
+......................F........                                          [100%]
+=================================== FAILURES ===================================
+____________ test_cfr_discovery_shares_context_and_refused_evidence ____________
+
+    def test_cfr_discovery_shares_context_and_refused_evidence():
+        doc = prepare_document('See 40 CFR §§ 82.155(a), 82.156(b). Compare 99 CFR 1.2.')
+        book = {'document': doc, 'accepted': []}
+        result = export_discovery(book, include_references=True)
+        first, second = result['reference_scan']['candidates']
+        context = second['evidence_refs'][1]
+        assert context == {'id': first['evidence_refs'][0]['id'], 'roles': ['reference_context']}
+        refused, = result['reference_scan']['rejected']
+>       assert 'evidence' not in refused
+E       AssertionError: assert 'evidence' not in {'kind': 'cfr', 'value': '99 CFR 1.2', 'start': 44, 'end': 54, ...}
+
+packages/rulespec-extrapolator/tests/test_references.py:177: AssertionError
+=========================== short test summary info ============================
+FAILED packages/rulespec-extrapolator/tests/test_references.py::test_cfr_discovery_shares_context_and_refused_evidence
+1 failed, 30 passed in 0.20s

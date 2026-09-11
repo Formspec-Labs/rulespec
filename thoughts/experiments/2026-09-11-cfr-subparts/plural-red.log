@@ -1,0 +1,16 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__________ test_an_explicit_plural_continuation_licenses_its_own_list __________
+
+    def test_an_explicit_plural_continuation_licenses_its_own_list():
+        rows = find_cfr_citations('49 CFR part 172 subpart E or subparts F and G')
+>       assert [r.subpart for r in rows] == list('EFG')
+E       AssertionError: assert ['E', 'F'] == ['E', 'F', 'G']
+E         
+E         Right contains one more item: 'G'
+E         Use -v to get more diff
+
+tests/test_cfr_subparts.py:92: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_cfr_subparts.py::test_an_explicit_plural_continuation_licenses_its_own_list
+1 failed, 33 deselected in 0.05s

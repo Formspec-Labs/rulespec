@@ -1,0 +1,146 @@
+{
+  "holder": "rulespec-retention-delivery",
+  "pid": 20711,
+  "purpose": "isolated-retry-delivery",
+  "start": "2026-09-11T13:20:14.970672+00:00",
+  "start_load": [
+    3.81103515625,
+    5.1708984375,
+    4.80322265625
+  ],
+  "status": "passed",
+  "end": "2026-09-11T13:20:21.893659+00:00",
+  "end_load": [
+    3.845703125,
+    5.13232421875,
+    4.79345703125
+  ],
+  "commands": [
+    {
+      "name": "dependency-check",
+      "command": [
+        "uv",
+        "pip",
+        "check",
+        "--python",
+        "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/bin/python"
+      ],
+      "cwd": "/tmp",
+      "pythonpath": "",
+      "returncode": 0
+    },
+    {
+      "name": "runtime",
+      "command": [
+        "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/bin/python",
+        "-c",
+        "import rulespec_extrapolator.extraction as e; print(e.__file__)"
+      ],
+      "cwd": "/tmp",
+      "pythonpath": "",
+      "returncode": 0
+    },
+    {
+      "name": "review-boundary",
+      "command": [
+        "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py"
+      ],
+      "cwd": "/tmp",
+      "pythonpath": "/Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests",
+      "returncode": 0
+    },
+    {
+      "name": "reprocess",
+      "command": [
+        "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/bin/python",
+        "-m",
+        "rulespec_extrapolator.cli",
+        "reprocess",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-10-parallel-compression/fresh-extraction",
+        "--output",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-extraction-retention/cli-isolated-retry/reprocessed"
+      ],
+      "cwd": "/tmp",
+      "pythonpath": "",
+      "returncode": 0
+    },
+    {
+      "name": "replay",
+      "command": [
+        "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/bin/python",
+        "-m",
+        "rulespec_extrapolator.cli",
+        "replay",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-extraction-retention/cli-isolated-retry/reprocessed",
+        "--output",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-extraction-retention/cli-isolated-retry/replayed"
+      ],
+      "cwd": "/tmp",
+      "pythonpath": "",
+      "returncode": 0
+    },
+    {
+      "name": "references",
+      "command": [
+        "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/bin/python",
+        "-m",
+        "rulespec_extrapolator.cli",
+        "references",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-extraction-retention/cli-isolated-retry/reprocessed",
+        "--output",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-extraction-retention/cli-isolated-retry/references.json"
+      ],
+      "cwd": "/tmp",
+      "pythonpath": "",
+      "returncode": 0
+    },
+    {
+      "name": "discovery-export",
+      "command": [
+        "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/bin/python",
+        "-m",
+        "rulespec_extrapolator.cli",
+        "discovery-export",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-extraction-retention/cli-isolated-retry/reprocessed",
+        "--references",
+        "--output",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-extraction-retention/cli-isolated-retry/discovery-export.json"
+      ],
+      "cwd": "/tmp",
+      "pythonpath": "",
+      "returncode": 0
+    },
+    {
+      "name": "export",
+      "command": [
+        "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/bin/python",
+        "-m",
+        "rulespec_extrapolator.cli",
+        "export",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-extraction-retention/cli-isolated-retry/reprocessed",
+        "--output",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-extraction-retention/cli-isolated-retry/export.json"
+      ],
+      "cwd": "/tmp",
+      "pythonpath": "",
+      "returncode": 0
+    },
+    {
+      "name": "usage",
+      "command": [
+        "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/bin/python",
+        "-m",
+        "rulespec_extrapolator.cli",
+        "usage",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-extraction-retention/cli-isolated-retry/reprocessed"
+      ],
+      "cwd": "/tmp",
+      "pythonpath": "",
+      "returncode": 0
+    }
+  ]
+}

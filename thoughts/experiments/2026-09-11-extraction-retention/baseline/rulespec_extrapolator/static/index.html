@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rulespec · Review</title>
+  <link rel="stylesheet" href="/static/review.css">
+  <script src="/static/review.js" defer></script>
+</head>
+<body>
+  <header class="masthead">
+    <div class="brand">Rulespec <span>Document review</span></div>
+    <button id="refresh" class="quiet" type="button">Reload run</button>
+  </header>
+  <main>
+    <section class="overview" aria-labelledby="document-title">
+      <div>
+        <p class="eyebrow">Source to rulebook</p>
+        <h1 id="document-title">Loading your document…</h1>
+        <p id="run-status" class="muted">Opening the saved extraction and review history.</p>
+      </div>
+      <div id="review-counts" class="counts" aria-label="Review counts"></div>
+    </section>
+    <div id="notice" role="status" aria-live="polite"></div>
+    <div class="workspace">
+      <section class="pane source-pane" aria-labelledby="source-title">
+        <div class="pane-heading"><h2 id="source-title">Source</h2><span id="source-caption" class="muted">Exact document text</span></div>
+        <div id="section-nav" class="section-nav" aria-label="Document sections"></div>
+        <div id="source-scroll" class="source-scroll"><pre id="source-text"></pre></div>
+        <div class="source-hint">Select a claim or an evidence quote to find its words in the source.</div>
+      </section>
+      <section class="pane review-pane" aria-label="Claims and review history">
+        <div class="pane-heading tabs">
+          <div><button id="claims-tab" class="tab active" type="button" aria-pressed="true">Claims</button><button id="history-tab" class="tab" type="button" aria-pressed="false">History <span id="history-count">0</span></button></div>
+          <div class="review-tools"><button id="add" type="button">Add rule</button><label class="filter">Show <select id="status-filter"><option value="all">All claims</option><option value="pending">Needs review</option><option value="approved">Approved</option><option value="rejected">Rejected</option></select></label></div>
+        </div>
+        <div id="claims-panel" class="review-scroll">
+          <details id="extraction-problems" class="extraction-problems" hidden><summary>Extraction issues</summary><div id="extraction-problem-list"></div></details>
+          <div id="claim-list"></div>
+        </div>
+        <div id="history-panel" class="review-scroll" hidden></div>
+        <div class="action-bar">
+          <p id="selection-count" class="muted">Select a claim to review.</p>
+          <div class="actions"><button id="edit" type="button" disabled>Edit</button><button id="split" type="button" disabled>Split</button><button id="merge" type="button" disabled>Merge</button><span class="action-spacer"></span><button id="reject" class="danger" type="button" disabled>Reject</button><button id="approve" class="primary" type="button" disabled>Approve</button></div>
+          <p class="review-scope">Approval records your review of meaning and evidence. Operational use requires a separate decision.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+  <dialog id="review-dialog" aria-labelledby="dialog-title">
+    <form id="review-form">
+      <div class="dialog-heading"><div><p class="eyebrow">Save a review action</p><h2 id="dialog-title">Edit claim</h2></div><button id="close-dialog" class="quiet" type="button" aria-label="Close review form">Close</button></div>
+      <p id="dialog-context" class="muted"></p>
+      <div id="dialog-warning" class="warning" hidden></div>
+      <div class="identity-fields"><label>Reviewer name or identifier<input id="reviewer-name" autocomplete="name" required maxlength="200" placeholder="Your name or agent identifier"></label><label>Reviewer type<select id="reviewer-kind" required><option value="">Choose reviewer type</option><option value="humanUser">Human reviewer</option><option value="aiAgent">AI agent</option></select></label></div>
+      <div id="replacements"></div>
+      <button id="add-replacement" type="button" hidden>Add another claim</button>
+      <label class="rationale-label">Reason for this action<textarea id="rationale" rows="3" required maxlength="10000" placeholder="Explain what you checked or changed."></textarea></label>
+      <p id="dialog-error" class="error" role="alert"></p>
+      <div class="dialog-footer"><button id="cancel-dialog" type="button">Cancel</button><button id="save-action" class="primary" type="submit">Save action</button></div>
+    </form>
+  </dialog>
+</body>
+</html>

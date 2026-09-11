@@ -1,0 +1,445 @@
+FFFFFFFFFFFFFFFFFF                                                       [100%]
+=================================== FAILURES ===================================
+_ test_real_fields_and_mutations_preserve_legacy_except_declared_additions[0560-AC86] _
+
+row = {'rin': '0560-AC86', 'publication_id': '199510', 'authority_text': 'The Food Security Act of 1985, sec 1201, as amended', 'authority_source': 'box', ...}
+
+    @pytest.mark.parametrize('row', ROWS, ids=lambda r:r['rin'])
+    def test_real_fields_and_mutations_preserve_legacy_except_declared_additions(row):
+        raw = row['authority_text']
+        for text in (raw, '🧭 ' + raw, raw.replace(' ', '\n'), raw + '; separate statement.'):
+            old = before(text, act_names=NAMES)
+            new = grammar.find_act_relative_citations(text, act_names=NAMES)
+            if raw in ADJACENT:
+                assert not old
+                assert [(c.act_key,c.section,c.division) for c in new] == [('federal crop insurance reform act of 1994','508',None)]
+            else:
+                assert new == old
+>           for item in occurrences(text):
+                        ^^^^^^^^^^^^^^^^^
+
+tests/test_act_occurrences.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = 'The Food Security Act of 1985, sec 1201, as amended'
+names = {'agricultural act of 1949', 'agricultural adjustment act of 1938', 'clean air act', 'federal crop insurance reform act of 1994', 'food security act of 1985', 'social security act', ...}
+
+    def occurrences(text, names=NAMES):
+>       return grammar.find_act_relative_occurrences(text, act_names=names)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'refspec.registry.citation_grammar' has no attribute 'find_act_relative_occurrences'. Did you mean: 'find_act_relative_citations'?
+
+tests/test_act_occurrences.py:19: AttributeError
+_ test_real_fields_and_mutations_preserve_legacy_except_declared_additions[0560-AD90] _
+
+row = {'rin': '0560-AD90', 'publication_id': '199510', 'authority_text': 'Sec 508 (b)(7)(A) Federal Crop Insurance Reform Act of 1994', 'authority_source': 'box', ...}
+
+    @pytest.mark.parametrize('row', ROWS, ids=lambda r:r['rin'])
+    def test_real_fields_and_mutations_preserve_legacy_except_declared_additions(row):
+        raw = row['authority_text']
+        for text in (raw, '🧭 ' + raw, raw.replace(' ', '\n'), raw + '; separate statement.'):
+            old = before(text, act_names=NAMES)
+            new = grammar.find_act_relative_citations(text, act_names=NAMES)
+            if raw in ADJACENT:
+                assert not old
+>               assert [(c.act_key,c.section,c.division) for c in new] == [('federal crop insurance reform act of 1994','508',None)]
+E               AssertionError: assert [] == [('federal cr... '508', None)]
+E                 
+E                 Right contains one more item: ('federal crop insurance reform act of 1994', '508', None)
+E                 Use -v to get more diff
+
+tests/test_act_occurrences.py:30: AssertionError
+_ test_real_fields_and_mutations_preserve_legacy_except_declared_additions[0560-AD91] _
+
+row = {'rin': '0560-AD91', 'publication_id': '199510', 'authority_text': 'Sec 508(b)(7)(A) Federal Crop Insurance Reform Act of 1994', 'authority_source': 'box', ...}
+
+    @pytest.mark.parametrize('row', ROWS, ids=lambda r:r['rin'])
+    def test_real_fields_and_mutations_preserve_legacy_except_declared_additions(row):
+        raw = row['authority_text']
+        for text in (raw, '🧭 ' + raw, raw.replace(' ', '\n'), raw + '; separate statement.'):
+            old = before(text, act_names=NAMES)
+            new = grammar.find_act_relative_citations(text, act_names=NAMES)
+            if raw in ADJACENT:
+                assert not old
+>               assert [(c.act_key,c.section,c.division) for c in new] == [('federal crop insurance reform act of 1994','508',None)]
+E               AssertionError: assert [] == [('federal cr... '508', None)]
+E                 
+E                 Right contains one more item: ('federal crop insurance reform act of 1994', '508', None)
+E                 Use -v to get more diff
+
+tests/test_act_occurrences.py:30: AssertionError
+_ test_real_fields_and_mutations_preserve_legacy_except_declared_additions[0560-AD93] _
+
+row = {'rin': '0560-AD93', 'publication_id': '199510', 'authority_text': 'Sec 422 of the Uruguay Round Agreements Act', 'authority_source': 'box', ...}
+
+    @pytest.mark.parametrize('row', ROWS, ids=lambda r:r['rin'])
+    def test_real_fields_and_mutations_preserve_legacy_except_declared_additions(row):
+        raw = row['authority_text']
+        for text in (raw, '🧭 ' + raw, raw.replace(' ', '\n'), raw + '; separate statement.'):
+            old = before(text, act_names=NAMES)
+            new = grammar.find_act_relative_citations(text, act_names=NAMES)
+            if raw in ADJACENT:
+                assert not old
+                assert [(c.act_key,c.section,c.division) for c in new] == [('federal crop insurance reform act of 1994','508',None)]
+            else:
+                assert new == old
+>           for item in occurrences(text):
+                        ^^^^^^^^^^^^^^^^^
+
+tests/test_act_occurrences.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = 'Sec 422 of the Uruguay Round Agreements Act'
+names = {'agricultural act of 1949', 'agricultural adjustment act of 1938', 'clean air act', 'federal crop insurance reform act of 1994', 'food security act of 1985', 'social security act', ...}
+
+    def occurrences(text, names=NAMES):
+>       return grammar.find_act_relative_occurrences(text, act_names=names)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'refspec.registry.citation_grammar' has no attribute 'find_act_relative_occurrences'. Did you mean: 'find_act_relative_citations'?
+
+tests/test_act_occurrences.py:19: AttributeError
+_ test_real_fields_and_mutations_preserve_legacy_except_declared_additions[0560-AC99] _
+
+row = {'rin': '0560-AC99', 'publication_id': '199510', 'authority_text': 'The Agricultural Adjustment Act of 1938, sec 379, as amended', 'authority_source': 'box', ...}
+
+    @pytest.mark.parametrize('row', ROWS, ids=lambda r:r['rin'])
+    def test_real_fields_and_mutations_preserve_legacy_except_declared_additions(row):
+        raw = row['authority_text']
+        for text in (raw, '🧭 ' + raw, raw.replace(' ', '\n'), raw + '; separate statement.'):
+            old = before(text, act_names=NAMES)
+            new = grammar.find_act_relative_citations(text, act_names=NAMES)
+            if raw in ADJACENT:
+                assert not old
+                assert [(c.act_key,c.section,c.division) for c in new] == [('federal crop insurance reform act of 1994','508',None)]
+            else:
+                assert new == old
+>           for item in occurrences(text):
+                        ^^^^^^^^^^^^^^^^^
+
+tests/test_act_occurrences.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = 'The Agricultural Adjustment Act of 1938, sec 379, as amended'
+names = {'agricultural act of 1949', 'agricultural adjustment act of 1938', 'clean air act', 'federal crop insurance reform act of 1994', 'food security act of 1985', 'social security act', ...}
+
+    def occurrences(text, names=NAMES):
+>       return grammar.find_act_relative_occurrences(text, act_names=names)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'refspec.registry.citation_grammar' has no attribute 'find_act_relative_occurrences'. Did you mean: 'find_act_relative_citations'?
+
+tests/test_act_occurrences.py:19: AttributeError
+_ test_real_fields_and_mutations_preserve_legacy_except_declared_additions[0560-AD00] _
+
+row = {'rin': '0560-AD00', 'publication_id': '199510', 'authority_text': 'The Agricultural Act of 1949, sec 105B(g), as amended', 'authority_source': 'box', ...}
+
+    @pytest.mark.parametrize('row', ROWS, ids=lambda r:r['rin'])
+    def test_real_fields_and_mutations_preserve_legacy_except_declared_additions(row):
+        raw = row['authority_text']
+        for text in (raw, '🧭 ' + raw, raw.replace(' ', '\n'), raw + '; separate statement.'):
+            old = before(text, act_names=NAMES)
+            new = grammar.find_act_relative_citations(text, act_names=NAMES)
+            if raw in ADJACENT:
+                assert not old
+                assert [(c.act_key,c.section,c.division) for c in new] == [('federal crop insurance reform act of 1994','508',None)]
+            else:
+                assert new == old
+>           for item in occurrences(text):
+                        ^^^^^^^^^^^^^^^^^
+
+tests/test_act_occurrences.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = 'The Agricultural Act of 1949, sec 105B(g), as amended'
+names = {'agricultural act of 1949', 'agricultural adjustment act of 1938', 'clean air act', 'federal crop insurance reform act of 1994', 'food security act of 1985', 'social security act', ...}
+
+    def occurrences(text, names=NAMES):
+>       return grammar.find_act_relative_occurrences(text, act_names=names)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'refspec.registry.citation_grammar' has no attribute 'find_act_relative_occurrences'. Did you mean: 'find_act_relative_citations'?
+
+tests/test_act_occurrences.py:19: AttributeError
+_ test_real_fields_and_mutations_preserve_legacy_except_declared_additions[0790-AG14] _
+
+row = {'rin': '0790-AG14', 'publication_id': '199510', 'authority_text': 'Sec 326, National Defense Authorization Act for FY 1995', 'authority_source': 'box', ...}
+
+    @pytest.mark.parametrize('row', ROWS, ids=lambda r:r['rin'])
+    def test_real_fields_and_mutations_preserve_legacy_except_declared_additions(row):
+        raw = row['authority_text']
+        for text in (raw, '🧭 ' + raw, raw.replace(' ', '\n'), raw + '; separate statement.'):
+            old = before(text, act_names=NAMES)
+            new = grammar.find_act_relative_citations(text, act_names=NAMES)
+            if raw in ADJACENT:
+                assert not old
+                assert [(c.act_key,c.section,c.division) for c in new] == [('federal crop insurance reform act of 1994','508',None)]
+            else:
+                assert new == old
+>           for item in occurrences(text):
+                        ^^^^^^^^^^^^^^^^^
+
+tests/test_act_occurrences.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = 'Sec 326, National Defense Authorization Act for FY 1995'
+names = {'agricultural act of 1949', 'agricultural adjustment act of 1938', 'clean air act', 'federal crop insurance reform act of 1994', 'food security act of 1985', 'social security act', ...}
+
+    def occurrences(text, names=NAMES):
+>       return grammar.find_act_relative_occurrences(text, act_names=names)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'refspec.registry.citation_grammar' has no attribute 'find_act_relative_occurrences'. Did you mean: 'find_act_relative_citations'?
+
+tests/test_act_occurrences.py:19: AttributeError
+_ test_real_fields_and_mutations_preserve_legacy_except_declared_additions[1901-AA58] _
+
+row = {'rin': '1901-AA58', 'publication_id': '199510', 'authority_text': '42 USC 2208 Atomic Energy Act of 1954, sec 168', 'authority_source': 'box', ...}
+
+    @pytest.mark.parametrize('row', ROWS, ids=lambda r:r['rin'])
+    def test_real_fields_and_mutations_preserve_legacy_except_declared_additions(row):
+        raw = row['authority_text']
+        for text in (raw, '🧭 ' + raw, raw.replace(' ', '\n'), raw + '; separate statement.'):
+            old = before(text, act_names=NAMES)
+            new = grammar.find_act_relative_citations(text, act_names=NAMES)
+            if raw in ADJACENT:
+                assert not old
+                assert [(c.act_key,c.section,c.division) for c in new] == [('federal crop insurance reform act of 1994','508',None)]
+            else:
+                assert new == old
+>           for item in occurrences(text):
+                        ^^^^^^^^^^^^^^^^^
+
+tests/test_act_occurrences.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = '42 USC 2208 Atomic Energy Act of 1954, sec 168'
+names = {'agricultural act of 1949', 'agricultural adjustment act of 1938', 'clean air act', 'federal crop insurance reform act of 1994', 'food security act of 1985', 'social security act', ...}
+
+    def occurrences(text, names=NAMES):
+>       return grammar.find_act_relative_occurrences(text, act_names=names)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'refspec.registry.citation_grammar' has no attribute 'find_act_relative_occurrences'. Did you mean: 'find_act_relative_citations'?
+
+tests/test_act_occurrences.py:19: AttributeError
+________________ test_repeats_pinpoints_and_line_breaks_survive ________________
+
+    def test_repeats_pinpoints_and_line_breaks_survive():
+        text = '🧭 Clean Air\nAct section 111(d); then Clean Air Act section 111(d).'
+>       first, second = occurrences(text)
+                        ^^^^^^^^^^^^^^^^^
+
+tests/test_act_occurrences.py:40: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = '🧭 Clean Air\nAct section 111(d); then Clean Air Act section 111(d).'
+names = {'agricultural act of 1949', 'agricultural adjustment act of 1938', 'clean air act', 'federal crop insurance reform act of 1994', 'food security act of 1985', 'social security act', ...}
+
+    def occurrences(text, names=NAMES):
+>       return grammar.find_act_relative_occurrences(text, act_names=names)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'refspec.registry.citation_grammar' has no attribute 'find_act_relative_occurrences'. Did you mean: 'find_act_relative_citations'?
+
+tests/test_act_occurrences.py:19: AttributeError
+______________________ test_reversed_and_spaced_pinpoints ______________________
+
+    def test_reversed_and_spaced_pinpoints():
+>       item, = occurrences('Section 1886(d)( 2 ) of the Social Security Act.')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_act_occurrences.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = 'Section 1886(d)( 2 ) of the Social Security Act.'
+names = {'agricultural act of 1949', 'agricultural adjustment act of 1938', 'clean air act', 'federal crop insurance reform act of 1994', 'food security act of 1985', 'social security act', ...}
+
+    def occurrences(text, names=NAMES):
+>       return grammar.find_act_relative_occurrences(text, act_names=names)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'refspec.registry.citation_grammar' has no attribute 'find_act_relative_occurrences'. Did you mean: 'find_act_relative_citations'?
+
+tests/test_act_occurrences.py:19: AttributeError
+_ test_unrelated_division_is_not_borrowed[ A different provision names division B.] _
+
+neighbor = ' A different provision names division B.'
+
+    @pytest.mark.parametrize('neighbor', [' A different provision names division B.', '; division B of another act.', '\n\nDivision B is unrelated.'])
+    def test_unrelated_division_is_not_borrowed(neighbor):
+        text = 'Clean Air Act section 111.' + neighbor
+        old, = before(text, act_names=NAMES)
+>       item, = occurrences(text)
+                ^^^^^^^^^^^^^^^^^
+
+tests/test_act_occurrences.py:59: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = 'Clean Air Act section 111. A different provision names division B.'
+names = {'agricultural act of 1949', 'agricultural adjustment act of 1938', 'clean air act', 'federal crop insurance reform act of 1994', 'food security act of 1985', 'social security act', ...}
+
+    def occurrences(text, names=NAMES):
+>       return grammar.find_act_relative_occurrences(text, act_names=names)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'refspec.registry.citation_grammar' has no attribute 'find_act_relative_occurrences'. Did you mean: 'find_act_relative_citations'?
+
+tests/test_act_occurrences.py:19: AttributeError
+____ test_unrelated_division_is_not_borrowed[; division B of another act.] _____
+
+neighbor = '; division B of another act.'
+
+    @pytest.mark.parametrize('neighbor', [' A different provision names division B.', '; division B of another act.', '\n\nDivision B is unrelated.'])
+    def test_unrelated_division_is_not_borrowed(neighbor):
+        text = 'Clean Air Act section 111.' + neighbor
+        old, = before(text, act_names=NAMES)
+>       item, = occurrences(text)
+                ^^^^^^^^^^^^^^^^^
+
+tests/test_act_occurrences.py:59: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = 'Clean Air Act section 111.; division B of another act.'
+names = {'agricultural act of 1949', 'agricultural adjustment act of 1938', 'clean air act', 'federal crop insurance reform act of 1994', 'food security act of 1985', 'social security act', ...}
+
+    def occurrences(text, names=NAMES):
+>       return grammar.find_act_relative_occurrences(text, act_names=names)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'refspec.registry.citation_grammar' has no attribute 'find_act_relative_occurrences'. Did you mean: 'find_act_relative_citations'?
+
+tests/test_act_occurrences.py:19: AttributeError
+____ test_unrelated_division_is_not_borrowed[\n\nDivision B is unrelated.] _____
+
+neighbor = '\n\nDivision B is unrelated.'
+
+    @pytest.mark.parametrize('neighbor', [' A different provision names division B.', '; division B of another act.', '\n\nDivision B is unrelated.'])
+    def test_unrelated_division_is_not_borrowed(neighbor):
+        text = 'Clean Air Act section 111.' + neighbor
+        old, = before(text, act_names=NAMES)
+>       item, = occurrences(text)
+                ^^^^^^^^^^^^^^^^^
+
+tests/test_act_occurrences.py:59: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = 'Clean Air Act section 111.\n\nDivision B is unrelated.'
+names = {'agricultural act of 1949', 'agricultural adjustment act of 1938', 'clean air act', 'federal crop insurance reform act of 1994', 'food security act of 1985', 'social security act', ...}
+
+    def occurrences(text, names=NAMES):
+>       return grammar.find_act_relative_occurrences(text, act_names=names)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'refspec.registry.citation_grammar' has no attribute 'find_act_relative_occurrences'. Did you mean: 'find_act_relative_citations'?
+
+tests/test_act_occurrences.py:19: AttributeError
+___________ test_explicit_division_of_named_act_remains_in_citation ____________
+
+    def test_explicit_division_of_named_act_remains_in_citation():
+>       item, = occurrences('Division B of the Clean Air Act section 111.')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_act_occurrences.py:67: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = 'Division B of the Clean Air Act section 111.'
+names = {'agricultural act of 1949', 'agricultural adjustment act of 1938', 'clean air act', 'federal crop insurance reform act of 1994', 'food security act of 1985', 'social security act', ...}
+
+    def occurrences(text, names=NAMES):
+>       return grammar.find_act_relative_occurrences(text, act_names=names)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'refspec.registry.citation_grammar' has no attribute 'find_act_relative_occurrences'. Did you mean: 'find_act_relative_citations'?
+
+tests/test_act_occurrences.py:19: AttributeError
+_ test_unknown_or_separate_name_does_not_become_a_citation[Imaginary Marshmallow Act section 111.] _
+
+text = 'Imaginary Marshmallow Act section 111.'
+
+    @pytest.mark.parametrize('text', ['Imaginary Marshmallow Act section 111.', 'Section 111 of an unknown act.', 'Clean Air Act is discussed. Section 111 applies elsewhere.'])
+    def test_unknown_or_separate_name_does_not_become_a_citation(text):
+>       assert not occurrences(text)
+                   ^^^^^^^^^^^^^^^^^
+
+tests/test_act_occurrences.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = 'Imaginary Marshmallow Act section 111.'
+names = {'agricultural act of 1949', 'agricultural adjustment act of 1938', 'clean air act', 'federal crop insurance reform act of 1994', 'food security act of 1985', 'social security act', ...}
+
+    def occurrences(text, names=NAMES):
+>       return grammar.find_act_relative_occurrences(text, act_names=names)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'refspec.registry.citation_grammar' has no attribute 'find_act_relative_occurrences'. Did you mean: 'find_act_relative_citations'?
+
+tests/test_act_occurrences.py:19: AttributeError
+_ test_unknown_or_separate_name_does_not_become_a_citation[Section 111 of an unknown act.] _
+
+text = 'Section 111 of an unknown act.'
+
+    @pytest.mark.parametrize('text', ['Imaginary Marshmallow Act section 111.', 'Section 111 of an unknown act.', 'Clean Air Act is discussed. Section 111 applies elsewhere.'])
+    def test_unknown_or_separate_name_does_not_become_a_citation(text):
+>       assert not occurrences(text)
+                   ^^^^^^^^^^^^^^^^^
+
+tests/test_act_occurrences.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = 'Section 111 of an unknown act.'
+names = {'agricultural act of 1949', 'agricultural adjustment act of 1938', 'clean air act', 'federal crop insurance reform act of 1994', 'food security act of 1985', 'social security act', ...}
+
+    def occurrences(text, names=NAMES):
+>       return grammar.find_act_relative_occurrences(text, act_names=names)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'refspec.registry.citation_grammar' has no attribute 'find_act_relative_occurrences'. Did you mean: 'find_act_relative_citations'?
+
+tests/test_act_occurrences.py:19: AttributeError
+_ test_unknown_or_separate_name_does_not_become_a_citation[Clean Air Act is discussed. Section 111 applies elsewhere.] _
+
+text = 'Clean Air Act is discussed. Section 111 applies elsewhere.'
+
+    @pytest.mark.parametrize('text', ['Imaginary Marshmallow Act section 111.', 'Section 111 of an unknown act.', 'Clean Air Act is discussed. Section 111 applies elsewhere.'])
+    def test_unknown_or_separate_name_does_not_become_a_citation(text):
+>       assert not occurrences(text)
+                   ^^^^^^^^^^^^^^^^^
+
+tests/test_act_occurrences.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = 'Clean Air Act is discussed. Section 111 applies elsewhere.'
+names = {'agricultural act of 1949', 'agricultural adjustment act of 1938', 'clean air act', 'federal crop insurance reform act of 1994', 'food security act of 1985', 'social security act', ...}
+
+    def occurrences(text, names=NAMES):
+>       return grammar.find_act_relative_occurrences(text, act_names=names)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'refspec.registry.citation_grammar' has no attribute 'find_act_relative_occurrences'. Did you mean: 'find_act_relative_citations'?
+
+tests/test_act_occurrences.py:19: AttributeError
+______________________ test_mapping_keys_remain_canonical ______________________
+
+    def test_mapping_keys_remain_canonical():
+>       item, = occurrences('sec. 204 of the Motor Carrier Act of 1935', {'motor carrier act of 1935':'motor carrier act, 1935'})
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_act_occurrences.py:78: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+text = 'sec. 204 of the Motor Carrier Act of 1935'
+names = {'motor carrier act of 1935': 'motor carrier act, 1935'}
+
+    def occurrences(text, names=NAMES):
+>       return grammar.find_act_relative_occurrences(text, act_names=names)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'refspec.registry.citation_grammar' has no attribute 'find_act_relative_occurrences'. Did you mean: 'find_act_relative_citations'?
+
+tests/test_act_occurrences.py:19: AttributeError
+=========================== short test summary info ============================
+FAILED tests/test_act_occurrences.py::test_real_fields_and_mutations_preserve_legacy_except_declared_additions[0560-AC86]
+FAILED tests/test_act_occurrences.py::test_real_fields_and_mutations_preserve_legacy_except_declared_additions[0560-AD90]
+FAILED tests/test_act_occurrences.py::test_real_fields_and_mutations_preserve_legacy_except_declared_additions[0560-AD91]
+FAILED tests/test_act_occurrences.py::test_real_fields_and_mutations_preserve_legacy_except_declared_additions[0560-AD93]
+FAILED tests/test_act_occurrences.py::test_real_fields_and_mutations_preserve_legacy_except_declared_additions[0560-AC99]
+FAILED tests/test_act_occurrences.py::test_real_fields_and_mutations_preserve_legacy_except_declared_additions[0560-AD00]
+FAILED tests/test_act_occurrences.py::test_real_fields_and_mutations_preserve_legacy_except_declared_additions[0790-AG14]
+FAILED tests/test_act_occurrences.py::test_real_fields_and_mutations_preserve_legacy_except_declared_additions[1901-AA58]
+FAILED tests/test_act_occurrences.py::test_repeats_pinpoints_and_line_breaks_survive
+FAILED tests/test_act_occurrences.py::test_reversed_and_spaced_pinpoints - At...
+FAILED tests/test_act_occurrences.py::test_unrelated_division_is_not_borrowed[ A different provision names division B.]
+FAILED tests/test_act_occurrences.py::test_unrelated_division_is_not_borrowed[; division B of another act.]
+FAILED tests/test_act_occurrences.py::test_unrelated_division_is_not_borrowed[\n\nDivision B is unrelated.]
+FAILED tests/test_act_occurrences.py::test_explicit_division_of_named_act_remains_in_citation
+FAILED tests/test_act_occurrences.py::test_unknown_or_separate_name_does_not_become_a_citation[Imaginary Marshmallow Act section 111.]
+FAILED tests/test_act_occurrences.py::test_unknown_or_separate_name_does_not_become_a_citation[Section 111 of an unknown act.]
+FAILED tests/test_act_occurrences.py::test_unknown_or_separate_name_does_not_become_a_citation[Clean Air Act is discussed. Section 111 applies elsewhere.]
+FAILED tests/test_act_occurrences.py::test_mapping_keys_remain_canonical - At...
+18 failed in 0.17s

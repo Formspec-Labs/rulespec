@@ -1,0 +1,56 @@
+{
+  "holder": "rulespec-retention-delivery",
+  "pid": 17811,
+  "purpose": "isolated-delivery",
+  "start": "2026-09-11T13:16:13.978567+00:00",
+  "start_load": [
+    3.72998046875,
+    4.41259765625,
+    4.3173828125
+  ],
+  "end": "2026-09-11T13:16:15.337833+00:00",
+  "end_load": [
+    3.67138671875,
+    4.388671875,
+    4.3095703125
+  ],
+  "commands": [
+    {
+      "name": "dependency-check",
+      "command": [
+        "uv",
+        "pip",
+        "check",
+        "--python",
+        "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/bin/python"
+      ],
+      "cwd": "/tmp",
+      "pythonpath": "",
+      "returncode": 0
+    },
+    {
+      "name": "runtime",
+      "command": [
+        "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/bin/python",
+        "-c",
+        "import rulespec_extrapolator.extraction as e; print(e.__file__)"
+      ],
+      "cwd": "/tmp",
+      "pythonpath": "",
+      "returncode": 0
+    },
+    {
+      "name": "review-boundary",
+      "command": [
+        "/Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py"
+      ],
+      "cwd": "/tmp",
+      "pythonpath": "/Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests",
+      "returncode": 1
+    }
+  ]
+}

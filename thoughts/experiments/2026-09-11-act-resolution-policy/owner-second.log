@@ -1,0 +1,44 @@
+.......................................................F................ [ 69%]
+................................                                         [100%]
+=================================== FAILURES ===================================
+____________ test_only_a_pinned_table_can_be_read_through_this_door ____________
+
+    @artifact
+    def test_only_a_pinned_table_can_be_read_through_this_door() -> None:
+        """The pin is the authentication, so an unpinned table has no way in."""
+    
+        with pytest.raises(KeyError):
+>           _read_pinned_parquet(ACT_DIR, "unlisted.parquet")
+
+../RefSpec/tests/test_act_resolution.py:729: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../RefSpec/src/refspec/registry/act_resolution.py:366: in _read_pinned_parquet
+    if not _artifacts_stating(path):
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+../RefSpec/src/refspec/registry/act_resolution.py:358: in _artifacts_stating
+    digest = f"sha256:{hashlib.sha256(path.read_bytes()).hexdigest()}"
+                                      ^^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1019: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/mikewolfd/Work/RefSpec/output/usc-act-index-2026-08-02/unlisted.parquet')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/mikewolfd/Work/RefSpec/output/usc-act-index-2026-08-02/unlisted.parquet'
+
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+=========================== short test summary info ============================
+FAILED ../RefSpec/tests/test_act_resolution.py::test_only_a_pinned_table_can_be_read_through_this_door
+1 failed, 103 passed in 3.18s

@@ -1,0 +1,260 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+__ test_reprocessing_keeps_original_reviews_without_transferring_them[False] ___
+
+offline = (<function offline.<locals>.install at 0x109cee980>, [<test_extraction.FakeModel object at 0x10fb07f80>])
+tmp_path = PosixPath('/private/var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/pytest-of-mikewolfd/pytest-3880/test_reprocessing_keeps_origin0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x109cf53a0>
+recover_earlier_candidate = False
+
+    @pytest.mark.parametrize('recover_earlier_candidate', [False, True])
+    def test_reprocessing_keeps_original_reviews_without_transferring_them(
+            offline, tmp_path, monkeypatch, recover_earlier_candidate):
+        install, models = offline
+        document = prepare_document('Guests may borrow maps.\nStaff must log requests.')
+        response = raw([
+            row('F000', kind='permission', statement='Guests may borrow maps.',
+                modality='may', modality_quote='may'),
+            row('F001'),
+        ])
+        env_file = install([response])
+        original = tmp_path / 'original'
+        parse = e.parse_raw_response
+    
+        def earlier_parser(*args, **kwargs):
+            result = deepcopy(parse(*args, **kwargs))
+            # Simulate an earlier parser omitting the first row from the same capture.
+            # The false arm checks the unchanged-ID case, not just the known failure.
+            if recover_earlier_candidate:
+                result['candidates'] = result['candidates'][1:]
+            return result
+    
+        with monkeypatch.context() as patch:
+            patch.setattr(e, 'parse_raw_response', earlier_parser)
+            base = e.extract_run(document, original, env_file=env_file)
+>       assert len(base['accepted']) == (1 if recover_earlier_candidate else 2)
+E       AssertionError: assert 1 == 2
+E        +  where 1 = len([{'kind': 'permission', 'scope_text': '', 'modality_quote': 'may', 'modality': 'may', ...}])
+
+/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py:38: AssertionError
+___ test_reprocessing_keeps_original_reviews_without_transferring_them[True] ___
+
+offline = (<function offline.<locals>.install at 0x113527240>, [<test_extraction.FakeModel object at 0x11358fb30>])
+tmp_path = PosixPath('/private/var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/pytest-of-mikewolfd/pytest-3880/test_reprocessing_keeps_origin1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x11358f410>
+recover_earlier_candidate = True
+
+    @pytest.mark.parametrize('recover_earlier_candidate', [False, True])
+    def test_reprocessing_keeps_original_reviews_without_transferring_them(
+            offline, tmp_path, monkeypatch, recover_earlier_candidate):
+        install, models = offline
+        document = prepare_document('Guests may borrow maps.\nStaff must log requests.')
+        response = raw([
+            row('F000', kind='permission', statement='Guests may borrow maps.',
+                modality='may', modality_quote='may'),
+            row('F001'),
+        ])
+        env_file = install([response])
+        original = tmp_path / 'original'
+        parse = e.parse_raw_response
+    
+        def earlier_parser(*args, **kwargs):
+            result = deepcopy(parse(*args, **kwargs))
+            # Simulate an earlier parser omitting the first row from the same capture.
+            # The false arm checks the unchanged-ID case, not just the known failure.
+            if recover_earlier_candidate:
+                result['candidates'] = result['candidates'][1:]
+            return result
+    
+        with monkeypatch.context() as patch:
+            patch.setattr(e, 'parse_raw_response', earlier_parser)
+            base = e.extract_run(document, original, env_file=env_file)
+>       assert len(base['accepted']) == (1 if recover_earlier_candidate else 2)
+E       assert 0 == 1
+E        +  where 0 = len([])
+
+/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py:38: AssertionError
+=============================== warnings summary ===============================
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[True]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/parsers/jsonld.py:159: DeprecationWarning: ConjunctiveGraph is deprecated, use Dataset instead.
+    conj_sink = ConjunctiveGraph(store=sink.store, identifier=sink.identifier)
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:173: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    IRIREF.setParseAction(lambda x: rdflib.URIRef(x[0]))
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py: 206 warnings
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parserutils.py:129: PyparsingDeprecationWarning: 'setName' deprecated - use 'set_name'
+    self.setName(name)
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py: 206 warnings
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parserutils.py:130: PyparsingDeprecationWarning: 'addParseAction' deprecated - use 'add_parse_action'
+    self.addParseAction(self.postParse2)
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:212: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    PNAME_NS = Optional(Param("prefix", PN_PREFIX)) + Suppress(":").leaveWhitespace()
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:245: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    PNAME_LN = PNAME_NS + Param("localname", PN_LOCAL.leaveWhitespace())
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:252: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    BLANK_NODE_LABEL.setParseAction(lambda x: rdflib.BNode(x[0][2:]))
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:273: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    INTEGER.setParseAction(lambda x: rdflib.Literal(x[0], datatype=rdflib.XSD.integer))
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:281: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    DECIMAL.setParseAction(lambda x: rdflib.Literal(x[0], datatype=rdflib.XSD.decimal))
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:286: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    DOUBLE.setParseAction(lambda x: rdflib.Literal(x[0], datatype=rdflib.XSD.double))
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:290: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    INTEGER_POSITIVE = Suppress("+") + INTEGER.copy().leaveWhitespace()
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:291: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    INTEGER_POSITIVE.setParseAction(
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:296: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    DECIMAL_POSITIVE = Suppress("+") + DECIMAL.copy().leaveWhitespace()
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:299: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    DOUBLE_POSITIVE = Suppress("+") + DOUBLE.copy().leaveWhitespace()
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:302: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    INTEGER_NEGATIVE = Suppress("-") + INTEGER.copy().leaveWhitespace()
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:303: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    INTEGER_NEGATIVE.setParseAction(lambda x: neg(x[0]))
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:306: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    DECIMAL_NEGATIVE = Suppress("-") + DECIMAL.copy().leaveWhitespace()
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:307: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    DECIMAL_NEGATIVE.setParseAction(lambda x: neg(x[0]))
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:310: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    DOUBLE_NEGATIVE = Suppress("-") + DOUBLE.copy().leaveWhitespace()
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:311: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    DOUBLE_NEGATIVE.setParseAction(lambda x: neg(x[0]))
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:321: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    STRING_LITERAL_LONG1.setParseAction(
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:329: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    STRING_LITERAL_LONG2.setParseAction(
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:338: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    STRING_LITERAL1.setParseAction(
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:347: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    STRING_LITERAL2.setParseAction(
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:353: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    NIL.setParseAction(lambda x: rdflib.RDF.nil)
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:360: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    ANON.setParseAction(lambda x: rdflib.BNode())
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:364: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    A.setParseAction(lambda x: rdflib.RDF.type)
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py: 126 warnings
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parserutils.py:239: PyparsingDeprecationWarning: 'setName' deprecated - use 'set_name'
+    self.setName(name)
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:380: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    Var.setParseAction(lambda x: rdflib.term.Variable(x[0]))
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:397: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    Param("lang", LANGTAG.leaveWhitespace())
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:398: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    | Literal("^^").leaveWhitespace() + Param("datatype", iri).leaveWhitespace()
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:417: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    BooleanLiteral = Keyword("true").setParseAction(lambda: rdflib.Literal(True)) | Keyword(
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:419: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    ).setParseAction(lambda: rdflib.Literal(False))
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:505: PyparsingDeprecationWarning: 'leaveWhitespace' deprecated - use 'leave_whitespace'
+    Param("part", PathPrimary) + Optional(Param("mod", PathMod.leaveWhitespace())),
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:545: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    Collection.setParseAction(expandCollection)
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:549: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    CollectionPath.setParseAction(expandCollection)
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:576: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    BlankNodePropertyList.setParseAction(expandBNodeTriples)
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:582: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    BlankNodePropertyListPath.setParseAction(expandBNodeTriples)
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:592: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    TriplesSameSubject.setParseAction(expandTriples)
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:632: PyparsingDeprecationWarning: 'setParseAction' deprecated - use 'set_parse_action'
+    TriplesSameSubjectPath.setParseAction(expandTriples)
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:657: PyparsingDeprecationWarning: 'delimitedList' deprecated - use 'DelimitedList'
+    ExpressionList = NIL | Group(Suppress("(") + delimitedList(Expression) + Suppress(")"))
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:1018: PyparsingDeprecationWarning: 'delimitedList' deprecated - use 'DelimitedList'
+    + delimitedList(ParamList("expr", Expression))
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py: 13 warnings
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/rdflib/plugins/sparql/parser.py:1553: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+    return Query.parseString(q, parseAll=True)
+
+thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py: 13 warnings
+  /Users/mikewolfd/Work/rulespec/.tools/reference-integration-20260911-retention/lib/python3.12/site-packages/pyparsing/util.py:466: PyparsingDeprecationWarning: 'parseAll' argument is deprecated, use 'parse_all'
+    return fn(self, *args, **kwargs)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED ../../Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[False]
+FAILED ../../Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-extraction-retention/test_review_reprocessing.py::test_reprocessing_keeps_original_reviews_without_transferring_them[True]
+2 failed, 605 warnings in 0.85s

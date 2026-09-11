@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-extraction-retention/combined-application/rulespec_extrapolator/review_store.py", line 153, in _verify_extraction_manifest
+    manifest = _verify_manifest(self.run_dir)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-extraction-retention/combined-application/rulespec_extrapolator/extraction.py", line 881, in _verify_manifest
+    raise ReplayDriftError("The run manifest omits a required artifact")
+rulespec_extrapolator.extraction.ReplayDriftError: The run manifest omits a required artifact
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-extraction-retention/verify.py", line 63, in <module>
+    store = ReviewStore(copied)
+            ^^^^^^^^^^^^^^^^^^^
+  File "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-extraction-retention/combined-application/rulespec_extrapolator/review_store.py", line 110, in __init__
+    self._verify_extraction_manifest()
+  File "/Users/mikewolfd/Work/rulespec/thoughts/experiments/2026-09-11-extraction-retention/combined-application/rulespec_extrapolator/review_store.py", line 158, in _verify_extraction_manifest
+    raise ReviewIntegrityError(f"The extraction manifest failed verification: {exc}") from exc
+rulespec_extrapolator.review_store.ReviewIntegrityError: The extraction manifest failed verification: The run manifest omits a required artifact

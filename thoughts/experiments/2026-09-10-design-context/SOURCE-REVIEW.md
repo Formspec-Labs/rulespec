@@ -1,0 +1,10 @@
+# Manual input review, before reading answers
+
+All source positions in B resolve exactly. Existing helpers supplied the context; no expected-answer clauses were added.
+
+- **Venting:** neither arm supplies paragraph (a)(2), its de-minimis exemption, its conjunction/disjunction, or the independent paragraph (b) service duty. B supplies the original prohibition, parent heading, and first substitute. It cannot answer these missing qualifications faithfully. This is a source-selection failure, not evidence that more context cannot help. A categorical universal ban is overbroad; unknown is a faithful response to missing material.
+- **Dated labels:** B supplies the child-restraint occupancy lead-in and labeling conditions; it does **not** supply the outer aircraft-use sentence. Thus B can reject a general manufacturing-law reading from the conditional structure but cannot ground the word aircraft independently. The frozen question asks specifically about aircraft. Do not credit an affirmative aircraft answer as grounded solely because it matches full source; the question itself could cue that fact. The manufacturer actor remains unstated.
+- **Child securing:** both arms already name the operator and forward-facing seat/berth. B supplies the notwithstanding lead-in and local child conditions. Neither supplies paragraph(b)'s part121/125/135 exclusion. A downstream answer must not conclusively settle the disputed part135 interaction. This pilot does not test interpretation with both competing clauses present.
+- **Constructed parent:** B includes staff permit and staff log rules as structural/adjacent context plus the explicit independent visitor permission. These must not be transferred to waiting-room visitors. B alone supplies the adjacent closing time. This is a hand-authored negative control, not a fresh natural document or benchmark.
+
+The two intended positive opportunities differ: relevant child-use scope is partly supplied; the actual de-minimis omission is not supplied at all. These limitations are retained in the result and prevent claiming this bundle solves full context dependency.

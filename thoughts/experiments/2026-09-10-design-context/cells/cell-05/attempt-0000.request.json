@@ -1,0 +1,66 @@
+{
+  "model": "gemini-3.8-flash",
+  "contents": "Answer each fixed comprehension question using ONLY the supplied material. The extracted statement may omit qualifications. Do not fill gaps with remembered law or external facts. A source passage selected for proximity, structure or evidence is context, not proof its condition governs this statement. If the supplied material does not settle a question, say unknown; if it supports conflicting readings, say ambiguous and preserve them. Briefly state the actor/action/conditions relevant to the question. Cite supplied source IDs or statement. Do not invent absent requirements. Return the requested JSON.\nMaterial: {\"source_context\":[],\"statement\":\"When a child occupies an approved child restraint system under 14 CFR § 91.107(a)(3)(iii), the operator must ensure the restraint system is properly secured to an approved forward-facing seat or berth.\"}\nQuestions: [{\"id\":\"q1\",\"question\":\"Who is responsible for securing the child restraint, and to what must it be secured?\"},{\"id\":\"q2\",\"question\":\"Does this securing requirement apply whenever any child restraint exists anywhere, including use outside aircraft?\"},{\"id\":\"q3\",\"question\":\"For an operation under part135, does the supplied material conclusively settle whether this child-restraint securing requirement applies?\"},{\"id\":\"q4\",\"question\":\"Does the phrase notwithstanding any other requirement automatically authorize ignoring every condition of the child-restraint permission?\"}]",
+  "config": {
+    "temperature": 0,
+    "max_output_tokens": 32768,
+    "response_mime_type": "application/json",
+    "candidate_count": 1,
+    "response_json_schema": {
+      "type": "object",
+      "properties": {
+        "answers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "question_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "conclusion": {
+                "type": "string",
+                "enum": [
+                  "yes",
+                  "no",
+                  "unknown",
+                  "ambiguous"
+                ]
+              },
+              "answer": {
+                "type": "string",
+                "minLength": 1
+              },
+              "support_refs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "remaining_uncertainty": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "required": [
+              "question_id",
+              "conclusion",
+              "answer",
+              "support_refs",
+              "remaining_uncertainty"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "answers"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

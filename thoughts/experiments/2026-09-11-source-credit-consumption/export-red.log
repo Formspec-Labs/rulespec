@@ -1,0 +1,290 @@
+F.FF.FFF.F                                                               [100%]
+=================================== FAILURES ===================================
+_ test_source_map_preserves_passages_and_exact_source_coverage[original-cli-failure] _
+
+parts = [('source', 'sec. 103 of the 2020 PIPES Act'), ('inserted', '\n\n'), ('source', 'SECURE 2.0 Act of 2022, sec. 127'), ('inserted', '\n\n'), ('source', 'SECURE 2.0 Act of 2022, sec. 303')]
+
+    @pytest.mark.parametrize('parts', [
+        [('source', 'sec. 103 of the 2020 PIPES Act'), ('inserted', '\n\n'),
+         ('source', 'SECURE 2.0 Act of 2022, sec. 127'), ('inserted', '\n\n'),
+         ('source', 'SECURE 2.0 Act of 2022, sec. 303')],
+        [('source', 'First.\n\nSecond.')],
+        [('source', 'First.'), ('inserted', '\n\n'), ('source', 'Second.')],
+        [('source', 'First'), ('inserted', ' editorial addition '), ('source', 'Second')],
+        [('source', 'First '), ('source', 'Second')],
+        [('inserted', 'Entirely inserted.')],
+        [('inserted', 'Heading\n\n'), ('source', 'Original.'), ('inserted', '\n\nFootnote')],
+        [('source', 'Café § 😀.'), ('inserted', '\n\n'), ('source', 'Café § 😀.')],
+    ], ids=['original-cli-failure', 'original-whitespace', 'inserted-whitespace',
+            'inserted-within-passage', 'adjacent-sources', 'all-inserted',
+            'inserted-first-last', 'unicode-repeated'])
+    def test_source_map_preserves_passages_and_exact_source_coverage(parts):
+        doc = mapped_document(parts)
+        book = {'document': doc, 'accepted': []}
+        before = deepcopy(book)
+        passages = source_passages(doc)
+>       exported = export_discovery(book)
+                   ^^^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_discovery_source_map.py:46: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/discovery.py:72: in export_discovery
+    row['evidence_refs'] = references(row.pop('evidence'))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+items = [{'field': 'source', 'start': 0, 'end': 32, 'quote': 'sec. 103 of the 2020 PIPES Act\n\n'}]
+
+    def references(items):
+        grouped = {}
+        for item in verified(book, items):
+            support = item if item.get('fragment_id') else _evidence(doc, item['quote'], item['field'], item['start'], item['end'])
+>           identity = support['fragment_id']
+                       ^^^^^^^^^^^^^^^^^^^^^^
+E           TypeError: 'NoneType' object is not subscriptable
+
+packages/rulespec-extrapolator/src/rulespec_extrapolator/discovery.py:58: TypeError
+_ test_source_map_preserves_passages_and_exact_source_coverage[inserted-whitespace] _
+
+parts = [('source', 'First.'), ('inserted', '\n\n'), ('source', 'Second.')]
+
+    @pytest.mark.parametrize('parts', [
+        [('source', 'sec. 103 of the 2020 PIPES Act'), ('inserted', '\n\n'),
+         ('source', 'SECURE 2.0 Act of 2022, sec. 127'), ('inserted', '\n\n'),
+         ('source', 'SECURE 2.0 Act of 2022, sec. 303')],
+        [('source', 'First.\n\nSecond.')],
+        [('source', 'First.'), ('inserted', '\n\n'), ('source', 'Second.')],
+        [('source', 'First'), ('inserted', ' editorial addition '), ('source', 'Second')],
+        [('source', 'First '), ('source', 'Second')],
+        [('inserted', 'Entirely inserted.')],
+        [('inserted', 'Heading\n\n'), ('source', 'Original.'), ('inserted', '\n\nFootnote')],
+        [('source', 'Café § 😀.'), ('inserted', '\n\n'), ('source', 'Café § 😀.')],
+    ], ids=['original-cli-failure', 'original-whitespace', 'inserted-whitespace',
+            'inserted-within-passage', 'adjacent-sources', 'all-inserted',
+            'inserted-first-last', 'unicode-repeated'])
+    def test_source_map_preserves_passages_and_exact_source_coverage(parts):
+        doc = mapped_document(parts)
+        book = {'document': doc, 'accepted': []}
+        before = deepcopy(book)
+        passages = source_passages(doc)
+>       exported = export_discovery(book)
+                   ^^^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_discovery_source_map.py:46: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/discovery.py:72: in export_discovery
+    row['evidence_refs'] = references(row.pop('evidence'))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+items = [{'field': 'source', 'start': 0, 'end': 8, 'quote': 'First.\n\n'}]
+
+    def references(items):
+        grouped = {}
+        for item in verified(book, items):
+            support = item if item.get('fragment_id') else _evidence(doc, item['quote'], item['field'], item['start'], item['end'])
+>           identity = support['fragment_id']
+                       ^^^^^^^^^^^^^^^^^^^^^^
+E           TypeError: 'NoneType' object is not subscriptable
+
+packages/rulespec-extrapolator/src/rulespec_extrapolator/discovery.py:58: TypeError
+_ test_source_map_preserves_passages_and_exact_source_coverage[inserted-within-passage] _
+
+parts = [('source', 'First'), ('inserted', ' editorial addition '), ('source', 'Second')]
+
+    @pytest.mark.parametrize('parts', [
+        [('source', 'sec. 103 of the 2020 PIPES Act'), ('inserted', '\n\n'),
+         ('source', 'SECURE 2.0 Act of 2022, sec. 127'), ('inserted', '\n\n'),
+         ('source', 'SECURE 2.0 Act of 2022, sec. 303')],
+        [('source', 'First.\n\nSecond.')],
+        [('source', 'First.'), ('inserted', '\n\n'), ('source', 'Second.')],
+        [('source', 'First'), ('inserted', ' editorial addition '), ('source', 'Second')],
+        [('source', 'First '), ('source', 'Second')],
+        [('inserted', 'Entirely inserted.')],
+        [('inserted', 'Heading\n\n'), ('source', 'Original.'), ('inserted', '\n\nFootnote')],
+        [('source', 'Café § 😀.'), ('inserted', '\n\n'), ('source', 'Café § 😀.')],
+    ], ids=['original-cli-failure', 'original-whitespace', 'inserted-whitespace',
+            'inserted-within-passage', 'adjacent-sources', 'all-inserted',
+            'inserted-first-last', 'unicode-repeated'])
+    def test_source_map_preserves_passages_and_exact_source_coverage(parts):
+        doc = mapped_document(parts)
+        book = {'document': doc, 'accepted': []}
+        before = deepcopy(book)
+        passages = source_passages(doc)
+>       exported = export_discovery(book)
+                   ^^^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_discovery_source_map.py:46: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/discovery.py:72: in export_discovery
+    row['evidence_refs'] = references(row.pop('evidence'))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+items = [{'field': 'source', 'start': 0, 'end': 31, 'quote': 'First editorial addition Second'}]
+
+    def references(items):
+        grouped = {}
+        for item in verified(book, items):
+            support = item if item.get('fragment_id') else _evidence(doc, item['quote'], item['field'], item['start'], item['end'])
+>           identity = support['fragment_id']
+                       ^^^^^^^^^^^^^^^^^^^^^^
+E           TypeError: 'NoneType' object is not subscriptable
+
+packages/rulespec-extrapolator/src/rulespec_extrapolator/discovery.py:58: TypeError
+__ test_source_map_preserves_passages_and_exact_source_coverage[all-inserted] __
+
+parts = [('inserted', 'Entirely inserted.')]
+
+    @pytest.mark.parametrize('parts', [
+        [('source', 'sec. 103 of the 2020 PIPES Act'), ('inserted', '\n\n'),
+         ('source', 'SECURE 2.0 Act of 2022, sec. 127'), ('inserted', '\n\n'),
+         ('source', 'SECURE 2.0 Act of 2022, sec. 303')],
+        [('source', 'First.\n\nSecond.')],
+        [('source', 'First.'), ('inserted', '\n\n'), ('source', 'Second.')],
+        [('source', 'First'), ('inserted', ' editorial addition '), ('source', 'Second')],
+        [('source', 'First '), ('source', 'Second')],
+        [('inserted', 'Entirely inserted.')],
+        [('inserted', 'Heading\n\n'), ('source', 'Original.'), ('inserted', '\n\nFootnote')],
+        [('source', 'Café § 😀.'), ('inserted', '\n\n'), ('source', 'Café § 😀.')],
+    ], ids=['original-cli-failure', 'original-whitespace', 'inserted-whitespace',
+            'inserted-within-passage', 'adjacent-sources', 'all-inserted',
+            'inserted-first-last', 'unicode-repeated'])
+    def test_source_map_preserves_passages_and_exact_source_coverage(parts):
+        doc = mapped_document(parts)
+        book = {'document': doc, 'accepted': []}
+        before = deepcopy(book)
+        passages = source_passages(doc)
+>       exported = export_discovery(book)
+                   ^^^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_discovery_source_map.py:46: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/discovery.py:72: in export_discovery
+    row['evidence_refs'] = references(row.pop('evidence'))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+items = [{'field': 'source', 'start': 0, 'end': 18, 'quote': 'Entirely inserted.'}]
+
+    def references(items):
+        grouped = {}
+        for item in verified(book, items):
+            support = item if item.get('fragment_id') else _evidence(doc, item['quote'], item['field'], item['start'], item['end'])
+>           identity = support['fragment_id']
+                       ^^^^^^^^^^^^^^^^^^^^^^
+E           TypeError: 'NoneType' object is not subscriptable
+
+packages/rulespec-extrapolator/src/rulespec_extrapolator/discovery.py:58: TypeError
+_ test_source_map_preserves_passages_and_exact_source_coverage[inserted-first-last] _
+
+parts = [('inserted', 'Heading\n\n'), ('source', 'Original.'), ('inserted', '\n\nFootnote')]
+
+    @pytest.mark.parametrize('parts', [
+        [('source', 'sec. 103 of the 2020 PIPES Act'), ('inserted', '\n\n'),
+         ('source', 'SECURE 2.0 Act of 2022, sec. 127'), ('inserted', '\n\n'),
+         ('source', 'SECURE 2.0 Act of 2022, sec. 303')],
+        [('source', 'First.\n\nSecond.')],
+        [('source', 'First.'), ('inserted', '\n\n'), ('source', 'Second.')],
+        [('source', 'First'), ('inserted', ' editorial addition '), ('source', 'Second')],
+        [('source', 'First '), ('source', 'Second')],
+        [('inserted', 'Entirely inserted.')],
+        [('inserted', 'Heading\n\n'), ('source', 'Original.'), ('inserted', '\n\nFootnote')],
+        [('source', 'Café § 😀.'), ('inserted', '\n\n'), ('source', 'Café § 😀.')],
+    ], ids=['original-cli-failure', 'original-whitespace', 'inserted-whitespace',
+            'inserted-within-passage', 'adjacent-sources', 'all-inserted',
+            'inserted-first-last', 'unicode-repeated'])
+    def test_source_map_preserves_passages_and_exact_source_coverage(parts):
+        doc = mapped_document(parts)
+        book = {'document': doc, 'accepted': []}
+        before = deepcopy(book)
+        passages = source_passages(doc)
+>       exported = export_discovery(book)
+                   ^^^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_discovery_source_map.py:46: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/discovery.py:72: in export_discovery
+    row['evidence_refs'] = references(row.pop('evidence'))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+items = [{'field': 'source', 'start': 0, 'end': 9, 'quote': 'Heading\n\n'}]
+
+    def references(items):
+        grouped = {}
+        for item in verified(book, items):
+            support = item if item.get('fragment_id') else _evidence(doc, item['quote'], item['field'], item['start'], item['end'])
+>           identity = support['fragment_id']
+                       ^^^^^^^^^^^^^^^^^^^^^^
+E           TypeError: 'NoneType' object is not subscriptable
+
+packages/rulespec-extrapolator/src/rulespec_extrapolator/discovery.py:58: TypeError
+_ test_source_map_preserves_passages_and_exact_source_coverage[unicode-repeated] _
+
+parts = [('source', 'Café § 😀.'), ('inserted', '\n\n'), ('source', 'Café § 😀.')]
+
+    @pytest.mark.parametrize('parts', [
+        [('source', 'sec. 103 of the 2020 PIPES Act'), ('inserted', '\n\n'),
+         ('source', 'SECURE 2.0 Act of 2022, sec. 127'), ('inserted', '\n\n'),
+         ('source', 'SECURE 2.0 Act of 2022, sec. 303')],
+        [('source', 'First.\n\nSecond.')],
+        [('source', 'First.'), ('inserted', '\n\n'), ('source', 'Second.')],
+        [('source', 'First'), ('inserted', ' editorial addition '), ('source', 'Second')],
+        [('source', 'First '), ('source', 'Second')],
+        [('inserted', 'Entirely inserted.')],
+        [('inserted', 'Heading\n\n'), ('source', 'Original.'), ('inserted', '\n\nFootnote')],
+        [('source', 'Café § 😀.'), ('inserted', '\n\n'), ('source', 'Café § 😀.')],
+    ], ids=['original-cli-failure', 'original-whitespace', 'inserted-whitespace',
+            'inserted-within-passage', 'adjacent-sources', 'all-inserted',
+            'inserted-first-last', 'unicode-repeated'])
+    def test_source_map_preserves_passages_and_exact_source_coverage(parts):
+        doc = mapped_document(parts)
+        book = {'document': doc, 'accepted': []}
+        before = deepcopy(book)
+        passages = source_passages(doc)
+>       exported = export_discovery(book)
+                   ^^^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_discovery_source_map.py:46: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/discovery.py:72: in export_discovery
+    row['evidence_refs'] = references(row.pop('evidence'))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+items = [{'field': 'source', 'start': 0, 'end': 11, 'quote': 'Café § 😀.\n\n'}]
+
+    def references(items):
+        grouped = {}
+        for item in verified(book, items):
+            support = item if item.get('fragment_id') else _evidence(doc, item['quote'], item['field'], item['start'], item['end'])
+>           identity = support['fragment_id']
+                       ^^^^^^^^^^^^^^^^^^^^^^
+E           TypeError: 'NoneType' object is not subscriptable
+
+packages/rulespec-extrapolator/src/rulespec_extrapolator/discovery.py:58: TypeError
+_______ test_verified_does_not_relocate_or_trust_a_supplied_fragment_id ________
+
+    def test_verified_does_not_relocate_or_trust_a_supplied_fragment_id():
+        doc = mapped_document([('source', 'Original. '), ('inserted', 'Inserted. '), ('source', 'Original.')])
+        book = {'document': doc, 'accepted': []}
+        real = {'field': 'summary', 'quote': 'Original.', 'start': 0, 'end': 9}
+        wrong_position = {**real, 'start': 10, 'end': 19}
+        inserted = {'field': 'summary', 'quote': 'Inserted.', 'start': 10, 'end': 19,
+                    'fragment_id': 'urn:test:unverified-fragment'}
+        supported = verified(book, [real, wrong_position, inserted])
+>       assert len(supported) == 1
+E       AssertionError: assert 2 == 1
+E        +  where 2 = len([{'field': 'summary', 'quote': 'Original.', 'start': 0, 'end': 9}, {'field': 'summary', 'quote': 'Inserted.', 'start': 10, 'end': 19, ...}])
+
+packages/rulespec-extrapolator/tests/test_discovery_source_map.py:83: AssertionError
+=========================== short test summary info ============================
+FAILED packages/rulespec-extrapolator/tests/test_discovery_source_map.py::test_source_map_preserves_passages_and_exact_source_coverage[original-cli-failure]
+FAILED packages/rulespec-extrapolator/tests/test_discovery_source_map.py::test_source_map_preserves_passages_and_exact_source_coverage[inserted-whitespace]
+FAILED packages/rulespec-extrapolator/tests/test_discovery_source_map.py::test_source_map_preserves_passages_and_exact_source_coverage[inserted-within-passage]
+FAILED packages/rulespec-extrapolator/tests/test_discovery_source_map.py::test_source_map_preserves_passages_and_exact_source_coverage[all-inserted]
+FAILED packages/rulespec-extrapolator/tests/test_discovery_source_map.py::test_source_map_preserves_passages_and_exact_source_coverage[inserted-first-last]
+FAILED packages/rulespec-extrapolator/tests/test_discovery_source_map.py::test_source_map_preserves_passages_and_exact_source_coverage[unicode-repeated]
+FAILED packages/rulespec-extrapolator/tests/test_discovery_source_map.py::test_verified_does_not_relocate_or_trust_a_supplied_fragment_id
+7 failed, 3 passed in 0.09s

@@ -1,0 +1,66 @@
+{
+  "model": "gemini-3.8-flash",
+  "contents": "Answer each fixed comprehension question using ONLY the supplied material. The extracted statement may omit qualifications. Do not fill gaps with remembered law or external facts. A source passage selected for proximity, structure or evidence is context, not proof its condition governs this statement. If the supplied material does not settle a question, say unknown; if it supports conflicting readings, say ambiguous and preserve them. Briefly state the actor/action/conditions relevant to the question. Cite supplied source IDs or statement. Do not invent absent requirements. Return the requested JSON.\nMaterial: {\"source_context\":[],\"statement\":\"Seats manufactured to U.S. standards between January 1, 1981, and February 25, 1985, must bear the label: “This child restraint system conforms to all applicable Federal motor vehicle safety standards”.\"}\nQuestions: [{\"id\":\"q1\",\"question\":\"Does this material establish a general manufacturing requirement for every U.S.-standard seat made in the stated date range, regardless of aircraft use?\"},{\"id\":\"q2\",\"question\":\"In the supplied provision, is the dated label requirement part of conditions for occupying an approved child restraint system in an aircraft?\"},{\"id\":\"q3\",\"question\":\"Does this material identify the manufacturer as the person legally required to perform the labeling action?\"},{\"id\":\"q4\",\"question\":\"Does this material establish that a child restraint meeting this dated label rule can be used without any other conditions?\"}]",
+  "config": {
+    "temperature": 0,
+    "max_output_tokens": 32768,
+    "response_mime_type": "application/json",
+    "candidate_count": 1,
+    "response_json_schema": {
+      "type": "object",
+      "properties": {
+        "answers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "question_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "conclusion": {
+                "type": "string",
+                "enum": [
+                  "yes",
+                  "no",
+                  "unknown",
+                  "ambiguous"
+                ]
+              },
+              "answer": {
+                "type": "string",
+                "minLength": 1
+              },
+              "support_refs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "remaining_uncertainty": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "required": [
+              "question_id",
+              "conclusion",
+              "answer",
+              "support_refs",
+              "remaining_uncertainty"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "answers"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

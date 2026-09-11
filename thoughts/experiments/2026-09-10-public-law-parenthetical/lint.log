@@ -1,0 +1,12 @@
+RUF001 String contains ambiguous `–` (EN DASH). Did you mean `-` (HYPHEN-MINUS)?
+   --> tests/search/test_identifiers.py:847:30
+    |
+845 |     "Public Law\n(Pub. L.)\n119-20",
+846 |     "Public Law (Pub.\nL.) 119-20",
+847 |     "Public Law (Pub. L.) 119–20",
+    |                              ^
+848 | ])
+849 | def test_public_law_parenthetical_preserves_original_span(quote: str) -> None:
+    |
+
+Found 1 error.

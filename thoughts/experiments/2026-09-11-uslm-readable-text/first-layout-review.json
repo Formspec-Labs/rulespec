@@ -1,0 +1,21 @@
+{
+  "verdict": "not_solved",
+  "review": "Manual inspection of the prepared source and original XML. Coordinate preservation passed, but the readability gate did not.",
+  "findings": [
+    {
+      "case": "title-42-s242c.xml",
+      "source": "<heading class=\"bold\"> Functions</heading><chapeau>The Secretary, acting through the Director, shall—</chapeau>",
+      "output": "(b) FunctionsThe Secretary, acting through the Director, shall—",
+      "issue": "A heading followed by inline chapeau text still joins words."
+    },
+    {
+      "case": "title-05-s423.xml",
+      "issue": "Original inter-element whitespace remains; tables are separated into cells but have large blank runs. No claim of faithful table layout."
+    }
+  ],
+  "first_code_sha256": {
+    "prepare-v1.py": "6aa08f2952e0a7938f9999872a53ce254515990dbb5bd0b787c78c0a1556ecd2",
+    "run-v1.py": "98f7e98e623e9aa558751336ff7e49a1bf79baace8ff10cfb20016701bede348"
+  },
+  "next_change": "Add one generic heading-to-following-text whitespace boundary; preserve block precedence and all source characters. Keep the original acceptance rule."
+}

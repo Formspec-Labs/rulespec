@@ -1,0 +1,67 @@
+{
+  "holder": "RIN source and native-owner checks",
+  "pid": 58395,
+  "start_load": [
+    3.95947265625,
+    3.97265625,
+    4.22705078125
+  ],
+  "start": "2026-09-11T10:52:44.038286+00:00",
+  "preflight": [
+    {
+      "at": "2026-09-11T10:52:39.029728+00:00",
+      "load": [
+        4.30419921875,
+        4.0400390625,
+        4.25244140625
+      ],
+      "lock_exists": false
+    },
+    {
+      "at": "2026-09-11T10:52:44.038080+00:00",
+      "load": [
+        3.95947265625,
+        3.97265625,
+        4.22705078125
+      ],
+      "lock_exists": false
+    }
+  ],
+  "checks": [
+    {
+      "log": "application-source-tests.log",
+      "command": [
+        "uv",
+        "run",
+        "--no-project",
+        "--python",
+        "/Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/bin/python",
+        "-m",
+        "pytest",
+        "/Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests"
+      ],
+      "returncode": 0
+    },
+    {
+      "log": "refspec-owner-tests.log",
+      "command": [
+        "uv",
+        "run",
+        "--no-project",
+        "--python",
+        "/Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/bin/python",
+        "-m",
+        "pytest",
+        "/Users/mikewolfd/Work/RefSpec/tests/test_iri_minting.py"
+      ],
+      "returncode": 0
+    }
+  ],
+  "end": "2026-09-11T10:53:35.668923+00:00",
+  "end_load": [
+    3.18212890625,
+    3.73388671875,
+    4.11962890625
+  ],
+  "pythonpath": "/Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/src:/Users/mikewolfd/Work/rulespec/packages/rulespec-projection/src:/Users/mikewolfd/Work/RefSpec/src:/Users/mikewolfd/Work/RefSpec:/Users/mikewolfd/Work/spicysearch/src"
+}

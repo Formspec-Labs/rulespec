@@ -1,0 +1,21 @@
+/Users/mikewolfd/Work/rulespec/.tools/document-poc-venv/lib/python3.12/site-packages/rulespec_extrapolator/extraction.py
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____ test_runtime_covers_the_readers_missing_from_the_context_experiment ______
+
+    def test_runtime_covers_the_readers_missing_from_the_context_experiment():
+        pytest.importorskip('refspec')
+        pytest.importorskip('spicysearch')
+        sources = e._runtime_sources()
+        for module in ('rulespec_extrapolator.uslm', 'rulespec_extrapolator.references',
+                       'refspec.registry.uslm', 'refspec.registry.citation_grammar',
+                       'refspec.registry.iri_minting', 'spicysearch.identifiers'):
+            key = module.replace('rulespec_extrapolator.', 'application.').replace('.', '/') + '.py'
+>           assert sources[key] == Path(e.importlib.util.find_spec(module).origin)
+                   ^^^^^^^^^^^^
+E           KeyError: 'application/uslm.py'
+
+/Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_runtime_readers.py:21: KeyError
+=========================== short test summary info ============================
+FAILED ../../Users/mikewolfd/Work/rulespec/packages/rulespec-extrapolator/tests/test_runtime_readers.py::test_runtime_covers_the_readers_missing_from_the_context_experiment
+1 failed in 0.06s

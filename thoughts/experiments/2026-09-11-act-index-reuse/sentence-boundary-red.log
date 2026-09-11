@@ -1,0 +1,61 @@
+...FFF                                                                   [100%]
+=================================== FAILURES ===================================
+_ test_unknown_or_separate_name_does_not_become_a_citation[Clean Air Act. Section 111 applies elsewhere.] _
+
+text = 'Clean Air Act. Section 111 applies elsewhere.'
+
+    @pytest.mark.parametrize('text', [
+        'Imaginary Marshmallow Act section 111.',
+        'Section 111 of an unknown act.',
+        'Clean Air Act is discussed. Section 111 applies elsewhere.',
+        'Clean Air Act. Section 111 applies elsewhere.',
+        'Clean Air Act\n\nSection 111 applies elsewhere.',
+        'Section 111\n\nClean Air Act',
+    ])
+    def test_unknown_or_separate_name_does_not_become_a_citation(text):
+>       assert not occurrences(text)
+E       AssertionError: assert not (ActRelativeCitationOccurrence(citation=ActRelativeCitation(act_name='Clean Air Act', act_key='clean air act', section='111', division=None), start=0, end=26, text='Clean Air Act. Section 111', pinpoint=()),)
+E        +  where (ActRelativeCitationOccurrence(citation=ActRelativeCitation(act_name='Clean Air Act', act_key='clean air act', section='111', division=None), start=0, end=26, text='Clean Air Act. Section 111', pinpoint=()),) = occurrences('Clean Air Act. Section 111 applies elsewhere.')
+
+tests/test_act_occurrences.py:98: AssertionError
+_ test_unknown_or_separate_name_does_not_become_a_citation[Clean Air Act\n\nSection 111 applies elsewhere.] _
+
+text = 'Clean Air Act\n\nSection 111 applies elsewhere.'
+
+    @pytest.mark.parametrize('text', [
+        'Imaginary Marshmallow Act section 111.',
+        'Section 111 of an unknown act.',
+        'Clean Air Act is discussed. Section 111 applies elsewhere.',
+        'Clean Air Act. Section 111 applies elsewhere.',
+        'Clean Air Act\n\nSection 111 applies elsewhere.',
+        'Section 111\n\nClean Air Act',
+    ])
+    def test_unknown_or_separate_name_does_not_become_a_citation(text):
+>       assert not occurrences(text)
+E       AssertionError: assert not (ActRelativeCitationOccurrence(citation=ActRelativeCitation(act_name='Clean Air Act', act_key='clean air act', section='111', division=None), start=0, end=26, text='Clean Air Act\n\nSection 111', pinpoint=()),)
+E        +  where (ActRelativeCitationOccurrence(citation=ActRelativeCitation(act_name='Clean Air Act', act_key='clean air act', section='111', division=None), start=0, end=26, text='Clean Air Act\n\nSection 111', pinpoint=()),) = occurrences('Clean Air Act\n\nSection 111 applies elsewhere.')
+
+tests/test_act_occurrences.py:98: AssertionError
+_ test_unknown_or_separate_name_does_not_become_a_citation[Section 111\n\nClean Air Act] _
+
+text = 'Section 111\n\nClean Air Act'
+
+    @pytest.mark.parametrize('text', [
+        'Imaginary Marshmallow Act section 111.',
+        'Section 111 of an unknown act.',
+        'Clean Air Act is discussed. Section 111 applies elsewhere.',
+        'Clean Air Act. Section 111 applies elsewhere.',
+        'Clean Air Act\n\nSection 111 applies elsewhere.',
+        'Section 111\n\nClean Air Act',
+    ])
+    def test_unknown_or_separate_name_does_not_become_a_citation(text):
+>       assert not occurrences(text)
+E       AssertionError: assert not (ActRelativeCitationOccurrence(citation=ActRelativeCitation(act_name='Clean Air Act', act_key='clean air act', section='111', division=None), start=0, end=26, text='Section 111\n\nClean Air Act', pinpoint=()),)
+E        +  where (ActRelativeCitationOccurrence(citation=ActRelativeCitation(act_name='Clean Air Act', act_key='clean air act', section='111', division=None), start=0, end=26, text='Section 111\n\nClean Air Act', pinpoint=()),) = occurrences('Section 111\n\nClean Air Act')
+
+tests/test_act_occurrences.py:98: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_act_occurrences.py::test_unknown_or_separate_name_does_not_become_a_citation[Clean Air Act. Section 111 applies elsewhere.]
+FAILED tests/test_act_occurrences.py::test_unknown_or_separate_name_does_not_become_a_citation[Clean Air Act\n\nSection 111 applies elsewhere.]
+FAILED tests/test_act_occurrences.py::test_unknown_or_separate_name_does_not_become_a_citation[Section 111\n\nClean Air Act]
+3 failed, 3 passed, 17 deselected in 0.06s
