@@ -29,6 +29,12 @@ supplied-source diagnostics survive review and discovery. Seventeen focused
 checks and 662 source/installed application tests pass. A concrete discovery
 comparison is the next independent R17/R18 slice; source-only reporting, missed
 mentions and resolution display remain open. The
+[fixed-ranking evidence comparison](../experiments/2026-09-11-discovery-evidence-budget/README.md)
+is also complete: capped expansion improves selected support from 6/8 to 7/8 new
+questions, below its two-gain gate; uncapped existing packets reach 8/8. Direct-hit
+priority adds no selected-support gain. Keep production unchanged and test one
+publication-field consumer under R20/R21 independently of further ranking or
+context tuning. R17 still needs demonstrated user value. The
 [expanded reader comparison](../experiments/2026-09-11-ecfr-text/README.md) directly
 checked SpicySearch, DocSpec and SpicyDocs. DocSpec already supplies XML visible
 text and byte maps; its current table/line-break behavior does not replace native
@@ -248,7 +254,7 @@ release. Preserve the completed foundation and make one bounded change at a time
 | R14 | Publisher-provided citation links | USLM ingestion, evidence, reference/discovery export and local targets delivered | M |
 | R15 | Bounded context from sections and located references | Experiment selector and controls complete; adoption deferred after failed gate | M |
 | R16 | Measured comprehension gain from that context | Twelve-call comparison complete; no targeted gain, new modality defect, one incomplete response | L |
-| R17 | Better search and discovery using source and meaning | Retrieval pilot regressed; narrower alternatives open | M–L |
+| R17 | Better search and discovery using source and meaning | Combined indexing regressed; capped post-ranking evidence missed adoption gate; existing uncapped evidence helps selected cases, real consumer value open | M–L |
 | R18 | Persistent corrections and review identity | Saved-run reference feedback installed; source-only/missed-mention reporting, consumer display, resolution and optional continuity remain open | S–M |
 | R19 | One reviewed workflow/forms preparation example | Planned | L |
 | R20 | Verified inventory of useful sibling code and corpus inputs | Partial inventory; selected SpicySearch, DocSpec and SpicyDocs readers directly checked; remaining compatibility checks open | S–M |
@@ -271,29 +277,35 @@ reader/helper sources and versions without changing those statements or discover
 output. That checkpoint passed 559 source and installed tests; the latest
 application delivery passes 662.
 
-1. **Measure one discovery use — R3/R17/R18/R24; effort S–M.**
+1. **Connect one useful source field or native result — R11/R12/R17/R20/R21; effort S–M.**
+   The fixed-ranking comparison is complete: existing uncapped evidence recovers
+   selected support on two more new questions; capped variants recover only one
+   and fail their two-gain gate. Direct-hit priority supplies no further measured
+   support gain. Keep these selectors experimental. Choose one publisher-field
+   or exact-native-result use, reusing the shared discovery evidence table before
+   adding serialization or ranking code.
+2. **Use the delivered feedback in that consumer — R3/R17/R18/R24; effort S–M.**
    The saved-run observation/reload/export route is delivered for accepted,
    rejected, repeated and rescanned references, including source diagnostics.
-   First compare fixed source-ranked results with and without bounded evidence
-   expansion; retain current versus challenged reading in a selected consumer.
+   Retain current versus challenged reading in the selected consumer.
    Test separately ranked statement results only if ranking failures warrant it.
    Do not compare raw scores from differently populated indexes as though they
    were calibrated. Missing-mention reporting and source-only workspaces remain
    independent entry points, not reasons to rerun the persistence experiment.
-2. **Choose one additional source or vocabulary benefit — R11/R12/R20–R23;
-   effort S–M.** Exact current-document publisher addresses, stated metadata and
-   agency/general-label suggestions are independent candidates. Select one named
-   caller and its smallest comparison. Check current SpicySearch–DocSpec source
+3. **Keep vocabulary and source-reader work independent — R20/R22/R23;
+   effort S–M.** Agency/general-label suggestions and demonstrated source-layout
+   fixes need their own named caller and smallest comparison.
+   Check current SpicySearch–DocSpec source
    compatibility before upgrading the DocSpec wheel; installed behavior and live
    source compatibility are separate checks. R8 graph migration remains conditional
    on a caller needing those facts.
-3. **Keep workflow preparation and semantic experiments focused — R19/R16/R25/R26.**
+4. **Keep workflow preparation and semantic experiments focused — R19/R16/R25/R26.**
    Prepare one reviewed decision flow, then select any model intervention from its
    demonstrated failures. A fixed-target relationship trial must also check
    supported-subset application through the existing preview/revision path.
    Keep failed context and explanation variants experimental. Smaller public
    investigation APIs need a measured caller benefit before implementation.
-4. **Revisit the range/prose defect with a different hypothesis — R8/R9; RefSpec.**
+5. **Revisit the range/prose defect with a different hypothesis — R8/R9; RefSpec.**
    The first bounded comparison failed adoption. Numeric-endpoint gating loses
    incomplete ranges; narrow phrase handling misses the fresh action-phrase
    failures. Preserve those controls and the current reader. Do not grow a verb
@@ -1197,6 +1209,13 @@ change remains unproven. Reference recognition does not justify a mandatory audi
 
 ### R17 — Prove discovery value without repeating context into every embedding
 
+- [x] Complete the [post-ranking evidence comparison](../experiments/2026-09-11-discovery-evidence-budget/README.md):
+  eight new development questions and four original controls, unchanged ranking,
+  a fixed display budget, whole-source evidence, raw review and exact source/installed
+  replay. Both capped allocations miss the declared two-gain gate (6/8 to 7/8).
+  Existing uncapped packets reach 8/8; this does not make the capped gate pass.
+  No new selector or model/default change was adopted. Raw quote duplication in
+  diagnostic packets is distinct from the production export's shared evidence table.
 - [ ] **Owner: Rulespec discovery plus a selected search consumer; effort M–L.**
   Test exact-reference lookup and source-first retrieval followed by evidence
   expansion. Compare source/statement result combination separately from context
