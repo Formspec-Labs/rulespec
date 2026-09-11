@@ -7,7 +7,7 @@ import tempfile
 from jsonschema import Draft202012Validator
 
 from . import audit as a, extraction as e
-from .core import _evidence
+from .core import evidence_parts
 from .review_store import ReviewStore, ReviewError
 from .schemas import load_schema
 from .terms import resolve_components
@@ -62,7 +62,7 @@ def changes_for(book, window, payload):
         fields = {}
         actor, quote = row['actor'] or '', row['actor_quote'] or ''
         if actor and not original.get('actor') and not original.get('actor_quote'):
-            if _evidence(book['document'], quote, 'actor', within=(original['start'], original['end'])):
+            if evidence_parts(book['document'], quote, 'actor', within=(original['start'], original['end'])):
                 fields.update(actor=actor, actor_quote=quote)
             else:
                 errors.append({'code': 'actor_evidence_unresolved', 'row_index': i, 'raw': row})

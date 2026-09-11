@@ -315,11 +315,15 @@ def resolve_passage(reference: str, catalog: dict, document: dict, *, focus=Fals
     if not match or (focus and match[1] != "F") or (match[3] and match[3] != match[1]):
         raise ValueError("invalid_passage_reference")
     first, last = int(match[2]), int(match[4] or match[2])
-    if first > last or last - first >= len(catalog):
+    if first > last:
         raise ValueError("invalid_passage_range")
-    keys = [f"{match[1]}{i:03d}" for i in range(first, last + 1)]
-    if any(key not in catalog for key in keys) or match[1] + match[2] != keys[0] or (match[3] and match[3] + match[4] != keys[-1]):
+    endpoints = [f"{match[1]}{i:03d}" for i in (first, last)]
+    if any(key not in catalog for key in endpoints) or match[1] + match[2] != endpoints[0] or (match[3] and match[3] + match[4] != endpoints[-1]):
         raise ValueError("passage_not_in_request")
+    # Empty passages leave numbering holes. Resolve supplied entries, then check
+    # their source gaps below; numeric adjacency is not evidence of supplied text.
+    keys = sorted((key for key in catalog if key.startswith(match[1])
+                   and first <= int(key[1:]) <= last), key=lambda key: int(key[1:]))
     spans = [catalog[key] for key in keys]
     for left, right in zip(spans, spans[1:]):
         if right["start"] < left["end"] or document["text"][left["end"]:right["start"]].strip():
@@ -512,8 +516,22 @@ def _create_model(model_id: str, key: str, schema):
 def _runtime_sources() -> dict[str, Path]:
     """Find runtime inputs by package location, including installed wheel data."""
     sources = {"application/" + name: Path(__file__).parent / name
-               for name in ("extraction.py", "core.py", "documents.py", "vocabulary.py", "evaluation.py", "audit.py", "refinement.py", "review_store.py", "schemas.py", "enrichment.py", "discovery.py", "terms.py", "structure.py")}
+               for name in ("extraction.py", "core.py", "documents.py", "vocabulary.py", "evaluation.py", "audit.py", "refinement.py", "review_store.py", "schemas.py", "enrichment.py", "discovery.py", "terms.py", "structure.py", "references.py", "uslm.py")}
     sources.update(runtime_sources())
+    # Optional readers are captured when installed, without making them a
+    # dependency of plain-text extraction. Include the helpers behind their APIs.
+    for name in ("refspec.registry.uslm", "refspec.registry.citation_grammar",
+                 "refspec.registry.iri_minting", "refspec.registry.identifier_shapes",
+                 "refspec.registry.hand_validated_interpretations", "refspec.registry.act_resolution",
+                 "spicysearch.identifiers", "spicysearch.identifier_normalization", "spicysearch.canonical"):
+        try:
+            spec = importlib.util.find_spec(name)
+        except ModuleNotFoundError as error:
+            if error.name and (name == error.name or name.startswith(error.name + ".")):
+                continue
+            raise
+        if spec is not None and spec.origin is not None:
+            sources[name.replace(".", "/") + ".py"] = Path(spec.origin)
     for name in ("evidence", "projection", "provenance"):
         spec = importlib.util.find_spec("rulespec_projection." + name)
         if spec is None or spec.origin is None:
@@ -549,6 +567,11 @@ def _runtime_versions() -> dict:
         raise RuntimeError("A required runtime dependency is unavailable") from None
     if versions["langextract"] != LANGEXTRACT_VERSION:
         raise RuntimeError("This extraction profile requires LangExtract 1.6.0")
+    for name in ("refspec", "spicysearch"):
+        try:
+            versions[name] = importlib.metadata.version(name)
+        except importlib.metadata.PackageNotFoundError:
+            pass
     return {"python": platform.python_version(), "implementation": platform.python_implementation(),
             "packages": versions}
 

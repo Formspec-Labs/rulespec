@@ -24,12 +24,12 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description="Extract and review source-backed rules locally.")
     sub = parser.add_subparsers(dest="command", required=True)
     prepare = sub.add_parser("prepare", help="Pin exact text and section coordinates.")
-    prepare.add_argument("source", type=Path)
+    prepare.add_argument("source", type=Path, help="Text, prepared document JSON, or USLM XML.")
     prepare.add_argument("--title")
     prepare.add_argument("--source-url", default="")
     prepare.add_argument("--output", type=Path, required=True)
     extract = sub.add_parser("extract", help="Extract candidates; preserve every attempt.")
-    extract.add_argument("source", type=Path)
+    extract.add_argument("source", type=Path, help="Text, prepared document JSON, or USLM XML.")
     extract.add_argument("--model", default="gemini-3.8-flash")
     extract.add_argument("--env-file", type=Path)
     extract.add_argument("--max-chars", type=int, default=e.DEFAULT_MAX_CHARS)
@@ -61,6 +61,14 @@ def main(argv=None):
     discovery = sub.add_parser("discovery-export", help="Export source passages with grounded scope/context links and processing status.")
     discovery.add_argument("run", type=Path)
     discovery.add_argument("--output", type=Path, required=True)
+    discovery.add_argument("--references", action="store_true",
+                           help="Add source reference candidates using the optional RefSpec and SpicySearch readers.")
+    references = sub.add_parser("references", help="Locate supported reference mentions without model calls.")
+    references.add_argument("source", type=Path, help="Text, USLM XML, prepared document, rulebook JSON, or extraction directory.")
+    references.add_argument("--output", type=Path, required=True)
+    for command in (references, discovery):
+        command.add_argument("--act-index", type=Path, help="Use a pinned RefSpec act-index directory for named-act references.")
+        command.add_argument("--source-credit-index", type=Path, help="Also consult pinned RefSpec source credits; requires --act-index.")
     evaluate = sub.add_parser("evaluate", help="Score content-bound independent source judgments.")
     evaluate.add_argument("rulebook", type=Path)
     evaluate.add_argument("--labels", type=Path, required=True)
@@ -146,7 +154,17 @@ def main(argv=None):
     elif args.command == "discovery-export":
         from .discovery import export_discovery
         from .review_store import ReviewStore
-        _write_new(args.output, export_discovery(ReviewStore(args.run).snapshot()))
+        _write_new(args.output, export_discovery(ReviewStore(args.run).snapshot(), include_references=args.references,
+                                               act_index=args.act_index, source_credit_index=args.source_credit_index))
+    elif args.command == "references":
+        from .references import scan_references
+        source = args.source / 'document.json' if args.source.is_dir() else args.source
+        if source.suffix == '.json':
+            value = _load(source)
+            document = value.get('document', value)
+        else:
+            document = load_document(source)
+        _write_new(args.output, scan_references(document, act_index=args.act_index, source_credit_index=args.source_credit_index))
     elif args.command == "evaluate":
         from .evaluation import evaluate
         result = evaluate(_load(args.rulebook), _load(args.labels),

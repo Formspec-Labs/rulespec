@@ -182,6 +182,51 @@ def test_repeated_source_text_is_disambiguated_by_passage_reference():
     assert not result['refusals']
 
 
+def test_passage_range_keeps_complete_rule_across_blank_catalog_entry():
+    source = "Staff must:\n\n\n\n(a) log requests;\n\n(b) archive records."
+    document = prepare_document(source)
+    window = e.plan_windows(document)[0]
+    catalog = e.passage_catalog(document, window)
+    assert list(catalog) == ['F000', 'F002', 'F003']
+    result = e.parse_raw_response(raw([row('F000:F003')]), document, window)
+    assert result['status'] == 'complete'
+    assert result['candidates'][0]['quote'] == source
+    assert not result['refusals']
+
+
+@pytest.mark.parametrize('gap', ['\n', '\r\n\t', '\u00a0', '\n\n'])
+def test_passage_range_uses_supplied_entries_and_exact_whitespace(gap):
+    source = 'First' + gap + 'Last'
+    doc = prepare_document(source)
+    catalog = {'F000': {'start': 0, 'end': 5},
+               'F1000000': {'start': 5 + len(gap), 'end': len(source)}}
+    assert e.resolve_passage('F000:F1000000', catalog, doc) == {
+        'start': 0, 'end': len(source), 'quote': source}
+
+
+@pytest.mark.parametrize('reference', ['F000:F001', 'F001:F002', 'F0000:F002',
+                                     'F000:F0002', 'F000:C002', 'F002:F000'])
+def test_passage_range_still_needs_valid_supplied_endpoints(reference):
+    catalog = {'F000': {'start': 0, 'end': 5}, 'F002': {'start': 6, 'end': 10}}
+    with pytest.raises(ValueError):
+        e.resolve_passage(reference, catalog, prepare_document('First Last'))
+
+
+@pytest.mark.parametrize('gap', [' unless closed ', '\u200b', 'AND'])
+def test_passage_range_never_skips_unprovided_content(gap):
+    source = 'First' + gap + 'Last'
+    catalog = {'F000': {'start': 0, 'end': 5},
+               'F002': {'start': 5 + len(gap), 'end': len(source)}}
+    with pytest.raises(ValueError, match='passage_range_crosses_unsupplied_text'):
+        e.resolve_passage('F000:F002', catalog, prepare_document(source))
+
+
+def test_passage_range_rejects_overlapping_supplied_entries():
+    catalog = {'F000': {'start': 0, 'end': 5}, 'F002': {'start': 4, 'end': 10}}
+    with pytest.raises(ValueError, match='passage_range_crosses_unsupplied_text'):
+        e.resolve_passage('F000:F002', catalog, prepare_document('First Last'))
+
+
 def test_remote_references_and_complex_logic_are_preserved():
     text = "For section 2, two votes and a written request are required."
     item = row(kind="requirement", statement="Section 2 requires two votes and a written request",

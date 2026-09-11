@@ -1,7 +1,7 @@
 """Source-backed discovery export; evidence overlap is not semantic completeness."""
 from copy import deepcopy
 from .core import _evidence, sparse
-from .documents import source_passages, validate_document
+from .documents import source_passages, source_slicer, validate_document
 
 
 def overlaps(a, b):
@@ -10,8 +10,10 @@ def overlaps(a, b):
 
 def verified(book, evidence):
     """Read exact evidence only; never serialize raw meaning or its suggestions."""
-    text = book["document"]["text"]
-    return [e for e in evidence if text[e["start"]:e["end"]] == e["quote"]]
+    doc = book["document"]
+    return [{**e, **support} for e in evidence
+            if doc['text'][e['start']:e['end']] == e['quote']
+            and (support := _evidence(doc, e['quote'], e['field'], e['start'], e['end'])) is not None]
 
 
 def records(book, source, mode):
@@ -23,10 +25,14 @@ def records(book, source, mode):
         return [{"id": c["id"], "source": source, "text": c["summary"],
                  "evidence": verified(book, [e for e in c["evidence"] if e["field"] == "summary"]),
                  "claim_ids": [c["id"]]} for c in claims]
+    # Source-map slices bound evidence; prepared passage text and IDs stay intact.
+    source_slices = source_slicer(doc)
     rows = []
     for passage in source_passages(doc):
         text = doc["text"][passage["start"]:passage["end"]]
-        evidence = [{"field": "source", "start": passage["start"], "end": passage["end"], "quote": text}]
+        evidence = []
+        for start, end in source_slices(passage['start'], passage['end']):
+            evidence.append({'field': 'source', 'start': start, 'end': end, 'quote': doc['text'][start:end]})
         linked = []
         if mode == "packets":
             for claim in claims:
@@ -43,7 +49,7 @@ def records(book, source, mode):
 
 
 
-def export_discovery(book):
+def export_discovery(book, *, include_references=False, act_index=None, source_credit_index=None):
     """Keep every source passage, including passages with no extracted statement."""
     from .terms import term_lookup
     doc = validate_document(book["document"])
@@ -53,14 +59,13 @@ def export_discovery(book):
 
     def references(items):
         grouped = {}
-        for item in verified(book, items):
-            support = item if item.get('fragment_id') else _evidence(doc, item['quote'], item['field'], item['start'], item['end'])
+        for support in verified(book, items):
             identity = support['fragment_id']
             evidence[identity] = {**{k: support[k] for k in ('start', 'end')},
                                   'record_ids': [key for key, p in passages.items() if overlaps(support, p)]}
             roles = grouped.setdefault(identity, [])
-            if item['field'] not in roles:
-                roles.append(item['field'])
+            if support['field'] not in roles:
+                roles.append(support['field'])
         return [{'id': identity, 'roles': roles} for identity, roles in grouped.items()]
 
     terms = deepcopy(terms)
@@ -90,7 +95,7 @@ def export_discovery(book):
             if statement[key] == statement['statement']:
                 statement.pop(key)
         statements.append(sparse(statement))
-    return {"schema_version": 'rulespec-discovery/2',
+    result = {"schema_version": 'rulespec-discovery/2',
             "document": {k: doc[k] for k in ("id", "title", "source_url", "sha256")},
             "records": rows, "terms": terms,
             'evidence': evidence, 'statements': statements,
@@ -102,3 +107,13 @@ def export_discovery(book):
             "extraction_issues": book.get("extraction_refusals", []),
             'enrichment_issues': book.get('enrichment_issues', []),
             "limitation": "Evidence links locate related source passages. A linked passage may still contain omitted or misinterpreted meaning; an unlinked passage is not necessarily an omission."}
+    if include_references or act_index is not None or source_credit_index is not None:
+        from .references import scan_references
+        scan = scan_references(doc, act_index=act_index, source_credit_index=source_credit_index)
+        scan.pop('document')  # The export already pins this exact document.
+        for candidate in scan['candidates'] + scan['rejected'] + list(scan.get('targets', {}).values()):
+            for reading in [candidate] + candidate.get('text_readings', []):
+                if 'evidence' in reading:
+                    reading['evidence_refs'] = references(reading.pop('evidence'))
+        result['reference_scan'] = scan
+    return result

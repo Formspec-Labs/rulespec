@@ -11,6 +11,19 @@ does not generate Formspec or WOS artifacts or certify complete rule coverage.
 
 This is the current operating guide. Earlier experiment reports preserve the
 settings and conclusions of their own runs.
+For remaining work, priorities, dependencies and completion criteria, use the
+[comprehensive extraction and reuse task list](../../thoughts/plans/2026-09-10-reference-integration-task-list.md).
+
+The [retention comparison](../../thoughts/experiments/2026-09-11-extraction-retention/README.md)
+fixes passage ranges across blank catalog entries and complete quotation support
+across inserted formatting. It preserves more of the model's existing output;
+model settings and schemas remain unchanged.
+
+Saved runs also capture the installed reference-reader sources and package versions
+through the [existing runtime record](../../thoughts/experiments/2026-09-11-reader-runtime-capture/README.md).
+Reader changes produce explicit replay drift. Use `reprocess` to apply new code to
+an old capture; its original reviews stay with the original run. Plain-text
+extraction and Core validation still work without the optional reference packages.
 
 ## Current recommendation and evidence
 
@@ -145,6 +158,13 @@ rulespec-understand audit my-run/rulebook.json --model gemini-3.8-flash \
 # Retain source passages and links, including passages without an extracted rule.
 rulespec-understand discovery-export my-run --output discovery.json
 
+# Optional: locate supported external references in those source passages.
+# Requires the verified SpicySearch and RefSpec wheels described below.
+rulespec-understand discovery-export my-run --references --output discovery-with-references.json
+
+# This also works before extraction, with no model calls.
+rulespec-understand references prepared.json --output references.json
+
 # Provider-reported token counts, separately from local JSON storage.
 rulespec-understand usage my-run
 
@@ -188,17 +208,187 @@ done
 uv pip install --python .tools/document-understanding/bin/python \
   -e packages/rulespec-artifacts -e . \
   -e packages/rulespec-projection -e packages/rulespec-extrapolator
+uv pip check --python .tools/document-understanding/bin/python
 ```
 
 Use that environment's `bin/rulespec-understand` for subsequent commands.
 
+For source iteration, set `PYTHONPATH=packages/rulespec-extrapolator/src` when
+running its tests or importing its tools. After those checks pass, build wheels
+and test a fresh installation outside the checkout:
+
+```sh
+uv build --project packages/rulespec-artifacts --wheel --out-dir dist/document-understanding
+uv build --wheel --out-dir dist/document-understanding
+uv build --project packages/rulespec-projection --wheel --out-dir dist/document-understanding
+uv build --project packages/rulespec-extrapolator --wheel --out-dir dist/document-understanding
+uv venv --python 3.12 /tmp/rulespec-wheel-check
+uv pip install --python /tmp/rulespec-wheel-check/bin/python dist/document-understanding/*.whl
+uv pip check --python /tmp/rulespec-wheel-check/bin/python
+```
+
+Use a new directory if that test environment already exists. Run its CLI outside
+the checkout with `PYTHONPATH` unset, and confirm imports resolve to `site-packages`.
+Keep compatible dependency versions when comparing a saved run: strict replay
+checks runtime versions as well as captured files. A working editable environment
+alone does not establish that its dependencies are compatible or its wheel is complete.
+
 ## What goes in, what happens, what comes out
 
-**Input:** UTF-8 text or prepared JSON with exact text, its SHA-256 digest and
+### Optional reference recognition
+
+`references` scans exact source text for explicit Code of Federal Regulations
+(CFR) citations, public laws, Statutes at Large citations, executive orders,
+dockets, and Regulation Identifier Numbers (RINs). It accepts
+text, a prepared document, rulebook JSON, or an extraction directory. It reads
+the document once and preserves repeated occurrences separately. Each candidate
+has its normalized value, exact quotation and Unicode codepoint offsets, an
+existing Rulespec fragment ID, and the IDs of overlapping source passages.
+
+`discovery-export --references` runs the same adapter against the current review
+snapshot's pinned document. It adds `reference_scan` and reuses the export's
+shared evidence table. It also finds references in passages with no extracted
+statement. It does not change statements, prompt fields, review history, existing
+reference links, or default exports. These commands make no model calls.
+
+With `--act-index`, the same commands also recognize indexed named-act sections
+and consult RefSpec's existing classification tables. The optional source-credit
+index adds its independent resolution evidence. Each index is verified by its
+own upstream loader; the output records its files and digests.
+RefSpec also reads the act index's retained page-uncertainty table. A shortened
+or unknown page cannot prove that a classification lies outside an act's division.
+
+```sh
+rulespec-understand references prepared.json \
+  --act-index ../RefSpec/output/usc-act-index-2026-08-22 \
+  --source-credit-index ../RefSpec/output/usc-source-credit-index-2026-08-02 \
+  --output references-with-acts.json
+```
+
+These options also work on `discovery-export`; supplying an act index enables
+the reference scan. Repeated mentions keep their own evidence. A reading such as
+`Section 111(d) of the Clean Air Act` retains `(d)` separately from its mapped
+U.S. Code section. RefSpec does not establish that the code uses the same
+subsection letters, so the output explicitly reports `pinpoint_mapping=not_performed`.
+Unknown names remain unrecognized; known acts with unclassified sections retain
+the native unresolved reason. The supplied indexes may describe later editions
+than the input document. No target body, matching historical edition, or legal
+applicability is established by this lookup.
+
+The adapter reuses RefSpec's `find_cfr_citations` and SpicySearch's
+`detect_identifiers`, restricted to the five additional kinds above. CFR readings
+retain native title/part/section fields, validity flags and attached subsection
+labels. For `40 CFR §§ 82.155(a), 82.156(b)`, each member has its own occurrence;
+the abbreviated second member also cites the written title-bearing context.
+Both accepted and rejected readings use the discovery export's shared evidence.
+RIN candidates also use RefSpec's `mint_rin_iri` to check Rulespec's supported
+identifier space. Values outside it retain their exact evidence under `rejected`
+with `rin_outside_supported_identifier_space`. This removes lexical lookalikes such
+as the amendment heading `1998—Pars.` without changing SpicySearch query parsing.
+It is not an existence check: some published RIN values fall outside the supported
+space, and a matching product code can still be a false candidate.
+Subpart lists retain individual targets, literal connectors and parenthetical
+context. For `49 CFR Part 172 subpart E (labeling) or subpart F (placarding)`,
+the two readings preserve E/F and the written `or`; the second reuses the first
+reading's source context. An appendix to a subpart remains an appendix target.
+Stated subpart ranges retain their endpoints without generating intermediate
+members. A subpart list following multiple parts is refused as
+`cfr_ambiguous_part_scope`, with its partial reading and evidence retained.
+
+Rulespec's existing document validation, exact evidence resolver, fragment identity
+and passage index provide grounding; no new citation grammar or Core assertion
+type is introduced. A mention is not a resolved target, an applicability judgment,
+or a complete representation of every possible qualifier.
+General USC and document-local paragraph recognition remain outside the text
+scanner's scope; the USLM path below also retains publisher-supplied links.
+Unsupported kinds are excluded. A candidate or required title context crossing
+inserted source-map text is recorded under `rejected`; native impossible-title or
+implausible-part readings retain their flags and evidence there. Invalid source
+identity, parser coordinates or a parser quotation that differs from the source
+fail the scan. An empty candidate list does not establish completeness.
+
+SpicySearch and RefSpec are optional application dependencies (`references` extra),
+never Core validation dependencies. Install the verified local wheels explicitly;
+their versions alone do not distinguish them from older local builds:
+
+```sh
+uv pip install --python .tools/document-poc-venv/bin/python \
+  --constraint thoughts/experiments/2026-09-11-uslm-source-links/dependency-constraints.txt \
+  dist/production-20260910/rulespec_artifacts-1.0.11-py3-none-any.whl \
+  dist/reference-integration-20260911-uslm-text/rulespec_conformance-0.2.0rc18-py3-none-any.whl \
+  dist/production-20260910/rulespec_projection-0.1.0-py3-none-any.whl \
+  dist/reference-tools-20260910-parenthetical/spicysearch-0.1.4-py3-none-any.whl \
+  dist/reference-integration-20260911-readings/refspec-0.1.0.dev0-py3-none-any.whl \
+  dist/reference-integration-20260911-capture/rulespec_extrapolator-0.1.0.dev0-py3-none-any.whl \
+  ../DocSpec/dist/docspec-0.2.11-py3-none-any.whl
+```
+
+Use the Python environment where you installed the extractor. The scan records
+each parser's version and module digest. The latest
+[wheel inputs](../../thoughts/experiments/2026-09-11-reader-runtime-capture/wheel-inputs.json)
+pin the matching builds, including the RIN, containment and retention changes; the
+[act-name comparison](../../thoughts/experiments/2026-09-11-act-name-multiplicity/README.md)
+retains an earlier checkpoint. The full installation includes DocSpec because of
+SpicySearch's existing dependency metadata; document segmentation and Core
+validation do not call DocSpec.
+
+With these packages, `prepare`, `extract` and `references` accept USLM `.xml`
+files. RefSpec supplies readable heading/list/table boundaries; Rulespec retains
+the original UTF-8 XML and maps prepared text back to it. Inserted separators never
+become source quotations, and raw XML attributes stay out of model prompts.
+`references` and `discovery-export --references` expose publisher links and a shared
+table of targets present in the supplied XML. Each occurrence keeps XML evidence,
+visible text when present, and its operative/source-credit/note context. Empty
+links retain XML evidence; duplicate target identifiers remain ambiguous. Targets
+outside the selected XML remain unresolved. This provides source navigation, not
+a decision that the target governs the current rule.
+
+Text-parser readings associated with a publisher occurrence retain their own
+evidence and refusals. A reading associates only when exactly one publisher label
+fully contains it. Nested ambiguous associations and boundary-crossing mentions
+remain separate; association does not establish target agreement. The
+[containment comparison](../../thoughts/experiments/2026-09-11-reference-containment/README.md)
+records the four resolved overlapping rows and its counterexamples. The earlier
+[source-preparation record](../../thoughts/experiments/2026-09-11-uslm-readable-text/README.md)
+preserves that delivery's original findings. General XML formats, full visual
+table layout and automatic reference-context interpretation remain outside this
+reader's scope.
+
+Year-first indexed act names retain their original source
+spelling. Multi-target source credits retain native target records, and conflicting
+sources retain both identifiers without selecting either. These details appear
+only when present; ordinary results gain no empty fields. Multiple source-credit
+targets prevent selecting a lone Table III answer; its identifier remains a
+`table3_candidate_iri` alongside the alternatives. Known complete pages outside
+the act's conservative division bounds are excluded even for a single row.
+If a popular name identifies multiple laws or scopes, `name_sources` preserves
+the paired source records and `candidate_resolutions` retains each compatible
+lookup. The parent result says `act_name_ambiguous` and selects no USC identifier.
+A stated division can narrow those candidates; missing division information does
+not exclude a source record. `act_division` exposes the division used by a lookup.
+The written citation appears once in the application output. Ordinary names gain
+no candidate arrays. The [earlier policy comparison](../../thoughts/experiments/2026-09-11-act-resolution-policy/README.md)
+retains its previous checkpoint.
+The earlier [source-credit comparison](../../thoughts/experiments/2026-09-11-source-credit-consumption/README.md),
+[subpart comparison](../../thoughts/experiments/2026-09-11-cfr-subparts/README.md),
+[CFR integration](../../thoughts/experiments/2026-09-11-cfr-integration/README.md)
+and [act-index integration](../../thoughts/experiments/2026-09-11-act-index-reuse/README.md)
+retain their original builds, failures and counterexamples.
+Missing parser installation raises an error when requested, rather than silently
+returning no matches. Default extraction and discovery need neither parser package.
+
+**Input:** UTF-8 text, USLM XML, or prepared JSON with exact text, its SHA-256 digest and
 named section coordinates. Newlines remain intact; offsets count Unicode
 codepoints in half-open intervals, `text[start:end]`. Optional source maps
 identify inserted separators. Preparation does not discover a manual's section
 hierarchy. PDF, OCR and layout extraction are outside this package.
+Discovery retains prepared passage text and stable passage IDs while limiting
+source evidence to the original-source slices. Inserted headings or separators
+remain readable but are not cited as original evidence.
+Complete statement and component quotations may cross inserted whitespace: their
+whole coordinates stay on the claim, while existing evidence bindings retain all
+original-source pieces. Inserted non-whitespace remains unsupported. Review checks
+require the complete evidence group, and passage ranges still refuse unseen text.
 
 **Processing:** the application indexes paragraphs and list items, plans bounded
 windows, and supplies parent/neighbor context. Fitting list groups stay together;

@@ -1,4 +1,5 @@
 """Immutable text snapshots and source sections, independent of model windows."""
+from bisect import bisect_left, bisect_right
 from pathlib import Path
 import json
 import re
@@ -63,7 +64,22 @@ def load_document(path, *, title=None, source_url=""):
     if path.suffix == ".json":
         document = json.loads(text)
         return validate_document(document)
+    if path.suffix.lower() == '.xml':
+        from .uslm import prepare_uslm
+        return prepare_uslm(text, title=title or path.stem, source_url=source_url)
     return prepare_document(text, title=title or path.stem, source_url=source_url)
+
+
+def source_slicer(document):
+    """Index original-source intervals once; clip selections without inserted text."""
+    parts = [p for p in document.get('source_map', [
+        {'kind': 'source', 'start': 0, 'end': len(document['text'])}]) if p['kind'] == 'source']
+    starts, ends = [p['start'] for p in parts], [p['end'] for p in parts]
+
+    def slices(start, end):
+        return [(max(start, p['start']), min(end, p['end']))
+                for p in parts[bisect_right(ends, start):bisect_left(starts, end)]]
+    return slices
 
 
 def source_passages(document):

@@ -9,16 +9,14 @@ import hashlib
 import json
 from pathlib import Path
 import sqlite3
-from types import SimpleNamespace
 from typing import Any
 from uuid import uuid4
 
 from jsonschema import ValidationError
 from rulespec_projection.attestations import attestation_row, parse_targets
-from rulespec_projection.projection import OffsetVerificationError, verify_fragment
 from rulespec_projection.provenance import RunContext
 
-from .core import NS, SCHEMA_VERSION, MEANING_FIELDS, build_graph, canonical, evidence_expectations, resolve_links, revise_claim
+from .core import NS, SCHEMA_VERSION, MEANING_FIELDS, build_graph, canonical, evidence_expectations, evidence_parts, resolve_links, revise_claim
 
 
 class ReviewError(ValueError):
@@ -164,27 +162,28 @@ class ReviewStore:
         if not isinstance(evidence, list) or not evidence:
             raise ReviewIntegrityError("A saved claim is missing its exact source evidence.")
         expected = evidence_expectations(claim)
-        fields = set()
-        artifact = SimpleNamespace(raw_fields={"text": self.document["text"]})
+        grouped = {}
         for item in evidence:
             if not isinstance(item, dict):
                 raise ReviewIntegrityError("Saved source evidence must contain evidence records.")
             field, quote = item.get("field"), item.get("quote")
             start, end = item.get("start"), item.get("end")
-            if (not isinstance(field, str) or field not in expected or field in fields
-                    or not isinstance(quote, str) or not quote or quote != expected[field]
+            if (not isinstance(field, str) or field not in expected
+                    or not isinstance(quote, str) or not quote
                     or type(start) is not int or type(end) is not int or start >= end):
                 raise ReviewIntegrityError("Saved source evidence disagrees with its claim content or source positions.")
-            if field == "summary" and (start != claim.get("start") or end != claim.get("end")):
+            grouped.setdefault(field, []).append({key: item.get(key)
+                for key in ('field', 'quote', 'start', 'end', 'fragment_id')})
+        for field, supplied in grouped.items():
+            start, end = claim.get('start'), claim.get('end')
+            if (type(start) is not int or type(end) is not int or not 0 <= start < end <= len(self.document['text'])
+                    or self.document['text'][start:end] != claim.get('quote')):
                 raise ReviewIntegrityError("The main source evidence differs from the claim's source positions.")
-            try:
-                verified = verify_fragment(artifact, key=field, source_field="text", start=start, end=end,
-                                           artifact_iri=self.document["id"], expected_text=quote)
-            except (OffsetVerificationError, ValueError, TypeError, KeyError) as exc:
-                raise ReviewIntegrityError("Saved source evidence does not match the pinned document.") from exc
-            if item.get("fragment_id") != verified.urn:
-                raise ReviewIntegrityError("A source evidence fragment has an inconsistent immutable identity.")
-            fields.add(field)
+            verified = (evidence_parts(self.document, expected[field], field, start, end)
+                        if field == 'summary' else evidence_parts(self.document, expected[field], field, within=(start, end)))
+            if supplied != verified:
+                raise ReviewIntegrityError("Saved source evidence is incomplete or disagrees with its claim, positions or immutable identity.")
+        fields = set(grouped)
         if "summary" not in fields:
             raise ReviewIntegrityError("A saved claim is missing its main source evidence.")
         issues = claim.get("issues", [])

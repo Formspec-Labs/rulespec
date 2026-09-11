@@ -5,15 +5,16 @@ from jsonschema import Draft202012Validator, ValidationError
 
 
 def term_identity(document, claim, term):
-    from .core import NS, digest, _evidence
-    support = _evidence(document, term['quote'], 'definition', within=(claim['start'], claim['end']))
-    if support is None:
+    from .core import NS, digest, evidence_parts, _evidence_position
+    support = evidence_parts(document, term['quote'], 'definition', within=(claim['start'], claim['end']))
+    if not support:
         raise ValueError('Term definition needs exact, unambiguous source evidence')
     if term.get('id'):
         if not term['id'].startswith(NS + 'term:'):
             raise ValueError('Local term identity must use the document-understanding term namespace')
         return term['id']
-    return NS + 'term:' + digest([document['id'], support['start'], support['end'],
+    position = _evidence_position(document, term['quote'], within=(claim['start'], claim['end']))
+    return NS + 'term:' + digest([document['id'], position.start, position.end,
                                   term['label'], claim['summary']])
 
 
@@ -37,8 +38,9 @@ def resolve_components(document, window, terms, rows, *, existing_claims=()):
     """
     from . import extraction as e
     errors, resolved = [], {}
-    existing = {(c['rule_id'], t['label'], t['evidence'][0]['quote']): t['id']
-                for c in existing_claims for t in definition_records(document, c)}
+    valid_terms = term_index(document, existing_claims)
+    existing = {(c['rule_id'], t['label'], t['quote']): t['id']
+                for c in existing_claims for t in c.get('defined_terms', []) if t.get('id') in valid_terms}
     if not isinstance(terms, list):
         return [{'code': 'invalid_term_registry', 'raw': terms, 'disposition': 'component_withheld'}]
     schema = e.load_schema('provider')['properties']['terms']['items']
@@ -92,14 +94,16 @@ def resolve_components(document, window, terms, rows, *, existing_claims=()):
 
 def definition_records(document, claim):
     """Only source-validated definitions participate in navigation or the graph."""
-    evidence = {item['field']: item for item in claim['evidence']}
+    evidence = {}
+    for item in claim['evidence']:
+        evidence.setdefault(item['field'], []).append(item)
     for i, term in enumerate(claim.get('defined_terms', [])):
         keys = [f'defined_terms:{i}', *[f'defined_terms:{i}:source:{j}' for j in range(len(term['source_quotes']))]]
         if definition_error(claim, term) or any(key not in evidence for key in keys):
             continue
         yield {'id': term_identity(document, claim, term), 'label': term['label'],
                'aliases': term['aliases'], 'definition': claim['summary'], 'claim_id': claim['id'],
-               'evidence': [evidence[key] for key in keys]}
+               'evidence': [item for key in keys for item in evidence[key]]}
 
 
 def term_index(document, claims):

@@ -100,12 +100,14 @@ def check_components(claim):
 
 
 def supported_components(claim, field):
-    evidence = {item["field"]: item for item in claim["evidence"]}
+    evidence = {}
+    for item in claim['evidence']:
+        evidence.setdefault(item['field'], []).append(item['fragment_id'])
     invalid = {issue["field"] for issue in check_components(claim)}
     for i, item in enumerate(claim[field]):
         key = f"{field}:{i}"
         if key in evidence and key not in invalid:
-            yield key, item, evidence[key]["fragment_id"]
+            yield key, item, evidence[key]
 
 
 def period_record(claim):
@@ -119,25 +121,25 @@ def period_record(claim):
 
 def claimant_record(claim, meaning_id):
     from .core import NS, digest
-    for _, item, fragment in supported_components(claim, "claimants"):
+    for _, item, fragments in supported_components(claim, "claimants"):
         body = {"@type": "rkaf:SourceClaimant", "rkaf:claimsAssertion": meaning_id,
-                "rkaf:claimantAttribution": item["attribution"], "rkaf:attributedInFragment": [fragment]}
+                "rkaf:claimantAttribution": item["attribution"], "rkaf:attributedInFragment": fragments}
         if item["text"]:
             body["rkaf:claimantText"] = item["text"]
         return {"@id": NS + "claimant:" + digest(body), **body}
 
 
 def enrich_graph(document, claim, disposition, add):
-    from .core import NS, assertion_id, canonical, digest
+    from .core import NS, assertion_id, canonical, digest, _fragment, _fragment_node
 
-    evidence = {item["field"]: item for item in claim["evidence"]}
     def supported(field):
         return supported_components(claim, field)
 
-    def binding(assertion, fragment):
-        add({"@id": NS + "binding:" + digest([assertion, fragment, claim["occurrence_id"]]),
+    def binding(assertion, fragments):
+        identity = fragments[0] if len(fragments) == 1 else fragments
+        add({"@id": NS + "binding:" + digest([assertion, identity, claim["occurrence_id"]]),
              "@type": "rkaf:EvidenceBinding", "rkaf:bindsAssertion": assertion,
-             "rkaf:bindsSourceFragment": [fragment], "rkaf:evidenceRole": "rkaf:textualEvidence",
+             "rkaf:bindsSourceFragment": fragments, "rkaf:evidenceRole": "rkaf:textualEvidence",
              "rkaf:evidentiaryFunction": "rkaf:supports"})
 
     def value_assertion(predicate, value, fragment):
@@ -172,6 +174,10 @@ def enrich_graph(document, claim, disposition, add):
     tags = list(supported("concepts"))
     if not tags:
         return
+    # Tag the complete prepared region. Formatting can be part of this annotation
+    # target; the supporting bindings still contain only original-source slices.
+    target = _fragment(document, claim['quote'], 'summary', claim['start'], claim['end'])
+    add(_fragment_node(document, target))
     scheme_id = NS + "concept-scheme:" + document["sha256"]
     scheme = {"@id": scheme_id, "@type": "rkaf:ConceptScheme", "skos:prefLabel": {"en": "Document concepts"},
               "rkaf:schemeFacet": NS + "topic", "rkaf:definedInScope": document["id"]}
@@ -200,7 +206,7 @@ def enrich_graph(document, claim, disposition, add):
         add(node)
     for key, item, fragment in tags:
         concept_id = NS + "concept:" + digest([document["id"], item["label"], item["definition"]])
-        proposition = {"rkaf:assertsSubject": evidence["summary"]["fragment_id"], "rkaf:assertsPredicate": item["role"],
+        proposition = {"rkaf:assertsSubject": target["fragment_id"], "rkaf:assertsPredicate": item["role"],
                        "rkaf:assertsObject": concept_id, "rkaf:assertionPolarity": "rkaf:affirmed"}
         identity = assertion_id(proposition)
         add(concept_assignment(assertion_iri=identity, subject=proposition["rkaf:assertsSubject"],

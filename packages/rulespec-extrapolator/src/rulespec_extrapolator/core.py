@@ -78,7 +78,7 @@ def sparse(value):
     """Omit absent optional values for consumers; retain zero and false."""
     if isinstance(value, dict):
         return {k: cleaned for k, v in value.items() if (cleaned := sparse(v)) not in (None, '', [], {})}
-    if isinstance(value, list):
+    if isinstance(value, (list, tuple)):
         return [sparse(v) for v in value]
     return value
 
@@ -99,7 +99,7 @@ def _issue(code, field, message):
     return {"code": code, "field": field, "message": message}
 
 
-def _evidence(document, quote, field, start=None, end=None, within=None):
+def _evidence_position(document, quote, start=None, end=None, within=None):
     # A unique match within a verified parent quote can disambiguate repeated words.
     text = document["text"]
     if within and quote:
@@ -107,18 +107,55 @@ def _evidence(document, quote, field, start=None, end=None, within=None):
         local = resolve_exact_evidence_offsets(text[lo:hi], quote, None, None)
         if local:
             start, end = lo + local.start, lo + local.end
-    pos = resolve_exact_evidence_offsets(text, quote, start, end)
+    return resolve_exact_evidence_offsets(text, quote, start, end)
+
+
+def _fragment(document, quote, field, start, end):
+    """Address exact prepared text; callers separately check source eligibility."""
+    artifact = SimpleNamespace(raw_fields={"text": document['text']})
+    fragment = verify_fragment(artifact, key=field, source_field="text",
+                               start=start, end=end, artifact_iri=document["id"],
+                               expected_text=quote)
+    return {"field": field, "quote": quote, "start": start, "end": end,
+            "fragment_id": fragment.urn}
+
+
+def _evidence(document, quote, field, start=None, end=None, within=None):
+    pos = _evidence_position(document, quote, start, end, within)
     if pos is None:
         return None
     if any(part["kind"] != "source" and part["start"] < pos.end and pos.start < part["end"]
            for part in document.get("source_map", [])):
         return None
-    artifact = SimpleNamespace(raw_fields={"text": text})
-    fragment = verify_fragment(artifact, key=field, source_field="text",
-                               start=pos.start, end=pos.end, artifact_iri=document["id"],
-                               expected_text=quote)
-    return {"field": field, "quote": quote, "start": pos.start, "end": pos.end,
-            "fragment_id": fragment.urn}
+    return _fragment(document, quote, field, pos.start, pos.end)
+
+
+def evidence_parts(document, quote, field, start=None, end=None, within=None):
+    """Keep a complete quote supported by original slices across inserted whitespace."""
+    pos = _evidence_position(document, quote, start, end, within)
+    if pos is None:
+        return []
+    if whole := _evidence(document, quote, field, pos.start, pos.end):
+        return [whole]
+    text = document['text']
+    if any(p['kind'] != 'source' and text[max(pos.start, p['start']):min(pos.end, p['end'])].strip()
+           for p in document.get('source_map', []) if p['start'] < pos.end and pos.start < p['end']):
+        return []
+    from .documents import source_slicer
+    return [_fragment(document, text[start:end], field, start, end)
+            for start, end in source_slicer(document)(pos.start, pos.end)]
+
+
+def _fragment_node(document, evidence):
+    return {"@id": evidence["fragment_id"], "@type": "rkaf:SourceFragment",
+            "oa:hasSource": document["id"],
+            "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+            "rkaf:sourceArtifactDigest": "sha256:" + document["sha256"],
+            "rkaf:fragmentContentDigest": "sha256:" + digest(evidence["quote"]),
+            "rkaf:selectorKind": ["oa:TextQuoteSelector", "oa:TextPositionSelector"],
+            "oa:hasSelector": [{"@type": "oa:TextQuoteSelector", "oa:exact": evidence["quote"]},
+                {"@type": "oa:TextPositionSelector", "oa:start": evidence["start"], "oa:end": evidence["end"],
+                 "rkaf:coordinateSystem": "rkaf:unicode-codepoint"}]}
 
 
 def _claim(document, candidate, *, rule_id, occurrence_id, origin="aiSuggested"):
@@ -130,13 +167,16 @@ def _claim(document, candidate, *, rule_id, occurrence_id, origin="aiSuggested")
     expected_kinds = MODALITY_KINDS.get(c["modality"])
     if expected_kinds and c["kind"] not in expected_kinds:
         raise ValueError("Candidate kind contradicts its declared modality")
-    main = _evidence(document, c["quote"], "summary", c["start"], c["end"])
+    main = _evidence_position(document, c["quote"], c["start"], c["end"])
     if main is None:
         raise ValueError("Main quotation is absent or ambiguous in the pinned source")
-    c.update(start=main["start"], end=main["end"])
+    evidence = evidence_parts(document, c['quote'], 'summary', main.start, main.end)
+    if not evidence:
+        raise ValueError("Main quotation contains inserted content without complete original-source support")
+    c.update(start=main.start, end=main.end)
     from .terms import term_identity, definition_error
     for term in c['defined_terms']:
-        if not definition_error(c, term) and _evidence(document, term['quote'], 'definition', within=(main['start'], main['end'])):
+        if not definition_error(c, term) and evidence_parts(document, term['quote'], 'definition', within=(main.start, main.end)):
             term['id'] = term_identity(document, c, term)
     containing = [s for s in document["sections"]
                   if s["start"] <= c["start"] and c["end"] <= s["end"]]
@@ -145,22 +185,22 @@ def _claim(document, candidate, *, rule_id, occurrence_id, origin="aiSuggested")
     if not c["section_id"]:
         section = min(containing, key=lambda s: (s["end"] - s["start"], s["start"], s["id"]), default=None)
         c["section_id"] = section["id"] if section else ""
-    evidence, issues = [main], []
+    issues = []
     for field in ("actor", "action", "object"):
         if not c[field]:
             continue
-        support = _evidence(document, c[field + "_quote"], field,
-                            within=(main["start"], main["end"]))
+        support = evidence_parts(document, c[field + "_quote"], field,
+                                 within=(main.start, main.end))
         if support:
-            evidence.append(support)
+            evidence.extend(support)
         else:
             issues.append(_issue("component_evidence_unresolved", field,
                                  f"Exact supporting text for {field} needs review."))
     if c["logic_text"]:
-        support = _evidence(document, c["logic_text"], "logic_text",
-                            within=(main["start"], main["end"]))
+        support = evidence_parts(document, c["logic_text"], "logic_text",
+                                 within=(main.start, main.end))
         if support:
-            evidence.append(support)
+            evidence.extend(support)
         else:
             issues.append(_issue('component_evidence_unresolved', 'logic_text',
                                  'Exact logical wording is absent or ambiguous.'))
@@ -171,9 +211,9 @@ def _claim(document, candidate, *, rule_id, occurrence_id, origin="aiSuggested")
             continue
         if field == "modality" and not quote:
             continue
-        support = _evidence(document, quote, field, within=(main["start"], main["end"]))
+        support = evidence_parts(document, quote, field, within=(main.start, main.end))
         if support:
-            evidence.append(support)
+            evidence.extend(support)
         else:
             issues.append(_issue("component_evidence_unresolved", field, "Exact supporting text is absent or ambiguous."))
     if c["modality"] == "uncertain":
@@ -393,15 +433,7 @@ def build_graph(document, claims, run, attestations=None):
         if not c.get("review_event_id") and c.get("window_id") in activities:
             disposition["rkaf:hasExtractionProvenance"] = activities[c["window_id"]]
         for e in c["evidence"]:
-            add({"@id": e["fragment_id"], "@type": "rkaf:SourceFragment",
-                 "oa:hasSource": document["id"],
-                 "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
-                 "rkaf:sourceArtifactDigest": "sha256:" + document["sha256"],
-                 "rkaf:fragmentContentDigest": "sha256:" + digest(e["quote"]),
-                 "rkaf:selectorKind": ["oa:TextQuoteSelector", "oa:TextPositionSelector"],
-                 "oa:hasSelector": [{"@type": "oa:TextQuoteSelector", "oa:exact": e["quote"]},
-                     {"@type": "oa:TextPositionSelector", "oa:start": e["start"], "oa:end": e["end"],
-                      "rkaf:coordinateSystem": "rkaf:unicode-codepoint"}]})
+            add(_fragment_node(document, e))
         components = list(_component_nodes(c, disposition))
         if scope := _scope_record(c):
             add(scope)
@@ -429,7 +461,7 @@ def build_graph(document, claims, run, attestations=None):
                 if not fragments:
                     # A failed component locator is not a declared hypothesis.
                     # Preserve the examined source as context, not verified support.
-                    fragments = [c['evidence'][0]['fragment_id']]
+                    fragments = [e['fragment_id'] for e in c['evidence'] if e['field'] == 'summary']
                     function = 'providesContext'
                 binding = {"@id": NS + "binding:" + digest([node["@id"], fragments, c["occurrence_id"], function]),
                            "@type": "rkaf:EvidenceBinding", "rkaf:bindsAssertion": node["@id"],
@@ -448,8 +480,8 @@ def build_graph(document, claims, run, attestations=None):
                 relationship["rkaf:supersedesAssertion"] = prior
             add(relationship)
             c["assertion_ids"].append(rid)
-            qualification_evidence = [c["evidence"][0]["fragment_id"]]
-            qualification_evidence.extend(e["fragment_id"] for e in c["evidence"] if e["field"].startswith("scope_text:"))
+            qualification_evidence = [e["fragment_id"] for e in c["evidence"]
+                                      if e['field'] == 'summary' or e['field'].startswith('scope_text:')]
             target_claim = claims_by_id.get(target, {})
             qualification_evidence.extend(e["fragment_id"] for e in target_claim.get("evidence", [])
                                           if e["field"] == "summary" or e["field"].startswith("scope_text:"))
