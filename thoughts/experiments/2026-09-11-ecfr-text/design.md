@@ -76,3 +76,18 @@ it over the pending format extension. If it supplies a different representation,
 record that boundary and any useful upstream fixes without adding a duplicate
 acquisition, segmentation or retrieval system to Rulespec. No performance claims
 or quality rates will be inferred from these diagnostic files.
+
+## Application observations and follow-up controls
+
+The first application run passed 72 focused cases and exposed two failing
+constructed suffix cases: `49 CFR 390.5 note` and `49 CFR 390.5 et seq.` became
+plain section lookups. Fix the owning RefSpec occurrence reader, retaining the
+written suffix and a refusal; compare ordinary prose and identity-only behavior.
+Do not add a downstream regex guard or weaken the no-fallback criterion.
+
+The first full-title address-index attempt found native `SECTION N="11.105-11.106"`
+in the pinned Title 49. Refusing the complete input prevents unrelated valid
+lookups. Before modifying that behavior, add a mixed-source control: keep the
+native combined range as a source-backed unresolved issue, index exact sibling
+sections, and never expand the combined node into endpoint targets. Missing native
+title context and conflicting part/section metadata remain explicit input errors.

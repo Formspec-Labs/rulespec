@@ -1,0 +1,18 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________ test_note_is_not_reinterpreted_as_a_verb_across_a_paragraph __________
+
+    def test_note_is_not_reinterpreted_as_a_verb_across_a_paragraph():
+        text = '49 CFR 390.5 note\n\nThat provision has a separate context.'
+        row, = find_cfr_citations(text)
+>       assert row.text == '49 CFR 390.5 note'
+E       AssertionError: assert '49 CFR 390.5' == '49 CFR 390.5 note'
+E         
+E         - 49 CFR 390.5 note
+E         ?             -----
+E         + 49 CFR 390.5
+
+tests/test_cfr_scope_tails.py:137: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_cfr_scope_tails.py::test_note_is_not_reinterpreted_as_a_verb_across_a_paragraph
+1 failed in 0.09s

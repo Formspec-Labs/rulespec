@@ -1,5 +1,9 @@
 # Existing XML readers and the eCFR preparation decision
 
+**Delivery follow-up:** the native eCFR consumer is now committed and installed
+locally. [Application results and limits](application.md) record the final checks.
+The comparison below preserves the assessment that preceded adoption.
+
 **DocSpec already solves XML visible-text extraction with original-byte evidence.
 The missing piece for this consumer is native eCFR structure: section attributes,
 XML locations and table relationships.** The direct sibling comparison supports
@@ -11,8 +15,8 @@ This assessment used the three pinned eCFR sections from the preceding
 [body-source comparison](../2026-09-11-reference-bodies/README.md), plus declared
 constructed controls. It checks representation and source preservation, not model
 accuracy, a representative corpus, or performance. No network or model calls were
-made. The RefSpec extension is source-tested, uncommitted and uninstalled;
-Rulespec's installed XML support remains USLM at this checkpoint.
+made. At this comparison checkpoint the RefSpec extension was source-tested,
+uncommitted and uninstalled; installed XML support still meant USLM.
 
 ## Capabilities and fit
 
@@ -66,9 +70,9 @@ can still make the readable table tall.
    needs them; do not add speculative fetching to the extractor. Prefer captured
    publisher XML when the needed text is available in a supported format.
 
-R12 and R20 remain partial. This finishes the named sibling-reader assessment,
-not the full reuse backlog or eCFR application delivery. The task list still has
-19 open workstreams out of 26.
+R12 and R20 remain partial. The later linked delivery completes the exact eCFR
+application connection, while historical correspondence and the broader reuse
+backlog remain open. The task list still has 19 open workstreams out of 26.
 
 ## Evidence and reproduction
 
