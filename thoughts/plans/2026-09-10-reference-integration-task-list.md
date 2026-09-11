@@ -6,7 +6,7 @@ extraction/discovery consumers. R1–R26 are stable identifiers for follow-up wo
 This update includes retention, optional-reader capture, qualified USC delivery,
 removal of unused citation copies, compilation occurrence delivery and the
 independent part-zero minter correction and complete CFR range delivery. The latest
-application suite passes 641 tests from source and its installed wheel; the graph
+application suite passes 645 tests from source and its installed wheel; the graph
 package's preceding checkpoint passes 30 tests from source and its isolated wheel.
 Earlier counts belong to their linked checkpoints. Original captures and reviews
 remain intact; no model call, publication or deployment was needed for this cleanup.
@@ -14,9 +14,12 @@ remain intact; no model call, publication or deployment was needed for this clea
 **Recommended next slice:** the [grounded omitted-title comparison](../experiments/2026-09-11-cfr-native-context/README.md)
 is complete and failed adoption: native defaults recover 20/21 selected local
 references but assign three foreign citations to the wrong title; a local-phrase
-requirement recovers only 7/21 and fails ambiguity controls. Complete the observed
-reverse explicit CFR form and investigate the shared `to the same extent` range
-misreading upstream before returning to R9's broader context binding. Stable
+requirement recovers only 7/21 and fails ambiguity controls. The observed
+[reverse explicit CFR form is now delivered](../experiments/2026-09-11-cfr-reverse-title/README.md):
+862 upstream checks pass, 645 source/installed application tests pass, and both
+commands retain the actual paragraph's complete coordinates and pinpoint.
+Investigate the shared `to the same extent` range misreading upstream before
+returning to R9's broader context binding. Stable
 reference-feedback anchors for one discovery consumer remain an independent
 R17/R18 option. The
 [expanded reader comparison](../experiments/2026-09-11-ecfr-text/README.md) directly
@@ -210,7 +213,7 @@ release. Preserve the completed foundation and make one bounded change at a time
 | R6 | Upstream occurrence fixes and qualified USC integration | Selected USC readings installed; 579 application tests and both commands verified | M |
 | R7 | Additional reference families with individual acceptance checks | RIN helper reuse and upstream explanation corrections delivered; further families remain experimental | M per further family |
 | R8 | Remove divergent production citation copies | Caller comparison and upstream range delivery complete; unused copies removed; live graph migration open | M |
-| R9 | Source-supported context for omitted citation titles | Native/default and local-phrase prototypes tested; both failed adoption; general support missing | M |
+| R9 | Source-supported context for omitted citation titles | Reverse explicit title form delivered; native/default and local-phrase prototypes failed adoption; general context support missing | M |
 | R10 | Exact local paragraph address index | Marker extension tested; ambiguity/inline-child gate failed; production unchanged | M |
 | R11 | Local paragraph and range lookup | Publisher targets delivered; general prose addresses and ranges remain open | M–L |
 | R12 | External provision text in a pinned edition | Optional USLM and exact eCFR lookup installed; broader scope and historical correspondence remain open | L |
@@ -842,10 +845,15 @@ also identifies an existing range-reader defect in `to the same extent`.
 - [x] Compare native TITLE evidence with explicit local-scope phrases, retaining
   source XML, foreign-authority counterexamples, complete raw outputs and installed
   baseline agreement. The failed gate and original captures are saved.
-- [ ] First connect the observed reverse explicit form
+- [x] Connect the observed reverse explicit form
   `§ 1954.3(d)(1)(i) of title 29, Code of Federal Regulations` through RefSpec's
   existing occurrence reader. Its stated title must take precedence over a native
-  title-41 default. Preserve qualifiers and separate unrelated title mentions.
+  title-41 default. Qualifiers, repeated labels and distinct occurrences survive;
+  unrelated title mentions remain separate. The
+  [upstream and application delivery](../experiments/2026-09-11-cfr-reverse-title/README.md)
+  preserves the implementation failures and passes 862 upstream checks plus 645
+  source/installed application tests. This supplies an explicit reading, not a
+  native-title inference or a passed R9 context gate.
 - [ ] Investigate the shared `to` range interpretation under R5/R8. Preserve real
   and unread ranges while distinguishing ordinary following prose; do not silently
   collapse every refused range to its first coordinate.

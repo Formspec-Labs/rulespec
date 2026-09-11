@@ -1,0 +1,18 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____________ test_note_before_shared_title_stays_on_its_own_member _____________
+
+    def test_note_before_shared_title_stays_on_its_own_member():
+        text = '§§ 82.155, 82.156 note of title 40, Code of Federal Regulations'
+        rows = find_cfr_citations(text)
+        assert meanings(rows) == [(40, '82', '155'), (40, '82', '156')]
+>       assert [row.refusal for row in rows] == [None, 'note_target_unresolved']
+E       AssertionError: assert ['note_target...t_unresolved'] == [None, 'note_...t_unresolved']
+E         
+E         At index 0 diff: 'note_target_unresolved' != None
+E         Use -v to get more diff
+
+tests/test_cfr_reverse_title.py:146: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_cfr_reverse_title.py::test_note_before_shared_title_stays_on_its_own_member
+1 failed, 97 deselected in 0.11s

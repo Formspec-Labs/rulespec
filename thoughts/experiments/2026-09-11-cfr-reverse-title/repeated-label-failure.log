@@ -1,0 +1,38 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_____ test_repeated_section_labels_do_not_hide_the_first_member[\xa7\xa7] ______
+
+label = '§§'
+
+    @pytest.mark.parametrize('label', ['§§', '§'])
+    def test_repeated_section_labels_do_not_hide_the_first_member(label):
+        text = f'{label} 82.155 and § 82.156 of title 40, Code of Federal Regulations'
+        rows = find_cfr_citations(text)
+>       assert meanings(rows) == [(40, '82', '155'), (40, '82', '156')]
+E       AssertionError: assert [(40, '82', '156')] == [(40, '82', '... '82', '156')]
+E         
+E         At index 0 diff: (40, '82', '156') != (40, '82', '155')
+E         Right contains one more item: (40, '82', '156')
+E         Use -v to get more diff
+
+tests/test_cfr_reverse_title.py:138: AssertionError
+_______ test_repeated_section_labels_do_not_hide_the_first_member[\xa7] ________
+
+label = '§'
+
+    @pytest.mark.parametrize('label', ['§§', '§'])
+    def test_repeated_section_labels_do_not_hide_the_first_member(label):
+        text = f'{label} 82.155 and § 82.156 of title 40, Code of Federal Regulations'
+        rows = find_cfr_citations(text)
+>       assert meanings(rows) == [(40, '82', '155'), (40, '82', '156')]
+E       AssertionError: assert [(40, '82', '156')] == [(40, '82', '... '82', '156')]
+E         
+E         At index 0 diff: (40, '82', '156') != (40, '82', '155')
+E         Right contains one more item: (40, '82', '156')
+E         Use -v to get more diff
+
+tests/test_cfr_reverse_title.py:138: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_cfr_reverse_title.py::test_repeated_section_labels_do_not_hide_the_first_member[\xa7\xa7]
+FAILED tests/test_cfr_reverse_title.py::test_repeated_section_labels_do_not_hide_the_first_member[\xa7]
+2 failed, 95 deselected in 0.11s
