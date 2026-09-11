@@ -11,9 +11,14 @@ package's preceding checkpoint passes 30 tests from source and its isolated whee
 Earlier counts belong to their linked checkpoints. Original captures and reviews
 remain intact; no model call, publication or deployment was needed for this cleanup.
 
-**Recommended next slice:** use the delivered R12 native source index for one
-grounded omitted-title comparison (R9), or connect stable reference-feedback
-anchors to one discovery consumer (R17/R18). The
+**Recommended next slice:** the [grounded omitted-title comparison](../experiments/2026-09-11-cfr-native-context/README.md)
+is complete and failed adoption: native defaults recover 20/21 selected local
+references but assign three foreign citations to the wrong title; a local-phrase
+requirement recovers only 7/21 and fails ambiguity controls. Complete the observed
+reverse explicit CFR form and investigate the shared `to the same extent` range
+misreading upstream before returning to R9's broader context binding. Stable
+reference-feedback anchors for one discovery consumer remain an independent
+R17/R18 option. The
 [expanded reader comparison](../experiments/2026-09-11-ecfr-text/README.md) directly
 checked SpicySearch, DocSpec and SpicyDocs. DocSpec already supplies XML visible
 text and byte maps; its current table/line-break behavior does not replace native
@@ -205,7 +210,7 @@ release. Preserve the completed foundation and make one bounded change at a time
 | R6 | Upstream occurrence fixes and qualified USC integration | Selected USC readings installed; 579 application tests and both commands verified | M |
 | R7 | Additional reference families with individual acceptance checks | RIN helper reuse and upstream explanation corrections delivered; further families remain experimental | M per further family |
 | R8 | Remove divergent production citation copies | Caller comparison and upstream range delivery complete; unused copies removed; live graph migration open | M |
-| R9 | Source-supported context for omitted citation titles | General support missing | M |
+| R9 | Source-supported context for omitted citation titles | Native/default and local-phrase prototypes tested; both failed adoption; general support missing | M |
 | R10 | Exact local paragraph address index | Marker extension tested; ambiguity/inline-child gate failed; production unchanged | M |
 | R11 | Local paragraph and range lookup | Publisher targets delivered; general prose addresses and ranges remain open | M–L |
 | R12 | External provision text in a pinned edition | Optional USLM and exact eCFR lookup installed; broader scope and historical correspondence remain open | L |
@@ -825,6 +830,25 @@ are preserved, and the old copy is removed only after its consumers have moved.
 
 ### R9 — Support explicitly grounded document citation context
 
+The [native-context comparison](../experiments/2026-09-11-cfr-native-context/README.md)
+reuses RefSpec's item, list and qualifier code on eleven actual publisher
+paragraphs and 22 constructed controls. Native-title defaults recover 20 of 21
+selected own-title references but accept three wrong foreign-title assignments.
+Requiring explicit local-scope phrases recovers seven, misses fourteen and still
+fails constructed heading, quotation and part-scope controls. Both strategies
+remain experimental; this does not meet R9's acceptance check. The raw review
+also identifies an existing range-reader defect in `to the same extent`.
+
+- [x] Compare native TITLE evidence with explicit local-scope phrases, retaining
+  source XML, foreign-authority counterexamples, complete raw outputs and installed
+  baseline agreement. The failed gate and original captures are saved.
+- [ ] First connect the observed reverse explicit form
+  `§ 1954.3(d)(1)(i) of title 29, Code of Federal Regulations` through RefSpec's
+  existing occurrence reader. Its stated title must take precedence over a native
+  title-41 default. Preserve qualifiers and separate unrelated title mentions.
+- [ ] Investigate the shared `to` range interpretation under R5/R8. Preserve real
+  and unread ranges while distinguishing ordinary following prose; do not silently
+  collapse every refused range to its first coordinate.
 - [ ] **Owner: RefSpec grammar + Rulespec caller; effort M.** Allow omitted-title
   references such as `§ 82.155` only when the caller supplies a source-supported
   title/section context. Keep evidence for that context separate from the literal
