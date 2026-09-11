@@ -1,0 +1,94 @@
+FF....FFFF......F.                                                       [100%]
+=================================== FAILURES ===================================
+___________ test_exact_target_has_its_own_source_and_parent_context ____________
+
+    def test_exact_target_has_its_own_source_and_parent_context():
+        doc, external = prepare_document('5 USC 553(b)(B). Again: 5 USC 553(b)(B).'), source()
+        before = deepcopy(external)
+        scan = scan_references(doc, reference_sources=[external])
+        a, b = scan['candidates']
+        assert a['id'] != b['id']
+>       assert a['resolution'] == b['resolution']
+               ^^^^^^^^^^^^^^^
+E       KeyError: 'resolution'
+
+packages/rulespec-extrapolator/tests/test_reference_sources.py:31: KeyError
+_________ test_external_discovery_evidence_resolves_in_its_own_records _________
+
+    def test_external_discovery_evidence_resolves_in_its_own_records():
+        doc, external = prepare_document('5 USC 553(b)(B).'), source()
+        result = export_discovery({'document': doc, 'accepted': []}, reference_sources=[external])
+        scan = result['reference_scan']
+>       target, = scan['targets'].values()
+        ^^^^^^^
+E       ValueError: not enough values to unpack (expected 1, got 0)
+
+packages/rulespec-extrapolator/tests/test_reference_sources.py:51: ValueError
+_____________ test_missing_pinpoint_does_not_fall_back_to_section ______________
+
+    def test_missing_pinpoint_does_not_fall_back_to_section():
+        row, = scan_references(prepare_document('5 USC 553(z)'), reference_sources=[source()])['candidates']
+>       assert row['resolution']['status'] == 'not_in_selected_sources'
+               ^^^^^^^^^^^^^^^^^
+E       KeyError: 'resolution'
+
+packages/rulespec-extrapolator/tests/test_reference_sources.py:71: KeyError
+_ test_distinct_editions_or_xml_with_same_readable_text_remain_ambiguous[other0] _
+
+other = {'id': 'urn:rulespec:document-understanding:document:e1fab60370ff2f3f7c74ae7fc99ec9cae9f353d35cdec5c4d4c0805baddbb5c8'...ed by statute, this subsection does not apply—\n\n(B)when the agency finds good cause.', 'title': 'USLM document', ...}
+
+    @pytest.mark.parametrize('other', [source(edition='118-1'), source(extra='id="changed-xml-only"')])
+    def test_distinct_editions_or_xml_with_same_readable_text_remain_ambiguous(other):
+        doc = prepare_document('5 USC 553(b)(B)')
+        result = export_discovery({'document':doc,'accepted':[]}, reference_sources=[source(), other])
+        scan = result['reference_scan']
+        row, = scan['candidates']
+>       assert row['resolution']['status'] == 'ambiguous'
+               ^^^^^^^^^^^^^^^^^
+E       KeyError: 'resolution'
+
+packages/rulespec-extrapolator/tests/test_reference_sources.py:81: KeyError
+_ test_distinct_editions_or_xml_with_same_readable_text_remain_ambiguous[other1] _
+
+other = {'id': 'urn:rulespec:document-understanding:document:f05d4d486c23adc02823aacfe0c0df7d72cf5782b20649b7fb5bf149c1fbd31f'...ed by statute, this subsection does not apply—\n\n(B)when the agency finds good cause.', 'title': 'USLM document', ...}
+
+    @pytest.mark.parametrize('other', [source(edition='118-1'), source(extra='id="changed-xml-only"')])
+    def test_distinct_editions_or_xml_with_same_readable_text_remain_ambiguous(other):
+        doc = prepare_document('5 USC 553(b)(B)')
+        result = export_discovery({'document':doc,'accepted':[]}, reference_sources=[source(), other])
+        scan = result['reference_scan']
+        row, = scan['candidates']
+>       assert row['resolution']['status'] == 'ambiguous'
+               ^^^^^^^^^^^^^^^^^
+E       KeyError: 'resolution'
+
+packages/rulespec-extrapolator/tests/test_reference_sources.py:81: KeyError
+_____________ test_duplicate_identifiers_are_not_first_match_wins ______________
+
+    def test_duplicate_identifiers_are_not_first_match_wins():
+        external = source('<paragraph identifier="/us/usc/t5/s553/b/B">Different.</paragraph>')
+        scan = scan_references(prepare_document('5 USC 553(b)(B)'), reference_sources=[external])
+>       assert scan['candidates'][0]['resolution']['status'] == 'ambiguous'
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'resolution'
+
+packages/rulespec-extrapolator/tests/test_reference_sources.py:92: KeyError
+___________ test_section_dash_normalization_preserves_pinpoint_case ____________
+
+    def test_section_dash_normalization_preserves_pinpoint_case():
+        external = source('<section identifier="/us/usc/t42/s1395w–4"><paragraph identifier="/us/usc/t42/s1395w–4/A">Yes</paragraph></section>')
+        rows = scan_references(prepare_document('42 USC 1395w-4(A). 42 USC 1395w-4(a).'), reference_sources=[external])['candidates']
+>       assert [r['resolution']['status'] for r in rows] == ['located', 'not_in_selected_sources']
+                ^^^^^^^^^^^^^^^
+E       KeyError: 'resolution'
+
+packages/rulespec-extrapolator/tests/test_reference_sources.py:135: KeyError
+=========================== short test summary info ============================
+FAILED packages/rulespec-extrapolator/tests/test_reference_sources.py::test_exact_target_has_its_own_source_and_parent_context
+FAILED packages/rulespec-extrapolator/tests/test_reference_sources.py::test_external_discovery_evidence_resolves_in_its_own_records
+FAILED packages/rulespec-extrapolator/tests/test_reference_sources.py::test_missing_pinpoint_does_not_fall_back_to_section
+FAILED packages/rulespec-extrapolator/tests/test_reference_sources.py::test_distinct_editions_or_xml_with_same_readable_text_remain_ambiguous[other0]
+FAILED packages/rulespec-extrapolator/tests/test_reference_sources.py::test_distinct_editions_or_xml_with_same_readable_text_remain_ambiguous[other1]
+FAILED packages/rulespec-extrapolator/tests/test_reference_sources.py::test_duplicate_identifiers_are_not_first_match_wins
+FAILED packages/rulespec-extrapolator/tests/test_reference_sources.py::test_section_dash_normalization_preserves_pinpoint_case
+7 failed, 11 passed in 0.16s

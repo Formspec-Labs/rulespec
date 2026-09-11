@@ -1,0 +1,1630 @@
+FFF.FFFF.FFFFFF.FFFF.....F                                               [100%]
+=================================== FAILURES ===================================
+_______________ test_fresh_definition_target_and_core_fragments ________________
+
+    def test_fresh_definition_target_and_core_fragments():
+        doc = load_document(FIXTURE)
+>       scan = scan_references(doc)
+               ^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_uslm.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/references.py:145: in scan_references
+    attach_publisher_links(document, result, passages)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+document = {'id': 'urn:rulespec:document-understanding:document:bef2af106d83921dfa412f11d6e34583e85a95724b8a93bb5642e4b417c1cb2e'...s a note preceding section 301 of Title 44, Public Printing and Documents.\n\n\n', 'title': 'fresh-title-05-pair', ...}
+scan = {'schema_version': 'document-references/2', 'document': {'id': 'urn:rulespec:document-understanding:document:bef2af106...b7897603e'}], 'supported_kinds': ['cfr', 'docket', 'eo_compilation', 'executive_order', 'public_law', 'rin', ...], ...}
+passages = [{'id': 'urn:rulespec:document-understanding:passage:6c11687a265d787d94e70f37ce16f724fe288fc60413a6bb8c7abfe722199a28'...'start': 545, 'end': 648, 'text_sha256': '84bff01f3933a5f8ff180d919474a137dcf77aca9a32d35293f31d8752de48ae', ...}, ...]
+
+    def attach_publisher_links(document, scan, passages):
+        """Add native XML occurrences and shared targets to the existing scan result."""
+        from refspec.registry import uslm
+        index = SourceIndex(document)
+        prepared, source, fragments, targets = index.prepared, index.source, index.fragments, index.targets
+        identifiers, support = index.identifiers, index.support
+        passage_starts, passage_ends = [p['start'] for p in passages], [p['end'] for p in passages]
+        publisher_rows, anchors = [], []
+    
+        root_id = prepared['nodes']['/*[1]'].get('identifier', '')
+        title = root_id.removeprefix('/us/usc/t').split('/')[0] if root_id.startswith('/us/usc/t') else ''
+        skipped = Counter()
+        for native in uslm.iter_edges(source['xml'].encode('utf-8'), title, skipped, include_source_path=True):
+            path = native['sourceXPath']
+            node = prepared['nodes'][path]
+            xml_fragment, evidence = support(path, node, 'reference')
+            target_ids = []
+            for target_path, target in identifiers.get(native['href'], ()):
+                target_ids.append(index.target(target_path, target)['id'])
+            row = {'id': NS + 'reference:' + digest([xml_fragment, native['href']]),
+                   'kind': 'publisher_reference', 'value': native['href'],
+                   'reading': sparse({k: v for k, v in native.items() if k not in {'href', 'sourceXPath'}}),
+                   'xml_evidence_refs': [xml_fragment], 'evidence': evidence,
+                   'record_ids': [p['id'] for p in passages[bisect_right(passage_ends, node['start']):bisect_left(passage_starts, node['end'])]] if 'start' in node else [],
+                   'resolution': {'status': 'located' if len(target_ids) == 1 else 'ambiguous' if target_ids else 'not_in_selected_source',
+                                  'target_ids': target_ids},
+                   'text_status': 'available' if evidence else 'no_visible_text'}
+            publisher_rows.append(row)
+            if 'start' in node:
+                anchors.append((node, row))
+    
+        # XML text intervals are nested or disjoint. Index enclosing anchors once;
+        # each lookup follows only the source's nesting, not every publisher link.
+        anchors.sort(key=lambda item: (item[0]['start'], -item[0]['end']))
+        anchor_starts = [node['start'] for node, _ in anchors]
+        ancestors, stack = [], []
+        for index, (node, _) in enumerate(anchors):
+            while stack and anchors[stack[-1]][0]['end'] <= node['start']:
+                stack.pop()
+            ancestors.append(stack[-1] if stack else -1)
+            stack.append(index)
+    
+        # Associate only unique full containment. Keep the text reading's own target,
+        # evidence and disposition; association does not assert target agreement.
+        for group in ('candidates', 'rejected'):
+            remaining = []
+            for row in scan[group]:
+                evidence = row.get('evidence', [])
+                primary = evidence[0] if evidence else None
+                matches = []
+                index = bisect_right(anchor_starts, primary['start']) - 1 if primary else -1
+                while index >= 0 and len(matches) < 2:
+                    node, parent = anchors[index]
+                    if primary['end'] <= node['end']:
+                        matches.append(parent)
+                    index = ancestors[index]
+                if len(matches) != 1:
+                    remaining.append(row)
+                    continue
+                parent = matches[0]
+                parent.setdefault('text_readings', []).append({'disposition': group,
+                    **{k: v for k, v in row.items() if k not in {'id', 'record_ids'}}})
+            scan[group] = remaining
+        scan['candidates'].extend(publisher_rows)
+        scan['candidates'].sort(key=lambda row: (row['evidence'][0]['start'] if row.get('evidence') else len(document['text']), row['id']))
+>       scan['publisher_source'] = index.artifact()
+                                   ^^^^^^^^^^^^^^
+E       AttributeError: 'int' object has no attribute 'artifact'
+
+packages/rulespec-extrapolator/src/rulespec_extrapolator/uslm.py:173: AttributeError
+________ test_discovery_shares_targets_and_uses_existing_evidence_table ________
+
+    def test_discovery_shares_targets_and_uses_existing_evidence_table():
+        doc = document('<p><ref href="/us/usc/t5/s1/a">Same</ref></p><p><ref href="/us/usc/t5/s1/a">Same</ref></p><subsection identifier="/us/usc/t5/s1/a"><num>(a)</num><heading>Target</heading><content>Meaning.</content></subsection>')
+        book=compile_candidates(doc, [], {})
+>       output=export_discovery(book, include_references=True)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_uslm.py:46: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/discovery.py:113: in export_discovery
+    scan = scan_references(doc, act_index=act_index, source_credit_index=source_credit_index,
+packages/rulespec-extrapolator/src/rulespec_extrapolator/references.py:145: in scan_references
+    attach_publisher_links(document, result, passages)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+document = {'id': 'urn:rulespec:document-understanding:document:d72cbd7339e2d92eb958300d44fae2729b8779b3da289ed065fc2131ebc86425'...44fae2729b8779b3da289ed065fc2131ebc86425', 'text': 'Same\n\nSame\n\n(a)Target Meaning.', 'title': 'USLM document', ...}
+scan = {'schema_version': 'document-references/2', 'document': {'id': 'urn:rulespec:document-understanding:document:d72cbd733...b7897603e'}], 'supported_kinds': ['cfr', 'docket', 'eo_compilation', 'executive_order', 'public_law', 'rin', ...], ...}
+passages = [{'id': 'urn:rulespec:document-understanding:passage:5173b476a8fa01c676ce1586512bc980b6d1ea763f21b3bdefe20f4e61364acc'...3515', 'start': 12, 'end': 30, 'text_sha256': '648d28d67ce23626fa5acde6b63d20c2f40865bfeec15143e7dd3ef98ace0296', ...}]
+
+    def attach_publisher_links(document, scan, passages):
+        """Add native XML occurrences and shared targets to the existing scan result."""
+        from refspec.registry import uslm
+        index = SourceIndex(document)
+        prepared, source, fragments, targets = index.prepared, index.source, index.fragments, index.targets
+        identifiers, support = index.identifiers, index.support
+        passage_starts, passage_ends = [p['start'] for p in passages], [p['end'] for p in passages]
+        publisher_rows, anchors = [], []
+    
+        root_id = prepared['nodes']['/*[1]'].get('identifier', '')
+        title = root_id.removeprefix('/us/usc/t').split('/')[0] if root_id.startswith('/us/usc/t') else ''
+        skipped = Counter()
+        for native in uslm.iter_edges(source['xml'].encode('utf-8'), title, skipped, include_source_path=True):
+            path = native['sourceXPath']
+            node = prepared['nodes'][path]
+            xml_fragment, evidence = support(path, node, 'reference')
+            target_ids = []
+            for target_path, target in identifiers.get(native['href'], ()):
+                target_ids.append(index.target(target_path, target)['id'])
+            row = {'id': NS + 'reference:' + digest([xml_fragment, native['href']]),
+                   'kind': 'publisher_reference', 'value': native['href'],
+                   'reading': sparse({k: v for k, v in native.items() if k not in {'href', 'sourceXPath'}}),
+                   'xml_evidence_refs': [xml_fragment], 'evidence': evidence,
+                   'record_ids': [p['id'] for p in passages[bisect_right(passage_ends, node['start']):bisect_left(passage_starts, node['end'])]] if 'start' in node else [],
+                   'resolution': {'status': 'located' if len(target_ids) == 1 else 'ambiguous' if target_ids else 'not_in_selected_source',
+                                  'target_ids': target_ids},
+                   'text_status': 'available' if evidence else 'no_visible_text'}
+            publisher_rows.append(row)
+            if 'start' in node:
+                anchors.append((node, row))
+    
+        # XML text intervals are nested or disjoint. Index enclosing anchors once;
+        # each lookup follows only the source's nesting, not every publisher link.
+        anchors.sort(key=lambda item: (item[0]['start'], -item[0]['end']))
+        anchor_starts = [node['start'] for node, _ in anchors]
+        ancestors, stack = [], []
+        for index, (node, _) in enumerate(anchors):
+            while stack and anchors[stack[-1]][0]['end'] <= node['start']:
+                stack.pop()
+            ancestors.append(stack[-1] if stack else -1)
+            stack.append(index)
+    
+        # Associate only unique full containment. Keep the text reading's own target,
+        # evidence and disposition; association does not assert target agreement.
+        for group in ('candidates', 'rejected'):
+            remaining = []
+            for row in scan[group]:
+                evidence = row.get('evidence', [])
+                primary = evidence[0] if evidence else None
+                matches = []
+                index = bisect_right(anchor_starts, primary['start']) - 1 if primary else -1
+                while index >= 0 and len(matches) < 2:
+                    node, parent = anchors[index]
+                    if primary['end'] <= node['end']:
+                        matches.append(parent)
+                    index = ancestors[index]
+                if len(matches) != 1:
+                    remaining.append(row)
+                    continue
+                parent = matches[0]
+                parent.setdefault('text_readings', []).append({'disposition': group,
+                    **{k: v for k, v in row.items() if k not in {'id', 'record_ids'}}})
+            scan[group] = remaining
+        scan['candidates'].extend(publisher_rows)
+        scan['candidates'].sort(key=lambda row: (row['evidence'][0]['start'] if row.get('evidence') else len(document['text']), row['id']))
+>       scan['publisher_source'] = index.artifact()
+                                   ^^^^^^^^^^^^^^
+E       AttributeError: 'int' object has no attribute 'artifact'
+
+packages/rulespec-extrapolator/src/rulespec_extrapolator/uslm.py:173: AttributeError
+______________ test_duplicate_and_absent_targets_remain_explicit _______________
+
+    def test_duplicate_and_absent_targets_remain_explicit():
+        doc=document('<p><ref href="/us/usc/t5/s1/a">(a)</ref> and <ref href="/us/usc/t5/s999">missing</ref></p><subsection identifier="/us/usc/t5/s1/a">One</subsection><subsection identifier="/us/usc/t5/s1/a">Two</subsection>')
+>       rows=scan_references(doc)['candidates']
+             ^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_uslm.py:60: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/references.py:145: in scan_references
+    attach_publisher_links(document, result, passages)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+document = {'id': 'urn:rulespec:document-understanding:document:efff3a46a91c3fbabe0815a0048b2cadea86cee5d72efa7648affd3fa251883d'...815a0048b2cadea86cee5d72efa7648affd3fa251883d', 'text': '(a) and missing\n\nOne\n\nTwo', 'title': 'USLM document', ...}
+scan = {'schema_version': 'document-references/2', 'document': {'id': 'urn:rulespec:document-understanding:document:efff3a46a...b7897603e'}], 'supported_kinds': ['cfr', 'docket', 'eo_compilation', 'executive_order', 'public_law', 'rin', ...], ...}
+passages = [{'id': 'urn:rulespec:document-understanding:passage:02ead33a1ac23f11203fb885ac8662d0df81f3ebddd78a93fdddb52ae70e0e0a'...743e', 'start': 22, 'end': 25, 'text_sha256': '94a72c074cfe574742c9e99e863322f73feff82981d065ff65a0308f44f19f62', ...}]
+
+    def attach_publisher_links(document, scan, passages):
+        """Add native XML occurrences and shared targets to the existing scan result."""
+        from refspec.registry import uslm
+        index = SourceIndex(document)
+        prepared, source, fragments, targets = index.prepared, index.source, index.fragments, index.targets
+        identifiers, support = index.identifiers, index.support
+        passage_starts, passage_ends = [p['start'] for p in passages], [p['end'] for p in passages]
+        publisher_rows, anchors = [], []
+    
+        root_id = prepared['nodes']['/*[1]'].get('identifier', '')
+        title = root_id.removeprefix('/us/usc/t').split('/')[0] if root_id.startswith('/us/usc/t') else ''
+        skipped = Counter()
+        for native in uslm.iter_edges(source['xml'].encode('utf-8'), title, skipped, include_source_path=True):
+            path = native['sourceXPath']
+            node = prepared['nodes'][path]
+            xml_fragment, evidence = support(path, node, 'reference')
+            target_ids = []
+            for target_path, target in identifiers.get(native['href'], ()):
+                target_ids.append(index.target(target_path, target)['id'])
+            row = {'id': NS + 'reference:' + digest([xml_fragment, native['href']]),
+                   'kind': 'publisher_reference', 'value': native['href'],
+                   'reading': sparse({k: v for k, v in native.items() if k not in {'href', 'sourceXPath'}}),
+                   'xml_evidence_refs': [xml_fragment], 'evidence': evidence,
+                   'record_ids': [p['id'] for p in passages[bisect_right(passage_ends, node['start']):bisect_left(passage_starts, node['end'])]] if 'start' in node else [],
+                   'resolution': {'status': 'located' if len(target_ids) == 1 else 'ambiguous' if target_ids else 'not_in_selected_source',
+                                  'target_ids': target_ids},
+                   'text_status': 'available' if evidence else 'no_visible_text'}
+            publisher_rows.append(row)
+            if 'start' in node:
+                anchors.append((node, row))
+    
+        # XML text intervals are nested or disjoint. Index enclosing anchors once;
+        # each lookup follows only the source's nesting, not every publisher link.
+        anchors.sort(key=lambda item: (item[0]['start'], -item[0]['end']))
+        anchor_starts = [node['start'] for node, _ in anchors]
+        ancestors, stack = [], []
+        for index, (node, _) in enumerate(anchors):
+            while stack and anchors[stack[-1]][0]['end'] <= node['start']:
+                stack.pop()
+            ancestors.append(stack[-1] if stack else -1)
+            stack.append(index)
+    
+        # Associate only unique full containment. Keep the text reading's own target,
+        # evidence and disposition; association does not assert target agreement.
+        for group in ('candidates', 'rejected'):
+            remaining = []
+            for row in scan[group]:
+                evidence = row.get('evidence', [])
+                primary = evidence[0] if evidence else None
+                matches = []
+                index = bisect_right(anchor_starts, primary['start']) - 1 if primary else -1
+                while index >= 0 and len(matches) < 2:
+                    node, parent = anchors[index]
+                    if primary['end'] <= node['end']:
+                        matches.append(parent)
+                    index = ancestors[index]
+                if len(matches) != 1:
+                    remaining.append(row)
+                    continue
+                parent = matches[0]
+                parent.setdefault('text_readings', []).append({'disposition': group,
+                    **{k: v for k, v in row.items() if k not in {'id', 'record_ids'}}})
+            scan[group] = remaining
+        scan['candidates'].extend(publisher_rows)
+        scan['candidates'].sort(key=lambda row: (row['evidence'][0]['start'] if row.get('evidence') else len(document['text']), row['id']))
+>       scan['publisher_source'] = index.artifact()
+                                   ^^^^^^^^^^^^^^
+E       AttributeError: 'int' object has no attribute 'artifact'
+
+packages/rulespec-extrapolator/src/rulespec_extrapolator/uslm.py:173: AttributeError
+________ test_text_reading_prefix_merges_without_losing_a_disagreement _________
+
+    def test_text_reading_prefix_merges_without_losing_a_disagreement():
+        doc=document('<p><ref href="/us/pl/89/554/s2">Pub. L. 94–183, § 2(1)</ref></p>')
+>       row, = scan_references(doc)['candidates']
+               ^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_uslm.py:75: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/references.py:145: in scan_references
+    attach_publisher_links(document, result, passages)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+document = {'id': 'urn:rulespec:document-understanding:document:bf9cc4b46f0defcafb4899ea875b3e81aec2d9e461b4aaab3638acd80c25ce25'...efcafb4899ea875b3e81aec2d9e461b4aaab3638acd80c25ce25', 'text': 'Pub. L. 94–183, § 2(1)', 'title': 'USLM document', ...}
+scan = {'schema_version': 'document-references/2', 'document': {'id': 'urn:rulespec:document-understanding:document:bf9cc4b46...b7897603e'}], 'supported_kinds': ['cfr', 'docket', 'eo_compilation', 'executive_order', 'public_law', 'rin', ...], ...}
+passages = [{'id': 'urn:rulespec:document-understanding:passage:96694785a7f398a7ddf38aa601cb0e9b592f2b8f554a90776168435bf71cf41e', 'start': 0, 'end': 22, 'text_sha256': 'bf9cc4b46f0defcafb4899ea875b3e81aec2d9e461b4aaab3638acd80c25ce25', ...}]
+
+    def attach_publisher_links(document, scan, passages):
+        """Add native XML occurrences and shared targets to the existing scan result."""
+        from refspec.registry import uslm
+        index = SourceIndex(document)
+        prepared, source, fragments, targets = index.prepared, index.source, index.fragments, index.targets
+        identifiers, support = index.identifiers, index.support
+        passage_starts, passage_ends = [p['start'] for p in passages], [p['end'] for p in passages]
+        publisher_rows, anchors = [], []
+    
+        root_id = prepared['nodes']['/*[1]'].get('identifier', '')
+        title = root_id.removeprefix('/us/usc/t').split('/')[0] if root_id.startswith('/us/usc/t') else ''
+        skipped = Counter()
+        for native in uslm.iter_edges(source['xml'].encode('utf-8'), title, skipped, include_source_path=True):
+            path = native['sourceXPath']
+            node = prepared['nodes'][path]
+            xml_fragment, evidence = support(path, node, 'reference')
+            target_ids = []
+            for target_path, target in identifiers.get(native['href'], ()):
+                target_ids.append(index.target(target_path, target)['id'])
+            row = {'id': NS + 'reference:' + digest([xml_fragment, native['href']]),
+                   'kind': 'publisher_reference', 'value': native['href'],
+                   'reading': sparse({k: v for k, v in native.items() if k not in {'href', 'sourceXPath'}}),
+                   'xml_evidence_refs': [xml_fragment], 'evidence': evidence,
+                   'record_ids': [p['id'] for p in passages[bisect_right(passage_ends, node['start']):bisect_left(passage_starts, node['end'])]] if 'start' in node else [],
+                   'resolution': {'status': 'located' if len(target_ids) == 1 else 'ambiguous' if target_ids else 'not_in_selected_source',
+                                  'target_ids': target_ids},
+                   'text_status': 'available' if evidence else 'no_visible_text'}
+            publisher_rows.append(row)
+            if 'start' in node:
+                anchors.append((node, row))
+    
+        # XML text intervals are nested or disjoint. Index enclosing anchors once;
+        # each lookup follows only the source's nesting, not every publisher link.
+        anchors.sort(key=lambda item: (item[0]['start'], -item[0]['end']))
+        anchor_starts = [node['start'] for node, _ in anchors]
+        ancestors, stack = [], []
+        for index, (node, _) in enumerate(anchors):
+            while stack and anchors[stack[-1]][0]['end'] <= node['start']:
+                stack.pop()
+            ancestors.append(stack[-1] if stack else -1)
+            stack.append(index)
+    
+        # Associate only unique full containment. Keep the text reading's own target,
+        # evidence and disposition; association does not assert target agreement.
+        for group in ('candidates', 'rejected'):
+            remaining = []
+            for row in scan[group]:
+                evidence = row.get('evidence', [])
+                primary = evidence[0] if evidence else None
+                matches = []
+                index = bisect_right(anchor_starts, primary['start']) - 1 if primary else -1
+                while index >= 0 and len(matches) < 2:
+                    node, parent = anchors[index]
+                    if primary['end'] <= node['end']:
+                        matches.append(parent)
+                    index = ancestors[index]
+                if len(matches) != 1:
+                    remaining.append(row)
+                    continue
+                parent = matches[0]
+                parent.setdefault('text_readings', []).append({'disposition': group,
+                    **{k: v for k, v in row.items() if k not in {'id', 'record_ids'}}})
+            scan[group] = remaining
+        scan['candidates'].extend(publisher_rows)
+        scan['candidates'].sort(key=lambda row: (row['evidence'][0]['start'] if row.get('evidence') else len(document['text']), row['id']))
+>       scan['publisher_source'] = index.artifact()
+                                   ^^^^^^^^^^^^^^
+E       AttributeError: 'int' object has no attribute 'artifact'
+
+packages/rulespec-extrapolator/src/rulespec_extrapolator/uslm.py:173: AttributeError
+_____ test_merged_rejected_reading_keeps_its_reason_and_discovery_evidence _____
+
+    def test_merged_rejected_reading_keeps_its_reason_and_discovery_evidence():
+        doc=document('<p><ref href="/us/usc/t5/s1">99 CFR 1.1</ref></p>')
+>       scan=scan_references(doc)
+             ^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_uslm.py:86: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/references.py:145: in scan_references
+    attach_publisher_links(document, result, passages)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+document = {'id': 'urn:rulespec:document-understanding:document:5127dc6728759dacc3cb82ab1c8cd89ad0bcc59167eaad64b913f5f196702da5'...5127dc6728759dacc3cb82ab1c8cd89ad0bcc59167eaad64b913f5f196702da5', 'text': '99 CFR 1.1', 'title': 'USLM document', ...}
+scan = {'schema_version': 'document-references/2', 'document': {'id': 'urn:rulespec:document-understanding:document:5127dc672...b7897603e'}], 'supported_kinds': ['cfr', 'docket', 'eo_compilation', 'executive_order', 'public_law', 'rin', ...], ...}
+passages = [{'id': 'urn:rulespec:document-understanding:passage:d378320c057ace9d2fff59dc0af77ceac6b9a0c98dabaf04f668a187051737e2', 'start': 0, 'end': 10, 'text_sha256': '5127dc6728759dacc3cb82ab1c8cd89ad0bcc59167eaad64b913f5f196702da5', ...}]
+
+    def attach_publisher_links(document, scan, passages):
+        """Add native XML occurrences and shared targets to the existing scan result."""
+        from refspec.registry import uslm
+        index = SourceIndex(document)
+        prepared, source, fragments, targets = index.prepared, index.source, index.fragments, index.targets
+        identifiers, support = index.identifiers, index.support
+        passage_starts, passage_ends = [p['start'] for p in passages], [p['end'] for p in passages]
+        publisher_rows, anchors = [], []
+    
+        root_id = prepared['nodes']['/*[1]'].get('identifier', '')
+        title = root_id.removeprefix('/us/usc/t').split('/')[0] if root_id.startswith('/us/usc/t') else ''
+        skipped = Counter()
+        for native in uslm.iter_edges(source['xml'].encode('utf-8'), title, skipped, include_source_path=True):
+            path = native['sourceXPath']
+            node = prepared['nodes'][path]
+            xml_fragment, evidence = support(path, node, 'reference')
+            target_ids = []
+            for target_path, target in identifiers.get(native['href'], ()):
+                target_ids.append(index.target(target_path, target)['id'])
+            row = {'id': NS + 'reference:' + digest([xml_fragment, native['href']]),
+                   'kind': 'publisher_reference', 'value': native['href'],
+                   'reading': sparse({k: v for k, v in native.items() if k not in {'href', 'sourceXPath'}}),
+                   'xml_evidence_refs': [xml_fragment], 'evidence': evidence,
+                   'record_ids': [p['id'] for p in passages[bisect_right(passage_ends, node['start']):bisect_left(passage_starts, node['end'])]] if 'start' in node else [],
+                   'resolution': {'status': 'located' if len(target_ids) == 1 else 'ambiguous' if target_ids else 'not_in_selected_source',
+                                  'target_ids': target_ids},
+                   'text_status': 'available' if evidence else 'no_visible_text'}
+            publisher_rows.append(row)
+            if 'start' in node:
+                anchors.append((node, row))
+    
+        # XML text intervals are nested or disjoint. Index enclosing anchors once;
+        # each lookup follows only the source's nesting, not every publisher link.
+        anchors.sort(key=lambda item: (item[0]['start'], -item[0]['end']))
+        anchor_starts = [node['start'] for node, _ in anchors]
+        ancestors, stack = [], []
+        for index, (node, _) in enumerate(anchors):
+            while stack and anchors[stack[-1]][0]['end'] <= node['start']:
+                stack.pop()
+            ancestors.append(stack[-1] if stack else -1)
+            stack.append(index)
+    
+        # Associate only unique full containment. Keep the text reading's own target,
+        # evidence and disposition; association does not assert target agreement.
+        for group in ('candidates', 'rejected'):
+            remaining = []
+            for row in scan[group]:
+                evidence = row.get('evidence', [])
+                primary = evidence[0] if evidence else None
+                matches = []
+                index = bisect_right(anchor_starts, primary['start']) - 1 if primary else -1
+                while index >= 0 and len(matches) < 2:
+                    node, parent = anchors[index]
+                    if primary['end'] <= node['end']:
+                        matches.append(parent)
+                    index = ancestors[index]
+                if len(matches) != 1:
+                    remaining.append(row)
+                    continue
+                parent = matches[0]
+                parent.setdefault('text_readings', []).append({'disposition': group,
+                    **{k: v for k, v in row.items() if k not in {'id', 'record_ids'}}})
+            scan[group] = remaining
+        scan['candidates'].extend(publisher_rows)
+        scan['candidates'].sort(key=lambda row: (row['evidence'][0]['start'] if row.get('evidence') else len(document['text']), row['id']))
+>       scan['publisher_source'] = index.artifact()
+                                   ^^^^^^^^^^^^^^
+E       AttributeError: 'int' object has no attribute 'artifact'
+
+packages/rulespec-extrapolator/src/rulespec_extrapolator/uslm.py:173: AttributeError
+_ test_publisher_xml_compilations_keep_separate_occurrences_and_editorial_uncertainty _
+
+    def test_publisher_xml_compilations_keep_separate_occurrences_and_editorial_uncertainty():
+        doc = load_document(FIXTURE.with_name('compilation-title-18.xml'))
+>       scan = scan_references(doc)
+               ^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_uslm.py:101: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/references.py:145: in scan_references
+    attach_publisher_links(document, result, passages)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+document = {'id': 'urn:rulespec:document-understanding:document:2a211b3a79265b4ac77a318518e0890db31769aef0c03e15e54bc17a54fa5f45'...ars from that date by section 1601 of Title 50, War and National Defense.\n\n\n', 'title': 'compilation-title-18', ...}
+scan = {'schema_version': 'document-references/2', 'document': {'id': 'urn:rulespec:document-understanding:document:2a211b3a7...b7897603e'}], 'supported_kinds': ['cfr', 'docket', 'eo_compilation', 'executive_order', 'public_law', 'rin', ...], ...}
+passages = [{'id': 'urn:rulespec:document-understanding:passage:530afcb88b1f57e1a84d5aa9534e82a5a101056ccbef948d7ac788bc799ffd6a'...tart': 1025, 'end': 1295, 'text_sha256': '318eb728776fb6a92c976e6bf1f7e3de2371331e8636841740fcb896b4f9c310', ...}, ...]
+
+    def attach_publisher_links(document, scan, passages):
+        """Add native XML occurrences and shared targets to the existing scan result."""
+        from refspec.registry import uslm
+        index = SourceIndex(document)
+        prepared, source, fragments, targets = index.prepared, index.source, index.fragments, index.targets
+        identifiers, support = index.identifiers, index.support
+        passage_starts, passage_ends = [p['start'] for p in passages], [p['end'] for p in passages]
+        publisher_rows, anchors = [], []
+    
+        root_id = prepared['nodes']['/*[1]'].get('identifier', '')
+        title = root_id.removeprefix('/us/usc/t').split('/')[0] if root_id.startswith('/us/usc/t') else ''
+        skipped = Counter()
+        for native in uslm.iter_edges(source['xml'].encode('utf-8'), title, skipped, include_source_path=True):
+            path = native['sourceXPath']
+            node = prepared['nodes'][path]
+            xml_fragment, evidence = support(path, node, 'reference')
+            target_ids = []
+            for target_path, target in identifiers.get(native['href'], ()):
+                target_ids.append(index.target(target_path, target)['id'])
+            row = {'id': NS + 'reference:' + digest([xml_fragment, native['href']]),
+                   'kind': 'publisher_reference', 'value': native['href'],
+                   'reading': sparse({k: v for k, v in native.items() if k not in {'href', 'sourceXPath'}}),
+                   'xml_evidence_refs': [xml_fragment], 'evidence': evidence,
+                   'record_ids': [p['id'] for p in passages[bisect_right(passage_ends, node['start']):bisect_left(passage_starts, node['end'])]] if 'start' in node else [],
+                   'resolution': {'status': 'located' if len(target_ids) == 1 else 'ambiguous' if target_ids else 'not_in_selected_source',
+                                  'target_ids': target_ids},
+                   'text_status': 'available' if evidence else 'no_visible_text'}
+            publisher_rows.append(row)
+            if 'start' in node:
+                anchors.append((node, row))
+    
+        # XML text intervals are nested or disjoint. Index enclosing anchors once;
+        # each lookup follows only the source's nesting, not every publisher link.
+        anchors.sort(key=lambda item: (item[0]['start'], -item[0]['end']))
+        anchor_starts = [node['start'] for node, _ in anchors]
+        ancestors, stack = [], []
+        for index, (node, _) in enumerate(anchors):
+            while stack and anchors[stack[-1]][0]['end'] <= node['start']:
+                stack.pop()
+            ancestors.append(stack[-1] if stack else -1)
+            stack.append(index)
+    
+        # Associate only unique full containment. Keep the text reading's own target,
+        # evidence and disposition; association does not assert target agreement.
+        for group in ('candidates', 'rejected'):
+            remaining = []
+            for row in scan[group]:
+                evidence = row.get('evidence', [])
+                primary = evidence[0] if evidence else None
+                matches = []
+                index = bisect_right(anchor_starts, primary['start']) - 1 if primary else -1
+                while index >= 0 and len(matches) < 2:
+                    node, parent = anchors[index]
+                    if primary['end'] <= node['end']:
+                        matches.append(parent)
+                    index = ancestors[index]
+                if len(matches) != 1:
+                    remaining.append(row)
+                    continue
+                parent = matches[0]
+                parent.setdefault('text_readings', []).append({'disposition': group,
+                    **{k: v for k, v in row.items() if k not in {'id', 'record_ids'}}})
+            scan[group] = remaining
+        scan['candidates'].extend(publisher_rows)
+        scan['candidates'].sort(key=lambda row: (row['evidence'][0]['start'] if row.get('evidence') else len(document['text']), row['id']))
+>       scan['publisher_source'] = index.artifact()
+                                   ^^^^^^^^^^^^^^
+E       AttributeError: 'int' object has no attribute 'artifact'
+
+packages/rulespec-extrapolator/src/rulespec_extrapolator/uslm.py:173: AttributeError
+___ test_compilation_text_reading_retains_publisher_link_and_shared_evidence ___
+
+    def test_compilation_text_reading_retains_publisher_link_and_shared_evidence():
+        # Constructed disagreement: a publisher link does not prove that its label
+        # names the same target. Use a supported USLM identifier family.
+        doc = document('<p><ref href="/us/usc/t50/s1">3 CFR 60–61 (1971–1975 Comp.)</ref></p>')
+>       exported = export_discovery(compile_candidates(doc, [], {}), include_references=True)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_uslm.py:117: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/discovery.py:113: in export_discovery
+    scan = scan_references(doc, act_index=act_index, source_credit_index=source_credit_index,
+packages/rulespec-extrapolator/src/rulespec_extrapolator/references.py:145: in scan_references
+    attach_publisher_links(document, result, passages)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+document = {'id': 'urn:rulespec:document-understanding:document:deaefaeed1ddbca22fe075357a4659ac092f74c652874ad65c7c81e2e806ed30'...075357a4659ac092f74c652874ad65c7c81e2e806ed30', 'text': '3 CFR 60–61 (1971–1975 Comp.)', 'title': 'USLM document', ...}
+scan = {'schema_version': 'document-references/2', 'document': {'id': 'urn:rulespec:document-understanding:document:deaefaeed...b7897603e'}], 'supported_kinds': ['cfr', 'docket', 'eo_compilation', 'executive_order', 'public_law', 'rin', ...], ...}
+passages = [{'id': 'urn:rulespec:document-understanding:passage:1d7cff556e0b015c004a72837f042f94e2cb4bde51cd605dfd804f47cd7721a1', 'start': 0, 'end': 29, 'text_sha256': 'deaefaeed1ddbca22fe075357a4659ac092f74c652874ad65c7c81e2e806ed30', ...}]
+
+    def attach_publisher_links(document, scan, passages):
+        """Add native XML occurrences and shared targets to the existing scan result."""
+        from refspec.registry import uslm
+        index = SourceIndex(document)
+        prepared, source, fragments, targets = index.prepared, index.source, index.fragments, index.targets
+        identifiers, support = index.identifiers, index.support
+        passage_starts, passage_ends = [p['start'] for p in passages], [p['end'] for p in passages]
+        publisher_rows, anchors = [], []
+    
+        root_id = prepared['nodes']['/*[1]'].get('identifier', '')
+        title = root_id.removeprefix('/us/usc/t').split('/')[0] if root_id.startswith('/us/usc/t') else ''
+        skipped = Counter()
+        for native in uslm.iter_edges(source['xml'].encode('utf-8'), title, skipped, include_source_path=True):
+            path = native['sourceXPath']
+            node = prepared['nodes'][path]
+            xml_fragment, evidence = support(path, node, 'reference')
+            target_ids = []
+            for target_path, target in identifiers.get(native['href'], ()):
+                target_ids.append(index.target(target_path, target)['id'])
+            row = {'id': NS + 'reference:' + digest([xml_fragment, native['href']]),
+                   'kind': 'publisher_reference', 'value': native['href'],
+                   'reading': sparse({k: v for k, v in native.items() if k not in {'href', 'sourceXPath'}}),
+                   'xml_evidence_refs': [xml_fragment], 'evidence': evidence,
+                   'record_ids': [p['id'] for p in passages[bisect_right(passage_ends, node['start']):bisect_left(passage_starts, node['end'])]] if 'start' in node else [],
+                   'resolution': {'status': 'located' if len(target_ids) == 1 else 'ambiguous' if target_ids else 'not_in_selected_source',
+                                  'target_ids': target_ids},
+                   'text_status': 'available' if evidence else 'no_visible_text'}
+            publisher_rows.append(row)
+            if 'start' in node:
+                anchors.append((node, row))
+    
+        # XML text intervals are nested or disjoint. Index enclosing anchors once;
+        # each lookup follows only the source's nesting, not every publisher link.
+        anchors.sort(key=lambda item: (item[0]['start'], -item[0]['end']))
+        anchor_starts = [node['start'] for node, _ in anchors]
+        ancestors, stack = [], []
+        for index, (node, _) in enumerate(anchors):
+            while stack and anchors[stack[-1]][0]['end'] <= node['start']:
+                stack.pop()
+            ancestors.append(stack[-1] if stack else -1)
+            stack.append(index)
+    
+        # Associate only unique full containment. Keep the text reading's own target,
+        # evidence and disposition; association does not assert target agreement.
+        for group in ('candidates', 'rejected'):
+            remaining = []
+            for row in scan[group]:
+                evidence = row.get('evidence', [])
+                primary = evidence[0] if evidence else None
+                matches = []
+                index = bisect_right(anchor_starts, primary['start']) - 1 if primary else -1
+                while index >= 0 and len(matches) < 2:
+                    node, parent = anchors[index]
+                    if primary['end'] <= node['end']:
+                        matches.append(parent)
+                    index = ancestors[index]
+                if len(matches) != 1:
+                    remaining.append(row)
+                    continue
+                parent = matches[0]
+                parent.setdefault('text_readings', []).append({'disposition': group,
+                    **{k: v for k, v in row.items() if k not in {'id', 'record_ids'}}})
+            scan[group] = remaining
+        scan['candidates'].extend(publisher_rows)
+        scan['candidates'].sort(key=lambda row: (row['evidence'][0]['start'] if row.get('evidence') else len(document['text']), row['id']))
+>       scan['publisher_source'] = index.artifact()
+                                   ^^^^^^^^^^^^^^
+E       AttributeError: 'int' object has no attribute 'artifact'
+
+packages/rulespec-extrapolator/src/rulespec_extrapolator/uslm.py:173: AttributeError
+_ test_unique_publisher_containment_preserves_ambiguity_and_reading_targets[interior] _
+
+case = {'id': 'interior', 'body': '<p><ref href="/us/pl/113/235/s1301/b">section 1301(b) of Pub. L. 113–235</ref></p>', 'associated': 1, 'separate': 0}
+
+    @pytest.mark.parametrize('case', json.loads((Path(__file__).parent/'fixtures/uslm/containment.json').read_text()), ids=lambda c: c['id'])
+    def test_unique_publisher_containment_preserves_ambiguity_and_reading_targets(case):
+        doc = document(case['body'])
+>       scan = scan_references(doc)
+               ^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_uslm.py:139: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/references.py:145: in scan_references
+    attach_publisher_links(document, result, passages)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+document = {'id': 'urn:rulespec:document-understanding:document:adaf512e7f68802399c931ea831649e9716b4af5c6e112cc50e83997f2931f70'...831649e9716b4af5c6e112cc50e83997f2931f70', 'text': 'section 1301(b) of Pub. L. 113–235', 'title': 'USLM document', ...}
+scan = {'schema_version': 'document-references/2', 'document': {'id': 'urn:rulespec:document-understanding:document:adaf512e7...b7897603e'}], 'supported_kinds': ['cfr', 'docket', 'eo_compilation', 'executive_order', 'public_law', 'rin', ...], ...}
+passages = [{'id': 'urn:rulespec:document-understanding:passage:418ab6a632933e93479b95553c12fb83ee3e47724dd0c60f33fb2fb707d4ef34', 'start': 0, 'end': 34, 'text_sha256': 'adaf512e7f68802399c931ea831649e9716b4af5c6e112cc50e83997f2931f70', ...}]
+
+    def attach_publisher_links(document, scan, passages):
+        """Add native XML occurrences and shared targets to the existing scan result."""
+        from refspec.registry import uslm
+        index = SourceIndex(document)
+        prepared, source, fragments, targets = index.prepared, index.source, index.fragments, index.targets
+        identifiers, support = index.identifiers, index.support
+        passage_starts, passage_ends = [p['start'] for p in passages], [p['end'] for p in passages]
+        publisher_rows, anchors = [], []
+    
+        root_id = prepared['nodes']['/*[1]'].get('identifier', '')
+        title = root_id.removeprefix('/us/usc/t').split('/')[0] if root_id.startswith('/us/usc/t') else ''
+        skipped = Counter()
+        for native in uslm.iter_edges(source['xml'].encode('utf-8'), title, skipped, include_source_path=True):
+            path = native['sourceXPath']
+            node = prepared['nodes'][path]
+            xml_fragment, evidence = support(path, node, 'reference')
+            target_ids = []
+            for target_path, target in identifiers.get(native['href'], ()):
+                target_ids.append(index.target(target_path, target)['id'])
+            row = {'id': NS + 'reference:' + digest([xml_fragment, native['href']]),
+                   'kind': 'publisher_reference', 'value': native['href'],
+                   'reading': sparse({k: v for k, v in native.items() if k not in {'href', 'sourceXPath'}}),
+                   'xml_evidence_refs': [xml_fragment], 'evidence': evidence,
+                   'record_ids': [p['id'] for p in passages[bisect_right(passage_ends, node['start']):bisect_left(passage_starts, node['end'])]] if 'start' in node else [],
+                   'resolution': {'status': 'located' if len(target_ids) == 1 else 'ambiguous' if target_ids else 'not_in_selected_source',
+                                  'target_ids': target_ids},
+                   'text_status': 'available' if evidence else 'no_visible_text'}
+            publisher_rows.append(row)
+            if 'start' in node:
+                anchors.append((node, row))
+    
+        # XML text intervals are nested or disjoint. Index enclosing anchors once;
+        # each lookup follows only the source's nesting, not every publisher link.
+        anchors.sort(key=lambda item: (item[0]['start'], -item[0]['end']))
+        anchor_starts = [node['start'] for node, _ in anchors]
+        ancestors, stack = [], []
+        for index, (node, _) in enumerate(anchors):
+            while stack and anchors[stack[-1]][0]['end'] <= node['start']:
+                stack.pop()
+            ancestors.append(stack[-1] if stack else -1)
+            stack.append(index)
+    
+        # Associate only unique full containment. Keep the text reading's own target,
+        # evidence and disposition; association does not assert target agreement.
+        for group in ('candidates', 'rejected'):
+            remaining = []
+            for row in scan[group]:
+                evidence = row.get('evidence', [])
+                primary = evidence[0] if evidence else None
+                matches = []
+                index = bisect_right(anchor_starts, primary['start']) - 1 if primary else -1
+                while index >= 0 and len(matches) < 2:
+                    node, parent = anchors[index]
+                    if primary['end'] <= node['end']:
+                        matches.append(parent)
+                    index = ancestors[index]
+                if len(matches) != 1:
+                    remaining.append(row)
+                    continue
+                parent = matches[0]
+                parent.setdefault('text_readings', []).append({'disposition': group,
+                    **{k: v for k, v in row.items() if k not in {'id', 'record_ids'}}})
+            scan[group] = remaining
+        scan['candidates'].extend(publisher_rows)
+        scan['candidates'].sort(key=lambda row: (row['evidence'][0]['start'] if row.get('evidence') else len(document['text']), row['id']))
+>       scan['publisher_source'] = index.artifact()
+                                   ^^^^^^^^^^^^^^
+E       AttributeError: 'int' object has no attribute 'artifact'
+
+packages/rulespec-extrapolator/src/rulespec_extrapolator/uslm.py:173: AttributeError
+_ test_unique_publisher_containment_preserves_ambiguity_and_reading_targets[repeated] _
+
+case = {'id': 'repeated', 'body': '<p><ref href="/us/pl/119/20">see Pub. L. 119–20</ref>; <ref href="/us/pl/119/20">see Pub. L. 119–20</ref></p>', 'associated': 2, 'separate': 0}
+
+    @pytest.mark.parametrize('case', json.loads((Path(__file__).parent/'fixtures/uslm/containment.json').read_text()), ids=lambda c: c['id'])
+    def test_unique_publisher_containment_preserves_ambiguity_and_reading_targets(case):
+        doc = document(case['body'])
+>       scan = scan_references(doc)
+               ^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_uslm.py:139: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/references.py:145: in scan_references
+    attach_publisher_links(document, result, passages)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+document = {'id': 'urn:rulespec:document-understanding:document:81eea1599e43e9073f089712d28af230fcdd69da4b3c71c1d84c0656c166a23e'...f230fcdd69da4b3c71c1d84c0656c166a23e', 'text': 'see Pub. L. 119–20; see Pub. L. 119–20', 'title': 'USLM document', ...}
+scan = {'schema_version': 'document-references/2', 'document': {'id': 'urn:rulespec:document-understanding:document:81eea1599...b7897603e'}], 'supported_kinds': ['cfr', 'docket', 'eo_compilation', 'executive_order', 'public_law', 'rin', ...], ...}
+passages = [{'id': 'urn:rulespec:document-understanding:passage:1eeecad60dc945d92381785b43d4100e17eda9ce6481e1a13b9d6372d1e4895c', 'start': 0, 'end': 38, 'text_sha256': '81eea1599e43e9073f089712d28af230fcdd69da4b3c71c1d84c0656c166a23e', ...}]
+
+    def attach_publisher_links(document, scan, passages):
+        """Add native XML occurrences and shared targets to the existing scan result."""
+        from refspec.registry import uslm
+        index = SourceIndex(document)
+        prepared, source, fragments, targets = index.prepared, index.source, index.fragments, index.targets
+        identifiers, support = index.identifiers, index.support
+        passage_starts, passage_ends = [p['start'] for p in passages], [p['end'] for p in passages]
+        publisher_rows, anchors = [], []
+    
+        root_id = prepared['nodes']['/*[1]'].get('identifier', '')
+        title = root_id.removeprefix('/us/usc/t').split('/')[0] if root_id.startswith('/us/usc/t') else ''
+        skipped = Counter()
+        for native in uslm.iter_edges(source['xml'].encode('utf-8'), title, skipped, include_source_path=True):
+            path = native['sourceXPath']
+            node = prepared['nodes'][path]
+            xml_fragment, evidence = support(path, node, 'reference')
+            target_ids = []
+            for target_path, target in identifiers.get(native['href'], ()):
+                target_ids.append(index.target(target_path, target)['id'])
+            row = {'id': NS + 'reference:' + digest([xml_fragment, native['href']]),
+                   'kind': 'publisher_reference', 'value': native['href'],
+                   'reading': sparse({k: v for k, v in native.items() if k not in {'href', 'sourceXPath'}}),
+                   'xml_evidence_refs': [xml_fragment], 'evidence': evidence,
+                   'record_ids': [p['id'] for p in passages[bisect_right(passage_ends, node['start']):bisect_left(passage_starts, node['end'])]] if 'start' in node else [],
+                   'resolution': {'status': 'located' if len(target_ids) == 1 else 'ambiguous' if target_ids else 'not_in_selected_source',
+                                  'target_ids': target_ids},
+                   'text_status': 'available' if evidence else 'no_visible_text'}
+            publisher_rows.append(row)
+            if 'start' in node:
+                anchors.append((node, row))
+    
+        # XML text intervals are nested or disjoint. Index enclosing anchors once;
+        # each lookup follows only the source's nesting, not every publisher link.
+        anchors.sort(key=lambda item: (item[0]['start'], -item[0]['end']))
+        anchor_starts = [node['start'] for node, _ in anchors]
+        ancestors, stack = [], []
+        for index, (node, _) in enumerate(anchors):
+            while stack and anchors[stack[-1]][0]['end'] <= node['start']:
+                stack.pop()
+            ancestors.append(stack[-1] if stack else -1)
+            stack.append(index)
+    
+        # Associate only unique full containment. Keep the text reading's own target,
+        # evidence and disposition; association does not assert target agreement.
+        for group in ('candidates', 'rejected'):
+            remaining = []
+            for row in scan[group]:
+                evidence = row.get('evidence', [])
+                primary = evidence[0] if evidence else None
+                matches = []
+                index = bisect_right(anchor_starts, primary['start']) - 1 if primary else -1
+                while index >= 0 and len(matches) < 2:
+                    node, parent = anchors[index]
+                    if primary['end'] <= node['end']:
+                        matches.append(parent)
+                    index = ancestors[index]
+                if len(matches) != 1:
+                    remaining.append(row)
+                    continue
+                parent = matches[0]
+                parent.setdefault('text_readings', []).append({'disposition': group,
+                    **{k: v for k, v in row.items() if k not in {'id', 'record_ids'}}})
+            scan[group] = remaining
+        scan['candidates'].extend(publisher_rows)
+        scan['candidates'].sort(key=lambda row: (row['evidence'][0]['start'] if row.get('evidence') else len(document['text']), row['id']))
+>       scan['publisher_source'] = index.artifact()
+                                   ^^^^^^^^^^^^^^
+E       AttributeError: 'int' object has no attribute 'artifact'
+
+packages/rulespec-extrapolator/src/rulespec_extrapolator/uslm.py:173: AttributeError
+_ test_unique_publisher_containment_preserves_ambiguity_and_reading_targets[nested_ambiguous] _
+
+case = {'id': 'nested_ambiguous', 'body': '<p><ref href="/us/pl/119/20">see <ref href="/us/pl/119/21">Pub. L. 119–20</ref></ref></p>', 'associated': 0, 'separate': 1}
+
+    @pytest.mark.parametrize('case', json.loads((Path(__file__).parent/'fixtures/uslm/containment.json').read_text()), ids=lambda c: c['id'])
+    def test_unique_publisher_containment_preserves_ambiguity_and_reading_targets(case):
+        doc = document(case['body'])
+>       scan = scan_references(doc)
+               ^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_uslm.py:139: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/references.py:145: in scan_references
+    attach_publisher_links(document, result, passages)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+document = {'id': 'urn:rulespec:document-understanding:document:c8d05f4b3d83ef5ccd219ae247f4f0d5580f07ec3a270e1a4405e8eb40cb2eba'...3d83ef5ccd219ae247f4f0d5580f07ec3a270e1a4405e8eb40cb2eba', 'text': 'see Pub. L. 119–20', 'title': 'USLM document', ...}
+scan = {'schema_version': 'document-references/2', 'document': {'id': 'urn:rulespec:document-understanding:document:c8d05f4b3...b7897603e'}], 'supported_kinds': ['cfr', 'docket', 'eo_compilation', 'executive_order', 'public_law', 'rin', ...], ...}
+passages = [{'id': 'urn:rulespec:document-understanding:passage:9d346d87c5b423ae647916a9261908b281ed9a6d756572921920063853f7967a', 'start': 0, 'end': 18, 'text_sha256': 'c8d05f4b3d83ef5ccd219ae247f4f0d5580f07ec3a270e1a4405e8eb40cb2eba', ...}]
+
+    def attach_publisher_links(document, scan, passages):
+        """Add native XML occurrences and shared targets to the existing scan result."""
+        from refspec.registry import uslm
+        index = SourceIndex(document)
+        prepared, source, fragments, targets = index.prepared, index.source, index.fragments, index.targets
+        identifiers, support = index.identifiers, index.support
+        passage_starts, passage_ends = [p['start'] for p in passages], [p['end'] for p in passages]
+        publisher_rows, anchors = [], []
+    
+        root_id = prepared['nodes']['/*[1]'].get('identifier', '')
+        title = root_id.removeprefix('/us/usc/t').split('/')[0] if root_id.startswith('/us/usc/t') else ''
+        skipped = Counter()
+        for native in uslm.iter_edges(source['xml'].encode('utf-8'), title, skipped, include_source_path=True):
+            path = native['sourceXPath']
+            node = prepared['nodes'][path]
+            xml_fragment, evidence = support(path, node, 'reference')
+            target_ids = []
+            for target_path, target in identifiers.get(native['href'], ()):
+                target_ids.append(index.target(target_path, target)['id'])
+            row = {'id': NS + 'reference:' + digest([xml_fragment, native['href']]),
+                   'kind': 'publisher_reference', 'value': native['href'],
+                   'reading': sparse({k: v for k, v in native.items() if k not in {'href', 'sourceXPath'}}),
+                   'xml_evidence_refs': [xml_fragment], 'evidence': evidence,
+                   'record_ids': [p['id'] for p in passages[bisect_right(passage_ends, node['start']):bisect_left(passage_starts, node['end'])]] if 'start' in node else [],
+                   'resolution': {'status': 'located' if len(target_ids) == 1 else 'ambiguous' if target_ids else 'not_in_selected_source',
+                                  'target_ids': target_ids},
+                   'text_status': 'available' if evidence else 'no_visible_text'}
+            publisher_rows.append(row)
+            if 'start' in node:
+                anchors.append((node, row))
+    
+        # XML text intervals are nested or disjoint. Index enclosing anchors once;
+        # each lookup follows only the source's nesting, not every publisher link.
+        anchors.sort(key=lambda item: (item[0]['start'], -item[0]['end']))
+        anchor_starts = [node['start'] for node, _ in anchors]
+        ancestors, stack = [], []
+        for index, (node, _) in enumerate(anchors):
+            while stack and anchors[stack[-1]][0]['end'] <= node['start']:
+                stack.pop()
+            ancestors.append(stack[-1] if stack else -1)
+            stack.append(index)
+    
+        # Associate only unique full containment. Keep the text reading's own target,
+        # evidence and disposition; association does not assert target agreement.
+        for group in ('candidates', 'rejected'):
+            remaining = []
+            for row in scan[group]:
+                evidence = row.get('evidence', [])
+                primary = evidence[0] if evidence else None
+                matches = []
+                index = bisect_right(anchor_starts, primary['start']) - 1 if primary else -1
+                while index >= 0 and len(matches) < 2:
+                    node, parent = anchors[index]
+                    if primary['end'] <= node['end']:
+                        matches.append(parent)
+                    index = ancestors[index]
+                if len(matches) != 1:
+                    remaining.append(row)
+                    continue
+                parent = matches[0]
+                parent.setdefault('text_readings', []).append({'disposition': group,
+                    **{k: v for k, v in row.items() if k not in {'id', 'record_ids'}}})
+            scan[group] = remaining
+        scan['candidates'].extend(publisher_rows)
+        scan['candidates'].sort(key=lambda row: (row['evidence'][0]['start'] if row.get('evidence') else len(document['text']), row['id']))
+>       scan['publisher_source'] = index.artifact()
+                                   ^^^^^^^^^^^^^^
+E       AttributeError: 'int' object has no attribute 'artifact'
+
+packages/rulespec-extrapolator/src/rulespec_extrapolator/uslm.py:173: AttributeError
+_ test_unique_publisher_containment_preserves_ambiguity_and_reading_targets[two_readings] _
+
+case = {'id': 'two_readings', 'body': '<p><ref href="/us/pl/119/20">Pub. L. 119–20 and Pub. L. 119–21</ref></p>', 'associated': 2, 'separate': 0}
+
+    @pytest.mark.parametrize('case', json.loads((Path(__file__).parent/'fixtures/uslm/containment.json').read_text()), ids=lambda c: c['id'])
+    def test_unique_publisher_containment_preserves_ambiguity_and_reading_targets(case):
+        doc = document(case['body'])
+>       scan = scan_references(doc)
+               ^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_uslm.py:139: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/references.py:145: in scan_references
+    attach_publisher_links(document, result, passages)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+document = {'id': 'urn:rulespec:document-understanding:document:30d227a887688281b7d07d576e86b34bb9fb380497886dc850c5144fb5d28b32'...76e86b34bb9fb380497886dc850c5144fb5d28b32', 'text': 'Pub. L. 119–20 and Pub. L. 119–21', 'title': 'USLM document', ...}
+scan = {'schema_version': 'document-references/2', 'document': {'id': 'urn:rulespec:document-understanding:document:30d227a88...b7897603e'}], 'supported_kinds': ['cfr', 'docket', 'eo_compilation', 'executive_order', 'public_law', 'rin', ...], ...}
+passages = [{'id': 'urn:rulespec:document-understanding:passage:bce79355c62cbdf4602642a27e978170d152fd78cd9b6b92cea96123b777b6af', 'start': 0, 'end': 33, 'text_sha256': '30d227a887688281b7d07d576e86b34bb9fb380497886dc850c5144fb5d28b32', ...}]
+
+    def attach_publisher_links(document, scan, passages):
+        """Add native XML occurrences and shared targets to the existing scan result."""
+        from refspec.registry import uslm
+        index = SourceIndex(document)
+        prepared, source, fragments, targets = index.prepared, index.source, index.fragments, index.targets
+        identifiers, support = index.identifiers, index.support
+        passage_starts, passage_ends = [p['start'] for p in passages], [p['end'] for p in passages]
+        publisher_rows, anchors = [], []
+    
+        root_id = prepared['nodes']['/*[1]'].get('identifier', '')
+        title = root_id.removeprefix('/us/usc/t').split('/')[0] if root_id.startswith('/us/usc/t') else ''
+        skipped = Counter()
+        for native in uslm.iter_edges(source['xml'].encode('utf-8'), title, skipped, include_source_path=True):
+            path = native['sourceXPath']
+            node = prepared['nodes'][path]
+            xml_fragment, evidence = support(path, node, 'reference')
+            target_ids = []
+            for target_path, target in identifiers.get(native['href'], ()):
+                target_ids.append(index.target(target_path, target)['id'])
+            row = {'id': NS + 'reference:' + digest([xml_fragment, native['href']]),
+                   'kind': 'publisher_reference', 'value': native['href'],
+                   'reading': sparse({k: v for k, v in native.items() if k not in {'href', 'sourceXPath'}}),
+                   'xml_evidence_refs': [xml_fragment], 'evidence': evidence,
+                   'record_ids': [p['id'] for p in passages[bisect_right(passage_ends, node['start']):bisect_left(passage_starts, node['end'])]] if 'start' in node else [],
+                   'resolution': {'status': 'located' if len(target_ids) == 1 else 'ambiguous' if target_ids else 'not_in_selected_source',
+                                  'target_ids': target_ids},
+                   'text_status': 'available' if evidence else 'no_visible_text'}
+            publisher_rows.append(row)
+            if 'start' in node:
+                anchors.append((node, row))
+    
+        # XML text intervals are nested or disjoint. Index enclosing anchors once;
+        # each lookup follows only the source's nesting, not every publisher link.
+        anchors.sort(key=lambda item: (item[0]['start'], -item[0]['end']))
+        anchor_starts = [node['start'] for node, _ in anchors]
+        ancestors, stack = [], []
+        for index, (node, _) in enumerate(anchors):
+            while stack and anchors[stack[-1]][0]['end'] <= node['start']:
+                stack.pop()
+            ancestors.append(stack[-1] if stack else -1)
+            stack.append(index)
+    
+        # Associate only unique full containment. Keep the text reading's own target,
+        # evidence and disposition; association does not assert target agreement.
+        for group in ('candidates', 'rejected'):
+            remaining = []
+            for row in scan[group]:
+                evidence = row.get('evidence', [])
+                primary = evidence[0] if evidence else None
+                matches = []
+                index = bisect_right(anchor_starts, primary['start']) - 1 if primary else -1
+                while index >= 0 and len(matches) < 2:
+                    node, parent = anchors[index]
+                    if primary['end'] <= node['end']:
+                        matches.append(parent)
+                    index = ancestors[index]
+                if len(matches) != 1:
+                    remaining.append(row)
+                    continue
+                parent = matches[0]
+                parent.setdefault('text_readings', []).append({'disposition': group,
+                    **{k: v for k, v in row.items() if k not in {'id', 'record_ids'}}})
+            scan[group] = remaining
+        scan['candidates'].extend(publisher_rows)
+        scan['candidates'].sort(key=lambda row: (row['evidence'][0]['start'] if row.get('evidence') else len(document['text']), row['id']))
+>       scan['publisher_source'] = index.artifact()
+                                   ^^^^^^^^^^^^^^
+E       AttributeError: 'int' object has no attribute 'artifact'
+
+packages/rulespec-extrapolator/src/rulespec_extrapolator/uslm.py:173: AttributeError
+_ test_unique_publisher_containment_preserves_ambiguity_and_reading_targets[conflicting_target] _
+
+case = {'id': 'conflicting_target', 'body': '<p><ref href="/us/pl/89/554/s2">section 2 of Pub. L. 94–183</ref></p>', 'associated': 1, 'separate': 0}
+
+    @pytest.mark.parametrize('case', json.loads((Path(__file__).parent/'fixtures/uslm/containment.json').read_text()), ids=lambda c: c['id'])
+    def test_unique_publisher_containment_preserves_ambiguity_and_reading_targets(case):
+        doc = document(case['body'])
+>       scan = scan_references(doc)
+               ^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_uslm.py:139: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/references.py:145: in scan_references
+    attach_publisher_links(document, result, passages)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+document = {'id': 'urn:rulespec:document-understanding:document:f5fb7acd3137643566bfe48f7788272fc384f9296c76710f0ea133b7f8337de7'...6bfe48f7788272fc384f9296c76710f0ea133b7f8337de7', 'text': 'section 2 of Pub. L. 94–183', 'title': 'USLM document', ...}
+scan = {'schema_version': 'document-references/2', 'document': {'id': 'urn:rulespec:document-understanding:document:f5fb7acd3...b7897603e'}], 'supported_kinds': ['cfr', 'docket', 'eo_compilation', 'executive_order', 'public_law', 'rin', ...], ...}
+passages = [{'id': 'urn:rulespec:document-understanding:passage:eae73179e548aeb9db05828468d8fc892287a9630120dfece7a3dbd255675d8e', 'start': 0, 'end': 27, 'text_sha256': 'f5fb7acd3137643566bfe48f7788272fc384f9296c76710f0ea133b7f8337de7', ...}]
+
+    def attach_publisher_links(document, scan, passages):
+        """Add native XML occurrences and shared targets to the existing scan result."""
+        from refspec.registry import uslm
+        index = SourceIndex(document)
+        prepared, source, fragments, targets = index.prepared, index.source, index.fragments, index.targets
+        identifiers, support = index.identifiers, index.support
+        passage_starts, passage_ends = [p['start'] for p in passages], [p['end'] for p in passages]
+        publisher_rows, anchors = [], []
+    
+        root_id = prepared['nodes']['/*[1]'].get('identifier', '')
+        title = root_id.removeprefix('/us/usc/t').split('/')[0] if root_id.startswith('/us/usc/t') else ''
+        skipped = Counter()
+        for native in uslm.iter_edges(source['xml'].encode('utf-8'), title, skipped, include_source_path=True):
+            path = native['sourceXPath']
+            node = prepared['nodes'][path]
+            xml_fragment, evidence = support(path, node, 'reference')
+            target_ids = []
+            for target_path, target in identifiers.get(native['href'], ()):
+                target_ids.append(index.target(target_path, target)['id'])
+            row = {'id': NS + 'reference:' + digest([xml_fragment, native['href']]),
+                   'kind': 'publisher_reference', 'value': native['href'],
+                   'reading': sparse({k: v for k, v in native.items() if k not in {'href', 'sourceXPath'}}),
+                   'xml_evidence_refs': [xml_fragment], 'evidence': evidence,
+                   'record_ids': [p['id'] for p in passages[bisect_right(passage_ends, node['start']):bisect_left(passage_starts, node['end'])]] if 'start' in node else [],
+                   'resolution': {'status': 'located' if len(target_ids) == 1 else 'ambiguous' if target_ids else 'not_in_selected_source',
+                                  'target_ids': target_ids},
+                   'text_status': 'available' if evidence else 'no_visible_text'}
+            publisher_rows.append(row)
+            if 'start' in node:
+                anchors.append((node, row))
+    
+        # XML text intervals are nested or disjoint. Index enclosing anchors once;
+        # each lookup follows only the source's nesting, not every publisher link.
+        anchors.sort(key=lambda item: (item[0]['start'], -item[0]['end']))
+        anchor_starts = [node['start'] for node, _ in anchors]
+        ancestors, stack = [], []
+        for index, (node, _) in enumerate(anchors):
+            while stack and anchors[stack[-1]][0]['end'] <= node['start']:
+                stack.pop()
+            ancestors.append(stack[-1] if stack else -1)
+            stack.append(index)
+    
+        # Associate only unique full containment. Keep the text reading's own target,
+        # evidence and disposition; association does not assert target agreement.
+        for group in ('candidates', 'rejected'):
+            remaining = []
+            for row in scan[group]:
+                evidence = row.get('evidence', [])
+                primary = evidence[0] if evidence else None
+                matches = []
+                index = bisect_right(anchor_starts, primary['start']) - 1 if primary else -1
+                while index >= 0 and len(matches) < 2:
+                    node, parent = anchors[index]
+                    if primary['end'] <= node['end']:
+                        matches.append(parent)
+                    index = ancestors[index]
+                if len(matches) != 1:
+                    remaining.append(row)
+                    continue
+                parent = matches[0]
+                parent.setdefault('text_readings', []).append({'disposition': group,
+                    **{k: v for k, v in row.items() if k not in {'id', 'record_ids'}}})
+            scan[group] = remaining
+        scan['candidates'].extend(publisher_rows)
+        scan['candidates'].sort(key=lambda row: (row['evidence'][0]['start'] if row.get('evidence') else len(document['text']), row['id']))
+>       scan['publisher_source'] = index.artifact()
+                                   ^^^^^^^^^^^^^^
+E       AttributeError: 'int' object has no attribute 'artifact'
+
+packages/rulespec-extrapolator/src/rulespec_extrapolator/uslm.py:173: AttributeError
+_ test_unique_publisher_containment_preserves_ambiguity_and_reading_targets[rejected_interior] _
+
+case = {'id': 'rejected_interior', 'body': '<p><ref href="/us/usc/t5/s1">see 99 CFR 1.1</ref></p>', 'associated': 1, 'separate': 0}
+
+    @pytest.mark.parametrize('case', json.loads((Path(__file__).parent/'fixtures/uslm/containment.json').read_text()), ids=lambda c: c['id'])
+    def test_unique_publisher_containment_preserves_ambiguity_and_reading_targets(case):
+        doc = document(case['body'])
+>       scan = scan_references(doc)
+               ^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_uslm.py:139: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/references.py:145: in scan_references
+    attach_publisher_links(document, result, passages)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+document = {'id': 'urn:rulespec:document-understanding:document:e17eb5f39d91dd128ec32fdc19da8742084f10714504434812856c43aa0afcdf'...b5f39d91dd128ec32fdc19da8742084f10714504434812856c43aa0afcdf', 'text': 'see 99 CFR 1.1', 'title': 'USLM document', ...}
+scan = {'schema_version': 'document-references/2', 'document': {'id': 'urn:rulespec:document-understanding:document:e17eb5f39...b7897603e'}], 'supported_kinds': ['cfr', 'docket', 'eo_compilation', 'executive_order', 'public_law', 'rin', ...], ...}
+passages = [{'id': 'urn:rulespec:document-understanding:passage:58c1857c851de425e88d78c59bd8df9cb12a4f122c48a5d93ba511dbf9bc916c', 'start': 0, 'end': 14, 'text_sha256': 'e17eb5f39d91dd128ec32fdc19da8742084f10714504434812856c43aa0afcdf', ...}]
+
+    def attach_publisher_links(document, scan, passages):
+        """Add native XML occurrences and shared targets to the existing scan result."""
+        from refspec.registry import uslm
+        index = SourceIndex(document)
+        prepared, source, fragments, targets = index.prepared, index.source, index.fragments, index.targets
+        identifiers, support = index.identifiers, index.support
+        passage_starts, passage_ends = [p['start'] for p in passages], [p['end'] for p in passages]
+        publisher_rows, anchors = [], []
+    
+        root_id = prepared['nodes']['/*[1]'].get('identifier', '')
+        title = root_id.removeprefix('/us/usc/t').split('/')[0] if root_id.startswith('/us/usc/t') else ''
+        skipped = Counter()
+        for native in uslm.iter_edges(source['xml'].encode('utf-8'), title, skipped, include_source_path=True):
+            path = native['sourceXPath']
+            node = prepared['nodes'][path]
+            xml_fragment, evidence = support(path, node, 'reference')
+            target_ids = []
+            for target_path, target in identifiers.get(native['href'], ()):
+                target_ids.append(index.target(target_path, target)['id'])
+            row = {'id': NS + 'reference:' + digest([xml_fragment, native['href']]),
+                   'kind': 'publisher_reference', 'value': native['href'],
+                   'reading': sparse({k: v for k, v in native.items() if k not in {'href', 'sourceXPath'}}),
+                   'xml_evidence_refs': [xml_fragment], 'evidence': evidence,
+                   'record_ids': [p['id'] for p in passages[bisect_right(passage_ends, node['start']):bisect_left(passage_starts, node['end'])]] if 'start' in node else [],
+                   'resolution': {'status': 'located' if len(target_ids) == 1 else 'ambiguous' if target_ids else 'not_in_selected_source',
+                                  'target_ids': target_ids},
+                   'text_status': 'available' if evidence else 'no_visible_text'}
+            publisher_rows.append(row)
+            if 'start' in node:
+                anchors.append((node, row))
+    
+        # XML text intervals are nested or disjoint. Index enclosing anchors once;
+        # each lookup follows only the source's nesting, not every publisher link.
+        anchors.sort(key=lambda item: (item[0]['start'], -item[0]['end']))
+        anchor_starts = [node['start'] for node, _ in anchors]
+        ancestors, stack = [], []
+        for index, (node, _) in enumerate(anchors):
+            while stack and anchors[stack[-1]][0]['end'] <= node['start']:
+                stack.pop()
+            ancestors.append(stack[-1] if stack else -1)
+            stack.append(index)
+    
+        # Associate only unique full containment. Keep the text reading's own target,
+        # evidence and disposition; association does not assert target agreement.
+        for group in ('candidates', 'rejected'):
+            remaining = []
+            for row in scan[group]:
+                evidence = row.get('evidence', [])
+                primary = evidence[0] if evidence else None
+                matches = []
+                index = bisect_right(anchor_starts, primary['start']) - 1 if primary else -1
+                while index >= 0 and len(matches) < 2:
+                    node, parent = anchors[index]
+                    if primary['end'] <= node['end']:
+                        matches.append(parent)
+                    index = ancestors[index]
+                if len(matches) != 1:
+                    remaining.append(row)
+                    continue
+                parent = matches[0]
+                parent.setdefault('text_readings', []).append({'disposition': group,
+                    **{k: v for k, v in row.items() if k not in {'id', 'record_ids'}}})
+            scan[group] = remaining
+        scan['candidates'].extend(publisher_rows)
+        scan['candidates'].sort(key=lambda row: (row['evidence'][0]['start'] if row.get('evidence') else len(document['text']), row['id']))
+>       scan['publisher_source'] = index.artifact()
+                                   ^^^^^^^^^^^^^^
+E       AttributeError: 'int' object has no attribute 'artifact'
+
+packages/rulespec-extrapolator/src/rulespec_extrapolator/uslm.py:173: AttributeError
+_ test_unique_publisher_containment_preserves_ambiguity_and_reading_targets[adjacent] _
+
+case = {'id': 'adjacent', 'body': '<p><ref href="/us/pl/119/20">Pub. L. 119–20</ref> <ref href="/us/pl/119/21">Pub. L. 119–21</ref></p>', 'associated': 2, 'separate': 0}
+
+    @pytest.mark.parametrize('case', json.loads((Path(__file__).parent/'fixtures/uslm/containment.json').read_text()), ids=lambda c: c['id'])
+    def test_unique_publisher_containment_preserves_ambiguity_and_reading_targets(case):
+        doc = document(case['body'])
+>       scan = scan_references(doc)
+               ^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_uslm.py:139: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/references.py:145: in scan_references
+    attach_publisher_links(document, result, passages)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+document = {'id': 'urn:rulespec:document-understanding:document:a011e778e7daf646398d1524e68830ea6f1f3bff0d41e0ba1e053104f5a387d7'...d1524e68830ea6f1f3bff0d41e0ba1e053104f5a387d7', 'text': 'Pub. L. 119–20 Pub. L. 119–21', 'title': 'USLM document', ...}
+scan = {'schema_version': 'document-references/2', 'document': {'id': 'urn:rulespec:document-understanding:document:a011e778e...b7897603e'}], 'supported_kinds': ['cfr', 'docket', 'eo_compilation', 'executive_order', 'public_law', 'rin', ...], ...}
+passages = [{'id': 'urn:rulespec:document-understanding:passage:8fa6b5a1b3906b1d758f330bceb889df941a7a9485de36f8c305268ffdaeb481', 'start': 0, 'end': 29, 'text_sha256': 'a011e778e7daf646398d1524e68830ea6f1f3bff0d41e0ba1e053104f5a387d7', ...}]
+
+    def attach_publisher_links(document, scan, passages):
+        """Add native XML occurrences and shared targets to the existing scan result."""
+        from refspec.registry import uslm
+        index = SourceIndex(document)
+        prepared, source, fragments, targets = index.prepared, index.source, index.fragments, index.targets
+        identifiers, support = index.identifiers, index.support
+        passage_starts, passage_ends = [p['start'] for p in passages], [p['end'] for p in passages]
+        publisher_rows, anchors = [], []
+    
+        root_id = prepared['nodes']['/*[1]'].get('identifier', '')
+        title = root_id.removeprefix('/us/usc/t').split('/')[0] if root_id.startswith('/us/usc/t') else ''
+        skipped = Counter()
+        for native in uslm.iter_edges(source['xml'].encode('utf-8'), title, skipped, include_source_path=True):
+            path = native['sourceXPath']
+            node = prepared['nodes'][path]
+            xml_fragment, evidence = support(path, node, 'reference')
+            target_ids = []
+            for target_path, target in identifiers.get(native['href'], ()):
+                target_ids.append(index.target(target_path, target)['id'])
+            row = {'id': NS + 'reference:' + digest([xml_fragment, native['href']]),
+                   'kind': 'publisher_reference', 'value': native['href'],
+                   'reading': sparse({k: v for k, v in native.items() if k not in {'href', 'sourceXPath'}}),
+                   'xml_evidence_refs': [xml_fragment], 'evidence': evidence,
+                   'record_ids': [p['id'] for p in passages[bisect_right(passage_ends, node['start']):bisect_left(passage_starts, node['end'])]] if 'start' in node else [],
+                   'resolution': {'status': 'located' if len(target_ids) == 1 else 'ambiguous' if target_ids else 'not_in_selected_source',
+                                  'target_ids': target_ids},
+                   'text_status': 'available' if evidence else 'no_visible_text'}
+            publisher_rows.append(row)
+            if 'start' in node:
+                anchors.append((node, row))
+    
+        # XML text intervals are nested or disjoint. Index enclosing anchors once;
+        # each lookup follows only the source's nesting, not every publisher link.
+        anchors.sort(key=lambda item: (item[0]['start'], -item[0]['end']))
+        anchor_starts = [node['start'] for node, _ in anchors]
+        ancestors, stack = [], []
+        for index, (node, _) in enumerate(anchors):
+            while stack and anchors[stack[-1]][0]['end'] <= node['start']:
+                stack.pop()
+            ancestors.append(stack[-1] if stack else -1)
+            stack.append(index)
+    
+        # Associate only unique full containment. Keep the text reading's own target,
+        # evidence and disposition; association does not assert target agreement.
+        for group in ('candidates', 'rejected'):
+            remaining = []
+            for row in scan[group]:
+                evidence = row.get('evidence', [])
+                primary = evidence[0] if evidence else None
+                matches = []
+                index = bisect_right(anchor_starts, primary['start']) - 1 if primary else -1
+                while index >= 0 and len(matches) < 2:
+                    node, parent = anchors[index]
+                    if primary['end'] <= node['end']:
+                        matches.append(parent)
+                    index = ancestors[index]
+                if len(matches) != 1:
+                    remaining.append(row)
+                    continue
+                parent = matches[0]
+                parent.setdefault('text_readings', []).append({'disposition': group,
+                    **{k: v for k, v in row.items() if k not in {'id', 'record_ids'}}})
+            scan[group] = remaining
+        scan['candidates'].extend(publisher_rows)
+        scan['candidates'].sort(key=lambda row: (row['evidence'][0]['start'] if row.get('evidence') else len(document['text']), row['id']))
+>       scan['publisher_source'] = index.artifact()
+                                   ^^^^^^^^^^^^^^
+E       AttributeError: 'int' object has no attribute 'artifact'
+
+packages/rulespec-extrapolator/src/rulespec_extrapolator/uslm.py:173: AttributeError
+_ test_unique_publisher_containment_preserves_ambiguity_and_reading_targets[crossing_boundary] _
+
+case = {'id': 'crossing_boundary', 'body': '<p><ref href="/us/pl/119/20">Pub. L.</ref> 119–20</p>', 'associated': 0, 'separate': 1}
+
+    @pytest.mark.parametrize('case', json.loads((Path(__file__).parent/'fixtures/uslm/containment.json').read_text()), ids=lambda c: c['id'])
+    def test_unique_publisher_containment_preserves_ambiguity_and_reading_targets(case):
+        doc = document(case['body'])
+>       scan = scan_references(doc)
+               ^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_uslm.py:139: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/references.py:145: in scan_references
+    attach_publisher_links(document, result, passages)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+document = {'id': 'urn:rulespec:document-understanding:document:66cc6df36f10200498d7903e5ef0e32ec966bf929df0debaecc5e8d2c268f156'...6df36f10200498d7903e5ef0e32ec966bf929df0debaecc5e8d2c268f156', 'text': 'Pub. L. 119–20', 'title': 'USLM document', ...}
+scan = {'schema_version': 'document-references/2', 'document': {'id': 'urn:rulespec:document-understanding:document:66cc6df36...b7897603e'}], 'supported_kinds': ['cfr', 'docket', 'eo_compilation', 'executive_order', 'public_law', 'rin', ...], ...}
+passages = [{'id': 'urn:rulespec:document-understanding:passage:d21e15f3469d5a2b1220bf8f299f11c5ceb06a01c3d63e450c49501aacb57338', 'start': 0, 'end': 14, 'text_sha256': '66cc6df36f10200498d7903e5ef0e32ec966bf929df0debaecc5e8d2c268f156', ...}]
+
+    def attach_publisher_links(document, scan, passages):
+        """Add native XML occurrences and shared targets to the existing scan result."""
+        from refspec.registry import uslm
+        index = SourceIndex(document)
+        prepared, source, fragments, targets = index.prepared, index.source, index.fragments, index.targets
+        identifiers, support = index.identifiers, index.support
+        passage_starts, passage_ends = [p['start'] for p in passages], [p['end'] for p in passages]
+        publisher_rows, anchors = [], []
+    
+        root_id = prepared['nodes']['/*[1]'].get('identifier', '')
+        title = root_id.removeprefix('/us/usc/t').split('/')[0] if root_id.startswith('/us/usc/t') else ''
+        skipped = Counter()
+        for native in uslm.iter_edges(source['xml'].encode('utf-8'), title, skipped, include_source_path=True):
+            path = native['sourceXPath']
+            node = prepared['nodes'][path]
+            xml_fragment, evidence = support(path, node, 'reference')
+            target_ids = []
+            for target_path, target in identifiers.get(native['href'], ()):
+                target_ids.append(index.target(target_path, target)['id'])
+            row = {'id': NS + 'reference:' + digest([xml_fragment, native['href']]),
+                   'kind': 'publisher_reference', 'value': native['href'],
+                   'reading': sparse({k: v for k, v in native.items() if k not in {'href', 'sourceXPath'}}),
+                   'xml_evidence_refs': [xml_fragment], 'evidence': evidence,
+                   'record_ids': [p['id'] for p in passages[bisect_right(passage_ends, node['start']):bisect_left(passage_starts, node['end'])]] if 'start' in node else [],
+                   'resolution': {'status': 'located' if len(target_ids) == 1 else 'ambiguous' if target_ids else 'not_in_selected_source',
+                                  'target_ids': target_ids},
+                   'text_status': 'available' if evidence else 'no_visible_text'}
+            publisher_rows.append(row)
+            if 'start' in node:
+                anchors.append((node, row))
+    
+        # XML text intervals are nested or disjoint. Index enclosing anchors once;
+        # each lookup follows only the source's nesting, not every publisher link.
+        anchors.sort(key=lambda item: (item[0]['start'], -item[0]['end']))
+        anchor_starts = [node['start'] for node, _ in anchors]
+        ancestors, stack = [], []
+        for index, (node, _) in enumerate(anchors):
+            while stack and anchors[stack[-1]][0]['end'] <= node['start']:
+                stack.pop()
+            ancestors.append(stack[-1] if stack else -1)
+            stack.append(index)
+    
+        # Associate only unique full containment. Keep the text reading's own target,
+        # evidence and disposition; association does not assert target agreement.
+        for group in ('candidates', 'rejected'):
+            remaining = []
+            for row in scan[group]:
+                evidence = row.get('evidence', [])
+                primary = evidence[0] if evidence else None
+                matches = []
+                index = bisect_right(anchor_starts, primary['start']) - 1 if primary else -1
+                while index >= 0 and len(matches) < 2:
+                    node, parent = anchors[index]
+                    if primary['end'] <= node['end']:
+                        matches.append(parent)
+                    index = ancestors[index]
+                if len(matches) != 1:
+                    remaining.append(row)
+                    continue
+                parent = matches[0]
+                parent.setdefault('text_readings', []).append({'disposition': group,
+                    **{k: v for k, v in row.items() if k not in {'id', 'record_ids'}}})
+            scan[group] = remaining
+        scan['candidates'].extend(publisher_rows)
+        scan['candidates'].sort(key=lambda row: (row['evidence'][0]['start'] if row.get('evidence') else len(document['text']), row['id']))
+>       scan['publisher_source'] = index.artifact()
+                                   ^^^^^^^^^^^^^^
+E       AttributeError: 'int' object has no attribute 'artifact'
+
+packages/rulespec-extrapolator/src/rulespec_extrapolator/uslm.py:173: AttributeError
+_ test_unique_publisher_containment_preserves_ambiguity_and_reading_targets[after_closed_child] _
+
+case = {'id': 'after_closed_child', 'body': '<p><ref href="/us/pl/119/20">Introduction <ref href="/us/usc/t5/s1">other section</ref> and Pub. L. 119–20</ref></p>', 'associated': 1, 'separate': 0}
+
+    @pytest.mark.parametrize('case', json.loads((Path(__file__).parent/'fixtures/uslm/containment.json').read_text()), ids=lambda c: c['id'])
+    def test_unique_publisher_containment_preserves_ambiguity_and_reading_targets(case):
+        doc = document(case['body'])
+>       scan = scan_references(doc)
+               ^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_uslm.py:139: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/references.py:145: in scan_references
+    attach_publisher_links(document, result, passages)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+document = {'id': 'urn:rulespec:document-understanding:document:71287f3d7d6c30883899762b42670d9a0ae3e6445484400fc3ef6de501280684'...3e6445484400fc3ef6de501280684', 'text': 'Introduction other section and Pub. L. 119–20', 'title': 'USLM document', ...}
+scan = {'schema_version': 'document-references/2', 'document': {'id': 'urn:rulespec:document-understanding:document:71287f3d7...b7897603e'}], 'supported_kinds': ['cfr', 'docket', 'eo_compilation', 'executive_order', 'public_law', 'rin', ...], ...}
+passages = [{'id': 'urn:rulespec:document-understanding:passage:dce39ca868eeb4f90ada80093e38b6847a880ca03cda3858a0367141e7207d16', 'start': 0, 'end': 45, 'text_sha256': '71287f3d7d6c30883899762b42670d9a0ae3e6445484400fc3ef6de501280684', ...}]
+
+    def attach_publisher_links(document, scan, passages):
+        """Add native XML occurrences and shared targets to the existing scan result."""
+        from refspec.registry import uslm
+        index = SourceIndex(document)
+        prepared, source, fragments, targets = index.prepared, index.source, index.fragments, index.targets
+        identifiers, support = index.identifiers, index.support
+        passage_starts, passage_ends = [p['start'] for p in passages], [p['end'] for p in passages]
+        publisher_rows, anchors = [], []
+    
+        root_id = prepared['nodes']['/*[1]'].get('identifier', '')
+        title = root_id.removeprefix('/us/usc/t').split('/')[0] if root_id.startswith('/us/usc/t') else ''
+        skipped = Counter()
+        for native in uslm.iter_edges(source['xml'].encode('utf-8'), title, skipped, include_source_path=True):
+            path = native['sourceXPath']
+            node = prepared['nodes'][path]
+            xml_fragment, evidence = support(path, node, 'reference')
+            target_ids = []
+            for target_path, target in identifiers.get(native['href'], ()):
+                target_ids.append(index.target(target_path, target)['id'])
+            row = {'id': NS + 'reference:' + digest([xml_fragment, native['href']]),
+                   'kind': 'publisher_reference', 'value': native['href'],
+                   'reading': sparse({k: v for k, v in native.items() if k not in {'href', 'sourceXPath'}}),
+                   'xml_evidence_refs': [xml_fragment], 'evidence': evidence,
+                   'record_ids': [p['id'] for p in passages[bisect_right(passage_ends, node['start']):bisect_left(passage_starts, node['end'])]] if 'start' in node else [],
+                   'resolution': {'status': 'located' if len(target_ids) == 1 else 'ambiguous' if target_ids else 'not_in_selected_source',
+                                  'target_ids': target_ids},
+                   'text_status': 'available' if evidence else 'no_visible_text'}
+            publisher_rows.append(row)
+            if 'start' in node:
+                anchors.append((node, row))
+    
+        # XML text intervals are nested or disjoint. Index enclosing anchors once;
+        # each lookup follows only the source's nesting, not every publisher link.
+        anchors.sort(key=lambda item: (item[0]['start'], -item[0]['end']))
+        anchor_starts = [node['start'] for node, _ in anchors]
+        ancestors, stack = [], []
+        for index, (node, _) in enumerate(anchors):
+            while stack and anchors[stack[-1]][0]['end'] <= node['start']:
+                stack.pop()
+            ancestors.append(stack[-1] if stack else -1)
+            stack.append(index)
+    
+        # Associate only unique full containment. Keep the text reading's own target,
+        # evidence and disposition; association does not assert target agreement.
+        for group in ('candidates', 'rejected'):
+            remaining = []
+            for row in scan[group]:
+                evidence = row.get('evidence', [])
+                primary = evidence[0] if evidence else None
+                matches = []
+                index = bisect_right(anchor_starts, primary['start']) - 1 if primary else -1
+                while index >= 0 and len(matches) < 2:
+                    node, parent = anchors[index]
+                    if primary['end'] <= node['end']:
+                        matches.append(parent)
+                    index = ancestors[index]
+                if len(matches) != 1:
+                    remaining.append(row)
+                    continue
+                parent = matches[0]
+                parent.setdefault('text_readings', []).append({'disposition': group,
+                    **{k: v for k, v in row.items() if k not in {'id', 'record_ids'}}})
+            scan[group] = remaining
+        scan['candidates'].extend(publisher_rows)
+        scan['candidates'].sort(key=lambda row: (row['evidence'][0]['start'] if row.get('evidence') else len(document['text']), row['id']))
+>       scan['publisher_source'] = index.artifact()
+                                   ^^^^^^^^^^^^^^
+E       AttributeError: 'int' object has no attribute 'artifact'
+
+packages/rulespec-extrapolator/src/rulespec_extrapolator/uslm.py:173: AttributeError
+_ test_unique_publisher_containment_preserves_ambiguity_and_reading_targets[coextensive_nested] _
+
+case = {'id': 'coextensive_nested', 'body': '<p><ref href="/us/pl/119/20"><ref href="/us/pl/119/21">Pub. L. 119–20</ref></ref></p>', 'associated': 0, 'separate': 1}
+
+    @pytest.mark.parametrize('case', json.loads((Path(__file__).parent/'fixtures/uslm/containment.json').read_text()), ids=lambda c: c['id'])
+    def test_unique_publisher_containment_preserves_ambiguity_and_reading_targets(case):
+        doc = document(case['body'])
+>       scan = scan_references(doc)
+               ^^^^^^^^^^^^^^^^^^^^
+
+packages/rulespec-extrapolator/tests/test_uslm.py:139: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/references.py:145: in scan_references
+    attach_publisher_links(document, result, passages)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+document = {'id': 'urn:rulespec:document-understanding:document:66cc6df36f10200498d7903e5ef0e32ec966bf929df0debaecc5e8d2c268f156'...6df36f10200498d7903e5ef0e32ec966bf929df0debaecc5e8d2c268f156', 'text': 'Pub. L. 119–20', 'title': 'USLM document', ...}
+scan = {'schema_version': 'document-references/2', 'document': {'id': 'urn:rulespec:document-understanding:document:66cc6df36...b7897603e'}], 'supported_kinds': ['cfr', 'docket', 'eo_compilation', 'executive_order', 'public_law', 'rin', ...], ...}
+passages = [{'id': 'urn:rulespec:document-understanding:passage:d21e15f3469d5a2b1220bf8f299f11c5ceb06a01c3d63e450c49501aacb57338', 'start': 0, 'end': 14, 'text_sha256': '66cc6df36f10200498d7903e5ef0e32ec966bf929df0debaecc5e8d2c268f156', ...}]
+
+    def attach_publisher_links(document, scan, passages):
+        """Add native XML occurrences and shared targets to the existing scan result."""
+        from refspec.registry import uslm
+        index = SourceIndex(document)
+        prepared, source, fragments, targets = index.prepared, index.source, index.fragments, index.targets
+        identifiers, support = index.identifiers, index.support
+        passage_starts, passage_ends = [p['start'] for p in passages], [p['end'] for p in passages]
+        publisher_rows, anchors = [], []
+    
+        root_id = prepared['nodes']['/*[1]'].get('identifier', '')
+        title = root_id.removeprefix('/us/usc/t').split('/')[0] if root_id.startswith('/us/usc/t') else ''
+        skipped = Counter()
+        for native in uslm.iter_edges(source['xml'].encode('utf-8'), title, skipped, include_source_path=True):
+            path = native['sourceXPath']
+            node = prepared['nodes'][path]
+            xml_fragment, evidence = support(path, node, 'reference')
+            target_ids = []
+            for target_path, target in identifiers.get(native['href'], ()):
+                target_ids.append(index.target(target_path, target)['id'])
+            row = {'id': NS + 'reference:' + digest([xml_fragment, native['href']]),
+                   'kind': 'publisher_reference', 'value': native['href'],
+                   'reading': sparse({k: v for k, v in native.items() if k not in {'href', 'sourceXPath'}}),
+                   'xml_evidence_refs': [xml_fragment], 'evidence': evidence,
+                   'record_ids': [p['id'] for p in passages[bisect_right(passage_ends, node['start']):bisect_left(passage_starts, node['end'])]] if 'start' in node else [],
+                   'resolution': {'status': 'located' if len(target_ids) == 1 else 'ambiguous' if target_ids else 'not_in_selected_source',
+                                  'target_ids': target_ids},
+                   'text_status': 'available' if evidence else 'no_visible_text'}
+            publisher_rows.append(row)
+            if 'start' in node:
+                anchors.append((node, row))
+    
+        # XML text intervals are nested or disjoint. Index enclosing anchors once;
+        # each lookup follows only the source's nesting, not every publisher link.
+        anchors.sort(key=lambda item: (item[0]['start'], -item[0]['end']))
+        anchor_starts = [node['start'] for node, _ in anchors]
+        ancestors, stack = [], []
+        for index, (node, _) in enumerate(anchors):
+            while stack and anchors[stack[-1]][0]['end'] <= node['start']:
+                stack.pop()
+            ancestors.append(stack[-1] if stack else -1)
+            stack.append(index)
+    
+        # Associate only unique full containment. Keep the text reading's own target,
+        # evidence and disposition; association does not assert target agreement.
+        for group in ('candidates', 'rejected'):
+            remaining = []
+            for row in scan[group]:
+                evidence = row.get('evidence', [])
+                primary = evidence[0] if evidence else None
+                matches = []
+                index = bisect_right(anchor_starts, primary['start']) - 1 if primary else -1
+                while index >= 0 and len(matches) < 2:
+                    node, parent = anchors[index]
+                    if primary['end'] <= node['end']:
+                        matches.append(parent)
+                    index = ancestors[index]
+                if len(matches) != 1:
+                    remaining.append(row)
+                    continue
+                parent = matches[0]
+                parent.setdefault('text_readings', []).append({'disposition': group,
+                    **{k: v for k, v in row.items() if k not in {'id', 'record_ids'}}})
+            scan[group] = remaining
+        scan['candidates'].extend(publisher_rows)
+        scan['candidates'].sort(key=lambda row: (row['evidence'][0]['start'] if row.get('evidence') else len(document['text']), row['id']))
+>       scan['publisher_source'] = index.artifact()
+                                   ^^^^^^^^^^^^^^
+E       AttributeError: 'int' object has no attribute 'artifact'
+
+packages/rulespec-extrapolator/src/rulespec_extrapolator/uslm.py:173: AttributeError
+________________ test_prepare_and_references_cli_use_pinned_xml ________________
+
+tmp_path = PosixPath('/private/var/folders/g8/10vdwk2n07z85vqn_vlv2lfc0000gn/T/pytest-of-mikewolfd/pytest-4027/test_prepare_and_references_cl0')
+
+    def test_prepare_and_references_cli_use_pinned_xml(tmp_path):
+        prepared=tmp_path/'document.json'
+        output=tmp_path/'references.json'
+        cli.main(['prepare', str(FIXTURE), '--output', str(prepared)])
+>       cli.main(['references', str(prepared), '--output', str(output)])
+
+packages/rulespec-extrapolator/tests/test_uslm.py:185: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+packages/rulespec-extrapolator/src/rulespec_extrapolator/cli.py:170: in main
+    _write_new(args.output, scan_references(document, act_index=args.act_index, source_credit_index=args.source_credit_index,
+packages/rulespec-extrapolator/src/rulespec_extrapolator/references.py:145: in scan_references
+    attach_publisher_links(document, result, passages)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+document = {'id': 'urn:rulespec:document-understanding:document:bef2af106d83921dfa412f11d6e34583e85a95724b8a93bb5642e4b417c1cb2e'...s a note preceding section 301 of Title 44, Public Printing and Documents.\n\n\n', 'title': 'fresh-title-05-pair', ...}
+scan = {'schema_version': 'document-references/2', 'document': {'id': 'urn:rulespec:document-understanding:document:bef2af106...b7897603e'}], 'supported_kinds': ['cfr', 'docket', 'eo_compilation', 'executive_order', 'public_law', 'rin', ...], ...}
+passages = [{'id': 'urn:rulespec:document-understanding:passage:6c11687a265d787d94e70f37ce16f724fe288fc60413a6bb8c7abfe722199a28'...'start': 545, 'end': 648, 'text_sha256': '84bff01f3933a5f8ff180d919474a137dcf77aca9a32d35293f31d8752de48ae', ...}, ...]
+
+    def attach_publisher_links(document, scan, passages):
+        """Add native XML occurrences and shared targets to the existing scan result."""
+        from refspec.registry import uslm
+        index = SourceIndex(document)
+        prepared, source, fragments, targets = index.prepared, index.source, index.fragments, index.targets
+        identifiers, support = index.identifiers, index.support
+        passage_starts, passage_ends = [p['start'] for p in passages], [p['end'] for p in passages]
+        publisher_rows, anchors = [], []
+    
+        root_id = prepared['nodes']['/*[1]'].get('identifier', '')
+        title = root_id.removeprefix('/us/usc/t').split('/')[0] if root_id.startswith('/us/usc/t') else ''
+        skipped = Counter()
+        for native in uslm.iter_edges(source['xml'].encode('utf-8'), title, skipped, include_source_path=True):
+            path = native['sourceXPath']
+            node = prepared['nodes'][path]
+            xml_fragment, evidence = support(path, node, 'reference')
+            target_ids = []
+            for target_path, target in identifiers.get(native['href'], ()):
+                target_ids.append(index.target(target_path, target)['id'])
+            row = {'id': NS + 'reference:' + digest([xml_fragment, native['href']]),
+                   'kind': 'publisher_reference', 'value': native['href'],
+                   'reading': sparse({k: v for k, v in native.items() if k not in {'href', 'sourceXPath'}}),
+                   'xml_evidence_refs': [xml_fragment], 'evidence': evidence,
+                   'record_ids': [p['id'] for p in passages[bisect_right(passage_ends, node['start']):bisect_left(passage_starts, node['end'])]] if 'start' in node else [],
+                   'resolution': {'status': 'located' if len(target_ids) == 1 else 'ambiguous' if target_ids else 'not_in_selected_source',
+                                  'target_ids': target_ids},
+                   'text_status': 'available' if evidence else 'no_visible_text'}
+            publisher_rows.append(row)
+            if 'start' in node:
+                anchors.append((node, row))
+    
+        # XML text intervals are nested or disjoint. Index enclosing anchors once;
+        # each lookup follows only the source's nesting, not every publisher link.
+        anchors.sort(key=lambda item: (item[0]['start'], -item[0]['end']))
+        anchor_starts = [node['start'] for node, _ in anchors]
+        ancestors, stack = [], []
+        for index, (node, _) in enumerate(anchors):
+            while stack and anchors[stack[-1]][0]['end'] <= node['start']:
+                stack.pop()
+            ancestors.append(stack[-1] if stack else -1)
+            stack.append(index)
+    
+        # Associate only unique full containment. Keep the text reading's own target,
+        # evidence and disposition; association does not assert target agreement.
+        for group in ('candidates', 'rejected'):
+            remaining = []
+            for row in scan[group]:
+                evidence = row.get('evidence', [])
+                primary = evidence[0] if evidence else None
+                matches = []
+                index = bisect_right(anchor_starts, primary['start']) - 1 if primary else -1
+                while index >= 0 and len(matches) < 2:
+                    node, parent = anchors[index]
+                    if primary['end'] <= node['end']:
+                        matches.append(parent)
+                    index = ancestors[index]
+                if len(matches) != 1:
+                    remaining.append(row)
+                    continue
+                parent = matches[0]
+                parent.setdefault('text_readings', []).append({'disposition': group,
+                    **{k: v for k, v in row.items() if k not in {'id', 'record_ids'}}})
+            scan[group] = remaining
+        scan['candidates'].extend(publisher_rows)
+        scan['candidates'].sort(key=lambda row: (row['evidence'][0]['start'] if row.get('evidence') else len(document['text']), row['id']))
+>       scan['publisher_source'] = index.artifact()
+                                   ^^^^^^^^^^^^^^
+E       AttributeError: 'int' object has no attribute 'artifact'
+
+packages/rulespec-extrapolator/src/rulespec_extrapolator/uslm.py:173: AttributeError
+=========================== short test summary info ============================
+FAILED packages/rulespec-extrapolator/tests/test_uslm.py::test_fresh_definition_target_and_core_fragments
+FAILED packages/rulespec-extrapolator/tests/test_uslm.py::test_discovery_shares_targets_and_uses_existing_evidence_table
+FAILED packages/rulespec-extrapolator/tests/test_uslm.py::test_duplicate_and_absent_targets_remain_explicit
+FAILED packages/rulespec-extrapolator/tests/test_uslm.py::test_text_reading_prefix_merges_without_losing_a_disagreement
+FAILED packages/rulespec-extrapolator/tests/test_uslm.py::test_merged_rejected_reading_keeps_its_reason_and_discovery_evidence
+FAILED packages/rulespec-extrapolator/tests/test_uslm.py::test_publisher_xml_compilations_keep_separate_occurrences_and_editorial_uncertainty
+FAILED packages/rulespec-extrapolator/tests/test_uslm.py::test_compilation_text_reading_retains_publisher_link_and_shared_evidence
+FAILED packages/rulespec-extrapolator/tests/test_uslm.py::test_unique_publisher_containment_preserves_ambiguity_and_reading_targets[interior]
+FAILED packages/rulespec-extrapolator/tests/test_uslm.py::test_unique_publisher_containment_preserves_ambiguity_and_reading_targets[repeated]
+FAILED packages/rulespec-extrapolator/tests/test_uslm.py::test_unique_publisher_containment_preserves_ambiguity_and_reading_targets[nested_ambiguous]
+FAILED packages/rulespec-extrapolator/tests/test_uslm.py::test_unique_publisher_containment_preserves_ambiguity_and_reading_targets[two_readings]
+FAILED packages/rulespec-extrapolator/tests/test_uslm.py::test_unique_publisher_containment_preserves_ambiguity_and_reading_targets[conflicting_target]
+FAILED packages/rulespec-extrapolator/tests/test_uslm.py::test_unique_publisher_containment_preserves_ambiguity_and_reading_targets[rejected_interior]
+FAILED packages/rulespec-extrapolator/tests/test_uslm.py::test_unique_publisher_containment_preserves_ambiguity_and_reading_targets[adjacent]
+FAILED packages/rulespec-extrapolator/tests/test_uslm.py::test_unique_publisher_containment_preserves_ambiguity_and_reading_targets[crossing_boundary]
+FAILED packages/rulespec-extrapolator/tests/test_uslm.py::test_unique_publisher_containment_preserves_ambiguity_and_reading_targets[after_closed_child]
+FAILED packages/rulespec-extrapolator/tests/test_uslm.py::test_unique_publisher_containment_preserves_ambiguity_and_reading_targets[coextensive_nested]
+FAILED packages/rulespec-extrapolator/tests/test_uslm.py::test_prepare_and_references_cli_use_pinned_xml
+18 failed, 8 passed in 0.60s

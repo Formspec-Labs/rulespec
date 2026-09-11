@@ -6,13 +6,16 @@ extraction/discovery consumers. R1–R26 are stable identifiers for follow-up wo
 This update includes retention, optional-reader capture, qualified USC delivery,
 removal of unused citation copies, compilation occurrence delivery and the
 independent part-zero minter correction and complete CFR range delivery. The latest
-application suite passes 595 tests from source and its installed wheel; the graph
+application suite passes 616 tests from source and its installed wheel; the graph
 package's preceding checkpoint passes 30 tests from source and its isolated wheel.
 Earlier counts belong to their linked checkpoints. Original captures and reviews
 remain intact; no model call, publication or deployment was needed for this cleanup.
 
-**Recommended next slice:** demonstrate useful reference text/context in one
-discovery or workflow consumer. Migrate remaining R8 graph readers when that
+**Recommended next slice:** finish the bounded R12 source-format assessment, then
+measure this context in one discovery or workflow consumer. Optional USLM target
+text is now connected to both commands; the
+[body comparison](../experiments/2026-09-11-reference-bodies/README.md) preserves
+exact provisions and parent context without changing model prompts. Migrate remaining R8 graph readers when that
 consumer needs them, preserving structured-input behavior. The [caller trace and direct comparison](../experiments/2026-09-11-citation-ownership/README.md)
 are complete; unused act-name and compilation-locator copies are removed.
 The [whole-token experiment](../experiments/2026-09-11-cfr-whole-tokens/README.md)
@@ -106,7 +109,8 @@ extraction accuracy or identifier existence. See the
 
 Not all useful sibling features have been integrated. Selected U.S. Code (USC)
 readings are now installed; broader qualification coverage, general local paragraph
-lookup, external target bodies and shared vocabulary links remain open.
+lookup, eCFR target bodies, historical correspondence and shared vocabulary links
+remain open. Optional external USLM section/pinpoint bodies are now installed.
 The completed **R15/R16** experiment found zero of three targeted meaning
 gains, a repeated modality regression and one incomplete response; B used 8.9%
 more reported tokens. The [result](../experiments/2026-09-11-fresh-reference-context/README.md)
@@ -170,7 +174,7 @@ release. Preserve the completed foundation and make one bounded change at a time
 | R9 | Source-supported context for omitted citation titles | General support missing | M |
 | R10 | Exact local paragraph address index | Marker extension tested; ambiguity/inline-child gate failed; production unchanged | M |
 | R11 | Local paragraph and range lookup | Publisher targets delivered; general prose addresses and ranges remain open | M–L |
-| R12 | External provision text in a pinned edition | Readers/data located; application connection open | L |
+| R12 | External provision text in a pinned edition | Optional USLM body lookup installed; eCFR bodies and historical correspondence remain open | L |
 | R13 | Named-act lookup through existing indexes | Competing law/scope candidates delivered; explicit law/year context and ranges open | M–L |
 | R14 | Publisher-provided citation links | USLM ingestion, evidence, reference/discovery export and local targets delivered | M |
 | R15 | Bounded context from sections and located references | Experiment selector and controls complete; adoption deferred after failed gate | M |
@@ -855,13 +859,21 @@ an exemption or applicability relationship.
 
 ### R12 — Locate external provisions in pinned editions
 
-- [ ] **Owner: Rulespec integration + Spicy Regs/RefSpec data owners; effort L.**
+- [x] **Owner: Rulespec integration + Spicy Regs/RefSpec data owners; effort L.**
   Exercise Spicy Regs' CFR section catalog and RefSpec's USC section/subsection
   oracle with their required pinned artifacts. Reuse existing loaders and integrity
   checks before adding storage or lookup services.
   Use R20 to check the local artifacts first. `CfrSectionsReader` acquires annual
   GovInfo metadata; it is not a ready-made offline body resolver. Its keyless
   behavior yields no records, which must remain distinguishable from “target absent.”
+- [x] Connect exact accepted USC sections/pinpoints and publisher targets from
+  explicitly supplied USLM documents to `references` and `discovery-export`.
+  Reuse RefSpec `read_text` and `normalize_section`, and the existing Rulespec
+  XML/source-map/evidence path. The [comparison and delivery](../experiments/2026-09-11-reference-bodies/README.md)
+  resolves three actual 553(b)(B) occurrences to one 243-character body with one
+  shared 4,352-character containing section. Source/installed suites pass 616 tests;
+  different editions remain ambiguous and edition correspondence unestablished.
+  Do not count this as a general CFR/USC resolver or improved extraction meaning.
 - [ ] Keep edition/date, catalog release, original citation, selected target and
   source digest together. Distinguish missing data from an invalid citation or a
   provision absent from the selected edition. Handle repeal/renumbering as recorded
@@ -1127,6 +1139,13 @@ legal automation approval.
 ## Existing data and capabilities beyond citation syntax
 
 ### R20 — Verify a small, reusable corpus inventory
+
+- [x] Exercise RefSpec's USC body reader and edition/existence oracle, Spicy Regs'
+  metadata-only section catalog, strict SpicySearch identity fields, and three
+  pinned eCFR bodies. The [bounded inventory](../experiments/2026-09-11-reference-bodies/README.md)
+  separates the installed USLM consumer from available eCFR data and missing
+  body-reader integration. It retains suspension notes, tables, missing targets,
+  wrong pins and edition mismatch; no source or corpus rebuild was needed.
 
 - [x] Verify the USLM release 119-102 archive/member pins and capture title 29
   chapter 4B, title 38 chapter 7 and title 20 chapter 6A for the fresh-context
