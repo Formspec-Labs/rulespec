@@ -9,7 +9,8 @@ def test_subpart_alternatives_preserve_source_roles_and_distinct_ids():
     doc = prepare_document(text)
     scan = scan_references(doc)
     first, second = scan['candidates']
-    assert [r['value'] for r in scan['candidates']] == ['49 CFR 172 subpart E', '49 CFR 172 subpart F']
+    assert [r['value'] for r in scan['candidates']] == [
+        '49 CFR Part 172 subpart E (labeling)', ' or subpart F (placarding)']
     assert second['evidence'][0]['quote'] == ' or subpart F (placarding)'
     assert second['evidence'][1] == {**first['evidence'][0], 'field': 'reference_context'}
     assert first['id'] != second['id']
@@ -24,7 +25,7 @@ def test_subpart_alternatives_preserve_source_roles_and_distinct_ids():
 def test_appendix_under_subpart_is_not_the_subpart_itself():
     text = '40 CFR part 82, appendix A to subpart A'
     row, = scan_references(prepare_document(text))['candidates']
-    assert row['value'] == '40 CFR 82 appendix A to subpart A'
+    assert row['value'] == text
     assert (row['reading']['appendix'], row['reading']['subpart']) == ('A', 'A')
     assert row['evidence'][0]['quote'] == text
 
@@ -32,7 +33,7 @@ def test_appendix_under_subpart_is_not_the_subpart_itself():
 def test_part_list_does_not_create_guessed_subpart_targets():
     doc = prepare_document('45 CFR parts 160 and 164, subparts A and E')
     scan = scan_references(doc)
-    assert [r['value'] for r in scan['candidates']] == ['45 CFR 160']
+    assert [r['value'] for r in scan['candidates']] == ['45 CFR parts 160']
     assert [r['reading']['subpart'] for r in scan['rejected']] == ['A', 'E']
     assert {r['code'] for r in scan['rejected']} == {'cfr_ambiguous_part_scope'}
     assert scan['rejected'][0]['evidence'][1]['quote'] == '45 CFR parts 160'

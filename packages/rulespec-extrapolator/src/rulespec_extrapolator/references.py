@@ -75,26 +75,19 @@ def scan_references(document, *, act_index=None, source_credit_index=None):
             record(str(match.kind), match.value, *match.span, refusal=refusal)
     for match in grammar.find_cfr_citations(text):
         reading = {**asdict(match.citation), 'pinpoint': list(match.pinpoint)}
+        if match.range_end_pinpoint:
+            reading['range_end_pinpoint'] = list(match.range_end_pinpoint)
         reading.update({key: getattr(match, key) for key in
                         ('subpart', 'subpart_end', 'appendix', 'qualifier_status')
                         if getattr(match, key) is not None})
-        value = f'{match.citation.cfr_title} CFR'
-        if match.citation.cfr_part is not None:
-            value += ' ' + match.citation.cfr_part
-        if match.citation.cfr_section is not None:
-            value += '.' + match.citation.cfr_section
-        value += ''.join(f'({label})' for label in match.pinpoint)
-        if match.appendix is not None:
-            value += ' appendix ' + match.appendix + ' to'
-        if match.subpart is not None:
-            value += ' subpart ' + match.subpart
-        if match.subpart_end is not None:
-            value += ' through ' + match.subpart_end
+        endpoints = ((match.citation.start, match.citation.end)
+                     if isinstance(match.citation, grammar.CfrCitationRange) else (match.citation,))
         context = None if match.context_start is None else (match.context_start, match.context_end)
-        refusal = ('cfr_title_impossible' if not match.citation.title_is_possible else
-                   'cfr_part_implausible' if match.citation.part_is_plausible is False else
+        refusal = ('cfr_title_impossible' if any(not c.title_is_possible for c in endpoints) else
+                   'cfr_part_implausible' if any(c.part_is_plausible is False for c in endpoints) else
+                   'cfr_' + match.refusal if match.refusal else
                    'cfr_' + match.qualifier_status if match.qualifier_status else None)
-        record('cfr', value, match.start, match.end, reading=reading, context=context,
+        record('cfr', match.text, match.start, match.end, reading=reading, context=context,
                refusal=refusal, source_text=match.text)
     for match in grammar.find_eo_compilation_locators(text):
         record('eo_compilation', match.text, match.start, match.end,

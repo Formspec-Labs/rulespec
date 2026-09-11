@@ -284,6 +284,12 @@ retain native title/part/section fields, validity flags and attached subsection
 labels. For `40 CFR §§ 82.155(a), 82.156(b)`, each member has its own occurrence;
 the abbreviated second member also cites the written title-bearing context.
 Both accepted and rejected readings use the discovery export's shared evidence.
+CFR display values retain the original source spelling. A compound part such as
+`41 CFR 102-193` stays one part. A range such as
+`41 CFR 101-19.600 to 101-19.607` stores separate `start` and `end` coordinates,
+including attached endpoint labels. It never becomes a single first-part target
+or a generated list of intermediate provisions. Incomplete endings and ambiguous
+hyphen chains retain their full observed wording under an explicit refusal.
 RIN candidates also use RefSpec's `mint_rin_iri` to check Rulespec's supported
 identifier space. Values outside it retain their exact evidence under `rejected`
 with `rin_outside_supported_identifier_space`. This removes lexical lookalikes such
@@ -340,15 +346,16 @@ uv pip install --python .tools/document-poc-venv/bin/python \
   dist/reference-integration-20260911-uslm-text/rulespec_conformance-0.2.0rc18-py3-none-any.whl \
   dist/citation-ownership-20260911/rulespec_projection-0.1.0-py3-none-any.whl \
   dist/reference-tools-20260910-parenthetical/spicysearch-0.1.4-py3-none-any.whl \
-  dist/reference-integration-20260911-cfr-zero/refspec-0.1.0.dev0-py3-none-any.whl \
-  dist/reference-integration-20260911-compilations-final/rulespec_extrapolator-0.1.0.dev0-py3-none-any.whl \
+  dist/reference-integration-20260911-cfr-ranges/refspec-0.1.0.dev0-py3-none-any.whl \
+  dist/reference-integration-20260911-cfr-ranges/rulespec_extrapolator-0.1.0.dev0-py3-none-any.whl \
   ../DocSpec/dist/docspec-0.2.11-py3-none-any.whl
 ```
 
 Use the Python environment where you installed the extractor. The scan records
 each parser's version and module digest. The latest
-[wheel inputs](../../thoughts/experiments/2026-09-11-cfr-zero-parts/wheel-inputs.json)
-pin the matching builds, including the part-zero minter fix, compilation locators and the RIN, containment
+[wheel inputs](../../thoughts/experiments/2026-09-11-cfr-ranges/wheel-inputs.json)
+pin the matching builds, including complete CFR compounds/ranges, the part-zero
+minter fix, compilation locators and the RIN, containment
 and retention changes; the
 [act-name comparison](../../thoughts/experiments/2026-09-11-act-name-multiplicity/README.md)
 retains an earlier checkpoint. The full installation includes DocSpec because of

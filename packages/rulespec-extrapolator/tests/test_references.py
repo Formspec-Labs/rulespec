@@ -188,7 +188,7 @@ def test_cfr_list_retains_native_readings_and_grounded_title_context():
     doc = prepare_document('🧭 See 40 CFR §§ 82.155(a), 82.156(b), and Pub. L. 119-20.')
     result = scan_references(doc)
     first, second = [c for c in result['candidates'] if c['kind'] == 'cfr']
-    assert [c['value'] for c in (first, second)] == ['40 CFR 82.155(a)', '40 CFR 82.156(b)']
+    assert [c['value'] for c in (first, second)] == ['40 CFR §§ 82.155(a)', ', 82.156(b)']
     assert [c['reading']['pinpoint'] for c in (first, second)] == [['a'], ['b']]
     assert [c['reading']['cfr_section'] for c in (first, second)] == ['155', '156']
     assert first['evidence'][0]['quote'] == '40 CFR §§ 82.155(a)'
