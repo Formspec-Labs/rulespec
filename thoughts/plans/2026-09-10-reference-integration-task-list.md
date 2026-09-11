@@ -3,6 +3,11 @@
 Updated 2026-09-11 against the local code and saved evidence. This is the current
 backlog for the reference work, useful sibling-repository capabilities, and their
 extraction/discovery consumers. R1–R26 are stable identifiers for follow-up work.
+The [latest resume checkpoint](../reviews/2026-09-11-reuse-resume-checkpoint.md)
+records delivered work, failed experiments, concurrent repository changes and the
+exact stopping point in the publication-metadata experiment. Its public DocSpec
+reader check passed on 93 records; body association and consumer adoption remain
+unverified. The broader goal and unfinished workstreams remain open.
 This update includes retention, optional-reader capture, qualified USC delivery,
 removal of unused citation copies, compilation occurrence delivery and the
 independent part-zero minter correction and complete CFR range delivery. The latest
@@ -1307,6 +1312,13 @@ legal automation approval.
 
 ### R20 — Verify a small, reusable corpus inventory
 
+- [x] Fully verify and consume the selected 93-row Federal Register catalog through
+  DocSpec's public `SourceCatalogArtifactReader`; retain partition pins, runtime
+  hashes, native/normalized example fields and a compact inventory. The
+  [publication-metadata checkpoint](../experiments/2026-09-11-publication-metadata/README.md)
+  records the successful reader check and the unsuccessful search for six proposed
+  bodies in one existing document release. Body association and comparison controls
+  remain open; this inventory check does not close R21.
 - [x] Directly exercise selected SpicySearch text/subject helpers, DocSpec XML
   visible text and local acquisition, and SpicyDocs source profiles/FR locators.
   The [saved findings](../experiments/2026-09-11-ecfr-text/README.md) include actual
