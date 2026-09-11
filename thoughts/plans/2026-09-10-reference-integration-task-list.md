@@ -18,10 +18,12 @@ requirement recovers only 7/21 and fails ambiguity controls. The observed
 [reverse explicit CFR form is now delivered](../experiments/2026-09-11-cfr-reverse-title/README.md):
 862 upstream checks pass, 645 source/installed application tests pass, and both
 commands retain the actual paragraph's complete coordinates and pinpoint.
-Investigate the shared `to the same extent` range misreading upstream before
-returning to R9's broader context binding. Stable
-reference-feedback anchors for one discovery consumer remain an independent
-R17/R18 option. The
+The [range/prose comparison](../experiments/2026-09-11-cfr-range-prose/README.md)
+is now complete and failed adoption: requiring a readable numeric endpoint
+recovers eight fresh publisher examples but accepts eleven incomplete-range
+controls; a narrow prose rule recovers none of those eight. Preserve the installed
+reader and retain the defect for a different hypothesis. Stable reference-feedback
+anchors and one discovery consumer are the next independent R17/R18 slice. The
 [expanded reader comparison](../experiments/2026-09-11-ecfr-text/README.md) directly
 checked SpicySearch, DocSpec and SpicyDocs. DocSpec already supplies XML visible
 text and byte maps; its current table/line-break behavior does not replace native
@@ -252,30 +254,30 @@ reader/helper sources and versions without changing those statements or discover
 output. That checkpoint passed 559 source and installed tests; the latest
 application delivery passes 645.
 
-1. **Fix the demonstrated range/prose boundary — R8/R9; RefSpec; effort S.**
-   Compare ordinary following prose with complete, truncated and unread ranges.
-   Preserve existing qualifier refusals. This isolated grammar defect does not
-   require native-title inference, a graph migration or model calls. Qualified
-   USC, complete CFR compounds/ranges and reverse explicit titles are delivered.
-2. **Prove one discovery correction path — R3/R17/R18/R24; effort S–M.**
+1. **Prove one discovery correction path — R3/R17/R18/R24; effort S–M.**
    Reuse the existing observation/reload/export route for accepted, rejected,
    repeated and rescanned references. Preserve the challenged reading and its
    source/reader version. Then compare source-only retrieval with separately
    ranked statement results and bounded evidence expansion. Do not compare raw
    scores from differently populated indexes as though they were calibrated.
-3. **Choose one additional source or vocabulary benefit — R11/R12/R20–R23;
+2. **Choose one additional source or vocabulary benefit — R11/R12/R20–R23;
    effort S–M.** Exact current-document publisher addresses, stated metadata and
    agency/general-label suggestions are independent candidates. Select one named
    caller and its smallest comparison. Check current SpicySearch–DocSpec source
    compatibility before upgrading the DocSpec wheel; installed behavior and live
    source compatibility are separate checks. R8 graph migration remains conditional
    on a caller needing those facts.
-4. **Keep workflow preparation and semantic experiments focused — R19/R16/R25/R26.**
+3. **Keep workflow preparation and semantic experiments focused — R19/R16/R25/R26.**
    Prepare one reviewed decision flow, then select any model intervention from its
    demonstrated failures. A fixed-target relationship trial must also check
    supported-subset application through the existing preview/revision path.
    Keep failed context and explanation variants experimental. Smaller public
    investigation APIs need a measured caller benefit before implementation.
+4. **Revisit the range/prose defect with a different hypothesis — R8/R9; RefSpec.**
+   The first bounded comparison failed adoption. Numeric-endpoint gating loses
+   incomplete ranges; narrow phrase handling misses the fresh action-phrase
+   failures. Preserve those controls and the current reader. Do not grow a verb
+   list around this sample or block independent consumer work on this defect.
 
 **Natural stopping point reached:** the two small deliveries are in the working
 installation with captured evidence and explicit review/replay behavior. The broad
@@ -309,7 +311,7 @@ estimates describe relative scope; they are not delivery promises.
 | Priority | Tasks | Dependency or stopping condition |
 | --- | --- | --- |
 | Preserve the delivered foundation | R2, R14; completed portions of R1/R3/R4/R11/R13/R23 | Use current readers, schemas and evidence; do not rebuild them |
-| Small deterministic fix | R8/R9 range/prose boundary | Preserve complete and refused ranges while distinguishing ordinary following prose |
+| Failed first comparison; new hypothesis needed | R8/R9 range/prose boundary | Preserve incomplete ranges and test broader prose; no adopted change or consumer prerequisite |
 | Preserve delivery records and commits | R1 scoped changes | Reader capture and scoped local commits are complete; retain their original receipts |
 | Next source work | R9/R10/R11/R12 | Exact publisher addresses can be assessed independently; inferred context and general prose addresses retain separate gates |
 | Consolidate when a replacement is ready | R8 | Trace callers and prove parity before removing superseded code; avoid dependency cycles |
@@ -867,6 +869,10 @@ also identifies an existing range-reader defect in `to the same extent`.
 - [ ] Investigate the shared `to` range interpretation under R5/R8. Preserve real
   and unread ranges while distinguishing ordinary following prose; do not silently
   collapse every refused range to its first coordinate.
+  The [first comparison](../experiments/2026-09-11-cfr-range-prose/README.md)
+  rejects numeric-endpoint gating and defers the narrow phrase rule. Eight newly
+  selected publisher action phrases are now development controls; no production
+  change was adopted. A broader syntactic hypothesis needs new deciding evidence.
 - [ ] **Owner: RefSpec grammar + Rulespec caller; effort M.** Allow omitted-title
   references such as `§ 82.155` only when the caller supplies a source-supported
   title/section context. Keep evidence for that context separate from the literal
