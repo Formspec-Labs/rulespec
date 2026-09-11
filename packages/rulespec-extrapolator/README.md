@@ -238,12 +238,15 @@ alone does not establish that its dependencies are compatible or its wheel is co
 ### Optional reference recognition
 
 `references` scans exact source text for explicit Code of Federal Regulations
-(CFR) citations, public laws, Statutes at Large citations, executive orders,
+(CFR) and U.S. Code (USC) citations, public laws, Statutes at Large citations, executive orders,
 dockets, and Regulation Identifier Numbers (RINs). It accepts
 text, a prepared document, rulebook JSON, or an extraction directory. It reads
 the document once and preserves repeated occurrences separately. Each candidate
-has its normalized value, exact quotation and Unicode codepoint offsets, an
+has its display value, exact quotation and Unicode codepoint offsets, an
 existing Rulespec fragment ID, and the IDs of overlapping source passages.
+USC display values preserve source spelling; the native `reading` fields and
+inherited context describe the normalized target. Other kinds retain their
+existing normalized display values.
 
 `discovery-export --references` runs the same adapter against the current review
 snapshot's pinned document. It adds `reference_scan` and reuses the export's
@@ -275,7 +278,7 @@ the native unresolved reason. The supplied indexes may describe later editions
 than the input document. No target body, matching historical edition, or legal
 applicability is established by this lookup.
 
-The adapter reuses RefSpec's `find_cfr_citations` and SpicySearch's
+The adapter reuses RefSpec's `find_cfr_citations`, `find_usc_citations` and SpicySearch's
 `detect_identifiers`, restricted to the five additional kinds above. CFR readings
 retain native title/part/section fields, validity flags and attached subsection
 labels. For `40 CFR §§ 82.155(a), 82.156(b)`, each member has its own occurrence;
@@ -295,16 +298,29 @@ Stated subpart ranges retain their endpoints without generating intermediate
 members. A subpart list following multiple parts is refused as
 `cfr_ambiguous_part_scope`, with its partial reading and evidence retained.
 
+USC readings preserve section and range-end subsections, chapters, subchapters,
+appendices, notes and the basis for an abbreviated range. `19 U.S.C. 1484-86`
+keeps that written display value; its reading exposes endpoints 1484 and 1486
+with `usc_section_span_rule=abbreviated-span`. No interior sections are generated.
+Repeated mentions keep separate evidence. Listed members cite their inherited
+title context, and the prose list stops at intervening text. Invalid titles,
+damaged tokens and unresolved qualifications retain explicit refusal codes.
+A positioned note such as `42301 preceding note` stays refused rather than
+becoming a plain section. Open-ended forms such as `38 U.S.C. 4301, et seq.`
+retain their full wording with `usc_open_ended_reference_unresolved`; the reader
+does not infer an ending section. These readings do not establish target existence.
+
 Rulespec's existing document validation, exact evidence resolver, fragment identity
 and passage index provide grounding; no new citation grammar or Core assertion
 type is introduced. A mention is not a resolved target, an applicability judgment,
 or a complete representation of every possible qualifier.
-General USC and document-local paragraph recognition remain outside the text
-scanner's scope; the USLM path below also retains publisher-supplied links.
+Document-local paragraph recognition remains outside the text scanner's scope;
+the USLM path below also retains publisher-supplied links.
 Unsupported kinds are excluded. A candidate or required title context crossing
 inserted source-map text is recorded under `rejected`; native impossible-title or
-implausible-part readings retain their flags and evidence there. Invalid source
-identity, parser coordinates or a parser quotation that differs from the source
+implausible-part readings retain their flags and evidence there. When source
+grounding also fails, `parser_refusal` preserves the upstream reason alongside it.
+Invalid source identity, parser coordinates or a parser quotation that differs from the source
 fail the scan. An empty candidate list does not establish completeness.
 
 SpicySearch and RefSpec are optional application dependencies (`references` extra),
@@ -318,8 +334,8 @@ uv pip install --python .tools/document-poc-venv/bin/python \
   dist/reference-integration-20260911-uslm-text/rulespec_conformance-0.2.0rc18-py3-none-any.whl \
   dist/production-20260910/rulespec_projection-0.1.0-py3-none-any.whl \
   dist/reference-tools-20260910-parenthetical/spicysearch-0.1.4-py3-none-any.whl \
-  dist/reference-integration-20260911-readings/refspec-0.1.0.dev0-py3-none-any.whl \
-  dist/reference-integration-20260911-capture/rulespec_extrapolator-0.1.0.dev0-py3-none-any.whl \
+  dist/reference-integration-20260911-usc-open-ended/refspec-0.1.0.dev0-py3-none-any.whl \
+  dist/reference-integration-20260911-usc-open-ended/rulespec_extrapolator-0.1.0.dev0-py3-none-any.whl \
   ../DocSpec/dist/docspec-0.2.11-py3-none-any.whl
 ```
 

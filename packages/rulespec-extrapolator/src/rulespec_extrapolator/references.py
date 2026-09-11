@@ -28,6 +28,7 @@ def scan_references(document, *, act_index=None, source_credit_index=None):
     candidates, rejected = [], []
     parsers = [('spicysearch.identifiers.detect_identifiers', 'spicysearch', identifiers),
                ('refspec.registry.citation_grammar.find_cfr_citations', 'refspec', grammar),
+               ('refspec.registry.citation_grammar.find_usc_citations', 'refspec', grammar),
                ('refspec.registry.iri_minting.mint_rin_iri', 'refspec', iri_minting)]
     indexes = {}
     def evidence(start, end, field):
@@ -35,23 +36,29 @@ def scan_references(document, *, act_index=None, source_credit_index=None):
             raise ValueError("Reference parser returned invalid source coordinates")
         return _evidence(document, text[start:end], field, start, end)
 
-    def record(kind, value, start, end, *, reading=None, context=None, refusal=None):
+    def record(kind, value, start, end, *, reading=None, context=None, refusal=None, source_text=None):
         support = evidence(start, end, 'reference')
+        if source_text is not None and text[start:end] != source_text:
+            raise ValueError("Reference parser quotation differs from the pinned source")
         row = {'kind': kind, 'value': value, 'start': start, 'end': end}
         if reading is not None:
             row['reading'] = reading
+        def reject(code, **details):
+            if refusal and refusal != code:
+                details['parser_refusal'] = refusal
+            rejected.append({**row, **details, 'code': code})
         if support is None:
-            rejected.append({**row, 'code': 'reference_not_grounded_in_source'})
+            reject('reference_not_grounded_in_source')
             return
         row['evidence'] = [support]
         if context is not None:
             context_evidence = evidence(*context, 'reference_context')
             if context_evidence is None:
-                rejected.append({**row, 'context_span': list(context), 'code': 'reference_context_not_grounded_in_source'})
+                reject('reference_context_not_grounded_in_source', context_span=list(context))
                 return
             row['evidence'].append(context_evidence)
         if refusal:
-            rejected.append({**row, 'code': refusal})
+            reject(refusal)
             return
         row.pop('start')
         row.pop('end')
@@ -66,8 +73,6 @@ def scan_references(document, *, act_index=None, source_credit_index=None):
                        if match.kind == 'rin' and iri_minting.mint_rin_iri(match.value) is None else None)
             record(str(match.kind), match.value, *match.span, refusal=refusal)
     for match in grammar.find_cfr_citations(text):
-        if text[match.start:match.end] != match.text:
-            raise ValueError("Reference parser quotation differs from the pinned source")
         reading = {**asdict(match.citation), 'pinpoint': list(match.pinpoint)}
         reading.update({key: getattr(match, key) for key in
                         ('subpart', 'subpart_end', 'appendix', 'qualifier_status')
@@ -88,7 +93,16 @@ def scan_references(document, *, act_index=None, source_credit_index=None):
         refusal = ('cfr_title_impossible' if not match.citation.title_is_possible else
                    'cfr_part_implausible' if match.citation.part_is_plausible is False else
                    'cfr_' + match.qualifier_status if match.qualifier_status else None)
-        record('cfr', value, match.start, match.end, reading=reading, context=context, refusal=refusal)
+        record('cfr', value, match.start, match.end, reading=reading, context=context,
+               refusal=refusal, source_text=match.text)
+    for match in grammar.find_usc_citations(text):
+        reading = sparse({**asdict(match.citation), **{key: getattr(match, key) for key in
+                          ('pinpoint', 'range_end_pinpoint', 'subchapter', 'subchapter_end')}})
+        context = None if match.context_start is None else (match.context_start, match.context_end)
+        # Keep written abbreviated ranges and refused qualifications intact.
+        # Native fields provide the target; no second parser or label formatter.
+        record('usc', match.text, match.start, match.end, reading=reading, context=context,
+               refusal=match.refusal, source_text=match.text)
     if act_index is not None:
         from refspec.registry import act_resolution as acts
         index = acts.ActIndex.from_artifact(Path(act_index))
@@ -102,11 +116,9 @@ def scan_references(document, *, act_index=None, source_credit_index=None):
                                  'sha256': {name: digest((Path(directory) / name).read_bytes()) for name in files}}
         names = set(index.table3_key_by_name) | set(index.alias_by_name)
         for match in grammar.find_act_relative_occurrences(text, act_names=names):
-            if text[match.start:match.end] != match.text:
-                raise ValueError("Reference parser quotation differs from the pinned source")
             value = f'{match.citation.act_name} section {match.citation.section}' + ''.join(f'({p})' for p in match.pinpoint)
             row = record('act_relative', value, match.start, match.end,
-                         reading={**asdict(match.citation), 'pinpoint': list(match.pinpoint)})
+                         reading={**asdict(match.citation), 'pinpoint': list(match.pinpoint)}, source_text=match.text)
             if row is not None:
                 resolution = asdict(acts.resolve_act_relative_citation(match.citation, index=index, source_credits=credits))
                 resolution.pop('citation')  # Already retained as the native reading.
@@ -124,7 +136,7 @@ def scan_references(document, *, act_index=None, source_credit_index=None):
                          'module_sha256': digest(Path(module.__file__).read_bytes())}
                         for name, package, module in parsers],
             **({'indexes': indexes} if indexes else {}),
-            'supported_kinds': sorted(SPICYSEARCH_KINDS | {'cfr'} | ({'act_relative'} if act_index is not None else set())),
+            'supported_kinds': sorted(SPICYSEARCH_KINDS | {'cfr', 'usc'} | ({'act_relative'} if act_index is not None else set())),
             'candidates': candidates, 'rejected': rejected,
             'target_resolution': 'named_act_section_identity_only' if indexes else 'not_performed',
             'semantic_completeness': 'not_established',

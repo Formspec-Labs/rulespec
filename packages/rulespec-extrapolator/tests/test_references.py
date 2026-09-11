@@ -21,11 +21,12 @@ def test_frozen_source_occurrences(case):
     assert digest(case['raw']) == case['text_sha256']
     doc = prepare_document(case['raw'])
     result = scan_references(doc)
-    # These frozen labels predate CFR integration and cover the original five families.
+    # These frozen labels cover the original five families; CFR/USC have separate controls.
+    families = {'public_law', 'statutes_at_large', 'executive_order', 'docket', 'rin'}
     actual = [{'kind': c['kind'], 'value': c['value'], 'quote': c['evidence'][0]['quote'],
-               'span': [c['evidence'][0]['start'], c['evidence'][0]['end']]} for c in result['candidates'] if c['kind'] != 'cfr']
+               'span': [c['evidence'][0]['start'], c['evidence'][0]['end']]} for c in result['candidates'] if c['kind'] in families]
     assert actual == case['expected_additions']
-    assert not result['rejected']
+    assert not [c for c in result['rejected'] if c['kind'] in families]
     assert result['target_resolution'] == 'not_performed'
     assert result['semantic_completeness'] == 'not_established'
     assert scan_references(doc) == result
@@ -260,12 +261,14 @@ def test_cfr_context_from_inserted_text_cannot_ground_a_list_continuation():
     assert result['rejected'][1]['reading']['cfr_section'] == '156'
 
 
-def test_cfr_parser_text_mismatch_is_not_replaced_with_plausible_source(monkeypatch):
+@pytest.mark.parametrize('reader, text', [('find_cfr_citations', '40 CFR 82.155(a)'),
+                                         ('find_usc_citations', '5 USC 552(a)')])
+def test_parser_text_mismatch_is_not_replaced_with_plausible_source(monkeypatch, reader, text):
     from dataclasses import replace
     from refspec.registry import citation_grammar
-    doc = prepare_document('40 CFR 82.155(a)')
-    match, = citation_grammar.find_cfr_citations(doc['text'])
-    monkeypatch.setattr(citation_grammar, 'find_cfr_citations', lambda _: [replace(match, text='40 CFR 82.156(a)')])
+    doc = prepare_document(text)
+    match, = getattr(citation_grammar, reader)(doc['text'])
+    monkeypatch.setattr(citation_grammar, reader, lambda _: [replace(match, text='different quotation')])
     with pytest.raises(ValueError, match='quotation differs'):
         scan_references(doc)
 
