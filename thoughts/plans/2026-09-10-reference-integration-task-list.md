@@ -11,8 +11,13 @@ package's preceding checkpoint passes 30 tests from source and its isolated whee
 Earlier counts belong to their linked checkpoints. Original captures and reviews
 remain intact; no model call, publication or deployment was needed for this cleanup.
 
-**Recommended next slice:** finish the bounded R12 source-format assessment, then
-measure this context in one discovery or workflow consumer. Optional USLM target
+**Recommended next slice:** connect the bounded R12 native eCFR extension, then
+measure this context in one discovery or workflow consumer. The
+[expanded reader comparison](../experiments/2026-09-11-ecfr-text/README.md) directly
+checked SpicySearch, DocSpec and SpicyDocs. DocSpec already supplies XML visible
+text and byte maps; its current table/line-break behavior does not replace native
+section structure. The shared RefSpec candidate is source-tested but remains
+uncommitted and uninstalled pending application checks. Optional USLM target
 text is now connected to both commands; the
 [body comparison](../experiments/2026-09-11-reference-bodies/README.md) preserves
 exact provisions and parent context without changing model prompts. Migrate remaining R8 graph readers when that
@@ -135,6 +140,8 @@ to test, not a measured general ranking of value.
 | SpicySearch | Public laws, Statutes at Large, executive orders, dockets and Regulation Identifier Numbers (RINs) in the reference adapter; upstream strict CFR/USC behavior tested | Selected other families, Atlas/agency readers and association suggestions; RefSpec supplies the selected USC consumer |
 | RefSpec | CFR and qualified USC occurrences, named-act/source-credit lookup and ambiguity fixes in both commands; USLM link and readable-text readers installed | Assess section/subsection oracle, broader qualifier forms, vocabulary and publication metadata |
 | Spicy Regs | Source preparation and catalog implementations inspected; no new extractor runtime connection | Verify catalog/body lookup fit and useful source preparation; use RefSpec's newer grammar instead of copying the older one |
+| DocSpec | XML visible text, configurable headings, original-byte evidence and bounded local acquisition directly exercised | Reuse normalized text where appropriate; fix general line-break/mixed-block issues upstream; no new logical-segmentation dependency |
+| SpicyDocs | Source profiles and Federal Register XML/text/HTML locator helpers directly exercised | Reuse acquisition and publisher identity when needed; optional CFR body fields are declarations, not a body renderer |
 | Local corpora | Selected act indexes and eCFR/USLM source captures verified and used | Check remaining loaders, editions and fresh inputs before use; a directory's presence is not an integration |
 
 Effort labels are relative: **S** is a focused adapter, test, or documentation
@@ -174,7 +181,7 @@ release. Preserve the completed foundation and make one bounded change at a time
 | R9 | Source-supported context for omitted citation titles | General support missing | M |
 | R10 | Exact local paragraph address index | Marker extension tested; ambiguity/inline-child gate failed; production unchanged | M |
 | R11 | Local paragraph and range lookup | Publisher targets delivered; general prose addresses and ranges remain open | M–L |
-| R12 | External provision text in a pinned edition | Optional USLM body lookup installed; eCFR bodies and historical correspondence remain open | L |
+| R12 | External provision text in a pinned edition | Optional USLM installed; sibling-reader comparison complete; native eCFR candidate source-tested, application delivery and historical correspondence open | L |
 | R13 | Named-act lookup through existing indexes | Competing law/scope candidates delivered; explicit law/year context and ranges open | M–L |
 | R14 | Publisher-provided citation links | USLM ingestion, evidence, reference/discovery export and local targets delivered | M |
 | R15 | Bounded context from sections and located references | Experiment selector and controls complete; adoption deferred after failed gate | M |
@@ -182,7 +189,7 @@ release. Preserve the completed foundation and make one bounded change at a time
 | R17 | Better search and discovery using source and meaning | Retrieval pilot regressed; narrower alternatives open | M–L |
 | R18 | Persistent corrections and review identity | Changed-ID delivery controls pass; reference feedback and optional continuity work remain open | S–M |
 | R19 | One reviewed workflow/forms preparation example | Planned | L |
-| R20 | Verified inventory of useful sibling code and corpus inputs | Partial inventory; three fresh USLM chapters captured; remaining compatibility checks open | S–M |
+| R20 | Verified inventory of useful sibling code and corpus inputs | Partial inventory; selected SpicySearch, DocSpec and SpicyDocs readers directly checked; remaining compatibility checks open | S–M |
 | R21 | Reuse structured publication metadata and useful associations | Existing producers/consumers; new connection unverified | M |
 | R22 | Shared vocabulary links for terms and actors | Existing readers and local terms; new connection unverified | M |
 | R23 | Preserve meaningful source layout and complete statement evidence | USLM preparation and complete source-fragment support delivered; broader layout cases open | M |
@@ -874,6 +881,15 @@ an exemption or applicability relationship.
   shared 4,352-character containing section. Source/installed suites pass 616 tests;
   different editions remain ambiguous and edition correspondence unestablished.
   Do not count this as a general CFR/USC resolver or improved extraction meaning.
+- [x] Compare existing SpicySearch, DocSpec and SpicyDocs readers before adopting
+  eCFR preparation. The [direct comparison](../experiments/2026-09-11-ecfr-text/README.md)
+  separates normalized visible text, byte evidence, acquisition helpers and native
+  XML structure. Extend the existing RefSpec native traversal for section/table
+  evidence; its candidate is not yet committed or installed.
+- [ ] Connect that bounded eCFR profile through the existing optional source path,
+  with native title context, exact-section lookup, original evidence and explicit
+  unresolved scope/edition cases. Check full-title resource use before requiring
+  full titles as input. Preserve installed USLM behavior.
 - [ ] Keep edition/date, catalog release, original citation, selected target and
   source digest together. Distinguish missing data from an invalid citation or a
   provision absent from the selected edition. Handle repeal/renumbering as recorded
@@ -1140,6 +1156,12 @@ legal automation approval.
 
 ### R20 — Verify a small, reusable corpus inventory
 
+- [x] Directly exercise selected SpicySearch text/subject helpers, DocSpec XML
+  visible text and local acquisition, and SpicyDocs source profiles/FR locators.
+  The [saved findings](../experiments/2026-09-11-ecfr-text/README.md) include actual
+  XML, configured headings and negative controls. General DocSpec line-break and
+  mixed-block fixes belong upstream under R23; native eCFR application work stays
+  under R12. No new integration workstream or dependency was added.
 - [x] Exercise RefSpec's USC body reader and edition/existence oracle, Spicy Regs'
   metadata-only section catalog, strict SpicySearch identity fields, and three
   pinned eCFR bodies. The [bounded inventory](../experiments/2026-09-11-reference-bodies/README.md)
@@ -1242,6 +1264,15 @@ concept relationships retain their type and provenance; label similarity does
 not become an asserted legal relationship.
 
 ### R23 — Reuse source preparation where layout carries meaning
+
+- [ ] **Owner: DocSpec visible-text preparation; effort S–M.** Correct the
+  directly observed `<BR>` word joins and constructed mixed-parent block joins
+  upstream, preserving original-byte evidence and checking changed text identities.
+  The [sibling-reader comparison](../experiments/2026-09-11-ecfr-text/README.md)
+  retains the actual `82.158` table header and empty-cell counterexample. Table
+  structure needs a separate explicit representation decision; do not imply that
+  adding spaces restores row/column meaning. This is independent of R12's native
+  XML reference-source integration.
 
 The R10 comparison now supplies specific source cases: italic deep-level markers
 in the saved seatbelt XML, `(i)` embedded in a definition's physical paragraph,
