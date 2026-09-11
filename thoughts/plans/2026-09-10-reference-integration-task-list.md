@@ -4,7 +4,8 @@ Updated 2026-09-11 against the local code and saved evidence. This is the curren
 backlog for the reference work, useful sibling-repository capabilities, and their
 extraction/discovery consumers. R1–R26 are stable identifiers for follow-up work.
 This update includes retention, optional-reader capture, qualified USC delivery,
-removal of unused citation copies and compilation occurrence delivery. The latest
+removal of unused citation copies, compilation occurrence delivery and the
+independent part-zero minter correction. The latest
 application suite passes 585 tests from source and its installed wheel; the graph
 package's preceding checkpoint passes 30 tests from source and its isolated wheel.
 Earlier counts belong to their linked checkpoints. Original captures and reviews
@@ -14,6 +15,16 @@ remain intact; no model call, publication or deployment was needed for this clea
 migrate the remaining R8 graph readers with their
 structured-input behavior preserved. The [caller trace and direct comparison](../experiments/2026-09-11-citation-ownership/README.md)
 are complete; unused act-name and compilation-locator copies are removed.
+The [whole-token experiment](../experiments/2026-09-11-cfr-whole-tokens/README.md)
+recovers 189 compound tokens but fails the complete-range gate: explicit endings
+still disappear. No token/range patch has been adopted. Independent
+[representation](../reviews/2026-09-11-cfr-range-representation.md) and
+[consumer](../reviews/2026-09-11-cfr-range-consumers.md) reviews identify the
+coordinated grammar, authority/Arrow rows, comparisons, explanations and application
+changes now being tested. The [part-zero utility correction](../experiments/2026-09-11-cfr-zero-parts/README.md)
+is separately installed: nine verified keys now mint, all 8,415 nonzero keys keep
+their prior results, and 112 upstream tests pass. The current CFR scanner does
+not use this minter; this does not claim better extraction or migration of R8.
 Compilation volume/page occurrences are now connected through RefSpec, including
 page-first court citations and the existing publisher XML path. The
 [comparison and delivery](../experiments/2026-09-11-compilation-occurrences/README.md)
@@ -182,9 +193,12 @@ output. Its current source and installed suites each pass 559 tests.
    Rulespec projection and SpicySearch; effort M.** Caller tracing is complete.
    The direct comparison found 189 compound-part truncations in RefSpec's
    reading of constructed index citations and confirmed that the strict
-   SpicySearch reader retains but refuses them. Read original prose for compound
-   versus range meaning, preserve the entire occurrence, and test the existing
-   graph's dictionary/compact inputs before replacing its live parser.
+   SpicySearch reader retains but refuses them. Original publisher XML now
+   distinguishes the observed compounds from explicit ranges. The token-only
+   gate failed. Test one complete item reader plus endpoint representation,
+   preserve/refuse scope through authority and typed rows, guard single-part
+   lookups/explanations, and use original occurrence text in Rulespec. Then test
+   the existing graph's dictionary/compact inputs before replacing its live parser.
 2. **Select the next useful reader or consumer — R7/R20/R22; effort M.** Use the
    existing inventory to choose a concrete application need. Compare the callable
    native reader on actual source and misleading controls before connecting it.

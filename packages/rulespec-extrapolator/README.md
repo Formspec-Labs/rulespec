@@ -340,15 +340,15 @@ uv pip install --python .tools/document-poc-venv/bin/python \
   dist/reference-integration-20260911-uslm-text/rulespec_conformance-0.2.0rc18-py3-none-any.whl \
   dist/citation-ownership-20260911/rulespec_projection-0.1.0-py3-none-any.whl \
   dist/reference-tools-20260910-parenthetical/spicysearch-0.1.4-py3-none-any.whl \
-  dist/reference-integration-20260911-compilations/refspec-0.1.0.dev0-py3-none-any.whl \
+  dist/reference-integration-20260911-cfr-zero/refspec-0.1.0.dev0-py3-none-any.whl \
   dist/reference-integration-20260911-compilations-final/rulespec_extrapolator-0.1.0.dev0-py3-none-any.whl \
   ../DocSpec/dist/docspec-0.2.11-py3-none-any.whl
 ```
 
 Use the Python environment where you installed the extractor. The scan records
 each parser's version and module digest. The latest
-[wheel inputs](../../thoughts/experiments/2026-09-11-compilation-occurrences/wheel-inputs.json)
-pin the matching builds, including compilation locators and the RIN, containment
+[wheel inputs](../../thoughts/experiments/2026-09-11-cfr-zero-parts/wheel-inputs.json)
+pin the matching builds, including the part-zero minter fix, compilation locators and the RIN, containment
 and retention changes; the
 [act-name comparison](../../thoughts/experiments/2026-09-11-act-name-multiplicity/README.md)
 retains an earlier checkpoint. The full installation includes DocSpec because of
