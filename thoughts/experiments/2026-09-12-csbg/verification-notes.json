@@ -1,0 +1,20 @@
+{
+  "attempts": [
+    {
+      "file": "check.log",
+      "result": "Started before extraction finalization; rulebook not yet present. No provider calls repeated."
+    },
+    {
+      "file": "check-completed-run.log",
+      "result": "Passed after extraction finished."
+    },
+    {
+      "check": "request-content inclusion",
+      "initial_assumptions": [
+        "First 100 source characters remain contiguous across passage boundaries.",
+        "Main evidence includes trailing publisher-node whitespace."
+      ],
+      "correction": "Request inserts passage labels; item 13 node includes a trailing newline outside primary evidence. Every nonempty source line in all thirteen plan items is present in the actual request. Evidence covers all meaningful text. Source bytes and coordinates unchanged."
+    }
+  ]
+}

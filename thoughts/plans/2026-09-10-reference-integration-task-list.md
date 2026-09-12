@@ -1,5 +1,74 @@
 # Rulespec reuse and extraction: comprehensive task list
 
+## Next priority: independently usable requirements — 2026-09-12
+
+The [full CSBG chapter test](../experiments/2026-09-12-csbg/RESULTS.md) processed
+135,797 characters across six windows and preserved all 979 source passages.
+Linked evidence again improved the selected retrieval checks. However, extraction
+compressed all thirteen State-plan contents in 42 USC 9908(b) into one statement
+referring to their paragraph numbers. Their source survives; their individual
+requirements are absent from the extracted meaning.
+
+**User priority:** another AI using these records to propose a form or workflow
+is half the product goal, with human review expected. Independently usable
+requirements are a core acceptance criterion. Discovery usefulness alone does
+not close this gap, and the next AI should not have to redo the source extraction.
+The immediate work is capturing those requirements; defer form/workflow mapping.
+
+- [x] **Isolate the dense-list failure using existing extraction.** The
+  [five-call focus comparison](../experiments/2026-09-12-csbg-focus/RESULTS.md)
+  completed. Fresh identical broad requests reproduced the generic list pointer;
+  a complete-section focus captured all thirteen plan contents in distinct records.
+  Ten contents were faithful and three partial at the declared detail level.
+  Controls retained their main branches, but exposed a standalone discretionary
+  action labeled `must` and private-board scope residing only in an optional field.
+  This is a bounded improvement, not a passed full-completeness gate or an adopted
+  production planner. All captures parse/compile identically on replay.
+- [x] **Integrate the supported focus control.** The user authorized integration
+  after the bounded result. `extract --section-windows` now starts requests at
+  existing section starts, preserves full text and original offsets, and keeps
+  the existing character cap/list handling/context. It is recorded for normal
+  replay and reprocessing. It defaults off: the full CSBG chapter would use
+  27 calls instead of six, and only three complete sections have been compared
+  for extraction quality. This is a narrower adoption decision; the earlier
+  full-completeness gate remains failed. No prompt or schema changed.
+- [ ] **Preserve subordinate meaning during focused capture.** Retain the saved
+  gaps in 9908(b)(1), (3) and (5): emergency-need/replication details, gap-filling
+  methods, and the explicit low-income service recipients. Require correct force
+  when splitting discretionary actions and full scope in the default reading.
+  Distinct records still use cumulative evidence; evaluate existing `scope_quotes`
+  for shared lead-ins before considering new structures. Keep the successful
+  board alternatives and corrective-action timing/exception cases as controls.
+  The [nine-call audit diagnostic](../experiments/2026-09-12-csbg-audit/RESULTS.md)
+  caught the broad thirteen-item omission but detected **zero of the three**
+  smaller gap groups; its independent inventory omitted the same details. It also
+  missed the default-statement scope and discretionary modal-field concerns.
+  Historical drafts stay unchanged. Do not make that audit a completeness gate.
+- [ ] **Test explicit subordinate-item accounting, without a new schema.** Reuse
+  publisher/source passage identities and existing inventory/scope evidence to
+  check each substantive child against extracted meaning, rather than allowing
+  an independent prose inventory to compress the same details again. Compare
+  with unchanged audit, retain the three saved gaps and correct optional/example
+  counterexamples, and include untouched documents before general adoption.
+  Structural counts still do not prove semantic completeness. No new automatic
+  pass, blanket paragraph splitting or prompt patch is implemented by this item.
+- [ ] **Distinguish missing context from uncaptured supplied meaning.** All
+  thirteen CSBG plan contents were already in the actual focus request. Test
+  focused capture of those contents rather than duplicating them as extra context.
+  For a reference whose target is outside the request, reuse existing reference
+  resolution and `context-export` to supply the located paragraph with its
+  governing lead-in. The current prompt/resolver allows new main statements only
+  from focus passages; context passages support interpretation. If the target's
+  own requirements need capture, make it a focus in an initial or later extraction.
+  Test that connection separately: current extraction and
+  audit/refinement do not automatically consume the reference-context export.
+  Preserve source identities and unresolved/ambiguous targets; do not introduce
+  another citation parser or assume that supplying text establishes its meaning.
+- [ ] **Keep grounding and classification defects separate.** The same run
+  withheld twelve problematic components and rejected one faithful reporting-cap
+  sentence for `threshold`/`must` classification. Retain these cases; correcting
+  those failures does not solve the thirteen missing State-plan meanings.
+
 ## Completed simplification batch — 2026-09-12
 
 **Completed:** the [README](../../packages/rulespec-extrapolator/README.md) now
