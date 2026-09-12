@@ -607,3 +607,30 @@ does not establish implementation or package qualification.
   `validation/s22-shared-writer-final/`. D31 remains open until DocSpec adopts
   the operation and removes its physical writer; this is local qualification,
   not upstream publication.
+
+  - [ ] **RS03 follow-up — Qualify same-content concurrent reuse and an already-pinned caller root.**
+    **Owner: Rulespec.** DocSpec's September 12 adoption probe found an ordinary
+    concurrent-write failure in the installed 1.0.12 writer: writer A publishes
+    a blob and pauses before removing its pending hardlink; writer B captures
+    that object's initial verification state; A unlinks its pending hardlink;
+    B reads unchanged bytes but fails `_blobs.py:98` because ctime changed.
+    The winner's exact bytes and empty pending directory were independently
+    asserted before observing the failure. The
+    [deterministic probe and admission decision](../DocSpec/docs/history/2026-09-12-shared-blob-writer-architecture.md)
+    record one failing case in 1.58 seconds. DocSpec reverted its uncommitted
+    adoption rather than classify all integrity failures as transient or add
+    a second retry/storage mechanism.
+
+    Make valid same-content concurrent publication/reuse succeed while retaining
+    refusal of actual byte mutation, replacement, growth and malformed objects.
+    Separately expose a small public way to supply the root identity the caller
+    already admitted, or equivalent descriptor admission, before any layout or
+    blob writes. This is required by DocSpec's existing catalog transaction;
+    detecting replacement after path-based construction has already written
+    files is insufficient. Keep reference/media-type mapping, iterator ownership
+    and dataset transactions with callers. **Done when:** the installed public
+    writer passes the synchronized pending-hardlink case, actual corruption and
+    cleanup checks, and wrong/replaced expected-root refusal before filesystem
+    mutation. Publish the updated bounded API through the wheel, then D31 owns
+    DocSpec adoption and removal. No DocSpec-local compatibility writer or retry
+    layer is requested.
