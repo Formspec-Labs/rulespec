@@ -1,0 +1,63 @@
+{
+  "type": "object",
+  "properties": {
+    "answers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "question_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "source": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "passage": {
+                  "type": "string",
+                  "description": "Select a supplied focus (F000) or context (C000) passage, or a contiguous\ninclusive range such as F003:F009. These locate exact source text; they do\nnot prove that the text supports the proposed meaning. Never invent IDs.",
+                  "title": "Source passage reference"
+                }
+              },
+              "required": [
+                "source",
+                "passage"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "answer": {
+            "type": "string",
+            "minLength": 1
+          },
+          "conclusion": {
+            "type": "string",
+            "enum": [
+              "yes",
+              "no",
+              "unknown",
+              "ambiguous"
+            ]
+          }
+        },
+        "required": [
+          "question_id",
+          "source_refs",
+          "answer",
+          "conclusion"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "answers"
+  ],
+  "additionalProperties": false
+}

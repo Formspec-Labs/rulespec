@@ -1,0 +1,1 @@
+No provider calls. Before freezing execution, replace dummy capture-window coordinates with the actual fixed source focus, preserve schema-validation refusals per cell, and verify captured request settings. Prompts, schema, case labels, and adapter remain unchanged. This note retains the old harness/hash list.

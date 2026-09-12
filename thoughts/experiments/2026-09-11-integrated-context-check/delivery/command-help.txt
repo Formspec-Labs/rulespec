@@ -1,0 +1,32 @@
+usage: rulespec-understand context-export [-h]
+                                          (--claim CLAIM | --span START END)
+                                          [--extra-chars EXTRA_CHARS] --output
+                                          OUTPUT
+                                          [--reference-source REFERENCE_SOURCE]
+                                          [--act-index ACT_INDEX]
+                                          [--source-credit-index SOURCE_CREDIT_INDEX]
+                                          source
+
+positional arguments:
+  source                Review directory, rulebook JSON, prepared document, or
+                        source file.
+
+options:
+  -h, --help            show this help message and exit
+  --claim CLAIM         Current claim revision ID in the supplied rulebook or
+                        review directory.
+  --span START END      Half-open prepared-text positions.
+  --extra-chars EXTRA_CHARS
+                        Additional unique source characters beyond current
+                        context.
+  --output OUTPUT
+  --reference-source REFERENCE_SOURCE
+                        Look up exact targets in supplied USLM/eCFR XML or a
+                        prepared document; repeat for additional sources or
+                        editions.
+  --act-index ACT_INDEX
+                        Use a pinned RefSpec act-index directory for named-act
+                        references.
+  --source-credit-index SOURCE_CREDIT_INDEX
+                        Also consult pinned RefSpec source credits; requires
+                        --act-index.

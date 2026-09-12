@@ -76,7 +76,14 @@ def main(argv=None):
     references = sub.add_parser("references", help="Locate supported reference mentions without model calls.")
     references.add_argument("source", type=Path, help="Text, USLM/eCFR XML, prepared document, rulebook JSON, or extraction directory.")
     references.add_argument("--output", type=Path, required=True)
-    for command in (references, discovery):
+    context = sub.add_parser('context-export', help='Assemble source context for one statement or passage without model calls.')
+    context.add_argument('source', type=Path, help='Review directory, rulebook JSON, prepared document, or source file.')
+    focus = context.add_mutually_exclusive_group(required=True)
+    focus.add_argument('--claim', help='Current claim revision ID in the supplied rulebook or review directory.')
+    focus.add_argument('--span', type=int, nargs=2, metavar=('START', 'END'), help='Half-open prepared-text positions.')
+    context.add_argument('--extra-chars', type=int, default=20000, help='Additional unique source characters beyond current context.')
+    context.add_argument('--output', type=Path, required=True)
+    for command in (references, discovery, context):
         command.add_argument("--reference-source", type=Path, action="append", default=[],
                              help="Look up exact targets in supplied USLM/eCFR XML or a prepared document; repeat for additional sources or editions.")
         command.add_argument("--act-index", type=Path, help="Use a pinned RefSpec act-index directory for named-act references.")
@@ -189,6 +196,24 @@ def main(argv=None):
             document = load_document(source)
         _write_new(args.output, scan_references(document, act_index=args.act_index, source_credit_index=args.source_credit_index,
                                                reference_sources=[load_document(p) for p in args.reference_source]))
+    elif args.command == 'context-export':
+        from .context import export_context
+        from .review_store import ReviewStore
+        if args.source.is_dir():
+            book = ReviewStore(args.source).snapshot()
+        else:
+            value = _load(args.source) if args.source.suffix == '.json' else {}
+            book = value if 'accepted' in value else {'document': load_document(args.source), 'accepted': []}
+        if args.claim:
+            matches = [c for c in book['accepted'] if c['id'] == args.claim]
+            if len(matches) != 1:
+                raise ValueError('Select a current claim revision from the supplied review state')
+            focus = matches[0]
+        else:
+            focus = dict(zip(('start', 'end'), args.span))
+        _write_new(args.output, export_context(book, focus, reference_sources=[load_document(p) for p in args.reference_source],
+                                               act_index=args.act_index, source_credit_index=args.source_credit_index,
+                                               extra_chars=args.extra_chars))
     elif args.command == "evaluate":
         from .evaluation import evaluate
         result = evaluate(_load(args.rulebook), _load(args.labels),

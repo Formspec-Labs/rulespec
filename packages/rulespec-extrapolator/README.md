@@ -406,6 +406,48 @@ Prefer publisher XML when it contains the required document text in a supported
 format. Supply that XML directly instead of first flattening it to text or
 extracting a PDF copy. Format selection is currently the caller's responsibility.
 
+`context-export` brings this evidence back to one extracted statement or selected
+passage. It assembles current neighboring context, a complete short enclosing
+section, directly linked statements, uniquely located reference targets and
+relevant saved reference feedback. Repeated targets share text; separate sources
+keep separate coordinates. Missing targets, competing editions, and omitted
+context remain explicit. This export makes no model calls and changes no meaning
+or review decisions.
+
+```sh
+rulespec-understand context-export my-run --claim CURRENT_CLAIM_REVISION_ID \
+  --reference-source usc05.xml --output statement-context.json
+
+# A prepared source selection also works before extraction.
+rulespec-understand context-export prepared.json --span 100 400 \
+  --reference-source usc05.xml --output passage-context.json
+```
+
+The same optional act/source-credit index flags work here. `--span` uses half-open
+prepared-text positions. `--extra-chars` defaults to 20,000 additional unique source
+characters beyond the selected statement and its existing context; whole additions
+that exceed the allowance are skipped with a reason. An enclosing section is added
+only when at most 12,000 characters; a referenced provision gains its containing
+section when at most 6,000. Expansion follows references in the original selection
+only. A whole section may contain editorial or historical notes; selection does
+not establish that any supplied text governs the statement.
+
+The output separates readable `material` from the selected original `documents`,
+the full `reference_scan`, and complete relevant feedback `observations`. Source
+metadata is shared by source ID. The current review
+revision, rulebook fingerprint and exporter fingerprint identify the input and code.
+For application use, `context.export_context(book, focus, ...)` builds the same
+data; `context.resolve_context({"source": "S1", "passage": "F009:F011"}, result)`
+returns exact original-source evidence using the appropriate document's resolver.
+Existing `ReviewStore` observations and revision-checked edits remain available
+for recording subsequent findings or corrections.
+
+The [fixed-question experiment](../../thoughts/experiments/2026-09-11-integrated-context-check/RESULTS.md)
+recovered additional meaning in three of four selected natural cases, but failed
+its promotion gate: one answer invented an actor restriction, and integrated
+requests used 2.15× baseline reported tokens. The automatic model check and meaning
+corrections remain experimental; the evidence export alone is available here.
+
 With these packages, `prepare`, `extract` and `references` accept USLM and eCFR `.xml`
 files. RefSpec supplies readable heading/list/table boundaries; Rulespec retains
 the original UTF-8 XML and maps prepared text back to it. Inserted separators never

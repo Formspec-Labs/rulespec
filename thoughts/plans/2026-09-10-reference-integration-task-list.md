@@ -1,5 +1,25 @@
 # Rulespec reuse and extraction: comprehensive task list
 
+**Current user priority, 2026-09-11:** bring the completed reference, source,
+retention and feedback capabilities back into the original extraction/context
+work. Follow the [context integration plan](2026-09-11-context-work-integration.md)
+for that next slice. The publication-metadata checkpoint below remains valid as
+an independent saved experiment; it is not a prerequisite or the current primary
+task. Completed and failed results below keep their original status.
+
+**Context integration result:** the [fixed-question comparison](../experiments/2026-09-11-integrated-context-check/RESULTS.md)
+made twelve calls and recovered additional meaning in three of four natural cases,
+but failed promotion because of an actor/scope regression and 2.145× token use.
+The deterministic `context-export` integration is implemented: current statement
+or source selection → short sections, linked claims, one-hop target bodies and
+recorded reference feedback, with separate source coordinates and explicit limits.
+It makes no model calls or meaning edits. The model check and R25 corrections remain
+experimental. Source and isolated-installed checks pass 674 tests, and the new
+export is installed locally without upgrading sibling dependencies. The context
+integration plan and its delivery artifacts are the
+current context-work stopping point; older metadata recommendations below are
+separate backlog items.
+
 Updated 2026-09-11 against the local code and saved evidence. This is the current
 backlog for the reference work, useful sibling-repository capabilities, and their
 extraction/discovery consumers. R1–R26 are stable identifiers for follow-up work.
@@ -10,13 +30,13 @@ reader check passed on 93 records; body association and consumer adoption remain
 unverified. The broader goal and unfinished workstreams remain open.
 This update includes retention, optional-reader capture, qualified USC delivery,
 removal of unused citation copies, compilation occurrence delivery and the
-independent part-zero minter correction and complete CFR range delivery. The latest
-application suite passes 662 tests from source and its installed wheel; the graph
+independent part-zero minter correction and complete CFR range delivery. The preceding
+application suite passed 662 tests from source and its installed wheel; the graph
 package's preceding checkpoint passes 30 tests from source and its isolated wheel.
 Earlier counts belong to their linked checkpoints. Original captures and reviews
 remain intact; no model call, publication or deployment was needed for this cleanup.
 
-**Recommended next slice:** the [grounded omitted-title comparison](../experiments/2026-09-11-cfr-native-context/README.md)
+**Earlier reference-work checkpoints:** the [grounded omitted-title comparison](../experiments/2026-09-11-cfr-native-context/README.md)
 is complete and failed adoption: native defaults recover 20/21 selected local
 references but assign three foreign citations to the wrong title; a local-phrase
 requirement recovers only 7/21 and fails ambiguity controls. The observed

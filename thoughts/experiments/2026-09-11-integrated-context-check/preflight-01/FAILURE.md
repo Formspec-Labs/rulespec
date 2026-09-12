@@ -1,0 +1,1 @@
+Preflight detected the primary external-reference focus selected the table-of-contents occurrence of III. Final Action rather than the actual section. No references or feedback reached B. No model calls occurred. Preserve these inputs; choose the last actual section heading and a feedback occurrence inside the actual focus, then refreeze.
