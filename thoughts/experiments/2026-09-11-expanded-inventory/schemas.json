@@ -1,0 +1,308 @@
+{
+  "inventory": {
+    "type": "object",
+    "properties": {
+      "units": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "quote_ref": {
+              "type": "string",
+              "description": "Select a focus passage or contiguous focus range supporting this meaning.",
+              "pattern": "^F[0-9]{3,}(:F[0-9]{3,})?$"
+            },
+            "scope_refs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "Select a supplied focus (F000) or context (C000) passage, or a contiguous\ninclusive range such as F003:F009. These locate exact source text; they do\nnot prove that the text supports the proposed meaning. Never invent IDs.",
+                "title": "Source passage reference"
+              },
+              "description": "Select substantive governing lead-ins from focus or context passages,\nnot bare section labels. Use [] when no additional scope is needed."
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "alternative",
+                "background",
+                "condition",
+                "definition",
+                "exception",
+                "exemption",
+                "permission",
+                "prohibition",
+                "recommendation",
+                "requirement",
+                "statement",
+                "threshold"
+              ]
+            },
+            "meaning": {
+              "type": "string",
+              "description": "Complete source-supported meaning, including inherited conditions,\ntiming, AND/OR, negation and modal distinctions. Evidence alone does\nnot restore an omitted condition, alternative or qualification.",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "quote_ref",
+            "scope_refs",
+            "kind",
+            "meaning"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "units"
+    ],
+    "additionalProperties": false,
+    "description": "Source-first meanings to check against a draft. Several meanings may share\none source passage; selecting a passage does not prove complete enumeration."
+  },
+  "comparison": {
+    "type": "object",
+    "properties": {
+      "claim_judgments": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "claim_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "unit_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "source_refs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "Select a supplied source alias and its passage or contiguous range, for example S0/F003 or S0/F003:F006. Never combine sources or focus/context prefixes in one range.",
+                "title": "Source passage reference"
+              }
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "dimensions": {
+              "type": "object",
+              "properties": {
+                "summary": {
+                  "type": "string",
+                  "enum": [
+                    "correct",
+                    "error",
+                    "not_applicable",
+                    "unknown"
+                  ]
+                },
+                "actor": {
+                  "type": "string",
+                  "enum": [
+                    "correct",
+                    "error",
+                    "not_applicable",
+                    "unknown"
+                  ]
+                },
+                "support": {
+                  "type": "string",
+                  "enum": [
+                    "correct",
+                    "error",
+                    "not_applicable",
+                    "unknown"
+                  ]
+                },
+                "scope": {
+                  "type": "string",
+                  "enum": [
+                    "correct",
+                    "error",
+                    "not_applicable",
+                    "unknown"
+                  ]
+                },
+                "links": {
+                  "type": "string",
+                  "enum": [
+                    "correct",
+                    "error",
+                    "not_applicable",
+                    "unknown"
+                  ]
+                },
+                "boundary": {
+                  "type": "string",
+                  "enum": [
+                    "correct",
+                    "error",
+                    "not_applicable",
+                    "unknown"
+                  ]
+                },
+                "modality": {
+                  "type": "string",
+                  "enum": [
+                    "correct",
+                    "error",
+                    "not_applicable",
+                    "unknown"
+                  ]
+                },
+                "action": {
+                  "type": "string",
+                  "enum": [
+                    "correct",
+                    "error",
+                    "not_applicable",
+                    "unknown"
+                  ]
+                },
+                "object": {
+                  "type": "string",
+                  "enum": [
+                    "correct",
+                    "error",
+                    "not_applicable",
+                    "unknown"
+                  ]
+                },
+                "alternatives": {
+                  "type": "string",
+                  "enum": [
+                    "correct",
+                    "error",
+                    "not_applicable",
+                    "unknown"
+                  ]
+                },
+                "thresholds": {
+                  "type": "string",
+                  "enum": [
+                    "correct",
+                    "error",
+                    "not_applicable",
+                    "unknown"
+                  ]
+                },
+                "concepts": {
+                  "type": "string",
+                  "enum": [
+                    "correct",
+                    "error",
+                    "not_applicable",
+                    "unknown"
+                  ]
+                },
+                "source_attribution": {
+                  "type": "string",
+                  "enum": [
+                    "correct",
+                    "error",
+                    "not_applicable",
+                    "unknown"
+                  ]
+                },
+                "effectivity": {
+                  "type": "string",
+                  "enum": [
+                    "correct",
+                    "error",
+                    "not_applicable",
+                    "unknown"
+                  ]
+                }
+              },
+              "required": [
+                "summary",
+                "actor",
+                "support",
+                "scope",
+                "links",
+                "boundary",
+                "modality",
+                "action",
+                "object",
+                "alternatives",
+                "thresholds",
+                "concepts",
+                "source_attribution",
+                "effectivity"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "claim_id",
+            "unit_ids",
+            "source_refs",
+            "rationale",
+            "dimensions"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "unit_judgments": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "unit_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "covered",
+                "missing",
+                "partial",
+                "unknown"
+              ]
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_refs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "Select a supplied source alias and its passage or contiguous range, for example S0/F003 or S0/F003:F006. Never combine sources or focus/context prefixes in one range.",
+                "title": "Source passage reference"
+              }
+            }
+          },
+          "required": [
+            "unit_id",
+            "claim_ids",
+            "status",
+            "rationale",
+            "source_refs"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "claim_judgments",
+      "unit_judgments"
+    ],
+    "additionalProperties": false
+  }
+}

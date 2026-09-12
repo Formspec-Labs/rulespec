@@ -21,6 +21,18 @@ from rulespec_extrapolator.evaluation import (
 EVALUATION = Path(__file__).resolve().parents[1] / "evaluation"
 
 
+def test_saved_provider_coverage_alias_errors_stay_needs_review():
+    root = Path(__file__).resolve().parents[3] / 'thoughts/experiments/2026-09-11-qualification-links'
+    case = next(c for c in json.loads((root / 'cases.json').read_text()) if c['id'] == 'equipment')
+    saved = json.loads((root / 'comparison/equipment-B/assessment.json').read_text())
+    report = evaluate(case['book'], case['labels'], saved['judgments'])
+    expected = {case['labels']['expected_units'][i]['id'] for i in (6, 7, 8)}
+    assert report['status'] == 'needs_review'
+    assert report['review_complete'] is False
+    assert {i['unit_id'] for i in report['issues'] if i['code'] == 'inconsistent_coverage_judgment'} == expected
+    assert report['coverage']['unknown'] == 3
+
+
 @pytest.fixture
 def reviewed_output():
     labels = json.loads((EVALUATION / "development-labels.json").read_text())

@@ -1,0 +1,259 @@
+{
+  "fixed_inputs_equal": true,
+  "runtime_pins_equal": true,
+  "pairs": [
+    {
+      "case": "equipment",
+      "only_difference": "qualifies target arrays",
+      "proposals": 3
+    },
+    {
+      "case": "ecfr-14-61-56",
+      "only_difference": "qualifies target arrays",
+      "proposals": 5
+    },
+    {
+      "case": "ecfr-29-1910-132",
+      "only_difference": "qualifies target arrays",
+      "proposals": 6
+    }
+  ],
+  "generation": [
+    {
+      "case": "equipment",
+      "accepted": 3,
+      "target_count": 3,
+      "issue_codes": [
+        "already_represented",
+        "already_represented"
+      ]
+    },
+    {
+      "case": "ecfr-14-61-56",
+      "accepted": 5,
+      "target_count": 5,
+      "issue_codes": []
+    },
+    {
+      "case": "ecfr-29-1910-132",
+      "accepted": 6,
+      "target_count": 11,
+      "issue_codes": [
+        "already_represented",
+        "already_represented"
+      ]
+    }
+  ],
+  "requests": [
+    {
+      "name": "relationships/equipment",
+      "status": "response_received",
+      "model": "gemini-3.8-flash",
+      "config": {
+        "temperature": 0,
+        "max_output_tokens": 32768,
+        "response_mime_type": "application/json",
+        "candidate_count": 1,
+        "thinking_config": {
+          "thinking_level": "medium"
+        }
+      }
+    },
+    {
+      "name": "comparison/equipment-A",
+      "status": "response_received",
+      "model": "gemini-3.8-flash",
+      "config": {
+        "temperature": 0,
+        "max_output_tokens": 32768,
+        "response_mime_type": "application/json",
+        "candidate_count": 1,
+        "thinking_config": {
+          "thinking_level": "medium"
+        }
+      }
+    },
+    {
+      "name": "comparison/equipment-B",
+      "status": "response_received",
+      "model": "gemini-3.8-flash",
+      "config": {
+        "temperature": 0,
+        "max_output_tokens": 32768,
+        "response_mime_type": "application/json",
+        "candidate_count": 1,
+        "thinking_config": {
+          "thinking_level": "medium"
+        }
+      }
+    },
+    {
+      "name": "relationships/ecfr-14-61-56",
+      "status": "response_received",
+      "model": "gemini-3.8-flash",
+      "config": {
+        "temperature": 0,
+        "max_output_tokens": 32768,
+        "response_mime_type": "application/json",
+        "candidate_count": 1,
+        "thinking_config": {
+          "thinking_level": "medium"
+        }
+      }
+    },
+    {
+      "name": "comparison/ecfr-14-61-56-B",
+      "status": "response_received",
+      "model": "gemini-3.8-flash",
+      "config": {
+        "temperature": 0,
+        "max_output_tokens": 32768,
+        "response_mime_type": "application/json",
+        "candidate_count": 1,
+        "thinking_config": {
+          "thinking_level": "medium"
+        }
+      }
+    },
+    {
+      "name": "comparison/ecfr-14-61-56-A",
+      "status": "response_received",
+      "model": "gemini-3.8-flash",
+      "config": {
+        "temperature": 0,
+        "max_output_tokens": 32768,
+        "response_mime_type": "application/json",
+        "candidate_count": 1,
+        "thinking_config": {
+          "thinking_level": "medium"
+        }
+      }
+    },
+    {
+      "name": "relationships/ecfr-29-1910-132",
+      "status": "response_received",
+      "model": "gemini-3.8-flash",
+      "config": {
+        "temperature": 0,
+        "max_output_tokens": 32768,
+        "response_mime_type": "application/json",
+        "candidate_count": 1,
+        "thinking_config": {
+          "thinking_level": "medium"
+        }
+      }
+    },
+    {
+      "name": "comparison/ecfr-29-1910-132-A",
+      "status": "response_received",
+      "model": "gemini-3.8-flash",
+      "config": {
+        "temperature": 0,
+        "max_output_tokens": 32768,
+        "response_mime_type": "application/json",
+        "candidate_count": 1,
+        "thinking_config": {
+          "thinking_level": "medium"
+        }
+      }
+    },
+    {
+      "name": "comparison/ecfr-29-1910-132-B",
+      "status": "response_received",
+      "model": "gemini-3.8-flash",
+      "config": {
+        "temperature": 0,
+        "max_output_tokens": 32768,
+        "response_mime_type": "application/json",
+        "candidate_count": 1,
+        "thinking_config": {
+          "thinking_level": "medium"
+        }
+      }
+    }
+  ],
+  "comparisons": [
+    {
+      "case": "equipment",
+      "arm": "A",
+      "claim_count": 14,
+      "unit_count": 24,
+      "issues": [],
+      "evaluation_issues": [],
+      "status": "passed",
+      "review_complete": true,
+      "source_refs": 66
+    },
+    {
+      "case": "equipment",
+      "arm": "B",
+      "claim_count": 14,
+      "unit_count": 24,
+      "issues": [],
+      "evaluation_issues": [
+        {
+          "code": "inconsistent_coverage_judgment",
+          "unit_id": "urn:rulespec:audit-unit:6d11c3cfe9beac38918f740422bdc91e2e8bc63f1d77dc7b81e2a24b0ad60e08",
+          "message": "Coverage lacks current, consistent reviewed claim matches."
+        },
+        {
+          "code": "inconsistent_coverage_judgment",
+          "unit_id": "urn:rulespec:audit-unit:830caed1a9d583b1dfef6ae58924bfb77f84f2bd58a1ed0dd4527a49427dc9a1",
+          "message": "Coverage lacks current, consistent reviewed claim matches."
+        },
+        {
+          "code": "inconsistent_coverage_judgment",
+          "unit_id": "urn:rulespec:audit-unit:bd521dacb23aad5aa82b99fc8cd46571a6e7a885bfbea284d23b06df38ee9a94",
+          "message": "Coverage lacks current, consistent reviewed claim matches."
+        }
+      ],
+      "status": "needs_review",
+      "review_complete": false,
+      "source_refs": 67
+    },
+    {
+      "case": "ecfr-14-61-56",
+      "arm": "B",
+      "claim_count": 13,
+      "unit_count": 19,
+      "issues": [],
+      "evaluation_issues": [],
+      "status": "passed",
+      "review_complete": true,
+      "source_refs": 62
+    },
+    {
+      "case": "ecfr-14-61-56",
+      "arm": "A",
+      "claim_count": 13,
+      "unit_count": 19,
+      "issues": [],
+      "evaluation_issues": [],
+      "status": "passed",
+      "review_complete": true,
+      "source_refs": 51
+    },
+    {
+      "case": "ecfr-29-1910-132",
+      "arm": "A",
+      "claim_count": 26,
+      "unit_count": 28,
+      "issues": [],
+      "evaluation_issues": [],
+      "status": "failed",
+      "review_complete": true,
+      "source_refs": 108
+    },
+    {
+      "case": "ecfr-29-1910-132",
+      "arm": "B",
+      "claim_count": 26,
+      "unit_count": 28,
+      "issues": [],
+      "evaluation_issues": [],
+      "status": "failed",
+      "review_complete": true,
+      "source_refs": 99
+    }
+  ]
+}
