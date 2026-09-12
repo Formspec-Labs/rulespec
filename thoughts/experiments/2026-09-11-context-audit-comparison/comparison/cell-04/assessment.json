@@ -1,0 +1,804 @@
+{
+  "judgments": {
+    "schema_version": "rulespec-evaluation-judgments/1",
+    "rulebook_sha256": "e33994662dae8b43a8c9f7f12c70d44494bc1e89dba3d6cac8b7b196ef93bf34",
+    "labels_sha256": "b9c6c520533bb4f46bd43ffb7b6b2c3a898b3e3b4c7be09a447120af6d40d5f5",
+    "review_provenance": {
+      "reviewer": "gemini-3.8-flash claim-first checker",
+      "reviewer_kind": "aiAgent",
+      "method": "source_review"
+    },
+    "claim_judgments": [
+      {
+        "claim_id": "urn:rulespec:document-understanding:revision:70f6d66e4405525466d0a773cf28651d3e1192c1299e31a75aaaa561d07439de",
+        "unit_ids": [
+          "urn:rulespec:audit-unit:2539c933a2fdb02bcd3cefa628e5393f2383872fdcd2f9ce94921c193df27593"
+        ],
+        "source_spans": [
+          {
+            "source_id": "urn:rulespec:document-understanding:document:8e2a86970dc06b1340952160d3f6524db8f2948b72a87253bc35cda27b0de7e1",
+            "quote": "(B) Except as provided in paragraph (a)(3)(iii)(B)( 4 ) of this action, the approved child restraint system bears one or more labels as follows:",
+            "start": 2413,
+            "end": 2557
+          },
+          {
+            "source_id": "urn:rulespec:document-understanding:document:8e2a86970dc06b1340952160d3f6524db8f2948b72a87253bc35cda27b0de7e1",
+            "quote": "( 1 ) Seats manufactured to U.S. standards between January 1, 1981, and February 25, 1985, must bear the label: “This child restraint system conforms to all applicable Federal motor vehicle safety standards”;",
+            "start": 2559,
+            "end": 2767
+          }
+        ],
+        "rationale": "Claim C0007 correctly captures the mandatory requirement from paragraph (a)(3)(iii)(B)(1) that seats manufactured to U.S. standards between January 1, 1981, and February 25, 1985, must bear the specified label. However, the governing condition in the parent lead-in (B)—specifically the exception 'Except as provided in paragraph (a)(3)(iii)(B)( 4 ) of this action'—was omitted from both the summary and the explicit scope_text ('Approved child restraint systems manufactured to U.S. standards between January 1, 1981, and February 25, 1985'), despite being quoted in the raw scope_quotes. Because this governing exception was not incorporated into the explicit meaning or scope, the summary and scope are incomplete and overbroad.",
+        "claim_sha256": "4f73f89cfa3d530e9f5abb9b354544ab4bab96658026505f4a87c1558dbf8d67",
+        "dimensions": {
+          "summary": "error",
+          "actor": "not_applicable",
+          "support": "correct",
+          "scope": "error",
+          "links": "correct",
+          "boundary": "correct",
+          "modality": "correct",
+          "action": "not_applicable",
+          "object": "not_applicable",
+          "alternatives": "not_applicable",
+          "thresholds": "not_applicable",
+          "concepts": "correct",
+          "source_attribution": "not_applicable",
+          "effectivity": "correct"
+        }
+      }
+    ],
+    "unit_judgments": [
+      {
+        "unit_id": "urn:rulespec:audit-unit:2539c933a2fdb02bcd3cefa628e5393f2383872fdcd2f9ce94921c193df27593",
+        "claim_ids": [
+          "urn:rulespec:document-understanding:revision:70f6d66e4405525466d0a773cf28651d3e1192c1299e31a75aaaa561d07439de"
+        ],
+        "source_spans": [
+          {
+            "source_id": "urn:rulespec:document-understanding:document:8e2a86970dc06b1340952160d3f6524db8f2948b72a87253bc35cda27b0de7e1",
+            "quote": "(B) Except as provided in paragraph (a)(3)(iii)(B)( 4 ) of this action, the approved child restraint system bears one or more labels as follows:",
+            "start": 2413,
+            "end": 2557
+          },
+          {
+            "source_id": "urn:rulespec:document-understanding:document:8e2a86970dc06b1340952160d3f6524db8f2948b72a87253bc35cda27b0de7e1",
+            "quote": "( 1 ) Seats manufactured to U.S. standards between January 1, 1981, and February 25, 1985, must bear the label: “This child restraint system conforms to all applicable Federal motor vehicle safety standards”;",
+            "start": 2559,
+            "end": 2767
+          }
+        ],
+        "rationale": "Claim C0007 addresses the core labeling requirement for seats manufactured to U.S. standards between January 1, 1981, and February 25, 1985, but fails to retain the governing lead-in exception ('Except as provided in paragraph (a)(3)(iii)(B)( 4 ) of this action') in its explicit summary or scope_text, leaving the requirement partially represented.",
+        "status": "partial"
+      }
+    ]
+  },
+  "issues": [],
+  "report": {
+    "schema_version": "rulespec-evaluation-report/1",
+    "assessment_kind": "model-assisted-source-assessment",
+    "status": "failed",
+    "review_complete": false,
+    "dataset_id": "automatic-inventory:aa06cb8241076f97ce81fed036d7a98a42de4220428a5489045944f2e1e43211",
+    "split": "production-assessment",
+    "rulebook_sha256": "e33994662dae8b43a8c9f7f12c70d44494bc1e89dba3d6cac8b7b196ef93bf34",
+    "labels_sha256": "b9c6c520533bb4f46bd43ffb7b6b2c3a898b3e3b4c7be09a447120af6d40d5f5",
+    "label_provenance": {
+      "reviewer": "gemini-3.8-flash source-first checker",
+      "reviewer_kind": "aiAgent",
+      "method": "source_review"
+    },
+    "review_provenance": {
+      "reviewer": "gemini-3.8-flash claim-first checker",
+      "reviewer_kind": "aiAgent",
+      "method": "source_review"
+    },
+    "counts": {
+      "accepted_claims": 17,
+      "expected_units": 1,
+      "reviewed_claims": 1,
+      "unjudged_or_stale_claims": 16
+    },
+    "dimensions": {
+      "summary": {
+        "correct": 0,
+        "error": 1,
+        "not_applicable": 0,
+        "unknown": 16,
+        "reviewed_correct_fraction": {
+          "numerator": 0,
+          "denominator": 1,
+          "value": 0.0
+        },
+        "reviewed_fraction": {
+          "numerator": 1,
+          "denominator": 17,
+          "value": 0.058823529411764705
+        },
+        "error_examples": [
+          {
+            "claim_id": "urn:rulespec:document-understanding:revision:70f6d66e4405525466d0a773cf28651d3e1192c1299e31a75aaaa561d07439de",
+            "summary": "Seats manufactured to U.S. standards between January 1, 1981, and February 25, 1985, must bear the label: “This child restraint system conforms to all applicable Federal motor vehicle safety standards”.",
+            "actor": "",
+            "rationale": "Claim C0007 correctly captures the mandatory requirement from paragraph (a)(3)(iii)(B)(1) that seats manufactured to U.S. standards between January 1, 1981, and February 25, 1985, must bear the specified label. However, the governing condition in the parent lead-in (B)—specifically the exception 'Except as provided in paragraph (a)(3)(iii)(B)( 4 ) of this action'—was omitted from both the summary and the explicit scope_text ('Approved child restraint systems manufactured to U.S. standards between January 1, 1981, and February 25, 1985'), despite being quoted in the raw scope_quotes. Because this governing exception was not incorporated into the explicit meaning or scope, the summary and scope are incomplete and overbroad."
+          }
+        ]
+      },
+      "actor": {
+        "correct": 0,
+        "error": 0,
+        "not_applicable": 1,
+        "unknown": 16,
+        "reviewed_correct_fraction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "reviewed_fraction": {
+          "numerator": 1,
+          "denominator": 17,
+          "value": 0.058823529411764705
+        },
+        "error_examples": []
+      },
+      "support": {
+        "correct": 1,
+        "error": 0,
+        "not_applicable": 0,
+        "unknown": 16,
+        "reviewed_correct_fraction": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "reviewed_fraction": {
+          "numerator": 1,
+          "denominator": 17,
+          "value": 0.058823529411764705
+        },
+        "error_examples": []
+      },
+      "scope": {
+        "correct": 0,
+        "error": 1,
+        "not_applicable": 0,
+        "unknown": 16,
+        "reviewed_correct_fraction": {
+          "numerator": 0,
+          "denominator": 1,
+          "value": 0.0
+        },
+        "reviewed_fraction": {
+          "numerator": 1,
+          "denominator": 17,
+          "value": 0.058823529411764705
+        },
+        "error_examples": [
+          {
+            "claim_id": "urn:rulespec:document-understanding:revision:70f6d66e4405525466d0a773cf28651d3e1192c1299e31a75aaaa561d07439de",
+            "summary": "Seats manufactured to U.S. standards between January 1, 1981, and February 25, 1985, must bear the label: “This child restraint system conforms to all applicable Federal motor vehicle safety standards”.",
+            "actor": "",
+            "rationale": "Claim C0007 correctly captures the mandatory requirement from paragraph (a)(3)(iii)(B)(1) that seats manufactured to U.S. standards between January 1, 1981, and February 25, 1985, must bear the specified label. However, the governing condition in the parent lead-in (B)—specifically the exception 'Except as provided in paragraph (a)(3)(iii)(B)( 4 ) of this action'—was omitted from both the summary and the explicit scope_text ('Approved child restraint systems manufactured to U.S. standards between January 1, 1981, and February 25, 1985'), despite being quoted in the raw scope_quotes. Because this governing exception was not incorporated into the explicit meaning or scope, the summary and scope are incomplete and overbroad."
+          }
+        ]
+      },
+      "links": {
+        "correct": 1,
+        "error": 0,
+        "not_applicable": 0,
+        "unknown": 16,
+        "reviewed_correct_fraction": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "reviewed_fraction": {
+          "numerator": 1,
+          "denominator": 17,
+          "value": 0.058823529411764705
+        },
+        "error_examples": []
+      },
+      "boundary": {
+        "correct": 1,
+        "error": 0,
+        "not_applicable": 0,
+        "unknown": 16,
+        "reviewed_correct_fraction": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "reviewed_fraction": {
+          "numerator": 1,
+          "denominator": 17,
+          "value": 0.058823529411764705
+        },
+        "error_examples": []
+      },
+      "modality": {
+        "correct": 1,
+        "error": 0,
+        "not_applicable": 0,
+        "unknown": 16,
+        "reviewed_correct_fraction": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "reviewed_fraction": {
+          "numerator": 1,
+          "denominator": 17,
+          "value": 0.058823529411764705
+        },
+        "error_examples": []
+      },
+      "action": {
+        "correct": 0,
+        "error": 0,
+        "not_applicable": 1,
+        "unknown": 16,
+        "reviewed_correct_fraction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "reviewed_fraction": {
+          "numerator": 1,
+          "denominator": 17,
+          "value": 0.058823529411764705
+        },
+        "error_examples": []
+      },
+      "object": {
+        "correct": 0,
+        "error": 0,
+        "not_applicable": 1,
+        "unknown": 16,
+        "reviewed_correct_fraction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "reviewed_fraction": {
+          "numerator": 1,
+          "denominator": 17,
+          "value": 0.058823529411764705
+        },
+        "error_examples": []
+      },
+      "alternatives": {
+        "correct": 0,
+        "error": 0,
+        "not_applicable": 1,
+        "unknown": 16,
+        "reviewed_correct_fraction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "reviewed_fraction": {
+          "numerator": 1,
+          "denominator": 17,
+          "value": 0.058823529411764705
+        },
+        "error_examples": []
+      },
+      "thresholds": {
+        "correct": 0,
+        "error": 0,
+        "not_applicable": 1,
+        "unknown": 16,
+        "reviewed_correct_fraction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "reviewed_fraction": {
+          "numerator": 1,
+          "denominator": 17,
+          "value": 0.058823529411764705
+        },
+        "error_examples": []
+      },
+      "concepts": {
+        "correct": 1,
+        "error": 0,
+        "not_applicable": 0,
+        "unknown": 16,
+        "reviewed_correct_fraction": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "reviewed_fraction": {
+          "numerator": 1,
+          "denominator": 17,
+          "value": 0.058823529411764705
+        },
+        "error_examples": []
+      },
+      "source_attribution": {
+        "correct": 0,
+        "error": 0,
+        "not_applicable": 1,
+        "unknown": 16,
+        "reviewed_correct_fraction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "reviewed_fraction": {
+          "numerator": 1,
+          "denominator": 17,
+          "value": 0.058823529411764705
+        },
+        "error_examples": []
+      },
+      "effectivity": {
+        "correct": 1,
+        "error": 0,
+        "not_applicable": 0,
+        "unknown": 16,
+        "reviewed_correct_fraction": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "reviewed_fraction": {
+          "numerator": 1,
+          "denominator": 17,
+          "value": 0.058823529411764705
+        },
+        "error_examples": []
+      }
+    },
+    "coverage": {
+      "covered": 0,
+      "missing": 0,
+      "partial": 1,
+      "unknown": 0,
+      "covered_fraction": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0
+      },
+      "missing_examples": [
+        {
+          "unit_id": "urn:rulespec:audit-unit:2539c933a2fdb02bcd3cefa628e5393f2383872fdcd2f9ce94921c193df27593",
+          "meaning": "Except as provided in paragraph (a)(3)(iii)(B)( 4 ) of this action, an approved child restraint system consisting of seats manufactured to U.S. standards between January 1, 1981, and February 25, 1985, must bear the label: “This child restraint system conforms to all applicable Federal motor vehicle safety standards”.",
+          "status": "partial",
+          "rationale": "Claim C0007 addresses the core labeling requirement for seats manufactured to U.S. standards between January 1, 1981, and February 25, 1985, but fails to retain the governing lead-in exception ('Except as provided in paragraph (a)(3)(iii)(B)( 4 ) of this action') in its explicit summary or scope_text, leaving the requirement partially represented."
+        }
+      ]
+    },
+    "issues": [],
+    "claim_results": [
+      {
+        "claim_id": "urn:rulespec:document-understanding:revision:d1fe2614c6635c052be429d75e5618a7f5f23f0800167385ac00e595564acf98",
+        "claim_sha256": "edede6562189f46ad2dc5a0f288654f97004f01434a6ea6335b2004ebf24a74f",
+        "status": "unjudged",
+        "unit_ids": [],
+        "dimensions": {
+          "summary": "unknown",
+          "actor": "unknown",
+          "support": "unknown",
+          "scope": "unknown",
+          "links": "unknown",
+          "boundary": "unknown",
+          "modality": "unknown",
+          "action": "unknown",
+          "object": "unknown",
+          "alternatives": "unknown",
+          "thresholds": "unknown",
+          "concepts": "unknown",
+          "source_attribution": "unknown",
+          "effectivity": "unknown"
+        }
+      },
+      {
+        "claim_id": "urn:rulespec:document-understanding:revision:c9970fdd148ff1836526fd600fb898b2186972168788c1ca211ea64ee49ee17a",
+        "claim_sha256": "704efb7fd74558a6491f40347890997b3640c07ebd14acc27bb1ab97317b0418",
+        "status": "unjudged",
+        "unit_ids": [],
+        "dimensions": {
+          "summary": "unknown",
+          "actor": "unknown",
+          "support": "unknown",
+          "scope": "unknown",
+          "links": "unknown",
+          "boundary": "unknown",
+          "modality": "unknown",
+          "action": "unknown",
+          "object": "unknown",
+          "alternatives": "unknown",
+          "thresholds": "unknown",
+          "concepts": "unknown",
+          "source_attribution": "unknown",
+          "effectivity": "unknown"
+        }
+      },
+      {
+        "claim_id": "urn:rulespec:document-understanding:revision:ea441c6df52f99691ea342b3741e5fd4e0170629c6d12f1280bb2ccaccca5e15",
+        "claim_sha256": "59c3e4c4e4d4bd26fbd2a15562342890b1120e1974c4db4f0a8cf59d4835e3d2",
+        "status": "unjudged",
+        "unit_ids": [],
+        "dimensions": {
+          "summary": "unknown",
+          "actor": "unknown",
+          "support": "unknown",
+          "scope": "unknown",
+          "links": "unknown",
+          "boundary": "unknown",
+          "modality": "unknown",
+          "action": "unknown",
+          "object": "unknown",
+          "alternatives": "unknown",
+          "thresholds": "unknown",
+          "concepts": "unknown",
+          "source_attribution": "unknown",
+          "effectivity": "unknown"
+        }
+      },
+      {
+        "claim_id": "urn:rulespec:document-understanding:revision:1b4052ee736f66237e756e61e3194a01ffe81087a6f785993c8790886a599d1f",
+        "claim_sha256": "aea37dd62baf067d993e1e4c6590d916530cca94d67dcbdca207b87192f6e493",
+        "status": "unjudged",
+        "unit_ids": [],
+        "dimensions": {
+          "summary": "unknown",
+          "actor": "unknown",
+          "support": "unknown",
+          "scope": "unknown",
+          "links": "unknown",
+          "boundary": "unknown",
+          "modality": "unknown",
+          "action": "unknown",
+          "object": "unknown",
+          "alternatives": "unknown",
+          "thresholds": "unknown",
+          "concepts": "unknown",
+          "source_attribution": "unknown",
+          "effectivity": "unknown"
+        }
+      },
+      {
+        "claim_id": "urn:rulespec:document-understanding:revision:241f66690b728737ea611e645ad082d7027ddaa22b21aa1418f2d77769a35af7",
+        "claim_sha256": "67c2a4447d53111b396f61d87978c394a6fdc7dfeb5fbfd718e76ff9599b547e",
+        "status": "unjudged",
+        "unit_ids": [],
+        "dimensions": {
+          "summary": "unknown",
+          "actor": "unknown",
+          "support": "unknown",
+          "scope": "unknown",
+          "links": "unknown",
+          "boundary": "unknown",
+          "modality": "unknown",
+          "action": "unknown",
+          "object": "unknown",
+          "alternatives": "unknown",
+          "thresholds": "unknown",
+          "concepts": "unknown",
+          "source_attribution": "unknown",
+          "effectivity": "unknown"
+        }
+      },
+      {
+        "claim_id": "urn:rulespec:document-understanding:revision:03cd7860033d4c84f06ab45a47e9b67ce0dcde63bbd0fb1b746869ea925c7761",
+        "claim_sha256": "975632026a1ae69413bd9aa1e66c9e198e1ccb3b151eecf067dfb8696fbbdc60",
+        "status": "unjudged",
+        "unit_ids": [],
+        "dimensions": {
+          "summary": "unknown",
+          "actor": "unknown",
+          "support": "unknown",
+          "scope": "unknown",
+          "links": "unknown",
+          "boundary": "unknown",
+          "modality": "unknown",
+          "action": "unknown",
+          "object": "unknown",
+          "alternatives": "unknown",
+          "thresholds": "unknown",
+          "concepts": "unknown",
+          "source_attribution": "unknown",
+          "effectivity": "unknown"
+        }
+      },
+      {
+        "claim_id": "urn:rulespec:document-understanding:revision:9c2e14357292216b10597fae4e1c643cce35673850a7adef0739a53f3dd94edd",
+        "claim_sha256": "5f3958e26ce37bed2c933c0be9d103c035c022a398a163812c3c978bd1c47371",
+        "status": "unjudged",
+        "unit_ids": [],
+        "dimensions": {
+          "summary": "unknown",
+          "actor": "unknown",
+          "support": "unknown",
+          "scope": "unknown",
+          "links": "unknown",
+          "boundary": "unknown",
+          "modality": "unknown",
+          "action": "unknown",
+          "object": "unknown",
+          "alternatives": "unknown",
+          "thresholds": "unknown",
+          "concepts": "unknown",
+          "source_attribution": "unknown",
+          "effectivity": "unknown"
+        }
+      },
+      {
+        "claim_id": "urn:rulespec:document-understanding:revision:70f6d66e4405525466d0a773cf28651d3e1192c1299e31a75aaaa561d07439de",
+        "claim_sha256": "4f73f89cfa3d530e9f5abb9b354544ab4bab96658026505f4a87c1558dbf8d67",
+        "status": "reviewed",
+        "unit_ids": [
+          "urn:rulespec:audit-unit:2539c933a2fdb02bcd3cefa628e5393f2383872fdcd2f9ce94921c193df27593"
+        ],
+        "dimensions": {
+          "summary": "error",
+          "actor": "not_applicable",
+          "support": "correct",
+          "scope": "error",
+          "links": "correct",
+          "boundary": "correct",
+          "modality": "correct",
+          "action": "not_applicable",
+          "object": "not_applicable",
+          "alternatives": "not_applicable",
+          "thresholds": "not_applicable",
+          "concepts": "correct",
+          "source_attribution": "not_applicable",
+          "effectivity": "correct"
+        },
+        "rationale": "Claim C0007 correctly captures the mandatory requirement from paragraph (a)(3)(iii)(B)(1) that seats manufactured to U.S. standards between January 1, 1981, and February 25, 1985, must bear the specified label. However, the governing condition in the parent lead-in (B)—specifically the exception 'Except as provided in paragraph (a)(3)(iii)(B)( 4 ) of this action'—was omitted from both the summary and the explicit scope_text ('Approved child restraint systems manufactured to U.S. standards between January 1, 1981, and February 25, 1985'), despite being quoted in the raw scope_quotes. Because this governing exception was not incorporated into the explicit meaning or scope, the summary and scope are incomplete and overbroad.",
+        "source_spans": [
+          {
+            "source_id": "urn:rulespec:document-understanding:document:8e2a86970dc06b1340952160d3f6524db8f2948b72a87253bc35cda27b0de7e1",
+            "quote": "(B) Except as provided in paragraph (a)(3)(iii)(B)( 4 ) of this action, the approved child restraint system bears one or more labels as follows:",
+            "start": 2413,
+            "end": 2557
+          },
+          {
+            "source_id": "urn:rulespec:document-understanding:document:8e2a86970dc06b1340952160d3f6524db8f2948b72a87253bc35cda27b0de7e1",
+            "quote": "( 1 ) Seats manufactured to U.S. standards between January 1, 1981, and February 25, 1985, must bear the label: “This child restraint system conforms to all applicable Federal motor vehicle safety standards”;",
+            "start": 2559,
+            "end": 2767
+          }
+        ]
+      },
+      {
+        "claim_id": "urn:rulespec:document-understanding:revision:ca2ccca49f2629a0ea5b40d531c8ae18ea0ee8450d02c3039642a1e55e3900c0",
+        "claim_sha256": "519901c7a2a540a44048346105e2f9987ceac4986fe0c68a8a9cefc8f38d7607",
+        "status": "unjudged",
+        "unit_ids": [],
+        "dimensions": {
+          "summary": "unknown",
+          "actor": "unknown",
+          "support": "unknown",
+          "scope": "unknown",
+          "links": "unknown",
+          "boundary": "unknown",
+          "modality": "unknown",
+          "action": "unknown",
+          "object": "unknown",
+          "alternatives": "unknown",
+          "thresholds": "unknown",
+          "concepts": "unknown",
+          "source_attribution": "unknown",
+          "effectivity": "unknown"
+        }
+      },
+      {
+        "claim_id": "urn:rulespec:document-understanding:revision:986767c51dbb5c54ffcb2b9851d37a10a664e252816f0a5e716429784b841cd8",
+        "claim_sha256": "0605c2e8f63de4ebeb94d2fe89ed1523b15ebfe35688ee8d0fc48b52daf2e4bf",
+        "status": "unjudged",
+        "unit_ids": [],
+        "dimensions": {
+          "summary": "unknown",
+          "actor": "unknown",
+          "support": "unknown",
+          "scope": "unknown",
+          "links": "unknown",
+          "boundary": "unknown",
+          "modality": "unknown",
+          "action": "unknown",
+          "object": "unknown",
+          "alternatives": "unknown",
+          "thresholds": "unknown",
+          "concepts": "unknown",
+          "source_attribution": "unknown",
+          "effectivity": "unknown"
+        }
+      },
+      {
+        "claim_id": "urn:rulespec:document-understanding:revision:972df55539cdf80f0a6370ad0c3672b12100b9ea17c2df2da7f4393b53bedeb0",
+        "claim_sha256": "9ee740757b56ccbf084300febbd32fe852b73453838496133b63ad308674bd1d",
+        "status": "unjudged",
+        "unit_ids": [],
+        "dimensions": {
+          "summary": "unknown",
+          "actor": "unknown",
+          "support": "unknown",
+          "scope": "unknown",
+          "links": "unknown",
+          "boundary": "unknown",
+          "modality": "unknown",
+          "action": "unknown",
+          "object": "unknown",
+          "alternatives": "unknown",
+          "thresholds": "unknown",
+          "concepts": "unknown",
+          "source_attribution": "unknown",
+          "effectivity": "unknown"
+        }
+      },
+      {
+        "claim_id": "urn:rulespec:document-understanding:revision:9a4d17bff1b685e0d643aaedca073546215a186be3815ce609e16656268b23d2",
+        "claim_sha256": "b4d698dc854cadedeb66e4cec951a5123efb6b9f55460087c63c7692efa9bdcd",
+        "status": "unjudged",
+        "unit_ids": [],
+        "dimensions": {
+          "summary": "unknown",
+          "actor": "unknown",
+          "support": "unknown",
+          "scope": "unknown",
+          "links": "unknown",
+          "boundary": "unknown",
+          "modality": "unknown",
+          "action": "unknown",
+          "object": "unknown",
+          "alternatives": "unknown",
+          "thresholds": "unknown",
+          "concepts": "unknown",
+          "source_attribution": "unknown",
+          "effectivity": "unknown"
+        }
+      },
+      {
+        "claim_id": "urn:rulespec:document-understanding:revision:cf0d638aefe89b3fb81c5e417f8590d97327f03beb25d534fd2f5c8bf739f26a",
+        "claim_sha256": "fee4461900229835d42bed5c5fc78530946c4d24e71e303e4b1150416dc9a1db",
+        "status": "unjudged",
+        "unit_ids": [],
+        "dimensions": {
+          "summary": "unknown",
+          "actor": "unknown",
+          "support": "unknown",
+          "scope": "unknown",
+          "links": "unknown",
+          "boundary": "unknown",
+          "modality": "unknown",
+          "action": "unknown",
+          "object": "unknown",
+          "alternatives": "unknown",
+          "thresholds": "unknown",
+          "concepts": "unknown",
+          "source_attribution": "unknown",
+          "effectivity": "unknown"
+        }
+      },
+      {
+        "claim_id": "urn:rulespec:document-understanding:revision:edb9e78c21a461a1ca0fc8bd13dbab8086cf2cee5ffc3002da51fab0471b3e19",
+        "claim_sha256": "536ec30ed5f44042b287319268516ee31a4a1fd6b09994235525570658fb474e",
+        "status": "unjudged",
+        "unit_ids": [],
+        "dimensions": {
+          "summary": "unknown",
+          "actor": "unknown",
+          "support": "unknown",
+          "scope": "unknown",
+          "links": "unknown",
+          "boundary": "unknown",
+          "modality": "unknown",
+          "action": "unknown",
+          "object": "unknown",
+          "alternatives": "unknown",
+          "thresholds": "unknown",
+          "concepts": "unknown",
+          "source_attribution": "unknown",
+          "effectivity": "unknown"
+        }
+      },
+      {
+        "claim_id": "urn:rulespec:document-understanding:revision:b624d4474c879985626d6925908433dd983b367969308d9b5d098e52775adeb0",
+        "claim_sha256": "bf040e4d56836887a4f0781db676bcc2f266b6678098d85b18497c5d8ed70e11",
+        "status": "unjudged",
+        "unit_ids": [],
+        "dimensions": {
+          "summary": "unknown",
+          "actor": "unknown",
+          "support": "unknown",
+          "scope": "unknown",
+          "links": "unknown",
+          "boundary": "unknown",
+          "modality": "unknown",
+          "action": "unknown",
+          "object": "unknown",
+          "alternatives": "unknown",
+          "thresholds": "unknown",
+          "concepts": "unknown",
+          "source_attribution": "unknown",
+          "effectivity": "unknown"
+        }
+      },
+      {
+        "claim_id": "urn:rulespec:document-understanding:revision:d8bdbbab1f1e1dd85f3b20d5146ff2367ed9eb7d94f17fe88cfd7a8557967cd1",
+        "claim_sha256": "6caa21d9d9b4eb067255fe9538f7be02dcfeb91cd4f9e8a7ec40c5d1172aa229",
+        "status": "unjudged",
+        "unit_ids": [],
+        "dimensions": {
+          "summary": "unknown",
+          "actor": "unknown",
+          "support": "unknown",
+          "scope": "unknown",
+          "links": "unknown",
+          "boundary": "unknown",
+          "modality": "unknown",
+          "action": "unknown",
+          "object": "unknown",
+          "alternatives": "unknown",
+          "thresholds": "unknown",
+          "concepts": "unknown",
+          "source_attribution": "unknown",
+          "effectivity": "unknown"
+        }
+      },
+      {
+        "claim_id": "urn:rulespec:document-understanding:revision:a7387769edc15f23be61d6b07bbfce516dcb4129b51c896de68d18193d96c0bb",
+        "claim_sha256": "00e89170c72324695bc2cde605152542c6c96e30d705204a1583e5423b399cac",
+        "status": "unjudged",
+        "unit_ids": [],
+        "dimensions": {
+          "summary": "unknown",
+          "actor": "unknown",
+          "support": "unknown",
+          "scope": "unknown",
+          "links": "unknown",
+          "boundary": "unknown",
+          "modality": "unknown",
+          "action": "unknown",
+          "object": "unknown",
+          "alternatives": "unknown",
+          "thresholds": "unknown",
+          "concepts": "unknown",
+          "source_attribution": "unknown",
+          "effectivity": "unknown"
+        }
+      }
+    ],
+    "unit_results": [
+      {
+        "unit_id": "urn:rulespec:audit-unit:2539c933a2fdb02bcd3cefa628e5393f2383872fdcd2f9ce94921c193df27593",
+        "excerpt_id": "saved-label-window",
+        "status": "partial",
+        "claim_ids": [
+          "urn:rulespec:document-understanding:revision:70f6d66e4405525466d0a773cf28651d3e1192c1299e31a75aaaa561d07439de"
+        ],
+        "rationale": "Claim C0007 addresses the core labeling requirement for seats manufactured to U.S. standards between January 1, 1981, and February 25, 1985, but fails to retain the governing lead-in exception ('Except as provided in paragraph (a)(3)(iii)(B)( 4 ) of this action') in its explicit summary or scope_text, leaving the requirement partially represented.",
+        "source_spans": [
+          {
+            "source_id": "urn:rulespec:document-understanding:document:8e2a86970dc06b1340952160d3f6524db8f2948b72a87253bc35cda27b0de7e1",
+            "quote": "(B) Except as provided in paragraph (a)(3)(iii)(B)( 4 ) of this action, the approved child restraint system bears one or more labels as follows:",
+            "start": 2413,
+            "end": 2557
+          },
+          {
+            "source_id": "urn:rulespec:document-understanding:document:8e2a86970dc06b1340952160d3f6524db8f2948b72a87253bc35cda27b0de7e1",
+            "quote": "( 1 ) Seats manufactured to U.S. standards between January 1, 1981, and February 25, 1985, must bear the label: “This child restraint system conforms to all applicable Federal motor vehicle safety standards”;",
+            "start": 2559,
+            "end": 2767
+          }
+        ]
+      }
+    ],
+    "limitations": [
+      "Semantic verdicts are supplied by the named source reviewer; this evaluator does not infer truth from text overlap.",
+      "Source span and digest checks establish assessment integrity, not semantic correctness.",
+      "Counts describe this bounded labeled set; they are not a general extraction accuracy estimate."
+    ],
+    "audit_issues": [],
+    "semantic_completeness": "not_established",
+    "automatic_repairs": 0,
+    "limitation": "The source inventory and judgments are fallible model observations, not independent evaluation gold or human approval."
+  }
+}

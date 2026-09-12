@@ -66,3 +66,29 @@ The narrower deterministic evidence integration is implemented as `context.expor
 The automatic interpretation/correction work is deliberately deferred under this plan's failure branch. Using the export for navigation or supplying it explicitly to a later check is available; it is not a claim that the extractor now automatically discovers or fixes missing meaning. See the experiment's `delivery/` artifacts for validation and concrete examples. Original captures, statements, approvals and prior failed experiments remain intact. The independent metadata/body-association work stays independent.
 
 This is the current context-work plan under R11/R12/R16/R18/R24, with R25/R26 kept distinct. The [canonical task list](2026-09-10-reference-integration-task-list.md) retains all completed and open work; the [reuse checkpoint](../reviews/2026-09-11-reuse-resume-checkpoint.md) retains the independent metadata experiment's stopping point.
+
+## Follow-up audit comparison
+
+The [comparison-stage experiment](../experiments/2026-09-11-context-audit-comparison/RESULTS.md)
+is complete: two fresh annual CFR extractions, four shared source inventories and
+ten comparisons across five pairs, with no leading questions or provider retries.
+Expanded context found no confirmed additional fresh-source defect. Both arms
+missed the equipment statement's overriding special-flight-permit exception and
+failed to identify the saved unsupported adulthood restriction. Expanded context
+avoided one scope false alarm on a constructed faithful control, but added an
+uncertain waste-petition restriction and used 1.93× comparison tokens. This does
+not pass the declared integration gate.
+
+All 138 comparison evidence selections grounded and all ten saved comparisons
+replay identically. Mechanical success does not change the semantic verdict.
+The context export is committed in `6942225`; no automatic audit pass or correction
+is adopted. Stop the comparison here. A future process experiment would need to
+separately test source-first inventory over assembled context on a broader frozen
+set. R25 remains independent.
+
+The user's annual-format question also exposed a concrete R23 reader task:
+GovInfo annual `CFRGRANULE` is currently refused. Add native support in RefSpec's
+existing reader, preserving addresses, edition metadata and original-source
+coordinates. This experiment used an installed reader only to prepare frozen text;
+no production dependency or native-format support was added. Details and scope are
+saved in its [source-preparation note](../experiments/2026-09-11-context-audit-comparison/SOURCE-PREPARATION.md).

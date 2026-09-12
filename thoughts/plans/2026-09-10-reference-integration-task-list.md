@@ -16,9 +16,13 @@ recorded reference feedback, with separate source coordinates and explicit limit
 It makes no model calls or meaning edits. The model check and R25 corrections remain
 experimental. Source and isolated-installed checks pass 674 tests, and the new
 export is installed locally without upgrading sibling dependencies. The context
-integration plan and its delivery artifacts are the
-current context-work stopping point; older metadata recommendations below are
-separate backlog items.
+integration plan and its delivery artifacts retain that delivery checkpoint.
+The [follow-up audit comparison](../experiments/2026-09-11-context-audit-comparison/RESULTS.md)
+also failed adoption: no confirmed additional fresh-source defect, the important
+exception/age errors still missed, one control scope false alarm avoided, and
+1.93× comparison tokens. All 138 evidence selections grounded; ten captures replay.
+This is the current context-work stopping point. Native annual CFR XML support is
+recorded under R23; older metadata recommendations remain separate backlog items.
 
 Updated 2026-09-11 against the local code and saved evidence. This is the current
 backlog for the reference work, useful sibling-repository capabilities, and their
@@ -1537,6 +1541,14 @@ and is now installed, while retaining the failed first attempt as evidence.
   Original XML whitespace remains; the formatter preserves table order and cell
   separation, not full visual table layout. Broader layout support needs its own
   source case rather than an unmeasured general-purpose renderer.
+- [ ] **Annual CFR XML; owner RefSpec reader, consumer Rulespec; effort S–M.**
+  The fresh context-audit sources demonstrate a native-reader gap: GovInfo annual
+  `CFRGRANULE` is refused. Extend the existing reader, preserving section/paragraph
+  addresses, edition metadata and original-source evidence. Cover section granules
+  and a volume fixture; edition dates do not establish rule effective dates.
+  See [source preparation and acceptance scope](../experiments/2026-09-11-context-audit-comparison/SOURCE-PREPARATION.md).
+  This experiment uses an installed DocSpec reader only for frozen acquisition;
+  native annual support is not implemented and the experiment inputs stay fixed.
 - [ ] Use available publisher text or already extracted source text where it is
   adequate. Spicy Regs' `EnrichCommentText` reuses Mirrulations attachment text;
   it does not establish original-page offsets or legal structure. Keep the
@@ -1554,6 +1566,13 @@ needed for inputs the current prepared-document interface already handles.
 
 ### R24 — Establish fresh end-to-end evidence and a cost baseline
 
+- [x] Complete the bounded [context-audit comparison](../experiments/2026-09-11-context-audit-comparison/RESULTS.md):
+  two fresh annual CFR extractions, four shared inventories and ten comparisons.
+  No confirmed fresh-source gain; overriding equipment exception and saved age
+  error missed. One faithful-control scope false alarm avoided, with an uncertain
+  new waste allegation and 1.93× comparison tokens. Integration deferred; all raw
+  captures, blind judgments, 138 grounded selections and zero-call replay saved.
+  Broader evaluation and source-first contextual inventory remain distinct work.
 - [x] Complete the narrow fresh-context evaluation: three pinned USC windows,
   two arms, two observations, twelve captured calls, full manual review and
   deterministic replay/export verification. Preserve its
