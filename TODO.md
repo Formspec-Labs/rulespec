@@ -574,3 +574,15 @@ does not establish implementation or package qualification.
   and removal of replaced physical writers. A decision to defer remains a
   deferral in each linked task. This task introduces no storage platform and no
   source-package dependency on DocSpec's lifecycle.
+  **Selected September 11, implementation pending:** the source coordinator and
+  architecture reviewer selected a product-neutral `LocalBlobWriter` in this
+  package. One bounded `put` operation accepts known or computed SHA-256 identity,
+  verifies reuse, and supports the two actual layouts: flat `sha256/<digest>`
+  and `objects/sha256/<first-two-digits>/<digest>`. It must enforce the byte
+  limit before writes or reuse, pin and recheck directories, refuse symlinks
+  and nonregular objects, conditionally link staged bytes, flush durable output,
+  clean staging on failure, and distinguish limit/integrity errors without
+  parsing messages. Callers retain reference/media-type mapping and iterator
+  ownership. S22 adopts it independently; D31 remains open until DocSpec adopts
+  the wheel and removes its physical writer. This decision neither completes
+  implementation nor claims upstream publication.
