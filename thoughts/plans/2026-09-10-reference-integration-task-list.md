@@ -44,14 +44,22 @@ The immediate work is capturing those requirements; defer form/workflow mapping.
   smaller gap groups; its independent inventory omitted the same details. It also
   missed the default-statement scope and discretionary modal-field concerns.
   Historical drafts stay unchanged. Do not make that audit a completeness gate.
-- [ ] **Test explicit subordinate-item accounting, without a new schema.** Reuse
-  publisher/source passage identities and existing inventory/scope evidence to
-  check each substantive child against extracted meaning, rather than allowing
-  an independent prose inventory to compress the same details again. Compare
-  with unchanged audit, retain the three saved gaps and correct optional/example
-  counterexamples, and include untouched documents before general adoption.
-  Structural counts still do not prove semantic completeness. No new automatic
-  pass, blanket paragraph splitting or prompt patch is implemented by this item.
+- [x] **Test explicit subordinate-item accounting, without a new schema.** The
+  [fourteen-call test](../experiments/2026-09-12-subordinate-inventory/RESULTS.md)
+  used existing passages/schema with a required inventory decision for every
+  passage, followed by unchanged comparison. It included two fresh education-law
+  excerpts and faithful controls. The checklist achieved 147/147 decisions but
+  both arms missed all three CSBG gap groups and all three fresh IEP checks.
+  Some inventory meanings were complete while comparison still approved the
+  incomplete draft; other units lost requirement role or condition attachment.
+  B used 20.5% more audit tokens with no target-detection gain. Not adopted.
+- [ ] **Test comparison of explicit meaning, not another inventory expansion.**
+  Demonstrate that source components absent from a draft can be identified even
+  when the full source is quoted, and that a separately recorded condition still
+  must qualify the permission that depends on it. Use the saved omissions and
+  faithful controls, then untouched sources. Keep broad-context and checklist
+  findings as negative controls. No new automatic pass or prompt patch is
+  implemented by this task; existing optional audit is not a completeness gate.
 - [ ] **Distinguish missing context from uncaptured supplied meaning.** All
   thirteen CSBG plan contents were already in the actual focus request. Test
   focused capture of those contents rather than duplicating them as extra context.
