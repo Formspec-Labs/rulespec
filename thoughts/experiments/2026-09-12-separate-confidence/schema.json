@@ -1,0 +1,50 @@
+{
+  "type": "object",
+  "properties": {
+    "assessments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item_id": {
+            "type": "string",
+            "description": "Exact ID of the supplied fixed extracted item."
+          },
+          "confidence": {
+            "type": "object",
+            "properties": {
+              "score": {
+                "type": "number",
+                "description": "Probability that this individual statement preserves its complete source\nmeaning and all governing conditions needed for independent use. This is\nnot confidence that every rule in the document was extracted. Missing\nqualifiers, alternatives, required details or unresolved dependencies\nreduce confidence even when the passage is clear and the quote is exact.",
+                "maximum": 1,
+                "minimum": 0
+              },
+              "basis": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Brief externally checkable grounds or specific uncertainty for this score.\nDescribe source ambiguity or a dependency; do not give private reasoning\nor a step-by-step account. One short basis is usually sufficient.",
+                "minItems": 1
+              }
+            },
+            "required": [
+              "score",
+              "basis"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "item_id",
+          "confidence"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "assessments"
+  ],
+  "additionalProperties": false
+}
