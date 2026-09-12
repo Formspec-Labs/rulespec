@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rulespec.org/jsonschema/confidence-record.json",
+  "title": "confidence-record",
+  "$defs": {
+    "ConfidenceMethod": {
+      "type": "string",
+      "enum": [
+        "rkaf:model-inference",
+        "rkaf:human-estimation",
+        "rkaf:review-consensus",
+        "rkaf:source-class-inheritance",
+        "rkaf:rule-based"
+      ]
+    },
+    "CalibrationStatus": {
+      "type": "string",
+      "enum": [
+        "rkaf:uncalibrated",
+        "rkaf:calibratedAgainst",
+        "rkaf:humanEstimated",
+        "rkaf:consensus"
+      ]
+    },
+    "ScoreCategorical": {
+      "type": "string",
+      "enum": [
+        "rkaf:very-low",
+        "rkaf:low",
+        "rkaf:medium",
+        "rkaf:high",
+        "rkaf:very-high"
+      ]
+    },
+    "ConfidenceRecord": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "const": "rkaf:ConfidenceRecord"
+        },
+        "rkaf:confidenceMethod": {
+          "$ref": "#/$defs/ConfidenceMethod"
+        },
+        "rkaf:calibrationStatus": {
+          "$ref": "#/$defs/CalibrationStatus"
+        },
+        "rkaf:confidenceBasis": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "rkaf:generatedBy": {
+          "type": "string"
+        },
+        "rkaf:evaluatedAgainst": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:confidenceMethod",
+        "rkaf:calibrationStatus",
+        "rkaf:confidenceBasis",
+        "rkaf:generatedBy"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "rkaf:calibrationStatus": {
+                "anyOf": [
+                  {
+                    "const": "rkaf:calibratedAgainst"
+                  },
+                  {
+                    "type": "array",
+                    "contains": {
+                      "const": "rkaf:calibratedAgainst"
+                    }
+                  }
+                ]
+              }
+            },
+            "required": [
+              "rkaf:calibrationStatus"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rkaf:evaluatedAgainst": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "rkaf:evaluatedAgainst"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "$ref": "#/$defs/ConfidenceRecord",
+  "allOf": [
+    {
+      "type": "object",
+      "properties": {
+        "rkaf:score": {
+          "type": "number",
+          "maximum": 1,
+          "minimum": 0
+        }
+      },
+      "required": [
+        "rkaf:score"
+      ]
+    }
+  ]
+}

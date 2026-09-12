@@ -1,0 +1,625 @@
+{
+  "A": {
+    "type": "object",
+    "properties": {
+      "terms": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "label": {
+              "type": "string",
+              "description": "Exact source name for the defined sense, preferably its supplied full name.",
+              "minLength": 1
+            },
+            "aliases": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": "Exact alternative names/acronyms explicitly equated in the source.",
+              "uniqueItems": true
+            },
+            "source_refs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "Select a supplied focus (F000) or context (C000) passage, or a contiguous\ninclusive range such as F003:F009. These locate exact source text; they do\nnot prove that the text supports the proposed meaning. Never invent IDs.",
+                "title": "Source passage reference"
+              },
+              "description": "Passage IDs supporting definition, name and every alias. Introductory\nacronym expansions may need an additional passage beyond the definition."
+            }
+          },
+          "required": [
+            "id",
+            "label",
+            "aliases",
+            "source_refs"
+          ],
+          "additionalProperties": false,
+          "description": "Only terms explicitly defined by this supplied document. This is a local\ndefinition index, not a list of all nouns, actors or external references.\nKeep different senses separate; never expand an acronym from world knowledge."
+        }
+      },
+      "extractions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "unit": {
+              "type": "string",
+              "description": "Select ONE focus passage or contiguous focus range. Never comma-separate\ndisconnected passages. Select the main clause here and its remote lead-in\nin scope_quotes when useful; always preserve the full case in statement.\nContext is support only.",
+              "title": "One focus passage or contiguous range",
+              "pattern": "^F[0-9]{3,}(:F[0-9]{3,})?$"
+            },
+            "unit_attributes": {
+              "type": "object",
+              "properties": {
+                "defines_term": {
+                  "description": "Index ID of the term this unit explicitly defines. Null on a use or mention.",
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  ]
+                },
+                "term_refs": {
+                  "description": "IDs of defined terms explicitly used in this unit's meaning. Context alone\nis not a use. Omit the term this unit defines: defines_term records that\nrelationship. Reuse the index; do not infer equivalence from shared wording.",
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    }
+                  ]
+                },
+                "statement": {
+                  "type": "string",
+                  "description": "Complete meaning of this unit, preserving governing scope, qualifications and modal force. Make this a self-contained reading of the source. Include every governing parent case, time limit, negation, exception and qualification needed to avoid broadening or narrowing its meaning. A long supporting quote does not compensate for omitted meaning in this field. Keep descriptive and advisory material at its source force.\nWhen a passage gives an example of a rule (for example, signaled by 'for example' or 'such as'), preserve that relationship: if you extract the example as its own unit, include the governing rule's conditions in that unit's meaning. Do not turn an illustration into an unconditional duty. If the source explicitly changes the example's scope, use that scope instead; do not inherit a condition the source overrides.",
+                  "title": "Complete source-faithful statement",
+                  "minLength": 1
+                },
+                "actor": {
+                  "description": "Responsible source-supported actor, not the approving authority or a\ndefinition's subject. Null when unstated; retain literal you when needed.",
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Source-supported responsible person or entity; empty if unstated. If the source addresses you without naming a role, retain you rather than inventing a job title. Resolve a pronoun only when the source establishes its antecedent. Do not invent a duty bearer for an impersonal requirement, definition or factual statement. Do not substitute a neighboring actor from a different branch."
+                    }
+                  ]
+                },
+                "actor_quote": {
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Exact source support for actor, including antecedent if needed. Copy a contiguous passage supporting the actor assignment. An inherited actor may be supported in supplied context. Empty actor has empty support; a matching word alone does not establish its semantic role."
+                    }
+                  ]
+                },
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "authority",
+                    "condition",
+                    "definition",
+                    "exception",
+                    "exemption",
+                    "permission",
+                    "prohibition",
+                    "recommendation",
+                    "requirement",
+                    "statement",
+                    "threshold"
+                  ],
+                  "description": "Semantic kind; must agree with modality and relationship role. Classify the complete meaning, including headings' inherited context. A recommendation remains recommendation; descriptive possibility is statement. Conditions and exceptions are separate qualifications of a baseline; retain the baseline itself. Definitions and useful descriptive explanations also deserve units.",
+                  "title": "Kind"
+                },
+                "modality": {
+                  "type": "string",
+                  "description": "Normative force: must, should, permission may, prohibition must_not, exemption not_required, descriptive possible, not_stated or uncertain. Use should for recommendations, may for permission, possible for descriptive may/might, and not_required only for an explicit absence of duty. not_stated fits factual definitions and qualifications with no independent normative force. An exception to a recommendation does not itself declare absence of a legal duty. Generally is not universally.",
+                  "enum": [
+                    "must",
+                    "should",
+                    "may",
+                    "must_not",
+                    "not_required",
+                    "possible",
+                    "not_stated",
+                    "uncertain"
+                  ],
+                  "title": "Modality"
+                },
+                "scope_text": {
+                  "description": "Optional structured applicability for filtering or review. Populate only\nwhen useful; retain ALL governing conditions in statement even when null.",
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "description": "ALL source-supported conditions governing this unit, including inherited parent cases and timing; do not transfer neighboring branch scope. Combine all governing conditions for this unit, including inherited lead-ins and antecedents outside its main quotation. Preserve alternative branches and timing boundaries. A split child must still describe the complete case in which it applies; do not import conditions from neighboring independent cases."
+                    }
+                  ]
+                },
+                "scope_quotes": {
+                  "description": "Evidence for populated scope_text, especially inherited lead-ins. Null\nwhen no separate applicability field is recorded; main evidence remains.",
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "Select a supplied focus (F000) or context (C000) passage, or a contiguous\ninclusive range such as F003:F009. These locate exact source text; they do\nnot prove that the text supports the proposed meaning. Never invent IDs."
+                      }
+                    }
+                  ]
+                },
+                "context_quotes": {
+                  "description": "Additional explanatory context only when needed beyond the main passage.",
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "Select a supplied focus (F000) or context (C000) passage, or a contiguous\ninclusive range such as F003:F009. These locate exact source text; they do\nnot prove that the text supports the proposed meaning. Never invent IDs."
+                      }
+                    }
+                  ]
+                },
+                "modality_quote": {
+                  "description": "Exact modal words only when useful as separate support; never splice words.",
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Exact support for modal force; preserve generally, might, should and negation. Include qualifiers that establish the force, such as generally or might. A neighboring must cannot supply the force of a separate recommendation or description. A companion condition can have not_stated while its baseline retains must or should. For factual not_stated meaning, leave this empty rather than quoting a bare copula such as is; quote only wording that establishes modal force."
+                    }
+                  ]
+                },
+                "choice_text": {
+                  "description": "Optional explanation of a nontrivial choice or nested AND/OR structure.\nNull for a simple choice already fully stated in statement. Never shorten\nthe statement because this field exists; preserve every option and qualifier.",
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Complete source choice/grouping in words, including nested AND/OR and qualifications. Explain the complete choice and its nesting: all required elements, independently sufficient options, one-or-more groups, and alternatives inside an option. Preserve each option's qualifiers. Do not equate a grammatical conjunction in a category description with a requirement that both categories hold."
+                    }
+                  ]
+                },
+                "choice_quote": {
+                  "description": "Optional support for populated choice_text. Null when choice_text is null.",
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Select a supplied focus (F000) or context (C000) passage, or a contiguous\ninclusive range such as F003:F009. These locate exact source text; they do\nnot prove that the text supports the proposed meaning. Never invent IDs."
+                    }
+                  ]
+                },
+                "alternative_quotes": {
+                  "description": "Optional evidence for individual components of a nontrivial choice.\nA shared passage is allowed but is not a reason to populate this field.\nNull when the complete statement and main evidence suffice.",
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "Select a supplied focus (F000) or context (C000) passage, or a contiguous\ninclusive range such as F003:F009. These locate exact source text; they do\nnot prove that the text supports the proposed meaning. Never invent IDs."
+                      }
+                    }
+                  ]
+                },
+                "logic_quote": {
+                  "description": "Optional verbatim logic needed to inspect complex nesting or thresholds.\nNull when statement and main evidence suffice. Do not copy the main\npassage here merely because it contains a conjunction, negation or may.",
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Select a supplied focus (F000) or context (C000) passage, or a contiguous\ninclusive range such as F003:F009. These locate exact source text; they do\nnot prove that the text supports the proposed meaning. Never invent IDs."
+                    }
+                  ]
+                },
+                "references": {
+                  "description": "Retain actual cross-references, including unresolved ones. Null if absent.",
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "description": "Source section labels for cross-references, including unresolved remote targets. Keep source cross-reference labels even when their content is unavailable. Preserve the topic of each reference in the unit's meaning; a nearby reference is not a license to infer the missing rule.",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "statement",
+                "actor",
+                "actor_quote",
+                "kind",
+                "modality"
+              ],
+              "additionalProperties": false,
+              "description": "The statement is the complete default reading. Optional fields add useful\nstructure, never substitute for qualifications omitted from the statement."
+            }
+          },
+          "required": [
+            "unit",
+            "unit_attributes"
+          ],
+          "additionalProperties": false,
+          "title": "One semantic unit",
+          "description": "One independently referenceable source meaning. Separate distinct actions when useful, while preserving their inherited scope and connected qualifications. Overlapping main quotations are allowed. Retain substantive notes and cautions even when they impose no duty, including explanations that one event or document date does not establish the date of its underlying evidence. Keep these as descriptive statements at their source force."
+        }
+      }
+    },
+    "required": [
+      "terms",
+      "extractions"
+    ],
+    "additionalProperties": false,
+    "title": "Source-grounded document meanings",
+    "description": "Retain independently useful rules, definitions, recommendations, permissions, exemptions, qualifications and descriptive statements with exact evidence. Empty collections express absent supported content, never proof of completeness."
+  },
+  "B": {
+    "type": "object",
+    "properties": {
+      "terms": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "label": {
+              "type": "string",
+              "description": "Exact source name for the defined sense, preferably its supplied full name.",
+              "minLength": 1
+            },
+            "aliases": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": "Exact alternative names/acronyms explicitly equated in the source.",
+              "uniqueItems": true
+            },
+            "source_refs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "Select a supplied focus (F000) or context (C000) passage, or a contiguous\ninclusive range such as F003:F009. These locate exact source text; they do\nnot prove that the text supports the proposed meaning. Never invent IDs.",
+                "title": "Source passage reference"
+              },
+              "description": "Passage IDs supporting definition, name and every alias. Introductory\nacronym expansions may need an additional passage beyond the definition."
+            }
+          },
+          "required": [
+            "id",
+            "label",
+            "aliases",
+            "source_refs"
+          ],
+          "additionalProperties": false,
+          "description": "Only terms explicitly defined by this supplied document. This is a local\ndefinition index, not a list of all nouns, actors or external references.\nKeep different senses separate; never expand an acronym from world knowledge."
+        }
+      },
+      "extractions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "unit": {
+              "type": "string",
+              "description": "Select ONE focus passage or contiguous focus range. Never comma-separate\ndisconnected passages. Select the main clause here and its remote lead-in\nin scope_quotes when useful; always preserve the full case in statement.\nContext is support only.",
+              "title": "One focus passage or contiguous range",
+              "pattern": "^F[0-9]{3,}(:F[0-9]{3,})?$"
+            },
+            "unit_attributes": {
+              "type": "object",
+              "properties": {
+                "defines_term": {
+                  "description": "Index ID of the term this unit explicitly defines. Null on a use or mention.",
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  ]
+                },
+                "term_refs": {
+                  "description": "IDs of defined terms explicitly used in this unit's meaning. Context alone\nis not a use. Omit the term this unit defines: defines_term records that\nrelationship. Reuse the index; do not infer equivalence from shared wording.",
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    }
+                  ]
+                },
+                "statement": {
+                  "type": "string",
+                  "description": "Complete meaning of this unit, preserving governing scope, qualifications and modal force. Make this a self-contained reading of the source. Include every governing parent case, time limit, negation, exception and qualification needed to avoid broadening or narrowing its meaning. A long supporting quote does not compensate for omitted meaning in this field. Keep descriptive and advisory material at its source force.\nWhen a passage gives an example of a rule (for example, signaled by 'for example' or 'such as'), preserve that relationship: if you extract the example as its own unit, include the governing rule's conditions in that unit's meaning. Do not turn an illustration into an unconditional duty. If the source explicitly changes the example's scope, use that scope instead; do not inherit a condition the source overrides.",
+                  "title": "Complete source-faithful statement",
+                  "minLength": 1
+                },
+                "actor": {
+                  "description": "Responsible source-supported actor, not the approving authority or a\ndefinition's subject. Null when unstated; retain literal you when needed.",
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Source-supported responsible person or entity; empty if unstated. If the source addresses you without naming a role, retain you rather than inventing a job title. Resolve a pronoun only when the source establishes its antecedent. Do not invent a duty bearer for an impersonal requirement, definition or factual statement. Do not substitute a neighboring actor from a different branch."
+                    }
+                  ]
+                },
+                "actor_quote": {
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Exact source support for actor, including antecedent if needed. Copy a contiguous passage supporting the actor assignment. An inherited actor may be supported in supplied context. Empty actor has empty support; a matching word alone does not establish its semantic role."
+                    }
+                  ]
+                },
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "authority",
+                    "condition",
+                    "definition",
+                    "exception",
+                    "exemption",
+                    "permission",
+                    "prohibition",
+                    "recommendation",
+                    "requirement",
+                    "statement",
+                    "threshold"
+                  ],
+                  "description": "Semantic kind; must agree with modality and relationship role. Classify the complete meaning, including headings' inherited context. A recommendation remains recommendation; descriptive possibility is statement. Conditions and exceptions are separate qualifications of a baseline; retain the baseline itself. Definitions and useful descriptive explanations also deserve units.",
+                  "title": "Kind"
+                },
+                "modality": {
+                  "type": "string",
+                  "description": "Normative force: must, should, permission may, prohibition must_not, exemption not_required, descriptive possible, not_stated or uncertain. Use should for recommendations, may for permission, possible for descriptive may/might, and not_required only for an explicit absence of duty. not_stated fits factual definitions and qualifications with no independent normative force. An exception to a recommendation does not itself declare absence of a legal duty. Generally is not universally.",
+                  "enum": [
+                    "must",
+                    "should",
+                    "may",
+                    "must_not",
+                    "not_required",
+                    "possible",
+                    "not_stated",
+                    "uncertain"
+                  ],
+                  "title": "Modality"
+                },
+                "scope_text": {
+                  "description": "Optional structured applicability for filtering or review. Populate only\nwhen useful; retain ALL governing conditions in statement even when null.",
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "description": "ALL source-supported conditions governing this unit, including inherited parent cases and timing; do not transfer neighboring branch scope. Combine all governing conditions for this unit, including inherited lead-ins and antecedents outside its main quotation. Preserve alternative branches and timing boundaries. A split child must still describe the complete case in which it applies; do not import conditions from neighboring independent cases."
+                    }
+                  ]
+                },
+                "scope_quotes": {
+                  "description": "Evidence for populated scope_text, especially inherited lead-ins. Null\nwhen no separate applicability field is recorded; main evidence remains.",
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "Select a supplied focus (F000) or context (C000) passage, or a contiguous\ninclusive range such as F003:F009. These locate exact source text; they do\nnot prove that the text supports the proposed meaning. Never invent IDs."
+                      }
+                    }
+                  ]
+                },
+                "context_quotes": {
+                  "description": "Additional explanatory context only when needed beyond the main passage.",
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "Select a supplied focus (F000) or context (C000) passage, or a contiguous\ninclusive range such as F003:F009. These locate exact source text; they do\nnot prove that the text supports the proposed meaning. Never invent IDs."
+                      }
+                    }
+                  ]
+                },
+                "modality_quote": {
+                  "description": "Exact modal words only when useful as separate support; never splice words.",
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Exact support for modal force; preserve generally, might, should and negation. Include qualifiers that establish the force, such as generally or might. A neighboring must cannot supply the force of a separate recommendation or description. A companion condition can have not_stated while its baseline retains must or should. For factual not_stated meaning, leave this empty rather than quoting a bare copula such as is; quote only wording that establishes modal force."
+                    }
+                  ]
+                },
+                "choice_text": {
+                  "description": "Optional explanation of a nontrivial choice or nested AND/OR structure.\nNull for a simple choice already fully stated in statement. Never shorten\nthe statement because this field exists; preserve every option and qualifier.",
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Complete source choice/grouping in words, including nested AND/OR and qualifications. Explain the complete choice and its nesting: all required elements, independently sufficient options, one-or-more groups, and alternatives inside an option. Preserve each option's qualifiers. Do not equate a grammatical conjunction in a category description with a requirement that both categories hold."
+                    }
+                  ]
+                },
+                "choice_quote": {
+                  "description": "Optional support for populated choice_text. Null when choice_text is null.",
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Select a supplied focus (F000) or context (C000) passage, or a contiguous\ninclusive range such as F003:F009. These locate exact source text; they do\nnot prove that the text supports the proposed meaning. Never invent IDs."
+                    }
+                  ]
+                },
+                "alternative_quotes": {
+                  "description": "Optional evidence for individual components of a nontrivial choice.\nA shared passage is allowed but is not a reason to populate this field.\nNull when the complete statement and main evidence suffice.",
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "Select a supplied focus (F000) or context (C000) passage, or a contiguous\ninclusive range such as F003:F009. These locate exact source text; they do\nnot prove that the text supports the proposed meaning. Never invent IDs."
+                      }
+                    }
+                  ]
+                },
+                "logic_quote": {
+                  "description": "Optional verbatim logic needed to inspect complex nesting or thresholds.\nNull when statement and main evidence suffice. Do not copy the main\npassage here merely because it contains a conjunction, negation or may.",
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "description": "Select a supplied focus (F000) or context (C000) passage, or a contiguous\ninclusive range such as F003:F009. These locate exact source text; they do\nnot prove that the text supports the proposed meaning. Never invent IDs."
+                    }
+                  ]
+                },
+                "references": {
+                  "description": "Retain actual cross-references, including unresolved ones. Null if absent.",
+                  "anyOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "array",
+                      "description": "Source section labels for cross-references, including unresolved remote targets. Keep source cross-reference labels even when their content is unavailable. Preserve the topic of each reference in the unit's meaning; a nearby reference is not a license to infer the missing rule.",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "statement",
+                "actor",
+                "actor_quote",
+                "kind",
+                "modality"
+              ],
+              "additionalProperties": false,
+              "description": "The statement is the complete default reading. Optional fields add useful\nstructure, never substitute for qualifications omitted from the statement."
+            },
+            "confidence": {
+              "type": "object",
+              "properties": {
+                "score": {
+                  "type": "number",
+                  "description": "Probability that this individual statement preserves its complete source\nmeaning and all governing conditions needed for independent use. This is\nnot confidence that every rule in the document was extracted. Missing\nqualifiers, alternatives, required details or unresolved dependencies\nreduce confidence even when the passage is clear and the quote is exact.",
+                  "maximum": 1,
+                  "minimum": 0
+                },
+                "basis": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Brief externally checkable grounds or specific uncertainty for this score.\nDescribe source ambiguity or a dependency; do not give private reasoning\nor a step-by-step account. One short basis is usually sufficient.",
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "score",
+                "basis"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "unit",
+            "unit_attributes",
+            "confidence"
+          ],
+          "additionalProperties": false,
+          "title": "One semantic unit",
+          "description": "One independently referenceable source meaning. Separate distinct actions when useful, while preserving their inherited scope and connected qualifications. Overlapping main quotations are allowed. Retain substantive notes and cautions even when they impose no duty, including explanations that one event or document date does not establish the date of its underlying evidence. Keep these as descriptive statements at their source force."
+        }
+      }
+    },
+    "required": [
+      "terms",
+      "extractions"
+    ],
+    "additionalProperties": false,
+    "title": "Source-grounded document meanings",
+    "description": "Retain independently useful rules, definitions, recommendations, permissions, exemptions, qualifications and descriptive statements with exact evidence. Empty collections express absent supported content, never proof of completeness."
+  }
+}
