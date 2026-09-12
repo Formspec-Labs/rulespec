@@ -1,6 +1,116 @@
 # Rulespec reuse and extraction: comprehensive task list
 
-**Current user priority, 2026-09-11:** bring the completed reference, source,
+## Completed simplification batch — 2026-09-12
+
+**Completed:** the [README](../../packages/rulespec-extrapolator/README.md) now
+starts with direct extraction and discovery export. The
+[operating reference](../../packages/rulespec-extrapolator/OPERATIONS.md) separates
+command behavior from the [research evidence](../../packages/rulespec-extrapolator/EVIDENCE.md).
+The [bounded duplication review](../reviews/2026-09-12-simple-path-maintenance.md)
+found the important owners already shared; CLI help is the only production Python
+change. Model settings, schemas, prompts, evidence and review semantics are unchanged.
+
+The [fresh comparison](../experiments/2026-09-12-simple-path/RESULTS.md) completed
+three extractions and two audits: 34 statements, seven requests, 98,457 recorded
+tokens. Linked evidence improved full source support from 7/12 to 8/12 questions,
+and improved another question from one to six of seven needed passages, with no
+losses. **Keep linked evidence: this is a bounded improvement on a small sample.**
+The predeclared two-full-gain threshold remains unmet; broader value is uncertain,
+not disproved. Audit missed the standalone accrual and reference-context gaps,
+found a different historical-definition omission, and preserved the faithful
+regulation control. Keep audit optional; do not conflate its result with discovery.
+
+All three extractions, both audits and retrieval results replay identically;
+installed CLI exports match the same review snapshot and retain every source
+passage. The package/schema suite passed 689 tests; the rebuilt wheel is installed
+locally with the existing compatible dependencies. No push or deployment occurred.
+The original completion criteria below remain as a record of the bounded batch.
+
+- [x] **1. Put the shortest useful workflow first. Small; README and CLI help.**
+  Start the package README with direct source `extract`, then `discovery-export`;
+  show `usage` for recorded consumption. `extract` already accepts source input,
+  so separate preparation is optional. Put installation next and advanced commands
+  in a linked operating reference. Move chronological experiment discussion to a
+  linked evidence index, preserving original reports and links. State actual
+  defaults separately from optional overrides; do not silently change settings.
+  **Done when:** a reader can run the main path without reading experiment history
+  or choosing an audit strategy. Check examples against the existing CLI.
+
+- [x] **2. Make stage boundaries explicit. Small; operating reference.**
+  Give each existing command one row: input, output, model calls, whether it changes
+  review history, and when to use it. Explain that reference/context exports do not
+  automatically enter extraction prompts. Distinguish replay of the original run
+  from reprocessing with current code. Explain inventory plus comparison in audit
+  and the additional stages in refinement. Keep advanced operations available;
+  avoid a new wrapper, mode system, or workflow engine.
+  **Done when:** the guide answers what runs and what is paid for without tracing code.
+
+- [x] **3. Remove only verified implementation duplication. Small, bounded; R26.**
+  Trace live callers of evidence resolution, schema loading and request capture.
+  Reuse the existing owner wherever two live implementations perform the same job.
+  The shared evidence fix is already done. Generated CUE outputs and frozen
+  historical runtimes are not competing implementations to consolidate. Make one
+  coherent cleanup commit if a concrete duplicate exists; otherwise close this
+  item with that finding. Preserve distinct replay/reprocess and review semantics.
+  **Done when:** relevant regression checks and saved-output replay preserve source
+  coordinates, refusals and history. Check the installed wheel if code changes.
+
+- [x] **4. Establish one bounded fresh baseline. Medium; R17/R19/R24.**
+  Select three previously untuned, complete document sections: one government
+  manual, one annual CFR XML section and one USLM section. Before extraction, save
+  source-supported expectations and twelve natural retrieval questions, four per
+  source, including conditions/exceptions and definition/actor questions. Cap this
+  batch at six extraction windows, one attempt each, using unchanged settings.
+  Use existing preparation, extraction, evaluation, discovery and usage tools.
+  Manually trace raw source through the actual request/response and exported
+  records; inspect omissions, changed meaning, repetition and source availability.
+  Exercise one existing discovery consumer with source-only versus source-plus-
+  statement results under fixed retrieval settings. Prepare one short decision
+  outline from the same records and record the source checks/corrections needed.
+  **Done when:** one report lists supported answers out of twelve, consequential
+  errors, review corrections, tokens and elapsed time, with raw evidence. Keep
+  source-only and combined results separate; this small set is not a universal
+  accuracy estimate. Once reviewed, these sources become development cases.
+
+- [x] **5. Retain extra processing only where it earns its cost. Medium; R24/R26.**
+  From that baseline, select at most two failed cases and one faithful control.
+  Freeze the expected findings before running the existing medium audit, with at
+  most six audit windows total and no automatic retries. Compare consequential
+  errors found, false alarms, unresolved findings and additional tokens/time.
+  Reuse saved captures for deterministic checks. Keep full refinement and new
+  model passes outside this batch; introduce a smaller repair operation only if
+  a concrete review task demonstrates a need.
+  **Done when:** state the audit's observed benefit and cost on these cases, or
+  record no demonstrated gain. Passing schema checks alone is not a quality gain.
+
+- [x] **6. Close the batch and commit the result. Small.**
+  Consolidate the operating recommendation and remaining consequential defects
+  into this backlog. Run checks appropriate to actual changes, preserving the
+  current qualification regressions and their counterexamples. Commit coherent
+  documentation/code changes separately from new evaluation captures. Record
+  local installation status separately from push, release or deployment.
+  **Stop when:** the simple path is documented and exercised, the fresh baseline
+  and bounded audit check have results, and each optional step has an explicit
+  keep/defer decision. Unresolved semantic errors become named backlog items;
+  do not start another prompt-tuning cycle automatically.
+
+### Remaining work after this stopping point
+
+- **R16/R24:** retain the part-time accrual gap as a per-statement issue; the
+  proration formula already exists elsewhere in the same book.
+- **R12/R19/R24:** carry the supplied outdated-definition warning before turning
+  the technician entitlement into a workflow. Do not invent a replacement target.
+- **R17:** use the retained linked-evidence capability in a broader consumer sample
+  when needed; the current result does not justify removing it or claiming a
+  general improvement rate.
+- **R23:** native annual CFR XML remains unsupported. This batch used the existing
+  acquisition reader and preserved the source/rendition distinction.
+- **R26:** null-valued output fields and repeated optional prose remain a possible
+  cost experiment. No automatic prompt tuning follows this batch.
+
+## Earlier reference and context checkpoints
+
+**User priority at the 2026-09-11 checkpoint:** bring the completed reference, source,
 retention and feedback capabilities back into the original extraction/context
 work. Follow the [context integration plan](2026-09-11-context-work-integration.md)
 for that next slice. The publication-metadata checkpoint below remains valid as
@@ -294,7 +404,7 @@ release. Preserve the completed foundation and make one bounded change at a time
 | R25 | Independent relationship verdicts without extra prose | Earlier bundle failed its gate; isolated experiment open | M |
 | R26 | Cheaper optional checks and removal of proven duplication | Existing operations available; comparison open | M |
 
-## Next executable batch
+## Earlier executable batch — 2026-09-11
 
 **Retention and reader capture are delivered.** The
 [retention result](../experiments/2026-09-11-extraction-retention/README.md) records
