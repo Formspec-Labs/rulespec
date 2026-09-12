@@ -515,7 +515,7 @@ does not establish implementation or package qualification.
 
 <a id="rs01"></a>
 
-- [ ] **RS01 — Decide and qualify the shared canonical encoder's supported values.**
+- [x] **RS01 — Decide and qualify the shared canonical encoder's supported values.**
   **Owner: Rulespec.** With the source-format owners, establish the exact values
   required by [DocSpec D28](../DocSpec/docs/dataset-experiments-todo.md#d28) and
   [SpicyDocs S30](../spicy-docs/docs/simplification-todo.md#s30). Start with
@@ -539,8 +539,13 @@ does not establish implementation or package qualification.
   identity value that justifies a larger domain. DocSpec's large-integer
   optimizer fixture is not such a requirement. Its D28 must replace both its
   identity emitter and ASCII fast emitter while retaining domain conversion
-  and contextual validation. Installed corpus and current source-wheel proof
-  remain required before this item is checked; DocSpec adoption is separate.
+  and contextual validation. The 44-case canonical corpus passes in clean core
+  and optional-dependency installations of SpicyDocs `0.2.0` from `296f20d`, using
+  Rulespec Artifacts `1.0.12` from `bf59d63`. The source wheel's 64 focused tests
+  include exact Unicode, numeric-string, supported-integer and refused-value
+  evidence cases. The existing canonical domain and artifact format are unchanged;
+  DocSpec adoption remains D28. Exact wheel pins and command results are retained
+  in the coordinating task's `validation/s19-s22-s26-s30/` receipts.
 
 <a id="rs02"></a>
 
@@ -565,7 +570,7 @@ does not establish implementation or package qualification.
 
 <a id="rs03"></a>
 
-- [ ] **RS03 — Decide whether an existing shared primitive should own bounded blob writes.**
+- [x] **RS03 — Decide whether an existing shared primitive should own bounded blob writes.**
   **Owner: Rulespec for suitability and any selected shared implementation.**
   Compare actual caller requirements with
   [DocSpec D31](../DocSpec/docs/dataset-experiments-todo.md#d31) and
@@ -582,7 +587,7 @@ does not establish implementation or package qualification.
   and removal of replaced physical writers. A decision to defer remains a
   deferral in each linked task. This task introduces no storage platform and no
   source-package dependency on DocSpec's lifecycle.
-  **Selected September 11, implementation pending:** the source coordinator and
+  **Implemented and qualified September 11:** the source coordinator and
   architecture reviewer selected a product-neutral `LocalBlobWriter` in this
   package. One bounded `put` operation accepts known or computed SHA-256 identity,
   verifies reuse, and supports the two actual layouts: flat `sha256/<digest>`
@@ -591,6 +596,14 @@ does not establish implementation or package qualification.
   and nonregular objects, conditionally link staged bytes, flush durable output,
   clean staging on failure, and distinguish limit/integrity errors without
   parsing messages. Callers retain reference/media-type mapping and iterator
-  ownership. S22 adopts it independently; D31 remains open until DocSpec adopts
-  the wheel and removes its physical writer. This decision neither completes
-  implementation nor claims upstream publication.
+  ownership. Commit `bf59d63` implements it in Rulespec Artifacts `1.0.12`; the
+  wheel SHA-256 is `3f6c946c60ff2ddbe854fce7f74f4358ddb21e3ba3f6ad10caa8a0d8d59fd0a5`.
+  All 64 shared-package tests pass in the workspace; the isolated installation
+  passes 62 and skips two existing optional-msgspec checks. All 23 new writer
+  tests run, covering both layouts, streaming bounds, reuse, races, corruption,
+  cleanup and durability. SpicyDocs `296f20d` removes its physical writer and
+  passes 108 focused caller tests. Independent semi-formal review approved the
+  final implementation. Receipts are retained in the coordinating task's
+  `validation/s22-shared-writer-final/`. D31 remains open until DocSpec adopts
+  the operation and removes its physical writer; this is local qualification,
+  not upstream publication.
