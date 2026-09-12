@@ -21,15 +21,18 @@ def _write_new(path, value):
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description="Extract and review source-backed rules locally.")
+    parser = argparse.ArgumentParser(
+        description="Extract source-backed rules locally; audit and refinement are optional.",
+        epilog="Start with: extract SOURCE --output RUN, then discovery-export RUN --output discovery.json. "
+               "Use usage RUN for recorded tokens. Export, inspection and replay make no model calls.")
     sub = parser.add_subparsers(dest="command", required=True)
     prepare = sub.add_parser("prepare", help="Pin exact text and section coordinates.")
-    prepare.add_argument("source", type=Path, help="Text, prepared document JSON, or USLM XML.")
+    prepare.add_argument("source", type=Path, help="Text, prepared document JSON, or supported USLM/eCFR XML.")
     prepare.add_argument("--title")
     prepare.add_argument("--source-url", default="")
     prepare.add_argument("--output", type=Path, required=True)
     extract = sub.add_parser("extract", help="Extract candidates; preserve every attempt.")
-    extract.add_argument("source", type=Path, help="Text, prepared document JSON, or USLM XML.")
+    extract.add_argument("source", type=Path, help="Text, prepared document JSON, or supported USLM/eCFR XML.")
     extract.add_argument("--model", default="gemini-3.8-flash")
     extract.add_argument("--env-file", type=Path)
     extract.add_argument("--max-chars", type=int, default=e.DEFAULT_MAX_CHARS)
