@@ -11,7 +11,7 @@ from jsonschema import Draft202012Validator, ValidationError
 from rulespec_projection.evidence import resolve_exact_evidence_offsets
 
 from . import extraction as e
-from .core import MEANING_FIELDS, NS, validate_graph, sparse
+from .core import MEANING_FIELDS, NS, evidence_parts, validate_graph, sparse
 from .documents import source_passages, validate_document
 from .schemas import load_schema
 from .evaluation import (COVERAGE, MEANING_DIMENSIONS, VERDICTS, claim_digest,
@@ -172,9 +172,10 @@ def _span(document, quote, window, *, focus=False):
 
 
 def _source_span(document, span):
-    if any(p["kind"] != "source" and p["start"] < span["end"] and span["start"] < p["end"]
-           for p in document.get("source_map", [])):
-        raise ValueError("Audit evidence cannot cite inserted text")
+    # Keep the selected span intact; Core verifies its original pieces across
+    # formatting whitespace and refuses inserted substantive content.
+    if not evidence_parts(document, span["quote"], "audit", span["start"], span["end"]):
+        raise ValueError("Audit evidence lacks original-source support")
     return {"source_id": document["id"], **span}
 
 

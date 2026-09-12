@@ -505,6 +505,11 @@ Complete statement and component quotations may cross inserted whitespace: their
 whole coordinates stay on the claim, while existing evidence bindings retain all
 original-source pieces. Inserted non-whitespace remains unsupported. Review checks
 require the complete evidence group, and passage ranges still refuse unseen text.
+Inventory, audit comparison, and refinement use the same Core evidence check:
+formatting-only whitespace may join original pieces, while inserted words and
+formatting alone cannot support a judgment. The selected text and offsets remain
+unchanged, and the saved document retains the source map needed to recover those
+pieces.
 
 **Processing:** the application indexes paragraphs and list items, plans bounded
 windows, and supplies parent/neighbor context. Fitting list groups stay together;
@@ -582,6 +587,11 @@ None establishes that every source meaning was discovered. Read `audit_issues`
 and `review_complete` before interpreting coverage counts: the final example
 marks 20 accepted units covered while four substantive inventory entries were
 refused. It is not 100% source coverage. No check emits a `ClosureClaim`.
+
+The [qualification regression cases](evaluation/qualification-regressions.md)
+retain missed overrides, incomplete permissions, and coverage-link mistakes from
+recorded provider outputs, with source review and counterexamples for future
+evaluations. These are development cases, not an independent accuracy benchmark.
 
 ## Review, refinement and changed runtimes
 
