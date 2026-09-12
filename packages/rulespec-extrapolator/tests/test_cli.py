@@ -29,3 +29,16 @@ def test_cli_thinking_settings(monkeypatch, tmp_path, stage, expected_level, cha
     assert calls[0]['thinking_level'] == (level or expected_level)
     assert calls[0]['max_chars'] == chars
     assert calls[0]['max_output_tokens'] == cap
+
+
+@pytest.mark.parametrize('enabled', [False, True])
+def test_cli_section_windows_reaches_extraction(monkeypatch, tmp_path, enabled):
+    monkeypatch.setattr(cli, 'load_document', lambda _: {})
+    calls = []
+    def run(*args, **kwargs):
+        calls.append(kwargs)
+        return {'accepted': [], 'rejected': [], 'unresolved': [], 'run': {}}
+    monkeypatch.setattr(e, 'extract_run', run)
+    argv = ['extract', 'source.xml', '--output', str(tmp_path / 'run')]
+    assert cli.main(argv + (['--section-windows'] if enabled else [])) == 0
+    assert calls[0]['section_windows'] is enabled

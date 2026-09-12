@@ -140,6 +140,37 @@ def test_default_window_keeps_a_moderate_document_intact():
     assert [(w['start'], w['end']) for w in windows] == [(0, len(text))]
 
 
+def test_section_windows_preserve_sections_preamble_gaps_and_global_offsets():
+    text = 'Intro ☃.\n\nFirst section.\n\nGap text.\n\nSecond section.\n\n'
+    first, second = text.index('First'), text.index('Second')
+    doc = prepare_document(text, sections=[
+        {'id': 'two', 'label': 'two', 'start': second, 'end': len(text) - 2},
+        {'id': 'one', 'label': 'one', 'start': first, 'end': text.index('Gap')}])
+    windows = plan_windows(doc, section_windows=True)
+    assert [(w['start'], w['end']) for w in windows] == [(0, first), (first, second), (second, len(text))]
+    assert ''.join(text[w['start']:w['end']] for w in windows) == text
+    assert windows == plan_windows(doc, section_windows=True)
+    assert len(plan_windows(doc)) == 1
+
+
+def test_section_windows_respect_nested_starts_and_split_oversized_sections_with_context():
+    text = '(a) If a card is lost:\n\n' + '(1) The visitor must request a replacement.\n\n' * 4
+    nested = text.index('(1)')
+    doc = prepare_document(text, sections=[
+        {'id': 'parent', 'label': 'parent', 'start': 0, 'end': len(text)},
+        {'id': 'child', 'label': 'child', 'start': nested, 'end': len(text)},
+        {'id': 'duplicate-start', 'label': 'duplicate', 'start': nested, 'end': len(text) - 1}])
+    windows = plan_windows(doc, 50, section_windows=True)
+    assert windows[0]['end'] == nested
+    assert windows[1]['start'] == nested
+    assert all(0 < w['end'] - w['start'] <= 50 for w in windows)
+    assert ''.join(text[w['start']:w['end']] for w in windows) == text
+    assert all(w['context_version'] == 'document-context/1' for w in windows)
+    # A single supplied section does not add another split policy to plain text.
+    plain = prepare_document(text)
+    assert plan_windows(plain, 50, section_windows=True) == plan_windows(plain, 50)
+
+
 def test_combined_cfr_marker_starts_new_group_without_inheriting_previous_case():
     doc = prepare_document('(b) Prior case.\n\n(4) Prior child.\n'
         '(c)(1) A new case.\n\n(i) First detail.\n\n(ii) Second detail.\n\n'

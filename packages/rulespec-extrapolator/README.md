@@ -79,6 +79,13 @@ permission. Keep complete source passages available alongside the draft;
 can arrive over time for discovery, or before using the records to build an
 executable workflow. This package does not generate Formspec/WOS artifacts.
 
+For dense documents with supplied section coordinates, `extract --section-windows`
+starts a request at each section start while retaining the character limit and
+existing source context. This can recover requirements compressed by broader
+requests, at the cost of more calls. Plain text needs prepared section coordinates
+to benefit. See the [focus option](OPERATIONS.md#section-focused-extraction) for
+the measured improvement and remaining limits.
+
 The CUE application profile owns model-facing fields and their generated schemas.
 Ordinary extraction keeps one complete statement, kind, modality, nullable actor
 assessment and a source-backed term index; additional fields should add information.

@@ -57,6 +57,12 @@ def test_invalid_window_size_is_refused(max_chars):
         e.plan_windows(prepare_document("Source"), max_chars)
 
 
+@pytest.mark.parametrize('value', [None, 0, 1, 'false'])
+def test_invalid_section_window_setting_is_refused(value):
+    with pytest.raises(ValueError, match='section_windows'):
+        e.plan_windows(prepare_document('Source'), section_windows=value)
+
+
 def test_parser_uses_raw_text_not_sdk_parsed_cache():
     response = raw()
     response["parsed"] = {"extractions": [row("An invented obligation")]}
@@ -339,6 +345,38 @@ def test_overflow_run_finishes_replays_and_reprocesses(offline, tmp_path):
     assert processed["extraction_refusals"] == book["extraction_refusals"]
     assert len(processed["accepted"]) == 1
     assert models[0].calls == 1
+
+
+def test_section_window_capture_replay_and_reprocessing_preserve_the_plan(offline, tmp_path, monkeypatch):
+    text = 'Staff must log requests.\nStaff may issue passes.'
+    split = text.index('Staff may')
+    document = prepare_document(text, sections=[
+        {'id': 'one', 'label': 'one', 'start': 0, 'end': split},
+        {'id': 'two', 'label': 'two', 'start': split, 'end': len(text)}])
+    install, models = offline
+    env = install([raw(), raw([row(statement='Staff may issue passes.', kind='permission',
+                                  modality='may', modality_quote='may')])])
+    path = tmp_path / 'sections'
+    book = e.extract_run(document, path, env_file=env, section_windows=True)
+    assert models[0].calls == 2
+    assert book['run']['section_windows'] is True
+    assert [(c['start'], c['end']) for c in book['accepted']] == [(0, split - 1), (split, len(text))]
+    requests = [e._load(path / f'attempt-{i:04d}.request.json') for i in range(2)]
+    generator = e._prompt_generator(e.invented_examples())
+    windows = e.plan_windows(document, section_windows=True)
+    assert [r['contents'] for r in requests] == [e._window_prompt(generator, document, w) for w in windows]
+    monkeypatch.setattr(e, '_create_model', lambda *args: pytest.fail('Unexpected provider call'))
+    assert e.replay_run(path, tmp_path / 'replay') == book
+    updated = e.reprocess_run(path, tmp_path / 'reprocessed')
+    assert updated['run']['section_windows'] is True
+    assert updated['run']['windows'] == book['run']['windows']
+    assert e.replay_run(tmp_path / 'reprocessed', tmp_path / 'reprocessed-replay') == updated
+    run = e._load(path / 'run.json')
+    run['section_windows'] = False
+    e._save(path / 'run.json', run)
+    e._write_manifest(path)
+    with pytest.raises(e.ReplayDriftError, match='window plan changed'):
+        e.replay_run(path, tmp_path / 'changed-plan')
 
 
 def test_successful_window_cannot_hide_failed_window_and_replays(offline, tmp_path):

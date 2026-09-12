@@ -36,6 +36,8 @@ def main(argv=None):
     extract.add_argument("--model", default="gemini-3.8-flash")
     extract.add_argument("--env-file", type=Path)
     extract.add_argument("--max-chars", type=int, default=e.DEFAULT_MAX_CHARS)
+    extract.add_argument("--section-windows", action="store_true",
+                         help="Start a new request at each supplied section start; max-chars still applies. May increase requests.")
     extract.add_argument("--max-output-tokens", type=lambda value: None if value == "provider" else int(value),
                          default=e.MAX_OUTPUT_TOKENS, metavar="TOKENS|provider",
                          help="Total generation allowance; 'provider' omits the application cap. Recorded for replay.")
@@ -152,7 +154,8 @@ def main(argv=None):
         if args.command == "extract":
             result = extract_run(load_document(args.source), args.output, args.model,
                                  env_file=args.env_file, max_chars=args.max_chars, temperature=args.temperature,
-                                 max_output_tokens=args.max_output_tokens, thinking_level=args.thinking_level)
+                                 max_output_tokens=args.max_output_tokens, thinking_level=args.thinking_level,
+                                 section_windows=args.section_windows)
         elif args.command == "replay":
             result = replay_run(args.input, args.output)
         else:

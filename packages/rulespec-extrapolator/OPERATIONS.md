@@ -39,6 +39,34 @@ exist. Counts scale with its own windows, not necessarily the extraction windows
 An audit is diagnostic; neither source grounding nor agreement between model passes
 establishes complete or correct meaning.
 
+## Section-focused extraction
+
+For dense documents with supplied section coordinates:
+
+```sh
+rulespec-understand extract prepared.json --section-windows \
+  --env-file /path/to/local.env --output section-run
+```
+
+This starts a new request at each distinct section start already in the document.
+USLM/eCFR preparation supplies these coordinates; ordinary text has one default
+section. Nested section starts also split the focus. `--max-chars` remains a hard
+limit within each interval, using the existing line/list splitting and bounded
+parent/neighbor context. Preambles get their own interval; gaps and trailing text
+stay with the preceding interval. Every source character is processed once as
+focus, with original coordinates preserved. No new section parser, source fetch,
+or automatic audit is added.
+
+The option defaults off and is recorded in `run.json` for replay. Audit and
+refinement retain their own window settings. On the selected CSBG chapter this
+plans 27 requests instead of six. The
+[CSBG focus experiment](../../thoughts/experiments/2026-09-12-csbg-focus/RESULTS.md)
+recovered distinct records for all thirteen State-plan contents; ten were faithful
+and three retained detail gaps. Scope and modality also need review. This is a
+narrow adoption of the useful focus control, not a claim of complete extraction
+or a measured whole-chapter cost saving. The experiment selected exact section
+ends; the integrated option also retains separator whitespace and any gap text.
+
 ## Settings and advanced examples
 
 From the repository root, the existing experimental environment exposes

@@ -6,6 +6,7 @@ there is no implicit chunking, fuzzy alignment, or swallowed parse failure.
 """
 from __future__ import annotations
 
+from bisect import bisect_right
 from copy import deepcopy
 from datetime import datetime, timezone
 import hashlib
@@ -220,10 +221,12 @@ def provider_schema():
     return GeminiSchema.from_schema_dict(load_schema("provider"))
 
 
-def plan_windows(document: dict, max_chars: int = DEFAULT_MAX_CHARS) -> list[dict]:
+def plan_windows(document: dict, max_chars: int = DEFAULT_MAX_CHARS, *, section_windows: bool = False) -> list[dict]:
     """Partition pinned Unicode text without gaps or rewritten characters."""
     if not isinstance(max_chars, int) or isinstance(max_chars, bool) or max_chars < 1:
         raise ValueError("max_chars must be a positive integer")
+    if type(section_windows) is not bool:
+        raise ValueError("section_windows must be a boolean")
     text = document["text"]
     if not isinstance(text, str) or _digest(text) != document["sha256"]:
         raise ValueError("Document text does not match its pinned SHA-256")
@@ -237,11 +240,17 @@ def plan_windows(document: dict, max_chars: int = DEFAULT_MAX_CHARS) -> list[dic
     groups = [(p['start'], group_ends[p['id']]) for p in passages
               if group_ends[p['id']] > p['end']
               and group_ends[p['id']] - p['start'] <= max_chars]
+    # Existing section starts bound focus; preserve preambles, gaps and final text.
+    # Nested sections also start a new window. No headings or scopes are inferred.
+    boundaries = sorted({s['start'] for s in document.get('sections', [])
+                         if 0 < s['start'] < len(text)}) if section_windows else []
+    boundaries.append(len(text))
     windows = []
     start = 0
     while start < len(text):
-        end = min(start + max_chars, len(text))
-        if end < len(text):
+        focus_end = boundaries[bisect_right(boundaries, start)]
+        end = min(start + max_chars, focus_end)
+        if end < focus_end:
             lower = start + max_chars // 2
             # Prefer a complete source line; fall back to a word boundary.
             boundary = text.rfind("\n", start, end)
@@ -795,7 +804,8 @@ def _write_manifest(output: Path) -> None:
 
 def extract_run(document: dict, output: Path, model_id: str = DEFAULT_MODEL,
                 env_file: Path | None = None, max_chars: int = DEFAULT_MAX_CHARS, temperature: float = 0,
-                max_output_tokens: int | None = MAX_OUTPUT_TOKENS, thinking_level: str | None = DEFAULT_THINKING_LEVEL) -> dict:
+                max_output_tokens: int | None = MAX_OUTPUT_TOKENS, thinking_level: str | None = DEFAULT_THINKING_LEVEL,
+                *, section_windows: bool = False) -> dict:
     """Create an immutable run with a terminal outcome for every planned window."""
     from .documents import validate_document
     validate_document(document)
@@ -807,7 +817,7 @@ def extract_run(document: dict, output: Path, model_id: str = DEFAULT_MODEL,
         raise ValueError("max_output_tokens must be a positive integer or None for the provider default")
     if thinking_level not in (None, "low", "medium", "high"):
         raise ValueError("thinking_level must be low, medium, high, or None for the provider default")
-    windows = plan_windows(document, max_chars)
+    windows = plan_windows(document, max_chars, section_windows=section_windows)
     _runtime_versions()
     output = Path(output)
     output.mkdir(parents=True, exist_ok=False)
@@ -821,7 +831,7 @@ def extract_run(document: dict, output: Path, model_id: str = DEFAULT_MODEL,
            "source_sha256": document["sha256"], "prompt_sha256": _digest(PROMPT),
            "profile": core.SCHEMA_VERSION, "parser_version": PARSER_VERSION,
            "provider_schema_field": "response_json_schema", "example_format": "semantic-text/1",
-           "started_at": _now(), "max_chars": max_chars, "temperature": temperature,
+           "started_at": _now(), "max_chars": max_chars, "section_windows": section_windows, "temperature": temperature,
            "max_output_tokens": max_output_tokens, "thinking_level": thinking_level, "provider_retries": 0,
            "fingerprints": fingerprints, "status": "running",
            "windows": [{**window, "status": "planned", "attempts": []} for window in windows],
@@ -1244,7 +1254,9 @@ def replay_run(input_dir: Path, output: Path) -> dict:
     document = _load(directory / "document.json")
     windows = _recorded_windows(document, run)
     if run.get("record_kind") != "pipeline_reprocessing":
-        if windows != plan_windows(document, run["max_chars"]):
+        if type(run.get("section_windows")) is not bool:
+            raise ReplayDriftError("The recorded section window setting is invalid")
+        if windows != plan_windows(document, run["max_chars"], section_windows=run["section_windows"]):
             raise ReplayDriftError("The recorded window plan changed")
         temperature = run.get("temperature")
         if (type(temperature) not in (int, float) or not math.isfinite(temperature) or not 0 <= temperature <= 2
