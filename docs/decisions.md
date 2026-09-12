@@ -1,5 +1,47 @@
 # Product and release decisions
 
+## Shared canonical values for source and dataset identities
+
+**September 11, 2026 — decision accepted; current-wheel qualification pending.**
+The source coordinator and independent architecture reviewer agreed that
+[platform-artifacts §2](../spec/platform-artifacts.md#2-canonical-json) supplies
+the shared identity encoding for SpicyDocs S30 and DocSpec D28. Keep the existing
+Rulespec implementation and 44-case golden corpus. No encoding or artifact-format
+change is introduced in Rulespec by this decision.
+
+Supported values are null, booleans, exact integers from `-(2^53-1)` through
+`2^53-1`, Unicode scalar strings, arrays, and objects with distinct string keys.
+Sort object keys by UTF-16 code units and preserve string code points without
+normalization. Refuse floating-point values, nonfinite numbers, duplicate keys,
+lone surrogates, non-string keys, and unsupported Python objects. Do not round
+numbers or convert arbitrary source values into strings to gain admission.
+
+SpicyDocs already uses this encoder for source identities. Its current source
+tests preserve composed/decomposed text, non-BMP characters, numeric strings,
+nulls, booleans and safe integer boundaries through publication, full replay,
+reading and exact retained evidence. Out-of-range numeric values and derived
+rendition sizes remain explicit refusals with retained available bytes.
+Source documents themselves remain exact captured bytes, even when their
+contents fall outside identity JSON's value domain.
+
+DocSpec's `domain/identity.py` must retain its useful dataclass, enumeration,
+mapping and sequence conversion plus contextual validation, then delegate
+encoding. Its `adapters/framing.py` fast emitter also needs replacement: the
+ASCII guard does not enforce the shared integer bound. The `2**63` example in
+`tests/test_canonical_encoding_equivalence.py` is an optimization equivalence
+fixture, not evidence of a required dataset identity value. Document-release
+validation already bounds integers; retention floors deliberately use decimal
+strings. Parsing document text in `processing/json_tools.py` remains a separate
+concern and does not justify widening identity JSON.
+
+DocSpec D28 owns adoption, removal of both replaced emitters, Unicode ordering
+and number-boundary tests, and any resulting current format/pin changes. Its
+existing encoder has not converged merely because this decision is recorded.
+Rulespec RS01 and SpicyDocs S30 require installed shared-corpus and current
+provider-wheel checks; qualify those exact bytes before checking their tasks.
+The evidence and architecture review are retained as
+`s22-rs01-architecture-decisions.md` with the coordinating planning session.
+
 ## 2026-09-06: Validate document understanding within Rulespec
 
 **Status:** Accepted — owner clarification.

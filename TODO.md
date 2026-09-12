@@ -533,6 +533,14 @@ does not establish implementation or package qualification.
   indiscriminately. If required domains prevent convergence, record the evidence
   and defer the shared-emitter change in all linked tasks; separate encoders do
   not satisfy that acceptance.
+  **Decision September 11:** adopt the existing §2 domain without widening it;
+  see [shared canonical values](docs/decisions.md#shared-canonical-values-for-source-and-dataset-identities).
+  The coordinator and architecture reviewer found no required source or dataset
+  identity value that justifies a larger domain. DocSpec's large-integer
+  optimizer fixture is not such a requirement. Its D28 must replace both its
+  identity emitter and ASCII fast emitter while retaining domain conversion
+  and contextual validation. Installed corpus and current source-wheel proof
+  remain required before this item is checked; DocSpec adoption is separate.
 
 <a id="rs02"></a>
 
