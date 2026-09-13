@@ -5,8 +5,10 @@ path. This list follows the [independent input review](../reviews/2026-09-13-mod
 and [construction experiment](../experiments/2026-09-13-explicit-rule-construction/README.md).
 Implementation update: see the [recorded checker comparison](../experiments/2026-09-13-complete-reading-check/README.md).
 M2 is implemented and verified. M3's identifier presentation is integrated, but
-its semantic diagnostic failed. M4 improved some judgments but failed its adoption
-gate; M5 remains on hold.
+its semantic diagnostic failed. M4 improved some judgments but failed its initial adoption
+gate. Fresh-source validation now confirms a narrower gain, mainly rejecting
+unnecessary edits; the full replacement and no-change checks remain unadopted.
+M5 remains on hold.
 
 Reuse CUE definitions, passage catalogs, evidence resolution and the current review
 path. Keep useful schema descriptions and semantic examples. Preserve original
@@ -186,3 +188,47 @@ optional experiment. M10 remains a separate decision.
   revisions tested; combined proposed meaning-edit application remains conditional
   on a future treatment being adopted. No push or release.
 - M10: remains deferred.
+
+## Fresh-source validation checkpoint — September 13
+
+The [fresh comparison](../experiments/2026-09-13-fresh-complete-reading/README.md)
+used eight new source excerpts, ordinary extraction drafts and two repetitions
+of each checker arm. Shared edited-candidate accuracy improved from **19/32 to
+26/32**, with five contexts improving and one regressing. Most of the gain was
+rejecting unnecessary action-field filling (**0/6 to 6/6**). Needed complete
+repairs improved only **3/10 to 4/10**. Both versions rejected all sixteen known
+wrong-edit judgments. Shared-task no-change accuracy was **10/16**.
+
+This confirms useful value beyond the original documents, but misses the
+preregistered 85% edit and 75% no-change thresholds. Medical-exception detail is a
+real regression. Privacy responses invert one negated instruction; the original
+notice exception remains missed. Keep the full checker replacement experimental.
+No production behavior changed in this validation. Eight native captures and all
+94 judgments replay/re-decode without provider access; 44 calls were made without
+retries. Initial partial extraction/component issues remain retained.
+
+Next bounded work, in order:
+
+- [ ] **M4a — Isolate rejection of unnecessary component edits.** Compare the
+  current checker with only a clear instruction that empty optional action/object
+  fields do not by themselves require repair. Preserve legitimate corrections
+  to wrong populated fields and useful actor/term links. Include the three
+  complete-reading controls, the lost medical detail and a real component-error
+  correction. Retain useful CUE field semantics; avoid a blanket equality rule
+  that rejects every edit with an unchanged default statement.
+- [ ] **M4b — Test positive wording for inherited conditions.** Change only the
+  ambiguous negated sentence in the shared task, then compare on the actual
+  privacy inversion, medical omission, old notice failure and unrelated-duty
+  controls. Explicitly assess the selected default statement rather than crediting
+  complete meaning retained elsewhere. Follow a successful diagnostic with new
+  source excerpts; the eight sources above are now development data.
+- [ ] **M8 continuation — Preserve an untouched generation holdout.** The eight
+  fresh checker excerpts are delivered; they did not test generation of repairs.
+  M5 still needs its own frozen fresh comparison once a usable checker policy is
+  established. Do not count repetitions or constructed edits as new documents.
+
+M2 and the mechanical M3 fixes remain integrated. M9's next production integration
+should be the smallest demonstrated behavior from M4a/M4b; M6, M7 and M10 remain
+conditional. This checkpoint supersedes the earlier suggestion to redesign
+source-to-baseline accounting first: isolate the observed optional-field benefit
+and the concrete instruction ambiguity before expanding the pipeline.

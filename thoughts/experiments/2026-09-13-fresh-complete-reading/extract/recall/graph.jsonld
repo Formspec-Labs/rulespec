@@ -1,0 +1,2894 @@
+{
+  "@context": {
+    "rkaf": "https://rulespec.org/ns/v1#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "oa": "http://www.w3.org/ns/oa#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "cito": "http://purl.org/spar/cito/",
+    "wos": "https://w3id.org/wos/ns/v1#",
+    "formspec": "https://w3id.org/formspec/ns/v1#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "eli": "http://data.europa.eu/eli/ontology#",
+    "aknt": "http://docs.oasis-open.org/legaldocml/ns/akn/3.0/",
+    "uslm": "https://uslm.gov/2.1.0/",
+    "lrml": "http://docs.oasis-open.org/legalruleml/ns/v1.0/",
+    "rrmv": "http://data.europa.eu/m8g/rrmv/",
+    "eco": "http://purl.obolibrary.org/obo/ECO_",
+    "sepio": "http://purl.obolibrary.org/obo/SEPIO_",
+    "dpv": "https://w3id.org/dpv#",
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "rkaf:Artifact": {
+      "@type": "@id"
+    },
+    "rkaf:hasArtifactIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:artifactIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasRegulatoryIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:regulatoryIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:publishedInProceeding": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:publishedInDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:hasFormat": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:format": {
+      "@type": "xsd:string"
+    },
+    "dcterms:isFormatOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:isVersionOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "prov:wasRevisionOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasContentDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:versionLineageEvidence": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:SourceFragment": {
+      "@type": "@id"
+    },
+    "oa:hasSource": {
+      "@type": "@id"
+    },
+    "oa:hasSelector": {
+      "@type": "@id"
+    },
+    "oa:TextQuoteSelector": {
+      "@type": "@id"
+    },
+    "oa:TextPositionSelector": {
+      "@type": "@id"
+    },
+    "oa:exact": {
+      "@type": "xsd:string"
+    },
+    "oa:prefix": {
+      "@type": "xsd:string"
+    },
+    "oa:suffix": {
+      "@type": "xsd:string"
+    },
+    "oa:start": {
+      "@type": "xsd:integer"
+    },
+    "oa:end": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:selectorKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:coordinateSystem": {
+      "@type": "@vocab"
+    },
+    "rkaf:sourceArtifactDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:fragmentContentDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:EvidenceBinding": {
+      "@type": "@id"
+    },
+    "rkaf:bindsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:bindsSourceFragment": {
+      "@type": "@id"
+    },
+    "rkaf:noEvidenceReason": {
+      "@type": "@id"
+    },
+    "rkaf:Warrant": {
+      "@type": "@id"
+    },
+    "rkaf:hasWarrant": {
+      "@type": "@id"
+    },
+    "rkaf:warrantKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:warrantFamily": {
+      "@type": "@vocab"
+    },
+    "rkaf:defeasible": {
+      "@type": "xsd:boolean"
+    },
+    "rkaf:ConfidenceRecord": {
+      "@type": "@id"
+    },
+    "rkaf:hasConfidence": {
+      "@type": "@id"
+    },
+    "rkaf:confidenceMethod": {
+      "@type": "@vocab"
+    },
+    "rkaf:calibrationStatus": {
+      "@type": "@vocab"
+    },
+    "rkaf:confidenceBasis": {
+      "@type": "@id"
+    },
+    "rkaf:evaluatedAgainst": {
+      "@type": "@id"
+    },
+    "rkaf:generatedBy": {
+      "@type": "@id"
+    },
+    "rkaf:score": {
+      "@type": "xsd:float"
+    },
+    "rkaf:scoreCategorical": {
+      "@type": "@vocab"
+    },
+    "rkaf:AccessScope": {
+      "@type": "@id"
+    },
+    "rkaf:hasAccessScope": {
+      "@type": "@id"
+    },
+    "rkaf:accessScopeKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:regulatoryClass": {
+      "@type": "@vocab"
+    },
+    "rkaf:embargoUntil": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:permittedRole": {
+      "@type": "@id"
+    },
+    "rkaf:AILineage": {
+      "@type": "@id"
+    },
+    "rkaf:hasAILineage": {
+      "@type": "@id"
+    },
+    "rkaf:modelId": {
+      "@type": "xsd:string"
+    },
+    "rkaf:modelVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:promptTemplateRef": {
+      "@type": "@id"
+    },
+    "rkaf:temperature": {
+      "@type": "xsd:float"
+    },
+    "rkaf:seed": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:inputContextHash": {
+      "@type": "xsd:string"
+    },
+    "rkaf:humanApprover": {
+      "@type": "@id"
+    },
+    "rkaf:humanRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:MappingState": {
+      "@type": "@id"
+    },
+    "rkaf:mappingState": {
+      "@type": "@vocab"
+    },
+    "rkaf:RetentionPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:hasRetentionPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:retentionDurationDays": {
+      "@type": "xsd:int"
+    },
+    "rkaf:retentionTrigger": {
+      "@type": "@vocab"
+    },
+    "rkaf:retentionPostExpiry": {
+      "@type": "@vocab"
+    },
+    "rkaf:Workspace": {
+      "@type": "@id"
+    },
+    "rkaf:scopedToWorkspace": {
+      "@type": "@id"
+    },
+    "rkaf:workspaceId": {
+      "@type": "xsd:string"
+    },
+    "rkaf:workspaceTrustList": {
+      "@type": "@id"
+    },
+    "rkaf:projectsTo": {
+      "@type": "@id"
+    },
+    "rkaf:llmHint": {
+      "@type": "@id"
+    },
+    "rkaf:Authority": {
+      "@type": "@id"
+    },
+    "rkaf:Attestation": {
+      "@type": "@id"
+    },
+    "rkaf:LocalAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:ApplicabilityScope": {
+      "@type": "@id"
+    },
+    "rkaf:EffectivePeriod": {
+      "@type": "@id"
+    },
+    "rkaf:LifecycleEvent": {
+      "@type": "@id"
+    },
+    "rkaf:Proceeding": {
+      "@type": "@id"
+    },
+    "rkaf:RegulatoryAgendaItem": {
+      "@type": "@id"
+    },
+    "rkaf:RegulatoryAgendaObservation": {
+      "@type": "@id"
+    },
+    "rkaf:AgendaProceedingRelationship": {
+      "@type": "@id"
+    },
+    "dcat:Resource": {
+      "@type": "@id"
+    },
+    "dcat:CatalogRecord": {
+      "@type": "@id"
+    },
+    "dcat:Relationship": {
+      "@type": "@id"
+    },
+    "rkaf:CommentPeriod": {
+      "@type": "@id"
+    },
+    "rkaf:Docket": {
+      "@type": "@id"
+    },
+    "prov:Entity": {
+      "@type": "@id"
+    },
+    "rkaf:hasDocketIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:docketIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasProceedingIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:proceedingIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasAgendaItemIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:agendaItemIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaScopeStatus": {
+      "@type": "@vocab"
+    },
+    "dcat:qualifiedRelation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "foaf:primaryTopic": {
+      "@type": "@id"
+    },
+    "rkaf:agendaStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaPriority": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaAffectsCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:agendaAuthorityCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:relation": {
+      "@type": "@id"
+    },
+    "dcat:hadRole": {
+      "@type": "@vocab"
+    },
+    "rkaf:identifierRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:proceedingStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:proceedingTerminationCause": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasAuthority": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingAffects": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingAffectsCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingProduces": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasProceedingEvidenceIdentifier": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingEvidenceIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:proceedingSupersedes": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodFor": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodOpenedBy": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodStart": {
+      "@type": "xsd:date"
+    },
+    "rkaf:commentPeriodEnd": {
+      "@type": "xsd:date"
+    },
+    "rkaf:RegisteredConcept": {
+      "@type": "@id"
+    },
+    "rkaf:LocalConcept": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptMapping": {
+      "@type": "@id"
+    },
+    "rkaf:ReferenceResourceRelease": {
+      "@type": "@id"
+    },
+    "rkaf:MappingApplicabilityContext": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptResolutionResult": {
+      "@type": "@id"
+    },
+    "rkaf:BridgeValidationResult": {
+      "@type": "@id"
+    },
+    "rkaf:BridgeConsumerRegistration": {
+      "@type": "@id"
+    },
+    "rkaf:RegistryConflict": {
+      "@type": "@id"
+    },
+    "rkaf:Finding": {
+      "@type": "@id"
+    },
+    "rkaf:Justification": {
+      "@type": "@id"
+    },
+    "rkaf:hasJustification": {
+      "@type": "@id"
+    },
+    "rkaf:PointInTimeException": {
+      "@type": "@id"
+    },
+    "rkaf:evaluationAnchor": {
+      "@type": "@id"
+    },
+    "rkaf:retainsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:retainsWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:GeneratedWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:justifiedByAssertion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:consumerLifecycleState": {
+      "@type": "@id"
+    },
+    "rkaf:proposedUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:RevalidationEvent": {
+      "@type": "@id"
+    },
+    "rkaf:RevalidationClosureEvent": {
+      "@type": "@id"
+    },
+    "rkaf:revalidationFor": {
+      "@type": "@id"
+    },
+    "rkaf:triggeredBy": {
+      "@type": "@id"
+    },
+    "rkaf:closesRevalidation": {
+      "@type": "@id"
+    },
+    "rkaf:openedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:closedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:closureDecision": {
+      "@type": "@id"
+    },
+    "rkaf:successorAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:successorWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:ConsumerEffectiveDeclaration": {
+      "@type": "@id"
+    },
+    "rkaf:forAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:declaredEffective": {
+      "@type": "@vocab"
+    },
+    "rkaf:declaredScope": {
+      "@type": "@id"
+    },
+    "rkaf:declaredAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:BridgeIssueAttestationContract": {
+      "@type": "@id"
+    },
+    "rkaf:attestedIssueKinds": {
+      "@type": "@vocab"
+    },
+    "rkaf:usedAsAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:detectedIssues": {
+      "@type": "@id"
+    },
+    "rkaf:derivesAuthorityFrom": {
+      "@type": "@id"
+    },
+    "rkaf:hasApplicability": {
+      "@type": "@id"
+    },
+    "rkaf:hasEffectivePeriod": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:adoptedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:attestationScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:attestorKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:targets": {
+      "@type": "@id"
+    },
+    "rkaf:attestedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:revokedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:rationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:lifecycleEventKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:bridgeContractVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:maxAttestationStalenessDays": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:evaluationTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectivePeriodStart": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectivePeriodEnd": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:retroactiveFrom": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:sunsetAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:resolvedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:validatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:anchoredBy": {
+      "@type": "@id"
+    },
+    "rkaf:anchorType": {
+      "@type": "@id"
+    },
+    "rkaf:Assertion": {
+      "@type": "@id"
+    },
+    "rkaf:RelationshipAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:ValueAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:assertsSubject": {
+      "@type": "@id"
+    },
+    "rkaf:assertsPredicate": {
+      "@type": "@id"
+    },
+    "rkaf:assertsObject": {
+      "@type": "@id"
+    },
+    "rkaf:assertsValue": {
+      "@id": "https://rulespec.org/ns/v1#assertsValue"
+    },
+    "rkaf:assertionPolarity": {
+      "@type": "@vocab"
+    },
+    "rkaf:assertedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:hasSourceClaimant": {
+      "@type": "@id"
+    },
+    "rkaf:hasExtractionProvenance": {
+      "@type": "@id"
+    },
+    "rkaf:SourceClaimant": {
+      "@type": "@id"
+    },
+    "rkaf:claimsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:claimantAttribution": {
+      "@type": "@vocab"
+    },
+    "rkaf:claimantText": {
+      "@type": "xsd:string"
+    },
+    "rkaf:claimantIdentity": {
+      "@type": "@id"
+    },
+    "rkaf:attributedInFragment": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ExtractionActivity": {
+      "@type": "@id"
+    },
+    "rkaf:extractionMethod": {
+      "@type": "@vocab"
+    },
+    "rkaf:extractionRun": {
+      "@type": "@id"
+    },
+    "rkaf:extractedBy": {
+      "@type": "@id"
+    },
+    "rkaf:extractorVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:requestContractDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:extractionModelRef": {
+      "@type": "@id"
+    },
+    "rkaf:extractionPromptRef": {
+      "@type": "@id"
+    },
+    "rkaf:inputDigest": {
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "rkaf:extractionAttempt": {
+      "@type": "xsd:integer"
+    },
+    "prov:startedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "prov:endedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:hasSafetyLabel": {
+      "@type": "@id"
+    },
+    "rkaf:usageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:capabilityCap": {
+      "@type": "@id"
+    },
+    "rkaf:assertionOrigin": {
+      "@type": "@id"
+    },
+    "rkaf:epistemicBasis": {
+      "@type": "@vocab"
+    },
+    "rkaf:authorityKind": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionAuthorityKind": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionStatus": {
+      "@type": "@id"
+    },
+    "rkaf:result": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionStatus": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionMethod": {
+      "@type": "@id"
+    },
+    "rkaf:cacheStatus": {
+      "@type": "@id"
+    },
+    "rkaf:usageCeiling": {
+      "@type": "@id"
+    },
+    "rkaf:lifecycleEvent": {
+      "@type": "@id"
+    },
+    "rkaf:cascadeAlgorithm": {
+      "@type": "@id"
+    },
+    "rkaf:evidenceRole": {
+      "@type": "@id"
+    },
+    "rkaf:evidentiaryFunction": {
+      "@type": "@vocab"
+    },
+    "rkaf:warningCode": {
+      "@type": "@id"
+    },
+    "rkaf:errorCode": {
+      "@type": "@id"
+    },
+    "rkaf:decision": {
+      "@type": "@id"
+    },
+    "rkaf:scope": {
+      "@type": "@id"
+    },
+    "rkaf:visibility": {
+      "@type": "@id"
+    },
+    "rkaf:attestorType": {
+      "@type": "@id"
+    },
+    "rkaf:role": {
+      "@type": "@id"
+    },
+    "rkaf:transitionTo": {
+      "@type": "@id"
+    },
+    "rkaf:status": {
+      "@type": "@id"
+    },
+    "rkaf:predicate": {
+      "@type": "@id"
+    },
+    "rkaf:conceptScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:governanceModel": {
+      "@type": "@id"
+    },
+    "rkaf:revisedUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:effectiveUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:safeAutomaticMigration": {
+      "@type": "@id"
+    },
+    "rkaf:resourceKind": {
+      "@type": "@id"
+    },
+    "rkaf:officialStatus": {
+      "@type": "@id"
+    },
+    "rkaf:legalValue": {
+      "@type": "@id"
+    },
+    "rkaf:publicationStatus": {
+      "@type": "@id"
+    },
+    "rkaf:remediationAction": {
+      "@type": "@id"
+    },
+    "rkaf:requiredPredicate": {
+      "@type": "@id"
+    },
+    "rkaf:minimumUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:noRemediationReason": {
+      "@type": "@id"
+    },
+    "rkaf:authorityChainStatus": {
+      "@type": "@id"
+    },
+    "rkaf:chainTerminusKind": {
+      "@type": "@id"
+    },
+    "rkaf:fragmentType": {
+      "@type": "@id"
+    },
+    "rkaf:reviewStatus": {
+      "@type": "@id"
+    },
+    "rkaf:newWorkProductStatus": {
+      "@type": "@id"
+    },
+    "rkaf:newUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:newAssertionState": {
+      "@type": "@id"
+    },
+    "rkaf:resourceFamily": {
+      "@type": "@id"
+    },
+    "rkaf:assertedBy": {
+      "@type": "@id"
+    },
+    "rkaf:attestor": {
+      "@type": "@id"
+    },
+    "rkaf:targetAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:targetWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:targetPacket": {
+      "@type": "@id"
+    },
+    "rkaf:sourceConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:targetConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:targetMappingConflict": {
+      "@type": "@id"
+    },
+    "rkaf:targetBridgeValidation": {
+      "@type": "@id"
+    },
+    "rkaf:targetRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:targetAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:authorizedBy": {
+      "@type": "@id"
+    },
+    "rkaf:organization": {
+      "@type": "@id"
+    },
+    "rkaf:packetId": {
+      "@type": "@id"
+    },
+    "rkaf:consumer": {
+      "@type": "@id"
+    },
+    "rkaf:emittedBy": {
+      "@type": "@id"
+    },
+    "rkaf:triggeredByPacket": {
+      "@type": "@id"
+    },
+    "rkaf:closesRevalidationEvent": {
+      "@type": "@id"
+    },
+    "rkaf:successorAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:closedBy": {
+      "@type": "@id"
+    },
+    "rkaf:queuedFor": {
+      "@type": "@id"
+    },
+    "rkaf:supersedesAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:supersedesWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:revalidationOf": {
+      "@type": "@id"
+    },
+    "rkaf:precedingArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:precedingVersion": {
+      "@type": "@id"
+    },
+    "rkaf:supportingEvent": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnClassification": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnEvent": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnAttestation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:basedOnAttestations": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:artifactId": {
+      "@type": "@id"
+    },
+    "rkaf:realizedByArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:resourceLineage": {
+      "@type": "@id"
+    },
+    "rkaf:sourceAuthorityHint": {
+      "@type": "@id"
+    },
+    "rkaf:capturedBy": {
+      "@type": "@id"
+    },
+    "rkaf:subjectArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:priorArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:classifiedBy": {
+      "@type": "@id"
+    },
+    "rkaf:classification": {
+      "@type": "@id"
+    },
+    "rkaf:managedByRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:referenceReleaseDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:versionBasis": {
+      "@type": "@vocab"
+    },
+    "rkaf:membershipMode": {
+      "@type": "@vocab"
+    },
+    "rkaf:hostedByRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:mintingAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionEndpoint": {
+      "@type": "@id"
+    },
+    "rkaf:registeredVia": {
+      "@type": "@id"
+    },
+    "rkaf:replacedBy": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:absorbedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:splitInto": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:conceptLifecycleOperation": {
+      "@type": "@vocab"
+    },
+    "rkaf:predecessorConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:successorConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:predecessorConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:successorConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:subjectConcept": {
+      "@type": "@id"
+    },
+    "rkaf:relatedConcept": {
+      "@type": "@id"
+    },
+    "rkaf:sharedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:relatedPublishedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:conflictingMappings": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:concept": {
+      "@type": "@id"
+    },
+    "rkaf:inputConcept": {
+      "@type": "@id"
+    },
+    "rkaf:resolvedConcept": {
+      "@type": "@id"
+    },
+    "rkaf:mappingAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:openLabelFacet": {
+      "@type": "@id"
+    },
+    "rkaf:openLabelRole": {
+      "@type": "@vocab"
+    },
+    "rkaf:resolutionTrustedVia": {
+      "@type": "@id"
+    },
+    "rkaf:registry": {
+      "@type": "@id"
+    },
+    "rkaf:resolvedToConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:assertion": {
+      "@type": "@id"
+    },
+    "rkaf:object": {
+      "@type": "@id"
+    },
+    "rkaf:dataConcept": {
+      "@type": "@id"
+    },
+    "rkaf:proposedFromLocalConcept": {
+      "@type": "@id"
+    },
+    "rkaf:registeredConcept": {
+      "@type": "@id"
+    },
+    "rkaf:registrationAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:proposedBy": {
+      "@type": "@id"
+    },
+    "rkaf:delegatingAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:delegatedTo": {
+      "@type": "@id"
+    },
+    "rkaf:publisher": {
+      "@type": "@id"
+    },
+    "rkaf:appliesTo": {
+      "@type": "@id"
+    },
+    "rkaf:affectedAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedAuthorityAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedImplementationAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedWorkProducts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedAdoptions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedFragments": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:affectedAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:affectedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:staleDependencies": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:unresolvedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:registryUnavailable": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:staleConceptCache": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedEvaluationAnchors": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedAutomaticMigrations": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedAuthorityKinds": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:justificationBackedBy": {
+      "@type": "@id"
+    },
+    "rkaf:derivedFromFragment": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:associatedWorkflowStep": {
+      "@type": "@id"
+    },
+    "rkaf:generationRun": {
+      "@type": "@id"
+    },
+    "rkaf:fromConcept": {
+      "@type": "@id"
+    },
+    "rkaf:toConcept": {
+      "@type": "@id"
+    },
+    "rkaf:requiredAdoptionScope": {
+      "@type": "@id"
+    },
+    "rkaf:collectsEvidenceType": {
+      "@type": "@id"
+    },
+    "rkaf:requiresEvidenceType": {
+      "@type": "@id"
+    },
+    "rkaf:acceptedDocumentTypes": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:excludesCategory": {
+      "@container": "@set"
+    },
+    "rkaf:evidencePurpose": {
+      "@container": "@set"
+    },
+    "rkaf:excludesPurposes": {
+      "@container": "@set"
+    },
+    "rkaf:jurisdiction": {
+      "@container": "@set"
+    },
+    "prov:wasGeneratedBy": {
+      "@type": "@id"
+    },
+    "prov:wasAttributedTo": {
+      "@type": "@id"
+    },
+    "prov:wasDerivedFrom": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "prov:generatedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "eli:consolidates": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "eli:consolidated_by": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dpv:hasPersonalDataCategory": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dpv:hasLegalBasis": {
+      "@type": "@id"
+    },
+    "dpv:hasPurpose": {
+      "@type": "@id"
+    },
+    "skos:prefLabel": {
+      "@container": "@language"
+    },
+    "skos:altLabel": {
+      "@container": "@language"
+    },
+    "skos:hiddenLabel": {
+      "@container": "@language"
+    },
+    "skos:definition": {
+      "@container": "@language"
+    },
+    "skos:example": {
+      "@container": "@language"
+    },
+    "skos:note": {
+      "@container": "@language"
+    },
+    "skos:scopeNote": {
+      "@container": "@language"
+    },
+    "skos:changeNote": {
+      "@container": "@language"
+    },
+    "skos:editorialNote": {
+      "@container": "@language"
+    },
+    "skos:historyNote": {
+      "@container": "@language"
+    },
+    "skos:notation": {
+      "@id": "http://www.w3.org/2004/02/skos/core#notation"
+    },
+    "skos:broader": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:narrower": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:related": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:inScheme": {
+      "@type": "@id"
+    },
+    "skos:hasTopConcept": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ConceptScheme": {
+      "@type": "@id"
+    },
+    "rkaf:schemeFacet": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptAssignment": {
+      "@type": "@id"
+    },
+    "rkaf:assignedConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:fragmentIdentityScheme": {
+      "@type": "@vocab"
+    },
+    "prov:hadMember": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcat:distribution": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcat:version": {
+      "@type": "xsd:string"
+    },
+    "dcterms:type": {
+      "@type": "@id"
+    },
+    "dcterms:issued": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:capturedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:registeredAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectiveDate": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:exceptionEffectivePeriodEnd": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:exceptionEffectivePeriodStart": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:cachedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:deprecatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:rescissionEffectiveDate": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:detectedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:definedInScope": {
+      "@type": "@id"
+    },
+    "rkaf:findingKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:severity": {
+      "@type": "@vocab"
+    },
+    "rkaf:subject": {
+      "@type": "@id"
+    },
+    "rkaf:detectedBy": {
+      "@type": "@id"
+    },
+    "rkaf:lastVerifiedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:verifiedBy": {
+      "@type": "@id"
+    },
+    "rkaf:targetFinding": {
+      "@type": "@id"
+    },
+    "rkaf:findings": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:RelationChangeEvent": {
+      "@type": "@id"
+    },
+    "rkaf:changeSubject": {
+      "@type": "@id"
+    },
+    "rkaf:changePredicate": {
+      "@type": "@id"
+    },
+    "rkaf:changeObject": {
+      "@type": "@id"
+    },
+    "rkaf:relationChangeOperation": {
+      "@type": "@vocab"
+    },
+    "rkaf:relationChangeStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:relationChangeTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:changeIntendedEffectiveTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:changeEvidence": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:replacementRelationObject": {
+      "@type": "@id"
+    },
+    "rkaf:RelationComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonBaselineArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonObservedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonExpectedAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonConsumer": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonScope": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonEvaluationTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:comparisonPolicyVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonDetector": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonDetectorVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonSnapshot": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonOutcome": {
+      "@type": "@vocab"
+    },
+    "rkaf:comparisonProofRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ResolverProofIssuer": {
+      "@type": "@id"
+    },
+    "rkaf:proofResolver": {
+      "@type": "@id"
+    },
+    "rkaf:proofResolverVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:proofPolicyVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:ResolverProofRecord": {
+      "@type": "@id"
+    },
+    "rkaf:proofType": {
+      "@type": "@vocab"
+    },
+    "rkaf:proofIssuer": {
+      "@type": "@id"
+    },
+    "rkaf:proofComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:proofOutcome": {
+      "@type": "@vocab"
+    },
+    "rkaf:proofRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofInput": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proofInputDigest": {
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "rkaf:proofSupportingRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proofEvaluatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:proofSnapshot": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofRecordDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:independenceGroup": {
+      "@type": "@id"
+    },
+    "rkaf:adjudicationVerdict": {
+      "@type": "@vocab"
+    },
+    "rkaf:sealedRequestDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:sealedResponseArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:RelationFinding": {
+      "@type": "@id"
+    },
+    "rkaf:relationFindingKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:findingComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:findingComparedAssertion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:findingProofRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:findingDetectedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:findingRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:findingFingerprint": {
+      "@type": "xsd:string"
+    },
+    "rkaf:ClosureClaim": {
+      "@type": "@id"
+    },
+    "rkaf:closureClaimStatus": {
+      "@type": "@vocab"
+    },
+    "rkaf:closureArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:closureRegion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:closurePredicateFamily": {
+      "@type": "@id"
+    },
+    "rkaf:closureProfileVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:closureMemberDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:closureReviewedAt": {
+      "@type": "xsd:dateTime"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "urn:rulespec:document-understanding:document:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:document:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:artifactIdentifierScheme": "rkaf:hash-sha256",
+      "rkaf:hasContentDigest": "sha256:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "dcterms:format": "text/plain"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "@type": "rkaf:AILineage",
+      "rkaf:modelId": "gemini-3.8-flash",
+      "rkaf:modelVersion": "gemini-3.8-flash",
+      "rkaf:promptTemplateRef": "urn:rulespec:document-understanding:prompt:f68d460a221d1f3299cf927cbbf9bceae26342cbafa3cf383655065aa7428db5",
+      "rkaf:inputContextHash": "sha256:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "@type": "rkaf:ExtractionActivity",
+      "rkaf:extractionMethod": "rkaf:modelExtraction",
+      "rkaf:extractionRun": "urn:rulespec:document-understanding:run:6d2f1089-38e9-4730-a910-b9153567e3ea",
+      "rkaf:extractedBy": "urn:rulespec:document-understanding:extractor:langextract",
+      "rkaf:extractorVersion": "document-understanding/3",
+      "rkaf:requestContractDigest": "sha256:649c3b22fec904b1a94ab070e56c8a252197996edafd881531784e3e40d3f4ba",
+      "rkaf:extractionModelRef": "urn:rulespec:document-understanding:model:319034f3e25d0d9bd6b3a46b1def7a01b7689f0d51384c63da1f6e0b464af810",
+      "rkaf:extractionPromptRef": "urn:rulespec:document-understanding:prompt:f68d460a221d1f3299cf927cbbf9bceae26342cbafa3cf383655065aa7428db5",
+      "rkaf:inputDigest": [
+        "sha256:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8"
+      ],
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e"
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:27:221:sha256-a2bd7f88ea1b4431d280a6643287db9c8ace1a5b8ff1701ec3a686e14a85d33d",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentContentDigest": "sha256:a2bd7f88ea1b4431d280a6643287db9c8ace1a5b8ff1701ec3a686e14a85d33d",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(1) If a manufacturer decides to repair a defective or noncomplying motor vehicle or replacement equipment and the repair is not done adequately within a reasonable time, the manufacturer shall—"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 27,
+          "oa:end": 221,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:223:435:sha256-4bbc9035752d3a2e9ed2f79fc63281ed8ccba43dfc4ed908622054472afb9841",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentContentDigest": "sha256:4bbc9035752d3a2e9ed2f79fc63281ed8ccba43dfc4ed908622054472afb9841",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(A) replace the vehicle or equipment without charge with an identical or reasonably equivalent vehicle or equipment; or\n\n(B) for a vehicle, refund the purchase price, less a reasonable allowance for depreciation."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 223,
+          "oa:end": 435,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:198:214:sha256-dcbc1bb86e0e5470a84e3699cfba9aca7dbf5af0e7c46f4d3055c41773db5fcb",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentContentDigest": "sha256:dcbc1bb86e0e5470a84e3699cfba9aca7dbf5af0e7c46f4d3055c41773db5fcb",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "the manufacturer"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 198,
+          "oa:end": 214,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:215:220:sha256-56ee5b508706bf2de91712d85d6d1e11ddbff01949142ed6e8c22e3b1bed1c71",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentContentDigest": "sha256:56ee5b508706bf2de91712d85d6d1e11ddbff01949142ed6e8c22e3b1bed1c71",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "shall"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 215,
+          "oa:end": 220,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:scope:90840c86ab5bc99ccce5d551d066fb20658825525e4b191cddb5db41c3a2b7f7",
+      "@type": "rkaf:ApplicabilityScope",
+      "rkaf:appliesInJurisdiction": [],
+      "rkaf:applicabilityCondition": "If a manufacturer decides to repair a defective or noncomplying motor vehicle or replacement equipment and the repair is not done adequately within a reasonable time"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:8832fd44f21f7f887936c5d3fb7ef5d0ab0a4d02dbef293efeabb31d9796e3ac",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:b22c5cc0d3ec614345dfcd212624c9a4f86140b0e2f80997631bf849a34f526e",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-requirement",
+      "rkaf:assertsValue": {
+        "@value": "If a manufacturer decides to repair a defective or noncomplying motor vehicle or replacement equipment and the repair is not done adequately within a reasonable time, the manufacturer shall replace the vehicle or equipment without charge with an identical or reasonably equivalent vehicle or equipment, or, for a vehicle, refund the purchase price, less a reasonable allowance for depreciation.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:6ae44dfd0f02c9836557b7799696d279bcc83c10b5b57be5db952d62033c3809",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:8832fd44f21f7f887936c5d3fb7ef5d0ab0a4d02dbef293efeabb31d9796e3ac",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:27:221:sha256-a2bd7f88ea1b4431d280a6643287db9c8ace1a5b8ff1701ec3a686e14a85d33d",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:223:435:sha256-4bbc9035752d3a2e9ed2f79fc63281ed8ccba43dfc4ed908622054472afb9841"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:cb4f0a3cf275250db2923c594610d1e48f5bb3cf344949e339e5c8eea0a63898",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:8832fd44f21f7f887936c5d3fb7ef5d0ab0a4d02dbef293efeabb31d9796e3ac",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:27:221:sha256-a2bd7f88ea1b4431d280a6643287db9c8ace1a5b8ff1701ec3a686e14a85d33d"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:98e56dfc65abc4f3f6f8937f18d02987b9f86c19131ff1a0fe60716d8fe008a3",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:b22c5cc0d3ec614345dfcd212624c9a4f86140b0e2f80997631bf849a34f526e",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:actor",
+      "rkaf:assertsValue": {
+        "@value": "manufacturer",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:c69f26e7f5cfa51926ba7fa2d004b6ddd41fe111bcc18f67298da654a348f373",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:98e56dfc65abc4f3f6f8937f18d02987b9f86c19131ff1a0fe60716d8fe008a3",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:198:214:sha256-dcbc1bb86e0e5470a84e3699cfba9aca7dbf5af0e7c46f4d3055c41773db5fcb"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:da0a79f19935ddbdc3786dd3ff86a3c534878e15b4cce5b88cd41b456b99ce77",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:b22c5cc0d3ec614345dfcd212624c9a4f86140b0e2f80997631bf849a34f526e",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "must",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:06498209c3ff1392e0cfcdc68516f31ab9e897355c84dc3602d03dda8300b131",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:da0a79f19935ddbdc3786dd3ff86a3c534878e15b4cce5b88cd41b456b99ce77",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:215:220:sha256-56ee5b508706bf2de91712d85d6d1e11ddbff01949142ed6e8c22e3b1bed1c71"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:f8735e1bca88bd13abf2ed5de96c7c18417f42691aab72681546222841dcf54f",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:b22c5cc0d3ec614345dfcd212624c9a4f86140b0e2f80997631bf849a34f526e",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:scope_text",
+      "rkaf:assertsValue": {
+        "@value": "If a manufacturer decides to repair a defective or noncomplying motor vehicle or replacement equipment and the repair is not done adequately within a reasonable time",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:ba344b7174a06554ae161a1a4145e3627f4f89eb36e59588be6b0c14060bacde",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:f8735e1bca88bd13abf2ed5de96c7c18417f42691aab72681546222841dcf54f",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:27:221:sha256-a2bd7f88ea1b4431d280a6643287db9c8ace1a5b8ff1701ec3a686e14a85d33d"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:13d02416ae3e4442cddce202753e9253d614c41c72763be7e7e485e873e3c72c",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:b22c5cc0d3ec614345dfcd212624c9a4f86140b0e2f80997631bf849a34f526e",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:choice_text",
+      "rkaf:assertsValue": {
+        "@value": "The manufacturer must either: (A) replace the vehicle or equipment without charge with an identical or reasonably equivalent vehicle or equipment; or (B) for a vehicle, refund the purchase price, less a reasonable allowance for depreciation.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:995bcacbb9a305b28abc79ec8a4bf1a0952d94f2572efad87eff53ec769daa0e",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:13d02416ae3e4442cddce202753e9253d614c41c72763be7e7e485e873e3c72c",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:223:435:sha256-4bbc9035752d3a2e9ed2f79fc63281ed8ccba43dfc4ed908622054472afb9841"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:202dc72e1a5753791408557f37996e06e49b0f504653fc29eb3d566467b11ec4",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:b22c5cc0d3ec614345dfcd212624c9a4f86140b0e2f80997631bf849a34f526e",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"actor\":\"manufacturer\",\"choice_text\":\"The manufacturer must either: (A) replace the vehicle or equipment without charge with an identical or reasonably equivalent vehicle or equipment; or (B) for a vehicle, refund the purchase price, less a reasonable allowance for depreciation.\",\"kind\":\"requirement\",\"modality\":\"must\",\"scope_text\":\"If a manufacturer decides to repair a defective or noncomplying motor vehicle or replacement equipment and the repair is not done adequately within a reasonable time\",\"summary\":\"If a manufacturer decides to repair a defective or noncomplying motor vehicle or replacement equipment and the repair is not done adequately within a reasonable time, the manufacturer shall replace the vehicle or equipment without charge with an identical or reasonably equivalent vehicle or equipment, or, for a vehicle, refund the purchase price, less a reasonable allowance for depreciation.\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed",
+      "rkaf:hasApplicability": "urn:rulespec:document-understanding:scope:90840c86ab5bc99ccce5d551d066fb20658825525e4b191cddb5db41c3a2b7f7"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:720aad7623de388c697399ee07cf89911a768e7defd7d09db9cf78514b9dc4c0",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:202dc72e1a5753791408557f37996e06e49b0f504653fc29eb3d566467b11ec4",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:27:221:sha256-a2bd7f88ea1b4431d280a6643287db9c8ace1a5b8ff1701ec3a686e14a85d33d",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:223:435:sha256-4bbc9035752d3a2e9ed2f79fc63281ed8ccba43dfc4ed908622054472afb9841",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:198:214:sha256-dcbc1bb86e0e5470a84e3699cfba9aca7dbf5af0e7c46f4d3055c41773db5fcb",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:215:220:sha256-56ee5b508706bf2de91712d85d6d1e11ddbff01949142ed6e8c22e3b1bed1c71"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:480a4773bf17f6fbfe9bb2b12fd998de85d443cf7d4b011a02050dcb1d1418d5",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:202dc72e1a5753791408557f37996e06e49b0f504653fc29eb3d566467b11ec4",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:27:221:sha256-a2bd7f88ea1b4431d280a6643287db9c8ace1a5b8ff1701ec3a686e14a85d33d"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:17582f7bc532ead7254ecadad897800e5fc037a39e9084775db0e54a8f39a7be",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:17582f7bc532ead7254ecadad897800e5fc037a39e9084775db0e54a8f39a7be",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:a7428a62dfde4d2221596945e754761571c9f2ecd2902ffdc99708cefe01c1dc",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"manufacturer\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:8832fd44f21f7f887936c5d3fb7ef5d0ab0a4d02dbef293efeabb31d9796e3ac\",\"urn:rulespec:document-understanding:assertion:98e56dfc65abc4f3f6f8937f18d02987b9f86c19131ff1a0fe60716d8fe008a3\",\"urn:rulespec:document-understanding:assertion:da0a79f19935ddbdc3786dd3ff86a3c534878e15b4cce5b88cd41b456b99ce77\",\"urn:rulespec:document-understanding:assertion:f8735e1bca88bd13abf2ed5de96c7c18417f42691aab72681546222841dcf54f\",\"urn:rulespec:document-understanding:assertion:13d02416ae3e4442cddce202753e9253d614c41c72763be7e7e485e873e3c72c\",\"urn:rulespec:document-understanding:assertion:202dc72e1a5753791408557f37996e06e49b0f504653fc29eb3d566467b11ec4\"],\"choice_quote\":\"(A) replace the vehicle or equipment without charge with an identical or reasonably equivalent vehicle or equipment; or\\n\\n(B) for a vehicle, refund the purchase price, less a reasonable allowance for depreciation.\",\"choice_text\":\"The manufacturer must either: (A) replace the vehicle or equipment without charge with an identical or reasonably equivalent vehicle or equipment; or (B) for a vehicle, refund the purchase price, less a reasonable allowance for depreciation.\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"defined_terms\":[],\"effective_periods\":[],\"end\":435,\"evidence\":[{\"end\":221,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:27:221:sha256-a2bd7f88ea1b4431d280a6643287db9c8ace1a5b8ff1701ec3a686e14a85d33d\",\"quote\":\"(1) If a manufacturer decides to repair a defective or noncomplying motor vehicle or replacement equipment and the repair is not done adequately within a reasonable time, the manufacturer shall—\",\"start\":27},{\"end\":435,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:223:435:sha256-4bbc9035752d3a2e9ed2f79fc63281ed8ccba43dfc4ed908622054472afb9841\",\"quote\":\"(A) replace the vehicle or equipment without charge with an identical or reasonably equivalent vehicle or equipment; or\\n\\n(B) for a vehicle, refund the purchase price, less a reasonable allowance for depreciation.\",\"start\":223},{\"end\":214,\"field\":\"actor\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:198:214:sha256-dcbc1bb86e0e5470a84e3699cfba9aca7dbf5af0e7c46f4d3055c41773db5fcb\",\"quote\":\"the manufacturer\",\"start\":198},{\"end\":220,\"field\":\"modality\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:215:220:sha256-56ee5b508706bf2de91712d85d6d1e11ddbff01949142ed6e8c22e3b1bed1c71\",\"quote\":\"shall\",\"start\":215},{\"end\":435,\"field\":\"choice_text\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:223:435:sha256-4bbc9035752d3a2e9ed2f79fc63281ed8ccba43dfc4ed908622054472afb9841\",\"quote\":\"(A) replace the vehicle or equipment without charge with an identical or reasonably equivalent vehicle or equipment; or\\n\\n(B) for a vehicle, refund the purchase price, less a reasonable allowance for depreciation.\",\"start\":223},{\"end\":221,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:27:221:sha256-a2bd7f88ea1b4431d280a6643287db9c8ace1a5b8ff1701ec3a686e14a85d33d\",\"quote\":\"(1) If a manufacturer decides to repair a defective or noncomplying motor vehicle or replacement equipment and the repair is not done adequately within a reasonable time, the manufacturer shall—\",\"start\":27}],\"id\":\"urn:rulespec:document-understanding:revision:17582f7bc532ead7254ecadad897800e5fc037a39e9084775db0e54a8f39a7be\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"requirement\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:202dc72e1a5753791408557f37996e06e49b0f504653fc29eb3d566467b11ec4\",\"modality\":\"must\",\"modality_quote\":\"shall\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:b39f65285376aad3da1582e7ce12a195822764d483fcfe74ae6065ca73495eee\",\"origin\":\"aiSuggested\",\"quote\":\"(1) If a manufacturer decides to repair a defective or noncomplying motor vehicle or replacement equipment and the repair is not done adequately within a reasonable time, the manufacturer shall—\\n\\n(A) replace the vehicle or equipment without charge with an identical or reasonably equivalent vehicle or equipment; or\\n\\n(B) for a vehicle, refund the purchase price, less a reasonable allowance for depreciation.\",\"references\":[],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:b22c5cc0d3ec614345dfcd212624c9a4f86140b0e2f80997631bf849a34f526e\",\"scope_quotes\":[\"(1) If a manufacturer decides to repair a defective or noncomplying motor vehicle or replacement equipment and the repair is not done adequately within a reasonable time, the manufacturer shall—\"],\"scope_text\":\"If a manufacturer decides to repair a defective or noncomplying motor vehicle or replacement equipment and the repair is not done adequately within a reasonable time\",\"section_id\":\"section-1\",\"start\":27,\"summary\":\"If a manufacturer decides to repair a defective or noncomplying motor vehicle or replacement equipment and the repair is not done adequately within a reasonable time, the manufacturer shall replace the vehicle or equipment without charge with an identical or reasonably equivalent vehicle or equipment, or, for a vehicle, refund the purchase price, less a reasonable allowance for depreciation.\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:8832fd44f21f7f887936c5d3fb7ef5d0ab0a4d02dbef293efeabb31d9796e3ac"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:98e56dfc65abc4f3f6f8937f18d02987b9f86c19131ff1a0fe60716d8fe008a3"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:da0a79f19935ddbdc3786dd3ff86a3c534878e15b4cce5b88cd41b456b99ce77"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:f8735e1bca88bd13abf2ed5de96c7c18417f42691aab72681546222841dcf54f"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:13d02416ae3e4442cddce202753e9253d614c41c72763be7e7e485e873e3c72c"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:202dc72e1a5753791408557f37996e06e49b0f504653fc29eb3d566467b11ec4"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:438:1013:sha256-32d9d2a7b85312a8eed219924c4564ae5b73f8e352c523b5fd80c2315192aeee",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentContentDigest": "sha256:32d9d2a7b85312a8eed219924c4564ae5b73f8e352c523b5fd80c2315192aeee",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(2) Failure to repair a motor vehicle or replacement equipment adequately not later than 60 days after its presentation is prima facie evidence of failure to repair within a reasonable time. However, the Secretary may extend, by order, the 60-day period if good cause for an extension is shown and the reason is published in the Federal Register before the period ends. Presentation of a vehicle or equipment for repair before the date specified by a manufacturer in a notice under section 30119(a)(5) or 30121(c)(2) of this title is not a presentation under this subsection."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 438,
+          "oa:end": 1013,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:9adb6de00bfefbfc6b1be87224e242bbe0bc198f6737eeb472f95cedd00bdbd2",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:d94c88f4c286145f0f1af985f0afa7104d01d572e85c84c4d3a5e6a5e049c23e",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-statement",
+      "rkaf:assertsValue": {
+        "@value": "Failure to repair a motor vehicle or replacement equipment adequately not later than 60 days after its presentation is prima facie evidence of failure to repair within a reasonable time.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:c467296423fb9c660163715c73396c780583135e953c7fe518810c7a162b75cd",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:9adb6de00bfefbfc6b1be87224e242bbe0bc198f6737eeb472f95cedd00bdbd2",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:438:1013:sha256-32d9d2a7b85312a8eed219924c4564ae5b73f8e352c523b5fd80c2315192aeee"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:6a4e4169cd548855674281aa5741a5b45d06e7a8e8559164d6514ada7546c600",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:d94c88f4c286145f0f1af985f0afa7104d01d572e85c84c4d3a5e6a5e049c23e",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "not_stated",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:b94b3911d2fcbcea35fb35bdaeed9548bdc7f482aa271a365820ce2ff152d3a9",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:6a4e4169cd548855674281aa5741a5b45d06e7a8e8559164d6514ada7546c600",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:providesContext",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:438:1013:sha256-32d9d2a7b85312a8eed219924c4564ae5b73f8e352c523b5fd80c2315192aeee"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:4d011b5aa5c56001e41719a036946cc081fa13567e52d0f025e58393153053a6",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:d94c88f4c286145f0f1af985f0afa7104d01d572e85c84c4d3a5e6a5e049c23e",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"kind\":\"statement\",\"modality\":\"not_stated\",\"summary\":\"Failure to repair a motor vehicle or replacement equipment adequately not later than 60 days after its presentation is prima facie evidence of failure to repair within a reasonable time.\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:a69d8b1e0e2b0e1ec2f3d07cc22261b695c4288b17bc45e0dd222ed4cc1d642e",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:4d011b5aa5c56001e41719a036946cc081fa13567e52d0f025e58393153053a6",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:438:1013:sha256-32d9d2a7b85312a8eed219924c4564ae5b73f8e352c523b5fd80c2315192aeee"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:306da8c809beef3acb68caf6e6566a241b88904a3a8eaf6e76cd3aac3d5f40be",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:306da8c809beef3acb68caf6e6566a241b88904a3a8eaf6e76cd3aac3d5f40be",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:ca074d32a8a7971c91d078765834ef127baab7b89bdedc249f349c0bdb1b3211",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:9adb6de00bfefbfc6b1be87224e242bbe0bc198f6737eeb472f95cedd00bdbd2\",\"urn:rulespec:document-understanding:assertion:6a4e4169cd548855674281aa5741a5b45d06e7a8e8559164d6514ada7546c600\",\"urn:rulespec:document-understanding:assertion:4d011b5aa5c56001e41719a036946cc081fa13567e52d0f025e58393153053a6\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"defined_terms\":[],\"effective_periods\":[],\"end\":1013,\"evidence\":[{\"end\":1013,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:438:1013:sha256-32d9d2a7b85312a8eed219924c4564ae5b73f8e352c523b5fd80c2315192aeee\",\"quote\":\"(2) Failure to repair a motor vehicle or replacement equipment adequately not later than 60 days after its presentation is prima facie evidence of failure to repair within a reasonable time. However, the Secretary may extend, by order, the 60-day period if good cause for an extension is shown and the reason is published in the Federal Register before the period ends. Presentation of a vehicle or equipment for repair before the date specified by a manufacturer in a notice under section 30119(a)(5) or 30121(c)(2) of this title is not a presentation under this subsection.\",\"start\":438}],\"id\":\"urn:rulespec:document-understanding:revision:306da8c809beef3acb68caf6e6566a241b88904a3a8eaf6e76cd3aac3d5f40be\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"statement\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:4d011b5aa5c56001e41719a036946cc081fa13567e52d0f025e58393153053a6\",\"modality\":\"not_stated\",\"modality_quote\":\"\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:a8ff091e42a3eb29bc5342844faa7d87ef802d76fbe2f60a3b5dce7567b2f287\",\"origin\":\"aiSuggested\",\"quote\":\"(2) Failure to repair a motor vehicle or replacement equipment adequately not later than 60 days after its presentation is prima facie evidence of failure to repair within a reasonable time. However, the Secretary may extend, by order, the 60-day period if good cause for an extension is shown and the reason is published in the Federal Register before the period ends. Presentation of a vehicle or equipment for repair before the date specified by a manufacturer in a notice under section 30119(a)(5) or 30121(c)(2) of this title is not a presentation under this subsection.\",\"references\":[],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:d94c88f4c286145f0f1af985f0afa7104d01d572e85c84c4d3a5e6a5e049c23e\",\"scope_quotes\":[],\"scope_text\":\"\",\"section_id\":\"section-1\",\"start\":438,\"summary\":\"Failure to repair a motor vehicle or replacement equipment adequately not later than 60 days after its presentation is prima facie evidence of failure to repair within a reasonable time.\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:9adb6de00bfefbfc6b1be87224e242bbe0bc198f6737eeb472f95cedd00bdbd2"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:6a4e4169cd548855674281aa5741a5b45d06e7a8e8559164d6514ada7546c600"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:4d011b5aa5c56001e41719a036946cc081fa13567e52d0f025e58393153053a6"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:638:651:sha256-67afe9d5c4310238267da793c265a616f9e90d554f2458a8065b7bb971d853b5",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentContentDigest": "sha256:67afe9d5c4310238267da793c265a616f9e90d554f2458a8065b7bb971d853b5",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "the Secretary"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 638,
+          "oa:end": 651,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:652:655:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentContentDigest": "sha256:ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "may"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 652,
+          "oa:end": 655,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:scope:48c4f5486785e7619509abb70429f244bae713fa7d638ac196abbb8b86874e27",
+      "@type": "rkaf:ApplicabilityScope",
+      "rkaf:appliesInJurisdiction": [],
+      "rkaf:applicabilityCondition": "if good cause for an extension is shown and the reason is published in the Federal Register before the period ends"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:7dcf27e0359cea8eaca08eef26e666c3c6abcd9344c752ba2a7d1843afca93c0",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:2bde7d4d4ab415a0b1d40efb14a9041452cbeae9d5793286fc864f25e2dbc972",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-authority",
+      "rkaf:assertsValue": {
+        "@value": "The Secretary may extend, by order, the 60-day period if good cause for an extension is shown and the reason is published in the Federal Register before the period ends.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:c93d4b12e8a717a7ef6aef8f4ca9506a371aded7f20cccd7ddfa9ea0411632f9",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:7dcf27e0359cea8eaca08eef26e666c3c6abcd9344c752ba2a7d1843afca93c0",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:438:1013:sha256-32d9d2a7b85312a8eed219924c4564ae5b73f8e352c523b5fd80c2315192aeee"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:7ec7c791f8dda888711085b4ce7957b5d724afae106ce769e7db3e77a20309b5",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:7dcf27e0359cea8eaca08eef26e666c3c6abcd9344c752ba2a7d1843afca93c0",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:438:1013:sha256-32d9d2a7b85312a8eed219924c4564ae5b73f8e352c523b5fd80c2315192aeee"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:7bce6b587d631e25d23b7b7d386416a018665dca47b74b868eaa64d8da7d8e2e",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:2bde7d4d4ab415a0b1d40efb14a9041452cbeae9d5793286fc864f25e2dbc972",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:actor",
+      "rkaf:assertsValue": {
+        "@value": "Secretary",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:664800dfcc1afa4df9c372f2a81a555e44f5ebe5a115fd1a7b3c9eae71d6edf9",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:7bce6b587d631e25d23b7b7d386416a018665dca47b74b868eaa64d8da7d8e2e",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:638:651:sha256-67afe9d5c4310238267da793c265a616f9e90d554f2458a8065b7bb971d853b5"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:c186ce836bc484af866f108edd26006bcd53f2f866f1de5c6bb652105c8bab27",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:2bde7d4d4ab415a0b1d40efb14a9041452cbeae9d5793286fc864f25e2dbc972",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "may",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:79f21a304d4ec48729d5483867661aa9abd242a0dee0f27571e6424b2e608883",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:c186ce836bc484af866f108edd26006bcd53f2f866f1de5c6bb652105c8bab27",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:652:655:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:d9be9fcb0fb0e4148ae7eb9e0163756141fc891561f68055c68a28c702870b87",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:2bde7d4d4ab415a0b1d40efb14a9041452cbeae9d5793286fc864f25e2dbc972",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:scope_text",
+      "rkaf:assertsValue": {
+        "@value": "if good cause for an extension is shown and the reason is published in the Federal Register before the period ends",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:b5499eb4d6c9bb9630ac2433998417ffaa222346f67df167e4a97ac3195e8bda",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:d9be9fcb0fb0e4148ae7eb9e0163756141fc891561f68055c68a28c702870b87",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:438:1013:sha256-32d9d2a7b85312a8eed219924c4564ae5b73f8e352c523b5fd80c2315192aeee"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:29793dd4389d6f022438435c18c3a4d19070e9f785060568af6a1b22cc6eb584",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:2bde7d4d4ab415a0b1d40efb14a9041452cbeae9d5793286fc864f25e2dbc972",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"actor\":\"Secretary\",\"kind\":\"authority\",\"modality\":\"may\",\"scope_text\":\"if good cause for an extension is shown and the reason is published in the Federal Register before the period ends\",\"summary\":\"The Secretary may extend, by order, the 60-day period if good cause for an extension is shown and the reason is published in the Federal Register before the period ends.\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed",
+      "rkaf:hasApplicability": "urn:rulespec:document-understanding:scope:48c4f5486785e7619509abb70429f244bae713fa7d638ac196abbb8b86874e27"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:59fadea271309ba502ff8fca48fdba3a6859658c9f50fc1e73bd97e68edc3861",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:29793dd4389d6f022438435c18c3a4d19070e9f785060568af6a1b22cc6eb584",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:438:1013:sha256-32d9d2a7b85312a8eed219924c4564ae5b73f8e352c523b5fd80c2315192aeee",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:638:651:sha256-67afe9d5c4310238267da793c265a616f9e90d554f2458a8065b7bb971d853b5",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:652:655:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:5fc009e8869cea000abb789f83e8cbabc2c6323330df6876bfa80b35d4e3b7e2",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:29793dd4389d6f022438435c18c3a4d19070e9f785060568af6a1b22cc6eb584",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:438:1013:sha256-32d9d2a7b85312a8eed219924c4564ae5b73f8e352c523b5fd80c2315192aeee"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:4d75c373c53567525619aeda9688154aac4852cf3e4c58151d5bb4e21864f619",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:4d75c373c53567525619aeda9688154aac4852cf3e4c58151d5bb4e21864f619",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:e49ff416a8f2344ffac902e70d6128f2cb45f83b460015dbde59ab2a6e05319d",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"Secretary\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:7dcf27e0359cea8eaca08eef26e666c3c6abcd9344c752ba2a7d1843afca93c0\",\"urn:rulespec:document-understanding:assertion:7bce6b587d631e25d23b7b7d386416a018665dca47b74b868eaa64d8da7d8e2e\",\"urn:rulespec:document-understanding:assertion:c186ce836bc484af866f108edd26006bcd53f2f866f1de5c6bb652105c8bab27\",\"urn:rulespec:document-understanding:assertion:d9be9fcb0fb0e4148ae7eb9e0163756141fc891561f68055c68a28c702870b87\",\"urn:rulespec:document-understanding:assertion:29793dd4389d6f022438435c18c3a4d19070e9f785060568af6a1b22cc6eb584\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"defined_terms\":[],\"effective_periods\":[],\"end\":1013,\"evidence\":[{\"end\":1013,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:438:1013:sha256-32d9d2a7b85312a8eed219924c4564ae5b73f8e352c523b5fd80c2315192aeee\",\"quote\":\"(2) Failure to repair a motor vehicle or replacement equipment adequately not later than 60 days after its presentation is prima facie evidence of failure to repair within a reasonable time. However, the Secretary may extend, by order, the 60-day period if good cause for an extension is shown and the reason is published in the Federal Register before the period ends. Presentation of a vehicle or equipment for repair before the date specified by a manufacturer in a notice under section 30119(a)(5) or 30121(c)(2) of this title is not a presentation under this subsection.\",\"start\":438},{\"end\":651,\"field\":\"actor\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:638:651:sha256-67afe9d5c4310238267da793c265a616f9e90d554f2458a8065b7bb971d853b5\",\"quote\":\"the Secretary\",\"start\":638},{\"end\":655,\"field\":\"modality\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:652:655:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc\",\"quote\":\"may\",\"start\":652},{\"end\":1013,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:438:1013:sha256-32d9d2a7b85312a8eed219924c4564ae5b73f8e352c523b5fd80c2315192aeee\",\"quote\":\"(2) Failure to repair a motor vehicle or replacement equipment adequately not later than 60 days after its presentation is prima facie evidence of failure to repair within a reasonable time. However, the Secretary may extend, by order, the 60-day period if good cause for an extension is shown and the reason is published in the Federal Register before the period ends. Presentation of a vehicle or equipment for repair before the date specified by a manufacturer in a notice under section 30119(a)(5) or 30121(c)(2) of this title is not a presentation under this subsection.\",\"start\":438}],\"id\":\"urn:rulespec:document-understanding:revision:4d75c373c53567525619aeda9688154aac4852cf3e4c58151d5bb4e21864f619\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"authority\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:29793dd4389d6f022438435c18c3a4d19070e9f785060568af6a1b22cc6eb584\",\"modality\":\"may\",\"modality_quote\":\"may\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:e7c7627118247a51db7f1978558ad038bf383813760d5202fcaaa3bc18cc19cd\",\"origin\":\"aiSuggested\",\"quote\":\"(2) Failure to repair a motor vehicle or replacement equipment adequately not later than 60 days after its presentation is prima facie evidence of failure to repair within a reasonable time. However, the Secretary may extend, by order, the 60-day period if good cause for an extension is shown and the reason is published in the Federal Register before the period ends. Presentation of a vehicle or equipment for repair before the date specified by a manufacturer in a notice under section 30119(a)(5) or 30121(c)(2) of this title is not a presentation under this subsection.\",\"references\":[],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:2bde7d4d4ab415a0b1d40efb14a9041452cbeae9d5793286fc864f25e2dbc972\",\"scope_quotes\":[\"(2) Failure to repair a motor vehicle or replacement equipment adequately not later than 60 days after its presentation is prima facie evidence of failure to repair within a reasonable time. However, the Secretary may extend, by order, the 60-day period if good cause for an extension is shown and the reason is published in the Federal Register before the period ends. Presentation of a vehicle or equipment for repair before the date specified by a manufacturer in a notice under section 30119(a)(5) or 30121(c)(2) of this title is not a presentation under this subsection.\"],\"scope_text\":\"if good cause for an extension is shown and the reason is published in the Federal Register before the period ends\",\"section_id\":\"section-1\",\"start\":438,\"summary\":\"The Secretary may extend, by order, the 60-day period if good cause for an extension is shown and the reason is published in the Federal Register before the period ends.\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:7dcf27e0359cea8eaca08eef26e666c3c6abcd9344c752ba2a7d1843afca93c0"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:7bce6b587d631e25d23b7b7d386416a018665dca47b74b868eaa64d8da7d8e2e"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:c186ce836bc484af866f108edd26006bcd53f2f866f1de5c6bb652105c8bab27"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:d9be9fcb0fb0e4148ae7eb9e0163756141fc891561f68055c68a28c702870b87"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:29793dd4389d6f022438435c18c3a4d19070e9f785060568af6a1b22cc6eb584"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:1b441d99431f4587aa8dbf950ac5785cec2707d6c06104e3ee5354744fd08a69",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:2c4bf66fc0c6fc32924457dc87bc7731a141f20c1a81efc986dfb8ff9e40655e",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-statement",
+      "rkaf:assertsValue": {
+        "@value": "Presentation of a vehicle or equipment for repair before the date specified by a manufacturer in a notice under section 30119(a)(5) or 30121(c)(2) of this title is not a presentation under subsection (c).",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:978e0ec4e2f818916e3a18b33055ca05db57120ff0ade4b94f21153ee660291f",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:1b441d99431f4587aa8dbf950ac5785cec2707d6c06104e3ee5354744fd08a69",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:438:1013:sha256-32d9d2a7b85312a8eed219924c4564ae5b73f8e352c523b5fd80c2315192aeee"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:50c43e30e5cb6633ff78c2f945390b74ec09dbb4ccadf84fbb7f3345bf58278d",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:2c4bf66fc0c6fc32924457dc87bc7731a141f20c1a81efc986dfb8ff9e40655e",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "not_stated",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:f83021ec4830b865d6669e15dab5ab0370a74cf8000c533e3fcbd9edb0a8fa00",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:50c43e30e5cb6633ff78c2f945390b74ec09dbb4ccadf84fbb7f3345bf58278d",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:providesContext",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:438:1013:sha256-32d9d2a7b85312a8eed219924c4564ae5b73f8e352c523b5fd80c2315192aeee"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:c6ee296010402fecd3eebcce6725d313a6dcefdad34ef43bcf82cd4652aa164b",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:2c4bf66fc0c6fc32924457dc87bc7731a141f20c1a81efc986dfb8ff9e40655e",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"kind\":\"statement\",\"modality\":\"not_stated\",\"summary\":\"Presentation of a vehicle or equipment for repair before the date specified by a manufacturer in a notice under section 30119(a)(5) or 30121(c)(2) of this title is not a presentation under subsection (c).\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:a52f5fc0593ef8e43f2801866fc4ded21818be30aa00f69021b2c1222bf1b468",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:c6ee296010402fecd3eebcce6725d313a6dcefdad34ef43bcf82cd4652aa164b",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:438:1013:sha256-32d9d2a7b85312a8eed219924c4564ae5b73f8e352c523b5fd80c2315192aeee"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:ae6dd95be8ad8095eeee7efef276149474e3c7073172bdf7b71191eebd6f5ea7",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:ae6dd95be8ad8095eeee7efef276149474e3c7073172bdf7b71191eebd6f5ea7",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:c9ec7d01db0cd85aacb073fb5b45d1cb064d9b2422355cea372f9882b135e817",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:1b441d99431f4587aa8dbf950ac5785cec2707d6c06104e3ee5354744fd08a69\",\"urn:rulespec:document-understanding:assertion:50c43e30e5cb6633ff78c2f945390b74ec09dbb4ccadf84fbb7f3345bf58278d\",\"urn:rulespec:document-understanding:assertion:c6ee296010402fecd3eebcce6725d313a6dcefdad34ef43bcf82cd4652aa164b\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"defined_terms\":[],\"effective_periods\":[],\"end\":1013,\"evidence\":[{\"end\":1013,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:438:1013:sha256-32d9d2a7b85312a8eed219924c4564ae5b73f8e352c523b5fd80c2315192aeee\",\"quote\":\"(2) Failure to repair a motor vehicle or replacement equipment adequately not later than 60 days after its presentation is prima facie evidence of failure to repair within a reasonable time. However, the Secretary may extend, by order, the 60-day period if good cause for an extension is shown and the reason is published in the Federal Register before the period ends. Presentation of a vehicle or equipment for repair before the date specified by a manufacturer in a notice under section 30119(a)(5) or 30121(c)(2) of this title is not a presentation under this subsection.\",\"start\":438}],\"id\":\"urn:rulespec:document-understanding:revision:ae6dd95be8ad8095eeee7efef276149474e3c7073172bdf7b71191eebd6f5ea7\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"statement\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:c6ee296010402fecd3eebcce6725d313a6dcefdad34ef43bcf82cd4652aa164b\",\"modality\":\"not_stated\",\"modality_quote\":\"\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:dfea18d3382e54fb35046afccd1b101b876b9d8775c1ac6f7b5d219c5b0ce9fb\",\"origin\":\"aiSuggested\",\"quote\":\"(2) Failure to repair a motor vehicle or replacement equipment adequately not later than 60 days after its presentation is prima facie evidence of failure to repair within a reasonable time. However, the Secretary may extend, by order, the 60-day period if good cause for an extension is shown and the reason is published in the Federal Register before the period ends. Presentation of a vehicle or equipment for repair before the date specified by a manufacturer in a notice under section 30119(a)(5) or 30121(c)(2) of this title is not a presentation under this subsection.\",\"references\":[\"section 30119(a)(5)\",\"section 30121(c)(2)\"],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:2c4bf66fc0c6fc32924457dc87bc7731a141f20c1a81efc986dfb8ff9e40655e\",\"scope_quotes\":[],\"scope_text\":\"\",\"section_id\":\"section-1\",\"start\":438,\"summary\":\"Presentation of a vehicle or equipment for repair before the date specified by a manufacturer in a notice under section 30119(a)(5) or 30121(c)(2) of this title is not a presentation under subsection (c).\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:1b441d99431f4587aa8dbf950ac5785cec2707d6c06104e3ee5354744fd08a69"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:50c43e30e5cb6633ff78c2f945390b74ec09dbb4ccadf84fbb7f3345bf58278d"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:c6ee296010402fecd3eebcce6725d313a6dcefdad34ef43bcf82cd4652aa164b"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1015:1251:sha256-97e1722f60b1068c2ddcac9a3bd8bbe939d535d3fe045e9c1f063e9e0fb2be69",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentContentDigest": "sha256:97e1722f60b1068c2ddcac9a3bd8bbe939d535d3fe045e9c1f063e9e0fb2be69",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(3) If the Secretary determines that a manufacturer’s remedy program is not likely to be capable of completion within a reasonable time, the Secretary may require the manufacturer to accelerate the remedy program if the Secretary finds—"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1015,
+          "oa:end": 1251,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1253:1532:sha256-d8a17df2e9c85ee97e6adbcabe903d7dfd28e132723af543febc8fb0601d9d96",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentContentDigest": "sha256:d8a17df2e9c85ee97e6adbcabe903d7dfd28e132723af543febc8fb0601d9d96",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(A) that there is a risk of serious injury or death if the remedy program is not accelerated; and\n\n(B) that acceleration of the remedy program can be reasonably achieved by expanding the sources of replacement parts, expanding the number of authorized repair facilities, or both."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1253,
+          "oa:end": 1532,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1166:1169:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentContentDigest": "sha256:ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "may"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1166,
+          "oa:end": 1169,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:scope:7bfee4ec982a782d5cd0735284cff8543ffeaaea62b10c0ffc6c147a5b5fcdf6",
+      "@type": "rkaf:ApplicabilityScope",
+      "rkaf:appliesInJurisdiction": [],
+      "rkaf:applicabilityCondition": "If the Secretary determines that a manufacturer’s remedy program is not likely to be capable of completion within a reasonable time, and if the Secretary finds that there is a risk of serious injury or death if the remedy program is not accelerated and that acceleration can be reasonably achieved by expanding the sources of replacement parts, expanding the number of authorized repair facilities, or both"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:8a1c0d3bf8635a597f27afe705f0663763d4f88cba830a5584f4f1d34b2124f2",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:bd046aa486eeff35971ef3108f47d479f3bbb36218dcf9c9bc23493d78800491",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-authority",
+      "rkaf:assertsValue": {
+        "@value": "If the Secretary determines that a manufacturer’s remedy program is not likely to be capable of completion within a reasonable time, the Secretary may require the manufacturer to accelerate the remedy program if the Secretary finds that there is a risk of serious injury or death if the remedy program is not accelerated, and that acceleration of the remedy program can be reasonably achieved by expanding the sources of replacement parts, expanding the number of authorized repair facilities, or both.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:b8f7f4c232f025d32aeaba8b17b36a74dffb4442d7672e8b16e90bd45cc1abcb",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:8a1c0d3bf8635a597f27afe705f0663763d4f88cba830a5584f4f1d34b2124f2",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1015:1251:sha256-97e1722f60b1068c2ddcac9a3bd8bbe939d535d3fe045e9c1f063e9e0fb2be69",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1253:1532:sha256-d8a17df2e9c85ee97e6adbcabe903d7dfd28e132723af543febc8fb0601d9d96"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:5a80b05f0cc69cc1884019d589532b97e7db0731e9c74f170a0f5536c117f576",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:8a1c0d3bf8635a597f27afe705f0663763d4f88cba830a5584f4f1d34b2124f2",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1015:1251:sha256-97e1722f60b1068c2ddcac9a3bd8bbe939d535d3fe045e9c1f063e9e0fb2be69",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1253:1532:sha256-d8a17df2e9c85ee97e6adbcabe903d7dfd28e132723af543febc8fb0601d9d96"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:a1569cfddf87bb31483992ad7196e41d3c7b17efcc5c19430a68605d2ec9abff",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:bd046aa486eeff35971ef3108f47d479f3bbb36218dcf9c9bc23493d78800491",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:actor",
+      "rkaf:assertsValue": {
+        "@value": "Secretary",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:0457e02f786754b67bd8fc3216bcbf165dd3f0ebaf3bdada9884cbd27ea2106d",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:a1569cfddf87bb31483992ad7196e41d3c7b17efcc5c19430a68605d2ec9abff",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:providesContext",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1015:1251:sha256-97e1722f60b1068c2ddcac9a3bd8bbe939d535d3fe045e9c1f063e9e0fb2be69",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1253:1532:sha256-d8a17df2e9c85ee97e6adbcabe903d7dfd28e132723af543febc8fb0601d9d96"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:b2147008851bd907b0da894a6ecd1f71fad753a7de754f168454d47fac138573",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:bd046aa486eeff35971ef3108f47d479f3bbb36218dcf9c9bc23493d78800491",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "may",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:1ba21d4d851d4442777a16ef3c17919c318dbff479edde66c6837f504e1944c2",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:b2147008851bd907b0da894a6ecd1f71fad753a7de754f168454d47fac138573",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1166:1169:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:b771821d9a6731acfa82c3225907976a2ceb46ded2431d94fd6063099f1e981c",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:bd046aa486eeff35971ef3108f47d479f3bbb36218dcf9c9bc23493d78800491",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:scope_text",
+      "rkaf:assertsValue": {
+        "@value": "If the Secretary determines that a manufacturer’s remedy program is not likely to be capable of completion within a reasonable time, and if the Secretary finds that there is a risk of serious injury or death if the remedy program is not accelerated and that acceleration can be reasonably achieved by expanding the sources of replacement parts, expanding the number of authorized repair facilities, or both",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:87d7666a24b017a5f5d7de6350656cbaa09c567ae535647c745ecae0c8e21a90",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:b771821d9a6731acfa82c3225907976a2ceb46ded2431d94fd6063099f1e981c",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1015:1251:sha256-97e1722f60b1068c2ddcac9a3bd8bbe939d535d3fe045e9c1f063e9e0fb2be69",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1253:1532:sha256-d8a17df2e9c85ee97e6adbcabe903d7dfd28e132723af543febc8fb0601d9d96"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:20d2ab2562296ffa3d3da8abf2c28e97b794060a7d5147e7f42660224af3385f",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:bd046aa486eeff35971ef3108f47d479f3bbb36218dcf9c9bc23493d78800491",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"actor\":\"Secretary\",\"kind\":\"authority\",\"modality\":\"may\",\"scope_text\":\"If the Secretary determines that a manufacturer’s remedy program is not likely to be capable of completion within a reasonable time, and if the Secretary finds that there is a risk of serious injury or death if the remedy program is not accelerated and that acceleration can be reasonably achieved by expanding the sources of replacement parts, expanding the number of authorized repair facilities, or both\",\"summary\":\"If the Secretary determines that a manufacturer’s remedy program is not likely to be capable of completion within a reasonable time, the Secretary may require the manufacturer to accelerate the remedy program if the Secretary finds that there is a risk of serious injury or death if the remedy program is not accelerated, and that acceleration of the remedy program can be reasonably achieved by expanding the sources of replacement parts, expanding the number of authorized repair facilities, or both.\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed",
+      "rkaf:hasApplicability": "urn:rulespec:document-understanding:scope:7bfee4ec982a782d5cd0735284cff8543ffeaaea62b10c0ffc6c147a5b5fcdf6"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:e732c7773c7e604334588d317d1a1df2776064c63995e7d167aa2cff112eeaa0",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:20d2ab2562296ffa3d3da8abf2c28e97b794060a7d5147e7f42660224af3385f",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1015:1251:sha256-97e1722f60b1068c2ddcac9a3bd8bbe939d535d3fe045e9c1f063e9e0fb2be69",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1253:1532:sha256-d8a17df2e9c85ee97e6adbcabe903d7dfd28e132723af543febc8fb0601d9d96",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1166:1169:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:823c2cb0aad00f9c68e2a3083307aed4c789047bbefd0f0185c5c4e2cbfc3e12",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:20d2ab2562296ffa3d3da8abf2c28e97b794060a7d5147e7f42660224af3385f",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1015:1251:sha256-97e1722f60b1068c2ddcac9a3bd8bbe939d535d3fe045e9c1f063e9e0fb2be69",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1253:1532:sha256-d8a17df2e9c85ee97e6adbcabe903d7dfd28e132723af543febc8fb0601d9d96"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:50b876340d86bd1bf6393b975dc1109616fdff5758325b08ea277b18c5df1ffe",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:50b876340d86bd1bf6393b975dc1109616fdff5758325b08ea277b18c5df1ffe",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:a2eeccbae4851ec1fb0d9c7ab52df693e991167d84b393e4e962085a133ffab7",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"Secretary\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:8a1c0d3bf8635a597f27afe705f0663763d4f88cba830a5584f4f1d34b2124f2\",\"urn:rulespec:document-understanding:assertion:a1569cfddf87bb31483992ad7196e41d3c7b17efcc5c19430a68605d2ec9abff\",\"urn:rulespec:document-understanding:assertion:b2147008851bd907b0da894a6ecd1f71fad753a7de754f168454d47fac138573\",\"urn:rulespec:document-understanding:assertion:b771821d9a6731acfa82c3225907976a2ceb46ded2431d94fd6063099f1e981c\",\"urn:rulespec:document-understanding:assertion:20d2ab2562296ffa3d3da8abf2c28e97b794060a7d5147e7f42660224af3385f\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"defined_terms\":[],\"effective_periods\":[],\"end\":1532,\"evidence\":[{\"end\":1251,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1015:1251:sha256-97e1722f60b1068c2ddcac9a3bd8bbe939d535d3fe045e9c1f063e9e0fb2be69\",\"quote\":\"(3) If the Secretary determines that a manufacturer’s remedy program is not likely to be capable of completion within a reasonable time, the Secretary may require the manufacturer to accelerate the remedy program if the Secretary finds—\",\"start\":1015},{\"end\":1532,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1253:1532:sha256-d8a17df2e9c85ee97e6adbcabe903d7dfd28e132723af543febc8fb0601d9d96\",\"quote\":\"(A) that there is a risk of serious injury or death if the remedy program is not accelerated; and\\n\\n(B) that acceleration of the remedy program can be reasonably achieved by expanding the sources of replacement parts, expanding the number of authorized repair facilities, or both.\",\"start\":1253},{\"end\":1169,\"field\":\"modality\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1166:1169:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc\",\"quote\":\"may\",\"start\":1166},{\"end\":1251,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1015:1251:sha256-97e1722f60b1068c2ddcac9a3bd8bbe939d535d3fe045e9c1f063e9e0fb2be69\",\"quote\":\"(3) If the Secretary determines that a manufacturer’s remedy program is not likely to be capable of completion within a reasonable time, the Secretary may require the manufacturer to accelerate the remedy program if the Secretary finds—\",\"start\":1015},{\"end\":1532,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1253:1532:sha256-d8a17df2e9c85ee97e6adbcabe903d7dfd28e132723af543febc8fb0601d9d96\",\"quote\":\"(A) that there is a risk of serious injury or death if the remedy program is not accelerated; and\\n\\n(B) that acceleration of the remedy program can be reasonably achieved by expanding the sources of replacement parts, expanding the number of authorized repair facilities, or both.\",\"start\":1253}],\"id\":\"urn:rulespec:document-understanding:revision:50b876340d86bd1bf6393b975dc1109616fdff5758325b08ea277b18c5df1ffe\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"authority\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:20d2ab2562296ffa3d3da8abf2c28e97b794060a7d5147e7f42660224af3385f\",\"modality\":\"may\",\"modality_quote\":\"may\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:1ab5eac5d6d7aaf7bb83692a76b698737edda40bac63ae301d93a8cda73cab4a\",\"origin\":\"aiSuggested\",\"quote\":\"(3) If the Secretary determines that a manufacturer’s remedy program is not likely to be capable of completion within a reasonable time, the Secretary may require the manufacturer to accelerate the remedy program if the Secretary finds—\\n\\n(A) that there is a risk of serious injury or death if the remedy program is not accelerated; and\\n\\n(B) that acceleration of the remedy program can be reasonably achieved by expanding the sources of replacement parts, expanding the number of authorized repair facilities, or both.\",\"references\":[],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:bd046aa486eeff35971ef3108f47d479f3bbb36218dcf9c9bc23493d78800491\",\"scope_quotes\":[\"(3) If the Secretary determines that a manufacturer’s remedy program is not likely to be capable of completion within a reasonable time, the Secretary may require the manufacturer to accelerate the remedy program if the Secretary finds—\\n\\n(A) that there is a risk of serious injury or death if the remedy program is not accelerated; and\\n\\n(B) that acceleration of the remedy program can be reasonably achieved by expanding the sources of replacement parts, expanding the number of authorized repair facilities, or both.\"],\"scope_text\":\"If the Secretary determines that a manufacturer’s remedy program is not likely to be capable of completion within a reasonable time, and if the Secretary finds that there is a risk of serious injury or death if the remedy program is not accelerated and that acceleration can be reasonably achieved by expanding the sources of replacement parts, expanding the number of authorized repair facilities, or both\",\"section_id\":\"section-1\",\"start\":1015,\"summary\":\"If the Secretary determines that a manufacturer’s remedy program is not likely to be capable of completion within a reasonable time, the Secretary may require the manufacturer to accelerate the remedy program if the Secretary finds that there is a risk of serious injury or death if the remedy program is not accelerated, and that acceleration of the remedy program can be reasonably achieved by expanding the sources of replacement parts, expanding the number of authorized repair facilities, or both.\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:8a1c0d3bf8635a597f27afe705f0663763d4f88cba830a5584f4f1d34b2124f2"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:a1569cfddf87bb31483992ad7196e41d3c7b17efcc5c19430a68605d2ec9abff"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:b2147008851bd907b0da894a6ecd1f71fad753a7de754f168454d47fac138573"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:b771821d9a6731acfa82c3225907976a2ceb46ded2431d94fd6063099f1e981c"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:20d2ab2562296ffa3d3da8abf2c28e97b794060a7d5147e7f42660224af3385f"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1535:1603:sha256-60a80cc7dc75699836dce67264879107cde120726a65572342bbf6ef8aa1199f",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentContentDigest": "sha256:60a80cc7dc75699836dce67264879107cde120726a65572342bbf6ef8aa1199f",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "The Secretary may prescribe regulations to carry out this paragraph."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1535,
+          "oa:end": 1603,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1535:1548:sha256-d6dd2bb6d3c44b4545cc3f97cb6f8a38842ecd30d2c58ec3e1c53a8c1a0ac77c",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentContentDigest": "sha256:d6dd2bb6d3c44b4545cc3f97cb6f8a38842ecd30d2c58ec3e1c53a8c1a0ac77c",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "The Secretary"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1535,
+          "oa:end": 1548,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1549:1552:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8",
+      "rkaf:fragmentContentDigest": "sha256:ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "may"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1549,
+          "oa:end": 1552,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:scope:50c7ea78f4ebe6e564f53cc22c417dff8e2a22fc2e07de1a94efdc025dd8d565",
+      "@type": "rkaf:ApplicabilityScope",
+      "rkaf:appliesInJurisdiction": [],
+      "rkaf:applicabilityCondition": "to carry out this paragraph"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:1a859c8ca84fcfa09b0a6c184c892120cb183104b7f1e656940095eb68bfff63",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:36cc47f8a2268ed7c06460c7bf4f9d1947e7621fa51a67dfdc2d2d7606648a81",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-authority",
+      "rkaf:assertsValue": {
+        "@value": "The Secretary may prescribe regulations to carry out paragraph (3).",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:3c72eb62b44a7fb1c11170b08c2606bceafdfc09ccf39bc5b62f7bef3fd0cc23",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:1a859c8ca84fcfa09b0a6c184c892120cb183104b7f1e656940095eb68bfff63",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1535:1603:sha256-60a80cc7dc75699836dce67264879107cde120726a65572342bbf6ef8aa1199f"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:a395e7af05700379b30aa07b3c47743913b083269990e00c1514765d54ec1e25",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:1a859c8ca84fcfa09b0a6c184c892120cb183104b7f1e656940095eb68bfff63",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1535:1603:sha256-60a80cc7dc75699836dce67264879107cde120726a65572342bbf6ef8aa1199f"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:f50af307a1ae943e3070ecf100b7141c8a873b599e718cb5293b70083a3a2fe3",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:36cc47f8a2268ed7c06460c7bf4f9d1947e7621fa51a67dfdc2d2d7606648a81",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:actor",
+      "rkaf:assertsValue": {
+        "@value": "Secretary",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:a407c64f3e4348eb5951862b39a12652a552b139bed826a0f462848a9694c6cc",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:f50af307a1ae943e3070ecf100b7141c8a873b599e718cb5293b70083a3a2fe3",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1535:1548:sha256-d6dd2bb6d3c44b4545cc3f97cb6f8a38842ecd30d2c58ec3e1c53a8c1a0ac77c"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:a07c7c9a8aed511743de04c8530f62ee8838b875e5f46e91c50f852516300044",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:36cc47f8a2268ed7c06460c7bf4f9d1947e7621fa51a67dfdc2d2d7606648a81",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "may",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:d4661f0a81c41581b2744026567ed1e4f6bbe216408e967cb8bc20ad633112ba",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:a07c7c9a8aed511743de04c8530f62ee8838b875e5f46e91c50f852516300044",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1549:1552:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:ae9f0d299f11540c66ec11e0e404611c859587668bcd94d00fbf3f04092dff8d",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:36cc47f8a2268ed7c06460c7bf4f9d1947e7621fa51a67dfdc2d2d7606648a81",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:scope_text",
+      "rkaf:assertsValue": {
+        "@value": "to carry out this paragraph",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:4017e29107f1eecd264d5547555dbf3fe0c997d873370fcfa2bbd97f1302ed5e",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:ae9f0d299f11540c66ec11e0e404611c859587668bcd94d00fbf3f04092dff8d",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1535:1603:sha256-60a80cc7dc75699836dce67264879107cde120726a65572342bbf6ef8aa1199f"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:f81dbf393e4248998d02d1893e87e77f946be46e15d184ba5877879985d6e849",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:1051065f79d31a8456d7aca1f81b58bbe69c418e72b5fa6cdc52a185e3d1fd5e",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:17b66ae0af0f6c956f7ea6593e123739794217604f6ec538c3e330690202d882",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:36cc47f8a2268ed7c06460c7bf4f9d1947e7621fa51a67dfdc2d2d7606648a81",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"actor\":\"Secretary\",\"kind\":\"authority\",\"modality\":\"may\",\"scope_text\":\"to carry out this paragraph\",\"summary\":\"The Secretary may prescribe regulations to carry out paragraph (3).\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed",
+      "rkaf:hasApplicability": "urn:rulespec:document-understanding:scope:50c7ea78f4ebe6e564f53cc22c417dff8e2a22fc2e07de1a94efdc025dd8d565"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:8eb36d813e779c02a7d3dce4a413421ea814a256f69cb437653839b52a043dce",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:f81dbf393e4248998d02d1893e87e77f946be46e15d184ba5877879985d6e849",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1535:1603:sha256-60a80cc7dc75699836dce67264879107cde120726a65572342bbf6ef8aa1199f",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1535:1548:sha256-d6dd2bb6d3c44b4545cc3f97cb6f8a38842ecd30d2c58ec3e1c53a8c1a0ac77c",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1549:1552:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:10d242098320df8bf1995537d4c59b637704bf08e2be919b2301537d941762f3",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:f81dbf393e4248998d02d1893e87e77f946be46e15d184ba5877879985d6e849",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1535:1603:sha256-60a80cc7dc75699836dce67264879107cde120726a65572342bbf6ef8aa1199f"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:f365f24ace825ee790d6f8e4c33527f05c0aa50e770c629655948b7437e780a4",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:f365f24ace825ee790d6f8e4c33527f05c0aa50e770c629655948b7437e780a4",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:428301f2e52f5e0078bd5cb7206ccea6d6c118edce857a1937215dc73d2091bd",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"Secretary\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:1a859c8ca84fcfa09b0a6c184c892120cb183104b7f1e656940095eb68bfff63\",\"urn:rulespec:document-understanding:assertion:f50af307a1ae943e3070ecf100b7141c8a873b599e718cb5293b70083a3a2fe3\",\"urn:rulespec:document-understanding:assertion:a07c7c9a8aed511743de04c8530f62ee8838b875e5f46e91c50f852516300044\",\"urn:rulespec:document-understanding:assertion:ae9f0d299f11540c66ec11e0e404611c859587668bcd94d00fbf3f04092dff8d\",\"urn:rulespec:document-understanding:assertion:f81dbf393e4248998d02d1893e87e77f946be46e15d184ba5877879985d6e849\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"defined_terms\":[],\"effective_periods\":[],\"end\":1603,\"evidence\":[{\"end\":1603,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1535:1603:sha256-60a80cc7dc75699836dce67264879107cde120726a65572342bbf6ef8aa1199f\",\"quote\":\"The Secretary may prescribe regulations to carry out this paragraph.\",\"start\":1535},{\"end\":1548,\"field\":\"actor\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1535:1548:sha256-d6dd2bb6d3c44b4545cc3f97cb6f8a38842ecd30d2c58ec3e1c53a8c1a0ac77c\",\"quote\":\"The Secretary\",\"start\":1535},{\"end\":1552,\"field\":\"modality\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1549:1552:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc\",\"quote\":\"may\",\"start\":1549},{\"end\":1603,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A4b85c5b59d5f81980669767b1427ec1d6dd983fab0455624a7be2d2bdd6a40b8:1535:1603:sha256-60a80cc7dc75699836dce67264879107cde120726a65572342bbf6ef8aa1199f\",\"quote\":\"The Secretary may prescribe regulations to carry out this paragraph.\",\"start\":1535}],\"id\":\"urn:rulespec:document-understanding:revision:f365f24ace825ee790d6f8e4c33527f05c0aa50e770c629655948b7437e780a4\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"authority\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:f81dbf393e4248998d02d1893e87e77f946be46e15d184ba5877879985d6e849\",\"modality\":\"may\",\"modality_quote\":\"may\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:d205238982c17aa311866ff6665fb179940d1583d98a2d086602d61c0ac65de9\",\"origin\":\"aiSuggested\",\"quote\":\"The Secretary may prescribe regulations to carry out this paragraph.\",\"references\":[\"this paragraph\"],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:36cc47f8a2268ed7c06460c7bf4f9d1947e7621fa51a67dfdc2d2d7606648a81\",\"scope_quotes\":[\"The Secretary may prescribe regulations to carry out this paragraph.\"],\"scope_text\":\"to carry out this paragraph\",\"section_id\":\"section-1\",\"start\":1535,\"summary\":\"The Secretary may prescribe regulations to carry out paragraph (3).\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:1a859c8ca84fcfa09b0a6c184c892120cb183104b7f1e656940095eb68bfff63"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:f50af307a1ae943e3070ecf100b7141c8a873b599e718cb5293b70083a3a2fe3"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:a07c7c9a8aed511743de04c8530f62ee8838b875e5f46e91c50f852516300044"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:ae9f0d299f11540c66ec11e0e404611c859587668bcd94d00fbf3f04092dff8d"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:f81dbf393e4248998d02d1893e87e77f946be46e15d184ba5877879985d6e849"
+        }
+      ]
+    }
+  ]
+}

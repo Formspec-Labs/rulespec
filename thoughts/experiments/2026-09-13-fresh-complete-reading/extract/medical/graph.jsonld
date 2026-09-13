@@ -1,0 +1,2453 @@
+{
+  "@context": {
+    "rkaf": "https://rulespec.org/ns/v1#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "oa": "http://www.w3.org/ns/oa#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "cito": "http://purl.org/spar/cito/",
+    "wos": "https://w3id.org/wos/ns/v1#",
+    "formspec": "https://w3id.org/formspec/ns/v1#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "eli": "http://data.europa.eu/eli/ontology#",
+    "aknt": "http://docs.oasis-open.org/legaldocml/ns/akn/3.0/",
+    "uslm": "https://uslm.gov/2.1.0/",
+    "lrml": "http://docs.oasis-open.org/legalruleml/ns/v1.0/",
+    "rrmv": "http://data.europa.eu/m8g/rrmv/",
+    "eco": "http://purl.obolibrary.org/obo/ECO_",
+    "sepio": "http://purl.obolibrary.org/obo/SEPIO_",
+    "dpv": "https://w3id.org/dpv#",
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "rkaf:Artifact": {
+      "@type": "@id"
+    },
+    "rkaf:hasArtifactIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:artifactIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasRegulatoryIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:regulatoryIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:publishedInProceeding": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:publishedInDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:hasFormat": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:format": {
+      "@type": "xsd:string"
+    },
+    "dcterms:isFormatOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:isVersionOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "prov:wasRevisionOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasContentDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:versionLineageEvidence": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:SourceFragment": {
+      "@type": "@id"
+    },
+    "oa:hasSource": {
+      "@type": "@id"
+    },
+    "oa:hasSelector": {
+      "@type": "@id"
+    },
+    "oa:TextQuoteSelector": {
+      "@type": "@id"
+    },
+    "oa:TextPositionSelector": {
+      "@type": "@id"
+    },
+    "oa:exact": {
+      "@type": "xsd:string"
+    },
+    "oa:prefix": {
+      "@type": "xsd:string"
+    },
+    "oa:suffix": {
+      "@type": "xsd:string"
+    },
+    "oa:start": {
+      "@type": "xsd:integer"
+    },
+    "oa:end": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:selectorKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:coordinateSystem": {
+      "@type": "@vocab"
+    },
+    "rkaf:sourceArtifactDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:fragmentContentDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:EvidenceBinding": {
+      "@type": "@id"
+    },
+    "rkaf:bindsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:bindsSourceFragment": {
+      "@type": "@id"
+    },
+    "rkaf:noEvidenceReason": {
+      "@type": "@id"
+    },
+    "rkaf:Warrant": {
+      "@type": "@id"
+    },
+    "rkaf:hasWarrant": {
+      "@type": "@id"
+    },
+    "rkaf:warrantKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:warrantFamily": {
+      "@type": "@vocab"
+    },
+    "rkaf:defeasible": {
+      "@type": "xsd:boolean"
+    },
+    "rkaf:ConfidenceRecord": {
+      "@type": "@id"
+    },
+    "rkaf:hasConfidence": {
+      "@type": "@id"
+    },
+    "rkaf:confidenceMethod": {
+      "@type": "@vocab"
+    },
+    "rkaf:calibrationStatus": {
+      "@type": "@vocab"
+    },
+    "rkaf:confidenceBasis": {
+      "@type": "@id"
+    },
+    "rkaf:evaluatedAgainst": {
+      "@type": "@id"
+    },
+    "rkaf:generatedBy": {
+      "@type": "@id"
+    },
+    "rkaf:score": {
+      "@type": "xsd:float"
+    },
+    "rkaf:scoreCategorical": {
+      "@type": "@vocab"
+    },
+    "rkaf:AccessScope": {
+      "@type": "@id"
+    },
+    "rkaf:hasAccessScope": {
+      "@type": "@id"
+    },
+    "rkaf:accessScopeKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:regulatoryClass": {
+      "@type": "@vocab"
+    },
+    "rkaf:embargoUntil": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:permittedRole": {
+      "@type": "@id"
+    },
+    "rkaf:AILineage": {
+      "@type": "@id"
+    },
+    "rkaf:hasAILineage": {
+      "@type": "@id"
+    },
+    "rkaf:modelId": {
+      "@type": "xsd:string"
+    },
+    "rkaf:modelVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:promptTemplateRef": {
+      "@type": "@id"
+    },
+    "rkaf:temperature": {
+      "@type": "xsd:float"
+    },
+    "rkaf:seed": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:inputContextHash": {
+      "@type": "xsd:string"
+    },
+    "rkaf:humanApprover": {
+      "@type": "@id"
+    },
+    "rkaf:humanRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:MappingState": {
+      "@type": "@id"
+    },
+    "rkaf:mappingState": {
+      "@type": "@vocab"
+    },
+    "rkaf:RetentionPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:hasRetentionPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:retentionDurationDays": {
+      "@type": "xsd:int"
+    },
+    "rkaf:retentionTrigger": {
+      "@type": "@vocab"
+    },
+    "rkaf:retentionPostExpiry": {
+      "@type": "@vocab"
+    },
+    "rkaf:Workspace": {
+      "@type": "@id"
+    },
+    "rkaf:scopedToWorkspace": {
+      "@type": "@id"
+    },
+    "rkaf:workspaceId": {
+      "@type": "xsd:string"
+    },
+    "rkaf:workspaceTrustList": {
+      "@type": "@id"
+    },
+    "rkaf:projectsTo": {
+      "@type": "@id"
+    },
+    "rkaf:llmHint": {
+      "@type": "@id"
+    },
+    "rkaf:Authority": {
+      "@type": "@id"
+    },
+    "rkaf:Attestation": {
+      "@type": "@id"
+    },
+    "rkaf:LocalAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:ApplicabilityScope": {
+      "@type": "@id"
+    },
+    "rkaf:EffectivePeriod": {
+      "@type": "@id"
+    },
+    "rkaf:LifecycleEvent": {
+      "@type": "@id"
+    },
+    "rkaf:Proceeding": {
+      "@type": "@id"
+    },
+    "rkaf:RegulatoryAgendaItem": {
+      "@type": "@id"
+    },
+    "rkaf:RegulatoryAgendaObservation": {
+      "@type": "@id"
+    },
+    "rkaf:AgendaProceedingRelationship": {
+      "@type": "@id"
+    },
+    "dcat:Resource": {
+      "@type": "@id"
+    },
+    "dcat:CatalogRecord": {
+      "@type": "@id"
+    },
+    "dcat:Relationship": {
+      "@type": "@id"
+    },
+    "rkaf:CommentPeriod": {
+      "@type": "@id"
+    },
+    "rkaf:Docket": {
+      "@type": "@id"
+    },
+    "prov:Entity": {
+      "@type": "@id"
+    },
+    "rkaf:hasDocketIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:docketIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasProceedingIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:proceedingIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasAgendaItemIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:agendaItemIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaScopeStatus": {
+      "@type": "@vocab"
+    },
+    "dcat:qualifiedRelation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "foaf:primaryTopic": {
+      "@type": "@id"
+    },
+    "rkaf:agendaStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaPriority": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaAffectsCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:agendaAuthorityCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:relation": {
+      "@type": "@id"
+    },
+    "dcat:hadRole": {
+      "@type": "@vocab"
+    },
+    "rkaf:identifierRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:proceedingStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:proceedingTerminationCause": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasAuthority": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingAffects": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingAffectsCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingProduces": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasProceedingEvidenceIdentifier": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingEvidenceIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:proceedingSupersedes": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodFor": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodOpenedBy": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodStart": {
+      "@type": "xsd:date"
+    },
+    "rkaf:commentPeriodEnd": {
+      "@type": "xsd:date"
+    },
+    "rkaf:RegisteredConcept": {
+      "@type": "@id"
+    },
+    "rkaf:LocalConcept": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptMapping": {
+      "@type": "@id"
+    },
+    "rkaf:ReferenceResourceRelease": {
+      "@type": "@id"
+    },
+    "rkaf:MappingApplicabilityContext": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptResolutionResult": {
+      "@type": "@id"
+    },
+    "rkaf:BridgeValidationResult": {
+      "@type": "@id"
+    },
+    "rkaf:BridgeConsumerRegistration": {
+      "@type": "@id"
+    },
+    "rkaf:RegistryConflict": {
+      "@type": "@id"
+    },
+    "rkaf:Finding": {
+      "@type": "@id"
+    },
+    "rkaf:Justification": {
+      "@type": "@id"
+    },
+    "rkaf:hasJustification": {
+      "@type": "@id"
+    },
+    "rkaf:PointInTimeException": {
+      "@type": "@id"
+    },
+    "rkaf:evaluationAnchor": {
+      "@type": "@id"
+    },
+    "rkaf:retainsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:retainsWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:GeneratedWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:justifiedByAssertion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:consumerLifecycleState": {
+      "@type": "@id"
+    },
+    "rkaf:proposedUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:RevalidationEvent": {
+      "@type": "@id"
+    },
+    "rkaf:RevalidationClosureEvent": {
+      "@type": "@id"
+    },
+    "rkaf:revalidationFor": {
+      "@type": "@id"
+    },
+    "rkaf:triggeredBy": {
+      "@type": "@id"
+    },
+    "rkaf:closesRevalidation": {
+      "@type": "@id"
+    },
+    "rkaf:openedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:closedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:closureDecision": {
+      "@type": "@id"
+    },
+    "rkaf:successorAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:successorWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:ConsumerEffectiveDeclaration": {
+      "@type": "@id"
+    },
+    "rkaf:forAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:declaredEffective": {
+      "@type": "@vocab"
+    },
+    "rkaf:declaredScope": {
+      "@type": "@id"
+    },
+    "rkaf:declaredAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:BridgeIssueAttestationContract": {
+      "@type": "@id"
+    },
+    "rkaf:attestedIssueKinds": {
+      "@type": "@vocab"
+    },
+    "rkaf:usedAsAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:detectedIssues": {
+      "@type": "@id"
+    },
+    "rkaf:derivesAuthorityFrom": {
+      "@type": "@id"
+    },
+    "rkaf:hasApplicability": {
+      "@type": "@id"
+    },
+    "rkaf:hasEffectivePeriod": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:adoptedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:attestationScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:attestorKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:targets": {
+      "@type": "@id"
+    },
+    "rkaf:attestedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:revokedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:rationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:lifecycleEventKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:bridgeContractVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:maxAttestationStalenessDays": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:evaluationTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectivePeriodStart": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectivePeriodEnd": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:retroactiveFrom": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:sunsetAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:resolvedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:validatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:anchoredBy": {
+      "@type": "@id"
+    },
+    "rkaf:anchorType": {
+      "@type": "@id"
+    },
+    "rkaf:Assertion": {
+      "@type": "@id"
+    },
+    "rkaf:RelationshipAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:ValueAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:assertsSubject": {
+      "@type": "@id"
+    },
+    "rkaf:assertsPredicate": {
+      "@type": "@id"
+    },
+    "rkaf:assertsObject": {
+      "@type": "@id"
+    },
+    "rkaf:assertsValue": {
+      "@id": "https://rulespec.org/ns/v1#assertsValue"
+    },
+    "rkaf:assertionPolarity": {
+      "@type": "@vocab"
+    },
+    "rkaf:assertedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:hasSourceClaimant": {
+      "@type": "@id"
+    },
+    "rkaf:hasExtractionProvenance": {
+      "@type": "@id"
+    },
+    "rkaf:SourceClaimant": {
+      "@type": "@id"
+    },
+    "rkaf:claimsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:claimantAttribution": {
+      "@type": "@vocab"
+    },
+    "rkaf:claimantText": {
+      "@type": "xsd:string"
+    },
+    "rkaf:claimantIdentity": {
+      "@type": "@id"
+    },
+    "rkaf:attributedInFragment": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ExtractionActivity": {
+      "@type": "@id"
+    },
+    "rkaf:extractionMethod": {
+      "@type": "@vocab"
+    },
+    "rkaf:extractionRun": {
+      "@type": "@id"
+    },
+    "rkaf:extractedBy": {
+      "@type": "@id"
+    },
+    "rkaf:extractorVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:requestContractDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:extractionModelRef": {
+      "@type": "@id"
+    },
+    "rkaf:extractionPromptRef": {
+      "@type": "@id"
+    },
+    "rkaf:inputDigest": {
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "rkaf:extractionAttempt": {
+      "@type": "xsd:integer"
+    },
+    "prov:startedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "prov:endedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:hasSafetyLabel": {
+      "@type": "@id"
+    },
+    "rkaf:usageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:capabilityCap": {
+      "@type": "@id"
+    },
+    "rkaf:assertionOrigin": {
+      "@type": "@id"
+    },
+    "rkaf:epistemicBasis": {
+      "@type": "@vocab"
+    },
+    "rkaf:authorityKind": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionAuthorityKind": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionStatus": {
+      "@type": "@id"
+    },
+    "rkaf:result": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionStatus": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionMethod": {
+      "@type": "@id"
+    },
+    "rkaf:cacheStatus": {
+      "@type": "@id"
+    },
+    "rkaf:usageCeiling": {
+      "@type": "@id"
+    },
+    "rkaf:lifecycleEvent": {
+      "@type": "@id"
+    },
+    "rkaf:cascadeAlgorithm": {
+      "@type": "@id"
+    },
+    "rkaf:evidenceRole": {
+      "@type": "@id"
+    },
+    "rkaf:evidentiaryFunction": {
+      "@type": "@vocab"
+    },
+    "rkaf:warningCode": {
+      "@type": "@id"
+    },
+    "rkaf:errorCode": {
+      "@type": "@id"
+    },
+    "rkaf:decision": {
+      "@type": "@id"
+    },
+    "rkaf:scope": {
+      "@type": "@id"
+    },
+    "rkaf:visibility": {
+      "@type": "@id"
+    },
+    "rkaf:attestorType": {
+      "@type": "@id"
+    },
+    "rkaf:role": {
+      "@type": "@id"
+    },
+    "rkaf:transitionTo": {
+      "@type": "@id"
+    },
+    "rkaf:status": {
+      "@type": "@id"
+    },
+    "rkaf:predicate": {
+      "@type": "@id"
+    },
+    "rkaf:conceptScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:governanceModel": {
+      "@type": "@id"
+    },
+    "rkaf:revisedUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:effectiveUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:safeAutomaticMigration": {
+      "@type": "@id"
+    },
+    "rkaf:resourceKind": {
+      "@type": "@id"
+    },
+    "rkaf:officialStatus": {
+      "@type": "@id"
+    },
+    "rkaf:legalValue": {
+      "@type": "@id"
+    },
+    "rkaf:publicationStatus": {
+      "@type": "@id"
+    },
+    "rkaf:remediationAction": {
+      "@type": "@id"
+    },
+    "rkaf:requiredPredicate": {
+      "@type": "@id"
+    },
+    "rkaf:minimumUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:noRemediationReason": {
+      "@type": "@id"
+    },
+    "rkaf:authorityChainStatus": {
+      "@type": "@id"
+    },
+    "rkaf:chainTerminusKind": {
+      "@type": "@id"
+    },
+    "rkaf:fragmentType": {
+      "@type": "@id"
+    },
+    "rkaf:reviewStatus": {
+      "@type": "@id"
+    },
+    "rkaf:newWorkProductStatus": {
+      "@type": "@id"
+    },
+    "rkaf:newUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:newAssertionState": {
+      "@type": "@id"
+    },
+    "rkaf:resourceFamily": {
+      "@type": "@id"
+    },
+    "rkaf:assertedBy": {
+      "@type": "@id"
+    },
+    "rkaf:attestor": {
+      "@type": "@id"
+    },
+    "rkaf:targetAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:targetWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:targetPacket": {
+      "@type": "@id"
+    },
+    "rkaf:sourceConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:targetConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:targetMappingConflict": {
+      "@type": "@id"
+    },
+    "rkaf:targetBridgeValidation": {
+      "@type": "@id"
+    },
+    "rkaf:targetRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:targetAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:authorizedBy": {
+      "@type": "@id"
+    },
+    "rkaf:organization": {
+      "@type": "@id"
+    },
+    "rkaf:packetId": {
+      "@type": "@id"
+    },
+    "rkaf:consumer": {
+      "@type": "@id"
+    },
+    "rkaf:emittedBy": {
+      "@type": "@id"
+    },
+    "rkaf:triggeredByPacket": {
+      "@type": "@id"
+    },
+    "rkaf:closesRevalidationEvent": {
+      "@type": "@id"
+    },
+    "rkaf:successorAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:closedBy": {
+      "@type": "@id"
+    },
+    "rkaf:queuedFor": {
+      "@type": "@id"
+    },
+    "rkaf:supersedesAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:supersedesWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:revalidationOf": {
+      "@type": "@id"
+    },
+    "rkaf:precedingArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:precedingVersion": {
+      "@type": "@id"
+    },
+    "rkaf:supportingEvent": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnClassification": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnEvent": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnAttestation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:basedOnAttestations": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:artifactId": {
+      "@type": "@id"
+    },
+    "rkaf:realizedByArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:resourceLineage": {
+      "@type": "@id"
+    },
+    "rkaf:sourceAuthorityHint": {
+      "@type": "@id"
+    },
+    "rkaf:capturedBy": {
+      "@type": "@id"
+    },
+    "rkaf:subjectArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:priorArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:classifiedBy": {
+      "@type": "@id"
+    },
+    "rkaf:classification": {
+      "@type": "@id"
+    },
+    "rkaf:managedByRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:referenceReleaseDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:versionBasis": {
+      "@type": "@vocab"
+    },
+    "rkaf:membershipMode": {
+      "@type": "@vocab"
+    },
+    "rkaf:hostedByRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:mintingAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionEndpoint": {
+      "@type": "@id"
+    },
+    "rkaf:registeredVia": {
+      "@type": "@id"
+    },
+    "rkaf:replacedBy": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:absorbedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:splitInto": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:conceptLifecycleOperation": {
+      "@type": "@vocab"
+    },
+    "rkaf:predecessorConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:successorConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:predecessorConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:successorConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:subjectConcept": {
+      "@type": "@id"
+    },
+    "rkaf:relatedConcept": {
+      "@type": "@id"
+    },
+    "rkaf:sharedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:relatedPublishedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:conflictingMappings": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:concept": {
+      "@type": "@id"
+    },
+    "rkaf:inputConcept": {
+      "@type": "@id"
+    },
+    "rkaf:resolvedConcept": {
+      "@type": "@id"
+    },
+    "rkaf:mappingAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:openLabelFacet": {
+      "@type": "@id"
+    },
+    "rkaf:openLabelRole": {
+      "@type": "@vocab"
+    },
+    "rkaf:resolutionTrustedVia": {
+      "@type": "@id"
+    },
+    "rkaf:registry": {
+      "@type": "@id"
+    },
+    "rkaf:resolvedToConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:assertion": {
+      "@type": "@id"
+    },
+    "rkaf:object": {
+      "@type": "@id"
+    },
+    "rkaf:dataConcept": {
+      "@type": "@id"
+    },
+    "rkaf:proposedFromLocalConcept": {
+      "@type": "@id"
+    },
+    "rkaf:registeredConcept": {
+      "@type": "@id"
+    },
+    "rkaf:registrationAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:proposedBy": {
+      "@type": "@id"
+    },
+    "rkaf:delegatingAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:delegatedTo": {
+      "@type": "@id"
+    },
+    "rkaf:publisher": {
+      "@type": "@id"
+    },
+    "rkaf:appliesTo": {
+      "@type": "@id"
+    },
+    "rkaf:affectedAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedAuthorityAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedImplementationAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedWorkProducts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedAdoptions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedFragments": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:affectedAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:affectedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:staleDependencies": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:unresolvedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:registryUnavailable": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:staleConceptCache": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedEvaluationAnchors": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedAutomaticMigrations": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedAuthorityKinds": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:justificationBackedBy": {
+      "@type": "@id"
+    },
+    "rkaf:derivedFromFragment": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:associatedWorkflowStep": {
+      "@type": "@id"
+    },
+    "rkaf:generationRun": {
+      "@type": "@id"
+    },
+    "rkaf:fromConcept": {
+      "@type": "@id"
+    },
+    "rkaf:toConcept": {
+      "@type": "@id"
+    },
+    "rkaf:requiredAdoptionScope": {
+      "@type": "@id"
+    },
+    "rkaf:collectsEvidenceType": {
+      "@type": "@id"
+    },
+    "rkaf:requiresEvidenceType": {
+      "@type": "@id"
+    },
+    "rkaf:acceptedDocumentTypes": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:excludesCategory": {
+      "@container": "@set"
+    },
+    "rkaf:evidencePurpose": {
+      "@container": "@set"
+    },
+    "rkaf:excludesPurposes": {
+      "@container": "@set"
+    },
+    "rkaf:jurisdiction": {
+      "@container": "@set"
+    },
+    "prov:wasGeneratedBy": {
+      "@type": "@id"
+    },
+    "prov:wasAttributedTo": {
+      "@type": "@id"
+    },
+    "prov:wasDerivedFrom": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "prov:generatedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "eli:consolidates": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "eli:consolidated_by": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dpv:hasPersonalDataCategory": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dpv:hasLegalBasis": {
+      "@type": "@id"
+    },
+    "dpv:hasPurpose": {
+      "@type": "@id"
+    },
+    "skos:prefLabel": {
+      "@container": "@language"
+    },
+    "skos:altLabel": {
+      "@container": "@language"
+    },
+    "skos:hiddenLabel": {
+      "@container": "@language"
+    },
+    "skos:definition": {
+      "@container": "@language"
+    },
+    "skos:example": {
+      "@container": "@language"
+    },
+    "skos:note": {
+      "@container": "@language"
+    },
+    "skos:scopeNote": {
+      "@container": "@language"
+    },
+    "skos:changeNote": {
+      "@container": "@language"
+    },
+    "skos:editorialNote": {
+      "@container": "@language"
+    },
+    "skos:historyNote": {
+      "@container": "@language"
+    },
+    "skos:notation": {
+      "@id": "http://www.w3.org/2004/02/skos/core#notation"
+    },
+    "skos:broader": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:narrower": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:related": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:inScheme": {
+      "@type": "@id"
+    },
+    "skos:hasTopConcept": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ConceptScheme": {
+      "@type": "@id"
+    },
+    "rkaf:schemeFacet": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptAssignment": {
+      "@type": "@id"
+    },
+    "rkaf:assignedConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:fragmentIdentityScheme": {
+      "@type": "@vocab"
+    },
+    "prov:hadMember": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcat:distribution": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcat:version": {
+      "@type": "xsd:string"
+    },
+    "dcterms:type": {
+      "@type": "@id"
+    },
+    "dcterms:issued": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:capturedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:registeredAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectiveDate": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:exceptionEffectivePeriodEnd": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:exceptionEffectivePeriodStart": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:cachedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:deprecatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:rescissionEffectiveDate": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:detectedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:definedInScope": {
+      "@type": "@id"
+    },
+    "rkaf:findingKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:severity": {
+      "@type": "@vocab"
+    },
+    "rkaf:subject": {
+      "@type": "@id"
+    },
+    "rkaf:detectedBy": {
+      "@type": "@id"
+    },
+    "rkaf:lastVerifiedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:verifiedBy": {
+      "@type": "@id"
+    },
+    "rkaf:targetFinding": {
+      "@type": "@id"
+    },
+    "rkaf:findings": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:RelationChangeEvent": {
+      "@type": "@id"
+    },
+    "rkaf:changeSubject": {
+      "@type": "@id"
+    },
+    "rkaf:changePredicate": {
+      "@type": "@id"
+    },
+    "rkaf:changeObject": {
+      "@type": "@id"
+    },
+    "rkaf:relationChangeOperation": {
+      "@type": "@vocab"
+    },
+    "rkaf:relationChangeStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:relationChangeTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:changeIntendedEffectiveTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:changeEvidence": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:replacementRelationObject": {
+      "@type": "@id"
+    },
+    "rkaf:RelationComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonBaselineArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonObservedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonExpectedAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonConsumer": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonScope": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonEvaluationTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:comparisonPolicyVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonDetector": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonDetectorVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonSnapshot": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonOutcome": {
+      "@type": "@vocab"
+    },
+    "rkaf:comparisonProofRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ResolverProofIssuer": {
+      "@type": "@id"
+    },
+    "rkaf:proofResolver": {
+      "@type": "@id"
+    },
+    "rkaf:proofResolverVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:proofPolicyVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:ResolverProofRecord": {
+      "@type": "@id"
+    },
+    "rkaf:proofType": {
+      "@type": "@vocab"
+    },
+    "rkaf:proofIssuer": {
+      "@type": "@id"
+    },
+    "rkaf:proofComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:proofOutcome": {
+      "@type": "@vocab"
+    },
+    "rkaf:proofRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofInput": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proofInputDigest": {
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "rkaf:proofSupportingRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proofEvaluatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:proofSnapshot": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofRecordDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:independenceGroup": {
+      "@type": "@id"
+    },
+    "rkaf:adjudicationVerdict": {
+      "@type": "@vocab"
+    },
+    "rkaf:sealedRequestDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:sealedResponseArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:RelationFinding": {
+      "@type": "@id"
+    },
+    "rkaf:relationFindingKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:findingComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:findingComparedAssertion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:findingProofRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:findingDetectedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:findingRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:findingFingerprint": {
+      "@type": "xsd:string"
+    },
+    "rkaf:ClosureClaim": {
+      "@type": "@id"
+    },
+    "rkaf:closureClaimStatus": {
+      "@type": "@vocab"
+    },
+    "rkaf:closureArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:closureRegion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:closurePredicateFamily": {
+      "@type": "@id"
+    },
+    "rkaf:closureProfileVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:closureMemberDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:closureReviewedAt": {
+      "@type": "xsd:dateTime"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "urn:rulespec:document-understanding:document:79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:document:79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e",
+      "rkaf:artifactIdentifierScheme": "rkaf:hash-sha256",
+      "rkaf:hasContentDigest": "sha256:79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e",
+      "dcterms:format": "text/plain"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:lineage:9ec44f8f3884547a7be1fc2a62ef71d7b0011b9d309b9238a2581d58033d8b55",
+      "@type": "rkaf:AILineage",
+      "rkaf:modelId": "gemini-3.8-flash",
+      "rkaf:modelVersion": "gemini-3.8-flash",
+      "rkaf:promptTemplateRef": "urn:rulespec:document-understanding:prompt:f68d460a221d1f3299cf927cbbf9bceae26342cbafa3cf383655065aa7428db5",
+      "rkaf:inputContextHash": "sha256:79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:activity:967dae28e0d7d19d43e9e8aed6508e65c616778710dabe584bdd7cbea2e0e383",
+      "@type": "rkaf:ExtractionActivity",
+      "rkaf:extractionMethod": "rkaf:modelExtraction",
+      "rkaf:extractionRun": "urn:rulespec:document-understanding:run:ec67e0c8-3b02-4036-8f87-06d99adc3466",
+      "rkaf:extractedBy": "urn:rulespec:document-understanding:extractor:langextract",
+      "rkaf:extractorVersion": "document-understanding/3",
+      "rkaf:requestContractDigest": "sha256:028c5f6d7fed4b0717561226d0051d9b574a88c55e559791090b35769603c74d",
+      "rkaf:extractionModelRef": "urn:rulespec:document-understanding:model:319034f3e25d0d9bd6b3a46b1def7a01b7689f0d51384c63da1f6e0b464af810",
+      "rkaf:extractionPromptRef": "urn:rulespec:document-understanding:prompt:f68d460a221d1f3299cf927cbbf9bceae26342cbafa3cf383655065aa7428db5",
+      "rkaf:inputDigest": [
+        "sha256:79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e"
+      ],
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9ec44f8f3884547a7be1fc2a62ef71d7b0011b9d309b9238a2581d58033d8b55"
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:0:35:sha256-7f5a34ab6c39c8e4ff7c85378a5741a2936eddeb2365b9181a5915bb16cfc450",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e",
+      "rkaf:fragmentContentDigest": "sha256:7f5a34ab6c39c8e4ff7c85378a5741a2936eddeb2365b9181a5915bb16cfc450",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(3) Employment entrance examination"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 0,
+          "oa:end": 35,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:36:303:sha256-bc288f73a98ee8f2abef7644b57dbe65835ca17973fa3d2157edf87e2516289e",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e",
+      "rkaf:fragmentContentDigest": "sha256:bc288f73a98ee8f2abef7644b57dbe65835ca17973fa3d2157edf87e2516289e",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "A covered entity may require a medical examination after an offer of employment has been made to a job applicant and prior to the commencement of the employment duties of such applicant, and may condition an offer of employment on the results of such examination, if—"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 36,
+          "oa:end": 303,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:36:52:sha256-ff75e1734ed1d618081f721d2de96ccb0284b4ab055705725642c96b41b3ef31",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e",
+      "rkaf:fragmentContentDigest": "sha256:ff75e1734ed1d618081f721d2de96ccb0284b4ab055705725642c96b41b3ef31",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "A covered entity"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 36,
+          "oa:end": 52,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:9f96b4f58a616ca7d6903e3ac5288f52bb5190605d333ad00ee73e1c15db7f7c",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9ec44f8f3884547a7be1fc2a62ef71d7b0011b9d309b9238a2581d58033d8b55",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:967dae28e0d7d19d43e9e8aed6508e65c616778710dabe584bdd7cbea2e0e383",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:a74d4ad3048cf6d59e55035972af250b9b681bbb894299288aa7d1c616062935",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-permission",
+      "rkaf:assertsValue": {
+        "@value": "A covered entity may require a medical examination after an offer of employment has been made to a job applicant and prior to the commencement of the employment duties of such applicant, and may condition an offer of employment on the results of such examination, if all entering employees are subjected to such an examination regardless of disability; information obtained regarding the medical condition or history of the applicant is collected and maintained on separate forms and in separate medical files and is treated as a confidential medical record (with specified exceptions for informing supervisors and managers, first aid and safety personnel, and providing relevant information to government officials investigating compliance with this chapter on request); and the results of such examination are used only in accordance with this subchapter.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:c77c32e7f2aecf7dead2fcf9902c66fec23bf1ce1bd0cf1be09506778b67b88c",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:9f96b4f58a616ca7d6903e3ac5288f52bb5190605d333ad00ee73e1c15db7f7c",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:0:35:sha256-7f5a34ab6c39c8e4ff7c85378a5741a2936eddeb2365b9181a5915bb16cfc450",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:36:303:sha256-bc288f73a98ee8f2abef7644b57dbe65835ca17973fa3d2157edf87e2516289e"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:0cb060792356b277e2562bf4bf89645b9095060bc7747274483724fefb2be1aa",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9ec44f8f3884547a7be1fc2a62ef71d7b0011b9d309b9238a2581d58033d8b55",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:967dae28e0d7d19d43e9e8aed6508e65c616778710dabe584bdd7cbea2e0e383",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:a74d4ad3048cf6d59e55035972af250b9b681bbb894299288aa7d1c616062935",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:actor",
+      "rkaf:assertsValue": {
+        "@value": "A covered entity",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:c73a0bec9ab9eb4e0e0df6b906fe35ac11536d21227b42470c8169338e6e424e",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:0cb060792356b277e2562bf4bf89645b9095060bc7747274483724fefb2be1aa",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:36:52:sha256-ff75e1734ed1d618081f721d2de96ccb0284b4ab055705725642c96b41b3ef31"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:9c4eb9035829f5eb39d6b684953e68341ef99d90c238613b8463c3998c5cb0dc",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9ec44f8f3884547a7be1fc2a62ef71d7b0011b9d309b9238a2581d58033d8b55",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:967dae28e0d7d19d43e9e8aed6508e65c616778710dabe584bdd7cbea2e0e383",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:a74d4ad3048cf6d59e55035972af250b9b681bbb894299288aa7d1c616062935",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "may",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:a95956a988c543c660e9ef90c107f8beea9c0bd7ca789b5ecd5c5047e856e224",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:9c4eb9035829f5eb39d6b684953e68341ef99d90c238613b8463c3998c5cb0dc",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:providesContext",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:0:35:sha256-7f5a34ab6c39c8e4ff7c85378a5741a2936eddeb2365b9181a5915bb16cfc450",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:36:303:sha256-bc288f73a98ee8f2abef7644b57dbe65835ca17973fa3d2157edf87e2516289e"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:e7af02b53b05e3455de7cb8514ecbd827c9f8fd864ff8c84941754550d6eeeb0",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9ec44f8f3884547a7be1fc2a62ef71d7b0011b9d309b9238a2581d58033d8b55",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:967dae28e0d7d19d43e9e8aed6508e65c616778710dabe584bdd7cbea2e0e383",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:a74d4ad3048cf6d59e55035972af250b9b681bbb894299288aa7d1c616062935",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"actor\":\"A covered entity\",\"kind\":\"permission\",\"modality\":\"may\",\"summary\":\"A covered entity may require a medical examination after an offer of employment has been made to a job applicant and prior to the commencement of the employment duties of such applicant, and may condition an offer of employment on the results of such examination, if all entering employees are subjected to such an examination regardless of disability; information obtained regarding the medical condition or history of the applicant is collected and maintained on separate forms and in separate medical files and is treated as a confidential medical record (with specified exceptions for informing supervisors and managers, first aid and safety personnel, and providing relevant information to government officials investigating compliance with this chapter on request); and the results of such examination are used only in accordance with this subchapter.\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:c8f3af7b7fbe235605063315cc735c65889af47646b599ccd38f56ecc193eeb8",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:e7af02b53b05e3455de7cb8514ecbd827c9f8fd864ff8c84941754550d6eeeb0",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:0:35:sha256-7f5a34ab6c39c8e4ff7c85378a5741a2936eddeb2365b9181a5915bb16cfc450",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:36:303:sha256-bc288f73a98ee8f2abef7644b57dbe65835ca17973fa3d2157edf87e2516289e",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:36:52:sha256-ff75e1734ed1d618081f721d2de96ccb0284b4ab055705725642c96b41b3ef31"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:658ad6ce5260d8897aa8f3c27bd4bc7271a18bcc559847c81f78ddc1f4a1975b",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:658ad6ce5260d8897aa8f3c27bd4bc7271a18bcc559847c81f78ddc1f4a1975b",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:3938aaf24af8ebe34710a4009e07eb51d27fc6cebdd9f5125470579deaf3a417",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"A covered entity\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:9f96b4f58a616ca7d6903e3ac5288f52bb5190605d333ad00ee73e1c15db7f7c\",\"urn:rulespec:document-understanding:assertion:0cb060792356b277e2562bf4bf89645b9095060bc7747274483724fefb2be1aa\",\"urn:rulespec:document-understanding:assertion:9c4eb9035829f5eb39d6b684953e68341ef99d90c238613b8463c3998c5cb0dc\",\"urn:rulespec:document-understanding:assertion:e7af02b53b05e3455de7cb8514ecbd827c9f8fd864ff8c84941754550d6eeeb0\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"defined_terms\":[],\"effective_periods\":[],\"end\":303,\"evidence\":[{\"end\":35,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:0:35:sha256-7f5a34ab6c39c8e4ff7c85378a5741a2936eddeb2365b9181a5915bb16cfc450\",\"quote\":\"(3) Employment entrance examination\",\"start\":0},{\"end\":303,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:36:303:sha256-bc288f73a98ee8f2abef7644b57dbe65835ca17973fa3d2157edf87e2516289e\",\"quote\":\"A covered entity may require a medical examination after an offer of employment has been made to a job applicant and prior to the commencement of the employment duties of such applicant, and may condition an offer of employment on the results of such examination, if—\",\"start\":36},{\"end\":52,\"field\":\"actor\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:36:52:sha256-ff75e1734ed1d618081f721d2de96ccb0284b4ab055705725642c96b41b3ef31\",\"quote\":\"A covered entity\",\"start\":36}],\"id\":\"urn:rulespec:document-understanding:revision:658ad6ce5260d8897aa8f3c27bd4bc7271a18bcc559847c81f78ddc1f4a1975b\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"permission\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:e7af02b53b05e3455de7cb8514ecbd827c9f8fd864ff8c84941754550d6eeeb0\",\"modality\":\"may\",\"modality_quote\":\"may\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:5794332288823bbd1c8343b4141e23aa910c272ce32f1167aa62645f1e9981c3\",\"origin\":\"aiSuggested\",\"quote\":\"(3) Employment entrance examination A covered entity may require a medical examination after an offer of employment has been made to a job applicant and prior to the commencement of the employment duties of such applicant, and may condition an offer of employment on the results of such examination, if—\",\"references\":[],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:a74d4ad3048cf6d59e55035972af250b9b681bbb894299288aa7d1c616062935\",\"scope_quotes\":[],\"scope_text\":\"\",\"section_id\":\"section-1\",\"start\":0,\"summary\":\"A covered entity may require a medical examination after an offer of employment has been made to a job applicant and prior to the commencement of the employment duties of such applicant, and may condition an offer of employment on the results of such examination, if all entering employees are subjected to such an examination regardless of disability; information obtained regarding the medical condition or history of the applicant is collected and maintained on separate forms and in separate medical files and is treated as a confidential medical record (with specified exceptions for informing supervisors and managers, first aid and safety personnel, and providing relevant information to government officials investigating compliance with this chapter on request); and the results of such examination are used only in accordance with this subchapter.\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:9f96b4f58a616ca7d6903e3ac5288f52bb5190605d333ad00ee73e1c15db7f7c"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:0cb060792356b277e2562bf4bf89645b9095060bc7747274483724fefb2be1aa"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:9c4eb9035829f5eb39d6b684953e68341ef99d90c238613b8463c3998c5cb0dc"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:e7af02b53b05e3455de7cb8514ecbd827c9f8fd864ff8c84941754550d6eeeb0"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:620:765:sha256-41e5d9bab6a2eda6c343a238bdb3cd21e0a0c7ca80e1d4709973f7c462e8813f",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e",
+      "rkaf:fragmentContentDigest": "sha256:41e5d9bab6a2eda6c343a238bdb3cd21e0a0c7ca80e1d4709973f7c462e8813f",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(i) supervisors and managers may be informed regarding necessary restrictions on the work or duties of the employee and necessary accommodations;"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 620,
+          "oa:end": 765,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:649:652:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e",
+      "rkaf:fragmentContentDigest": "sha256:ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "may"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 649,
+          "oa:end": 652,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:396:618:sha256-45df258053f7bf0a5ed5e4484073a2d1d040488b45f77bdf31e8a1ea30a929e9",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e",
+      "rkaf:fragmentContentDigest": "sha256:45df258053f7bf0a5ed5e4484073a2d1d040488b45f77bdf31e8a1ea30a929e9",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(B) information obtained regarding the medical condition or history of the applicant is collected and maintained on separate forms and in separate medical files and is treated as a confidential medical record, except that—"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 396,
+          "oa:end": 618,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:scope:79c6ac48a853553c3ca7490713f4b93d692d89fd83ae33f5d10630b0b9dee9da",
+      "@type": "rkaf:ApplicabilityScope",
+      "rkaf:appliesInJurisdiction": [],
+      "rkaf:applicabilityCondition": "Regarding information obtained regarding the medical condition or history of the applicant collected and maintained on separate forms and in separate medical files and treated as a confidential medical record under an employment entrance examination."
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:a81a5e9e653ce222b6b3453ffc6ed497eb92389ed2ac7d5c9d585e246a9bad1d",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9ec44f8f3884547a7be1fc2a62ef71d7b0011b9d309b9238a2581d58033d8b55",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:967dae28e0d7d19d43e9e8aed6508e65c616778710dabe584bdd7cbea2e0e383",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:950a4ea3232de3b1b7cfe5cb6f627f37a8045e670b456bbc91531e1ecf1ed702",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-permission",
+      "rkaf:assertsValue": {
+        "@value": "As an exception to the requirement that information obtained regarding the medical condition or history of an applicant from an employment entrance examination be treated as a confidential medical record, supervisors and managers may be informed regarding necessary restrictions on the work or duties of the employee and necessary accommodations.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:60448af8a2850263a246438c6ff7372b2108e786bc9b2646492b10a0cda350d7",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:a81a5e9e653ce222b6b3453ffc6ed497eb92389ed2ac7d5c9d585e246a9bad1d",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:620:765:sha256-41e5d9bab6a2eda6c343a238bdb3cd21e0a0c7ca80e1d4709973f7c462e8813f"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:900b91030ac6eee7d45b8c3ab393509a527d6f3c601b78828eb7d239fbad71de",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:a81a5e9e653ce222b6b3453ffc6ed497eb92389ed2ac7d5c9d585e246a9bad1d",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:0:35:sha256-7f5a34ab6c39c8e4ff7c85378a5741a2936eddeb2365b9181a5915bb16cfc450",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:36:303:sha256-bc288f73a98ee8f2abef7644b57dbe65835ca17973fa3d2157edf87e2516289e",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:396:618:sha256-45df258053f7bf0a5ed5e4484073a2d1d040488b45f77bdf31e8a1ea30a929e9"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:a80421c994637ccadb2724ee6b4944d789bf4c553e18c62cb4a2c5b4f582d9a3",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9ec44f8f3884547a7be1fc2a62ef71d7b0011b9d309b9238a2581d58033d8b55",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:967dae28e0d7d19d43e9e8aed6508e65c616778710dabe584bdd7cbea2e0e383",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:950a4ea3232de3b1b7cfe5cb6f627f37a8045e670b456bbc91531e1ecf1ed702",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "may",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:f2583fa257e4fb5d9fb5ee73e57f6fe2277c2dfa21ed8754b051d4e08ac99c9d",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:a80421c994637ccadb2724ee6b4944d789bf4c553e18c62cb4a2c5b4f582d9a3",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:649:652:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:07c5b7fcd16ad981db2285306fddadbd4819cb772d758eb30dad4bb6191305a0",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9ec44f8f3884547a7be1fc2a62ef71d7b0011b9d309b9238a2581d58033d8b55",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:967dae28e0d7d19d43e9e8aed6508e65c616778710dabe584bdd7cbea2e0e383",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:950a4ea3232de3b1b7cfe5cb6f627f37a8045e670b456bbc91531e1ecf1ed702",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:scope_text",
+      "rkaf:assertsValue": {
+        "@value": "Regarding information obtained regarding the medical condition or history of the applicant collected and maintained on separate forms and in separate medical files and treated as a confidential medical record under an employment entrance examination.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:d4fe0d0da9f7f7bf9627d175e7136688b6bff1c23d335e9bcc3fa279eb210678",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:07c5b7fcd16ad981db2285306fddadbd4819cb772d758eb30dad4bb6191305a0",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:0:35:sha256-7f5a34ab6c39c8e4ff7c85378a5741a2936eddeb2365b9181a5915bb16cfc450",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:36:303:sha256-bc288f73a98ee8f2abef7644b57dbe65835ca17973fa3d2157edf87e2516289e",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:396:618:sha256-45df258053f7bf0a5ed5e4484073a2d1d040488b45f77bdf31e8a1ea30a929e9"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:bd92ea65476180eb31d16d627f666ec66b8fa0688ce068437c8cfc7061c8c1f5",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9ec44f8f3884547a7be1fc2a62ef71d7b0011b9d309b9238a2581d58033d8b55",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:967dae28e0d7d19d43e9e8aed6508e65c616778710dabe584bdd7cbea2e0e383",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:950a4ea3232de3b1b7cfe5cb6f627f37a8045e670b456bbc91531e1ecf1ed702",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"kind\":\"permission\",\"modality\":\"may\",\"scope_text\":\"Regarding information obtained regarding the medical condition or history of the applicant collected and maintained on separate forms and in separate medical files and treated as a confidential medical record under an employment entrance examination.\",\"summary\":\"As an exception to the requirement that information obtained regarding the medical condition or history of an applicant from an employment entrance examination be treated as a confidential medical record, supervisors and managers may be informed regarding necessary restrictions on the work or duties of the employee and necessary accommodations.\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed",
+      "rkaf:hasApplicability": "urn:rulespec:document-understanding:scope:79c6ac48a853553c3ca7490713f4b93d692d89fd83ae33f5d10630b0b9dee9da"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:9a0f974f121b2d4014845bb6951a4f8a8a8081adadb257e25013b61c04cdeac6",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:bd92ea65476180eb31d16d627f666ec66b8fa0688ce068437c8cfc7061c8c1f5",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:620:765:sha256-41e5d9bab6a2eda6c343a238bdb3cd21e0a0c7ca80e1d4709973f7c462e8813f",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:649:652:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:d87afbc192ed9c7427b5b9cae52a42cb7d5017abe64075f1301a342e4be313b1",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:bd92ea65476180eb31d16d627f666ec66b8fa0688ce068437c8cfc7061c8c1f5",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:0:35:sha256-7f5a34ab6c39c8e4ff7c85378a5741a2936eddeb2365b9181a5915bb16cfc450",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:36:303:sha256-bc288f73a98ee8f2abef7644b57dbe65835ca17973fa3d2157edf87e2516289e",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:396:618:sha256-45df258053f7bf0a5ed5e4484073a2d1d040488b45f77bdf31e8a1ea30a929e9"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:dfedd961171d5814718259c809e7d5fb4da670ba7a4ed097c87ff7238cb613b1",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:dfedd961171d5814718259c809e7d5fb4da670ba7a4ed097c87ff7238cb613b1",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:8d7c5f982415d732ab7c0329b44b1f4d2254d44c0d8b5e8a5bf91d38bfcf3d09",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:a81a5e9e653ce222b6b3453ffc6ed497eb92389ed2ac7d5c9d585e246a9bad1d\",\"urn:rulespec:document-understanding:assertion:a80421c994637ccadb2724ee6b4944d789bf4c553e18c62cb4a2c5b4f582d9a3\",\"urn:rulespec:document-understanding:assertion:07c5b7fcd16ad981db2285306fddadbd4819cb772d758eb30dad4bb6191305a0\",\"urn:rulespec:document-understanding:assertion:bd92ea65476180eb31d16d627f666ec66b8fa0688ce068437c8cfc7061c8c1f5\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"defined_terms\":[],\"effective_periods\":[],\"end\":765,\"evidence\":[{\"end\":765,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:620:765:sha256-41e5d9bab6a2eda6c343a238bdb3cd21e0a0c7ca80e1d4709973f7c462e8813f\",\"quote\":\"(i) supervisors and managers may be informed regarding necessary restrictions on the work or duties of the employee and necessary accommodations;\",\"start\":620},{\"end\":652,\"field\":\"modality\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:649:652:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc\",\"quote\":\"may\",\"start\":649},{\"end\":35,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:0:35:sha256-7f5a34ab6c39c8e4ff7c85378a5741a2936eddeb2365b9181a5915bb16cfc450\",\"quote\":\"(3) Employment entrance examination\",\"start\":0},{\"end\":303,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:36:303:sha256-bc288f73a98ee8f2abef7644b57dbe65835ca17973fa3d2157edf87e2516289e\",\"quote\":\"A covered entity may require a medical examination after an offer of employment has been made to a job applicant and prior to the commencement of the employment duties of such applicant, and may condition an offer of employment on the results of such examination, if—\",\"start\":36},{\"end\":618,\"field\":\"scope_text:1\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:396:618:sha256-45df258053f7bf0a5ed5e4484073a2d1d040488b45f77bdf31e8a1ea30a929e9\",\"quote\":\"(B) information obtained regarding the medical condition or history of the applicant is collected and maintained on separate forms and in separate medical files and is treated as a confidential medical record, except that—\",\"start\":396}],\"id\":\"urn:rulespec:document-understanding:revision:dfedd961171d5814718259c809e7d5fb4da670ba7a4ed097c87ff7238cb613b1\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"permission\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:bd92ea65476180eb31d16d627f666ec66b8fa0688ce068437c8cfc7061c8c1f5\",\"modality\":\"may\",\"modality_quote\":\"may\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:3a1c103f503b038e3def78081114bf15c040b0881e7de7e8728079ee4eeab7ad\",\"origin\":\"aiSuggested\",\"quote\":\"(i) supervisors and managers may be informed regarding necessary restrictions on the work or duties of the employee and necessary accommodations;\",\"references\":[],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:950a4ea3232de3b1b7cfe5cb6f627f37a8045e670b456bbc91531e1ecf1ed702\",\"scope_quotes\":[\"(3) Employment entrance examination A covered entity may require a medical examination after an offer of employment has been made to a job applicant and prior to the commencement of the employment duties of such applicant, and may condition an offer of employment on the results of such examination, if—\",\"(B) information obtained regarding the medical condition or history of the applicant is collected and maintained on separate forms and in separate medical files and is treated as a confidential medical record, except that—\"],\"scope_text\":\"Regarding information obtained regarding the medical condition or history of the applicant collected and maintained on separate forms and in separate medical files and treated as a confidential medical record under an employment entrance examination.\",\"section_id\":\"section-1\",\"start\":620,\"summary\":\"As an exception to the requirement that information obtained regarding the medical condition or history of an applicant from an employment entrance examination be treated as a confidential medical record, supervisors and managers may be informed regarding necessary restrictions on the work or duties of the employee and necessary accommodations.\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:a81a5e9e653ce222b6b3453ffc6ed497eb92389ed2ac7d5c9d585e246a9bad1d"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:a80421c994637ccadb2724ee6b4944d789bf4c553e18c62cb4a2c5b4f582d9a3"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:07c5b7fcd16ad981db2285306fddadbd4819cb772d758eb30dad4bb6191305a0"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:bd92ea65476180eb31d16d627f666ec66b8fa0688ce068437c8cfc7061c8c1f5"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:767:894:sha256-e24569e5bde1990f0dce0bec4e9bce2f479e1fe4314884fbdebdaf8e3a3bce88",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e",
+      "rkaf:fragmentContentDigest": "sha256:e24569e5bde1990f0dce0bec4e9bce2f479e1fe4314884fbdebdaf8e3a3bce88",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(ii) first aid and safety personnel may be informed, when appropriate, if the disability might require emergency treatment; and"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 767,
+          "oa:end": 894,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:803:806:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e",
+      "rkaf:fragmentContentDigest": "sha256:ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "may"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 803,
+          "oa:end": 806,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:scope:621a1cc86073765ed31f60e3dbaeff513f319e862c8aa1e6fd8fef9764382c10",
+      "@type": "rkaf:ApplicabilityScope",
+      "rkaf:appliesInJurisdiction": [],
+      "rkaf:applicabilityCondition": "Regarding information obtained regarding the medical condition or history of the applicant collected and maintained on separate forms and in separate medical files and treated as a confidential medical record under an employment entrance examination, when appropriate, if the disability might require emergency treatment."
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:474ae3ed0b48a62ab357902399ceb68d643926fe25b73b4e43a0436387ec5008",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9ec44f8f3884547a7be1fc2a62ef71d7b0011b9d309b9238a2581d58033d8b55",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:967dae28e0d7d19d43e9e8aed6508e65c616778710dabe584bdd7cbea2e0e383",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:fab6f9d2ccd3526bbe68266f968ecd84486b9c0e4b0f152d035a72579a91f4f9",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-permission",
+      "rkaf:assertsValue": {
+        "@value": "As an exception to the requirement that information obtained regarding the medical condition or history of an applicant from an employment entrance examination be treated as a confidential medical record, first aid and safety personnel may be informed, when appropriate, if the disability might require emergency treatment.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:747660680e893fb89a17306004276e743a3af42f01007c35ea69649ea691de7f",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:474ae3ed0b48a62ab357902399ceb68d643926fe25b73b4e43a0436387ec5008",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:767:894:sha256-e24569e5bde1990f0dce0bec4e9bce2f479e1fe4314884fbdebdaf8e3a3bce88"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:7ec271535a5fd2ca259955d88d55abca185eb989e815d253b8a8ca561a666f30",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:474ae3ed0b48a62ab357902399ceb68d643926fe25b73b4e43a0436387ec5008",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:0:35:sha256-7f5a34ab6c39c8e4ff7c85378a5741a2936eddeb2365b9181a5915bb16cfc450",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:36:303:sha256-bc288f73a98ee8f2abef7644b57dbe65835ca17973fa3d2157edf87e2516289e",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:396:618:sha256-45df258053f7bf0a5ed5e4484073a2d1d040488b45f77bdf31e8a1ea30a929e9"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:14f844a053b34a6fc6c7e0fe2b52b560778421c3daebb06c6acf57fdf46d6405",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9ec44f8f3884547a7be1fc2a62ef71d7b0011b9d309b9238a2581d58033d8b55",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:967dae28e0d7d19d43e9e8aed6508e65c616778710dabe584bdd7cbea2e0e383",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:fab6f9d2ccd3526bbe68266f968ecd84486b9c0e4b0f152d035a72579a91f4f9",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "may",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:28d3cf552105d556afcab179e0a1c7f7094fb729568741a870e18c2551f14ef5",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:14f844a053b34a6fc6c7e0fe2b52b560778421c3daebb06c6acf57fdf46d6405",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:803:806:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:e81b61320fb5c6d47f5bfa34d2830c27c32aadd4e983806309186f2096c30663",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9ec44f8f3884547a7be1fc2a62ef71d7b0011b9d309b9238a2581d58033d8b55",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:967dae28e0d7d19d43e9e8aed6508e65c616778710dabe584bdd7cbea2e0e383",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:fab6f9d2ccd3526bbe68266f968ecd84486b9c0e4b0f152d035a72579a91f4f9",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:scope_text",
+      "rkaf:assertsValue": {
+        "@value": "Regarding information obtained regarding the medical condition or history of the applicant collected and maintained on separate forms and in separate medical files and treated as a confidential medical record under an employment entrance examination, when appropriate, if the disability might require emergency treatment.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:04ff53426a48f0434ed9be71dbc6f48d10f2af35b7eb3d4eba979919f1a6dc97",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:e81b61320fb5c6d47f5bfa34d2830c27c32aadd4e983806309186f2096c30663",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:0:35:sha256-7f5a34ab6c39c8e4ff7c85378a5741a2936eddeb2365b9181a5915bb16cfc450",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:36:303:sha256-bc288f73a98ee8f2abef7644b57dbe65835ca17973fa3d2157edf87e2516289e",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:396:618:sha256-45df258053f7bf0a5ed5e4484073a2d1d040488b45f77bdf31e8a1ea30a929e9"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:5bfa7a44ef27c586136af66b5032ad8cbe17005d75802bc38ac0c3a07c2f4988",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9ec44f8f3884547a7be1fc2a62ef71d7b0011b9d309b9238a2581d58033d8b55",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:967dae28e0d7d19d43e9e8aed6508e65c616778710dabe584bdd7cbea2e0e383",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:fab6f9d2ccd3526bbe68266f968ecd84486b9c0e4b0f152d035a72579a91f4f9",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"kind\":\"permission\",\"modality\":\"may\",\"scope_text\":\"Regarding information obtained regarding the medical condition or history of the applicant collected and maintained on separate forms and in separate medical files and treated as a confidential medical record under an employment entrance examination, when appropriate, if the disability might require emergency treatment.\",\"summary\":\"As an exception to the requirement that information obtained regarding the medical condition or history of an applicant from an employment entrance examination be treated as a confidential medical record, first aid and safety personnel may be informed, when appropriate, if the disability might require emergency treatment.\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed",
+      "rkaf:hasApplicability": "urn:rulespec:document-understanding:scope:621a1cc86073765ed31f60e3dbaeff513f319e862c8aa1e6fd8fef9764382c10"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:5b7678a18bc8bad1ff74921557b8d8e005bc508b4e810f27f81f20b803d2cf68",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:5bfa7a44ef27c586136af66b5032ad8cbe17005d75802bc38ac0c3a07c2f4988",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:767:894:sha256-e24569e5bde1990f0dce0bec4e9bce2f479e1fe4314884fbdebdaf8e3a3bce88",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:803:806:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:3e888752e5a036847dce19ed97bf9a84c3f25f45a0b2a43a97c097031d4aedfe",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:5bfa7a44ef27c586136af66b5032ad8cbe17005d75802bc38ac0c3a07c2f4988",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:0:35:sha256-7f5a34ab6c39c8e4ff7c85378a5741a2936eddeb2365b9181a5915bb16cfc450",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:36:303:sha256-bc288f73a98ee8f2abef7644b57dbe65835ca17973fa3d2157edf87e2516289e",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:396:618:sha256-45df258053f7bf0a5ed5e4484073a2d1d040488b45f77bdf31e8a1ea30a929e9"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:4a6e7ba470fface2cca1c1340a6ed5ac8d08c6ebde0d116b8077ad4bb62e512c",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:4a6e7ba470fface2cca1c1340a6ed5ac8d08c6ebde0d116b8077ad4bb62e512c",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:33a6c7520a4042456e7203273d7c25acb2075068d7adfed1dd252f66a3df3439",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:474ae3ed0b48a62ab357902399ceb68d643926fe25b73b4e43a0436387ec5008\",\"urn:rulespec:document-understanding:assertion:14f844a053b34a6fc6c7e0fe2b52b560778421c3daebb06c6acf57fdf46d6405\",\"urn:rulespec:document-understanding:assertion:e81b61320fb5c6d47f5bfa34d2830c27c32aadd4e983806309186f2096c30663\",\"urn:rulespec:document-understanding:assertion:5bfa7a44ef27c586136af66b5032ad8cbe17005d75802bc38ac0c3a07c2f4988\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"defined_terms\":[],\"effective_periods\":[],\"end\":894,\"evidence\":[{\"end\":894,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:767:894:sha256-e24569e5bde1990f0dce0bec4e9bce2f479e1fe4314884fbdebdaf8e3a3bce88\",\"quote\":\"(ii) first aid and safety personnel may be informed, when appropriate, if the disability might require emergency treatment; and\",\"start\":767},{\"end\":806,\"field\":\"modality\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:803:806:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc\",\"quote\":\"may\",\"start\":803},{\"end\":35,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:0:35:sha256-7f5a34ab6c39c8e4ff7c85378a5741a2936eddeb2365b9181a5915bb16cfc450\",\"quote\":\"(3) Employment entrance examination\",\"start\":0},{\"end\":303,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:36:303:sha256-bc288f73a98ee8f2abef7644b57dbe65835ca17973fa3d2157edf87e2516289e\",\"quote\":\"A covered entity may require a medical examination after an offer of employment has been made to a job applicant and prior to the commencement of the employment duties of such applicant, and may condition an offer of employment on the results of such examination, if—\",\"start\":36},{\"end\":618,\"field\":\"scope_text:1\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:396:618:sha256-45df258053f7bf0a5ed5e4484073a2d1d040488b45f77bdf31e8a1ea30a929e9\",\"quote\":\"(B) information obtained regarding the medical condition or history of the applicant is collected and maintained on separate forms and in separate medical files and is treated as a confidential medical record, except that—\",\"start\":396}],\"id\":\"urn:rulespec:document-understanding:revision:4a6e7ba470fface2cca1c1340a6ed5ac8d08c6ebde0d116b8077ad4bb62e512c\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"permission\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:5bfa7a44ef27c586136af66b5032ad8cbe17005d75802bc38ac0c3a07c2f4988\",\"modality\":\"may\",\"modality_quote\":\"may\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:b9465daa38ba58d9c4960c4c0f292d47857d6ad2712505ecb0e1e97df2ef0813\",\"origin\":\"aiSuggested\",\"quote\":\"(ii) first aid and safety personnel may be informed, when appropriate, if the disability might require emergency treatment; and\",\"references\":[],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:fab6f9d2ccd3526bbe68266f968ecd84486b9c0e4b0f152d035a72579a91f4f9\",\"scope_quotes\":[\"(3) Employment entrance examination A covered entity may require a medical examination after an offer of employment has been made to a job applicant and prior to the commencement of the employment duties of such applicant, and may condition an offer of employment on the results of such examination, if—\",\"(B) information obtained regarding the medical condition or history of the applicant is collected and maintained on separate forms and in separate medical files and is treated as a confidential medical record, except that—\"],\"scope_text\":\"Regarding information obtained regarding the medical condition or history of the applicant collected and maintained on separate forms and in separate medical files and treated as a confidential medical record under an employment entrance examination, when appropriate, if the disability might require emergency treatment.\",\"section_id\":\"section-1\",\"start\":767,\"summary\":\"As an exception to the requirement that information obtained regarding the medical condition or history of an applicant from an employment entrance examination be treated as a confidential medical record, first aid and safety personnel may be informed, when appropriate, if the disability might require emergency treatment.\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:474ae3ed0b48a62ab357902399ceb68d643926fe25b73b4e43a0436387ec5008"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:14f844a053b34a6fc6c7e0fe2b52b560778421c3daebb06c6acf57fdf46d6405"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:e81b61320fb5c6d47f5bfa34d2830c27c32aadd4e983806309186f2096c30663"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:5bfa7a44ef27c586136af66b5032ad8cbe17005d75802bc38ac0c3a07c2f4988"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:896:1020:sha256-3443ba23e6bcdd7f1368bb2b735290a9a2760c2fd70cb3ff170c3b63bfb031fc",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e",
+      "rkaf:fragmentContentDigest": "sha256:3443ba23e6bcdd7f1368bb2b735290a9a2760c2fd70cb3ff170c3b63bfb031fc",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(iii) government officials investigating compliance with this chapter shall be provided relevant information on request; and"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 896,
+          "oa:end": 1020,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:966:971:sha256-56ee5b508706bf2de91712d85d6d1e11ddbff01949142ed6e8c22e3b1bed1c71",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e",
+      "rkaf:fragmentContentDigest": "sha256:56ee5b508706bf2de91712d85d6d1e11ddbff01949142ed6e8c22e3b1bed1c71",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "shall"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 966,
+          "oa:end": 971,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:scope:eac898e2275ef83cc8608c87f17badfcc948583598ee606816338b25fc864e8a",
+      "@type": "rkaf:ApplicabilityScope",
+      "rkaf:appliesInJurisdiction": [],
+      "rkaf:applicabilityCondition": "Regarding information obtained regarding the medical condition or history of an applicant from an employment entrance examination, on request by government officials investigating compliance with this chapter."
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:525562d50fb70c8e0378becd6138f542dfade86242d344e961e6f3d1dccd9215",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9ec44f8f3884547a7be1fc2a62ef71d7b0011b9d309b9238a2581d58033d8b55",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:967dae28e0d7d19d43e9e8aed6508e65c616778710dabe584bdd7cbea2e0e383",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:fc759c535321e425040556456bf6041b00f68d4179f8452edf190f1f21b60a32",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-requirement",
+      "rkaf:assertsValue": {
+        "@value": "In connection with employment entrance examination medical records, government officials investigating compliance with this chapter shall be provided relevant information on request.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:4aea6fcdbed74c95028d08b992e0727ebd5a62f1b449dd3b4d2fb7936813610e",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:525562d50fb70c8e0378becd6138f542dfade86242d344e961e6f3d1dccd9215",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:896:1020:sha256-3443ba23e6bcdd7f1368bb2b735290a9a2760c2fd70cb3ff170c3b63bfb031fc"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:cf38fd1225df284eae8c7f48a90ab37d48e6b2cf9457de62d63e9968a14a51fb",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:525562d50fb70c8e0378becd6138f542dfade86242d344e961e6f3d1dccd9215",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:0:35:sha256-7f5a34ab6c39c8e4ff7c85378a5741a2936eddeb2365b9181a5915bb16cfc450",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:36:303:sha256-bc288f73a98ee8f2abef7644b57dbe65835ca17973fa3d2157edf87e2516289e",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:396:618:sha256-45df258053f7bf0a5ed5e4484073a2d1d040488b45f77bdf31e8a1ea30a929e9"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:65326921842b91eddefbe0eed40f7f8921a22607f8d7948e7bb6c8988b268f04",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9ec44f8f3884547a7be1fc2a62ef71d7b0011b9d309b9238a2581d58033d8b55",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:967dae28e0d7d19d43e9e8aed6508e65c616778710dabe584bdd7cbea2e0e383",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:fc759c535321e425040556456bf6041b00f68d4179f8452edf190f1f21b60a32",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "must",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:21d523e810955fa9335d51dfbc2cd09f2a2bafbd12a5010e52bdc763c6a1a544",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:65326921842b91eddefbe0eed40f7f8921a22607f8d7948e7bb6c8988b268f04",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:966:971:sha256-56ee5b508706bf2de91712d85d6d1e11ddbff01949142ed6e8c22e3b1bed1c71"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:ad0d8cf2eb8b9ae06b5c3dd9e6fa3b94085a314cd182f4504849d60b459ad504",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9ec44f8f3884547a7be1fc2a62ef71d7b0011b9d309b9238a2581d58033d8b55",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:967dae28e0d7d19d43e9e8aed6508e65c616778710dabe584bdd7cbea2e0e383",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:fc759c535321e425040556456bf6041b00f68d4179f8452edf190f1f21b60a32",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:scope_text",
+      "rkaf:assertsValue": {
+        "@value": "Regarding information obtained regarding the medical condition or history of an applicant from an employment entrance examination, on request by government officials investigating compliance with this chapter.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:d14deee7024537a2a2cb091a3a60fe57ea4091e755febf29ad927e4d8a8b39b5",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:ad0d8cf2eb8b9ae06b5c3dd9e6fa3b94085a314cd182f4504849d60b459ad504",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:0:35:sha256-7f5a34ab6c39c8e4ff7c85378a5741a2936eddeb2365b9181a5915bb16cfc450",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:36:303:sha256-bc288f73a98ee8f2abef7644b57dbe65835ca17973fa3d2157edf87e2516289e",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:396:618:sha256-45df258053f7bf0a5ed5e4484073a2d1d040488b45f77bdf31e8a1ea30a929e9"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:4fe6179180c2d8348d4899f1c5e2f9f405250710c49ff9753439ff99d01b5e3f",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9ec44f8f3884547a7be1fc2a62ef71d7b0011b9d309b9238a2581d58033d8b55",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:967dae28e0d7d19d43e9e8aed6508e65c616778710dabe584bdd7cbea2e0e383",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:fc759c535321e425040556456bf6041b00f68d4179f8452edf190f1f21b60a32",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"kind\":\"requirement\",\"modality\":\"must\",\"scope_text\":\"Regarding information obtained regarding the medical condition or history of an applicant from an employment entrance examination, on request by government officials investigating compliance with this chapter.\",\"summary\":\"In connection with employment entrance examination medical records, government officials investigating compliance with this chapter shall be provided relevant information on request.\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed",
+      "rkaf:hasApplicability": "urn:rulespec:document-understanding:scope:eac898e2275ef83cc8608c87f17badfcc948583598ee606816338b25fc864e8a"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:5ef20df30cc9b8ec635f3b1f78ef5084402deba1a396e3b60015f57282efbf97",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:4fe6179180c2d8348d4899f1c5e2f9f405250710c49ff9753439ff99d01b5e3f",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:896:1020:sha256-3443ba23e6bcdd7f1368bb2b735290a9a2760c2fd70cb3ff170c3b63bfb031fc",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:966:971:sha256-56ee5b508706bf2de91712d85d6d1e11ddbff01949142ed6e8c22e3b1bed1c71"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:ba64a8c2ede6398d23d9aa48400f0e0e2e7d040ba67306ce4826869b3de4dc62",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:4fe6179180c2d8348d4899f1c5e2f9f405250710c49ff9753439ff99d01b5e3f",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:0:35:sha256-7f5a34ab6c39c8e4ff7c85378a5741a2936eddeb2365b9181a5915bb16cfc450",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:36:303:sha256-bc288f73a98ee8f2abef7644b57dbe65835ca17973fa3d2157edf87e2516289e",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:396:618:sha256-45df258053f7bf0a5ed5e4484073a2d1d040488b45f77bdf31e8a1ea30a929e9"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:dab1b3ac3713e3b57305ea167846bce2f0c53cbefd2669f6cbb0841ae09b4c7b",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:dab1b3ac3713e3b57305ea167846bce2f0c53cbefd2669f6cbb0841ae09b4c7b",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:5b52ab912a7250d87f4390529dc60caf444891682bff171af16a0fb4da649091",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:525562d50fb70c8e0378becd6138f542dfade86242d344e961e6f3d1dccd9215\",\"urn:rulespec:document-understanding:assertion:65326921842b91eddefbe0eed40f7f8921a22607f8d7948e7bb6c8988b268f04\",\"urn:rulespec:document-understanding:assertion:ad0d8cf2eb8b9ae06b5c3dd9e6fa3b94085a314cd182f4504849d60b459ad504\",\"urn:rulespec:document-understanding:assertion:4fe6179180c2d8348d4899f1c5e2f9f405250710c49ff9753439ff99d01b5e3f\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"defined_terms\":[],\"effective_periods\":[],\"end\":1020,\"evidence\":[{\"end\":1020,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:896:1020:sha256-3443ba23e6bcdd7f1368bb2b735290a9a2760c2fd70cb3ff170c3b63bfb031fc\",\"quote\":\"(iii) government officials investigating compliance with this chapter shall be provided relevant information on request; and\",\"start\":896},{\"end\":971,\"field\":\"modality\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:966:971:sha256-56ee5b508706bf2de91712d85d6d1e11ddbff01949142ed6e8c22e3b1bed1c71\",\"quote\":\"shall\",\"start\":966},{\"end\":35,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:0:35:sha256-7f5a34ab6c39c8e4ff7c85378a5741a2936eddeb2365b9181a5915bb16cfc450\",\"quote\":\"(3) Employment entrance examination\",\"start\":0},{\"end\":303,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:36:303:sha256-bc288f73a98ee8f2abef7644b57dbe65835ca17973fa3d2157edf87e2516289e\",\"quote\":\"A covered entity may require a medical examination after an offer of employment has been made to a job applicant and prior to the commencement of the employment duties of such applicant, and may condition an offer of employment on the results of such examination, if—\",\"start\":36},{\"end\":618,\"field\":\"scope_text:1\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A79b30028ceea03c92b6b4dcdaef82c165c9a67eace293da9bac49b1f5939728e:396:618:sha256-45df258053f7bf0a5ed5e4484073a2d1d040488b45f77bdf31e8a1ea30a929e9\",\"quote\":\"(B) information obtained regarding the medical condition or history of the applicant is collected and maintained on separate forms and in separate medical files and is treated as a confidential medical record, except that—\",\"start\":396}],\"id\":\"urn:rulespec:document-understanding:revision:dab1b3ac3713e3b57305ea167846bce2f0c53cbefd2669f6cbb0841ae09b4c7b\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"requirement\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:4fe6179180c2d8348d4899f1c5e2f9f405250710c49ff9753439ff99d01b5e3f\",\"modality\":\"must\",\"modality_quote\":\"shall\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:c19e7009226b221a4b2b211f690948121089b486d34cf660abc6b2016e441220\",\"origin\":\"aiSuggested\",\"quote\":\"(iii) government officials investigating compliance with this chapter shall be provided relevant information on request; and\",\"references\":[],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:fc759c535321e425040556456bf6041b00f68d4179f8452edf190f1f21b60a32\",\"scope_quotes\":[\"(3) Employment entrance examination A covered entity may require a medical examination after an offer of employment has been made to a job applicant and prior to the commencement of the employment duties of such applicant, and may condition an offer of employment on the results of such examination, if—\",\"(B) information obtained regarding the medical condition or history of the applicant is collected and maintained on separate forms and in separate medical files and is treated as a confidential medical record, except that—\"],\"scope_text\":\"Regarding information obtained regarding the medical condition or history of an applicant from an employment entrance examination, on request by government officials investigating compliance with this chapter.\",\"section_id\":\"section-1\",\"start\":896,\"summary\":\"In connection with employment entrance examination medical records, government officials investigating compliance with this chapter shall be provided relevant information on request.\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:525562d50fb70c8e0378becd6138f542dfade86242d344e961e6f3d1dccd9215"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:65326921842b91eddefbe0eed40f7f8921a22607f8d7948e7bb6c8988b268f04"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:ad0d8cf2eb8b9ae06b5c3dd9e6fa3b94085a314cd182f4504849d60b459ad504"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:4fe6179180c2d8348d4899f1c5e2f9f405250710c49ff9753439ff99d01b5e3f"
+        }
+      ]
+    }
+  ]
+}

@@ -10,7 +10,10 @@ acceptance checks and implementation order. The API and identifier presentation
 fixes are implemented. The shared-task checker comparison improved selected
 judgments but missed the incoming notice exception twice; it remains experimental.
 See the [implementation checkpoint](../experiments/2026-09-13-complete-reading-check/README.md)
-for retained failures, validation and the next decision.
+for retained failures and validation. The [fresh-source follow-up](../experiments/2026-09-13-fresh-complete-reading/README.md)
+confirms a 19/32 to 26/32 improvement, mostly from rejecting unnecessary edits;
+full checker replacement remains experimental because needed-detail and no-change
+failures persist. The prioritized list records the next small comparisons.
 
 ## Checkpoints: assessment labels and existing qualification links — 2026-09-12–13
 
