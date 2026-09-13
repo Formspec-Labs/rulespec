@@ -150,8 +150,14 @@ def captured_provenance(directory, attempt, capture):
     request = _load(Path(directory) / attempt['request_file'])
     response = _load(Path(directory) / attempt['response_file']) if attempt.get('response_file') else {}
     return {'model': request['model'], 'model_version': response.get('model_version') or 'not-recorded',
-            'temperature': request['config']['temperature'], 'request_sha256': _digest(request),
+            'temperature': request['config'].get('temperature'), 'request_sha256': _digest(request),
             'input_sha256': _digest(request['contents']), 'capture': capture + '/' + attempt['request_file']}
+
+
+def _recorded_sampling(run):
+    """Validate old captures as sent; null marks sampling omitted in new calls."""
+    temperature = run.get('temperature', 0)
+    return {} if temperature is None else {'temperature': temperature, 'candidate_count': 1}
 
 
 def recorded_usage(directory, *, exclude=('base-run', 'previous', 'frozen')):
@@ -513,9 +519,9 @@ def _credential(env_file: Path | None) -> str:
 def _create_model(model_id: str, key: str, schema):
     from langextract.providers.gemini import GeminiLanguageModel
     model = GeminiLanguageModel(
-        model_id=model_id, api_key=key, temperature=0, max_workers=1,
+        model_id=model_id, api_key=key, max_workers=1,
         max_retries=0, http_options={"timeout": 300000, "retry_options": {"attempts": 1}},
-        response_mime_type="application/json", candidate_count=1,
+        response_mime_type="application/json",
     )
     # A provided model does not infer this configuration from examples for us.
     model.apply_schema(schema)
@@ -659,7 +665,7 @@ def _save_provider_json(path: Path, value: dict, key: str) -> None:
     _save(path, value)
 
 
-def _record_window(model, prompt: str, output: Path, window: dict, key: str, *, max_output_tokens=MAX_OUTPUT_TOKENS, temperature=0, thinking_level=None) -> dict:
+def _record_window(model, prompt: str, output: Path, window: dict, key: str, *, max_output_tokens=MAX_OUTPUT_TOKENS, thinking_level=None) -> dict:
     number = window["index"]
     attempt = {"id": f"attempt-{number:04d}", "window_id": window["id"],
                "started_at": _now(), "status": "failed", "request_file": None,
@@ -674,6 +680,10 @@ def _record_window(model, prompt: str, output: Path, window: dict, key: str, *, 
         called = True
         request_name = attempt["id"] + ".request.json"
         try:
+            # LangExtract inserts temperature=0 even when omitted by the caller.
+            # Use provider sampling defaults and record exactly what reaches the SDK.
+            kwargs["config"] = {k: v for k, v in kwargs["config"].items()
+                                if k not in {"temperature", "top_p", "top_k", "candidate_count"}}
             # LangExtract 1.6 filters thinking_config out of infer kwargs. Set it
             # at the SDK boundary so the recorded request is exactly what is sent.
             if thinking_level is not None:
@@ -705,7 +715,7 @@ def _record_window(model, prompt: str, output: Path, window: dict, key: str, *, 
     try:
         # Passing the buffer directly avoids LangExtract's separate chunk planner.
         allowance = {} if max_output_tokens is None else {"max_output_tokens": max_output_tokens}
-        list(model.infer([prompt], **allowance, temperature=temperature, candidate_count=1))
+        list(model.infer([prompt], **allowance))
         if attempt["response_file"]:
             attempt["status"] = "response_received"
         else:
@@ -803,7 +813,7 @@ def _write_manifest(output: Path) -> None:
 
 
 def extract_run(document: dict, output: Path, model_id: str = DEFAULT_MODEL,
-                env_file: Path | None = None, max_chars: int = DEFAULT_MAX_CHARS, temperature: float = 0,
+                env_file: Path | None = None, max_chars: int = DEFAULT_MAX_CHARS,
                 max_output_tokens: int | None = MAX_OUTPUT_TOKENS, thinking_level: str | None = DEFAULT_THINKING_LEVEL,
                 *, section_windows: bool = False) -> dict:
     """Create an immutable run with a terminal outcome for every planned window."""
@@ -811,8 +821,6 @@ def extract_run(document: dict, output: Path, model_id: str = DEFAULT_MODEL,
     validate_document(document)
     if not isinstance(model_id, str) or not re.fullmatch(r"gemini-[a-zA-Z0-9._-]+", model_id):
         raise ValueError("This extraction profile supports Gemini model identifiers")
-    if type(temperature) not in (int, float) or not math.isfinite(temperature) or not 0 <= temperature <= 2:
-        raise ValueError("Temperature must be a finite number between 0 and 2")
     if max_output_tokens is not None and (type(max_output_tokens) is not int or max_output_tokens < 1):
         raise ValueError("max_output_tokens must be a positive integer or None for the provider default")
     if thinking_level not in (None, "low", "medium", "high"):
@@ -831,7 +839,7 @@ def extract_run(document: dict, output: Path, model_id: str = DEFAULT_MODEL,
            "source_sha256": document["sha256"], "prompt_sha256": _digest(PROMPT),
            "profile": core.SCHEMA_VERSION, "parser_version": PARSER_VERSION,
            "provider_schema_field": "response_json_schema", "example_format": "semantic-text/1",
-           "started_at": _now(), "max_chars": max_chars, "section_windows": section_windows, "temperature": temperature,
+           "started_at": _now(), "max_chars": max_chars, "section_windows": section_windows, "temperature": None,
            "max_output_tokens": max_output_tokens, "thinking_level": thinking_level, "provider_retries": 0,
            "fingerprints": fingerprints, "status": "running",
            "windows": [{**window, "status": "planned", "attempts": []} for window in windows],
@@ -859,7 +867,7 @@ def extract_run(document: dict, output: Path, model_id: str = DEFAULT_MODEL,
             _save(output / (attempt["id"] + ".json"), attempt)
         else:
             attempt = _record_window(model, _window_prompt(generator, document, window), output, window, key,
-                                      temperature=temperature, max_output_tokens=max_output_tokens, thinking_level=thinking_level)
+                                      max_output_tokens=max_output_tokens, thinking_level=thinking_level)
         interrupted = interrupted or attempt["error_code"] == "interrupted"
         parsed = _attempt_result(attempt, output, document, window)
         candidates.extend(parsed["candidates"])
@@ -1075,8 +1083,8 @@ def _verify_attempt(directory: Path, manifest: dict, run: dict, document: dict,
         expected_prompt = _window_prompt(generator, document, window)
         if request.get("model") != run["model"] or request.get("contents") != expected_prompt:
             raise ReplayDriftError("A recorded request does not match its source window and acquisition prompt")
-        expected_config = {"temperature": run["temperature"], "max_output_tokens": run["max_output_tokens"],
-                           "candidate_count": 1, "response_mime_type": "application/json",
+        expected_config = {**_recorded_sampling(run), "max_output_tokens": run["max_output_tokens"],
+                           "response_mime_type": "application/json",
                            "response_json_schema": inputs["provider_schema"]}
         if run["max_output_tokens"] is None:
             expected_config.pop("max_output_tokens")
@@ -1213,9 +1221,9 @@ def reprocess_run(input_dir: Path, output: Path) -> dict:
                    "response_sha256": {name: manifest["artifacts_sha256"][name] for name in sorted(capture_files) if ".response." in name},
                })
     current_generator = _prompt_generator(examples)
-    current_config = {"temperature": 0, "max_output_tokens": MAX_OUTPUT_TOKENS,
+    current_config = {"max_output_tokens": MAX_OUTPUT_TOKENS,
                       "thinking_config": {"thinking_level": DEFAULT_THINKING_LEVEL},
-                      "candidate_count": 1, **schema.to_provider_config()}
+                      **schema.to_provider_config()}
     run["reprocessing"]["acquisition_matches_current"] = {
         key: inputs["record"][key + "_sha256"] == fingerprints[key + "_sha256"]
         for key in ("prompt", "examples", "provider_schema")}
@@ -1259,7 +1267,9 @@ def replay_run(input_dir: Path, output: Path) -> dict:
         if windows != plan_windows(document, run["max_chars"], section_windows=run["section_windows"]):
             raise ReplayDriftError("The recorded window plan changed")
         temperature = run.get("temperature")
-        if (type(temperature) not in (int, float) or not math.isfinite(temperature) or not 0 <= temperature <= 2
+        if ((temperature is not None and (type(temperature) not in (int, float)
+                or not math.isfinite(temperature) or not 0 <= temperature <= 2))
+                or "temperature" not in run
                 or "max_output_tokens" not in run
                 or (run["max_output_tokens"] is not None
                     and (type(run["max_output_tokens"]) is not int or run["max_output_tokens"] < 1))

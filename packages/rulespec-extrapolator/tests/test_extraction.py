@@ -263,6 +263,7 @@ class FakeModel:
 
     def generate(self, **kwargs):
         self.calls += 1
+        self.last_request = deepcopy(kwargs)
         response = next(self.responses)
         if isinstance(response, BaseException):
             raise response
@@ -421,23 +422,24 @@ def test_real_langextract_adapter_records_explicit_schema_and_generation_setting
     schema = e.provider_schema()
     model = e._create_model(e.DEFAULT_MODEL, "synthetic-test-credential", schema)
     sdk_client = model._client
+    model._extra_kwargs.update(top_p=0.8, top_k=20, candidate_count=1)
     fake = FakeModel([raw()], schema)
     model._client = fake._client
     document = prepare_document("Staff must log requests.")
     window = e.plan_windows(document)[0]
-    attempt = e._record_window(model, "An offline prompt", tmp_path, window, "synthetic-test-credential", temperature=0.2, thinking_level=thinking_level, max_output_tokens=max_output_tokens)
+    attempt = e._record_window(model, "An offline prompt", tmp_path, window, "synthetic-test-credential", thinking_level=thinking_level, max_output_tokens=max_output_tokens)
     sdk_client.close()
     request = e._load(tmp_path / attempt["request_file"])
     assert attempt["status"] == "response_received"
     assert fake.calls == 1
-    expected = {"temperature": 0.2, "max_output_tokens": e.MAX_OUTPUT_TOKENS,
-        "candidate_count": 1, "response_mime_type": "application/json",
+    expected = {"max_output_tokens": e.MAX_OUTPUT_TOKENS, "response_mime_type": "application/json",
         "response_json_schema": schema.schema_dict}
     if thinking_level is not None:
         expected["thinking_config"] = {"thinking_level": thinking_level}
     if max_output_tokens is None:
         expected.pop("max_output_tokens")
     assert request["config"] == expected
+    assert fake.last_request["config"] == expected
 
 
 @pytest.mark.parametrize("settings, level", [({}, "low"), *[({"thinking_level": v}, v) for v in (None, "low", "medium", "high")]])
@@ -485,18 +487,16 @@ def test_native_schema_preserves_closed_meaning_fields_without_json_prompt_examp
     assert '"unit_attributes"' not in prompt
 
 
-def test_temperature_survives_recording_replay_and_reprocessing(offline, tmp_path):
+def test_omitted_sampling_survives_recording_replay_and_reprocessing(offline, tmp_path):
     install, _ = offline
     env = install([raw([row()])])
     original = tmp_path / "temperature"
-    e.extract_run(prepare_document("Staff must log requests."), original, env_file=env, temperature=0.2)
-    assert e._load(original / "attempt-0000.request.json")["config"]["temperature"] == 0.2
-    assert e.replay_run(original, tmp_path / "replayed")["run"]["temperature"] == 0.2
-    assert e.reprocess_run(original, tmp_path / "reprocessed")["run"]["temperature"] == 0.2
-    assert e.replay_run(tmp_path / "reprocessed", tmp_path / "reprocessed-replay")["run"]["temperature"] == 0.2
-    with pytest.raises(ValueError, match="Temperature"):
-        e.extract_run(prepare_document("Text"), tmp_path / "invalid", temperature=float('nan'))
-    assert not (tmp_path / "invalid").exists()
+    e.extract_run(prepare_document("Staff must log requests."), original, env_file=env)
+    assert not {"temperature", "top_p", "top_k", "candidate_count"} & e._load(original / "attempt-0000.request.json")["config"].keys()
+    assert e.replay_run(original, tmp_path / "replayed")["run"]["temperature"] is None
+    assert e.reprocess_run(original, tmp_path / "reprocessed")["run"]["temperature"] is None
+    assert e.replay_run(tmp_path / "reprocessed", tmp_path / "reprocessed-replay")["run"]["temperature"] is None
+
 
 
 @pytest.mark.parametrize("allowance", [32768, None])

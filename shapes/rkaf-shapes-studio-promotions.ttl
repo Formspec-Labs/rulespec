@@ -39,8 +39,8 @@ rkaf:AILineageShape a sh:NodeShape ;
     sh:message "AILineage MUST declare modelVersion (§5.3)." ; ] ;
   sh:property [ sh:path rkaf:promptTemplateRef ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ;
     sh:message "AILineage MUST declare promptTemplateRef IRI (§5.3)." ; ] ;
-  sh:property [ sh:path rkaf:temperature ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:float ;
-    sh:message "AILineage MUST declare temperature (§5.3)." ; ] ;
+  sh:property [ sh:path rkaf:temperature ; sh:maxCount 1 ; sh:datatype xsd:float ;
+    sh:message "AILineage temperature, when recorded, MUST be a float (§5.3)." ; ] ;
   sh:property [ sh:path rkaf:inputContextHash ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ;
     sh:message "AILineage MUST declare inputContextHash (§5.3)." ; ] ;
   # humanApprover is OPTIONAL (§2.4, §5.3). An unreviewed model candidate must

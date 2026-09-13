@@ -377,7 +377,7 @@ def _call(directory, prompt, schema, model_id, key, setup_error):
     except Exception:
         return _call(directory, prompt, schema, model_id, key, "provider_setup_failed")
     attempt = e._record_window(model, prompt, directory, {"index": 0, "id": directory.name}, key,
-                               max_output_tokens=OUTPUT_TOKENS, temperature=0)
+                               max_output_tokens=OUTPUT_TOKENS)
     payload, errors = a._read_response(directory, attempt)
     return payload, errors, attempt
 
@@ -447,7 +447,7 @@ def refine_run(run_dir, output, model_id=e.DEFAULT_MODEL, *, audit_dir=None, env
     _copy_run(run_dir, output / "base-run")
     e._save(output / "before.json", before)
     sources = e._runtime_sources()
-    run = {"schema_version": VERSION, "model": model_id, "temperature": 0,
+    run = {"schema_version": VERSION, "model": model_id, "temperature": None,
            "max_output_tokens": OUTPUT_TOKENS, "max_chars": max_chars,
            "before_sha256": content_digest(before), "runtime": e._runtime_versions(),
            "initial_audit_reused": audit_dir is not None,
@@ -622,7 +622,7 @@ def replay_refinement(directory, output):
             requests.append(("challenge", challenge, CHECK_SCHEMA, record["challenge_attempt"]))
         for stage, contents, schema, attempt in requests:
             if attempt.get("request_file"):
-                config = {"temperature": 0, "max_output_tokens": OUTPUT_TOKENS, "candidate_count": 1,
+                config = {**e._recorded_sampling(run), "max_output_tokens": OUTPUT_TOKENS,
                           **GeminiSchema(schema, _use_json_schema=True).to_provider_config()}
                 if e._load(step / stage / attempt["request_file"]) != {"model": run["model"], "contents": contents, "config": config}:
                     raise e.ReplayDriftError("Refinement recorded request differs")

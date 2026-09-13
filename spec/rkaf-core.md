@@ -992,7 +992,8 @@ Required properties:
 - `rkaf:modelId` (1, `xsd:string`).
 - `rkaf:modelVersion` (1, `xsd:string`).
 - `rkaf:promptTemplateRef` (1, IRI).
-- `rkaf:temperature` (1, `xsd:float`).
+- `rkaf:temperature` (0..1, `xsd:float`). Record it when supplied to the provider;
+  omit it when unsupported or unrecorded rather than inventing a default.
 - `rkaf:seed` (0..1, `xsd:integer`).
 - `rkaf:inputContextHash` (1, `xsd:string`) — lowercase `sha256:<64 hex>`. A hash field that accepts any string cannot be compared across runs, which is the only thing an input-context hash exists to do.
 - `rkaf:humanApprover` (0..1, IRI) — the actor who approved the AI output, when one has. OPTIONAL: see §2.4. An unreviewed model candidate MUST be representable, and approval is an `rkaf:Attestation` targeting the assertion.

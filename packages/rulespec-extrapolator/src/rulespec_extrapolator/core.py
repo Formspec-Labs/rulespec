@@ -396,7 +396,7 @@ def build_graph(document, claims, run, attestations=None):
     add({"@id": lineage_id, "@type": "rkaf:AILineage",
          "rkaf:modelId": run.get("model", "fixture"),
          "rkaf:modelVersion": run.get("model_version", "not-recorded"),
-         "rkaf:temperature": float(run.get("temperature", 0.0)),
+         **({"rkaf:temperature": float(run["temperature"])} if run.get("temperature") is not None else {}),
          "rkaf:promptTemplateRef": NS + "prompt:" + run.get("prompt_sha256", digest("fixture")),
          "rkaf:inputContextHash": "sha256:" + document["sha256"]})
     activities = {}
@@ -421,7 +421,7 @@ def build_graph(document, claims, run, attestations=None):
             claim_lineage = NS + "lineage:" + digest(c["review_event_id"])
             add({"@id": claim_lineage, "@type": "rkaf:AILineage",
                  "rkaf:modelId": provenance.get('model', 'review-agent'), "rkaf:modelVersion": provenance.get('model_version', 'not-recorded'),
-                 "rkaf:temperature": float(provenance.get('temperature', 0.0)),
+                 **({"rkaf:temperature": float(provenance['temperature'])} if provenance.get('temperature') is not None else {}),
                  "rkaf:promptTemplateRef": NS + 'request:' + provenance['request_sha256'] if provenance else c['review_event_id'],
                  "rkaf:inputContextHash": "sha256:" + provenance.get('input_sha256', document['sha256'])})
         disposition = {"rkaf:assertionOrigin": "rkaf:" + origin,

@@ -44,8 +44,6 @@ def main(argv=None):
     extract.add_argument("--thinking-level", choices=("low", "medium", "high"),
                          default=e.DEFAULT_THINKING_LEVEL,
                          help="Gemini thinking effort; default %(default)s. No thinking budget is sent.")
-    extract.add_argument("--temperature", type=float, default=0,
-                         help="Gemini sampling temperature (0–2), recorded for replay; default 0.")
     extract.add_argument("--output", type=Path, required=True)
     replay = sub.add_parser("replay", help="Reparse saved responses and verify the original graph.")
     replay.add_argument("input", type=Path)
@@ -153,7 +151,7 @@ def main(argv=None):
         from .extraction import extract_run, replay_run, reprocess_run
         if args.command == "extract":
             result = extract_run(load_document(args.source), args.output, args.model,
-                                 env_file=args.env_file, max_chars=args.max_chars, temperature=args.temperature,
+                                 env_file=args.env_file, max_chars=args.max_chars,
                                  max_output_tokens=args.max_output_tokens, thinking_level=args.thinking_level,
                                  section_windows=args.section_windows)
         elif args.command == "replay":

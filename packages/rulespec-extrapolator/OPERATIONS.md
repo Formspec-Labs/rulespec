@@ -78,7 +78,7 @@ rulespec-understand prepare manual.txt --title "Manual section" \
   --source-url https://example.org/manual --output prepared.json
 
 rulespec-understand extract prepared.json --model gemini-3.8-flash \
-  --thinking-level low --temperature 0 --max-chars 24000 \
+  --thinking-level low --max-chars 24000 \
   --max-output-tokens provider --env-file /path/to/local.env --output my-run
 
 # Optional: inventory the source before comparing it with the extracted draft.
@@ -124,7 +124,9 @@ apply. `--thinking-level` accepts low, medium or high and sends no numeric
 use the provider default. Saved requests retain their recorded setting during
 replay and reprocessing. Requests allow up to five minutes, with no automatic retries.
 Settings and actual SDK requests are recorded and checked during replay. Fresh
-calls can differ even at temperature zero.
+calls can differ. Gemini 3.8 manages sampling; new requests omit temperature,
+`top_p`, `top_k` and `candidate_count`. Historical captures retain the settings
+originally sent.
 
 See [installation](README.md#installation) for a fresh environment.
 

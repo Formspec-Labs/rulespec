@@ -123,7 +123,7 @@ def enrich_run(run_dir, output, model=e.DEFAULT_MODEL, *, env_file=None, max_cha
     e._save(output / 'before.json', before)
     shutil.copytree(run_dir, output / 'base-run', ignore=shutil.ignore_patterns('*.sqlite*', '__pycache__'))
     fingerprints = e._freeze(output, e.invented_examples(), e.provider_schema().schema_dict)
-    run = {'model': model, 'fingerprints': fingerprints, 'steps': [], 'status': 'running'}
+    run = {'model': model, 'temperature': None, 'fingerprints': fingerprints, 'steps': [], 'status': 'running'}
     e._save(output / 'enrichment.json', run)
     key, setup_error = '', None
     try:
@@ -211,7 +211,7 @@ def replay_enrichment(directory, output):
         if saved['attempt'].get('request_file'):
             request = e._load(step / 'capture' / saved['attempt']['request_file'])
             expected = {'model': run['model'], 'contents': prompt_for(book, saved['window']),
-                        'config': {'temperature': 0, 'candidate_count': 1, 'max_output_tokens': e.MAX_OUTPUT_TOKENS,
+                        'config': {**e._recorded_sampling(run), 'max_output_tokens': e.MAX_OUTPUT_TOKENS,
                                    'thinking_config': {'thinking_level': 'low'},
                                    **GeminiSchema(load_schema('enrichment'), _use_json_schema=True).to_provider_config()}}
             if request != expected:

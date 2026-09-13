@@ -25,8 +25,8 @@ pub struct AILineage {
     #[serde(rename = "rkaf:promptTemplateRef")]
     pub prompt_template_ref: String,
     /// JSON-LD property `rkaf:temperature`.
-    #[serde(rename = "rkaf:temperature")]
-    pub temperature: f64,
+    #[serde(rename = "rkaf:temperature", skip_serializing_if = "Option::is_none", default)]
+    pub temperature: Option<f64>,
     /// JSON-LD property `rkaf:seed`.
     #[serde(rename = "rkaf:seed", skip_serializing_if = "Option::is_none", default)]
     pub seed: Option<i64>,

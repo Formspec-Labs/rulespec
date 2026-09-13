@@ -24,7 +24,8 @@ package rkaf
 	"rkaf:modelId":           string
 	"rkaf:modelVersion":      string
 	"rkaf:promptTemplateRef": string // IRI
-	"rkaf:temperature":       >=0.0 & <=2.0
+	// Omit when the provider does not accept a temperature or none was recorded.
+	"rkaf:temperature"?:      >=0.0 & <=2.0
 	"rkaf:seed"?:             int
 	// A digest, not a free string: lowercase `sha256:<64 hex>`, the lexical
 	// contract `rkaf:requestContractDigest` and `rkaf:inputDigest` already use.

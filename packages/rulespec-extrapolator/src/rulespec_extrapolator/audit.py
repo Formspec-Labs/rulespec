@@ -468,7 +468,7 @@ def audit_run(book, output, model_id=e.DEFAULT_MODEL, *, env_file=None, max_char
     output.mkdir(parents=True, exist_ok=False)
     e._save(output / "rulebook.json", book)
     fingerprints = {name: e._digest(path.read_bytes()) for name, path in e._runtime_sources().items()}
-    run = {"schema_version": AUDIT_VERSION, "model": model_id, "windows": windows,
+    run = {"schema_version": AUDIT_VERSION, "model": model_id, "windows": windows, "temperature": None,
             "rulebook_sha256": content_digest(book), "max_chars": max_chars,
             "max_output_tokens": max_output_tokens, "thinking_level": thinking_level,
             "runtime": e._runtime_versions(), "sources_sha256": fingerprints,
@@ -579,7 +579,7 @@ def replay_audit(directory, output):
             prompt = e._window_prompt(generator, book["document"], window)
             if stage == "comparison":
                 prompt = _comparison_request(book, labels, window)
-            config = {"temperature": 0, "candidate_count": 1,
+            config = {**e._recorded_sampling(run),
                       **GeminiSchema(schema, _use_json_schema=True).to_provider_config()}
             if run["max_output_tokens"] is not None:
                 config["max_output_tokens"] = run["max_output_tokens"]

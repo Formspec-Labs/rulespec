@@ -50,14 +50,16 @@ def test_exact_components_are_independently_grounded_and_core_valid():
     assert validate_graph(result["graph"])["shacl_conforms"]
 
 
-@pytest.mark.parametrize("temperature", [0, 0.2, 1, 2])
+@pytest.mark.parametrize("temperature", [None, 0, 0.2, 1, 2])
 def test_core_lineage_records_the_actual_request_temperature(temperature):
     document, candidate, run = fixture()
     run["temperature"] = temperature
     book = compile_candidates(document, [candidate], run)
     lineage = [n for n in book["graph"]["@graph"] if n["@type"] == "rkaf:AILineage"]
     assert len(lineage) == 1
-    assert lineage[0]["rkaf:temperature"] == temperature
+    assert lineage[0].get("rkaf:temperature") == temperature
+    if temperature is None:
+        assert "rkaf:temperature" not in lineage[0]
     assert validate_graph(book["graph"])["shacl_conforms"]
 
 

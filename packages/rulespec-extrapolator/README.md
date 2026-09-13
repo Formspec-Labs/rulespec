@@ -23,7 +23,7 @@ separately prepared text rendition; its native XML structure is not supported.
 Separate `prepare` is useful for source metadata
 or inspecting text before extraction, but is not required.
 
-The default is `gemini-3.8-flash`, low thinking, temperature 0, 24,000 focus
+The default is `gemini-3.8-flash`, low thinking, provider-managed sampling, 24,000 focus
 characters and a 16,384-token generation allowance. Extraction makes one model
 request per planned window, with no automatic retries. `discovery-export` and
 `usage` make no model calls. Optional overrides are documented in the

@@ -515,7 +515,7 @@ class ReviewStore:
             p = request['provenance']
             if request['actor_kind'] != 'aiAgent' or not isinstance(p, dict) or set(p) != {
                 'model', 'model_version', 'temperature', 'request_sha256', 'input_sha256', 'capture'} or any(
-                    not isinstance(p[k], str) or not p[k] for k in p if k != 'temperature') or type(p['temperature']) not in {int, float}:
+                    not isinstance(p[k], str) or not p[k] for k in p if k != 'temperature') or (p['temperature'] is not None and type(p['temperature']) not in {int, float}):
                 raise ReviewError('AI provenance needs the captured model, settings, request and input fingerprints.')
         if action in {"approve", "reject", 'observe'}:
             if "replacements" in request:
