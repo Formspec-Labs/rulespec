@@ -16,6 +16,12 @@ sentence with a positive completeness instruction. That version advances to a
 new-source comparison; production remains unchanged. The optional-field-only
 variant reduced needless edits but regressed on medical detail, so it is not adopted.
 
+The requested [field-necessity iteration](../experiments/2026-09-13-field-necessity-revision/README.md)
+now scores 29/30 versus 28/30, preserving redundancy controls but accepting the
+medical repair only 1/2 times at 29.6% more tokens. That paragraph also remains
+unadopted. Carry its cosmetic and valid-component controls into the next fresh
+comparison; keep the successful positive shared-task wording unchanged.
+
 Reuse CUE definitions, passage catalogs, evidence resolution and the current review
 path. Keep useful schema descriptions and semantic examples. Preserve original
 captures and review history. Model-behavior changes require comparisons; code and
@@ -264,3 +270,24 @@ and the concrete instruction ambiguity before expanding the pipeline.
 Evidence: [plan, raw review and results](../experiments/2026-09-13-checker-instruction-isolation/README.md).
 Forty fresh calls, 112 judgments, 286,274 tokens and 350.7 summed provider seconds;
 all request bodies and saved-response decodes verified without provider access.
+
+## Requested field-necessity iteration — September 13
+
+- [x] **M4a revision tested; not adopted.** Replacing the optional-field paragraph
+  with a semantic-change criterion improves 28/30 to 29/30. Both versions reject
+  all six plain redundant fills and six new cosmetic variants, accept all four
+  needed component/link edits, and reject all twelve wrong edits. The revised
+  version accepts the needed medical repair 1/2 times versus 0/2, so the gate fails.
+  Reported token use increases 29.6%. Twenty-four calls, 60 judgments; no retries
+  or mechanical failures. [Evidence](../experiments/2026-09-13-field-necessity-revision/README.md).
+- [ ] **Extend the next fresh-source criteria with these field controls.** Include
+  redundant action/object fills, synonymous rewording that adds no meaning, valid
+  component corrections and missing qualification links. Compare the unchanged
+  positive shared task with production as already planned. Do not append another
+  field paragraph, add a default pass, or reject every edit with unchanged prose.
+
+The field-noise distinction is supported on these controls. The unresolved issue
+is reliably assessing needed meaning in the selected statement rather than
+crediting detail retained elsewhere. The current results do not isolate the
+effect of instruction ordering. Fresh-source and generation evaluations remain
+separate, and production remains unchanged.

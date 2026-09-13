@@ -21,6 +21,12 @@ including needed medical details and incoming exceptions. The isolated
 optional-field paragraph reduced noise but lost a needed repair. Next validate
 the unchanged positive shared task on new sources; neither change is in production.
 
+The requested [field-necessity revision](../experiments/2026-09-13-field-necessity-revision/README.md)
+retains all redundancy and legitimate-component controls but fixes the medical
+judgment only once in two attempts (28/30 to 29/30 overall, 29.6% more tokens).
+It remains unadopted. Carry its cosmetic-rewording controls into that fresh-source
+comparison without adding another field paragraph to the successful shared task.
+
 ## Checkpoints: assessment labels and existing qualification links — 2026-09-12–13
 
 - [x] **Checkpoint the confidence/narrative work.** Inline and separate confidence
