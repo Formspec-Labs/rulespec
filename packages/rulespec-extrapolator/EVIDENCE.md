@@ -23,8 +23,12 @@ The [read-only qualification trace](../../thoughts/experiments/2026-09-12-existi
 found that the writing requirement and its target clause identifiers already
 exist, but the scanner misses the plain-text local references between them.
 Manual native-address lookup reaches the correct claims without new identifiers.
-Recognition, incoming-reference navigation and semantic qualification assignment
-are separate remaining tasks. No new model pass or automatic link was adopted.
+The subsequent [local-clause delivery](../../thoughts/experiments/2026-09-12-local-clause-navigation/README.md)
+connects the two attendance records with the writing requirement in both
+directions. It uses RefSpec occurrence recognition, native sibling lookup and
+current claim evidence, with explicit ambiguity and refusal controls. Semantic
+qualification assignment remains open. No new model pass or automatic governing
+link was adopted; 713 extractor/schema and 180 targeted reader tests passed.
 
 ## Discovery and optional audit check — 2026-09-12
 

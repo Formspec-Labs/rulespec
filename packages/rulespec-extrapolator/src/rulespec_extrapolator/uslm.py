@@ -127,6 +127,63 @@ class SourceIndex:
         return self.targets[identity]
 
 
+def _attach_local_clauses(publisher, scan):
+    """Resolve bare labels only among the enclosing native clause's siblings."""
+    from refspec.registry import uslm
+    rows = [r for r in scan['candidates'] if r['kind'] == 'local_clause']
+    if not rows:
+        return
+    nodes = publisher.prepared['nodes']
+    visible = sorted((p for p in nodes if 'start' in nodes[p]),
+                     key=lambda p: (nodes[p]['start'], -nodes[p]['end'], p.count('/')))
+    starts = [nodes[p]['start'] for p in visible]
+    siblings = defaultdict(list)
+    labels = {p.rsplit('/', 1)[0]: publisher.prepared['source_text'][n['source_start']:n['source_end']]
+              .strip().removeprefix('(').removesuffix(')').strip()
+              for p, n in nodes.items() if n['tag'] == 'num'}
+    for path, address in publisher.addresses.items():
+        parent = path.rsplit('/', 1)[0]
+        if nodes[path]['tag'] == 'clause' and parent in publisher.addresses:
+            # Use the native number when supplied; retain disagreements with
+            # its address instead of selecting by the address alone.
+            label = labels.get(path, address.rsplit('/', 1)[-1])
+            siblings[parent, label].append(path)
+    nonoperative = {uslm.NOTE_TAG, uslm.SOURCE_CREDIT_TAG, *uslm.TOC_TAGS,
+                    'quotedContent', 'heading', 'num'}
+    # O(nodes log nodes + references * (log nodes + depth + matches)). Native
+    # intervals are nested/disjoint; lookup follows ancestry, never all nodes.
+    for row in rows:
+        span = row['evidence'][0]
+        at = bisect_right(starts, span['start']) - 1
+        path = visible[at] if at >= 0 else ''
+        ancestry = []
+        while path in nodes:
+            node = nodes[path]
+            if 'start' in node and node['start'] <= span['start'] < span['end'] <= node['end']:
+                ancestry.append(path)
+            path = path.rsplit('/', 1)[0]
+        blocked = next((nodes[p]['tag'] for p in ancestry if nodes[p]['tag'] in nonoperative), None)
+        row['reading']['context'] = blocked or 'operative'
+        if blocked:
+            row['resolution']['status'] = 'nonoperative_context'
+            continue
+        clause = next((p for p in ancestry if nodes[p]['tag'] == 'clause'), None)
+        parent = clause.rsplit('/', 1)[0] if clause else ''
+        if not clause or parent not in publisher.addresses:
+            continue
+        scope = publisher.addresses[parent]
+        row['reading']['scope'] = scope
+        row['xml_evidence_refs'] = [publisher.support(parent, nodes[parent], 'reference_scope', include_text=False)[0]]
+        label = row['reading']['label']
+        matches = siblings.get((parent, label), ())
+        targets = [publisher.target(p, nodes[p])['id'] for p in matches]
+        status = 'located' if len(targets) == 1 else 'ambiguous' if targets else 'not_in_selected_scope'
+        if status == 'located' and publisher.addresses[matches[0]] != scope + '/' + label:
+            status = 'native_label_conflict'
+        row['resolution'] = {'status': status,
+                             'target_ids': targets, 'method': 'native_sibling_clause'}
+
+
 def attach_publisher_links(document, scan, passages):
     """Add native XML occurrences and shared targets to the existing scan result."""
     from refspec.registry import uslm, xml_text
@@ -190,6 +247,7 @@ def attach_publisher_links(document, scan, passages):
             parent.setdefault('text_readings', []).append({'disposition': group,
                 **{k: v for k, v in row.items() if k not in {'id', 'record_ids'}}})
         scan[group] = remaining
+    _attach_local_clauses(publisher, scan)
     scan['candidates'].extend(publisher_rows)
     scan['candidates'].sort(key=lambda row: (row['evidence'][0]['start'] if row.get('evidence') else len(document['text']), row['id']))
     scan['publisher_source'] = publisher.artifact()
@@ -202,5 +260,6 @@ def attach_publisher_links(document, scan, passages):
     scan['target_resolution'] = 'publisher_targets_and_named_act_identity' if scan.get('indexes') else 'publisher_targets_in_supplied_xml'
     scan['limitation'] += (' Publisher links retain their native reading and context; text readings are separate observations, '
                           'not agreement checks. Targets are looked up only in the supplied XML, not the whole law or another edition. '
+                          'Bare local clause labels use only the enclosing native clause\'s siblings; broader local forms remain unsupported. '
                           'Readable text preserves source order and cell boundaries, not full visual table layout.')
     return scan

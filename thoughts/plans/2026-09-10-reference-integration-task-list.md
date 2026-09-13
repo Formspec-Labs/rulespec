@@ -21,19 +21,20 @@
   unrecognized, although the native target identifiers and extracted target claims
   exist. Manually supplied addresses resolve to R004/R005 using current code;
   unrelated R003/R007 do not match. Context already supplies the writing text.
-- [ ] **Next deterministic slice: R11 recognition and navigation.** Extend the
-  owning RefSpec occurrence reader for bounded local forms; use Rulespec's native
-  source index to resolve them and current claim evidence to expose candidate
-  referring/target statements. Preserve ambiguous labels, missing targets and
-  multiple claim matches. Test before treating any reference as a governing link.
-  This reuses existing identifiers; it is not a new paragraph hierarchy or
-  automatic semantic correction.
+- [x] **Deliver the bounded R11 recognition and navigation slice.** RefSpec now
+  recognizes bare singular `clause (i)` forms; Rulespec reuses native parent and
+  target evidence to expose referring/target statements in both directions.
+  The [delivery check](../experiments/2026-09-12-local-clause-navigation/README.md)
+  connects R004/R005 with R006 and excludes unrelated R003/R007. Repeated labels,
+  missing/duplicate targets, number/address conflicts and multiple claim matches
+  remain explicit. Source and installed-wheel checks pass without model calls or
+  meaning edits. Broader local forms and semantic qualification remain open.
 - [ ] **Keep semantic assignment and scope cleanup separate.** R25 must preserve
   a captured requirement's meaning while choosing the right supported relationship;
   the application does not currently allow arbitrary qualification targets on
   `requirement` records. Do not bypass that guard or duplicate records casually.
   Test purpose-versus-applicability guidance against fresh cases before adopting
-  prompt changes. The declared reference trace itself changes no production code.
+  prompt changes. Navigation is now delivered; these semantic changes are not.
 
 ## Next priority: independently usable requirements — 2026-09-12
 
@@ -499,7 +500,7 @@ release. Preserve the completed foundation and make one bounded change at a time
 | R8 | Remove divergent production citation copies | Caller comparison and upstream range delivery complete; unused copies removed; live graph migration open | M |
 | R9 | Source-supported context for omitted citation titles | Reverse explicit title form delivered; native/default and local-phrase prototypes failed adoption; general context support missing | M |
 | R10 | Exact local paragraph address index | Marker extension tested; ambiguity/inline-child gate failed; production unchanged | M |
-| R11 | Local paragraph and range lookup | Publisher targets delivered; general prose addresses and ranges remain open | M–L |
+| R11 | Local paragraph and range lookup | Publisher targets and bare native sibling-clause navigation delivered; broader prose addresses and ranges remain open | M–L |
 | R12 | External provision text in a pinned edition | Optional USLM and exact eCFR lookup installed; broader scope and historical correspondence remain open | L |
 | R13 | Named-act lookup through existing indexes | Competing law/scope candidates delivered; explicit law/year context and ranges open | M–L |
 | R14 | Publisher-provided citation links | USLM ingestion, evidence, reference/discovery export and local targets delivered | M |
@@ -1209,6 +1210,11 @@ without converting structural parentage into a claim about governing conditions.
   in the supplied capture, including its exclusion. Source application tests pass.
 - [x] Finish R4 validation/export checks and R1's installed delivery for that
   bounded publisher lookup. It does not implement the general prose cases below.
+- [x] **Bounded ordinary clause references.** Recognize singular `clause (i)`
+  forms through RefSpec, resolve direct native siblings, and expose current claims
+  in both directions through `context-export`. The
+  [IEP delivery check](../experiments/2026-09-12-local-clause-navigation/README.md)
+  preserves source, ambiguity and semantic uncertainty; broader forms remain open.
 - [ ] Resolve unmarked forms
   such as `paragraphs (b)(1) through (4), (c), and (d)(1) of this section`, and
   relative “this paragraph” forms, against the pinned source index.

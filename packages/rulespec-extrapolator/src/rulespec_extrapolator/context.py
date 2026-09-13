@@ -90,32 +90,65 @@ def export_context(book, focus, *, reference_sources=(), act_index=None,
         else:
             decisions.append({'role': 'enclosing_section', 'status': 'section_over_limit', 'section_id': section['id']})
     claims = book.get('accepted', [])
+    related_by_id = {}
+
+    def add_claim(claim, role, occurrence_id=None):
+        if claim['id'] not in related_by_id:
+            row = {k: claim.get(k) for k in ('id', 'summary', 'kind', 'modality', 'target_ids')}
+            related_by_id[claim['id']] = row
+            related.append(row)
+        reason = {'claim_id': claim['id']}
+        if occurrence_id:
+            related_by_id[claim['id']].setdefault('reference_ids', []).append(occurrence_id)
+            reason['occurrence_id'] = occurrence_id
+        for s in verified(book, claim['evidence']):
+            add(source_id, s['start'], s['end'], role, budget=True, field=s['field'], **reason)
+
     linked = [c for c in claims if c['id'] != focus.get('id') and
               (focus.get('id') in c.get('target_ids', []) or c['id'] in focus.get('target_ids', []))]
     for claim in linked:
-        related.append({k: claim.get(k) for k in ('id', 'summary', 'kind', 'modality', 'target_ids')})
-        for s in verified(book, claim['evidence']):
-            add(source_id, s['start'], s['end'], 'related_claim', budget=True, claim_id=claim['id'], field=s['field'])
+        add_claim(claim, 'related_claim')
     relevant = []
     for group in ('candidates', 'rejected'):
         for row in scan[group]:
             spans = row.get('evidence', [])
             # One-hop expansion from the original focus, not references newly encountered in context.
-            if not any(focus['start'] <= x['start'] < x['end'] <= focus['end'] for x in spans):
+            outgoing = any(focus['start'] <= x['start'] < x['end'] <= focus['end'] for x in spans)
+            resolution = row.get('resolution', {})
+            targets = resolution.get('target_ids', [])
+            target = scan.get('targets', {}).get(targets[0], {}) if len(targets) == 1 else {}
+            incoming = (not outgoing and group == 'candidates' and resolution.get('status') == 'located'
+                        and target.get('source_id', source_id) == source_id
+                        and target.get('start', len(primary['text'])) <= focus['start'] < focus['end'] <= target.get('end', 0))
+            if not outgoing and not incoming:
                 continue
             relevant.append(row)
             brief = {k: row[k] for k in ('id', 'kind', 'value', 'reading', 'resolution', 'code') if k in row}
             if row.get('text_readings'):
                 brief['text_readings'] = [{k: r[k] for k in ('disposition', 'kind', 'value', 'reading', 'resolution', 'code') if k in r} for r in row['text_readings']]
-            readings.append({'disposition': group, **brief})
-            resolution = row.get('resolution', {})
-            targets = resolution.get('target_ids', [])
+            reading = {'disposition': group, **brief}
+            readings.append(reading)
+            if incoming:
+                reading.update(direction='incoming', semantic_role='not_assessed', referring_claim_ids=[])
             if group == 'rejected' or resolution.get('status') != 'located' or len(targets) != 1:
                 decisions.append({'role': 'reference', 'occurrence_id': row.get('id'),
                                   'status': row.get('code') or resolution.get('status', 'target_unavailable')})
                 continue
-            if row.get('reading', {}).get('context') in ('note', 'sourceCredit'):
+            if row.get('reading', {}).get('context') in ('note', 'sourceCredit', 'toc', 'quotedContent', 'heading', 'num'):
                 decisions.append({'role': 'reference', 'occurrence_id': row.get('id'), 'status': 'nonoperative_reference'})
+                continue
+            if incoming:
+                # Preserve every containing current claim; containment identifies
+                # navigation candidates, not a governing relationship or priority.
+                lo, hi = (min(s['start'] for s in spans), max(s['end'] for s in spans)) if spans else (0, 0)
+                owners = [c for c in claims if c['id'] != focus.get('id') and spans
+                          and c['start'] <= lo < hi <= c['end']]
+                reading['referring_claim_ids'] = [c['id'] for c in owners]
+                for claim in owners:
+                    add_claim(claim, 'referring_claim', row['id'])
+                if not owners:
+                    for s in spans:
+                        add(source_id, s['start'], s['end'], 'reference_occurrence', budget=True, occurrence_id=row['id'])
                 continue
             target = scan['targets'][targets[0]]
             sid = target.get('source_id', source_id)
@@ -123,6 +156,11 @@ def export_context(book, focus, *, reference_sources=(), act_index=None,
                 decisions.append({'role': 'reference', 'occurrence_id': row.get('id'), 'status': 'target_text_unavailable'})
                 continue
             lo, hi = target['start'], target['end']
+            if sid == source_id:
+                contained = [c for c in claims if c['id'] != focus.get('id') and lo <= c['start'] < c['end'] <= hi]
+                reading.update(direction='outgoing', semantic_role='not_assessed', referenced_claim_ids=[c['id'] for c in contained])
+                for claim in contained:
+                    add_claim(claim, 'referenced_claim', row['id'])
             if sid != source_id:
                 source = scan['reference_sources'][sid]
                 record = source['records'][target['record_id']]

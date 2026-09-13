@@ -30,6 +30,7 @@ def scan_references(document, *, act_index=None, source_credit_index=None, refer
                ('refspec.registry.citation_grammar.find_cfr_citations', 'refspec', grammar),
                ('refspec.registry.citation_grammar.find_usc_citations', 'refspec', grammar),
                ('refspec.registry.citation_grammar.find_eo_compilation_locators', 'refspec', grammar),
+               ('refspec.registry.citation_grammar.find_local_clause_occurrences', 'refspec', grammar),
                ('refspec.registry.iri_minting.mint_rin_iri', 'refspec', iri_minting)]
     indexes = {}
     def evidence(start, end, field):
@@ -100,6 +101,11 @@ def scan_references(document, *, act_index=None, source_credit_index=None, refer
         # Native fields provide the target; no second parser or label formatter.
         record('usc', match.text, match.start, match.end, reading=reading, context=context,
                refusal=match.refusal, source_text=match.text)
+    for match in grammar.find_local_clause_occurrences(text):
+        row = record('local_clause', match.text, match.start, match.end,
+                     reading={'label': match.label}, refusal=match.refusal, source_text=match.text)
+        if row is not None:
+            row['resolution'] = {'status': 'local_scope_unavailable', 'target_ids': []}
     if act_index is not None:
         from refspec.registry import act_resolution as acts
         index = acts.ActIndex.from_artifact(Path(act_index))
@@ -133,7 +139,7 @@ def scan_references(document, *, act_index=None, source_credit_index=None, refer
                          'module_sha256': digest(Path(module.__file__).read_bytes())}
                         for name, package, module in parsers],
             **({'indexes': indexes} if indexes else {}),
-            'supported_kinds': sorted(SPICYSEARCH_KINDS | {'cfr', 'usc', 'eo_compilation'} | ({'act_relative'} if act_index is not None else set())),
+            'supported_kinds': sorted(SPICYSEARCH_KINDS | {'cfr', 'usc', 'eo_compilation', 'local_clause'} | ({'act_relative'} if act_index is not None else set())),
             'candidates': candidates, 'rejected': rejected,
             'target_resolution': 'named_act_section_identity_only' if indexes else 'not_performed',
             'semantic_completeness': 'not_established',

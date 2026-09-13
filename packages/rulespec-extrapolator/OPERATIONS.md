@@ -246,8 +246,14 @@ Rulespec's existing document validation, exact evidence resolver, fragment ident
 and passage index provide grounding; no new citation grammar or Core assertion
 type is introduced. A mention is not a resolved target, an applicability judgment,
 or a complete representation of every possible qualifier.
-Document-local paragraph recognition remains outside the text scanner's scope;
-the USLM path below also retains publisher-supplied links.
+RefSpec's `find_local_clause_occurrences` also recognizes bare singular references
+such as `clause (i)`. In pinned USLM, Rulespec locates direct sibling clauses under
+the referring clause's native parent. It preserves repeated occurrences, duplicate
+targets and native label/address conflicts. Plain text has no verified local scope.
+Lists, ranges, nested pinpoints and stated different containers remain explicitly
+refused; broader local-reference grammar remains open. This requires the RefSpec
+wheel recorded in the [local-clause delivery check](../../thoughts/experiments/2026-09-12-local-clause-navigation/README.md).
+The USLM path below also retains publisher-supplied links.
 Unsupported kinds are excluded. A candidate or required title context crossing
 inserted source-map text is recorded under `rejected`; native impossible-title or
 implausible-part readings retain their flags and evidence there. When source
@@ -311,6 +317,13 @@ keep separate coordinates. Missing targets, competing editions, and omitted
 context remain explicit. This export makes no model calls and changes no meaning
 or review decisions.
 
+It also exposes current claims contained in a located local target and claims
+whose references point into the selected provision. `reference_readings` records
+the direction and candidate claim IDs with `semantic_role=not_assessed`;
+`related_claims.reference_ids` identifies the source of that navigation. All
+matching current claims remain visible. Their existing `target_ids` and kinds
+stay unchanged: a citation does not by itself establish a governing relationship.
+
 ```sh
 rulespec-understand context-export my-run --claim CURRENT_CLAIM_REVISION_ID \
   --reference-source usc05.xml --output statement-context.json
@@ -325,8 +338,8 @@ prepared-text positions. `--extra-chars` defaults to 20,000 additional unique so
 characters beyond the selected statement and its existing context; whole additions
 that exceed the allowance are skipped with a reason. An enclosing section is added
 only when at most 12,000 characters; a referenced provision gains its containing
-section when at most 6,000. Expansion follows references in the original selection
-only. A whole section may contain editorial or historical notes; selection does
+section when at most 6,000. Expansion follows references from or directly into
+the original selection only. A whole section may contain editorial or historical notes; selection does
 not establish that any supplied text governs the statement.
 
 The output separates readable `material` from the selected original `documents`,
