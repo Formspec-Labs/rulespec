@@ -3,13 +3,14 @@
 Improve independently usable rule meanings while preserving the simple extraction
 path. This list follows the [independent input review](../reviews/2026-09-13-model-input-construction-review.md)
 and [construction experiment](../experiments/2026-09-13-explicit-rule-construction/README.md).
-Latest update: the [standalone integration bridge](../experiments/2026-09-13-focused-check-integration/README.md)
-has a working prototype with 729 passing tests, but its live quality gate fails:
-**7/8 versus 8/8** shared unchanged-reading decisions. One complete leave reading
-is rejected for evidence-location/reference-status concerns. The prototype is
-saved as an applicable patch; production remains unchanged. Next separate current
-link-status visibility from the removal of competing edit candidates. Do not add
-prose warnings or optional fields to correct statements to satisfy this checker.
+Latest update: the [two-factor diagnostic](../experiments/2026-09-13-checker-input-factors/README.md)
+finds **8/8** correct unchanged-reading judgments with competing edits versus
+**6/8** checking the reading alone. Extra `link_issues` do not change correctness
+counts; neither factor meets the preregistered repeated-failure criterion, so the
+cause remains unresolved. The standalone prototype stays deferred and production
+unchanged. Next test actual repair generation on fresh sources with manual source
+review as primary evidence and the comparison checker advisory. Do not add prose
+warnings, optional fields or fabricated edits to satisfy the checker.
 
 The preceding [fresh positive-task comparison](../experiments/2026-09-13-fresh-field-completeness/README.md)
 passes its preregistered checker gate: **24/36 to 36/36** shared edit judgments,
@@ -385,7 +386,7 @@ needed before the integration and generation work.
   standalone gets 7/8. Both catch every real billing/offset omission. One leave
   no-change response conflates complete meaning with unresolved record metadata.
   The all-correct/no-regression gate fails. Original labels and failures remain.
-- [ ] **Isolate the two actual input differences before another policy change.**
+- [x] **Isolate the two actual input differences before another policy change.**
   Use the saved leave failure and unaffected hazard control: competing candidates
   present/absent crossed with saved/current link-status detail, same source and
   policy, two repetitions. Preserve genuine warnings in captures; do not repair
@@ -394,6 +395,8 @@ needed before the integration and generation work.
   If competing candidates drive it, keep the checker attached to comparisons
   rather than treating standalone checks as equivalent. Neither explanation is
   established by the present bundle. Freeze a bounded comparison before calls.
+  **Completed below:** the two-factor comparison is directional but does not
+  meet its repeated-failure criterion; no causal explanation is established.
 
 M9a–c exist as a tested prototype, not adopted production behavior; M9d's
 mechanical checks pass and its live gate fails. The code is restored to its prior
@@ -401,3 +404,40 @@ production version. M5/M8 repair generation remains separate; the earlier rich
 candidate checker evidence survives, but standalone unchanged-reading approval
 cannot yet be treated as an interchangeable evaluator. This checkpoint supersedes
 the previous instruction to proceed directly with integration.
+
+## Two-factor result and next useful work — September 13
+
+- [x] **Separate candidate context from extra link status.** Sixteen fresh calls,
+  two known sources and two repetitions per condition. Leave unchanged judgments
+  are 2/2 with competing edits and 1/2 alone under both status settings. Hazard
+  is 2/2 in every condition; all 24 edited controls are correctly rejected. Both
+  false alarms cite real traceability limits without identifying an omitted
+  supplied condition. The prompt's broad construction task leaves a plausible
+  meaning-versus-record ambiguity. The preregistered mechanistic-lead gate is
+  unmet; do not turn this directional pattern into a causal claim.
+- [x] **Preserve the exact boundary and verification.** All sixteen actual inputs
+  reconstruct and all forty judgments re-decode without provider access. Arm D
+  exactly matches the previous standalone requests. Raw review precedes aggregate
+  scoring. Total 133,159 tokens and 118.3 summed call seconds. Production remains
+  unchanged; the prior integration patch and its failed gate remain intact.
+- [ ] **M5/M8 — Move to actual repair generation with independent source review.**
+  Freeze untouched source excerpts, complete/no-change controls, required
+  component/link fixes, unavailable-reference cases and manual criteria before
+  calls. Compare full replacement with the smallest CUE-derived changed-fields
+  response, holding task, model, source and checker policy fixed. Feed actual
+  before/after candidates and current statuses to the earlier supported comparison
+  policy; record no-proposal cases explicitly without fabricated alternatives.
+  Manually assess source completeness, field fidelity and unnecessary changes;
+  checker agreement is a separate measurement, not the primary quality gate.
+  Confirm accepted edits survive existing evidence validation and review/export.
+- [ ] **M9 — Integrate only a demonstrated end-to-end improvement.** Standalone
+  unchanged-reading approval remains deferred. Do not silently apply the saved
+  prototype or require prose disclaimers to clear true record warnings. Reuse
+  existing CUE definitions, review actions and capture/replay; keep initial
+  extraction unchanged and optional checking explicit.
+
+This checkpoint revises the earlier M5 prerequisite rather than declaring the
+standalone evaluator fixed: use manual source judgments to avoid waiting for a
+perfect automatic checker. Stop tuning this diagnostic cohort. Generation and
+its actual checking requests still need fresh evidence before production adoption.
+See [plan, raw review, scores and receipts](../experiments/2026-09-13-checker-input-factors/README.md).
