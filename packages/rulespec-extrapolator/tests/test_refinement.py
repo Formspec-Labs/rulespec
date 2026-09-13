@@ -294,6 +294,24 @@ def test_model_view_keeps_meaning_and_evidence_while_omitting_opaque_ids(tmp_pat
     assert 'fragment_id' not in e._canonical(view)
 
 
+def test_checker_uses_qualification_alias_without_changing_internal_target(tmp_path):
+    book = ReviewStore(workspace(tmp_path)).snapshot()
+    window = e.plan_windows(book['document'])[0]
+    packet = r._packet(book, {'labels': {'expected_units': []}}, window)
+    parsed, issues = r._decode_proposals({'proposals': [proposal(kind='exception', qualifies=['C0000'])],
+        'observations': []}, [], book['document'], window, packet, 'recovery')
+    assert not issues
+    original = deepcopy(parsed)
+    prompt = r._challenge_prompt(packet, parsed, book['document'])
+    shown = e.json.loads(prompt.split('\nProposed changes: ')[1])[0]
+    assert shown['qualifies'] == ['C0000']
+    assert 'applies_to' not in shown['fields']
+    assert parsed == original
+    assert parsed[0]['fields']['applies_to'] == [packet['claims']['C0000']['id']]
+    packet['claims']['C0000']['applies_to'] = [packet['claims']['C0000']['id']]
+    assert r._model_packet(packet)['claims']['C0000']['applies_to'] == ['C0000']
+
+
 def test_provider_array_bound_is_enforced_locally(tmp_path):
     book = ReviewStore(workspace(tmp_path)).snapshot()
     window = e.plan_windows(book['document'])[0]

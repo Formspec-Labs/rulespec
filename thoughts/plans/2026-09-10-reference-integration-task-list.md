@@ -1,6 +1,18 @@
 # Rulespec reuse and extraction: comprehensive task list
 
-## Latest checkpoint: assessment labels and existing qualification links — 2026-09-12
+## Active follow-up: model input improvements — 2026-09-13
+
+The [prioritized change list](2026-09-13-model-input-improvements.md) consolidates
+the remaining checker, evidence and repair-interface work below. It incorporates
+the completed [independent input review](../reviews/2026-09-13-model-input-construction-review.md),
+separates concrete input fixes from model-behavior experiments, and includes
+acceptance checks and implementation order. The API and identifier presentation
+fixes are implemented. The shared-task checker comparison improved selected
+judgments but missed the incoming notice exception twice; it remains experimental.
+See the [implementation checkpoint](../experiments/2026-09-13-complete-reading-check/README.md)
+for retained failures, validation and the next decision.
+
+## Checkpoints: assessment labels and existing qualification links — 2026-09-12–13
 
 - [x] **Checkpoint the confidence/narrative work.** Inline and separate confidence
   studies are committed. Composed and explicitly delimited narrative comparisons,
@@ -70,22 +82,10 @@
   for optional non-verbatim `logic_text`; neither arm repaired the request-content
   case or all three new notice readings. Fourteen calls used 75,504 tokens. Exact
   replay requires reusing saved preview event identities. No production adoption.
-- [ ] **Remove input/validation noise before another generation comparison.** Use
-  the saved construction outputs to test consistent short relationship aliases
-  in checker input: cell 6's application-inserted `applies_to` identifier was
-  falsely criticized as invented source content, alongside a real action/object
-  problem. Separately test reuse of existing component-withholding behavior for
-  optional quote failures; cell 3's useful statement was discarded for `logic_text`.
-  Preserve original captures, refusals, bad-meaning controls and relationship
-  guards. Do not treat a corrected identifier presentation as proof that a proposal
-  is semantically correct or relax quotation matching to remove list markers.
-- [ ] **Test narrowly scoped meaning edits on new sources.** Compare the current
-  full replacement against a response containing only changed meaning/evidence,
-  deriving allowed fields from CUE and preserving other fields deterministically.
-  Keep the construction objective fixed for that comparison. Measure completeness,
-  evidence survival, component regressions and unchanged-checker behavior, including
-  justified no-ops and unrelated duties. This is a proposed experiment; do not add
-  a new default pass or continue patching these now-development cases.
+
+The remaining input/validation fixes and narrower-edit experiment are tracked
+once in [M1–M9 of the active change list](2026-09-13-model-input-improvements.md).
+Earlier captures, refusals and failed completeness gates remain unchanged.
 
 ## Next priority: independently usable requirements — 2026-09-12
 
