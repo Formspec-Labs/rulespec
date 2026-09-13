@@ -5,7 +5,28 @@ report describes its own settings and checkpoint; it is not a current installati
 recipe. Use the [README](README.md) for the main path and the
 [operating reference](OPERATIONS.md) for current commands.
 
-## Latest bounded check — 2026-09-12
+## Confidence, labels and qualification connections — 2026-09-12
+
+Recent [inline confidence](../../thoughts/experiments/2026-09-12-extractor-confidence/RESULTS.md),
+[separate confidence](../../thoughts/experiments/2026-09-12-separate-confidence/RESULTS.md),
+and [explicit narrative](../../thoughts/experiments/2026-09-12-explicit-verdict/FINDINGS.md)
+experiments did not establish a production-ready quality signal. Their original
+captures and assessments remain unchanged. The later
+[21-item label audit](../../thoughts/reviews/2026-09-12-confidence-label-audit.md)
+qualifies the reported errors: two clear standalone-completeness failures, a
+debatable explicit-detail loss, and a disputed actor assignment. The positive
+statement labels do not certify all structured fields; LEA purpose text appears
+in `scope_text`. Keep source fidelity, independent completeness and field roles
+separate in future comparisons.
+
+The [read-only qualification trace](../../thoughts/experiments/2026-09-12-existing-qualification-links/FINDINGS.md)
+found that the writing requirement and its target clause identifiers already
+exist, but the scanner misses the plain-text local references between them.
+Manual native-address lookup reaches the correct claims without new identifiers.
+Recognition, incoming-reference navigation and semantic qualification assignment
+are separate remaining tasks. No new model pass or automatic link was adopted.
+
+## Discovery and optional audit check — 2026-09-12
 
 [Three fresh sources](../../thoughts/experiments/2026-09-12-simple-path/RESULTS.md)
 produced 34 statements. Linked evidence recovered complete source support for

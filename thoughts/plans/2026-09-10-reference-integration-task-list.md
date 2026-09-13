@@ -1,5 +1,40 @@
 # Rulespec reuse and extraction: comprehensive task list
 
+## Latest checkpoint: assessment labels and existing qualification links — 2026-09-12
+
+- [x] **Checkpoint the confidence/narrative work.** Inline and separate confidence
+  studies are committed. Composed and explicitly delimited narrative comparisons,
+  their raw captures, the prompt specification and the later label audit are
+  committed in `bcaa95c`. No confidence or narrative assessment pass was adopted.
+- [x] **Validate the latest 21 labels manually.** The
+  [audit](../reviews/2026-09-12-confidence-label-audit.md) preserves the original
+  labels but separates source fidelity, standalone completeness and component
+  roles. Two attendance statements omit governing writing qualifications despite
+  a separate captured writing rule. The courses-of-study omission is explicit
+  detail loss with uncertain semantic severity. The actor case remains disputed;
+  all 13 LEA statements preserve meaning but their purpose-as-scope fields need
+  review. These qualifications supersede blanket claims that these are three
+  unambiguous errors and 17 wholly clean all-fields controls.
+- [x] **Trace the existing reference and context route before building a new pass.**
+  The [two-book, zero-model-call trace](../experiments/2026-09-12-existing-qualification-links/FINDINGS.md)
+  found the exact gap: IEP's plain-text “clause (i)” / “clause (ii)” references are
+  unrecognized, although the native target identifiers and extracted target claims
+  exist. Manually supplied addresses resolve to R004/R005 using current code;
+  unrelated R003/R007 do not match. Context already supplies the writing text.
+- [ ] **Next deterministic slice: R11 recognition and navigation.** Extend the
+  owning RefSpec occurrence reader for bounded local forms; use Rulespec's native
+  source index to resolve them and current claim evidence to expose candidate
+  referring/target statements. Preserve ambiguous labels, missing targets and
+  multiple claim matches. Test before treating any reference as a governing link.
+  This reuses existing identifiers; it is not a new paragraph hierarchy or
+  automatic semantic correction.
+- [ ] **Keep semantic assignment and scope cleanup separate.** R25 must preserve
+  a captured requirement's meaning while choosing the right supported relationship;
+  the application does not currently allow arbitrary qualification targets on
+  `requirement` records. Do not bypass that guard or duplicate records casually.
+  Test purpose-versus-applicability guidance against fresh cases before adopting
+  prompt changes. The declared reference trace itself changes no production code.
+
 ## Next priority: independently usable requirements — 2026-09-12
 
 The [full CSBG chapter test](../experiments/2026-09-12-csbg/RESULTS.md) processed
