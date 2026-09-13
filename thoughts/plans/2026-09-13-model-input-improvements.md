@@ -3,24 +3,18 @@
 Improve independently usable rule meanings while preserving the simple extraction
 path. This list follows the [independent input review](../reviews/2026-09-13-model-input-construction-review.md)
 and [construction experiment](../experiments/2026-09-13-explicit-rule-construction/README.md).
-Implementation update: see the [recorded checker comparison](../experiments/2026-09-13-complete-reading-check/README.md).
-M2 is implemented and verified. M3's identifier presentation is integrated, but
-its semantic diagnostic failed. M4 improved some judgments but failed its initial adoption
-gate. Fresh-source validation now confirms a narrower gain, mainly rejecting
-unnecessary edits; the full replacement and no-change checks remain unadopted.
-M5 remains on hold.
+Latest update: the [fresh positive-task comparison](../experiments/2026-09-13-fresh-field-completeness/README.md)
+passes its preregistered checker gate: **24/36 to 36/36** shared edit judgments,
+**1/6 to 6/6** needed repairs, and **16/16** explicit no-change decisions correct.
+All redundant-field and wrong-edit controls pass; useful actor/link corrections
+survive. Fresh checker tokens increase 17.8%, with 44.4% more assessed decisions.
+The concrete integration tasks are at the end of this list. Production remains
+unchanged by this experiment; M5 repair generation still needs separate evidence.
 
-Latest update: [isolated instruction tests](../experiments/2026-09-13-checker-instruction-isolation/README.md)
-improved shared-task judgments from 25/32 to 32/32 by replacing one ambiguous
-sentence with a positive completeness instruction. That version advances to a
-new-source comparison; production remains unchanged. The optional-field-only
-variant reduced needless edits but regressed on medical detail, so it is not adopted.
-
-The requested [field-necessity iteration](../experiments/2026-09-13-field-necessity-revision/README.md)
-now scores 29/30 versus 28/30, preserving redundancy controls but accepting the
-medical repair only 1/2 times at 29.6% more tokens. That paragraph also remains
-unadopted. Carry its cosmetic and valid-component controls into the next fresh
-comparison; keep the successful positive shared-task wording unchanged.
+M2 is implemented and verified. M3's identifier presentation is integrated, though
+its original semantic diagnostic failed. Earlier M4 comparisons and field-only
+paragraphs remain recorded below, with their failed gates intact. The successful
+policy is the unchanged positive shared task, not either field-only revision.
 
 Reuse CUE definitions, passage catalogs, evidence resolution and the current review
 path. Keep useful schema descriptions and semantic examples. Preserve original
@@ -252,12 +246,12 @@ and the concrete instruction ambiguity before expanding the pipeline.
   component/link fixes and rejecting all twelve wrong edits. Medical-repair
   acceptance falls from 1/2 to 0/2. Total 17/24 to 22/24 is a bounded benefit with
   a regression; the preregistered gate fails. Do not add this paragraph alone.
-- [x] **M4b diagnostic passed; fresh-source validation pending.** Replacing only
+- [x] **M4b diagnostic passed; fresh-source validation now passed below.** Replacing only
   the negative sentence in the shared task improves 25/32 to 32/32, across all
   three target contexts. Needed repairs improve 5/8 to 8/8; incomplete no-change
   rejections improve 4/8 to 8/8. Wrong-target/meaning and complete no-change controls
   remain correct. Raw rationale imperfections are recorded separately.
-- [ ] **Next: validate the unchanged positive shared task on eight new excerpts.**
+- [x] **Validate the unchanged positive shared task on eight new excerpts.**
   Compare with the production checker under frozen source-based criteria and
   current provider settings. Preserve all shared-edit and no-change denominators,
   original captures, rationale problems and unavailable-context controls. These
@@ -280,7 +274,7 @@ all request bodies and saved-response decodes verified without provider access.
   version accepts the needed medical repair 1/2 times versus 0/2, so the gate fails.
   Reported token use increases 29.6%. Twenty-four calls, 60 judgments; no retries
   or mechanical failures. [Evidence](../experiments/2026-09-13-field-necessity-revision/README.md).
-- [ ] **Extend the next fresh-source criteria with these field controls.** Include
+- [x] **Extend the fresh-source criteria with these field controls.** Include
   redundant action/object fills, synonymous rewording that adds no meaning, valid
   component corrections and missing qualification links. Compare the unchanged
   positive shared task with production as already planned. Do not append another
@@ -291,3 +285,80 @@ is reliably assessing needed meaning in the selected statement rather than
 crediting detail retained elsewhere. The current results do not isolate the
 effect of instruction ordering. Fresh-source and generation evaluations remain
 separate, and production remains unchanged.
+
+## Fresh positive-task result and concrete integration steps — September 13
+
+The [eight-source comparison](../experiments/2026-09-13-fresh-field-completeness/README.md)
+passes all fourteen preregistered checks. It improves six source contexts with no
+observed regression. The needed-repair gain is now present on new sources, as well
+as the field-noise benefit. Excluding the three uncertain labels still improves
+shared edits from 16/26 to 26/26. This supports the following bounded proposal;
+it does not automatically adopt the experiment or test generation of repairs.
+
+### Existing implementation and actual gaps
+
+| Capability | Existing code | Integration work |
+|---|---|---|
+| Complete meanings and component semantics | CUE-derived `meaning`, `CANDIDATE_SCHEMA`, `MEANING_FIELDS` | Reuse; no new meaning schema |
+| Source and current claim selection | `refinement._packet`, `_model_packet`, `_challenge_catalog` | Make the selected statement aliases explicit for the checking task |
+| Source-grounded model judgments | `CHECK_SCHEMA`, `_decode_checks`, passage resolver | Reuse judgment format and exact source resolution |
+| Validated meaning edits and history | `_decode_proposals`, `_action`, `ReviewStore.preview/apply` | Keep mutations behind these checks |
+| Unchanged selected readings | No mutation operation; generator observations have only quote/rationale/disposition | Build temporary checking candidates from selected current records; do not infer target approval from observations |
+| Recorded assessments | `_withheld_observations`, `_observation_action`, review `observe` action | Extend assessment mapping for unchanged targets without creating replacement claims |
+| Replay and provenance | `refine_run`, `replay_refinement`, captured request/runtime files | Record selected aliases/candidates and reproduce them during replay |
+
+Production currently calls the checker only when `prepared` contains edits/additions.
+An empty proposal list is therefore unassessed, not an independently verified
+complete reading. Replacing `CHECK` alone would not deliver the tested no-change
+behavior. Existing `already_represented` observations also lack a selected claim
+alias and cannot safely fill this gap through fuzzy quote matching.
+
+### Ordered tasks
+
+- [ ] **M9a — Add the tested policy at the focused checking seam.** Reuse the exact
+  winning task text from `instructions.json` B and its explicit selected aliases.
+  Keep the policy in one application constant. Extend `_challenge_prompt` to accept
+  an explicit set of selected current aliases for a bounded optional check; retain
+  the existing catalog, draft meaning and navigation. Do not silently select all
+  60 context records or transfer the policy to initial extraction. A whole-run
+  selection policy and add-only recovery were not measured here.
+- [ ] **M9b — Account for unchanged selected statements without extra model output.**
+  Construct a temporary `no_change` candidate from each selected current reading,
+  alongside valid proposed edits. Copy the current fields deterministically and
+  assign distinct candidate IDs. Reuse `CHECK_SCHEMA` and `_decode_checks` for the
+  judgments. These are assessment inputs, never mutation proposals: keep them out
+  of `_decode_proposals`, `_action` and the edit-application loop. An unchanged
+  judgment is about that saved revision; invalidate its relevance after an edit.
+  Keep missing/invalid judgments and unresolved targets explicitly unassessed.
+- [ ] **M9c — Preserve assessment and evidence status separately.** Reuse the review
+  `observe` action for unchanged-target judgments, source selections, model identity
+  and capture provenance. Reuse exact revision/claim mapping; do not interpret
+  unsupported as an automatic deletion or supported as human approval. A semantic
+  correction must not clear `component_evidence_unresolved` unless the evidence
+  resolver actually succeeds. Retain cell 20 as a status counterexample.
+- [ ] **M9d — Verify integration before treating it as the production checker.**
+  Exercise empty proposals with selected targets, missing/duplicate candidate IDs,
+  wrong aliases, context-only edit refusal, unknown source, useful actor/link fixes,
+  redundant edits and stale revisions. Validate main-quote bounds as well as
+  evidence bounds: the fresh synthetic diagnostic inherited a parent's top-level
+  offsets, despite its correct evidence location. Keep `refine-replay` equivalent, including
+  observations and combined sequential edits. Use existing refinement/source-ref
+  tests and saved captures. A bounded live bridge must check the actual integrated
+  candidate construction and request, because the experiment supplied candidates
+  externally. Any edit-only or newly bundled request differs from the tested policy;
+  save that comparison rather than assuming equivalent behavior. Initial extraction
+  gains no default pass; expose the check through the existing optional review path.
+- [ ] **M5/M8 — Test repair generation on untouched sources using this evaluator.**
+  Once the checking seam is verified, compare existing full replacements with the
+  proposed changed-fields response under the same shared task and checker. Freeze
+  new source criteria and raw-label review before calls. Measure generated complete
+  readings, preserved fields, evidence refusals, unnecessary edits, applied outcomes
+  and usage separately. The eight checker sources above are now regression cases,
+  not the fresh generation holdout. Keep unavailable-context and unrelated-duty
+  controls from earlier studies. Do not add the failed optional-field paragraphs.
+
+M1's completeness criterion has checker evidence, but its generation/checking
+alignment remains unfinished. M4's checker evaluation is complete; its production
+integration is pending M9a–d. M6 evidence changes, M7 layout changes and M10 broader
+pipeline changes remain conditional. No further wording tuning on this cohort is
+needed before the integration and generation work.

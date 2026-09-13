@@ -2,6 +2,16 @@
 
 ## Active follow-up: model input improvements — 2026-09-13
 
+Latest: the [fresh positive-task checker comparison](../experiments/2026-09-13-fresh-field-completeness/README.md)
+passes its preregistered gate on eight new excerpts: shared edited-candidate
+judgments improve **24/36 to 36/36**, needed repairs **1/6 to 6/6**, and explicit
+no-change decisions reach **16/16**. Redundant-field rejection and useful actor/link
+controls all pass. The [active list](2026-09-13-model-input-improvements.md) now
+specifies M9a–d for a bounded optional checker integration, followed by M5/M8's
+separate fresh repair-generation test. Production remains unchanged by this
+checkpoint. The earlier results below remain historical evidence, not current
+instructions to repeat completed comparisons.
+
 The [prioritized change list](2026-09-13-model-input-improvements.md) consolidates
 the remaining checker, evidence and repair-interface work below. It incorporates
 the completed [independent input review](../reviews/2026-09-13-model-input-construction-review.md),

@@ -1,0 +1,2081 @@
+{
+  "@context": {
+    "rkaf": "https://rulespec.org/ns/v1#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "oa": "http://www.w3.org/ns/oa#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "cito": "http://purl.org/spar/cito/",
+    "wos": "https://w3id.org/wos/ns/v1#",
+    "formspec": "https://w3id.org/formspec/ns/v1#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "eli": "http://data.europa.eu/eli/ontology#",
+    "aknt": "http://docs.oasis-open.org/legaldocml/ns/akn/3.0/",
+    "uslm": "https://uslm.gov/2.1.0/",
+    "lrml": "http://docs.oasis-open.org/legalruleml/ns/v1.0/",
+    "rrmv": "http://data.europa.eu/m8g/rrmv/",
+    "eco": "http://purl.obolibrary.org/obo/ECO_",
+    "sepio": "http://purl.obolibrary.org/obo/SEPIO_",
+    "dpv": "https://w3id.org/dpv#",
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "rkaf:Artifact": {
+      "@type": "@id"
+    },
+    "rkaf:hasArtifactIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:artifactIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasRegulatoryIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:regulatoryIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:publishedInProceeding": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:publishedInDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:hasFormat": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:format": {
+      "@type": "xsd:string"
+    },
+    "dcterms:isFormatOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:isVersionOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "prov:wasRevisionOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasContentDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:versionLineageEvidence": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:SourceFragment": {
+      "@type": "@id"
+    },
+    "oa:hasSource": {
+      "@type": "@id"
+    },
+    "oa:hasSelector": {
+      "@type": "@id"
+    },
+    "oa:TextQuoteSelector": {
+      "@type": "@id"
+    },
+    "oa:TextPositionSelector": {
+      "@type": "@id"
+    },
+    "oa:exact": {
+      "@type": "xsd:string"
+    },
+    "oa:prefix": {
+      "@type": "xsd:string"
+    },
+    "oa:suffix": {
+      "@type": "xsd:string"
+    },
+    "oa:start": {
+      "@type": "xsd:integer"
+    },
+    "oa:end": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:selectorKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:coordinateSystem": {
+      "@type": "@vocab"
+    },
+    "rkaf:sourceArtifactDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:fragmentContentDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:EvidenceBinding": {
+      "@type": "@id"
+    },
+    "rkaf:bindsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:bindsSourceFragment": {
+      "@type": "@id"
+    },
+    "rkaf:noEvidenceReason": {
+      "@type": "@id"
+    },
+    "rkaf:Warrant": {
+      "@type": "@id"
+    },
+    "rkaf:hasWarrant": {
+      "@type": "@id"
+    },
+    "rkaf:warrantKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:warrantFamily": {
+      "@type": "@vocab"
+    },
+    "rkaf:defeasible": {
+      "@type": "xsd:boolean"
+    },
+    "rkaf:ConfidenceRecord": {
+      "@type": "@id"
+    },
+    "rkaf:hasConfidence": {
+      "@type": "@id"
+    },
+    "rkaf:confidenceMethod": {
+      "@type": "@vocab"
+    },
+    "rkaf:calibrationStatus": {
+      "@type": "@vocab"
+    },
+    "rkaf:confidenceBasis": {
+      "@type": "@id"
+    },
+    "rkaf:evaluatedAgainst": {
+      "@type": "@id"
+    },
+    "rkaf:generatedBy": {
+      "@type": "@id"
+    },
+    "rkaf:score": {
+      "@type": "xsd:float"
+    },
+    "rkaf:scoreCategorical": {
+      "@type": "@vocab"
+    },
+    "rkaf:AccessScope": {
+      "@type": "@id"
+    },
+    "rkaf:hasAccessScope": {
+      "@type": "@id"
+    },
+    "rkaf:accessScopeKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:regulatoryClass": {
+      "@type": "@vocab"
+    },
+    "rkaf:embargoUntil": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:permittedRole": {
+      "@type": "@id"
+    },
+    "rkaf:AILineage": {
+      "@type": "@id"
+    },
+    "rkaf:hasAILineage": {
+      "@type": "@id"
+    },
+    "rkaf:modelId": {
+      "@type": "xsd:string"
+    },
+    "rkaf:modelVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:promptTemplateRef": {
+      "@type": "@id"
+    },
+    "rkaf:temperature": {
+      "@type": "xsd:float"
+    },
+    "rkaf:seed": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:inputContextHash": {
+      "@type": "xsd:string"
+    },
+    "rkaf:humanApprover": {
+      "@type": "@id"
+    },
+    "rkaf:humanRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:MappingState": {
+      "@type": "@id"
+    },
+    "rkaf:mappingState": {
+      "@type": "@vocab"
+    },
+    "rkaf:RetentionPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:hasRetentionPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:retentionDurationDays": {
+      "@type": "xsd:int"
+    },
+    "rkaf:retentionTrigger": {
+      "@type": "@vocab"
+    },
+    "rkaf:retentionPostExpiry": {
+      "@type": "@vocab"
+    },
+    "rkaf:Workspace": {
+      "@type": "@id"
+    },
+    "rkaf:scopedToWorkspace": {
+      "@type": "@id"
+    },
+    "rkaf:workspaceId": {
+      "@type": "xsd:string"
+    },
+    "rkaf:workspaceTrustList": {
+      "@type": "@id"
+    },
+    "rkaf:projectsTo": {
+      "@type": "@id"
+    },
+    "rkaf:llmHint": {
+      "@type": "@id"
+    },
+    "rkaf:Authority": {
+      "@type": "@id"
+    },
+    "rkaf:Attestation": {
+      "@type": "@id"
+    },
+    "rkaf:LocalAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:ApplicabilityScope": {
+      "@type": "@id"
+    },
+    "rkaf:EffectivePeriod": {
+      "@type": "@id"
+    },
+    "rkaf:LifecycleEvent": {
+      "@type": "@id"
+    },
+    "rkaf:Proceeding": {
+      "@type": "@id"
+    },
+    "rkaf:RegulatoryAgendaItem": {
+      "@type": "@id"
+    },
+    "rkaf:RegulatoryAgendaObservation": {
+      "@type": "@id"
+    },
+    "rkaf:AgendaProceedingRelationship": {
+      "@type": "@id"
+    },
+    "dcat:Resource": {
+      "@type": "@id"
+    },
+    "dcat:CatalogRecord": {
+      "@type": "@id"
+    },
+    "dcat:Relationship": {
+      "@type": "@id"
+    },
+    "rkaf:CommentPeriod": {
+      "@type": "@id"
+    },
+    "rkaf:Docket": {
+      "@type": "@id"
+    },
+    "prov:Entity": {
+      "@type": "@id"
+    },
+    "rkaf:hasDocketIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:docketIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasProceedingIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:proceedingIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasAgendaItemIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:agendaItemIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaScopeStatus": {
+      "@type": "@vocab"
+    },
+    "dcat:qualifiedRelation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "foaf:primaryTopic": {
+      "@type": "@id"
+    },
+    "rkaf:agendaStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaPriority": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaAffectsCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:agendaAuthorityCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:relation": {
+      "@type": "@id"
+    },
+    "dcat:hadRole": {
+      "@type": "@vocab"
+    },
+    "rkaf:identifierRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:proceedingStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:proceedingTerminationCause": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasAuthority": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingAffects": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingAffectsCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingProduces": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasProceedingEvidenceIdentifier": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingEvidenceIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:proceedingSupersedes": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodFor": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodOpenedBy": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodStart": {
+      "@type": "xsd:date"
+    },
+    "rkaf:commentPeriodEnd": {
+      "@type": "xsd:date"
+    },
+    "rkaf:RegisteredConcept": {
+      "@type": "@id"
+    },
+    "rkaf:LocalConcept": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptMapping": {
+      "@type": "@id"
+    },
+    "rkaf:ReferenceResourceRelease": {
+      "@type": "@id"
+    },
+    "rkaf:MappingApplicabilityContext": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptResolutionResult": {
+      "@type": "@id"
+    },
+    "rkaf:BridgeValidationResult": {
+      "@type": "@id"
+    },
+    "rkaf:BridgeConsumerRegistration": {
+      "@type": "@id"
+    },
+    "rkaf:RegistryConflict": {
+      "@type": "@id"
+    },
+    "rkaf:Finding": {
+      "@type": "@id"
+    },
+    "rkaf:Justification": {
+      "@type": "@id"
+    },
+    "rkaf:hasJustification": {
+      "@type": "@id"
+    },
+    "rkaf:PointInTimeException": {
+      "@type": "@id"
+    },
+    "rkaf:evaluationAnchor": {
+      "@type": "@id"
+    },
+    "rkaf:retainsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:retainsWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:GeneratedWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:justifiedByAssertion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:consumerLifecycleState": {
+      "@type": "@id"
+    },
+    "rkaf:proposedUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:RevalidationEvent": {
+      "@type": "@id"
+    },
+    "rkaf:RevalidationClosureEvent": {
+      "@type": "@id"
+    },
+    "rkaf:revalidationFor": {
+      "@type": "@id"
+    },
+    "rkaf:triggeredBy": {
+      "@type": "@id"
+    },
+    "rkaf:closesRevalidation": {
+      "@type": "@id"
+    },
+    "rkaf:openedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:closedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:closureDecision": {
+      "@type": "@id"
+    },
+    "rkaf:successorAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:successorWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:ConsumerEffectiveDeclaration": {
+      "@type": "@id"
+    },
+    "rkaf:forAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:declaredEffective": {
+      "@type": "@vocab"
+    },
+    "rkaf:declaredScope": {
+      "@type": "@id"
+    },
+    "rkaf:declaredAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:BridgeIssueAttestationContract": {
+      "@type": "@id"
+    },
+    "rkaf:attestedIssueKinds": {
+      "@type": "@vocab"
+    },
+    "rkaf:usedAsAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:detectedIssues": {
+      "@type": "@id"
+    },
+    "rkaf:derivesAuthorityFrom": {
+      "@type": "@id"
+    },
+    "rkaf:hasApplicability": {
+      "@type": "@id"
+    },
+    "rkaf:hasEffectivePeriod": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:adoptedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:attestationScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:attestorKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:targets": {
+      "@type": "@id"
+    },
+    "rkaf:attestedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:revokedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:rationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:lifecycleEventKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:bridgeContractVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:maxAttestationStalenessDays": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:evaluationTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectivePeriodStart": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectivePeriodEnd": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:retroactiveFrom": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:sunsetAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:resolvedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:validatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:anchoredBy": {
+      "@type": "@id"
+    },
+    "rkaf:anchorType": {
+      "@type": "@id"
+    },
+    "rkaf:Assertion": {
+      "@type": "@id"
+    },
+    "rkaf:RelationshipAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:ValueAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:assertsSubject": {
+      "@type": "@id"
+    },
+    "rkaf:assertsPredicate": {
+      "@type": "@id"
+    },
+    "rkaf:assertsObject": {
+      "@type": "@id"
+    },
+    "rkaf:assertsValue": {
+      "@id": "https://rulespec.org/ns/v1#assertsValue"
+    },
+    "rkaf:assertionPolarity": {
+      "@type": "@vocab"
+    },
+    "rkaf:assertedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:hasSourceClaimant": {
+      "@type": "@id"
+    },
+    "rkaf:hasExtractionProvenance": {
+      "@type": "@id"
+    },
+    "rkaf:SourceClaimant": {
+      "@type": "@id"
+    },
+    "rkaf:claimsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:claimantAttribution": {
+      "@type": "@vocab"
+    },
+    "rkaf:claimantText": {
+      "@type": "xsd:string"
+    },
+    "rkaf:claimantIdentity": {
+      "@type": "@id"
+    },
+    "rkaf:attributedInFragment": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ExtractionActivity": {
+      "@type": "@id"
+    },
+    "rkaf:extractionMethod": {
+      "@type": "@vocab"
+    },
+    "rkaf:extractionRun": {
+      "@type": "@id"
+    },
+    "rkaf:extractedBy": {
+      "@type": "@id"
+    },
+    "rkaf:extractorVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:requestContractDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:extractionModelRef": {
+      "@type": "@id"
+    },
+    "rkaf:extractionPromptRef": {
+      "@type": "@id"
+    },
+    "rkaf:inputDigest": {
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "rkaf:extractionAttempt": {
+      "@type": "xsd:integer"
+    },
+    "prov:startedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "prov:endedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:hasSafetyLabel": {
+      "@type": "@id"
+    },
+    "rkaf:usageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:capabilityCap": {
+      "@type": "@id"
+    },
+    "rkaf:assertionOrigin": {
+      "@type": "@id"
+    },
+    "rkaf:epistemicBasis": {
+      "@type": "@vocab"
+    },
+    "rkaf:authorityKind": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionAuthorityKind": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionStatus": {
+      "@type": "@id"
+    },
+    "rkaf:result": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionStatus": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionMethod": {
+      "@type": "@id"
+    },
+    "rkaf:cacheStatus": {
+      "@type": "@id"
+    },
+    "rkaf:usageCeiling": {
+      "@type": "@id"
+    },
+    "rkaf:lifecycleEvent": {
+      "@type": "@id"
+    },
+    "rkaf:cascadeAlgorithm": {
+      "@type": "@id"
+    },
+    "rkaf:evidenceRole": {
+      "@type": "@id"
+    },
+    "rkaf:evidentiaryFunction": {
+      "@type": "@vocab"
+    },
+    "rkaf:warningCode": {
+      "@type": "@id"
+    },
+    "rkaf:errorCode": {
+      "@type": "@id"
+    },
+    "rkaf:decision": {
+      "@type": "@id"
+    },
+    "rkaf:scope": {
+      "@type": "@id"
+    },
+    "rkaf:visibility": {
+      "@type": "@id"
+    },
+    "rkaf:attestorType": {
+      "@type": "@id"
+    },
+    "rkaf:role": {
+      "@type": "@id"
+    },
+    "rkaf:transitionTo": {
+      "@type": "@id"
+    },
+    "rkaf:status": {
+      "@type": "@id"
+    },
+    "rkaf:predicate": {
+      "@type": "@id"
+    },
+    "rkaf:conceptScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:governanceModel": {
+      "@type": "@id"
+    },
+    "rkaf:revisedUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:effectiveUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:safeAutomaticMigration": {
+      "@type": "@id"
+    },
+    "rkaf:resourceKind": {
+      "@type": "@id"
+    },
+    "rkaf:officialStatus": {
+      "@type": "@id"
+    },
+    "rkaf:legalValue": {
+      "@type": "@id"
+    },
+    "rkaf:publicationStatus": {
+      "@type": "@id"
+    },
+    "rkaf:remediationAction": {
+      "@type": "@id"
+    },
+    "rkaf:requiredPredicate": {
+      "@type": "@id"
+    },
+    "rkaf:minimumUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:noRemediationReason": {
+      "@type": "@id"
+    },
+    "rkaf:authorityChainStatus": {
+      "@type": "@id"
+    },
+    "rkaf:chainTerminusKind": {
+      "@type": "@id"
+    },
+    "rkaf:fragmentType": {
+      "@type": "@id"
+    },
+    "rkaf:reviewStatus": {
+      "@type": "@id"
+    },
+    "rkaf:newWorkProductStatus": {
+      "@type": "@id"
+    },
+    "rkaf:newUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:newAssertionState": {
+      "@type": "@id"
+    },
+    "rkaf:resourceFamily": {
+      "@type": "@id"
+    },
+    "rkaf:assertedBy": {
+      "@type": "@id"
+    },
+    "rkaf:attestor": {
+      "@type": "@id"
+    },
+    "rkaf:targetAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:targetWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:targetPacket": {
+      "@type": "@id"
+    },
+    "rkaf:sourceConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:targetConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:targetMappingConflict": {
+      "@type": "@id"
+    },
+    "rkaf:targetBridgeValidation": {
+      "@type": "@id"
+    },
+    "rkaf:targetRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:targetAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:authorizedBy": {
+      "@type": "@id"
+    },
+    "rkaf:organization": {
+      "@type": "@id"
+    },
+    "rkaf:packetId": {
+      "@type": "@id"
+    },
+    "rkaf:consumer": {
+      "@type": "@id"
+    },
+    "rkaf:emittedBy": {
+      "@type": "@id"
+    },
+    "rkaf:triggeredByPacket": {
+      "@type": "@id"
+    },
+    "rkaf:closesRevalidationEvent": {
+      "@type": "@id"
+    },
+    "rkaf:successorAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:closedBy": {
+      "@type": "@id"
+    },
+    "rkaf:queuedFor": {
+      "@type": "@id"
+    },
+    "rkaf:supersedesAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:supersedesWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:revalidationOf": {
+      "@type": "@id"
+    },
+    "rkaf:precedingArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:precedingVersion": {
+      "@type": "@id"
+    },
+    "rkaf:supportingEvent": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnClassification": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnEvent": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnAttestation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:basedOnAttestations": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:artifactId": {
+      "@type": "@id"
+    },
+    "rkaf:realizedByArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:resourceLineage": {
+      "@type": "@id"
+    },
+    "rkaf:sourceAuthorityHint": {
+      "@type": "@id"
+    },
+    "rkaf:capturedBy": {
+      "@type": "@id"
+    },
+    "rkaf:subjectArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:priorArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:classifiedBy": {
+      "@type": "@id"
+    },
+    "rkaf:classification": {
+      "@type": "@id"
+    },
+    "rkaf:managedByRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:referenceReleaseDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:versionBasis": {
+      "@type": "@vocab"
+    },
+    "rkaf:membershipMode": {
+      "@type": "@vocab"
+    },
+    "rkaf:hostedByRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:mintingAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionEndpoint": {
+      "@type": "@id"
+    },
+    "rkaf:registeredVia": {
+      "@type": "@id"
+    },
+    "rkaf:replacedBy": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:absorbedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:splitInto": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:conceptLifecycleOperation": {
+      "@type": "@vocab"
+    },
+    "rkaf:predecessorConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:successorConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:predecessorConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:successorConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:subjectConcept": {
+      "@type": "@id"
+    },
+    "rkaf:relatedConcept": {
+      "@type": "@id"
+    },
+    "rkaf:sharedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:relatedPublishedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:conflictingMappings": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:concept": {
+      "@type": "@id"
+    },
+    "rkaf:inputConcept": {
+      "@type": "@id"
+    },
+    "rkaf:resolvedConcept": {
+      "@type": "@id"
+    },
+    "rkaf:mappingAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:openLabelFacet": {
+      "@type": "@id"
+    },
+    "rkaf:openLabelRole": {
+      "@type": "@vocab"
+    },
+    "rkaf:resolutionTrustedVia": {
+      "@type": "@id"
+    },
+    "rkaf:registry": {
+      "@type": "@id"
+    },
+    "rkaf:resolvedToConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:assertion": {
+      "@type": "@id"
+    },
+    "rkaf:object": {
+      "@type": "@id"
+    },
+    "rkaf:dataConcept": {
+      "@type": "@id"
+    },
+    "rkaf:proposedFromLocalConcept": {
+      "@type": "@id"
+    },
+    "rkaf:registeredConcept": {
+      "@type": "@id"
+    },
+    "rkaf:registrationAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:proposedBy": {
+      "@type": "@id"
+    },
+    "rkaf:delegatingAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:delegatedTo": {
+      "@type": "@id"
+    },
+    "rkaf:publisher": {
+      "@type": "@id"
+    },
+    "rkaf:appliesTo": {
+      "@type": "@id"
+    },
+    "rkaf:affectedAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedAuthorityAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedImplementationAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedWorkProducts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedAdoptions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedFragments": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:affectedAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:affectedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:staleDependencies": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:unresolvedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:registryUnavailable": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:staleConceptCache": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedEvaluationAnchors": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedAutomaticMigrations": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedAuthorityKinds": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:justificationBackedBy": {
+      "@type": "@id"
+    },
+    "rkaf:derivedFromFragment": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:associatedWorkflowStep": {
+      "@type": "@id"
+    },
+    "rkaf:generationRun": {
+      "@type": "@id"
+    },
+    "rkaf:fromConcept": {
+      "@type": "@id"
+    },
+    "rkaf:toConcept": {
+      "@type": "@id"
+    },
+    "rkaf:requiredAdoptionScope": {
+      "@type": "@id"
+    },
+    "rkaf:collectsEvidenceType": {
+      "@type": "@id"
+    },
+    "rkaf:requiresEvidenceType": {
+      "@type": "@id"
+    },
+    "rkaf:acceptedDocumentTypes": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:excludesCategory": {
+      "@container": "@set"
+    },
+    "rkaf:evidencePurpose": {
+      "@container": "@set"
+    },
+    "rkaf:excludesPurposes": {
+      "@container": "@set"
+    },
+    "rkaf:jurisdiction": {
+      "@container": "@set"
+    },
+    "prov:wasGeneratedBy": {
+      "@type": "@id"
+    },
+    "prov:wasAttributedTo": {
+      "@type": "@id"
+    },
+    "prov:wasDerivedFrom": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "prov:generatedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "eli:consolidates": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "eli:consolidated_by": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dpv:hasPersonalDataCategory": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dpv:hasLegalBasis": {
+      "@type": "@id"
+    },
+    "dpv:hasPurpose": {
+      "@type": "@id"
+    },
+    "skos:prefLabel": {
+      "@container": "@language"
+    },
+    "skos:altLabel": {
+      "@container": "@language"
+    },
+    "skos:hiddenLabel": {
+      "@container": "@language"
+    },
+    "skos:definition": {
+      "@container": "@language"
+    },
+    "skos:example": {
+      "@container": "@language"
+    },
+    "skos:note": {
+      "@container": "@language"
+    },
+    "skos:scopeNote": {
+      "@container": "@language"
+    },
+    "skos:changeNote": {
+      "@container": "@language"
+    },
+    "skos:editorialNote": {
+      "@container": "@language"
+    },
+    "skos:historyNote": {
+      "@container": "@language"
+    },
+    "skos:notation": {
+      "@id": "http://www.w3.org/2004/02/skos/core#notation"
+    },
+    "skos:broader": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:narrower": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:related": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:inScheme": {
+      "@type": "@id"
+    },
+    "skos:hasTopConcept": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ConceptScheme": {
+      "@type": "@id"
+    },
+    "rkaf:schemeFacet": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptAssignment": {
+      "@type": "@id"
+    },
+    "rkaf:assignedConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:fragmentIdentityScheme": {
+      "@type": "@vocab"
+    },
+    "prov:hadMember": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcat:distribution": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcat:version": {
+      "@type": "xsd:string"
+    },
+    "dcterms:type": {
+      "@type": "@id"
+    },
+    "dcterms:issued": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:capturedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:registeredAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectiveDate": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:exceptionEffectivePeriodEnd": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:exceptionEffectivePeriodStart": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:cachedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:deprecatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:rescissionEffectiveDate": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:detectedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:definedInScope": {
+      "@type": "@id"
+    },
+    "rkaf:findingKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:severity": {
+      "@type": "@vocab"
+    },
+    "rkaf:subject": {
+      "@type": "@id"
+    },
+    "rkaf:detectedBy": {
+      "@type": "@id"
+    },
+    "rkaf:lastVerifiedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:verifiedBy": {
+      "@type": "@id"
+    },
+    "rkaf:targetFinding": {
+      "@type": "@id"
+    },
+    "rkaf:findings": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:RelationChangeEvent": {
+      "@type": "@id"
+    },
+    "rkaf:changeSubject": {
+      "@type": "@id"
+    },
+    "rkaf:changePredicate": {
+      "@type": "@id"
+    },
+    "rkaf:changeObject": {
+      "@type": "@id"
+    },
+    "rkaf:relationChangeOperation": {
+      "@type": "@vocab"
+    },
+    "rkaf:relationChangeStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:relationChangeTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:changeIntendedEffectiveTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:changeEvidence": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:replacementRelationObject": {
+      "@type": "@id"
+    },
+    "rkaf:RelationComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonBaselineArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonObservedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonExpectedAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonConsumer": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonScope": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonEvaluationTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:comparisonPolicyVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonDetector": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonDetectorVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonSnapshot": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonOutcome": {
+      "@type": "@vocab"
+    },
+    "rkaf:comparisonProofRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ResolverProofIssuer": {
+      "@type": "@id"
+    },
+    "rkaf:proofResolver": {
+      "@type": "@id"
+    },
+    "rkaf:proofResolverVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:proofPolicyVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:ResolverProofRecord": {
+      "@type": "@id"
+    },
+    "rkaf:proofType": {
+      "@type": "@vocab"
+    },
+    "rkaf:proofIssuer": {
+      "@type": "@id"
+    },
+    "rkaf:proofComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:proofOutcome": {
+      "@type": "@vocab"
+    },
+    "rkaf:proofRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofInput": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proofInputDigest": {
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "rkaf:proofSupportingRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proofEvaluatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:proofSnapshot": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofRecordDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:independenceGroup": {
+      "@type": "@id"
+    },
+    "rkaf:adjudicationVerdict": {
+      "@type": "@vocab"
+    },
+    "rkaf:sealedRequestDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:sealedResponseArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:RelationFinding": {
+      "@type": "@id"
+    },
+    "rkaf:relationFindingKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:findingComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:findingComparedAssertion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:findingProofRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:findingDetectedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:findingRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:findingFingerprint": {
+      "@type": "xsd:string"
+    },
+    "rkaf:ClosureClaim": {
+      "@type": "@id"
+    },
+    "rkaf:closureClaimStatus": {
+      "@type": "@vocab"
+    },
+    "rkaf:closureArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:closureRegion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:closurePredicateFamily": {
+      "@type": "@id"
+    },
+    "rkaf:closureProfileVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:closureMemberDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:closureReviewedAt": {
+      "@type": "xsd:dateTime"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "urn:rulespec:document-understanding:document:64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:document:64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f",
+      "rkaf:artifactIdentifierScheme": "rkaf:hash-sha256",
+      "rkaf:hasContentDigest": "sha256:64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f",
+      "dcterms:format": "text/plain"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:lineage:21a9ce070450df2d7d45e3c1e553299fb99b1321101e139f4d7937a21944aae5",
+      "@type": "rkaf:AILineage",
+      "rkaf:modelId": "gemini-3.8-flash",
+      "rkaf:modelVersion": "gemini-3.8-flash",
+      "rkaf:promptTemplateRef": "urn:rulespec:document-understanding:prompt:f68d460a221d1f3299cf927cbbf9bceae26342cbafa3cf383655065aa7428db5",
+      "rkaf:inputContextHash": "sha256:64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:activity:20e33a16d6f784af88583959f2fd40d57d959d0f7dde40b3f54a0abe5d7ce24e",
+      "@type": "rkaf:ExtractionActivity",
+      "rkaf:extractionMethod": "rkaf:modelExtraction",
+      "rkaf:extractionRun": "urn:rulespec:document-understanding:run:78fac571-93e1-4f44-ae32-c34a18b6c345",
+      "rkaf:extractedBy": "urn:rulespec:document-understanding:extractor:langextract",
+      "rkaf:extractorVersion": "document-understanding/3",
+      "rkaf:requestContractDigest": "sha256:1464422008a4771dc03397b41010e53d0e8725d363def6a73cf29a3defb1272a",
+      "rkaf:extractionModelRef": "urn:rulespec:document-understanding:model:319034f3e25d0d9bd6b3a46b1def7a01b7689f0d51384c63da1f6e0b464af810",
+      "rkaf:extractionPromptRef": "urn:rulespec:document-understanding:prompt:f68d460a221d1f3299cf927cbbf9bceae26342cbafa3cf383655065aa7428db5",
+      "rkaf:inputDigest": [
+        "sha256:64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f"
+      ],
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:21a9ce070450df2d7d45e3c1e553299fb99b1321101e139f4d7937a21944aae5"
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:1092:1588:sha256-4d9646bace5c8b1d4428d6d1861499b0e9d351652f605ac68051d3406a9175b5",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f",
+      "rkaf:fragmentContentDigest": "sha256:4d9646bace5c8b1d4428d6d1861499b0e9d351652f605ac68051d3406a9175b5",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "shall immediately inform the Commission of such failure to comply, of such defect, or of such risk, unless such manufacturer, distributor, or retailer has actual knowledge that the Commission has been adequately informed of such defect, failure to comply, or such risk. A report provided under paragraph (2) may not be used as the basis for criminal prosecution of the reporting person under section 1264 of this title, except for offenses which require a showing of intent to defraud or mislead."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1092,
+          "oa:end": 1588,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:1092:1097:sha256-56ee5b508706bf2de91712d85d6d1e11ddbff01949142ed6e8c22e3b1bed1c71",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f",
+      "rkaf:fragmentContentDigest": "sha256:56ee5b508706bf2de91712d85d6d1e11ddbff01949142ed6e8c22e3b1bed1c71",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "shall"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1092,
+          "oa:end": 1097,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:0:144:sha256-806fced2fec9ca63f6331d02e6d12064de075dcbeb33165f45e2968c66950df7",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f",
+      "rkaf:fragmentContentDigest": "sha256:806fced2fec9ca63f6331d02e6d12064de075dcbeb33165f45e2968c66950df7",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(b) Noncompliance with applicable consumer product safety rules; product defects; notice to Commission by manufacturer, distributor, or retailer"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 0,
+          "oa:end": 144,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:145:390:sha256-40cc4bd5978bec111ee7f6ef7bcac0e6e250ded0fc3e0cb76a14f5e09383c260",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f",
+      "rkaf:fragmentContentDigest": "sha256:40cc4bd5978bec111ee7f6ef7bcac0e6e250ded0fc3e0cb76a14f5e09383c260",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "Every manufacturer of a consumer product, or other product or substance over which the Commission has jurisdiction under any other Act enforced by the Commission (other than motor vehicle equipment as defined in section 30102(a)(7) of title 49 1"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 145,
+          "oa:end": 390,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:430:593:sha256-eab970eda2f8aa4008e5b92275cd82f1545a0957a9afe524643098213168f4a5",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f",
+      "rkaf:fragmentContentDigest": "sha256:eab970eda2f8aa4008e5b92275cd82f1545a0957a9afe524643098213168f4a5",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "), distributed in commerce, and every distributor and retailer of such product, who obtains information which reasonably supports the conclusion that such product—"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 430,
+          "oa:end": 593,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:595:1089:sha256-4fc1baddea14cca1794a607d422fbacdd516e1a01596f6718878756678bf7e1e",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f",
+      "rkaf:fragmentContentDigest": "sha256:4fc1baddea14cca1794a607d422fbacdd516e1a01596f6718878756678bf7e1e",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(1) fails to comply with an applicable consumer product safety rule or with a voluntary consumer product safety standard upon which the Commission has relied under section 2058 of this title;\n\n(2) fails to comply with any other rule, regulation, standard, or ban under this chapter or any other Act enforced by the Commission;\n\n(3) contains a defect which could create a substantial product hazard described in subsection (a)(2); or\n\n(4) creates an unreasonable risk of serious injury or death,"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 595,
+          "oa:end": 1089,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:scope:4fc5990e32809a35d5a07bad7af19821f12f5db4b491c267cb124e17c97d6981",
+      "@type": "rkaf:ApplicabilityScope",
+      "rkaf:appliesInJurisdiction": [],
+      "rkaf:applicabilityCondition": "When a manufacturer of a consumer product or other jurisdictional product/substance (other than motor vehicle equipment as defined in section 30102(a)(7) of title 49) distributed in commerce, or a distributor or retailer of such product, obtains information reasonably supporting the conclusion that such product (1) fails to comply with an applicable consumer product safety rule or relied-upon voluntary standard under section 2058, (2) fails to comply with any other rule, regulation, standard, or ban under this chapter or any other Act enforced by the Commission, (3) contains a defect which could create a substantial product hazard described in subsection (a)(2), or (4) creates an unreasonable risk of serious injury or death, and unless the manufacturer, distributor, or retailer has actual knowledge that the Commission has been adequately informed of such defect, failure to comply, or risk."
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:e157504a899b5b239814b9851344490065e77b411e355a58daea668db9abb000",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:21a9ce070450df2d7d45e3c1e553299fb99b1321101e139f4d7937a21944aae5",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:20e33a16d6f784af88583959f2fd40d57d959d0f7dde40b3f54a0abe5d7ce24e",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:f74535b706df14f4ccd55c688423f516805396ed953b8e14fc9a57c603ce548d",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-requirement",
+      "rkaf:assertsValue": {
+        "@value": "Every manufacturer of a consumer product, or other product or substance over which the Commission has jurisdiction under any other Act enforced by the Commission (other than motor vehicle equipment as defined in section 30102(a)(7) of title 49), distributed in commerce, and every distributor and retailer of such product, who obtains information which reasonably supports the conclusion that such product fails to comply with an applicable consumer product safety rule or with a voluntary consumer product safety standard upon which the Commission has relied under section 2058 of this title, fails to comply with any other rule, regulation, standard, or ban under this chapter or any other Act enforced by the Commission, contains a defect which could create a substantial product hazard described in subsection (a)(2), or creates an unreasonable risk of serious injury or death, shall immediately inform the Commission of such failure to comply, of such defect, or of such risk, unless such manufacturer, distributor, or retailer has actual knowledge that the Commission has been adequately informed of such defect, failure to comply, or such risk.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:e4bc86a76d21194047ec20c3d4d14f2fdf97f70a61c7fa195e7609396397c772",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:e157504a899b5b239814b9851344490065e77b411e355a58daea668db9abb000",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:1092:1588:sha256-4d9646bace5c8b1d4428d6d1861499b0e9d351652f605ac68051d3406a9175b5"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:e2997e636b9c452435af4690dba84a495bb38c92a57872ea1d7a094a08085553",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:e157504a899b5b239814b9851344490065e77b411e355a58daea668db9abb000",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:0:144:sha256-806fced2fec9ca63f6331d02e6d12064de075dcbeb33165f45e2968c66950df7",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:145:390:sha256-40cc4bd5978bec111ee7f6ef7bcac0e6e250ded0fc3e0cb76a14f5e09383c260",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:430:593:sha256-eab970eda2f8aa4008e5b92275cd82f1545a0957a9afe524643098213168f4a5",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:595:1089:sha256-4fc1baddea14cca1794a607d422fbacdd516e1a01596f6718878756678bf7e1e",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:1092:1588:sha256-4d9646bace5c8b1d4428d6d1861499b0e9d351652f605ac68051d3406a9175b5"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:6af1f3e530ea340147d80af480fb17e34857a8307a9d858688efcecf9d63b4b4",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:21a9ce070450df2d7d45e3c1e553299fb99b1321101e139f4d7937a21944aae5",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:20e33a16d6f784af88583959f2fd40d57d959d0f7dde40b3f54a0abe5d7ce24e",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:f74535b706df14f4ccd55c688423f516805396ed953b8e14fc9a57c603ce548d",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "must",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:0270455f4d8b9f65eda0137841701765284725ee30a0810c5144771c8916e2e3",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:6af1f3e530ea340147d80af480fb17e34857a8307a9d858688efcecf9d63b4b4",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:1092:1097:sha256-56ee5b508706bf2de91712d85d6d1e11ddbff01949142ed6e8c22e3b1bed1c71"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:1197bdeac09419d456d73c721fc338b79c50796e051f978e243adb711dbafe63",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:21a9ce070450df2d7d45e3c1e553299fb99b1321101e139f4d7937a21944aae5",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:20e33a16d6f784af88583959f2fd40d57d959d0f7dde40b3f54a0abe5d7ce24e",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:f74535b706df14f4ccd55c688423f516805396ed953b8e14fc9a57c603ce548d",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:scope_text",
+      "rkaf:assertsValue": {
+        "@value": "When a manufacturer of a consumer product or other jurisdictional product/substance (other than motor vehicle equipment as defined in section 30102(a)(7) of title 49) distributed in commerce, or a distributor or retailer of such product, obtains information reasonably supporting the conclusion that such product (1) fails to comply with an applicable consumer product safety rule or relied-upon voluntary standard under section 2058, (2) fails to comply with any other rule, regulation, standard, or ban under this chapter or any other Act enforced by the Commission, (3) contains a defect which could create a substantial product hazard described in subsection (a)(2), or (4) creates an unreasonable risk of serious injury or death, and unless the manufacturer, distributor, or retailer has actual knowledge that the Commission has been adequately informed of such defect, failure to comply, or risk.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:3daff7cc2be2b242fd55aa70020bc9f923a9917990b1c84652c809e84c917c99",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:1197bdeac09419d456d73c721fc338b79c50796e051f978e243adb711dbafe63",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:0:144:sha256-806fced2fec9ca63f6331d02e6d12064de075dcbeb33165f45e2968c66950df7",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:145:390:sha256-40cc4bd5978bec111ee7f6ef7bcac0e6e250ded0fc3e0cb76a14f5e09383c260",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:430:593:sha256-eab970eda2f8aa4008e5b92275cd82f1545a0957a9afe524643098213168f4a5",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:595:1089:sha256-4fc1baddea14cca1794a607d422fbacdd516e1a01596f6718878756678bf7e1e",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:1092:1588:sha256-4d9646bace5c8b1d4428d6d1861499b0e9d351652f605ac68051d3406a9175b5"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:69baacf8c9ddd0978974bde2878030ea6675873de1dfad6d324e221c8f32ad69",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:21a9ce070450df2d7d45e3c1e553299fb99b1321101e139f4d7937a21944aae5",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:20e33a16d6f784af88583959f2fd40d57d959d0f7dde40b3f54a0abe5d7ce24e",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:f74535b706df14f4ccd55c688423f516805396ed953b8e14fc9a57c603ce548d",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"kind\":\"requirement\",\"modality\":\"must\",\"scope_text\":\"When a manufacturer of a consumer product or other jurisdictional product/substance (other than motor vehicle equipment as defined in section 30102(a)(7) of title 49) distributed in commerce, or a distributor or retailer of such product, obtains information reasonably supporting the conclusion that such product (1) fails to comply with an applicable consumer product safety rule or relied-upon voluntary standard under section 2058, (2) fails to comply with any other rule, regulation, standard, or ban under this chapter or any other Act enforced by the Commission, (3) contains a defect which could create a substantial product hazard described in subsection (a)(2), or (4) creates an unreasonable risk of serious injury or death, and unless the manufacturer, distributor, or retailer has actual knowledge that the Commission has been adequately informed of such defect, failure to comply, or risk.\",\"summary\":\"Every manufacturer of a consumer product, or other product or substance over which the Commission has jurisdiction under any other Act enforced by the Commission (other than motor vehicle equipment as defined in section 30102(a)(7) of title 49), distributed in commerce, and every distributor and retailer of such product, who obtains information which reasonably supports the conclusion that such product fails to comply with an applicable consumer product safety rule or with a voluntary consumer product safety standard upon which the Commission has relied under section 2058 of this title, fails to comply with any other rule, regulation, standard, or ban under this chapter or any other Act enforced by the Commission, contains a defect which could create a substantial product hazard described in subsection (a)(2), or creates an unreasonable risk of serious injury or death, shall immediately inform the Commission of such failure to comply, of such defect, or of such risk, unless such manufacturer, distributor, or retailer has actual knowledge that the Commission has been adequately informed of such defect, failure to comply, or such risk.\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed",
+      "rkaf:hasApplicability": "urn:rulespec:document-understanding:scope:4fc5990e32809a35d5a07bad7af19821f12f5db4b491c267cb124e17c97d6981"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:c86adaac15a86af7ec2617720710670eb03b7c3031c806dab88d39d7e049ed80",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:69baacf8c9ddd0978974bde2878030ea6675873de1dfad6d324e221c8f32ad69",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:1092:1588:sha256-4d9646bace5c8b1d4428d6d1861499b0e9d351652f605ac68051d3406a9175b5",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:1092:1097:sha256-56ee5b508706bf2de91712d85d6d1e11ddbff01949142ed6e8c22e3b1bed1c71"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:d56d02a5981ef279e1fe215f497fe4700c3bca43635b5e4134e1b620a7a27270",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:69baacf8c9ddd0978974bde2878030ea6675873de1dfad6d324e221c8f32ad69",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:0:144:sha256-806fced2fec9ca63f6331d02e6d12064de075dcbeb33165f45e2968c66950df7",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:145:390:sha256-40cc4bd5978bec111ee7f6ef7bcac0e6e250ded0fc3e0cb76a14f5e09383c260",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:430:593:sha256-eab970eda2f8aa4008e5b92275cd82f1545a0957a9afe524643098213168f4a5",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:595:1089:sha256-4fc1baddea14cca1794a607d422fbacdd516e1a01596f6718878756678bf7e1e",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:1092:1588:sha256-4d9646bace5c8b1d4428d6d1861499b0e9d351652f605ac68051d3406a9175b5"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:d2ebfec3a1b9757160710f18e0a6c50cbd2feaa9e04ba92e1d55fea64b470444",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:d2ebfec3a1b9757160710f18e0a6c50cbd2feaa9e04ba92e1d55fea64b470444",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:cff40008920753c65ffd897e8c3e1299451bbdcf40c4c51fa21242507a4e0dd5",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:e157504a899b5b239814b9851344490065e77b411e355a58daea668db9abb000\",\"urn:rulespec:document-understanding:assertion:6af1f3e530ea340147d80af480fb17e34857a8307a9d858688efcecf9d63b4b4\",\"urn:rulespec:document-understanding:assertion:1197bdeac09419d456d73c721fc338b79c50796e051f978e243adb711dbafe63\",\"urn:rulespec:document-understanding:assertion:69baacf8c9ddd0978974bde2878030ea6675873de1dfad6d324e221c8f32ad69\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"defined_terms\":[],\"effective_periods\":[],\"end\":1588,\"evidence\":[{\"end\":1588,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:1092:1588:sha256-4d9646bace5c8b1d4428d6d1861499b0e9d351652f605ac68051d3406a9175b5\",\"quote\":\"shall immediately inform the Commission of such failure to comply, of such defect, or of such risk, unless such manufacturer, distributor, or retailer has actual knowledge that the Commission has been adequately informed of such defect, failure to comply, or such risk. A report provided under paragraph (2) may not be used as the basis for criminal prosecution of the reporting person under section 1264 of this title, except for offenses which require a showing of intent to defraud or mislead.\",\"start\":1092},{\"end\":1097,\"field\":\"modality\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:1092:1097:sha256-56ee5b508706bf2de91712d85d6d1e11ddbff01949142ed6e8c22e3b1bed1c71\",\"quote\":\"shall\",\"start\":1092},{\"end\":144,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:0:144:sha256-806fced2fec9ca63f6331d02e6d12064de075dcbeb33165f45e2968c66950df7\",\"quote\":\"(b) Noncompliance with applicable consumer product safety rules; product defects; notice to Commission by manufacturer, distributor, or retailer\",\"start\":0},{\"end\":390,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:145:390:sha256-40cc4bd5978bec111ee7f6ef7bcac0e6e250ded0fc3e0cb76a14f5e09383c260\",\"quote\":\"Every manufacturer of a consumer product, or other product or substance over which the Commission has jurisdiction under any other Act enforced by the Commission (other than motor vehicle equipment as defined in section 30102(a)(7) of title 49 1\",\"start\":145},{\"end\":593,\"field\":\"scope_text:1\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:430:593:sha256-eab970eda2f8aa4008e5b92275cd82f1545a0957a9afe524643098213168f4a5\",\"quote\":\"), distributed in commerce, and every distributor and retailer of such product, who obtains information which reasonably supports the conclusion that such product—\",\"start\":430},{\"end\":1089,\"field\":\"scope_text:1\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:595:1089:sha256-4fc1baddea14cca1794a607d422fbacdd516e1a01596f6718878756678bf7e1e\",\"quote\":\"(1) fails to comply with an applicable consumer product safety rule or with a voluntary consumer product safety standard upon which the Commission has relied under section 2058 of this title;\\n\\n(2) fails to comply with any other rule, regulation, standard, or ban under this chapter or any other Act enforced by the Commission;\\n\\n(3) contains a defect which could create a substantial product hazard described in subsection (a)(2); or\\n\\n(4) creates an unreasonable risk of serious injury or death,\",\"start\":595},{\"end\":1588,\"field\":\"scope_text:2\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:1092:1588:sha256-4d9646bace5c8b1d4428d6d1861499b0e9d351652f605ac68051d3406a9175b5\",\"quote\":\"shall immediately inform the Commission of such failure to comply, of such defect, or of such risk, unless such manufacturer, distributor, or retailer has actual knowledge that the Commission has been adequately informed of such defect, failure to comply, or such risk. A report provided under paragraph (2) may not be used as the basis for criminal prosecution of the reporting person under section 1264 of this title, except for offenses which require a showing of intent to defraud or mislead.\",\"start\":1092}],\"id\":\"urn:rulespec:document-understanding:revision:d2ebfec3a1b9757160710f18e0a6c50cbd2feaa9e04ba92e1d55fea64b470444\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"requirement\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:69baacf8c9ddd0978974bde2878030ea6675873de1dfad6d324e221c8f32ad69\",\"modality\":\"must\",\"modality_quote\":\"shall\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:76cf2fca7738fb09e19afd6e8f78f03594b452aa8c0a9f56aa86cf726a5ff390\",\"origin\":\"aiSuggested\",\"quote\":\"shall immediately inform the Commission of such failure to comply, of such defect, or of such risk, unless such manufacturer, distributor, or retailer has actual knowledge that the Commission has been adequately informed of such defect, failure to comply, or such risk. A report provided under paragraph (2) may not be used as the basis for criminal prosecution of the reporting person under section 1264 of this title, except for offenses which require a showing of intent to defraud or mislead.\",\"references\":[\"section 30102(a)(7) of title 49\",\"section 2058 of this title\",\"subsection (a)(2)\"],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:f74535b706df14f4ccd55c688423f516805396ed953b8e14fc9a57c603ce548d\",\"scope_quotes\":[\"(b) Noncompliance with applicable consumer product safety rules; product defects; notice to Commission by manufacturer, distributor, or retailer Every manufacturer of a consumer product, or other product or substance over which the Commission has jurisdiction under any other Act enforced by the Commission (other than motor vehicle equipment as defined in section 30102(a)(7) of title 49 1\",\"), distributed in commerce, and every distributor and retailer of such product, who obtains information which reasonably supports the conclusion that such product—\\n\\n(1) fails to comply with an applicable consumer product safety rule or with a voluntary consumer product safety standard upon which the Commission has relied under section 2058 of this title;\\n\\n(2) fails to comply with any other rule, regulation, standard, or ban under this chapter or any other Act enforced by the Commission;\\n\\n(3) contains a defect which could create a substantial product hazard described in subsection (a)(2); or\\n\\n(4) creates an unreasonable risk of serious injury or death,\",\"shall immediately inform the Commission of such failure to comply, of such defect, or of such risk, unless such manufacturer, distributor, or retailer has actual knowledge that the Commission has been adequately informed of such defect, failure to comply, or such risk. A report provided under paragraph (2) may not be used as the basis for criminal prosecution of the reporting person under section 1264 of this title, except for offenses which require a showing of intent to defraud or mislead.\"],\"scope_text\":\"When a manufacturer of a consumer product or other jurisdictional product/substance (other than motor vehicle equipment as defined in section 30102(a)(7) of title 49) distributed in commerce, or a distributor or retailer of such product, obtains information reasonably supporting the conclusion that such product (1) fails to comply with an applicable consumer product safety rule or relied-upon voluntary standard under section 2058, (2) fails to comply with any other rule, regulation, standard, or ban under this chapter or any other Act enforced by the Commission, (3) contains a defect which could create a substantial product hazard described in subsection (a)(2), or (4) creates an unreasonable risk of serious injury or death, and unless the manufacturer, distributor, or retailer has actual knowledge that the Commission has been adequately informed of such defect, failure to comply, or risk.\",\"section_id\":\"section-1\",\"start\":1092,\"summary\":\"Every manufacturer of a consumer product, or other product or substance over which the Commission has jurisdiction under any other Act enforced by the Commission (other than motor vehicle equipment as defined in section 30102(a)(7) of title 49), distributed in commerce, and every distributor and retailer of such product, who obtains information which reasonably supports the conclusion that such product fails to comply with an applicable consumer product safety rule or with a voluntary consumer product safety standard upon which the Commission has relied under section 2058 of this title, fails to comply with any other rule, regulation, standard, or ban under this chapter or any other Act enforced by the Commission, contains a defect which could create a substantial product hazard described in subsection (a)(2), or creates an unreasonable risk of serious injury or death, shall immediately inform the Commission of such failure to comply, of such defect, or of such risk, unless such manufacturer, distributor, or retailer has actual knowledge that the Commission has been adequately informed of such defect, failure to comply, or such risk.\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:e157504a899b5b239814b9851344490065e77b411e355a58daea668db9abb000"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:6af1f3e530ea340147d80af480fb17e34857a8307a9d858688efcecf9d63b4b4"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:1197bdeac09419d456d73c721fc338b79c50796e051f978e243adb711dbafe63"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:69baacf8c9ddd0978974bde2878030ea6675873de1dfad6d324e221c8f32ad69"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:1400:1407:sha256-0007a8bea4dcd3f6b1490fc7199650f1046713dd92d9314e1f2ede6946fcd999",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f",
+      "rkaf:fragmentContentDigest": "sha256:0007a8bea4dcd3f6b1490fc7199650f1046713dd92d9314e1f2ede6946fcd999",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "may not"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1400,
+          "oa:end": 1407,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:scope:862829bdb047baa1b0de89228a6538f148f1ee1028947143a1c3a46faf4bd8f4",
+      "@type": "rkaf:ApplicabilityScope",
+      "rkaf:appliesInJurisdiction": [],
+      "rkaf:applicabilityCondition": "Applies to a report provided under paragraph (2), except for offenses requiring a showing of intent to defraud or mislead."
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:76ac6bc342e0f1d6995390124c3c2f1274f3bbae080e364f6bedc2ea8b524e1b",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:21a9ce070450df2d7d45e3c1e553299fb99b1321101e139f4d7937a21944aae5",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:20e33a16d6f784af88583959f2fd40d57d959d0f7dde40b3f54a0abe5d7ce24e",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:a0101ca68f2c60727ddb6491fca08f2e067a9b765815d1eab0cbb6a07d8b988b",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-prohibition",
+      "rkaf:assertsValue": {
+        "@value": "A report provided under paragraph (2) may not be used as the basis for criminal prosecution of the reporting person under section 1264 of this title, except for offenses which require a showing of intent to defraud or mislead.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:20ab9d03ab6a04590b499c7139046e935d20f048c7b0b11bf91e111848cf3233",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:76ac6bc342e0f1d6995390124c3c2f1274f3bbae080e364f6bedc2ea8b524e1b",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:1092:1588:sha256-4d9646bace5c8b1d4428d6d1861499b0e9d351652f605ac68051d3406a9175b5"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:fa31e49f6fe84125654dbc7b0dd4e58d5d8303683bca3ac2e88c405eda82b4c4",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:76ac6bc342e0f1d6995390124c3c2f1274f3bbae080e364f6bedc2ea8b524e1b",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:1092:1588:sha256-4d9646bace5c8b1d4428d6d1861499b0e9d351652f605ac68051d3406a9175b5"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:f8157fdd381a2f844c2aee081269558983c2a7fa62fd0cca3182554877350041",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:21a9ce070450df2d7d45e3c1e553299fb99b1321101e139f4d7937a21944aae5",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:20e33a16d6f784af88583959f2fd40d57d959d0f7dde40b3f54a0abe5d7ce24e",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:a0101ca68f2c60727ddb6491fca08f2e067a9b765815d1eab0cbb6a07d8b988b",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "must_not",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:a4886ffda8c81f427960c5710cbf08ce78653f05e2c0f86af95391439b22b383",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:f8157fdd381a2f844c2aee081269558983c2a7fa62fd0cca3182554877350041",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:1400:1407:sha256-0007a8bea4dcd3f6b1490fc7199650f1046713dd92d9314e1f2ede6946fcd999"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:f088e3d65900bb8f3d3f1b15f18783bfdd84a2a8f174852c4ec75af9584b8df0",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:21a9ce070450df2d7d45e3c1e553299fb99b1321101e139f4d7937a21944aae5",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:20e33a16d6f784af88583959f2fd40d57d959d0f7dde40b3f54a0abe5d7ce24e",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:a0101ca68f2c60727ddb6491fca08f2e067a9b765815d1eab0cbb6a07d8b988b",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:scope_text",
+      "rkaf:assertsValue": {
+        "@value": "Applies to a report provided under paragraph (2), except for offenses requiring a showing of intent to defraud or mislead.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:b51fa0fa4fd6c092f826e5f4d31d479df1b7e2c014a2e97c62c79e979f571d17",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:f088e3d65900bb8f3d3f1b15f18783bfdd84a2a8f174852c4ec75af9584b8df0",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:1092:1588:sha256-4d9646bace5c8b1d4428d6d1861499b0e9d351652f605ac68051d3406a9175b5"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:3349a1b27086f72c2b15e735c9c0125e3aff5cd9518b4ccd5af287d8804d5d4d",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:21a9ce070450df2d7d45e3c1e553299fb99b1321101e139f4d7937a21944aae5",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:20e33a16d6f784af88583959f2fd40d57d959d0f7dde40b3f54a0abe5d7ce24e",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:a0101ca68f2c60727ddb6491fca08f2e067a9b765815d1eab0cbb6a07d8b988b",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"kind\":\"prohibition\",\"modality\":\"must_not\",\"scope_text\":\"Applies to a report provided under paragraph (2), except for offenses requiring a showing of intent to defraud or mislead.\",\"summary\":\"A report provided under paragraph (2) may not be used as the basis for criminal prosecution of the reporting person under section 1264 of this title, except for offenses which require a showing of intent to defraud or mislead.\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed",
+      "rkaf:hasApplicability": "urn:rulespec:document-understanding:scope:862829bdb047baa1b0de89228a6538f148f1ee1028947143a1c3a46faf4bd8f4"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:77b948d4090c43236ba2e4d2a5b99b4ce3a82bb8f363806a43c3c38c8fa13807",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:3349a1b27086f72c2b15e735c9c0125e3aff5cd9518b4ccd5af287d8804d5d4d",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:1092:1588:sha256-4d9646bace5c8b1d4428d6d1861499b0e9d351652f605ac68051d3406a9175b5",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:1400:1407:sha256-0007a8bea4dcd3f6b1490fc7199650f1046713dd92d9314e1f2ede6946fcd999"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:5184b0253ed3b9bf437f86f6c3d8474afd44126b14920fc7c687ec2ffc9a0557",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:3349a1b27086f72c2b15e735c9c0125e3aff5cd9518b4ccd5af287d8804d5d4d",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:1092:1588:sha256-4d9646bace5c8b1d4428d6d1861499b0e9d351652f605ac68051d3406a9175b5"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:d71521b211f73254e84f2a8c6b8b20a8c3c3fd801b7fc4d19963ca9c308d4cc0",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:d71521b211f73254e84f2a8c6b8b20a8c3c3fd801b7fc4d19963ca9c308d4cc0",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:cfb44c6b5f5f44684b88d2a22cfa87d05ac200e2afec5eb8f3dc0c22b742e8b1",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:76ac6bc342e0f1d6995390124c3c2f1274f3bbae080e364f6bedc2ea8b524e1b\",\"urn:rulespec:document-understanding:assertion:f8157fdd381a2f844c2aee081269558983c2a7fa62fd0cca3182554877350041\",\"urn:rulespec:document-understanding:assertion:f088e3d65900bb8f3d3f1b15f18783bfdd84a2a8f174852c4ec75af9584b8df0\",\"urn:rulespec:document-understanding:assertion:3349a1b27086f72c2b15e735c9c0125e3aff5cd9518b4ccd5af287d8804d5d4d\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"defined_terms\":[],\"effective_periods\":[],\"end\":1588,\"evidence\":[{\"end\":1588,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:1092:1588:sha256-4d9646bace5c8b1d4428d6d1861499b0e9d351652f605ac68051d3406a9175b5\",\"quote\":\"shall immediately inform the Commission of such failure to comply, of such defect, or of such risk, unless such manufacturer, distributor, or retailer has actual knowledge that the Commission has been adequately informed of such defect, failure to comply, or such risk. A report provided under paragraph (2) may not be used as the basis for criminal prosecution of the reporting person under section 1264 of this title, except for offenses which require a showing of intent to defraud or mislead.\",\"start\":1092},{\"end\":1407,\"field\":\"modality\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:1400:1407:sha256-0007a8bea4dcd3f6b1490fc7199650f1046713dd92d9314e1f2ede6946fcd999\",\"quote\":\"may not\",\"start\":1400},{\"end\":1588,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A64645e90d82d1bd7fa23ad18b9d7343d17ca1e632621d7c5f4c80fb4ec32ce3f:1092:1588:sha256-4d9646bace5c8b1d4428d6d1861499b0e9d351652f605ac68051d3406a9175b5\",\"quote\":\"shall immediately inform the Commission of such failure to comply, of such defect, or of such risk, unless such manufacturer, distributor, or retailer has actual knowledge that the Commission has been adequately informed of such defect, failure to comply, or such risk. A report provided under paragraph (2) may not be used as the basis for criminal prosecution of the reporting person under section 1264 of this title, except for offenses which require a showing of intent to defraud or mislead.\",\"start\":1092}],\"id\":\"urn:rulespec:document-understanding:revision:d71521b211f73254e84f2a8c6b8b20a8c3c3fd801b7fc4d19963ca9c308d4cc0\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"prohibition\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:3349a1b27086f72c2b15e735c9c0125e3aff5cd9518b4ccd5af287d8804d5d4d\",\"modality\":\"must_not\",\"modality_quote\":\"may not\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:5bf164627e333c571d4788ab762cd264f244c2f633f60650c57295316981e175\",\"origin\":\"aiSuggested\",\"quote\":\"shall immediately inform the Commission of such failure to comply, of such defect, or of such risk, unless such manufacturer, distributor, or retailer has actual knowledge that the Commission has been adequately informed of such defect, failure to comply, or such risk. A report provided under paragraph (2) may not be used as the basis for criminal prosecution of the reporting person under section 1264 of this title, except for offenses which require a showing of intent to defraud or mislead.\",\"references\":[\"paragraph (2)\",\"section 1264 of this title\"],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:a0101ca68f2c60727ddb6491fca08f2e067a9b765815d1eab0cbb6a07d8b988b\",\"scope_quotes\":[\"shall immediately inform the Commission of such failure to comply, of such defect, or of such risk, unless such manufacturer, distributor, or retailer has actual knowledge that the Commission has been adequately informed of such defect, failure to comply, or such risk. A report provided under paragraph (2) may not be used as the basis for criminal prosecution of the reporting person under section 1264 of this title, except for offenses which require a showing of intent to defraud or mislead.\"],\"scope_text\":\"Applies to a report provided under paragraph (2), except for offenses requiring a showing of intent to defraud or mislead.\",\"section_id\":\"section-1\",\"start\":1092,\"summary\":\"A report provided under paragraph (2) may not be used as the basis for criminal prosecution of the reporting person under section 1264 of this title, except for offenses which require a showing of intent to defraud or mislead.\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:76ac6bc342e0f1d6995390124c3c2f1274f3bbae080e364f6bedc2ea8b524e1b"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:f8157fdd381a2f844c2aee081269558983c2a7fa62fd0cca3182554877350041"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:f088e3d65900bb8f3d3f1b15f18783bfdd84a2a8f174852c4ec75af9584b8df0"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:3349a1b27086f72c2b15e735c9c0125e3aff5cd9518b4ccd5af287d8804d5d4d"
+        }
+      ]
+    }
+  ]
+}
