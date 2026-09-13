@@ -5,6 +5,26 @@ report describes its own settings and checkpoint; it is not a current installati
 recipe. Use the [README](README.md) for the main path and the
 [operating reference](OPERATIONS.md) for current commands.
 
+## Repair iteration closed — September 13
+
+The [final response-format comparison](../../thoughts/experiments/2026-09-13-repair-finish/README.md)
+used four fresh excerpts, the saved pension failure and a constructed actor error.
+After ordinary extraction, full and sparse edits each repaired **0/10 selected
+fresh meaning gaps**: five targets repeated twice, not ten documents. Both repaired
+the familiar pension case twice. Sparse edits preserved two actor corrections
+versus one valid full replacement, but added two incomplete denial edits and still
+returned every field in five of six proposals. Its total generation tokens rose
+8.9%. Both adoption routes failed; optional checker calls were skipped once their
+verdicts could no longer change that decision.
+
+Keep the existing extraction, source passages, reference navigation and review
+path. No sparse repair schema, shared-task checker replacement or standalone
+checking command was adopted. Complete-source reading remains necessary when
+preparing executable workflows; schema validity and empty proposal lists do not
+certify that step. This iteration is closed, with the remaining ideas deferred
+until concrete document work justifies reopening them. Earlier successful checker
+comparisons remain evidence for supplied candidates, not repair generation.
+
 ## Confidence, labels and qualification connections — 2026-09-12
 
 Recent [inline confidence](../../thoughts/experiments/2026-09-12-extractor-confidence/RESULTS.md),

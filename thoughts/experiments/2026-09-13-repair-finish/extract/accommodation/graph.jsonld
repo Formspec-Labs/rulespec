@@ -1,0 +1,1918 @@
+{
+  "@context": {
+    "rkaf": "https://rulespec.org/ns/v1#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "oa": "http://www.w3.org/ns/oa#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "cito": "http://purl.org/spar/cito/",
+    "wos": "https://w3id.org/wos/ns/v1#",
+    "formspec": "https://w3id.org/formspec/ns/v1#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "eli": "http://data.europa.eu/eli/ontology#",
+    "aknt": "http://docs.oasis-open.org/legaldocml/ns/akn/3.0/",
+    "uslm": "https://uslm.gov/2.1.0/",
+    "lrml": "http://docs.oasis-open.org/legalruleml/ns/v1.0/",
+    "rrmv": "http://data.europa.eu/m8g/rrmv/",
+    "eco": "http://purl.obolibrary.org/obo/ECO_",
+    "sepio": "http://purl.obolibrary.org/obo/SEPIO_",
+    "dpv": "https://w3id.org/dpv#",
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "rkaf:Artifact": {
+      "@type": "@id"
+    },
+    "rkaf:hasArtifactIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:artifactIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasRegulatoryIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:regulatoryIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:publishedInProceeding": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:publishedInDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:hasFormat": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:format": {
+      "@type": "xsd:string"
+    },
+    "dcterms:isFormatOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:isVersionOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "prov:wasRevisionOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasContentDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:versionLineageEvidence": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:SourceFragment": {
+      "@type": "@id"
+    },
+    "oa:hasSource": {
+      "@type": "@id"
+    },
+    "oa:hasSelector": {
+      "@type": "@id"
+    },
+    "oa:TextQuoteSelector": {
+      "@type": "@id"
+    },
+    "oa:TextPositionSelector": {
+      "@type": "@id"
+    },
+    "oa:exact": {
+      "@type": "xsd:string"
+    },
+    "oa:prefix": {
+      "@type": "xsd:string"
+    },
+    "oa:suffix": {
+      "@type": "xsd:string"
+    },
+    "oa:start": {
+      "@type": "xsd:integer"
+    },
+    "oa:end": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:selectorKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:coordinateSystem": {
+      "@type": "@vocab"
+    },
+    "rkaf:sourceArtifactDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:fragmentContentDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:EvidenceBinding": {
+      "@type": "@id"
+    },
+    "rkaf:bindsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:bindsSourceFragment": {
+      "@type": "@id"
+    },
+    "rkaf:noEvidenceReason": {
+      "@type": "@id"
+    },
+    "rkaf:Warrant": {
+      "@type": "@id"
+    },
+    "rkaf:hasWarrant": {
+      "@type": "@id"
+    },
+    "rkaf:warrantKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:warrantFamily": {
+      "@type": "@vocab"
+    },
+    "rkaf:defeasible": {
+      "@type": "xsd:boolean"
+    },
+    "rkaf:ConfidenceRecord": {
+      "@type": "@id"
+    },
+    "rkaf:hasConfidence": {
+      "@type": "@id"
+    },
+    "rkaf:confidenceMethod": {
+      "@type": "@vocab"
+    },
+    "rkaf:calibrationStatus": {
+      "@type": "@vocab"
+    },
+    "rkaf:confidenceBasis": {
+      "@type": "@id"
+    },
+    "rkaf:evaluatedAgainst": {
+      "@type": "@id"
+    },
+    "rkaf:generatedBy": {
+      "@type": "@id"
+    },
+    "rkaf:score": {
+      "@type": "xsd:float"
+    },
+    "rkaf:scoreCategorical": {
+      "@type": "@vocab"
+    },
+    "rkaf:AccessScope": {
+      "@type": "@id"
+    },
+    "rkaf:hasAccessScope": {
+      "@type": "@id"
+    },
+    "rkaf:accessScopeKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:regulatoryClass": {
+      "@type": "@vocab"
+    },
+    "rkaf:embargoUntil": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:permittedRole": {
+      "@type": "@id"
+    },
+    "rkaf:AILineage": {
+      "@type": "@id"
+    },
+    "rkaf:hasAILineage": {
+      "@type": "@id"
+    },
+    "rkaf:modelId": {
+      "@type": "xsd:string"
+    },
+    "rkaf:modelVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:promptTemplateRef": {
+      "@type": "@id"
+    },
+    "rkaf:temperature": {
+      "@type": "xsd:float"
+    },
+    "rkaf:seed": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:inputContextHash": {
+      "@type": "xsd:string"
+    },
+    "rkaf:humanApprover": {
+      "@type": "@id"
+    },
+    "rkaf:humanRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:MappingState": {
+      "@type": "@id"
+    },
+    "rkaf:mappingState": {
+      "@type": "@vocab"
+    },
+    "rkaf:RetentionPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:hasRetentionPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:retentionDurationDays": {
+      "@type": "xsd:int"
+    },
+    "rkaf:retentionTrigger": {
+      "@type": "@vocab"
+    },
+    "rkaf:retentionPostExpiry": {
+      "@type": "@vocab"
+    },
+    "rkaf:Workspace": {
+      "@type": "@id"
+    },
+    "rkaf:scopedToWorkspace": {
+      "@type": "@id"
+    },
+    "rkaf:workspaceId": {
+      "@type": "xsd:string"
+    },
+    "rkaf:workspaceTrustList": {
+      "@type": "@id"
+    },
+    "rkaf:projectsTo": {
+      "@type": "@id"
+    },
+    "rkaf:llmHint": {
+      "@type": "@id"
+    },
+    "rkaf:Authority": {
+      "@type": "@id"
+    },
+    "rkaf:Attestation": {
+      "@type": "@id"
+    },
+    "rkaf:LocalAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:ApplicabilityScope": {
+      "@type": "@id"
+    },
+    "rkaf:EffectivePeriod": {
+      "@type": "@id"
+    },
+    "rkaf:LifecycleEvent": {
+      "@type": "@id"
+    },
+    "rkaf:Proceeding": {
+      "@type": "@id"
+    },
+    "rkaf:RegulatoryAgendaItem": {
+      "@type": "@id"
+    },
+    "rkaf:RegulatoryAgendaObservation": {
+      "@type": "@id"
+    },
+    "rkaf:AgendaProceedingRelationship": {
+      "@type": "@id"
+    },
+    "dcat:Resource": {
+      "@type": "@id"
+    },
+    "dcat:CatalogRecord": {
+      "@type": "@id"
+    },
+    "dcat:Relationship": {
+      "@type": "@id"
+    },
+    "rkaf:CommentPeriod": {
+      "@type": "@id"
+    },
+    "rkaf:Docket": {
+      "@type": "@id"
+    },
+    "prov:Entity": {
+      "@type": "@id"
+    },
+    "rkaf:hasDocketIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:docketIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasProceedingIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:proceedingIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasAgendaItemIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:agendaItemIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaScopeStatus": {
+      "@type": "@vocab"
+    },
+    "dcat:qualifiedRelation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "foaf:primaryTopic": {
+      "@type": "@id"
+    },
+    "rkaf:agendaStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaPriority": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaAffectsCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:agendaAuthorityCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:relation": {
+      "@type": "@id"
+    },
+    "dcat:hadRole": {
+      "@type": "@vocab"
+    },
+    "rkaf:identifierRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:proceedingStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:proceedingTerminationCause": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasAuthority": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingAffects": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingAffectsCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingProduces": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasProceedingEvidenceIdentifier": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingEvidenceIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:proceedingSupersedes": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodFor": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodOpenedBy": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodStart": {
+      "@type": "xsd:date"
+    },
+    "rkaf:commentPeriodEnd": {
+      "@type": "xsd:date"
+    },
+    "rkaf:RegisteredConcept": {
+      "@type": "@id"
+    },
+    "rkaf:LocalConcept": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptMapping": {
+      "@type": "@id"
+    },
+    "rkaf:ReferenceResourceRelease": {
+      "@type": "@id"
+    },
+    "rkaf:MappingApplicabilityContext": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptResolutionResult": {
+      "@type": "@id"
+    },
+    "rkaf:BridgeValidationResult": {
+      "@type": "@id"
+    },
+    "rkaf:BridgeConsumerRegistration": {
+      "@type": "@id"
+    },
+    "rkaf:RegistryConflict": {
+      "@type": "@id"
+    },
+    "rkaf:Finding": {
+      "@type": "@id"
+    },
+    "rkaf:Justification": {
+      "@type": "@id"
+    },
+    "rkaf:hasJustification": {
+      "@type": "@id"
+    },
+    "rkaf:PointInTimeException": {
+      "@type": "@id"
+    },
+    "rkaf:evaluationAnchor": {
+      "@type": "@id"
+    },
+    "rkaf:retainsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:retainsWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:GeneratedWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:justifiedByAssertion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:consumerLifecycleState": {
+      "@type": "@id"
+    },
+    "rkaf:proposedUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:RevalidationEvent": {
+      "@type": "@id"
+    },
+    "rkaf:RevalidationClosureEvent": {
+      "@type": "@id"
+    },
+    "rkaf:revalidationFor": {
+      "@type": "@id"
+    },
+    "rkaf:triggeredBy": {
+      "@type": "@id"
+    },
+    "rkaf:closesRevalidation": {
+      "@type": "@id"
+    },
+    "rkaf:openedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:closedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:closureDecision": {
+      "@type": "@id"
+    },
+    "rkaf:successorAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:successorWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:ConsumerEffectiveDeclaration": {
+      "@type": "@id"
+    },
+    "rkaf:forAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:declaredEffective": {
+      "@type": "@vocab"
+    },
+    "rkaf:declaredScope": {
+      "@type": "@id"
+    },
+    "rkaf:declaredAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:BridgeIssueAttestationContract": {
+      "@type": "@id"
+    },
+    "rkaf:attestedIssueKinds": {
+      "@type": "@vocab"
+    },
+    "rkaf:usedAsAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:detectedIssues": {
+      "@type": "@id"
+    },
+    "rkaf:derivesAuthorityFrom": {
+      "@type": "@id"
+    },
+    "rkaf:hasApplicability": {
+      "@type": "@id"
+    },
+    "rkaf:hasEffectivePeriod": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:adoptedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:attestationScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:attestorKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:targets": {
+      "@type": "@id"
+    },
+    "rkaf:attestedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:revokedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:rationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:lifecycleEventKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:bridgeContractVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:maxAttestationStalenessDays": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:evaluationTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectivePeriodStart": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectivePeriodEnd": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:retroactiveFrom": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:sunsetAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:resolvedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:validatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:anchoredBy": {
+      "@type": "@id"
+    },
+    "rkaf:anchorType": {
+      "@type": "@id"
+    },
+    "rkaf:Assertion": {
+      "@type": "@id"
+    },
+    "rkaf:RelationshipAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:ValueAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:assertsSubject": {
+      "@type": "@id"
+    },
+    "rkaf:assertsPredicate": {
+      "@type": "@id"
+    },
+    "rkaf:assertsObject": {
+      "@type": "@id"
+    },
+    "rkaf:assertsValue": {
+      "@id": "https://rulespec.org/ns/v1#assertsValue"
+    },
+    "rkaf:assertionPolarity": {
+      "@type": "@vocab"
+    },
+    "rkaf:assertedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:hasSourceClaimant": {
+      "@type": "@id"
+    },
+    "rkaf:hasExtractionProvenance": {
+      "@type": "@id"
+    },
+    "rkaf:SourceClaimant": {
+      "@type": "@id"
+    },
+    "rkaf:claimsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:claimantAttribution": {
+      "@type": "@vocab"
+    },
+    "rkaf:claimantText": {
+      "@type": "xsd:string"
+    },
+    "rkaf:claimantIdentity": {
+      "@type": "@id"
+    },
+    "rkaf:attributedInFragment": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ExtractionActivity": {
+      "@type": "@id"
+    },
+    "rkaf:extractionMethod": {
+      "@type": "@vocab"
+    },
+    "rkaf:extractionRun": {
+      "@type": "@id"
+    },
+    "rkaf:extractedBy": {
+      "@type": "@id"
+    },
+    "rkaf:extractorVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:requestContractDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:extractionModelRef": {
+      "@type": "@id"
+    },
+    "rkaf:extractionPromptRef": {
+      "@type": "@id"
+    },
+    "rkaf:inputDigest": {
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "rkaf:extractionAttempt": {
+      "@type": "xsd:integer"
+    },
+    "prov:startedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "prov:endedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:hasSafetyLabel": {
+      "@type": "@id"
+    },
+    "rkaf:usageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:capabilityCap": {
+      "@type": "@id"
+    },
+    "rkaf:assertionOrigin": {
+      "@type": "@id"
+    },
+    "rkaf:epistemicBasis": {
+      "@type": "@vocab"
+    },
+    "rkaf:authorityKind": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionAuthorityKind": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionStatus": {
+      "@type": "@id"
+    },
+    "rkaf:result": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionStatus": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionMethod": {
+      "@type": "@id"
+    },
+    "rkaf:cacheStatus": {
+      "@type": "@id"
+    },
+    "rkaf:usageCeiling": {
+      "@type": "@id"
+    },
+    "rkaf:lifecycleEvent": {
+      "@type": "@id"
+    },
+    "rkaf:cascadeAlgorithm": {
+      "@type": "@id"
+    },
+    "rkaf:evidenceRole": {
+      "@type": "@id"
+    },
+    "rkaf:evidentiaryFunction": {
+      "@type": "@vocab"
+    },
+    "rkaf:warningCode": {
+      "@type": "@id"
+    },
+    "rkaf:errorCode": {
+      "@type": "@id"
+    },
+    "rkaf:decision": {
+      "@type": "@id"
+    },
+    "rkaf:scope": {
+      "@type": "@id"
+    },
+    "rkaf:visibility": {
+      "@type": "@id"
+    },
+    "rkaf:attestorType": {
+      "@type": "@id"
+    },
+    "rkaf:role": {
+      "@type": "@id"
+    },
+    "rkaf:transitionTo": {
+      "@type": "@id"
+    },
+    "rkaf:status": {
+      "@type": "@id"
+    },
+    "rkaf:predicate": {
+      "@type": "@id"
+    },
+    "rkaf:conceptScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:governanceModel": {
+      "@type": "@id"
+    },
+    "rkaf:revisedUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:effectiveUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:safeAutomaticMigration": {
+      "@type": "@id"
+    },
+    "rkaf:resourceKind": {
+      "@type": "@id"
+    },
+    "rkaf:officialStatus": {
+      "@type": "@id"
+    },
+    "rkaf:legalValue": {
+      "@type": "@id"
+    },
+    "rkaf:publicationStatus": {
+      "@type": "@id"
+    },
+    "rkaf:remediationAction": {
+      "@type": "@id"
+    },
+    "rkaf:requiredPredicate": {
+      "@type": "@id"
+    },
+    "rkaf:minimumUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:noRemediationReason": {
+      "@type": "@id"
+    },
+    "rkaf:authorityChainStatus": {
+      "@type": "@id"
+    },
+    "rkaf:chainTerminusKind": {
+      "@type": "@id"
+    },
+    "rkaf:fragmentType": {
+      "@type": "@id"
+    },
+    "rkaf:reviewStatus": {
+      "@type": "@id"
+    },
+    "rkaf:newWorkProductStatus": {
+      "@type": "@id"
+    },
+    "rkaf:newUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:newAssertionState": {
+      "@type": "@id"
+    },
+    "rkaf:resourceFamily": {
+      "@type": "@id"
+    },
+    "rkaf:assertedBy": {
+      "@type": "@id"
+    },
+    "rkaf:attestor": {
+      "@type": "@id"
+    },
+    "rkaf:targetAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:targetWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:targetPacket": {
+      "@type": "@id"
+    },
+    "rkaf:sourceConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:targetConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:targetMappingConflict": {
+      "@type": "@id"
+    },
+    "rkaf:targetBridgeValidation": {
+      "@type": "@id"
+    },
+    "rkaf:targetRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:targetAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:authorizedBy": {
+      "@type": "@id"
+    },
+    "rkaf:organization": {
+      "@type": "@id"
+    },
+    "rkaf:packetId": {
+      "@type": "@id"
+    },
+    "rkaf:consumer": {
+      "@type": "@id"
+    },
+    "rkaf:emittedBy": {
+      "@type": "@id"
+    },
+    "rkaf:triggeredByPacket": {
+      "@type": "@id"
+    },
+    "rkaf:closesRevalidationEvent": {
+      "@type": "@id"
+    },
+    "rkaf:successorAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:closedBy": {
+      "@type": "@id"
+    },
+    "rkaf:queuedFor": {
+      "@type": "@id"
+    },
+    "rkaf:supersedesAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:supersedesWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:revalidationOf": {
+      "@type": "@id"
+    },
+    "rkaf:precedingArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:precedingVersion": {
+      "@type": "@id"
+    },
+    "rkaf:supportingEvent": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnClassification": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnEvent": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnAttestation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:basedOnAttestations": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:artifactId": {
+      "@type": "@id"
+    },
+    "rkaf:realizedByArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:resourceLineage": {
+      "@type": "@id"
+    },
+    "rkaf:sourceAuthorityHint": {
+      "@type": "@id"
+    },
+    "rkaf:capturedBy": {
+      "@type": "@id"
+    },
+    "rkaf:subjectArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:priorArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:classifiedBy": {
+      "@type": "@id"
+    },
+    "rkaf:classification": {
+      "@type": "@id"
+    },
+    "rkaf:managedByRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:referenceReleaseDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:versionBasis": {
+      "@type": "@vocab"
+    },
+    "rkaf:membershipMode": {
+      "@type": "@vocab"
+    },
+    "rkaf:hostedByRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:mintingAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionEndpoint": {
+      "@type": "@id"
+    },
+    "rkaf:registeredVia": {
+      "@type": "@id"
+    },
+    "rkaf:replacedBy": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:absorbedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:splitInto": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:conceptLifecycleOperation": {
+      "@type": "@vocab"
+    },
+    "rkaf:predecessorConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:successorConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:predecessorConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:successorConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:subjectConcept": {
+      "@type": "@id"
+    },
+    "rkaf:relatedConcept": {
+      "@type": "@id"
+    },
+    "rkaf:sharedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:relatedPublishedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:conflictingMappings": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:concept": {
+      "@type": "@id"
+    },
+    "rkaf:inputConcept": {
+      "@type": "@id"
+    },
+    "rkaf:resolvedConcept": {
+      "@type": "@id"
+    },
+    "rkaf:mappingAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:openLabelFacet": {
+      "@type": "@id"
+    },
+    "rkaf:openLabelRole": {
+      "@type": "@vocab"
+    },
+    "rkaf:resolutionTrustedVia": {
+      "@type": "@id"
+    },
+    "rkaf:registry": {
+      "@type": "@id"
+    },
+    "rkaf:resolvedToConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:assertion": {
+      "@type": "@id"
+    },
+    "rkaf:object": {
+      "@type": "@id"
+    },
+    "rkaf:dataConcept": {
+      "@type": "@id"
+    },
+    "rkaf:proposedFromLocalConcept": {
+      "@type": "@id"
+    },
+    "rkaf:registeredConcept": {
+      "@type": "@id"
+    },
+    "rkaf:registrationAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:proposedBy": {
+      "@type": "@id"
+    },
+    "rkaf:delegatingAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:delegatedTo": {
+      "@type": "@id"
+    },
+    "rkaf:publisher": {
+      "@type": "@id"
+    },
+    "rkaf:appliesTo": {
+      "@type": "@id"
+    },
+    "rkaf:affectedAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedAuthorityAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedImplementationAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedWorkProducts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedAdoptions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedFragments": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:affectedAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:affectedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:staleDependencies": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:unresolvedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:registryUnavailable": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:staleConceptCache": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedEvaluationAnchors": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedAutomaticMigrations": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedAuthorityKinds": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:justificationBackedBy": {
+      "@type": "@id"
+    },
+    "rkaf:derivedFromFragment": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:associatedWorkflowStep": {
+      "@type": "@id"
+    },
+    "rkaf:generationRun": {
+      "@type": "@id"
+    },
+    "rkaf:fromConcept": {
+      "@type": "@id"
+    },
+    "rkaf:toConcept": {
+      "@type": "@id"
+    },
+    "rkaf:requiredAdoptionScope": {
+      "@type": "@id"
+    },
+    "rkaf:collectsEvidenceType": {
+      "@type": "@id"
+    },
+    "rkaf:requiresEvidenceType": {
+      "@type": "@id"
+    },
+    "rkaf:acceptedDocumentTypes": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:excludesCategory": {
+      "@container": "@set"
+    },
+    "rkaf:evidencePurpose": {
+      "@container": "@set"
+    },
+    "rkaf:excludesPurposes": {
+      "@container": "@set"
+    },
+    "rkaf:jurisdiction": {
+      "@container": "@set"
+    },
+    "prov:wasGeneratedBy": {
+      "@type": "@id"
+    },
+    "prov:wasAttributedTo": {
+      "@type": "@id"
+    },
+    "prov:wasDerivedFrom": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "prov:generatedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "eli:consolidates": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "eli:consolidated_by": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dpv:hasPersonalDataCategory": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dpv:hasLegalBasis": {
+      "@type": "@id"
+    },
+    "dpv:hasPurpose": {
+      "@type": "@id"
+    },
+    "skos:prefLabel": {
+      "@container": "@language"
+    },
+    "skos:altLabel": {
+      "@container": "@language"
+    },
+    "skos:hiddenLabel": {
+      "@container": "@language"
+    },
+    "skos:definition": {
+      "@container": "@language"
+    },
+    "skos:example": {
+      "@container": "@language"
+    },
+    "skos:note": {
+      "@container": "@language"
+    },
+    "skos:scopeNote": {
+      "@container": "@language"
+    },
+    "skos:changeNote": {
+      "@container": "@language"
+    },
+    "skos:editorialNote": {
+      "@container": "@language"
+    },
+    "skos:historyNote": {
+      "@container": "@language"
+    },
+    "skos:notation": {
+      "@id": "http://www.w3.org/2004/02/skos/core#notation"
+    },
+    "skos:broader": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:narrower": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:related": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:inScheme": {
+      "@type": "@id"
+    },
+    "skos:hasTopConcept": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ConceptScheme": {
+      "@type": "@id"
+    },
+    "rkaf:schemeFacet": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptAssignment": {
+      "@type": "@id"
+    },
+    "rkaf:assignedConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:fragmentIdentityScheme": {
+      "@type": "@vocab"
+    },
+    "prov:hadMember": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcat:distribution": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcat:version": {
+      "@type": "xsd:string"
+    },
+    "dcterms:type": {
+      "@type": "@id"
+    },
+    "dcterms:issued": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:capturedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:registeredAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectiveDate": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:exceptionEffectivePeriodEnd": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:exceptionEffectivePeriodStart": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:cachedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:deprecatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:rescissionEffectiveDate": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:detectedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:definedInScope": {
+      "@type": "@id"
+    },
+    "rkaf:findingKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:severity": {
+      "@type": "@vocab"
+    },
+    "rkaf:subject": {
+      "@type": "@id"
+    },
+    "rkaf:detectedBy": {
+      "@type": "@id"
+    },
+    "rkaf:lastVerifiedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:verifiedBy": {
+      "@type": "@id"
+    },
+    "rkaf:targetFinding": {
+      "@type": "@id"
+    },
+    "rkaf:findings": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:RelationChangeEvent": {
+      "@type": "@id"
+    },
+    "rkaf:changeSubject": {
+      "@type": "@id"
+    },
+    "rkaf:changePredicate": {
+      "@type": "@id"
+    },
+    "rkaf:changeObject": {
+      "@type": "@id"
+    },
+    "rkaf:relationChangeOperation": {
+      "@type": "@vocab"
+    },
+    "rkaf:relationChangeStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:relationChangeTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:changeIntendedEffectiveTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:changeEvidence": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:replacementRelationObject": {
+      "@type": "@id"
+    },
+    "rkaf:RelationComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonBaselineArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonObservedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonExpectedAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonConsumer": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonScope": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonEvaluationTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:comparisonPolicyVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonDetector": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonDetectorVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonSnapshot": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonOutcome": {
+      "@type": "@vocab"
+    },
+    "rkaf:comparisonProofRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ResolverProofIssuer": {
+      "@type": "@id"
+    },
+    "rkaf:proofResolver": {
+      "@type": "@id"
+    },
+    "rkaf:proofResolverVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:proofPolicyVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:ResolverProofRecord": {
+      "@type": "@id"
+    },
+    "rkaf:proofType": {
+      "@type": "@vocab"
+    },
+    "rkaf:proofIssuer": {
+      "@type": "@id"
+    },
+    "rkaf:proofComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:proofOutcome": {
+      "@type": "@vocab"
+    },
+    "rkaf:proofRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofInput": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proofInputDigest": {
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "rkaf:proofSupportingRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proofEvaluatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:proofSnapshot": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofRecordDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:independenceGroup": {
+      "@type": "@id"
+    },
+    "rkaf:adjudicationVerdict": {
+      "@type": "@vocab"
+    },
+    "rkaf:sealedRequestDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:sealedResponseArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:RelationFinding": {
+      "@type": "@id"
+    },
+    "rkaf:relationFindingKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:findingComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:findingComparedAssertion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:findingProofRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:findingDetectedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:findingRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:findingFingerprint": {
+      "@type": "xsd:string"
+    },
+    "rkaf:ClosureClaim": {
+      "@type": "@id"
+    },
+    "rkaf:closureClaimStatus": {
+      "@type": "@vocab"
+    },
+    "rkaf:closureArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:closureRegion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:closurePredicateFamily": {
+      "@type": "@id"
+    },
+    "rkaf:closureProfileVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:closureMemberDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:closureReviewedAt": {
+      "@type": "xsd:dateTime"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "urn:rulespec:document-understanding:document:e0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:document:e0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78",
+      "rkaf:artifactIdentifierScheme": "rkaf:hash-sha256",
+      "rkaf:hasContentDigest": "sha256:e0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78",
+      "dcterms:format": "text/plain"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:lineage:aa33148eb28e2a926b678d214c68f76dca109f712a505fa0ca603843a34a317c",
+      "@type": "rkaf:AILineage",
+      "rkaf:modelId": "gemini-3.8-flash",
+      "rkaf:modelVersion": "gemini-3.8-flash",
+      "rkaf:promptTemplateRef": "urn:rulespec:document-understanding:prompt:f68d460a221d1f3299cf927cbbf9bceae26342cbafa3cf383655065aa7428db5",
+      "rkaf:inputContextHash": "sha256:e0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:activity:4213b03d90447979345677df312d4e3eb7544bd2fdc219ca08f95def71c90632",
+      "@type": "rkaf:ExtractionActivity",
+      "rkaf:extractionMethod": "rkaf:modelExtraction",
+      "rkaf:extractionRun": "urn:rulespec:document-understanding:run:4967cf3c-f6c0-44d6-b6ca-1288e37ef4cb",
+      "rkaf:extractedBy": "urn:rulespec:document-understanding:extractor:langextract",
+      "rkaf:extractorVersion": "document-understanding/3",
+      "rkaf:requestContractDigest": "sha256:0dc59822f04a184f024db3780fca32ba5483884167382eabc09989b49fbdd034",
+      "rkaf:extractionModelRef": "urn:rulespec:document-understanding:model:319034f3e25d0d9bd6b3a46b1def7a01b7689f0d51384c63da1f6e0b464af810",
+      "rkaf:extractionPromptRef": "urn:rulespec:document-understanding:prompt:f68d460a221d1f3299cf927cbbf9bceae26342cbafa3cf383655065aa7428db5",
+      "rkaf:inputDigest": [
+        "sha256:e0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78"
+      ],
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:aa33148eb28e2a926b678d214c68f76dca109f712a505fa0ca603843a34a317c"
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ae0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78:5:334:sha256-496ad3f0b63461173c9c263cc3580cff7a40d02c110d49de58ea69038f123ba2",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:e0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:e0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78",
+      "rkaf:fragmentContentDigest": "sha256:496ad3f0b63461173c9c263cc3580cff7a40d02c110d49de58ea69038f123ba2",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(A) not making reasonable accommodations to the known physical or mental limitations of an otherwise qualified individual with a disability who is an applicant or employee, unless such covered entity can demonstrate that the accommodation would impose an undue hardship on the operation of the business of such covered entity; or"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 5,
+          "oa:end": 334,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:4d1bd7375653769eb1e878511c902c9df2bdefa89a9bb346d39d76858d16e0b1",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:aa33148eb28e2a926b678d214c68f76dca109f712a505fa0ca603843a34a317c",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:4213b03d90447979345677df312d4e3eb7544bd2fdc219ca08f95def71c90632",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:0357c4a9bd4d326b6e2f53a595e3dfeb1e9c805837193f788c3e141d91761676",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-requirement",
+      "rkaf:assertsValue": {
+        "@value": "A covered entity must make reasonable accommodations to the known physical or mental limitations of an otherwise qualified individual with a disability who is an applicant or employee, unless the covered entity can demonstrate that the accommodation would impose an undue hardship on the operation of its business.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:f795e7b45b0a2181367c9d67fd2995177ce53cbb27f0da5ed77333c27ff5671c",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:4d1bd7375653769eb1e878511c902c9df2bdefa89a9bb346d39d76858d16e0b1",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ae0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78:5:334:sha256-496ad3f0b63461173c9c263cc3580cff7a40d02c110d49de58ea69038f123ba2"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:9e84bd85532f1b010e643486166c7a97ec60f552675c3a0c6592cd47f2a9e382",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:aa33148eb28e2a926b678d214c68f76dca109f712a505fa0ca603843a34a317c",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:4213b03d90447979345677df312d4e3eb7544bd2fdc219ca08f95def71c90632",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:0357c4a9bd4d326b6e2f53a595e3dfeb1e9c805837193f788c3e141d91761676",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:actor",
+      "rkaf:assertsValue": {
+        "@value": "covered entity",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:f2000d8e6fdcb719dfe6fbdd979db5ac5e03f136fb4276954259962ec217305b",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:9e84bd85532f1b010e643486166c7a97ec60f552675c3a0c6592cd47f2a9e382",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:providesContext",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ae0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78:5:334:sha256-496ad3f0b63461173c9c263cc3580cff7a40d02c110d49de58ea69038f123ba2"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:fcc9e64e323843f005f9cc8f82e45d52f4e35ba2c1f6392f0e002f4bdd6d984e",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:aa33148eb28e2a926b678d214c68f76dca109f712a505fa0ca603843a34a317c",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:4213b03d90447979345677df312d4e3eb7544bd2fdc219ca08f95def71c90632",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:0357c4a9bd4d326b6e2f53a595e3dfeb1e9c805837193f788c3e141d91761676",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "must",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:02e3886e3828f06ae2424ca107e4c0ef98eac745f8b8557ff78611ea76903949",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:fcc9e64e323843f005f9cc8f82e45d52f4e35ba2c1f6392f0e002f4bdd6d984e",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:providesContext",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ae0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78:5:334:sha256-496ad3f0b63461173c9c263cc3580cff7a40d02c110d49de58ea69038f123ba2"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:1472bfbed22c2bd608cc44d35f709afe454b5abe7851b8f0cc79bd9325e1e32e",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:aa33148eb28e2a926b678d214c68f76dca109f712a505fa0ca603843a34a317c",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:4213b03d90447979345677df312d4e3eb7544bd2fdc219ca08f95def71c90632",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:0357c4a9bd4d326b6e2f53a595e3dfeb1e9c805837193f788c3e141d91761676",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"actor\":\"covered entity\",\"kind\":\"requirement\",\"modality\":\"must\",\"summary\":\"A covered entity must make reasonable accommodations to the known physical or mental limitations of an otherwise qualified individual with a disability who is an applicant or employee, unless the covered entity can demonstrate that the accommodation would impose an undue hardship on the operation of its business.\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:46b5c665061840b70b39fe4f92e5eb8cf20d902bb3ff6512f231ec3ad17c2218",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:1472bfbed22c2bd608cc44d35f709afe454b5abe7851b8f0cc79bd9325e1e32e",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ae0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78:5:334:sha256-496ad3f0b63461173c9c263cc3580cff7a40d02c110d49de58ea69038f123ba2"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:4db967254e3a44aefc300f1dfae47c387c7658b6237e58f2a0989d772463d7c6",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:4db967254e3a44aefc300f1dfae47c387c7658b6237e58f2a0989d772463d7c6",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:3db58a5a2584acb7a636b5423410cb7248b42f674b25816ba8383865d6f2bfc0",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"covered entity\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:4d1bd7375653769eb1e878511c902c9df2bdefa89a9bb346d39d76858d16e0b1\",\"urn:rulespec:document-understanding:assertion:9e84bd85532f1b010e643486166c7a97ec60f552675c3a0c6592cd47f2a9e382\",\"urn:rulespec:document-understanding:assertion:fcc9e64e323843f005f9cc8f82e45d52f4e35ba2c1f6392f0e002f4bdd6d984e\",\"urn:rulespec:document-understanding:assertion:1472bfbed22c2bd608cc44d35f709afe454b5abe7851b8f0cc79bd9325e1e32e\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"defined_terms\":[],\"effective_periods\":[],\"end\":334,\"evidence\":[{\"end\":334,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ae0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78:5:334:sha256-496ad3f0b63461173c9c263cc3580cff7a40d02c110d49de58ea69038f123ba2\",\"quote\":\"(A) not making reasonable accommodations to the known physical or mental limitations of an otherwise qualified individual with a disability who is an applicant or employee, unless such covered entity can demonstrate that the accommodation would impose an undue hardship on the operation of the business of such covered entity; or\",\"start\":5}],\"id\":\"urn:rulespec:document-understanding:revision:4db967254e3a44aefc300f1dfae47c387c7658b6237e58f2a0989d772463d7c6\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"requirement\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:1472bfbed22c2bd608cc44d35f709afe454b5abe7851b8f0cc79bd9325e1e32e\",\"modality\":\"must\",\"modality_quote\":\"\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:3cbe06b47ec25bf2c60374430b78a5f5a47225090103b24244d6c2e2e6bb6e1d\",\"origin\":\"aiSuggested\",\"quote\":\"(A) not making reasonable accommodations to the known physical or mental limitations of an otherwise qualified individual with a disability who is an applicant or employee, unless such covered entity can demonstrate that the accommodation would impose an undue hardship on the operation of the business of such covered entity; or\",\"references\":[],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:0357c4a9bd4d326b6e2f53a595e3dfeb1e9c805837193f788c3e141d91761676\",\"scope_quotes\":[],\"scope_text\":\"\",\"section_id\":\"section-1\",\"start\":5,\"summary\":\"A covered entity must make reasonable accommodations to the known physical or mental limitations of an otherwise qualified individual with a disability who is an applicant or employee, unless the covered entity can demonstrate that the accommodation would impose an undue hardship on the operation of its business.\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:4d1bd7375653769eb1e878511c902c9df2bdefa89a9bb346d39d76858d16e0b1"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:9e84bd85532f1b010e643486166c7a97ec60f552675c3a0c6592cd47f2a9e382"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:fcc9e64e323843f005f9cc8f82e45d52f4e35ba2c1f6392f0e002f4bdd6d984e"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:1472bfbed22c2bd608cc44d35f709afe454b5abe7851b8f0cc79bd9325e1e32e"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ae0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78:336:623:sha256-a40cdadc4e83b11b7d6a18598a8f603228a09fac0973fbd3c452fb98b48f0845",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:e0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:e0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78",
+      "rkaf:fragmentContentDigest": "sha256:a40cdadc4e83b11b7d6a18598a8f603228a09fac0973fbd3c452fb98b48f0845",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(B) denying employment opportunities to a job applicant or employee who is an otherwise qualified individual with a disability, if such denial is based on the need of such covered entity to make reasonable accommodation to the physical or mental impairments of the employee or applicant;"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 336,
+          "oa:end": 623,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ae0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78:508:522:sha256-31eb3c8ffdf61a7b6012b92fe3bd352d6fb9f006761dc242f79592bbf8fab31b",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:e0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:e0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78",
+      "rkaf:fragmentContentDigest": "sha256:31eb3c8ffdf61a7b6012b92fe3bd352d6fb9f006761dc242f79592bbf8fab31b",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "covered entity"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 508,
+          "oa:end": 522,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:a83a19ab8db60c55fe75d27187b19239af5fb3b34cdc62e8f7145c2d9aaf1aa6",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:aa33148eb28e2a926b678d214c68f76dca109f712a505fa0ca603843a34a317c",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:4213b03d90447979345677df312d4e3eb7544bd2fdc219ca08f95def71c90632",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:0b3ac8c1420d1cec81f683a5a6048cbbbc3fe19a6374f6ec22991d7d893f1128",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-prohibition",
+      "rkaf:assertsValue": {
+        "@value": "A covered entity must not deny employment opportunities to a job applicant or employee who is an otherwise qualified individual with a disability, if such denial is based on the need of the covered entity to make reasonable accommodation to the physical or mental impairments of the employee or applicant.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:51db1eff43ce444e38a44a0b044606476fbfd8d0f2205f46ac4bdcd537a23d64",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:a83a19ab8db60c55fe75d27187b19239af5fb3b34cdc62e8f7145c2d9aaf1aa6",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ae0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78:336:623:sha256-a40cdadc4e83b11b7d6a18598a8f603228a09fac0973fbd3c452fb98b48f0845"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:129ba8d3e9d0f97be92a218e340843920a9b471dfaeed424bf20182465e25207",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:aa33148eb28e2a926b678d214c68f76dca109f712a505fa0ca603843a34a317c",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:4213b03d90447979345677df312d4e3eb7544bd2fdc219ca08f95def71c90632",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:0b3ac8c1420d1cec81f683a5a6048cbbbc3fe19a6374f6ec22991d7d893f1128",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:actor",
+      "rkaf:assertsValue": {
+        "@value": "covered entity",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:47189b0dedf7d1c8c8680ec859910a2a3082ad17f0557f613822ef5ca383f916",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:129ba8d3e9d0f97be92a218e340843920a9b471dfaeed424bf20182465e25207",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ae0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78:508:522:sha256-31eb3c8ffdf61a7b6012b92fe3bd352d6fb9f006761dc242f79592bbf8fab31b"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:41e4512152cb8fc606c6144d84d8013fcd3859d1f9514f80819cea0a8fd40139",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:aa33148eb28e2a926b678d214c68f76dca109f712a505fa0ca603843a34a317c",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:4213b03d90447979345677df312d4e3eb7544bd2fdc219ca08f95def71c90632",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:0b3ac8c1420d1cec81f683a5a6048cbbbc3fe19a6374f6ec22991d7d893f1128",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "must_not",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:2954be78a3317834cc6a1c5343de7ad6e0c51191de2883727711fe097edc07d6",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:41e4512152cb8fc606c6144d84d8013fcd3859d1f9514f80819cea0a8fd40139",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:providesContext",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ae0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78:336:623:sha256-a40cdadc4e83b11b7d6a18598a8f603228a09fac0973fbd3c452fb98b48f0845"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:7c7445bd247610061396a562ee9ec4070b27bc7c0ecba8caaaa09b75124e9884",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:aa33148eb28e2a926b678d214c68f76dca109f712a505fa0ca603843a34a317c",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:4213b03d90447979345677df312d4e3eb7544bd2fdc219ca08f95def71c90632",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:0b3ac8c1420d1cec81f683a5a6048cbbbc3fe19a6374f6ec22991d7d893f1128",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"actor\":\"covered entity\",\"kind\":\"prohibition\",\"modality\":\"must_not\",\"summary\":\"A covered entity must not deny employment opportunities to a job applicant or employee who is an otherwise qualified individual with a disability, if such denial is based on the need of the covered entity to make reasonable accommodation to the physical or mental impairments of the employee or applicant.\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:190538968b05110c98bb4059809cefe9ae51a0c6b8d65fc69b65e779b7da3687",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:7c7445bd247610061396a562ee9ec4070b27bc7c0ecba8caaaa09b75124e9884",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ae0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78:336:623:sha256-a40cdadc4e83b11b7d6a18598a8f603228a09fac0973fbd3c452fb98b48f0845",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ae0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78:508:522:sha256-31eb3c8ffdf61a7b6012b92fe3bd352d6fb9f006761dc242f79592bbf8fab31b"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:78258dcabf96d15f1400ecdc76dcabaab368fd1bf2ee2a2332595194b71437dd",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:78258dcabf96d15f1400ecdc76dcabaab368fd1bf2ee2a2332595194b71437dd",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:c6ce9d98a56d63cdfd1ed2392045ecaf14fb122c18e8adc6c18d8f7b6e7e21d7",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"covered entity\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:a83a19ab8db60c55fe75d27187b19239af5fb3b34cdc62e8f7145c2d9aaf1aa6\",\"urn:rulespec:document-understanding:assertion:129ba8d3e9d0f97be92a218e340843920a9b471dfaeed424bf20182465e25207\",\"urn:rulespec:document-understanding:assertion:41e4512152cb8fc606c6144d84d8013fcd3859d1f9514f80819cea0a8fd40139\",\"urn:rulespec:document-understanding:assertion:7c7445bd247610061396a562ee9ec4070b27bc7c0ecba8caaaa09b75124e9884\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"defined_terms\":[],\"effective_periods\":[],\"end\":623,\"evidence\":[{\"end\":623,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ae0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78:336:623:sha256-a40cdadc4e83b11b7d6a18598a8f603228a09fac0973fbd3c452fb98b48f0845\",\"quote\":\"(B) denying employment opportunities to a job applicant or employee who is an otherwise qualified individual with a disability, if such denial is based on the need of such covered entity to make reasonable accommodation to the physical or mental impairments of the employee or applicant;\",\"start\":336},{\"end\":522,\"field\":\"actor\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ae0a849ced4fec0fafda8c2c02caa4c9e643b468e169d9af809eb0e87700e0a78:508:522:sha256-31eb3c8ffdf61a7b6012b92fe3bd352d6fb9f006761dc242f79592bbf8fab31b\",\"quote\":\"covered entity\",\"start\":508}],\"id\":\"urn:rulespec:document-understanding:revision:78258dcabf96d15f1400ecdc76dcabaab368fd1bf2ee2a2332595194b71437dd\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"prohibition\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:7c7445bd247610061396a562ee9ec4070b27bc7c0ecba8caaaa09b75124e9884\",\"modality\":\"must_not\",\"modality_quote\":\"\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:104eb6de38597db2009269ecc04ed18586d00834dd84e779807fa35fac58839f\",\"origin\":\"aiSuggested\",\"quote\":\"(B) denying employment opportunities to a job applicant or employee who is an otherwise qualified individual with a disability, if such denial is based on the need of such covered entity to make reasonable accommodation to the physical or mental impairments of the employee or applicant;\",\"references\":[],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:0b3ac8c1420d1cec81f683a5a6048cbbbc3fe19a6374f6ec22991d7d893f1128\",\"scope_quotes\":[],\"scope_text\":\"\",\"section_id\":\"section-1\",\"start\":336,\"summary\":\"A covered entity must not deny employment opportunities to a job applicant or employee who is an otherwise qualified individual with a disability, if such denial is based on the need of the covered entity to make reasonable accommodation to the physical or mental impairments of the employee or applicant.\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:a83a19ab8db60c55fe75d27187b19239af5fb3b34cdc62e8f7145c2d9aaf1aa6"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:129ba8d3e9d0f97be92a218e340843920a9b471dfaeed424bf20182465e25207"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:41e4512152cb8fc606c6144d84d8013fcd3859d1f9514f80819cea0a8fd40139"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:7c7445bd247610061396a562ee9ec4070b27bc7c0ecba8caaaa09b75124e9884"
+        }
+      ]
+    }
+  ]
+}

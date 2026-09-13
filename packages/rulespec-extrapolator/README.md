@@ -67,6 +67,14 @@ Use that environment's `bin/rulespec-understand` for subsequent commands.
 - **Revisit saved responses:** `replay` verifies the original processing;
   `reprocess` applies current code to a new run while preserving the original.
 
+Extraction and source-linked review are the current baseline. The latest repair
+comparison did not repair the selected fresh-document gaps with either full or
+sparse replacement fields. Keep automatic refinement optional; inspect governing
+paragraphs when reviewing a statement for use in a workflow or form. An empty
+repair result does not establish completeness. The
+[repair iteration closeout](../../thoughts/experiments/2026-09-13-repair-finish/README.md)
+records the decision and examples.
+
 See the [command table and operating reference](OPERATIONS.md#choose-an-operation)
 for inputs, outputs, costs, review effects and examples.
 

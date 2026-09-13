@@ -1,6 +1,22 @@
 # Rulespec reuse and extraction: comprehensive task list
 
-## Active follow-up: model input improvements — 2026-09-13
+## Current stopping point — September 13
+
+The model-input/automatic-repair iteration is **closed**. The
+[final comparison](../experiments/2026-09-13-repair-finish/README.md) repaired none
+of the five selected fresh-document meaning gaps in either of two repetitions
+per format. Sparse output did not earn adoption; the standalone checker also
+remains deferred. Keep the existing extraction, source evidence, reference
+navigation, review history and export path, plus the provider/identifier fixes
+already committed. The closeout verifies the actual local installation against
+those fixes.
+
+The older follow-ups below preserve findings and possible future work. They are
+not an active instruction to keep tuning. Resume with a concrete document or
+consumer need; independently usable workflow rules still require review of their
+governing source. See the [closed iteration and delivery receipt](2026-09-13-model-input-improvements.md).
+
+## Earlier follow-up: model input improvements — 2026-09-13
 
 Current: the [two-factor diagnostic](../experiments/2026-09-13-checker-input-factors/README.md)
 finds 8/8 correct unchanged-reading judgments with competing edits versus 6/8

@@ -1,0 +1,1923 @@
+{
+  "@context": {
+    "rkaf": "https://rulespec.org/ns/v1#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "oa": "http://www.w3.org/ns/oa#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "cito": "http://purl.org/spar/cito/",
+    "wos": "https://w3id.org/wos/ns/v1#",
+    "formspec": "https://w3id.org/formspec/ns/v1#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "eli": "http://data.europa.eu/eli/ontology#",
+    "aknt": "http://docs.oasis-open.org/legaldocml/ns/akn/3.0/",
+    "uslm": "https://uslm.gov/2.1.0/",
+    "lrml": "http://docs.oasis-open.org/legalruleml/ns/v1.0/",
+    "rrmv": "http://data.europa.eu/m8g/rrmv/",
+    "eco": "http://purl.obolibrary.org/obo/ECO_",
+    "sepio": "http://purl.obolibrary.org/obo/SEPIO_",
+    "dpv": "https://w3id.org/dpv#",
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "rkaf:Artifact": {
+      "@type": "@id"
+    },
+    "rkaf:hasArtifactIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:artifactIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasRegulatoryIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:regulatoryIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:publishedInProceeding": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:publishedInDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:hasFormat": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:format": {
+      "@type": "xsd:string"
+    },
+    "dcterms:isFormatOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:isVersionOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "prov:wasRevisionOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasContentDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:versionLineageEvidence": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:SourceFragment": {
+      "@type": "@id"
+    },
+    "oa:hasSource": {
+      "@type": "@id"
+    },
+    "oa:hasSelector": {
+      "@type": "@id"
+    },
+    "oa:TextQuoteSelector": {
+      "@type": "@id"
+    },
+    "oa:TextPositionSelector": {
+      "@type": "@id"
+    },
+    "oa:exact": {
+      "@type": "xsd:string"
+    },
+    "oa:prefix": {
+      "@type": "xsd:string"
+    },
+    "oa:suffix": {
+      "@type": "xsd:string"
+    },
+    "oa:start": {
+      "@type": "xsd:integer"
+    },
+    "oa:end": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:selectorKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:coordinateSystem": {
+      "@type": "@vocab"
+    },
+    "rkaf:sourceArtifactDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:fragmentContentDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:EvidenceBinding": {
+      "@type": "@id"
+    },
+    "rkaf:bindsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:bindsSourceFragment": {
+      "@type": "@id"
+    },
+    "rkaf:noEvidenceReason": {
+      "@type": "@id"
+    },
+    "rkaf:Warrant": {
+      "@type": "@id"
+    },
+    "rkaf:hasWarrant": {
+      "@type": "@id"
+    },
+    "rkaf:warrantKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:warrantFamily": {
+      "@type": "@vocab"
+    },
+    "rkaf:defeasible": {
+      "@type": "xsd:boolean"
+    },
+    "rkaf:ConfidenceRecord": {
+      "@type": "@id"
+    },
+    "rkaf:hasConfidence": {
+      "@type": "@id"
+    },
+    "rkaf:confidenceMethod": {
+      "@type": "@vocab"
+    },
+    "rkaf:calibrationStatus": {
+      "@type": "@vocab"
+    },
+    "rkaf:confidenceBasis": {
+      "@type": "@id"
+    },
+    "rkaf:evaluatedAgainst": {
+      "@type": "@id"
+    },
+    "rkaf:generatedBy": {
+      "@type": "@id"
+    },
+    "rkaf:score": {
+      "@type": "xsd:float"
+    },
+    "rkaf:scoreCategorical": {
+      "@type": "@vocab"
+    },
+    "rkaf:AccessScope": {
+      "@type": "@id"
+    },
+    "rkaf:hasAccessScope": {
+      "@type": "@id"
+    },
+    "rkaf:accessScopeKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:regulatoryClass": {
+      "@type": "@vocab"
+    },
+    "rkaf:embargoUntil": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:permittedRole": {
+      "@type": "@id"
+    },
+    "rkaf:AILineage": {
+      "@type": "@id"
+    },
+    "rkaf:hasAILineage": {
+      "@type": "@id"
+    },
+    "rkaf:modelId": {
+      "@type": "xsd:string"
+    },
+    "rkaf:modelVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:promptTemplateRef": {
+      "@type": "@id"
+    },
+    "rkaf:temperature": {
+      "@type": "xsd:float"
+    },
+    "rkaf:seed": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:inputContextHash": {
+      "@type": "xsd:string"
+    },
+    "rkaf:humanApprover": {
+      "@type": "@id"
+    },
+    "rkaf:humanRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:MappingState": {
+      "@type": "@id"
+    },
+    "rkaf:mappingState": {
+      "@type": "@vocab"
+    },
+    "rkaf:RetentionPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:hasRetentionPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:retentionDurationDays": {
+      "@type": "xsd:int"
+    },
+    "rkaf:retentionTrigger": {
+      "@type": "@vocab"
+    },
+    "rkaf:retentionPostExpiry": {
+      "@type": "@vocab"
+    },
+    "rkaf:Workspace": {
+      "@type": "@id"
+    },
+    "rkaf:scopedToWorkspace": {
+      "@type": "@id"
+    },
+    "rkaf:workspaceId": {
+      "@type": "xsd:string"
+    },
+    "rkaf:workspaceTrustList": {
+      "@type": "@id"
+    },
+    "rkaf:projectsTo": {
+      "@type": "@id"
+    },
+    "rkaf:llmHint": {
+      "@type": "@id"
+    },
+    "rkaf:Authority": {
+      "@type": "@id"
+    },
+    "rkaf:Attestation": {
+      "@type": "@id"
+    },
+    "rkaf:LocalAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:ApplicabilityScope": {
+      "@type": "@id"
+    },
+    "rkaf:EffectivePeriod": {
+      "@type": "@id"
+    },
+    "rkaf:LifecycleEvent": {
+      "@type": "@id"
+    },
+    "rkaf:Proceeding": {
+      "@type": "@id"
+    },
+    "rkaf:RegulatoryAgendaItem": {
+      "@type": "@id"
+    },
+    "rkaf:RegulatoryAgendaObservation": {
+      "@type": "@id"
+    },
+    "rkaf:AgendaProceedingRelationship": {
+      "@type": "@id"
+    },
+    "dcat:Resource": {
+      "@type": "@id"
+    },
+    "dcat:CatalogRecord": {
+      "@type": "@id"
+    },
+    "dcat:Relationship": {
+      "@type": "@id"
+    },
+    "rkaf:CommentPeriod": {
+      "@type": "@id"
+    },
+    "rkaf:Docket": {
+      "@type": "@id"
+    },
+    "prov:Entity": {
+      "@type": "@id"
+    },
+    "rkaf:hasDocketIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:docketIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasProceedingIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:proceedingIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasAgendaItemIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:agendaItemIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaScopeStatus": {
+      "@type": "@vocab"
+    },
+    "dcat:qualifiedRelation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "foaf:primaryTopic": {
+      "@type": "@id"
+    },
+    "rkaf:agendaStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaPriority": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaAffectsCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:agendaAuthorityCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:relation": {
+      "@type": "@id"
+    },
+    "dcat:hadRole": {
+      "@type": "@vocab"
+    },
+    "rkaf:identifierRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:proceedingStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:proceedingTerminationCause": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasAuthority": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingAffects": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingAffectsCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingProduces": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasProceedingEvidenceIdentifier": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingEvidenceIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:proceedingSupersedes": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodFor": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodOpenedBy": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodStart": {
+      "@type": "xsd:date"
+    },
+    "rkaf:commentPeriodEnd": {
+      "@type": "xsd:date"
+    },
+    "rkaf:RegisteredConcept": {
+      "@type": "@id"
+    },
+    "rkaf:LocalConcept": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptMapping": {
+      "@type": "@id"
+    },
+    "rkaf:ReferenceResourceRelease": {
+      "@type": "@id"
+    },
+    "rkaf:MappingApplicabilityContext": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptResolutionResult": {
+      "@type": "@id"
+    },
+    "rkaf:BridgeValidationResult": {
+      "@type": "@id"
+    },
+    "rkaf:BridgeConsumerRegistration": {
+      "@type": "@id"
+    },
+    "rkaf:RegistryConflict": {
+      "@type": "@id"
+    },
+    "rkaf:Finding": {
+      "@type": "@id"
+    },
+    "rkaf:Justification": {
+      "@type": "@id"
+    },
+    "rkaf:hasJustification": {
+      "@type": "@id"
+    },
+    "rkaf:PointInTimeException": {
+      "@type": "@id"
+    },
+    "rkaf:evaluationAnchor": {
+      "@type": "@id"
+    },
+    "rkaf:retainsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:retainsWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:GeneratedWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:justifiedByAssertion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:consumerLifecycleState": {
+      "@type": "@id"
+    },
+    "rkaf:proposedUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:RevalidationEvent": {
+      "@type": "@id"
+    },
+    "rkaf:RevalidationClosureEvent": {
+      "@type": "@id"
+    },
+    "rkaf:revalidationFor": {
+      "@type": "@id"
+    },
+    "rkaf:triggeredBy": {
+      "@type": "@id"
+    },
+    "rkaf:closesRevalidation": {
+      "@type": "@id"
+    },
+    "rkaf:openedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:closedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:closureDecision": {
+      "@type": "@id"
+    },
+    "rkaf:successorAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:successorWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:ConsumerEffectiveDeclaration": {
+      "@type": "@id"
+    },
+    "rkaf:forAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:declaredEffective": {
+      "@type": "@vocab"
+    },
+    "rkaf:declaredScope": {
+      "@type": "@id"
+    },
+    "rkaf:declaredAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:BridgeIssueAttestationContract": {
+      "@type": "@id"
+    },
+    "rkaf:attestedIssueKinds": {
+      "@type": "@vocab"
+    },
+    "rkaf:usedAsAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:detectedIssues": {
+      "@type": "@id"
+    },
+    "rkaf:derivesAuthorityFrom": {
+      "@type": "@id"
+    },
+    "rkaf:hasApplicability": {
+      "@type": "@id"
+    },
+    "rkaf:hasEffectivePeriod": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:adoptedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:attestationScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:attestorKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:targets": {
+      "@type": "@id"
+    },
+    "rkaf:attestedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:revokedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:rationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:lifecycleEventKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:bridgeContractVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:maxAttestationStalenessDays": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:evaluationTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectivePeriodStart": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectivePeriodEnd": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:retroactiveFrom": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:sunsetAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:resolvedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:validatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:anchoredBy": {
+      "@type": "@id"
+    },
+    "rkaf:anchorType": {
+      "@type": "@id"
+    },
+    "rkaf:Assertion": {
+      "@type": "@id"
+    },
+    "rkaf:RelationshipAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:ValueAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:assertsSubject": {
+      "@type": "@id"
+    },
+    "rkaf:assertsPredicate": {
+      "@type": "@id"
+    },
+    "rkaf:assertsObject": {
+      "@type": "@id"
+    },
+    "rkaf:assertsValue": {
+      "@id": "https://rulespec.org/ns/v1#assertsValue"
+    },
+    "rkaf:assertionPolarity": {
+      "@type": "@vocab"
+    },
+    "rkaf:assertedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:hasSourceClaimant": {
+      "@type": "@id"
+    },
+    "rkaf:hasExtractionProvenance": {
+      "@type": "@id"
+    },
+    "rkaf:SourceClaimant": {
+      "@type": "@id"
+    },
+    "rkaf:claimsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:claimantAttribution": {
+      "@type": "@vocab"
+    },
+    "rkaf:claimantText": {
+      "@type": "xsd:string"
+    },
+    "rkaf:claimantIdentity": {
+      "@type": "@id"
+    },
+    "rkaf:attributedInFragment": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ExtractionActivity": {
+      "@type": "@id"
+    },
+    "rkaf:extractionMethod": {
+      "@type": "@vocab"
+    },
+    "rkaf:extractionRun": {
+      "@type": "@id"
+    },
+    "rkaf:extractedBy": {
+      "@type": "@id"
+    },
+    "rkaf:extractorVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:requestContractDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:extractionModelRef": {
+      "@type": "@id"
+    },
+    "rkaf:extractionPromptRef": {
+      "@type": "@id"
+    },
+    "rkaf:inputDigest": {
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "rkaf:extractionAttempt": {
+      "@type": "xsd:integer"
+    },
+    "prov:startedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "prov:endedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:hasSafetyLabel": {
+      "@type": "@id"
+    },
+    "rkaf:usageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:capabilityCap": {
+      "@type": "@id"
+    },
+    "rkaf:assertionOrigin": {
+      "@type": "@id"
+    },
+    "rkaf:epistemicBasis": {
+      "@type": "@vocab"
+    },
+    "rkaf:authorityKind": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionAuthorityKind": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionStatus": {
+      "@type": "@id"
+    },
+    "rkaf:result": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionStatus": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionMethod": {
+      "@type": "@id"
+    },
+    "rkaf:cacheStatus": {
+      "@type": "@id"
+    },
+    "rkaf:usageCeiling": {
+      "@type": "@id"
+    },
+    "rkaf:lifecycleEvent": {
+      "@type": "@id"
+    },
+    "rkaf:cascadeAlgorithm": {
+      "@type": "@id"
+    },
+    "rkaf:evidenceRole": {
+      "@type": "@id"
+    },
+    "rkaf:evidentiaryFunction": {
+      "@type": "@vocab"
+    },
+    "rkaf:warningCode": {
+      "@type": "@id"
+    },
+    "rkaf:errorCode": {
+      "@type": "@id"
+    },
+    "rkaf:decision": {
+      "@type": "@id"
+    },
+    "rkaf:scope": {
+      "@type": "@id"
+    },
+    "rkaf:visibility": {
+      "@type": "@id"
+    },
+    "rkaf:attestorType": {
+      "@type": "@id"
+    },
+    "rkaf:role": {
+      "@type": "@id"
+    },
+    "rkaf:transitionTo": {
+      "@type": "@id"
+    },
+    "rkaf:status": {
+      "@type": "@id"
+    },
+    "rkaf:predicate": {
+      "@type": "@id"
+    },
+    "rkaf:conceptScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:governanceModel": {
+      "@type": "@id"
+    },
+    "rkaf:revisedUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:effectiveUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:safeAutomaticMigration": {
+      "@type": "@id"
+    },
+    "rkaf:resourceKind": {
+      "@type": "@id"
+    },
+    "rkaf:officialStatus": {
+      "@type": "@id"
+    },
+    "rkaf:legalValue": {
+      "@type": "@id"
+    },
+    "rkaf:publicationStatus": {
+      "@type": "@id"
+    },
+    "rkaf:remediationAction": {
+      "@type": "@id"
+    },
+    "rkaf:requiredPredicate": {
+      "@type": "@id"
+    },
+    "rkaf:minimumUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:noRemediationReason": {
+      "@type": "@id"
+    },
+    "rkaf:authorityChainStatus": {
+      "@type": "@id"
+    },
+    "rkaf:chainTerminusKind": {
+      "@type": "@id"
+    },
+    "rkaf:fragmentType": {
+      "@type": "@id"
+    },
+    "rkaf:reviewStatus": {
+      "@type": "@id"
+    },
+    "rkaf:newWorkProductStatus": {
+      "@type": "@id"
+    },
+    "rkaf:newUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:newAssertionState": {
+      "@type": "@id"
+    },
+    "rkaf:resourceFamily": {
+      "@type": "@id"
+    },
+    "rkaf:assertedBy": {
+      "@type": "@id"
+    },
+    "rkaf:attestor": {
+      "@type": "@id"
+    },
+    "rkaf:targetAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:targetWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:targetPacket": {
+      "@type": "@id"
+    },
+    "rkaf:sourceConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:targetConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:targetMappingConflict": {
+      "@type": "@id"
+    },
+    "rkaf:targetBridgeValidation": {
+      "@type": "@id"
+    },
+    "rkaf:targetRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:targetAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:authorizedBy": {
+      "@type": "@id"
+    },
+    "rkaf:organization": {
+      "@type": "@id"
+    },
+    "rkaf:packetId": {
+      "@type": "@id"
+    },
+    "rkaf:consumer": {
+      "@type": "@id"
+    },
+    "rkaf:emittedBy": {
+      "@type": "@id"
+    },
+    "rkaf:triggeredByPacket": {
+      "@type": "@id"
+    },
+    "rkaf:closesRevalidationEvent": {
+      "@type": "@id"
+    },
+    "rkaf:successorAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:closedBy": {
+      "@type": "@id"
+    },
+    "rkaf:queuedFor": {
+      "@type": "@id"
+    },
+    "rkaf:supersedesAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:supersedesWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:revalidationOf": {
+      "@type": "@id"
+    },
+    "rkaf:precedingArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:precedingVersion": {
+      "@type": "@id"
+    },
+    "rkaf:supportingEvent": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnClassification": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnEvent": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnAttestation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:basedOnAttestations": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:artifactId": {
+      "@type": "@id"
+    },
+    "rkaf:realizedByArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:resourceLineage": {
+      "@type": "@id"
+    },
+    "rkaf:sourceAuthorityHint": {
+      "@type": "@id"
+    },
+    "rkaf:capturedBy": {
+      "@type": "@id"
+    },
+    "rkaf:subjectArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:priorArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:classifiedBy": {
+      "@type": "@id"
+    },
+    "rkaf:classification": {
+      "@type": "@id"
+    },
+    "rkaf:managedByRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:referenceReleaseDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:versionBasis": {
+      "@type": "@vocab"
+    },
+    "rkaf:membershipMode": {
+      "@type": "@vocab"
+    },
+    "rkaf:hostedByRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:mintingAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionEndpoint": {
+      "@type": "@id"
+    },
+    "rkaf:registeredVia": {
+      "@type": "@id"
+    },
+    "rkaf:replacedBy": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:absorbedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:splitInto": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:conceptLifecycleOperation": {
+      "@type": "@vocab"
+    },
+    "rkaf:predecessorConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:successorConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:predecessorConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:successorConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:subjectConcept": {
+      "@type": "@id"
+    },
+    "rkaf:relatedConcept": {
+      "@type": "@id"
+    },
+    "rkaf:sharedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:relatedPublishedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:conflictingMappings": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:concept": {
+      "@type": "@id"
+    },
+    "rkaf:inputConcept": {
+      "@type": "@id"
+    },
+    "rkaf:resolvedConcept": {
+      "@type": "@id"
+    },
+    "rkaf:mappingAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:openLabelFacet": {
+      "@type": "@id"
+    },
+    "rkaf:openLabelRole": {
+      "@type": "@vocab"
+    },
+    "rkaf:resolutionTrustedVia": {
+      "@type": "@id"
+    },
+    "rkaf:registry": {
+      "@type": "@id"
+    },
+    "rkaf:resolvedToConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:assertion": {
+      "@type": "@id"
+    },
+    "rkaf:object": {
+      "@type": "@id"
+    },
+    "rkaf:dataConcept": {
+      "@type": "@id"
+    },
+    "rkaf:proposedFromLocalConcept": {
+      "@type": "@id"
+    },
+    "rkaf:registeredConcept": {
+      "@type": "@id"
+    },
+    "rkaf:registrationAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:proposedBy": {
+      "@type": "@id"
+    },
+    "rkaf:delegatingAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:delegatedTo": {
+      "@type": "@id"
+    },
+    "rkaf:publisher": {
+      "@type": "@id"
+    },
+    "rkaf:appliesTo": {
+      "@type": "@id"
+    },
+    "rkaf:affectedAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedAuthorityAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedImplementationAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedWorkProducts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedAdoptions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedFragments": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:affectedAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:affectedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:staleDependencies": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:unresolvedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:registryUnavailable": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:staleConceptCache": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedEvaluationAnchors": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedAutomaticMigrations": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedAuthorityKinds": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:justificationBackedBy": {
+      "@type": "@id"
+    },
+    "rkaf:derivedFromFragment": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:associatedWorkflowStep": {
+      "@type": "@id"
+    },
+    "rkaf:generationRun": {
+      "@type": "@id"
+    },
+    "rkaf:fromConcept": {
+      "@type": "@id"
+    },
+    "rkaf:toConcept": {
+      "@type": "@id"
+    },
+    "rkaf:requiredAdoptionScope": {
+      "@type": "@id"
+    },
+    "rkaf:collectsEvidenceType": {
+      "@type": "@id"
+    },
+    "rkaf:requiresEvidenceType": {
+      "@type": "@id"
+    },
+    "rkaf:acceptedDocumentTypes": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:excludesCategory": {
+      "@container": "@set"
+    },
+    "rkaf:evidencePurpose": {
+      "@container": "@set"
+    },
+    "rkaf:excludesPurposes": {
+      "@container": "@set"
+    },
+    "rkaf:jurisdiction": {
+      "@container": "@set"
+    },
+    "prov:wasGeneratedBy": {
+      "@type": "@id"
+    },
+    "prov:wasAttributedTo": {
+      "@type": "@id"
+    },
+    "prov:wasDerivedFrom": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "prov:generatedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "eli:consolidates": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "eli:consolidated_by": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dpv:hasPersonalDataCategory": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dpv:hasLegalBasis": {
+      "@type": "@id"
+    },
+    "dpv:hasPurpose": {
+      "@type": "@id"
+    },
+    "skos:prefLabel": {
+      "@container": "@language"
+    },
+    "skos:altLabel": {
+      "@container": "@language"
+    },
+    "skos:hiddenLabel": {
+      "@container": "@language"
+    },
+    "skos:definition": {
+      "@container": "@language"
+    },
+    "skos:example": {
+      "@container": "@language"
+    },
+    "skos:note": {
+      "@container": "@language"
+    },
+    "skos:scopeNote": {
+      "@container": "@language"
+    },
+    "skos:changeNote": {
+      "@container": "@language"
+    },
+    "skos:editorialNote": {
+      "@container": "@language"
+    },
+    "skos:historyNote": {
+      "@container": "@language"
+    },
+    "skos:notation": {
+      "@id": "http://www.w3.org/2004/02/skos/core#notation"
+    },
+    "skos:broader": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:narrower": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:related": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:inScheme": {
+      "@type": "@id"
+    },
+    "skos:hasTopConcept": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ConceptScheme": {
+      "@type": "@id"
+    },
+    "rkaf:schemeFacet": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptAssignment": {
+      "@type": "@id"
+    },
+    "rkaf:assignedConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:fragmentIdentityScheme": {
+      "@type": "@vocab"
+    },
+    "prov:hadMember": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcat:distribution": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcat:version": {
+      "@type": "xsd:string"
+    },
+    "dcterms:type": {
+      "@type": "@id"
+    },
+    "dcterms:issued": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:capturedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:registeredAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectiveDate": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:exceptionEffectivePeriodEnd": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:exceptionEffectivePeriodStart": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:cachedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:deprecatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:rescissionEffectiveDate": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:detectedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:definedInScope": {
+      "@type": "@id"
+    },
+    "rkaf:findingKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:severity": {
+      "@type": "@vocab"
+    },
+    "rkaf:subject": {
+      "@type": "@id"
+    },
+    "rkaf:detectedBy": {
+      "@type": "@id"
+    },
+    "rkaf:lastVerifiedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:verifiedBy": {
+      "@type": "@id"
+    },
+    "rkaf:targetFinding": {
+      "@type": "@id"
+    },
+    "rkaf:findings": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:RelationChangeEvent": {
+      "@type": "@id"
+    },
+    "rkaf:changeSubject": {
+      "@type": "@id"
+    },
+    "rkaf:changePredicate": {
+      "@type": "@id"
+    },
+    "rkaf:changeObject": {
+      "@type": "@id"
+    },
+    "rkaf:relationChangeOperation": {
+      "@type": "@vocab"
+    },
+    "rkaf:relationChangeStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:relationChangeTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:changeIntendedEffectiveTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:changeEvidence": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:replacementRelationObject": {
+      "@type": "@id"
+    },
+    "rkaf:RelationComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonBaselineArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonObservedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonExpectedAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonConsumer": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonScope": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonEvaluationTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:comparisonPolicyVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonDetector": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonDetectorVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonSnapshot": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonOutcome": {
+      "@type": "@vocab"
+    },
+    "rkaf:comparisonProofRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ResolverProofIssuer": {
+      "@type": "@id"
+    },
+    "rkaf:proofResolver": {
+      "@type": "@id"
+    },
+    "rkaf:proofResolverVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:proofPolicyVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:ResolverProofRecord": {
+      "@type": "@id"
+    },
+    "rkaf:proofType": {
+      "@type": "@vocab"
+    },
+    "rkaf:proofIssuer": {
+      "@type": "@id"
+    },
+    "rkaf:proofComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:proofOutcome": {
+      "@type": "@vocab"
+    },
+    "rkaf:proofRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofInput": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proofInputDigest": {
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "rkaf:proofSupportingRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proofEvaluatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:proofSnapshot": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofRecordDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:independenceGroup": {
+      "@type": "@id"
+    },
+    "rkaf:adjudicationVerdict": {
+      "@type": "@vocab"
+    },
+    "rkaf:sealedRequestDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:sealedResponseArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:RelationFinding": {
+      "@type": "@id"
+    },
+    "rkaf:relationFindingKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:findingComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:findingComparedAssertion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:findingProofRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:findingDetectedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:findingRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:findingFingerprint": {
+      "@type": "xsd:string"
+    },
+    "rkaf:ClosureClaim": {
+      "@type": "@id"
+    },
+    "rkaf:closureClaimStatus": {
+      "@type": "@vocab"
+    },
+    "rkaf:closureArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:closureRegion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:closurePredicateFamily": {
+      "@type": "@id"
+    },
+    "rkaf:closureProfileVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:closureMemberDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:closureReviewedAt": {
+      "@type": "xsd:dateTime"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "urn:rulespec:document-understanding:document:5954725d7d29558986b8730ef199f1ee18375d2163f8af10b43167ad37e9acbd",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:document:5954725d7d29558986b8730ef199f1ee18375d2163f8af10b43167ad37e9acbd",
+      "rkaf:artifactIdentifierScheme": "rkaf:hash-sha256",
+      "rkaf:hasContentDigest": "sha256:5954725d7d29558986b8730ef199f1ee18375d2163f8af10b43167ad37e9acbd",
+      "dcterms:format": "text/plain"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:lineage:9cb6dd912c98651fae880e574567bec57ee778747dcea5989523021789f1feb6",
+      "@type": "rkaf:AILineage",
+      "rkaf:modelId": "gemini-3.8-flash",
+      "rkaf:modelVersion": "gemini-3.8-flash",
+      "rkaf:promptTemplateRef": "urn:rulespec:document-understanding:prompt:f68d460a221d1f3299cf927cbbf9bceae26342cbafa3cf383655065aa7428db5",
+      "rkaf:inputContextHash": "sha256:5954725d7d29558986b8730ef199f1ee18375d2163f8af10b43167ad37e9acbd"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:activity:e2005c5d8be75e70e9fa09b8a73d931eb871c6ca098f92a51228a51316aafadd",
+      "@type": "rkaf:ExtractionActivity",
+      "rkaf:extractionMethod": "rkaf:modelExtraction",
+      "rkaf:extractionRun": "urn:rulespec:document-understanding:run:a6b706a7-3292-4af4-bd0c-aaef254d4ce5",
+      "rkaf:extractedBy": "urn:rulespec:document-understanding:extractor:langextract",
+      "rkaf:extractorVersion": "document-understanding/3",
+      "rkaf:requestContractDigest": "sha256:23ec9acf3d255d1f31275ce7a3a9d386d598c34b5147a72ac98d66e799656d3e",
+      "rkaf:extractionModelRef": "urn:rulespec:document-understanding:model:319034f3e25d0d9bd6b3a46b1def7a01b7689f0d51384c63da1f6e0b464af810",
+      "rkaf:extractionPromptRef": "urn:rulespec:document-understanding:prompt:f68d460a221d1f3299cf927cbbf9bceae26342cbafa3cf383655065aa7428db5",
+      "rkaf:inputDigest": [
+        "sha256:5954725d7d29558986b8730ef199f1ee18375d2163f8af10b43167ad37e9acbd"
+      ],
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9cb6dd912c98651fae880e574567bec57ee778747dcea5989523021789f1feb6"
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A5954725d7d29558986b8730ef199f1ee18375d2163f8af10b43167ad37e9acbd:0:345:sha256-f3e76c5f39e79aa965da642175462cf6c7e2ff3e48b74040a6bf796cb2fd8298",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:5954725d7d29558986b8730ef199f1ee18375d2163f8af10b43167ad37e9acbd",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:5954725d7d29558986b8730ef199f1ee18375d2163f8af10b43167ad37e9acbd",
+      "rkaf:fragmentContentDigest": "sha256:f3e76c5f39e79aa965da642175462cf6c7e2ff3e48b74040a6bf796cb2fd8298",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(e) Prompt notice shall be given of the denial in whole or in part of a written application, petition, or other request of an interested person made in connection with any agency proceeding. Except in affirming a prior denial or when the denial is self-explanatory, the notice shall be accompanied by a brief statement of the grounds for denial."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 0,
+          "oa:end": 345,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:scope:146b3e9b07e2819ed9ecb2373d00b41d2621697c34ca829a99af0fbf33edbb0f",
+      "@type": "rkaf:ApplicabilityScope",
+      "rkaf:appliesInJurisdiction": [],
+      "rkaf:applicabilityCondition": "denial in whole or in part of a written application, petition, or other request of an interested person made in connection with any agency proceeding"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:70804c48e06be0107bb9400f9c5e8e7c1b0d18bf01c00ea26df48eb9310e50b8",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9cb6dd912c98651fae880e574567bec57ee778747dcea5989523021789f1feb6",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:e2005c5d8be75e70e9fa09b8a73d931eb871c6ca098f92a51228a51316aafadd",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:459acc74fa36035c0010ea7ccf015342aedc603c5e750c28355dbbbdaa2d9f1a",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-requirement",
+      "rkaf:assertsValue": {
+        "@value": "Prompt notice shall be given of the denial in whole or in part of a written application, petition, or other request of an interested person made in connection with any agency proceeding.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:5604c7d1c1d72aabc73cf0eae136f30dc7bbc46c3c353ed607e24ac8cef52ffc",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:70804c48e06be0107bb9400f9c5e8e7c1b0d18bf01c00ea26df48eb9310e50b8",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A5954725d7d29558986b8730ef199f1ee18375d2163f8af10b43167ad37e9acbd:0:345:sha256-f3e76c5f39e79aa965da642175462cf6c7e2ff3e48b74040a6bf796cb2fd8298"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:fd9c5be44fe3da60d708411383dca6251946bc0d0aa783251f3f9a747061a86f",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:70804c48e06be0107bb9400f9c5e8e7c1b0d18bf01c00ea26df48eb9310e50b8",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A5954725d7d29558986b8730ef199f1ee18375d2163f8af10b43167ad37e9acbd:0:345:sha256-f3e76c5f39e79aa965da642175462cf6c7e2ff3e48b74040a6bf796cb2fd8298"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:61be8cc4fa82b481660d302fca5618eb09f5d77ac346741ea69f0821e15bb97c",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9cb6dd912c98651fae880e574567bec57ee778747dcea5989523021789f1feb6",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:e2005c5d8be75e70e9fa09b8a73d931eb871c6ca098f92a51228a51316aafadd",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:459acc74fa36035c0010ea7ccf015342aedc603c5e750c28355dbbbdaa2d9f1a",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "must",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:6976e993a6c53154230c5a97a904ad828fe6957bc263f6836593716b036322b8",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:61be8cc4fa82b481660d302fca5618eb09f5d77ac346741ea69f0821e15bb97c",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:providesContext",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A5954725d7d29558986b8730ef199f1ee18375d2163f8af10b43167ad37e9acbd:0:345:sha256-f3e76c5f39e79aa965da642175462cf6c7e2ff3e48b74040a6bf796cb2fd8298"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:74c7961608d2af143ffec6a3ef0e1f3b2a1631395ad487e6b136976dd03f6ee6",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9cb6dd912c98651fae880e574567bec57ee778747dcea5989523021789f1feb6",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:e2005c5d8be75e70e9fa09b8a73d931eb871c6ca098f92a51228a51316aafadd",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:459acc74fa36035c0010ea7ccf015342aedc603c5e750c28355dbbbdaa2d9f1a",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:scope_text",
+      "rkaf:assertsValue": {
+        "@value": "denial in whole or in part of a written application, petition, or other request of an interested person made in connection with any agency proceeding",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:1927caa59fc11e1eedfe8a2e52b70baf446de9b2cc665ede0a84746a9ffc31da",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:74c7961608d2af143ffec6a3ef0e1f3b2a1631395ad487e6b136976dd03f6ee6",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A5954725d7d29558986b8730ef199f1ee18375d2163f8af10b43167ad37e9acbd:0:345:sha256-f3e76c5f39e79aa965da642175462cf6c7e2ff3e48b74040a6bf796cb2fd8298"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:5fcbe6dae4129029094a4f58aa5da5290865dc73a3d96d82035b316f248ddbd7",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9cb6dd912c98651fae880e574567bec57ee778747dcea5989523021789f1feb6",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:e2005c5d8be75e70e9fa09b8a73d931eb871c6ca098f92a51228a51316aafadd",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:459acc74fa36035c0010ea7ccf015342aedc603c5e750c28355dbbbdaa2d9f1a",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"kind\":\"requirement\",\"modality\":\"must\",\"scope_text\":\"denial in whole or in part of a written application, petition, or other request of an interested person made in connection with any agency proceeding\",\"summary\":\"Prompt notice shall be given of the denial in whole or in part of a written application, petition, or other request of an interested person made in connection with any agency proceeding.\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed",
+      "rkaf:hasApplicability": "urn:rulespec:document-understanding:scope:146b3e9b07e2819ed9ecb2373d00b41d2621697c34ca829a99af0fbf33edbb0f"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:f68d68dfba2cdbbe9b943eb9dc554f11dd2e779d2a5f7b8df80769431951306b",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:5fcbe6dae4129029094a4f58aa5da5290865dc73a3d96d82035b316f248ddbd7",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A5954725d7d29558986b8730ef199f1ee18375d2163f8af10b43167ad37e9acbd:0:345:sha256-f3e76c5f39e79aa965da642175462cf6c7e2ff3e48b74040a6bf796cb2fd8298"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:a0d1f1d1590ce03a41fb549f68b789aadfb369419284d2e7f990ff787e1f186b",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:5fcbe6dae4129029094a4f58aa5da5290865dc73a3d96d82035b316f248ddbd7",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A5954725d7d29558986b8730ef199f1ee18375d2163f8af10b43167ad37e9acbd:0:345:sha256-f3e76c5f39e79aa965da642175462cf6c7e2ff3e48b74040a6bf796cb2fd8298"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:7af57c290e0033d8d25ea078ffd6faa0196d1e636885ca533d713f6e4dc1b6a5",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:7af57c290e0033d8d25ea078ffd6faa0196d1e636885ca533d713f6e4dc1b6a5",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:2b7cc942311af28793cd3a36ee9c6186f452e1eefedb5e6acf6e24a658859036",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:70804c48e06be0107bb9400f9c5e8e7c1b0d18bf01c00ea26df48eb9310e50b8\",\"urn:rulespec:document-understanding:assertion:61be8cc4fa82b481660d302fca5618eb09f5d77ac346741ea69f0821e15bb97c\",\"urn:rulespec:document-understanding:assertion:74c7961608d2af143ffec6a3ef0e1f3b2a1631395ad487e6b136976dd03f6ee6\",\"urn:rulespec:document-understanding:assertion:5fcbe6dae4129029094a4f58aa5da5290865dc73a3d96d82035b316f248ddbd7\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"defined_terms\":[],\"effective_periods\":[],\"end\":345,\"evidence\":[{\"end\":345,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A5954725d7d29558986b8730ef199f1ee18375d2163f8af10b43167ad37e9acbd:0:345:sha256-f3e76c5f39e79aa965da642175462cf6c7e2ff3e48b74040a6bf796cb2fd8298\",\"quote\":\"(e) Prompt notice shall be given of the denial in whole or in part of a written application, petition, or other request of an interested person made in connection with any agency proceeding. Except in affirming a prior denial or when the denial is self-explanatory, the notice shall be accompanied by a brief statement of the grounds for denial.\",\"start\":0},{\"end\":345,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A5954725d7d29558986b8730ef199f1ee18375d2163f8af10b43167ad37e9acbd:0:345:sha256-f3e76c5f39e79aa965da642175462cf6c7e2ff3e48b74040a6bf796cb2fd8298\",\"quote\":\"(e) Prompt notice shall be given of the denial in whole or in part of a written application, petition, or other request of an interested person made in connection with any agency proceeding. Except in affirming a prior denial or when the denial is self-explanatory, the notice shall be accompanied by a brief statement of the grounds for denial.\",\"start\":0}],\"id\":\"urn:rulespec:document-understanding:revision:7af57c290e0033d8d25ea078ffd6faa0196d1e636885ca533d713f6e4dc1b6a5\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"requirement\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:5fcbe6dae4129029094a4f58aa5da5290865dc73a3d96d82035b316f248ddbd7\",\"modality\":\"must\",\"modality_quote\":\"shall\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:caa0b67df01e169ae44cd1fbf664b436dc7dabb05841d8b980dd2520c28032c5\",\"origin\":\"aiSuggested\",\"quote\":\"(e) Prompt notice shall be given of the denial in whole or in part of a written application, petition, or other request of an interested person made in connection with any agency proceeding. Except in affirming a prior denial or when the denial is self-explanatory, the notice shall be accompanied by a brief statement of the grounds for denial.\",\"references\":[],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:459acc74fa36035c0010ea7ccf015342aedc603c5e750c28355dbbbdaa2d9f1a\",\"scope_quotes\":[\"(e) Prompt notice shall be given of the denial in whole or in part of a written application, petition, or other request of an interested person made in connection with any agency proceeding. Except in affirming a prior denial or when the denial is self-explanatory, the notice shall be accompanied by a brief statement of the grounds for denial.\"],\"scope_text\":\"denial in whole or in part of a written application, petition, or other request of an interested person made in connection with any agency proceeding\",\"section_id\":\"section-1\",\"start\":0,\"summary\":\"Prompt notice shall be given of the denial in whole or in part of a written application, petition, or other request of an interested person made in connection with any agency proceeding.\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:70804c48e06be0107bb9400f9c5e8e7c1b0d18bf01c00ea26df48eb9310e50b8"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:61be8cc4fa82b481660d302fca5618eb09f5d77ac346741ea69f0821e15bb97c"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:74c7961608d2af143ffec6a3ef0e1f3b2a1631395ad487e6b136976dd03f6ee6"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:5fcbe6dae4129029094a4f58aa5da5290865dc73a3d96d82035b316f248ddbd7"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:scope:28d252048cc3f86f5d1730fdfb316649ee05b069fa061a19a6ba39263210a3e2",
+      "@type": "rkaf:ApplicabilityScope",
+      "rkaf:appliesInJurisdiction": [],
+      "rkaf:applicabilityCondition": "Except in affirming a prior denial or when the denial is self-explanatory, in connection with notice of the denial in whole or in part of a written application, petition, or other request of an interested person made in connection with any agency proceeding"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:af3f45a790a3cf98f992e976d20e897ffae5bd14033018b47cfd058c88443e93",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9cb6dd912c98651fae880e574567bec57ee778747dcea5989523021789f1feb6",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:e2005c5d8be75e70e9fa09b8a73d931eb871c6ca098f92a51228a51316aafadd",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:9c43a01301033c307410638707a3bdbf20a19ff789a4be27f7b81ea1b604d17d",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-requirement",
+      "rkaf:assertsValue": {
+        "@value": "Except in affirming a prior denial or when the denial is self-explanatory, the notice of denial of a written application, petition, or other request of an interested person made in connection with any agency proceeding shall be accompanied by a brief statement of the grounds for denial.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:636046495a5a7efd089e0dbc37b80bc8a53beae5ca82be32acbd54dc15cd0712",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:af3f45a790a3cf98f992e976d20e897ffae5bd14033018b47cfd058c88443e93",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A5954725d7d29558986b8730ef199f1ee18375d2163f8af10b43167ad37e9acbd:0:345:sha256-f3e76c5f39e79aa965da642175462cf6c7e2ff3e48b74040a6bf796cb2fd8298"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:9bbcd643b7bd8aed58a7274d195fbe5baf2731889691f7c685f47a62d6a25987",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:af3f45a790a3cf98f992e976d20e897ffae5bd14033018b47cfd058c88443e93",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A5954725d7d29558986b8730ef199f1ee18375d2163f8af10b43167ad37e9acbd:0:345:sha256-f3e76c5f39e79aa965da642175462cf6c7e2ff3e48b74040a6bf796cb2fd8298"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:41349297de63e352b969d868619e923508e8851e1629a48909f8a9b410dc2b62",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9cb6dd912c98651fae880e574567bec57ee778747dcea5989523021789f1feb6",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:e2005c5d8be75e70e9fa09b8a73d931eb871c6ca098f92a51228a51316aafadd",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:9c43a01301033c307410638707a3bdbf20a19ff789a4be27f7b81ea1b604d17d",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "must",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:d1b4d35a50ed6d9b84c7dcb8ca6b4c5813e250901cbb1e20adb91e434e05d29f",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:41349297de63e352b969d868619e923508e8851e1629a48909f8a9b410dc2b62",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:providesContext",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A5954725d7d29558986b8730ef199f1ee18375d2163f8af10b43167ad37e9acbd:0:345:sha256-f3e76c5f39e79aa965da642175462cf6c7e2ff3e48b74040a6bf796cb2fd8298"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:72eb0882e6720138ea6fa5d062143c204e18b7e2b320be74643cfe2e793257f1",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9cb6dd912c98651fae880e574567bec57ee778747dcea5989523021789f1feb6",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:e2005c5d8be75e70e9fa09b8a73d931eb871c6ca098f92a51228a51316aafadd",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:9c43a01301033c307410638707a3bdbf20a19ff789a4be27f7b81ea1b604d17d",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:scope_text",
+      "rkaf:assertsValue": {
+        "@value": "Except in affirming a prior denial or when the denial is self-explanatory, in connection with notice of the denial in whole or in part of a written application, petition, or other request of an interested person made in connection with any agency proceeding",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:e2e37b20f057eab689558e89383cea51097fa0041adeb560e3614eac6107b93b",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:72eb0882e6720138ea6fa5d062143c204e18b7e2b320be74643cfe2e793257f1",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A5954725d7d29558986b8730ef199f1ee18375d2163f8af10b43167ad37e9acbd:0:345:sha256-f3e76c5f39e79aa965da642175462cf6c7e2ff3e48b74040a6bf796cb2fd8298"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:c4fe6257ab238260f99397d425ab7c994bb7ce212286406a6532206a742faa8a",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9cb6dd912c98651fae880e574567bec57ee778747dcea5989523021789f1feb6",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:e2005c5d8be75e70e9fa09b8a73d931eb871c6ca098f92a51228a51316aafadd",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:9c43a01301033c307410638707a3bdbf20a19ff789a4be27f7b81ea1b604d17d",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"kind\":\"requirement\",\"modality\":\"must\",\"scope_text\":\"Except in affirming a prior denial or when the denial is self-explanatory, in connection with notice of the denial in whole or in part of a written application, petition, or other request of an interested person made in connection with any agency proceeding\",\"summary\":\"Except in affirming a prior denial or when the denial is self-explanatory, the notice of denial of a written application, petition, or other request of an interested person made in connection with any agency proceeding shall be accompanied by a brief statement of the grounds for denial.\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed",
+      "rkaf:hasApplicability": "urn:rulespec:document-understanding:scope:28d252048cc3f86f5d1730fdfb316649ee05b069fa061a19a6ba39263210a3e2"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:7050f56ae3f1cf2e7749f7491b5980981d8342ba82fd0ef916f115a5794c48d0",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:c4fe6257ab238260f99397d425ab7c994bb7ce212286406a6532206a742faa8a",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A5954725d7d29558986b8730ef199f1ee18375d2163f8af10b43167ad37e9acbd:0:345:sha256-f3e76c5f39e79aa965da642175462cf6c7e2ff3e48b74040a6bf796cb2fd8298"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:300a48ecc8f3f03cb6f6a65673f84531c07d88f8d46aecedf30525ec9c239021",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:c4fe6257ab238260f99397d425ab7c994bb7ce212286406a6532206a742faa8a",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A5954725d7d29558986b8730ef199f1ee18375d2163f8af10b43167ad37e9acbd:0:345:sha256-f3e76c5f39e79aa965da642175462cf6c7e2ff3e48b74040a6bf796cb2fd8298"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:13b71063cdf27cbb02d4507eaa24327c6e18799b5b56627dc8f42a16dcdc5459",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:13b71063cdf27cbb02d4507eaa24327c6e18799b5b56627dc8f42a16dcdc5459",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:83a0f11833b5a6d8097c9c2cc565ab07ba127c1ac5abf99eaea71ef318be73c3",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:af3f45a790a3cf98f992e976d20e897ffae5bd14033018b47cfd058c88443e93\",\"urn:rulespec:document-understanding:assertion:41349297de63e352b969d868619e923508e8851e1629a48909f8a9b410dc2b62\",\"urn:rulespec:document-understanding:assertion:72eb0882e6720138ea6fa5d062143c204e18b7e2b320be74643cfe2e793257f1\",\"urn:rulespec:document-understanding:assertion:c4fe6257ab238260f99397d425ab7c994bb7ce212286406a6532206a742faa8a\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"defined_terms\":[],\"effective_periods\":[],\"end\":345,\"evidence\":[{\"end\":345,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A5954725d7d29558986b8730ef199f1ee18375d2163f8af10b43167ad37e9acbd:0:345:sha256-f3e76c5f39e79aa965da642175462cf6c7e2ff3e48b74040a6bf796cb2fd8298\",\"quote\":\"(e) Prompt notice shall be given of the denial in whole or in part of a written application, petition, or other request of an interested person made in connection with any agency proceeding. Except in affirming a prior denial or when the denial is self-explanatory, the notice shall be accompanied by a brief statement of the grounds for denial.\",\"start\":0},{\"end\":345,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A5954725d7d29558986b8730ef199f1ee18375d2163f8af10b43167ad37e9acbd:0:345:sha256-f3e76c5f39e79aa965da642175462cf6c7e2ff3e48b74040a6bf796cb2fd8298\",\"quote\":\"(e) Prompt notice shall be given of the denial in whole or in part of a written application, petition, or other request of an interested person made in connection with any agency proceeding. Except in affirming a prior denial or when the denial is self-explanatory, the notice shall be accompanied by a brief statement of the grounds for denial.\",\"start\":0}],\"id\":\"urn:rulespec:document-understanding:revision:13b71063cdf27cbb02d4507eaa24327c6e18799b5b56627dc8f42a16dcdc5459\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"requirement\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:c4fe6257ab238260f99397d425ab7c994bb7ce212286406a6532206a742faa8a\",\"modality\":\"must\",\"modality_quote\":\"shall\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:84f4ee1bc33e8ae9d052601a3d5c4d5a882a384f082c5c5de0eb191c76dffb4c\",\"origin\":\"aiSuggested\",\"quote\":\"(e) Prompt notice shall be given of the denial in whole or in part of a written application, petition, or other request of an interested person made in connection with any agency proceeding. Except in affirming a prior denial or when the denial is self-explanatory, the notice shall be accompanied by a brief statement of the grounds for denial.\",\"references\":[],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:9c43a01301033c307410638707a3bdbf20a19ff789a4be27f7b81ea1b604d17d\",\"scope_quotes\":[\"(e) Prompt notice shall be given of the denial in whole or in part of a written application, petition, or other request of an interested person made in connection with any agency proceeding. Except in affirming a prior denial or when the denial is self-explanatory, the notice shall be accompanied by a brief statement of the grounds for denial.\"],\"scope_text\":\"Except in affirming a prior denial or when the denial is self-explanatory, in connection with notice of the denial in whole or in part of a written application, petition, or other request of an interested person made in connection with any agency proceeding\",\"section_id\":\"section-1\",\"start\":0,\"summary\":\"Except in affirming a prior denial or when the denial is self-explanatory, the notice of denial of a written application, petition, or other request of an interested person made in connection with any agency proceeding shall be accompanied by a brief statement of the grounds for denial.\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:af3f45a790a3cf98f992e976d20e897ffae5bd14033018b47cfd058c88443e93"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:41349297de63e352b969d868619e923508e8851e1629a48909f8a9b410dc2b62"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:72eb0882e6720138ea6fa5d062143c204e18b7e2b320be74643cfe2e793257f1"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:c4fe6257ab238260f99397d425ab7c994bb7ce212286406a6532206a742faa8a"
+        }
+      ]
+    }
+  ]
+}

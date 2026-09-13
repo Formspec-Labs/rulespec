@@ -1,9 +1,23 @@
 # Model input improvements: prioritized task list
 
+**Iteration closed — September 13.** The
+[final repair-format comparison](../experiments/2026-09-13-repair-finish/README.md)
+generated **0/10 complete fresh repairs in each arm**, while preserving the four
+complete-control outcomes per arm. Sparse output did not meet either adoption
+route and is deferred. The standalone checker remains deferred. Retain the
+already committed provider-setting and identifier fixes; verify the local
+installation matches them as part of this closeout. The historical tasks below
+are an evidence-backed backlog, not instructions to continue automatic experiments.
+
+The finishing point is the existing extraction → source-linked records → review
+and export path, with an explicit limit on independently complete rules. Use
+concrete documents and feedback to decide whether to reopen repair work. Do not
+add another default pass, schema or prompt patch to complete this list on paper.
+
 Improve independently usable rule meanings while preserving the simple extraction
 path. This list follows the [independent input review](../reviews/2026-09-13-model-input-construction-review.md)
 and [construction experiment](../experiments/2026-09-13-explicit-rule-construction/README.md).
-Latest update: the [two-factor diagnostic](../experiments/2026-09-13-checker-input-factors/README.md)
+Previous checkpoint: the [two-factor diagnostic](../experiments/2026-09-13-checker-input-factors/README.md)
 finds **8/8** correct unchanged-reading judgments with competing edits versus
 **6/8** checking the reading alone. Extra `link_issues` do not change correctness
 counts; neither factor meets the preregistered repeated-failure criterion, so the
@@ -441,3 +455,29 @@ standalone evaluator fixed: use manual source judgments to avoid waiting for a
 perfect automatic checker. Stop tuning this diagnostic cohort. Generation and
 its actual checking requests still need fresh evidence before production adoption.
 See [plan, raw review, scores and receipts](../experiments/2026-09-13-checker-input-factors/README.md).
+
+## Final repair-format decision — September 13
+
+- [x] **M5/M8 — Complete the bounded generation comparison.** Four new source
+  excerpts, two repetitions per format, plus the exact old pension failure and
+  one constructed actor error. Twenty-four generation calls follow four ordinary
+  extractions. Both formats repair 0/10 fresh meaning gaps; complete controls stay
+  unchanged 4/4. The fourth excerpt lacks its introductory force and its two
+  readings remain explicitly uncertain, outside decisive counts. No fresh case
+  was replaced or planted after extraction.
+- [x] **Make the non-adoption decision.** Sparse output repairs the actor error
+  2/2 versus 1/2 valid full replacements, but known/constructed gains do not meet
+  the fresh-source gate. Five of its six proposals still emit all fields; two
+  denial edits leave missing meaning unchanged. Total generation tokens increase
+  8.9%. No new repair behavior enters production. Stop the optional checker phase
+  because neither required fresh-repair outcome can be established by its verdicts.
+- [x] **M9 — Close with preservation checks and usable guidance.** Reproduce the
+  native extractions and generated proposals offline, exercise valid proposals
+  through review/export in disposable workspaces, retain all warnings and source
+  history, and verify the local installed tool matches the already committed
+  checkout fixes. Keep the experiment and local delivery receipts with the result.
+
+M1/M4 shared task adoption, M6 repair evidence changes, M7 layout changes, M10 model
+comparison and the standalone prototype are deferred. They are not prerequisites
+to using the current discovery/review pipeline. Reopen only for a concrete product
+need with new evidence; this closeout does not schedule another experiment.
