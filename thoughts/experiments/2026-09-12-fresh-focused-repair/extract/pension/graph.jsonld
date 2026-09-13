@@ -1,0 +1,2230 @@
+{
+  "@context": {
+    "rkaf": "https://rulespec.org/ns/v1#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "oa": "http://www.w3.org/ns/oa#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "cito": "http://purl.org/spar/cito/",
+    "wos": "https://w3id.org/wos/ns/v1#",
+    "formspec": "https://w3id.org/formspec/ns/v1#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "eli": "http://data.europa.eu/eli/ontology#",
+    "aknt": "http://docs.oasis-open.org/legaldocml/ns/akn/3.0/",
+    "uslm": "https://uslm.gov/2.1.0/",
+    "lrml": "http://docs.oasis-open.org/legalruleml/ns/v1.0/",
+    "rrmv": "http://data.europa.eu/m8g/rrmv/",
+    "eco": "http://purl.obolibrary.org/obo/ECO_",
+    "sepio": "http://purl.obolibrary.org/obo/SEPIO_",
+    "dpv": "https://w3id.org/dpv#",
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "rkaf:Artifact": {
+      "@type": "@id"
+    },
+    "rkaf:hasArtifactIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:artifactIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasRegulatoryIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:regulatoryIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:publishedInProceeding": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:publishedInDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:hasFormat": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:format": {
+      "@type": "xsd:string"
+    },
+    "dcterms:isFormatOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:isVersionOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "prov:wasRevisionOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasContentDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:versionLineageEvidence": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:SourceFragment": {
+      "@type": "@id"
+    },
+    "oa:hasSource": {
+      "@type": "@id"
+    },
+    "oa:hasSelector": {
+      "@type": "@id"
+    },
+    "oa:TextQuoteSelector": {
+      "@type": "@id"
+    },
+    "oa:TextPositionSelector": {
+      "@type": "@id"
+    },
+    "oa:exact": {
+      "@type": "xsd:string"
+    },
+    "oa:prefix": {
+      "@type": "xsd:string"
+    },
+    "oa:suffix": {
+      "@type": "xsd:string"
+    },
+    "oa:start": {
+      "@type": "xsd:integer"
+    },
+    "oa:end": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:selectorKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:coordinateSystem": {
+      "@type": "@vocab"
+    },
+    "rkaf:sourceArtifactDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:fragmentContentDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:EvidenceBinding": {
+      "@type": "@id"
+    },
+    "rkaf:bindsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:bindsSourceFragment": {
+      "@type": "@id"
+    },
+    "rkaf:noEvidenceReason": {
+      "@type": "@id"
+    },
+    "rkaf:Warrant": {
+      "@type": "@id"
+    },
+    "rkaf:hasWarrant": {
+      "@type": "@id"
+    },
+    "rkaf:warrantKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:warrantFamily": {
+      "@type": "@vocab"
+    },
+    "rkaf:defeasible": {
+      "@type": "xsd:boolean"
+    },
+    "rkaf:ConfidenceRecord": {
+      "@type": "@id"
+    },
+    "rkaf:hasConfidence": {
+      "@type": "@id"
+    },
+    "rkaf:confidenceMethod": {
+      "@type": "@vocab"
+    },
+    "rkaf:calibrationStatus": {
+      "@type": "@vocab"
+    },
+    "rkaf:confidenceBasis": {
+      "@type": "@id"
+    },
+    "rkaf:evaluatedAgainst": {
+      "@type": "@id"
+    },
+    "rkaf:generatedBy": {
+      "@type": "@id"
+    },
+    "rkaf:score": {
+      "@type": "xsd:float"
+    },
+    "rkaf:scoreCategorical": {
+      "@type": "@vocab"
+    },
+    "rkaf:AccessScope": {
+      "@type": "@id"
+    },
+    "rkaf:hasAccessScope": {
+      "@type": "@id"
+    },
+    "rkaf:accessScopeKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:regulatoryClass": {
+      "@type": "@vocab"
+    },
+    "rkaf:embargoUntil": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:permittedRole": {
+      "@type": "@id"
+    },
+    "rkaf:AILineage": {
+      "@type": "@id"
+    },
+    "rkaf:hasAILineage": {
+      "@type": "@id"
+    },
+    "rkaf:modelId": {
+      "@type": "xsd:string"
+    },
+    "rkaf:modelVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:promptTemplateRef": {
+      "@type": "@id"
+    },
+    "rkaf:temperature": {
+      "@type": "xsd:float"
+    },
+    "rkaf:seed": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:inputContextHash": {
+      "@type": "xsd:string"
+    },
+    "rkaf:humanApprover": {
+      "@type": "@id"
+    },
+    "rkaf:humanRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:MappingState": {
+      "@type": "@id"
+    },
+    "rkaf:mappingState": {
+      "@type": "@vocab"
+    },
+    "rkaf:RetentionPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:hasRetentionPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:retentionDurationDays": {
+      "@type": "xsd:int"
+    },
+    "rkaf:retentionTrigger": {
+      "@type": "@vocab"
+    },
+    "rkaf:retentionPostExpiry": {
+      "@type": "@vocab"
+    },
+    "rkaf:Workspace": {
+      "@type": "@id"
+    },
+    "rkaf:scopedToWorkspace": {
+      "@type": "@id"
+    },
+    "rkaf:workspaceId": {
+      "@type": "xsd:string"
+    },
+    "rkaf:workspaceTrustList": {
+      "@type": "@id"
+    },
+    "rkaf:projectsTo": {
+      "@type": "@id"
+    },
+    "rkaf:llmHint": {
+      "@type": "@id"
+    },
+    "rkaf:Authority": {
+      "@type": "@id"
+    },
+    "rkaf:Attestation": {
+      "@type": "@id"
+    },
+    "rkaf:LocalAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:ApplicabilityScope": {
+      "@type": "@id"
+    },
+    "rkaf:EffectivePeriod": {
+      "@type": "@id"
+    },
+    "rkaf:LifecycleEvent": {
+      "@type": "@id"
+    },
+    "rkaf:Proceeding": {
+      "@type": "@id"
+    },
+    "rkaf:RegulatoryAgendaItem": {
+      "@type": "@id"
+    },
+    "rkaf:RegulatoryAgendaObservation": {
+      "@type": "@id"
+    },
+    "rkaf:AgendaProceedingRelationship": {
+      "@type": "@id"
+    },
+    "dcat:Resource": {
+      "@type": "@id"
+    },
+    "dcat:CatalogRecord": {
+      "@type": "@id"
+    },
+    "dcat:Relationship": {
+      "@type": "@id"
+    },
+    "rkaf:CommentPeriod": {
+      "@type": "@id"
+    },
+    "rkaf:Docket": {
+      "@type": "@id"
+    },
+    "prov:Entity": {
+      "@type": "@id"
+    },
+    "rkaf:hasDocketIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:docketIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasProceedingIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:proceedingIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasAgendaItemIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:agendaItemIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaScopeStatus": {
+      "@type": "@vocab"
+    },
+    "dcat:qualifiedRelation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "foaf:primaryTopic": {
+      "@type": "@id"
+    },
+    "rkaf:agendaStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaPriority": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaAffectsCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:agendaAuthorityCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:relation": {
+      "@type": "@id"
+    },
+    "dcat:hadRole": {
+      "@type": "@vocab"
+    },
+    "rkaf:identifierRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:proceedingStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:proceedingTerminationCause": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasAuthority": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingAffects": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingAffectsCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingProduces": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasProceedingEvidenceIdentifier": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingEvidenceIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:proceedingSupersedes": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodFor": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodOpenedBy": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodStart": {
+      "@type": "xsd:date"
+    },
+    "rkaf:commentPeriodEnd": {
+      "@type": "xsd:date"
+    },
+    "rkaf:RegisteredConcept": {
+      "@type": "@id"
+    },
+    "rkaf:LocalConcept": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptMapping": {
+      "@type": "@id"
+    },
+    "rkaf:ReferenceResourceRelease": {
+      "@type": "@id"
+    },
+    "rkaf:MappingApplicabilityContext": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptResolutionResult": {
+      "@type": "@id"
+    },
+    "rkaf:BridgeValidationResult": {
+      "@type": "@id"
+    },
+    "rkaf:BridgeConsumerRegistration": {
+      "@type": "@id"
+    },
+    "rkaf:RegistryConflict": {
+      "@type": "@id"
+    },
+    "rkaf:Finding": {
+      "@type": "@id"
+    },
+    "rkaf:Justification": {
+      "@type": "@id"
+    },
+    "rkaf:hasJustification": {
+      "@type": "@id"
+    },
+    "rkaf:PointInTimeException": {
+      "@type": "@id"
+    },
+    "rkaf:evaluationAnchor": {
+      "@type": "@id"
+    },
+    "rkaf:retainsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:retainsWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:GeneratedWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:justifiedByAssertion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:consumerLifecycleState": {
+      "@type": "@id"
+    },
+    "rkaf:proposedUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:RevalidationEvent": {
+      "@type": "@id"
+    },
+    "rkaf:RevalidationClosureEvent": {
+      "@type": "@id"
+    },
+    "rkaf:revalidationFor": {
+      "@type": "@id"
+    },
+    "rkaf:triggeredBy": {
+      "@type": "@id"
+    },
+    "rkaf:closesRevalidation": {
+      "@type": "@id"
+    },
+    "rkaf:openedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:closedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:closureDecision": {
+      "@type": "@id"
+    },
+    "rkaf:successorAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:successorWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:ConsumerEffectiveDeclaration": {
+      "@type": "@id"
+    },
+    "rkaf:forAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:declaredEffective": {
+      "@type": "@vocab"
+    },
+    "rkaf:declaredScope": {
+      "@type": "@id"
+    },
+    "rkaf:declaredAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:BridgeIssueAttestationContract": {
+      "@type": "@id"
+    },
+    "rkaf:attestedIssueKinds": {
+      "@type": "@vocab"
+    },
+    "rkaf:usedAsAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:detectedIssues": {
+      "@type": "@id"
+    },
+    "rkaf:derivesAuthorityFrom": {
+      "@type": "@id"
+    },
+    "rkaf:hasApplicability": {
+      "@type": "@id"
+    },
+    "rkaf:hasEffectivePeriod": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:adoptedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:attestationScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:attestorKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:targets": {
+      "@type": "@id"
+    },
+    "rkaf:attestedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:revokedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:rationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:lifecycleEventKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:bridgeContractVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:maxAttestationStalenessDays": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:evaluationTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectivePeriodStart": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectivePeriodEnd": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:retroactiveFrom": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:sunsetAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:resolvedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:validatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:anchoredBy": {
+      "@type": "@id"
+    },
+    "rkaf:anchorType": {
+      "@type": "@id"
+    },
+    "rkaf:Assertion": {
+      "@type": "@id"
+    },
+    "rkaf:RelationshipAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:ValueAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:assertsSubject": {
+      "@type": "@id"
+    },
+    "rkaf:assertsPredicate": {
+      "@type": "@id"
+    },
+    "rkaf:assertsObject": {
+      "@type": "@id"
+    },
+    "rkaf:assertsValue": {
+      "@id": "https://rulespec.org/ns/v1#assertsValue"
+    },
+    "rkaf:assertionPolarity": {
+      "@type": "@vocab"
+    },
+    "rkaf:assertedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:hasSourceClaimant": {
+      "@type": "@id"
+    },
+    "rkaf:hasExtractionProvenance": {
+      "@type": "@id"
+    },
+    "rkaf:SourceClaimant": {
+      "@type": "@id"
+    },
+    "rkaf:claimsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:claimantAttribution": {
+      "@type": "@vocab"
+    },
+    "rkaf:claimantText": {
+      "@type": "xsd:string"
+    },
+    "rkaf:claimantIdentity": {
+      "@type": "@id"
+    },
+    "rkaf:attributedInFragment": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ExtractionActivity": {
+      "@type": "@id"
+    },
+    "rkaf:extractionMethod": {
+      "@type": "@vocab"
+    },
+    "rkaf:extractionRun": {
+      "@type": "@id"
+    },
+    "rkaf:extractedBy": {
+      "@type": "@id"
+    },
+    "rkaf:extractorVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:requestContractDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:extractionModelRef": {
+      "@type": "@id"
+    },
+    "rkaf:extractionPromptRef": {
+      "@type": "@id"
+    },
+    "rkaf:inputDigest": {
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "rkaf:extractionAttempt": {
+      "@type": "xsd:integer"
+    },
+    "prov:startedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "prov:endedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:hasSafetyLabel": {
+      "@type": "@id"
+    },
+    "rkaf:usageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:capabilityCap": {
+      "@type": "@id"
+    },
+    "rkaf:assertionOrigin": {
+      "@type": "@id"
+    },
+    "rkaf:epistemicBasis": {
+      "@type": "@vocab"
+    },
+    "rkaf:authorityKind": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionAuthorityKind": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionStatus": {
+      "@type": "@id"
+    },
+    "rkaf:result": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionStatus": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionMethod": {
+      "@type": "@id"
+    },
+    "rkaf:cacheStatus": {
+      "@type": "@id"
+    },
+    "rkaf:usageCeiling": {
+      "@type": "@id"
+    },
+    "rkaf:lifecycleEvent": {
+      "@type": "@id"
+    },
+    "rkaf:cascadeAlgorithm": {
+      "@type": "@id"
+    },
+    "rkaf:evidenceRole": {
+      "@type": "@id"
+    },
+    "rkaf:evidentiaryFunction": {
+      "@type": "@vocab"
+    },
+    "rkaf:warningCode": {
+      "@type": "@id"
+    },
+    "rkaf:errorCode": {
+      "@type": "@id"
+    },
+    "rkaf:decision": {
+      "@type": "@id"
+    },
+    "rkaf:scope": {
+      "@type": "@id"
+    },
+    "rkaf:visibility": {
+      "@type": "@id"
+    },
+    "rkaf:attestorType": {
+      "@type": "@id"
+    },
+    "rkaf:role": {
+      "@type": "@id"
+    },
+    "rkaf:transitionTo": {
+      "@type": "@id"
+    },
+    "rkaf:status": {
+      "@type": "@id"
+    },
+    "rkaf:predicate": {
+      "@type": "@id"
+    },
+    "rkaf:conceptScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:governanceModel": {
+      "@type": "@id"
+    },
+    "rkaf:revisedUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:effectiveUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:safeAutomaticMigration": {
+      "@type": "@id"
+    },
+    "rkaf:resourceKind": {
+      "@type": "@id"
+    },
+    "rkaf:officialStatus": {
+      "@type": "@id"
+    },
+    "rkaf:legalValue": {
+      "@type": "@id"
+    },
+    "rkaf:publicationStatus": {
+      "@type": "@id"
+    },
+    "rkaf:remediationAction": {
+      "@type": "@id"
+    },
+    "rkaf:requiredPredicate": {
+      "@type": "@id"
+    },
+    "rkaf:minimumUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:noRemediationReason": {
+      "@type": "@id"
+    },
+    "rkaf:authorityChainStatus": {
+      "@type": "@id"
+    },
+    "rkaf:chainTerminusKind": {
+      "@type": "@id"
+    },
+    "rkaf:fragmentType": {
+      "@type": "@id"
+    },
+    "rkaf:reviewStatus": {
+      "@type": "@id"
+    },
+    "rkaf:newWorkProductStatus": {
+      "@type": "@id"
+    },
+    "rkaf:newUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:newAssertionState": {
+      "@type": "@id"
+    },
+    "rkaf:resourceFamily": {
+      "@type": "@id"
+    },
+    "rkaf:assertedBy": {
+      "@type": "@id"
+    },
+    "rkaf:attestor": {
+      "@type": "@id"
+    },
+    "rkaf:targetAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:targetWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:targetPacket": {
+      "@type": "@id"
+    },
+    "rkaf:sourceConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:targetConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:targetMappingConflict": {
+      "@type": "@id"
+    },
+    "rkaf:targetBridgeValidation": {
+      "@type": "@id"
+    },
+    "rkaf:targetRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:targetAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:authorizedBy": {
+      "@type": "@id"
+    },
+    "rkaf:organization": {
+      "@type": "@id"
+    },
+    "rkaf:packetId": {
+      "@type": "@id"
+    },
+    "rkaf:consumer": {
+      "@type": "@id"
+    },
+    "rkaf:emittedBy": {
+      "@type": "@id"
+    },
+    "rkaf:triggeredByPacket": {
+      "@type": "@id"
+    },
+    "rkaf:closesRevalidationEvent": {
+      "@type": "@id"
+    },
+    "rkaf:successorAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:closedBy": {
+      "@type": "@id"
+    },
+    "rkaf:queuedFor": {
+      "@type": "@id"
+    },
+    "rkaf:supersedesAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:supersedesWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:revalidationOf": {
+      "@type": "@id"
+    },
+    "rkaf:precedingArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:precedingVersion": {
+      "@type": "@id"
+    },
+    "rkaf:supportingEvent": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnClassification": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnEvent": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnAttestation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:basedOnAttestations": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:artifactId": {
+      "@type": "@id"
+    },
+    "rkaf:realizedByArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:resourceLineage": {
+      "@type": "@id"
+    },
+    "rkaf:sourceAuthorityHint": {
+      "@type": "@id"
+    },
+    "rkaf:capturedBy": {
+      "@type": "@id"
+    },
+    "rkaf:subjectArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:priorArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:classifiedBy": {
+      "@type": "@id"
+    },
+    "rkaf:classification": {
+      "@type": "@id"
+    },
+    "rkaf:managedByRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:referenceReleaseDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:versionBasis": {
+      "@type": "@vocab"
+    },
+    "rkaf:membershipMode": {
+      "@type": "@vocab"
+    },
+    "rkaf:hostedByRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:mintingAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionEndpoint": {
+      "@type": "@id"
+    },
+    "rkaf:registeredVia": {
+      "@type": "@id"
+    },
+    "rkaf:replacedBy": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:absorbedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:splitInto": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:conceptLifecycleOperation": {
+      "@type": "@vocab"
+    },
+    "rkaf:predecessorConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:successorConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:predecessorConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:successorConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:subjectConcept": {
+      "@type": "@id"
+    },
+    "rkaf:relatedConcept": {
+      "@type": "@id"
+    },
+    "rkaf:sharedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:relatedPublishedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:conflictingMappings": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:concept": {
+      "@type": "@id"
+    },
+    "rkaf:inputConcept": {
+      "@type": "@id"
+    },
+    "rkaf:resolvedConcept": {
+      "@type": "@id"
+    },
+    "rkaf:mappingAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:openLabelFacet": {
+      "@type": "@id"
+    },
+    "rkaf:openLabelRole": {
+      "@type": "@vocab"
+    },
+    "rkaf:resolutionTrustedVia": {
+      "@type": "@id"
+    },
+    "rkaf:registry": {
+      "@type": "@id"
+    },
+    "rkaf:resolvedToConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:assertion": {
+      "@type": "@id"
+    },
+    "rkaf:object": {
+      "@type": "@id"
+    },
+    "rkaf:dataConcept": {
+      "@type": "@id"
+    },
+    "rkaf:proposedFromLocalConcept": {
+      "@type": "@id"
+    },
+    "rkaf:registeredConcept": {
+      "@type": "@id"
+    },
+    "rkaf:registrationAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:proposedBy": {
+      "@type": "@id"
+    },
+    "rkaf:delegatingAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:delegatedTo": {
+      "@type": "@id"
+    },
+    "rkaf:publisher": {
+      "@type": "@id"
+    },
+    "rkaf:appliesTo": {
+      "@type": "@id"
+    },
+    "rkaf:affectedAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedAuthorityAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedImplementationAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedWorkProducts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedAdoptions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedFragments": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:affectedAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:affectedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:staleDependencies": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:unresolvedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:registryUnavailable": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:staleConceptCache": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedEvaluationAnchors": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedAutomaticMigrations": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedAuthorityKinds": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:justificationBackedBy": {
+      "@type": "@id"
+    },
+    "rkaf:derivedFromFragment": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:associatedWorkflowStep": {
+      "@type": "@id"
+    },
+    "rkaf:generationRun": {
+      "@type": "@id"
+    },
+    "rkaf:fromConcept": {
+      "@type": "@id"
+    },
+    "rkaf:toConcept": {
+      "@type": "@id"
+    },
+    "rkaf:requiredAdoptionScope": {
+      "@type": "@id"
+    },
+    "rkaf:collectsEvidenceType": {
+      "@type": "@id"
+    },
+    "rkaf:requiresEvidenceType": {
+      "@type": "@id"
+    },
+    "rkaf:acceptedDocumentTypes": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:excludesCategory": {
+      "@container": "@set"
+    },
+    "rkaf:evidencePurpose": {
+      "@container": "@set"
+    },
+    "rkaf:excludesPurposes": {
+      "@container": "@set"
+    },
+    "rkaf:jurisdiction": {
+      "@container": "@set"
+    },
+    "prov:wasGeneratedBy": {
+      "@type": "@id"
+    },
+    "prov:wasAttributedTo": {
+      "@type": "@id"
+    },
+    "prov:wasDerivedFrom": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "prov:generatedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "eli:consolidates": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "eli:consolidated_by": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dpv:hasPersonalDataCategory": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dpv:hasLegalBasis": {
+      "@type": "@id"
+    },
+    "dpv:hasPurpose": {
+      "@type": "@id"
+    },
+    "skos:prefLabel": {
+      "@container": "@language"
+    },
+    "skos:altLabel": {
+      "@container": "@language"
+    },
+    "skos:hiddenLabel": {
+      "@container": "@language"
+    },
+    "skos:definition": {
+      "@container": "@language"
+    },
+    "skos:example": {
+      "@container": "@language"
+    },
+    "skos:note": {
+      "@container": "@language"
+    },
+    "skos:scopeNote": {
+      "@container": "@language"
+    },
+    "skos:changeNote": {
+      "@container": "@language"
+    },
+    "skos:editorialNote": {
+      "@container": "@language"
+    },
+    "skos:historyNote": {
+      "@container": "@language"
+    },
+    "skos:notation": {
+      "@id": "http://www.w3.org/2004/02/skos/core#notation"
+    },
+    "skos:broader": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:narrower": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:related": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:inScheme": {
+      "@type": "@id"
+    },
+    "skos:hasTopConcept": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ConceptScheme": {
+      "@type": "@id"
+    },
+    "rkaf:schemeFacet": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptAssignment": {
+      "@type": "@id"
+    },
+    "rkaf:assignedConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:fragmentIdentityScheme": {
+      "@type": "@vocab"
+    },
+    "prov:hadMember": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcat:distribution": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcat:version": {
+      "@type": "xsd:string"
+    },
+    "dcterms:type": {
+      "@type": "@id"
+    },
+    "dcterms:issued": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:capturedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:registeredAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectiveDate": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:exceptionEffectivePeriodEnd": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:exceptionEffectivePeriodStart": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:cachedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:deprecatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:rescissionEffectiveDate": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:detectedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:definedInScope": {
+      "@type": "@id"
+    },
+    "rkaf:findingKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:severity": {
+      "@type": "@vocab"
+    },
+    "rkaf:subject": {
+      "@type": "@id"
+    },
+    "rkaf:detectedBy": {
+      "@type": "@id"
+    },
+    "rkaf:lastVerifiedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:verifiedBy": {
+      "@type": "@id"
+    },
+    "rkaf:targetFinding": {
+      "@type": "@id"
+    },
+    "rkaf:findings": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:RelationChangeEvent": {
+      "@type": "@id"
+    },
+    "rkaf:changeSubject": {
+      "@type": "@id"
+    },
+    "rkaf:changePredicate": {
+      "@type": "@id"
+    },
+    "rkaf:changeObject": {
+      "@type": "@id"
+    },
+    "rkaf:relationChangeOperation": {
+      "@type": "@vocab"
+    },
+    "rkaf:relationChangeStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:relationChangeTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:changeIntendedEffectiveTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:changeEvidence": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:replacementRelationObject": {
+      "@type": "@id"
+    },
+    "rkaf:RelationComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonBaselineArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonObservedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonExpectedAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonConsumer": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonScope": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonEvaluationTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:comparisonPolicyVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonDetector": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonDetectorVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonSnapshot": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonOutcome": {
+      "@type": "@vocab"
+    },
+    "rkaf:comparisonProofRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ResolverProofIssuer": {
+      "@type": "@id"
+    },
+    "rkaf:proofResolver": {
+      "@type": "@id"
+    },
+    "rkaf:proofResolverVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:proofPolicyVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:ResolverProofRecord": {
+      "@type": "@id"
+    },
+    "rkaf:proofType": {
+      "@type": "@vocab"
+    },
+    "rkaf:proofIssuer": {
+      "@type": "@id"
+    },
+    "rkaf:proofComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:proofOutcome": {
+      "@type": "@vocab"
+    },
+    "rkaf:proofRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofInput": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proofInputDigest": {
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "rkaf:proofSupportingRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proofEvaluatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:proofSnapshot": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofRecordDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:independenceGroup": {
+      "@type": "@id"
+    },
+    "rkaf:adjudicationVerdict": {
+      "@type": "@vocab"
+    },
+    "rkaf:sealedRequestDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:sealedResponseArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:RelationFinding": {
+      "@type": "@id"
+    },
+    "rkaf:relationFindingKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:findingComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:findingComparedAssertion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:findingProofRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:findingDetectedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:findingRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:findingFingerprint": {
+      "@type": "xsd:string"
+    },
+    "rkaf:ClosureClaim": {
+      "@type": "@id"
+    },
+    "rkaf:closureClaimStatus": {
+      "@type": "@vocab"
+    },
+    "rkaf:closureArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:closureRegion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:closurePredicateFamily": {
+      "@type": "@id"
+    },
+    "rkaf:closureProfileVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:closureMemberDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:closureReviewedAt": {
+      "@type": "xsd:dateTime"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "urn:rulespec:document-understanding:document:13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:document:13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24",
+      "rkaf:artifactIdentifierScheme": "rkaf:hash-sha256",
+      "rkaf:hasContentDigest": "sha256:13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24",
+      "dcterms:format": "text/plain"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:lineage:9398d41706fd375a84651b5356abd55b8f0f479dc68d81298f7cf755c3615442",
+      "@type": "rkaf:AILineage",
+      "rkaf:modelId": "gemini-3.8-flash",
+      "rkaf:modelVersion": "gemini-3.8-flash",
+      "rkaf:temperature": 0.0,
+      "rkaf:promptTemplateRef": "urn:rulespec:document-understanding:prompt:f68d460a221d1f3299cf927cbbf9bceae26342cbafa3cf383655065aa7428db5",
+      "rkaf:inputContextHash": "sha256:13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:activity:bac2176234469b0b1b3f776bfdbb22303b7ffba2f14760b2ca1dd8159e716319",
+      "@type": "rkaf:ExtractionActivity",
+      "rkaf:extractionMethod": "rkaf:modelExtraction",
+      "rkaf:extractionRun": "urn:rulespec:document-understanding:run:ab43ff78-cea7-4042-9ba7-69b9e42ff802",
+      "rkaf:extractedBy": "urn:rulespec:document-understanding:extractor:langextract",
+      "rkaf:extractorVersion": "document-understanding/3",
+      "rkaf:requestContractDigest": "sha256:1ff3afe0d5a3d78990c59893ba0c960afb3d4af8ba578bf0df0df6909d80650b",
+      "rkaf:extractionModelRef": "urn:rulespec:document-understanding:model:319034f3e25d0d9bd6b3a46b1def7a01b7689f0d51384c63da1f6e0b464af810",
+      "rkaf:extractionPromptRef": "urn:rulespec:document-understanding:prompt:f68d460a221d1f3299cf927cbbf9bceae26342cbafa3cf383655065aa7428db5",
+      "rkaf:inputDigest": [
+        "sha256:13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24"
+      ],
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9398d41706fd375a84651b5356abd55b8f0f479dc68d81298f7cf755c3615442"
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:59:145:sha256-df3996c4e197f401e70584b6176aafe37e3b4a3ca05111c30de0270c9b04d7b0",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24",
+      "rkaf:fragmentContentDigest": "sha256:df3996c4e197f401e70584b6176aafe37e3b4a3ca05111c30de0270c9b04d7b0",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "The plan sponsor of a single-employer plan may elect to maintain a prefunding balance."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 59,
+          "oa:end": 145,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:59:101:sha256-98cd1e8a53eeb6b46517e5202f1c105f9acd0269e3775779ebb8d3188f6ab419",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24",
+      "rkaf:fragmentContentDigest": "sha256:98cd1e8a53eeb6b46517e5202f1c105f9acd0269e3775779ebb8d3188f6ab419",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "The plan sponsor of a single-employer plan"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 59,
+          "oa:end": 101,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:102:105:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24",
+      "rkaf:fragmentContentDigest": "sha256:ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "may"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 102,
+          "oa:end": 105,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:ca184b30c719d01b2c6be7a8505edb057977f03b2d8375a1621f46cbcac54766",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9398d41706fd375a84651b5356abd55b8f0f479dc68d81298f7cf755c3615442",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:bac2176234469b0b1b3f776bfdbb22303b7ffba2f14760b2ca1dd8159e716319",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:55475ebf46961f2d6911703269d0a2491d89c7ed90db0c2c38bfd1d34a8930de",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-permission",
+      "rkaf:assertsValue": {
+        "@value": "The plan sponsor of a single-employer plan may elect to maintain a prefunding balance.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:4eb98ab6dc124e530f9e1bcbe0f26749ef8ae11fca1f4b9009dc1cda1d1b6a6a",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:ca184b30c719d01b2c6be7a8505edb057977f03b2d8375a1621f46cbcac54766",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:59:145:sha256-df3996c4e197f401e70584b6176aafe37e3b4a3ca05111c30de0270c9b04d7b0"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:a45c500e6375cd23d25e323641c1c509d9870f5031be24ebf6492ff0818b0dea",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9398d41706fd375a84651b5356abd55b8f0f479dc68d81298f7cf755c3615442",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:bac2176234469b0b1b3f776bfdbb22303b7ffba2f14760b2ca1dd8159e716319",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:55475ebf46961f2d6911703269d0a2491d89c7ed90db0c2c38bfd1d34a8930de",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:actor",
+      "rkaf:assertsValue": {
+        "@value": "The plan sponsor of a single-employer plan",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:362a659b23d565da1ed4651c6caa8ca13cb2542c4f2ec4fcee0e215c45e31086",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:a45c500e6375cd23d25e323641c1c509d9870f5031be24ebf6492ff0818b0dea",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:59:101:sha256-98cd1e8a53eeb6b46517e5202f1c105f9acd0269e3775779ebb8d3188f6ab419"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:1d0d421f7cce218061aed9599ea8531414d608f78e8af7ea6754914d90b6fc73",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9398d41706fd375a84651b5356abd55b8f0f479dc68d81298f7cf755c3615442",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:bac2176234469b0b1b3f776bfdbb22303b7ffba2f14760b2ca1dd8159e716319",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:55475ebf46961f2d6911703269d0a2491d89c7ed90db0c2c38bfd1d34a8930de",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "may",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:a55af4b586ce2f5d09c52152ecf7ebee0d128be3881dd01fd67ff3b9c10f515e",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:1d0d421f7cce218061aed9599ea8531414d608f78e8af7ea6754914d90b6fc73",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:102:105:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:eb6cdba69ca0e2bff0f7ece5567ff8611b6e746dd7b3e7eeabf6739f66b0d274",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9398d41706fd375a84651b5356abd55b8f0f479dc68d81298f7cf755c3615442",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:bac2176234469b0b1b3f776bfdbb22303b7ffba2f14760b2ca1dd8159e716319",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:55475ebf46961f2d6911703269d0a2491d89c7ed90db0c2c38bfd1d34a8930de",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"actor\":\"The plan sponsor of a single-employer plan\",\"kind\":\"permission\",\"modality\":\"may\",\"summary\":\"The plan sponsor of a single-employer plan may elect to maintain a prefunding balance.\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:a9ea9826edd6b3c05378ee1e980da5ec51792293ab563c0b90483db5b6f0409a",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:eb6cdba69ca0e2bff0f7ece5567ff8611b6e746dd7b3e7eeabf6739f66b0d274",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:59:145:sha256-df3996c4e197f401e70584b6176aafe37e3b4a3ca05111c30de0270c9b04d7b0",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:59:101:sha256-98cd1e8a53eeb6b46517e5202f1c105f9acd0269e3775779ebb8d3188f6ab419",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:102:105:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:775990e8fbbb708f652b8910aecdbd58bef3d0a0bb953d25ac5eb74bc8ce2706",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:775990e8fbbb708f652b8910aecdbd58bef3d0a0bb953d25ac5eb74bc8ce2706",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:16b8ab2695d57a323718b8786351e46d8245216fc35d058385d84d3efd295632",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"The plan sponsor of a single-employer plan\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:ca184b30c719d01b2c6be7a8505edb057977f03b2d8375a1621f46cbcac54766\",\"urn:rulespec:document-understanding:assertion:a45c500e6375cd23d25e323641c1c509d9870f5031be24ebf6492ff0818b0dea\",\"urn:rulespec:document-understanding:assertion:1d0d421f7cce218061aed9599ea8531414d608f78e8af7ea6754914d90b6fc73\",\"urn:rulespec:document-understanding:assertion:eb6cdba69ca0e2bff0f7ece5567ff8611b6e746dd7b3e7eeabf6739f66b0d274\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"defined_terms\":[],\"effective_periods\":[],\"end\":145,\"evidence\":[{\"end\":145,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:59:145:sha256-df3996c4e197f401e70584b6176aafe37e3b4a3ca05111c30de0270c9b04d7b0\",\"quote\":\"The plan sponsor of a single-employer plan may elect to maintain a prefunding balance.\",\"start\":59},{\"end\":101,\"field\":\"actor\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:59:101:sha256-98cd1e8a53eeb6b46517e5202f1c105f9acd0269e3775779ebb8d3188f6ab419\",\"quote\":\"The plan sponsor of a single-employer plan\",\"start\":59},{\"end\":105,\"field\":\"modality\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:102:105:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc\",\"quote\":\"may\",\"start\":102}],\"id\":\"urn:rulespec:document-understanding:revision:775990e8fbbb708f652b8910aecdbd58bef3d0a0bb953d25ac5eb74bc8ce2706\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"permission\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:eb6cdba69ca0e2bff0f7ece5567ff8611b6e746dd7b3e7eeabf6739f66b0d274\",\"modality\":\"may\",\"modality_quote\":\"may\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:1cead4e88a9ca8f5f7aaf38113a32c0da1a86c228345adec6e36c4001b60b2ee\",\"origin\":\"aiSuggested\",\"quote\":\"The plan sponsor of a single-employer plan may elect to maintain a prefunding balance.\",\"references\":[],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:55475ebf46961f2d6911703269d0a2491d89c7ed90db0c2c38bfd1d34a8930de\",\"scope_quotes\":[],\"scope_text\":\"\",\"section_id\":\"section-1\",\"start\":59,\"summary\":\"The plan sponsor of a single-employer plan may elect to maintain a prefunding balance.\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:ca184b30c719d01b2c6be7a8505edb057977f03b2d8375a1621f46cbcac54766"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:a45c500e6375cd23d25e323641c1c509d9870f5031be24ebf6492ff0818b0dea"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:1d0d421f7cce218061aed9599ea8531414d608f78e8af7ea6754914d90b6fc73"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:eb6cdba69ca0e2bff0f7ece5567ff8611b6e746dd7b3e7eeabf6739f66b0d274"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:204:383:sha256-511b13c342019d615ab415dccd76b10cb8d905969fed0947f5335a9381ba0ffe",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24",
+      "rkaf:fragmentContentDigest": "sha256:511b13c342019d615ab415dccd76b10cb8d905969fed0947f5335a9381ba0ffe",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "In the case of a single-employer plan described in clause (ii), the plan sponsor may elect to maintain a funding standard carryover balance, until such balance is reduced to zero."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 204,
+          "oa:end": 383,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:268:284:sha256-b073867fcb868a1c9b1c33df1b96e318641e555fc8b79d484bfba3c68354f40d",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24",
+      "rkaf:fragmentContentDigest": "sha256:b073867fcb868a1c9b1c33df1b96e318641e555fc8b79d484bfba3c68354f40d",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "the plan sponsor"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 268,
+          "oa:end": 284,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:285:288:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24",
+      "rkaf:fragmentContentDigest": "sha256:ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "may"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 285,
+          "oa:end": 288,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:scope:8f467d08323d12536673d37d69c2973cfd545dbba8885fe82e2dc05de6548399",
+      "@type": "rkaf:ApplicabilityScope",
+      "rkaf:appliesInJurisdiction": [],
+      "rkaf:applicabilityCondition": "In the case of a single-employer plan described in clause (ii)"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:aaa77d4121fe557068efdda7788fe97b87bb003f13670a813c9b882bd4fd6b9f",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9398d41706fd375a84651b5356abd55b8f0f479dc68d81298f7cf755c3615442",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:bac2176234469b0b1b3f776bfdbb22303b7ffba2f14760b2ca1dd8159e716319",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:25ad11dd98aa40e8c564ca44bd0dac664a7c1697ce31602d6941495b40f7ebac",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-permission",
+      "rkaf:assertsValue": {
+        "@value": "In the case of a single-employer plan described in clause (ii), the plan sponsor may elect to maintain a funding standard carryover balance, until such balance is reduced to zero.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:91a4326303df1a12aadc67337fbb37d23bf24e390af0ac241a2d25cc82427ef4",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:aaa77d4121fe557068efdda7788fe97b87bb003f13670a813c9b882bd4fd6b9f",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:204:383:sha256-511b13c342019d615ab415dccd76b10cb8d905969fed0947f5335a9381ba0ffe"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:50ee7483af115dc532afada5a5e886e028f9a74b218d2dbb37a34d0cdaf07d24",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:aaa77d4121fe557068efdda7788fe97b87bb003f13670a813c9b882bd4fd6b9f",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:204:383:sha256-511b13c342019d615ab415dccd76b10cb8d905969fed0947f5335a9381ba0ffe"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:0f3e9ecba4b870573ca82fd54815c3c1bc0f2cfd93b81560d94d673467bd3c03",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9398d41706fd375a84651b5356abd55b8f0f479dc68d81298f7cf755c3615442",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:bac2176234469b0b1b3f776bfdbb22303b7ffba2f14760b2ca1dd8159e716319",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:25ad11dd98aa40e8c564ca44bd0dac664a7c1697ce31602d6941495b40f7ebac",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:actor",
+      "rkaf:assertsValue": {
+        "@value": "the plan sponsor",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:9c2e318a311ffd5073d2c14749ef5827aa72f4f1f748afc1c830a6d6f4353b3a",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:0f3e9ecba4b870573ca82fd54815c3c1bc0f2cfd93b81560d94d673467bd3c03",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:268:284:sha256-b073867fcb868a1c9b1c33df1b96e318641e555fc8b79d484bfba3c68354f40d"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:9663e9bad76545c17b82575fe8801f72d7c119e760f56a8614b8a46ddb0bfb91",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9398d41706fd375a84651b5356abd55b8f0f479dc68d81298f7cf755c3615442",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:bac2176234469b0b1b3f776bfdbb22303b7ffba2f14760b2ca1dd8159e716319",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:25ad11dd98aa40e8c564ca44bd0dac664a7c1697ce31602d6941495b40f7ebac",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "may",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:131c97bb41180bf4be57420b8a6163c630657393b3f3a946eaf95fb2e79943b2",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:9663e9bad76545c17b82575fe8801f72d7c119e760f56a8614b8a46ddb0bfb91",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:285:288:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:ade9011be790e8ca919a7ae85f9c0f6e5fa3b9acb2e089302e721b451a10fee4",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9398d41706fd375a84651b5356abd55b8f0f479dc68d81298f7cf755c3615442",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:bac2176234469b0b1b3f776bfdbb22303b7ffba2f14760b2ca1dd8159e716319",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:25ad11dd98aa40e8c564ca44bd0dac664a7c1697ce31602d6941495b40f7ebac",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:scope_text",
+      "rkaf:assertsValue": {
+        "@value": "In the case of a single-employer plan described in clause (ii)",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:eda2e04f6e1ae831cd2b3de3751f3e0addc81a8052ee5760f421b602a07f769c",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:ade9011be790e8ca919a7ae85f9c0f6e5fa3b9acb2e089302e721b451a10fee4",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:204:383:sha256-511b13c342019d615ab415dccd76b10cb8d905969fed0947f5335a9381ba0ffe"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:61e45078ef14201d45e4acbc76789de21316ce6fec60c90afd068af58caeb792",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9398d41706fd375a84651b5356abd55b8f0f479dc68d81298f7cf755c3615442",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:bac2176234469b0b1b3f776bfdbb22303b7ffba2f14760b2ca1dd8159e716319",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:25ad11dd98aa40e8c564ca44bd0dac664a7c1697ce31602d6941495b40f7ebac",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"actor\":\"the plan sponsor\",\"kind\":\"permission\",\"modality\":\"may\",\"scope_text\":\"In the case of a single-employer plan described in clause (ii)\",\"summary\":\"In the case of a single-employer plan described in clause (ii), the plan sponsor may elect to maintain a funding standard carryover balance, until such balance is reduced to zero.\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed",
+      "rkaf:hasApplicability": "urn:rulespec:document-understanding:scope:8f467d08323d12536673d37d69c2973cfd545dbba8885fe82e2dc05de6548399"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:fe42944e75ee407d7255ae5ba16f7bfb6281c35d3f4ff3173669eddbfff5776c",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:61e45078ef14201d45e4acbc76789de21316ce6fec60c90afd068af58caeb792",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:204:383:sha256-511b13c342019d615ab415dccd76b10cb8d905969fed0947f5335a9381ba0ffe",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:268:284:sha256-b073867fcb868a1c9b1c33df1b96e318641e555fc8b79d484bfba3c68354f40d",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:285:288:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:bddb4d89e96dff26b587cf6e9111a9f00bb9993f38e87c8e215ed6670b0631b9",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:61e45078ef14201d45e4acbc76789de21316ce6fec60c90afd068af58caeb792",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:204:383:sha256-511b13c342019d615ab415dccd76b10cb8d905969fed0947f5335a9381ba0ffe"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:8147ad048b557a5e6483ec950a9ab693b58134d817496e3c6cbad6cb70d86032",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:8147ad048b557a5e6483ec950a9ab693b58134d817496e3c6cbad6cb70d86032",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:bbce95a7c71a6b48b13bee064cfe39e65e3f449420da4e77901f52d4780c1e2a",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"the plan sponsor\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:aaa77d4121fe557068efdda7788fe97b87bb003f13670a813c9b882bd4fd6b9f\",\"urn:rulespec:document-understanding:assertion:0f3e9ecba4b870573ca82fd54815c3c1bc0f2cfd93b81560d94d673467bd3c03\",\"urn:rulespec:document-understanding:assertion:9663e9bad76545c17b82575fe8801f72d7c119e760f56a8614b8a46ddb0bfb91\",\"urn:rulespec:document-understanding:assertion:ade9011be790e8ca919a7ae85f9c0f6e5fa3b9acb2e089302e721b451a10fee4\",\"urn:rulespec:document-understanding:assertion:61e45078ef14201d45e4acbc76789de21316ce6fec60c90afd068af58caeb792\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"defined_terms\":[],\"effective_periods\":[],\"end\":383,\"evidence\":[{\"end\":383,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:204:383:sha256-511b13c342019d615ab415dccd76b10cb8d905969fed0947f5335a9381ba0ffe\",\"quote\":\"In the case of a single-employer plan described in clause (ii), the plan sponsor may elect to maintain a funding standard carryover balance, until such balance is reduced to zero.\",\"start\":204},{\"end\":284,\"field\":\"actor\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:268:284:sha256-b073867fcb868a1c9b1c33df1b96e318641e555fc8b79d484bfba3c68354f40d\",\"quote\":\"the plan sponsor\",\"start\":268},{\"end\":288,\"field\":\"modality\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:285:288:sha256-ee4d988c65de860fabbfbcd27f73d50bbebe3fba37fe419284f4811389c30bdc\",\"quote\":\"may\",\"start\":285},{\"end\":383,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:204:383:sha256-511b13c342019d615ab415dccd76b10cb8d905969fed0947f5335a9381ba0ffe\",\"quote\":\"In the case of a single-employer plan described in clause (ii), the plan sponsor may elect to maintain a funding standard carryover balance, until such balance is reduced to zero.\",\"start\":204}],\"id\":\"urn:rulespec:document-understanding:revision:8147ad048b557a5e6483ec950a9ab693b58134d817496e3c6cbad6cb70d86032\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"permission\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:61e45078ef14201d45e4acbc76789de21316ce6fec60c90afd068af58caeb792\",\"modality\":\"may\",\"modality_quote\":\"may\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:304372dfd9bf68329e15ba1f1eb49a20332d65b2637be3eeb8e8d92c5599a014\",\"origin\":\"aiSuggested\",\"quote\":\"In the case of a single-employer plan described in clause (ii), the plan sponsor may elect to maintain a funding standard carryover balance, until such balance is reduced to zero.\",\"references\":[\"clause (ii)\"],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:25ad11dd98aa40e8c564ca44bd0dac664a7c1697ce31602d6941495b40f7ebac\",\"scope_quotes\":[\"In the case of a single-employer plan described in clause (ii), the plan sponsor may elect to maintain a funding standard carryover balance, until such balance is reduced to zero.\"],\"scope_text\":\"In the case of a single-employer plan described in clause (ii)\",\"section_id\":\"section-1\",\"start\":204,\"summary\":\"In the case of a single-employer plan described in clause (ii), the plan sponsor may elect to maintain a funding standard carryover balance, until such balance is reduced to zero.\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:aaa77d4121fe557068efdda7788fe97b87bb003f13670a813c9b882bd4fd6b9f"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:0f3e9ecba4b870573ca82fd54815c3c1bc0f2cfd93b81560d94d673467bd3c03"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:9663e9bad76545c17b82575fe8801f72d7c119e760f56a8614b8a46ddb0bfb91"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:ade9011be790e8ca919a7ae85f9c0f6e5fa3b9acb2e089302e721b451a10fee4"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:61e45078ef14201d45e4acbc76789de21316ce6fec60c90afd068af58caeb792"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:386:441:sha256-d52d956fc817daa9e239f373bf8cb34e732cfa6358f60f40e6c631b0b9fd18ef",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24",
+      "rkaf:fragmentContentDigest": "sha256:d52d956fc817daa9e239f373bf8cb34e732cfa6358f60f40e6c631b0b9fd18ef",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(ii) Plans maintaining funding standard account in 2007"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 386,
+          "oa:end": 441,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:442:489:sha256-09536c1bc14e120ad046af9d6bc07adf403921e67d4e5d6b5e062b34ad87b9de",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24",
+      "rkaf:fragmentContentDigest": "sha256:09536c1bc14e120ad046af9d6bc07adf403921e67d4e5d6b5e062b34ad87b9de",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "A plan is described in this clause if the plan—"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 442,
+          "oa:end": 489,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:491:724:sha256-22ba18874af375003f69a580f2df09fc08709ffe16783f9493ac0e60acc88b74",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24",
+      "rkaf:fragmentContentDigest": "sha256:22ba18874af375003f69a580f2df09fc08709ffe16783f9493ac0e60acc88b74",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(I) was in effect for a plan year beginning in 2007, and\n\n(II) had a positive balance in the funding standard account under section 1082(b) of this title as in effect for such plan year and determined as of the end of such plan year."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 491,
+          "oa:end": 724,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:5decbe70137a6c4d1a326d37293389629c0b458c08b8a7b49a53b69eaf905db8",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9398d41706fd375a84651b5356abd55b8f0f479dc68d81298f7cf755c3615442",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:bac2176234469b0b1b3f776bfdbb22303b7ffba2f14760b2ca1dd8159e716319",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:9d7e502d6756d89a145e760199a4e815dfe79ad6c65e6b152d4f4f9f226055dd",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-statement",
+      "rkaf:assertsValue": {
+        "@value": "A plan is described in clause (ii) if the plan was in effect for a plan year beginning in 2007, and had a positive balance in the funding standard account under section 1082(b) of this title as in effect for such plan year and determined as of the end of such plan year.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:ac0ce37de05b8e06f5c36bf5e57b60041b6a7fe89181d3afb03bcc8204cd4ad4",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:5decbe70137a6c4d1a326d37293389629c0b458c08b8a7b49a53b69eaf905db8",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:386:441:sha256-d52d956fc817daa9e239f373bf8cb34e732cfa6358f60f40e6c631b0b9fd18ef",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:442:489:sha256-09536c1bc14e120ad046af9d6bc07adf403921e67d4e5d6b5e062b34ad87b9de",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:491:724:sha256-22ba18874af375003f69a580f2df09fc08709ffe16783f9493ac0e60acc88b74"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:422a2e2c9e37d8ea5ba765129f5369c229977b48832cbb6482213a84556b8bb1",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9398d41706fd375a84651b5356abd55b8f0f479dc68d81298f7cf755c3615442",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:bac2176234469b0b1b3f776bfdbb22303b7ffba2f14760b2ca1dd8159e716319",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:9d7e502d6756d89a145e760199a4e815dfe79ad6c65e6b152d4f4f9f226055dd",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "not_stated",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:6fc3f8a0b4437f8b9f65707bc5cb1668502cfed0b2f910e037e21fdbbf64ab93",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:422a2e2c9e37d8ea5ba765129f5369c229977b48832cbb6482213a84556b8bb1",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:providesContext",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:386:441:sha256-d52d956fc817daa9e239f373bf8cb34e732cfa6358f60f40e6c631b0b9fd18ef",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:442:489:sha256-09536c1bc14e120ad046af9d6bc07adf403921e67d4e5d6b5e062b34ad87b9de",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:491:724:sha256-22ba18874af375003f69a580f2df09fc08709ffe16783f9493ac0e60acc88b74"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:8fbbc9651ab0a722a8f0486dfbe108cb77f2adca0202bc0783b4b8e2717a5936",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:9398d41706fd375a84651b5356abd55b8f0f479dc68d81298f7cf755c3615442",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:bac2176234469b0b1b3f776bfdbb22303b7ffba2f14760b2ca1dd8159e716319",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:9d7e502d6756d89a145e760199a4e815dfe79ad6c65e6b152d4f4f9f226055dd",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"kind\":\"statement\",\"modality\":\"not_stated\",\"summary\":\"A plan is described in clause (ii) if the plan was in effect for a plan year beginning in 2007, and had a positive balance in the funding standard account under section 1082(b) of this title as in effect for such plan year and determined as of the end of such plan year.\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:e28a0bf04330d223cfa607a03ab41c4e864cfd2826c1f2783a042cab4e6dd61d",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:8fbbc9651ab0a722a8f0486dfbe108cb77f2adca0202bc0783b4b8e2717a5936",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:386:441:sha256-d52d956fc817daa9e239f373bf8cb34e732cfa6358f60f40e6c631b0b9fd18ef",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:442:489:sha256-09536c1bc14e120ad046af9d6bc07adf403921e67d4e5d6b5e062b34ad87b9de",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:491:724:sha256-22ba18874af375003f69a580f2df09fc08709ffe16783f9493ac0e60acc88b74"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:ef9fcac4db4e35cd52123a60dbdae9d7b317876a9dc9b73336a87f0d470ad811",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:ef9fcac4db4e35cd52123a60dbdae9d7b317876a9dc9b73336a87f0d470ad811",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:342b172e5276afc449355dc77995483dc9115760cf75da3b59c367f32088b025",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:5decbe70137a6c4d1a326d37293389629c0b458c08b8a7b49a53b69eaf905db8\",\"urn:rulespec:document-understanding:assertion:422a2e2c9e37d8ea5ba765129f5369c229977b48832cbb6482213a84556b8bb1\",\"urn:rulespec:document-understanding:assertion:8fbbc9651ab0a722a8f0486dfbe108cb77f2adca0202bc0783b4b8e2717a5936\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"defined_terms\":[],\"effective_periods\":[],\"end\":724,\"evidence\":[{\"end\":441,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:386:441:sha256-d52d956fc817daa9e239f373bf8cb34e732cfa6358f60f40e6c631b0b9fd18ef\",\"quote\":\"(ii) Plans maintaining funding standard account in 2007\",\"start\":386},{\"end\":489,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:442:489:sha256-09536c1bc14e120ad046af9d6bc07adf403921e67d4e5d6b5e062b34ad87b9de\",\"quote\":\"A plan is described in this clause if the plan—\",\"start\":442},{\"end\":724,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A13d6b0d321413b1bfe663dcfc7713011d9d5edf131aaad494593c927a606ba24:491:724:sha256-22ba18874af375003f69a580f2df09fc08709ffe16783f9493ac0e60acc88b74\",\"quote\":\"(I) was in effect for a plan year beginning in 2007, and\\n\\n(II) had a positive balance in the funding standard account under section 1082(b) of this title as in effect for such plan year and determined as of the end of such plan year.\",\"start\":491}],\"id\":\"urn:rulespec:document-understanding:revision:ef9fcac4db4e35cd52123a60dbdae9d7b317876a9dc9b73336a87f0d470ad811\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"statement\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:8fbbc9651ab0a722a8f0486dfbe108cb77f2adca0202bc0783b4b8e2717a5936\",\"modality\":\"not_stated\",\"modality_quote\":\"\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:3a583dd03533dc935ce3500e9f75f3214a0786187137bb07339c54e2173e5d3f\",\"origin\":\"aiSuggested\",\"quote\":\"(ii) Plans maintaining funding standard account in 2007 A plan is described in this clause if the plan—\\n\\n(I) was in effect for a plan year beginning in 2007, and\\n\\n(II) had a positive balance in the funding standard account under section 1082(b) of this title as in effect for such plan year and determined as of the end of such plan year.\",\"references\":[\"section 1082(b)\"],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:9d7e502d6756d89a145e760199a4e815dfe79ad6c65e6b152d4f4f9f226055dd\",\"scope_quotes\":[],\"scope_text\":\"\",\"section_id\":\"section-1\",\"start\":386,\"summary\":\"A plan is described in clause (ii) if the plan was in effect for a plan year beginning in 2007, and had a positive balance in the funding standard account under section 1082(b) of this title as in effect for such plan year and determined as of the end of such plan year.\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:5decbe70137a6c4d1a326d37293389629c0b458c08b8a7b49a53b69eaf905db8"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:422a2e2c9e37d8ea5ba765129f5369c229977b48832cbb6482213a84556b8bb1"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:8fbbc9651ab0a722a8f0486dfbe108cb77f2adca0202bc0783b4b8e2717a5936"
+        }
+      ]
+    }
+  ]
+}

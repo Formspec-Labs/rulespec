@@ -47,6 +47,18 @@ gate failed despite exact citations and complete verdict output. This supports
 recognition of the supplied IEP repairs, not automatic discovery or a general
 accuracy claim. No new production pass, prompt or schema was adopted.
 
+The [fresh focused-recovery comparison](../../thoughts/experiments/2026-09-12-fresh-focused-repair/README.md)
+used three new native legal excerpts and the saved IEP regression. Ordinary
+extraction naturally retained local clause pointers instead of their governing
+meaning in the grant and pension default statements, while storing that meaning
+separately. All eight recovery calls returned no proposals with whole-source or
+narrow native-group focus. Both arms received the complete source, identical
+claims and working reference navigation. Focus used 13.4% more recovery tokens
+without repairing either fresh primary gap or the two IEP gaps. Zero checker
+calls followed. Original extraction and recovery replay passed; production stays
+unchanged. Record boundaries and the requested generation task remain open;
+supplied-repair recognition is not evidence of automatic repair.
+
 ## Discovery and optional audit check — 2026-09-12
 
 [Three fresh sources](../../thoughts/experiments/2026-09-12-simple-path/RESULTS.md)

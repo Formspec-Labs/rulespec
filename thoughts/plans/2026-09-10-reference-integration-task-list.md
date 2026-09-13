@@ -51,14 +51,24 @@
   duty in its rationale. The full gate failed. Existing fields and checker can
   handle the IEP repairs, but generation, record boundaries and rationale quality
   remain unresolved. No production model behavior changed.
-- [ ] **Test focused repair generation on untouched local-reference cases.**
-  Freeze which meanings must appear in the default reading versus separately
-  navigable duties. Compare ordinary recovery with the same source focused on
-  located referring/target claims; reuse the existing checker and preview path.
-  Include independent reporting duties and wrong-target controls. Report actual
-  generation separately from supplied-repair recognition, and factual fidelity
-  separately from edit necessity. Preserve the completed cases as regressions;
-  do not patch duplicate protection or the qualification guard to fit them.
+- [x] **Test focused repair generation on untouched local-reference cases.** The
+  [fresh-source comparison](../experiments/2026-09-12-fresh-focused-repair/README.md)
+  found natural default-reading gaps in grant and pension extractions; no planted
+  omissions were needed. All eight recovery calls returned no edits with ordinary
+  or narrow native-group focus. Both received the full source, same claims and
+  same working reference navigation. Neither fresh primary gap nor the two saved
+  IEP gaps was repaired; the reporting control also stayed unchanged. Focus used
+  13.4% more recovery tokens. No checker calls were needed, no provider calls were
+  retried, and all captures replay. No production behavior was adopted.
+- [ ] **Test explicit construction of a complete default reading.** Stop varying
+  navigation/context size for the same recovery objective on these development
+  cases. Compare a direct request to construct a selected rule's self-contained
+  meaning with ordinary recovery, reusing existing fields, source evidence and
+  review machinery. Include references to independent duties that must not become
+  prerequisites and new sources. Score generated replacements, preserved meaning,
+  standalone usefulness and checker acceptance separately. This is a different
+  experimental task objective; it does not authorize a new default pass, wholesale
+  duplication of related duties, or changes to the qualification guard.
 
 ## Next priority: independently usable requirements — 2026-09-12
 

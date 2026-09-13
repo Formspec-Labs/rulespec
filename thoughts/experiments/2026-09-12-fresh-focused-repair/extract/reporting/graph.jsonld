@@ -1,0 +1,2879 @@
+{
+  "@context": {
+    "rkaf": "https://rulespec.org/ns/v1#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "oa": "http://www.w3.org/ns/oa#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "cito": "http://purl.org/spar/cito/",
+    "wos": "https://w3id.org/wos/ns/v1#",
+    "formspec": "https://w3id.org/formspec/ns/v1#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "eli": "http://data.europa.eu/eli/ontology#",
+    "aknt": "http://docs.oasis-open.org/legaldocml/ns/akn/3.0/",
+    "uslm": "https://uslm.gov/2.1.0/",
+    "lrml": "http://docs.oasis-open.org/legalruleml/ns/v1.0/",
+    "rrmv": "http://data.europa.eu/m8g/rrmv/",
+    "eco": "http://purl.obolibrary.org/obo/ECO_",
+    "sepio": "http://purl.obolibrary.org/obo/SEPIO_",
+    "dpv": "https://w3id.org/dpv#",
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "rkaf:Artifact": {
+      "@type": "@id"
+    },
+    "rkaf:hasArtifactIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:artifactIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasRegulatoryIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:regulatoryIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:publishedInProceeding": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:publishedInDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:hasFormat": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:format": {
+      "@type": "xsd:string"
+    },
+    "dcterms:isFormatOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:isVersionOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "prov:wasRevisionOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasContentDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:versionLineageEvidence": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:SourceFragment": {
+      "@type": "@id"
+    },
+    "oa:hasSource": {
+      "@type": "@id"
+    },
+    "oa:hasSelector": {
+      "@type": "@id"
+    },
+    "oa:TextQuoteSelector": {
+      "@type": "@id"
+    },
+    "oa:TextPositionSelector": {
+      "@type": "@id"
+    },
+    "oa:exact": {
+      "@type": "xsd:string"
+    },
+    "oa:prefix": {
+      "@type": "xsd:string"
+    },
+    "oa:suffix": {
+      "@type": "xsd:string"
+    },
+    "oa:start": {
+      "@type": "xsd:integer"
+    },
+    "oa:end": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:selectorKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:coordinateSystem": {
+      "@type": "@vocab"
+    },
+    "rkaf:sourceArtifactDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:fragmentContentDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:EvidenceBinding": {
+      "@type": "@id"
+    },
+    "rkaf:bindsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:bindsSourceFragment": {
+      "@type": "@id"
+    },
+    "rkaf:noEvidenceReason": {
+      "@type": "@id"
+    },
+    "rkaf:Warrant": {
+      "@type": "@id"
+    },
+    "rkaf:hasWarrant": {
+      "@type": "@id"
+    },
+    "rkaf:warrantKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:warrantFamily": {
+      "@type": "@vocab"
+    },
+    "rkaf:defeasible": {
+      "@type": "xsd:boolean"
+    },
+    "rkaf:ConfidenceRecord": {
+      "@type": "@id"
+    },
+    "rkaf:hasConfidence": {
+      "@type": "@id"
+    },
+    "rkaf:confidenceMethod": {
+      "@type": "@vocab"
+    },
+    "rkaf:calibrationStatus": {
+      "@type": "@vocab"
+    },
+    "rkaf:confidenceBasis": {
+      "@type": "@id"
+    },
+    "rkaf:evaluatedAgainst": {
+      "@type": "@id"
+    },
+    "rkaf:generatedBy": {
+      "@type": "@id"
+    },
+    "rkaf:score": {
+      "@type": "xsd:float"
+    },
+    "rkaf:scoreCategorical": {
+      "@type": "@vocab"
+    },
+    "rkaf:AccessScope": {
+      "@type": "@id"
+    },
+    "rkaf:hasAccessScope": {
+      "@type": "@id"
+    },
+    "rkaf:accessScopeKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:regulatoryClass": {
+      "@type": "@vocab"
+    },
+    "rkaf:embargoUntil": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:permittedRole": {
+      "@type": "@id"
+    },
+    "rkaf:AILineage": {
+      "@type": "@id"
+    },
+    "rkaf:hasAILineage": {
+      "@type": "@id"
+    },
+    "rkaf:modelId": {
+      "@type": "xsd:string"
+    },
+    "rkaf:modelVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:promptTemplateRef": {
+      "@type": "@id"
+    },
+    "rkaf:temperature": {
+      "@type": "xsd:float"
+    },
+    "rkaf:seed": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:inputContextHash": {
+      "@type": "xsd:string"
+    },
+    "rkaf:humanApprover": {
+      "@type": "@id"
+    },
+    "rkaf:humanRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:MappingState": {
+      "@type": "@id"
+    },
+    "rkaf:mappingState": {
+      "@type": "@vocab"
+    },
+    "rkaf:RetentionPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:hasRetentionPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:retentionDurationDays": {
+      "@type": "xsd:int"
+    },
+    "rkaf:retentionTrigger": {
+      "@type": "@vocab"
+    },
+    "rkaf:retentionPostExpiry": {
+      "@type": "@vocab"
+    },
+    "rkaf:Workspace": {
+      "@type": "@id"
+    },
+    "rkaf:scopedToWorkspace": {
+      "@type": "@id"
+    },
+    "rkaf:workspaceId": {
+      "@type": "xsd:string"
+    },
+    "rkaf:workspaceTrustList": {
+      "@type": "@id"
+    },
+    "rkaf:projectsTo": {
+      "@type": "@id"
+    },
+    "rkaf:llmHint": {
+      "@type": "@id"
+    },
+    "rkaf:Authority": {
+      "@type": "@id"
+    },
+    "rkaf:Attestation": {
+      "@type": "@id"
+    },
+    "rkaf:LocalAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:ApplicabilityScope": {
+      "@type": "@id"
+    },
+    "rkaf:EffectivePeriod": {
+      "@type": "@id"
+    },
+    "rkaf:LifecycleEvent": {
+      "@type": "@id"
+    },
+    "rkaf:Proceeding": {
+      "@type": "@id"
+    },
+    "rkaf:RegulatoryAgendaItem": {
+      "@type": "@id"
+    },
+    "rkaf:RegulatoryAgendaObservation": {
+      "@type": "@id"
+    },
+    "rkaf:AgendaProceedingRelationship": {
+      "@type": "@id"
+    },
+    "dcat:Resource": {
+      "@type": "@id"
+    },
+    "dcat:CatalogRecord": {
+      "@type": "@id"
+    },
+    "dcat:Relationship": {
+      "@type": "@id"
+    },
+    "rkaf:CommentPeriod": {
+      "@type": "@id"
+    },
+    "rkaf:Docket": {
+      "@type": "@id"
+    },
+    "prov:Entity": {
+      "@type": "@id"
+    },
+    "rkaf:hasDocketIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:docketIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasProceedingIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:proceedingIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasAgendaItemIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:agendaItemIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaScopeStatus": {
+      "@type": "@vocab"
+    },
+    "dcat:qualifiedRelation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "foaf:primaryTopic": {
+      "@type": "@id"
+    },
+    "rkaf:agendaStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaPriority": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaAffectsCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:agendaAuthorityCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:relation": {
+      "@type": "@id"
+    },
+    "dcat:hadRole": {
+      "@type": "@vocab"
+    },
+    "rkaf:identifierRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:proceedingStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:proceedingTerminationCause": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasAuthority": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingAffects": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingAffectsCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingProduces": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasProceedingEvidenceIdentifier": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingEvidenceIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:proceedingSupersedes": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodFor": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodOpenedBy": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodStart": {
+      "@type": "xsd:date"
+    },
+    "rkaf:commentPeriodEnd": {
+      "@type": "xsd:date"
+    },
+    "rkaf:RegisteredConcept": {
+      "@type": "@id"
+    },
+    "rkaf:LocalConcept": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptMapping": {
+      "@type": "@id"
+    },
+    "rkaf:ReferenceResourceRelease": {
+      "@type": "@id"
+    },
+    "rkaf:MappingApplicabilityContext": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptResolutionResult": {
+      "@type": "@id"
+    },
+    "rkaf:BridgeValidationResult": {
+      "@type": "@id"
+    },
+    "rkaf:BridgeConsumerRegistration": {
+      "@type": "@id"
+    },
+    "rkaf:RegistryConflict": {
+      "@type": "@id"
+    },
+    "rkaf:Finding": {
+      "@type": "@id"
+    },
+    "rkaf:Justification": {
+      "@type": "@id"
+    },
+    "rkaf:hasJustification": {
+      "@type": "@id"
+    },
+    "rkaf:PointInTimeException": {
+      "@type": "@id"
+    },
+    "rkaf:evaluationAnchor": {
+      "@type": "@id"
+    },
+    "rkaf:retainsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:retainsWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:GeneratedWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:justifiedByAssertion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:consumerLifecycleState": {
+      "@type": "@id"
+    },
+    "rkaf:proposedUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:RevalidationEvent": {
+      "@type": "@id"
+    },
+    "rkaf:RevalidationClosureEvent": {
+      "@type": "@id"
+    },
+    "rkaf:revalidationFor": {
+      "@type": "@id"
+    },
+    "rkaf:triggeredBy": {
+      "@type": "@id"
+    },
+    "rkaf:closesRevalidation": {
+      "@type": "@id"
+    },
+    "rkaf:openedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:closedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:closureDecision": {
+      "@type": "@id"
+    },
+    "rkaf:successorAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:successorWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:ConsumerEffectiveDeclaration": {
+      "@type": "@id"
+    },
+    "rkaf:forAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:declaredEffective": {
+      "@type": "@vocab"
+    },
+    "rkaf:declaredScope": {
+      "@type": "@id"
+    },
+    "rkaf:declaredAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:BridgeIssueAttestationContract": {
+      "@type": "@id"
+    },
+    "rkaf:attestedIssueKinds": {
+      "@type": "@vocab"
+    },
+    "rkaf:usedAsAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:detectedIssues": {
+      "@type": "@id"
+    },
+    "rkaf:derivesAuthorityFrom": {
+      "@type": "@id"
+    },
+    "rkaf:hasApplicability": {
+      "@type": "@id"
+    },
+    "rkaf:hasEffectivePeriod": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:adoptedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:attestationScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:attestorKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:targets": {
+      "@type": "@id"
+    },
+    "rkaf:attestedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:revokedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:rationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:lifecycleEventKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:bridgeContractVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:maxAttestationStalenessDays": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:evaluationTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectivePeriodStart": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectivePeriodEnd": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:retroactiveFrom": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:sunsetAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:resolvedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:validatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:anchoredBy": {
+      "@type": "@id"
+    },
+    "rkaf:anchorType": {
+      "@type": "@id"
+    },
+    "rkaf:Assertion": {
+      "@type": "@id"
+    },
+    "rkaf:RelationshipAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:ValueAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:assertsSubject": {
+      "@type": "@id"
+    },
+    "rkaf:assertsPredicate": {
+      "@type": "@id"
+    },
+    "rkaf:assertsObject": {
+      "@type": "@id"
+    },
+    "rkaf:assertsValue": {
+      "@id": "https://rulespec.org/ns/v1#assertsValue"
+    },
+    "rkaf:assertionPolarity": {
+      "@type": "@vocab"
+    },
+    "rkaf:assertedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:hasSourceClaimant": {
+      "@type": "@id"
+    },
+    "rkaf:hasExtractionProvenance": {
+      "@type": "@id"
+    },
+    "rkaf:SourceClaimant": {
+      "@type": "@id"
+    },
+    "rkaf:claimsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:claimantAttribution": {
+      "@type": "@vocab"
+    },
+    "rkaf:claimantText": {
+      "@type": "xsd:string"
+    },
+    "rkaf:claimantIdentity": {
+      "@type": "@id"
+    },
+    "rkaf:attributedInFragment": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ExtractionActivity": {
+      "@type": "@id"
+    },
+    "rkaf:extractionMethod": {
+      "@type": "@vocab"
+    },
+    "rkaf:extractionRun": {
+      "@type": "@id"
+    },
+    "rkaf:extractedBy": {
+      "@type": "@id"
+    },
+    "rkaf:extractorVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:requestContractDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:extractionModelRef": {
+      "@type": "@id"
+    },
+    "rkaf:extractionPromptRef": {
+      "@type": "@id"
+    },
+    "rkaf:inputDigest": {
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "rkaf:extractionAttempt": {
+      "@type": "xsd:integer"
+    },
+    "prov:startedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "prov:endedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:hasSafetyLabel": {
+      "@type": "@id"
+    },
+    "rkaf:usageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:capabilityCap": {
+      "@type": "@id"
+    },
+    "rkaf:assertionOrigin": {
+      "@type": "@id"
+    },
+    "rkaf:epistemicBasis": {
+      "@type": "@vocab"
+    },
+    "rkaf:authorityKind": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionAuthorityKind": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionStatus": {
+      "@type": "@id"
+    },
+    "rkaf:result": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionStatus": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionMethod": {
+      "@type": "@id"
+    },
+    "rkaf:cacheStatus": {
+      "@type": "@id"
+    },
+    "rkaf:usageCeiling": {
+      "@type": "@id"
+    },
+    "rkaf:lifecycleEvent": {
+      "@type": "@id"
+    },
+    "rkaf:cascadeAlgorithm": {
+      "@type": "@id"
+    },
+    "rkaf:evidenceRole": {
+      "@type": "@id"
+    },
+    "rkaf:evidentiaryFunction": {
+      "@type": "@vocab"
+    },
+    "rkaf:warningCode": {
+      "@type": "@id"
+    },
+    "rkaf:errorCode": {
+      "@type": "@id"
+    },
+    "rkaf:decision": {
+      "@type": "@id"
+    },
+    "rkaf:scope": {
+      "@type": "@id"
+    },
+    "rkaf:visibility": {
+      "@type": "@id"
+    },
+    "rkaf:attestorType": {
+      "@type": "@id"
+    },
+    "rkaf:role": {
+      "@type": "@id"
+    },
+    "rkaf:transitionTo": {
+      "@type": "@id"
+    },
+    "rkaf:status": {
+      "@type": "@id"
+    },
+    "rkaf:predicate": {
+      "@type": "@id"
+    },
+    "rkaf:conceptScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:governanceModel": {
+      "@type": "@id"
+    },
+    "rkaf:revisedUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:effectiveUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:safeAutomaticMigration": {
+      "@type": "@id"
+    },
+    "rkaf:resourceKind": {
+      "@type": "@id"
+    },
+    "rkaf:officialStatus": {
+      "@type": "@id"
+    },
+    "rkaf:legalValue": {
+      "@type": "@id"
+    },
+    "rkaf:publicationStatus": {
+      "@type": "@id"
+    },
+    "rkaf:remediationAction": {
+      "@type": "@id"
+    },
+    "rkaf:requiredPredicate": {
+      "@type": "@id"
+    },
+    "rkaf:minimumUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:noRemediationReason": {
+      "@type": "@id"
+    },
+    "rkaf:authorityChainStatus": {
+      "@type": "@id"
+    },
+    "rkaf:chainTerminusKind": {
+      "@type": "@id"
+    },
+    "rkaf:fragmentType": {
+      "@type": "@id"
+    },
+    "rkaf:reviewStatus": {
+      "@type": "@id"
+    },
+    "rkaf:newWorkProductStatus": {
+      "@type": "@id"
+    },
+    "rkaf:newUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:newAssertionState": {
+      "@type": "@id"
+    },
+    "rkaf:resourceFamily": {
+      "@type": "@id"
+    },
+    "rkaf:assertedBy": {
+      "@type": "@id"
+    },
+    "rkaf:attestor": {
+      "@type": "@id"
+    },
+    "rkaf:targetAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:targetWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:targetPacket": {
+      "@type": "@id"
+    },
+    "rkaf:sourceConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:targetConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:targetMappingConflict": {
+      "@type": "@id"
+    },
+    "rkaf:targetBridgeValidation": {
+      "@type": "@id"
+    },
+    "rkaf:targetRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:targetAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:authorizedBy": {
+      "@type": "@id"
+    },
+    "rkaf:organization": {
+      "@type": "@id"
+    },
+    "rkaf:packetId": {
+      "@type": "@id"
+    },
+    "rkaf:consumer": {
+      "@type": "@id"
+    },
+    "rkaf:emittedBy": {
+      "@type": "@id"
+    },
+    "rkaf:triggeredByPacket": {
+      "@type": "@id"
+    },
+    "rkaf:closesRevalidationEvent": {
+      "@type": "@id"
+    },
+    "rkaf:successorAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:closedBy": {
+      "@type": "@id"
+    },
+    "rkaf:queuedFor": {
+      "@type": "@id"
+    },
+    "rkaf:supersedesAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:supersedesWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:revalidationOf": {
+      "@type": "@id"
+    },
+    "rkaf:precedingArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:precedingVersion": {
+      "@type": "@id"
+    },
+    "rkaf:supportingEvent": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnClassification": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnEvent": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnAttestation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:basedOnAttestations": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:artifactId": {
+      "@type": "@id"
+    },
+    "rkaf:realizedByArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:resourceLineage": {
+      "@type": "@id"
+    },
+    "rkaf:sourceAuthorityHint": {
+      "@type": "@id"
+    },
+    "rkaf:capturedBy": {
+      "@type": "@id"
+    },
+    "rkaf:subjectArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:priorArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:classifiedBy": {
+      "@type": "@id"
+    },
+    "rkaf:classification": {
+      "@type": "@id"
+    },
+    "rkaf:managedByRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:referenceReleaseDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:versionBasis": {
+      "@type": "@vocab"
+    },
+    "rkaf:membershipMode": {
+      "@type": "@vocab"
+    },
+    "rkaf:hostedByRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:mintingAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionEndpoint": {
+      "@type": "@id"
+    },
+    "rkaf:registeredVia": {
+      "@type": "@id"
+    },
+    "rkaf:replacedBy": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:absorbedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:splitInto": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:conceptLifecycleOperation": {
+      "@type": "@vocab"
+    },
+    "rkaf:predecessorConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:successorConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:predecessorConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:successorConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:subjectConcept": {
+      "@type": "@id"
+    },
+    "rkaf:relatedConcept": {
+      "@type": "@id"
+    },
+    "rkaf:sharedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:relatedPublishedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:conflictingMappings": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:concept": {
+      "@type": "@id"
+    },
+    "rkaf:inputConcept": {
+      "@type": "@id"
+    },
+    "rkaf:resolvedConcept": {
+      "@type": "@id"
+    },
+    "rkaf:mappingAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:openLabelFacet": {
+      "@type": "@id"
+    },
+    "rkaf:openLabelRole": {
+      "@type": "@vocab"
+    },
+    "rkaf:resolutionTrustedVia": {
+      "@type": "@id"
+    },
+    "rkaf:registry": {
+      "@type": "@id"
+    },
+    "rkaf:resolvedToConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:assertion": {
+      "@type": "@id"
+    },
+    "rkaf:object": {
+      "@type": "@id"
+    },
+    "rkaf:dataConcept": {
+      "@type": "@id"
+    },
+    "rkaf:proposedFromLocalConcept": {
+      "@type": "@id"
+    },
+    "rkaf:registeredConcept": {
+      "@type": "@id"
+    },
+    "rkaf:registrationAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:proposedBy": {
+      "@type": "@id"
+    },
+    "rkaf:delegatingAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:delegatedTo": {
+      "@type": "@id"
+    },
+    "rkaf:publisher": {
+      "@type": "@id"
+    },
+    "rkaf:appliesTo": {
+      "@type": "@id"
+    },
+    "rkaf:affectedAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedAuthorityAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedImplementationAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedWorkProducts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedAdoptions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedFragments": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:affectedAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:affectedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:staleDependencies": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:unresolvedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:registryUnavailable": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:staleConceptCache": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedEvaluationAnchors": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedAutomaticMigrations": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedAuthorityKinds": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:justificationBackedBy": {
+      "@type": "@id"
+    },
+    "rkaf:derivedFromFragment": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:associatedWorkflowStep": {
+      "@type": "@id"
+    },
+    "rkaf:generationRun": {
+      "@type": "@id"
+    },
+    "rkaf:fromConcept": {
+      "@type": "@id"
+    },
+    "rkaf:toConcept": {
+      "@type": "@id"
+    },
+    "rkaf:requiredAdoptionScope": {
+      "@type": "@id"
+    },
+    "rkaf:collectsEvidenceType": {
+      "@type": "@id"
+    },
+    "rkaf:requiresEvidenceType": {
+      "@type": "@id"
+    },
+    "rkaf:acceptedDocumentTypes": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:excludesCategory": {
+      "@container": "@set"
+    },
+    "rkaf:evidencePurpose": {
+      "@container": "@set"
+    },
+    "rkaf:excludesPurposes": {
+      "@container": "@set"
+    },
+    "rkaf:jurisdiction": {
+      "@container": "@set"
+    },
+    "prov:wasGeneratedBy": {
+      "@type": "@id"
+    },
+    "prov:wasAttributedTo": {
+      "@type": "@id"
+    },
+    "prov:wasDerivedFrom": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "prov:generatedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "eli:consolidates": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "eli:consolidated_by": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dpv:hasPersonalDataCategory": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dpv:hasLegalBasis": {
+      "@type": "@id"
+    },
+    "dpv:hasPurpose": {
+      "@type": "@id"
+    },
+    "skos:prefLabel": {
+      "@container": "@language"
+    },
+    "skos:altLabel": {
+      "@container": "@language"
+    },
+    "skos:hiddenLabel": {
+      "@container": "@language"
+    },
+    "skos:definition": {
+      "@container": "@language"
+    },
+    "skos:example": {
+      "@container": "@language"
+    },
+    "skos:note": {
+      "@container": "@language"
+    },
+    "skos:scopeNote": {
+      "@container": "@language"
+    },
+    "skos:changeNote": {
+      "@container": "@language"
+    },
+    "skos:editorialNote": {
+      "@container": "@language"
+    },
+    "skos:historyNote": {
+      "@container": "@language"
+    },
+    "skos:notation": {
+      "@id": "http://www.w3.org/2004/02/skos/core#notation"
+    },
+    "skos:broader": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:narrower": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:related": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:inScheme": {
+      "@type": "@id"
+    },
+    "skos:hasTopConcept": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ConceptScheme": {
+      "@type": "@id"
+    },
+    "rkaf:schemeFacet": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptAssignment": {
+      "@type": "@id"
+    },
+    "rkaf:assignedConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:fragmentIdentityScheme": {
+      "@type": "@vocab"
+    },
+    "prov:hadMember": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcat:distribution": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcat:version": {
+      "@type": "xsd:string"
+    },
+    "dcterms:type": {
+      "@type": "@id"
+    },
+    "dcterms:issued": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:capturedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:registeredAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectiveDate": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:exceptionEffectivePeriodEnd": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:exceptionEffectivePeriodStart": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:cachedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:deprecatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:rescissionEffectiveDate": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:detectedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:definedInScope": {
+      "@type": "@id"
+    },
+    "rkaf:findingKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:severity": {
+      "@type": "@vocab"
+    },
+    "rkaf:subject": {
+      "@type": "@id"
+    },
+    "rkaf:detectedBy": {
+      "@type": "@id"
+    },
+    "rkaf:lastVerifiedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:verifiedBy": {
+      "@type": "@id"
+    },
+    "rkaf:targetFinding": {
+      "@type": "@id"
+    },
+    "rkaf:findings": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:RelationChangeEvent": {
+      "@type": "@id"
+    },
+    "rkaf:changeSubject": {
+      "@type": "@id"
+    },
+    "rkaf:changePredicate": {
+      "@type": "@id"
+    },
+    "rkaf:changeObject": {
+      "@type": "@id"
+    },
+    "rkaf:relationChangeOperation": {
+      "@type": "@vocab"
+    },
+    "rkaf:relationChangeStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:relationChangeTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:changeIntendedEffectiveTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:changeEvidence": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:replacementRelationObject": {
+      "@type": "@id"
+    },
+    "rkaf:RelationComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonBaselineArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonObservedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonExpectedAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonConsumer": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonScope": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonEvaluationTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:comparisonPolicyVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonDetector": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonDetectorVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonSnapshot": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonOutcome": {
+      "@type": "@vocab"
+    },
+    "rkaf:comparisonProofRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ResolverProofIssuer": {
+      "@type": "@id"
+    },
+    "rkaf:proofResolver": {
+      "@type": "@id"
+    },
+    "rkaf:proofResolverVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:proofPolicyVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:ResolverProofRecord": {
+      "@type": "@id"
+    },
+    "rkaf:proofType": {
+      "@type": "@vocab"
+    },
+    "rkaf:proofIssuer": {
+      "@type": "@id"
+    },
+    "rkaf:proofComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:proofOutcome": {
+      "@type": "@vocab"
+    },
+    "rkaf:proofRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofInput": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proofInputDigest": {
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "rkaf:proofSupportingRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proofEvaluatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:proofSnapshot": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofRecordDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:independenceGroup": {
+      "@type": "@id"
+    },
+    "rkaf:adjudicationVerdict": {
+      "@type": "@vocab"
+    },
+    "rkaf:sealedRequestDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:sealedResponseArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:RelationFinding": {
+      "@type": "@id"
+    },
+    "rkaf:relationFindingKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:findingComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:findingComparedAssertion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:findingProofRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:findingDetectedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:findingRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:findingFingerprint": {
+      "@type": "xsd:string"
+    },
+    "rkaf:ClosureClaim": {
+      "@type": "@id"
+    },
+    "rkaf:closureClaimStatus": {
+      "@type": "@vocab"
+    },
+    "rkaf:closureArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:closureRegion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:closurePredicateFamily": {
+      "@type": "@id"
+    },
+    "rkaf:closureProfileVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:closureMemberDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:closureReviewedAt": {
+      "@type": "xsd:dateTime"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "urn:rulespec:document-understanding:document:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:document:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:artifactIdentifierScheme": "rkaf:hash-sha256",
+      "rkaf:hasContentDigest": "sha256:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "dcterms:format": "text/plain"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:lineage:ed9393188950af9b52a96143bba6df8ebfba6871c3848e42dc97d9407375da09",
+      "@type": "rkaf:AILineage",
+      "rkaf:modelId": "gemini-3.8-flash",
+      "rkaf:modelVersion": "gemini-3.8-flash",
+      "rkaf:temperature": 0.0,
+      "rkaf:promptTemplateRef": "urn:rulespec:document-understanding:prompt:f68d460a221d1f3299cf927cbbf9bceae26342cbafa3cf383655065aa7428db5",
+      "rkaf:inputContextHash": "sha256:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:activity:3ed2f50dda20f8574923304bbb04dfa202ccc1bbfb46225b451644b569aa9428",
+      "@type": "rkaf:ExtractionActivity",
+      "rkaf:extractionMethod": "rkaf:modelExtraction",
+      "rkaf:extractionRun": "urn:rulespec:document-understanding:run:003c3948-e08e-441c-ab00-aeda0c6d6f61",
+      "rkaf:extractedBy": "urn:rulespec:document-understanding:extractor:langextract",
+      "rkaf:extractorVersion": "document-understanding/3",
+      "rkaf:requestContractDigest": "sha256:d12b92b8913242d7fb2447ee8c7a6114262deb285a62fa641b4a8c65e6972a5f",
+      "rkaf:extractionModelRef": "urn:rulespec:document-understanding:model:319034f3e25d0d9bd6b3a46b1def7a01b7689f0d51384c63da1f6e0b464af810",
+      "rkaf:extractionPromptRef": "urn:rulespec:document-understanding:prompt:f68d460a221d1f3299cf927cbbf9bceae26342cbafa3cf383655065aa7428db5",
+      "rkaf:inputDigest": [
+        "sha256:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629"
+      ],
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:ed9393188950af9b52a96143bba6df8ebfba6871c3848e42dc97d9407375da09"
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:207:621:sha256-d9adba2c171127a3c21ebbe087fc151fca252c6416affca75551ba601187d717",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentContentDigest": "sha256:d9adba2c171127a3c21ebbe087fc151fca252c6416affca75551ba601187d717",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(i) if the subcontracting goals pertain only to a single contract with a Federal agency, the prime contractor may elect to receive credit for small business concerns performing as first tier subcontractors or subcontractors at any tier pursuant to the subcontracting plans required under paragraph (6)(D) in an amount equal to the total dollar value of any subcontracts awarded to such small business concerns; and"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 207,
+          "oa:end": 621,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:300:316:sha256-b75611f273a5b0cd6851804efb816ae9cdceb492df826bf1f26f95ac9edfcda2",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentContentDigest": "sha256:b75611f273a5b0cd6851804efb816ae9cdceb492df826bf1f26f95ac9edfcda2",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "prime contractor"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 300,
+          "oa:end": 316,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:317:326:sha256-b478fafb20bc2258b84640c40fbb5142386bbdc32caa156f1a1a06a99729dbc9",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentContentDigest": "sha256:b478fafb20bc2258b84640c40fbb5142386bbdc32caa156f1a1a06a99729dbc9",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "may elect"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 317,
+          "oa:end": 326,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:65:81:sha256-b67ed427ed2ffb66dc130dc5cef35c2a0310e96e5715860ab9d13d924059bde9",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentContentDigest": "sha256:b67ed427ed2ffb66dc130dc5cef35c2a0310e96e5715860ab9d13d924059bde9",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(A) In general.—"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 65,
+          "oa:end": 81,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:82:205:sha256-9ca0d032313c67620c9fadea21be43f372f8301e6585b73b55d3f803c8a63164",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentContentDigest": "sha256:9ca0d032313c67620c9fadea21be43f372f8301e6585b73b55d3f803c8a63164",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "For purposes of determining whether or not a prime contractor has attained the percentage goals specified in paragraph (6)—"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 82,
+          "oa:end": 205,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:scope:7add07e38410584db9285267220e72a4c577a882698cb310f451b07c5aebf5e5",
+      "@type": "rkaf:ApplicabilityScope",
+      "rkaf:appliesInJurisdiction": [],
+      "rkaf:applicabilityCondition": "For purposes of determining whether or not a prime contractor has attained the percentage goals specified in paragraph (6), if the subcontracting goals pertain only to a single contract with a Federal agency"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:6692472e501ac3a0b9c28e3055486f6931132f0a4e10ab5713110bd021585598",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:ed9393188950af9b52a96143bba6df8ebfba6871c3848e42dc97d9407375da09",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:3ed2f50dda20f8574923304bbb04dfa202ccc1bbfb46225b451644b569aa9428",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:f3a68066c928d0738b2f28882039b56caa9fba61ae8c77254a3c32157ca56252",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-permission",
+      "rkaf:assertsValue": {
+        "@value": "For purposes of determining whether or not a prime contractor has attained the percentage goals specified in paragraph (6), if the subcontracting goals pertain only to a single contract with a Federal agency, the prime contractor may elect to receive credit for small business concerns performing as first tier subcontractors or subcontractors at any tier pursuant to the subcontracting plans required under paragraph (6)(D) in an amount equal to the total dollar value of any subcontracts awarded to such small business concerns.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:b3944f4dceb53f619a970f7d425301ecd0a53c00652df7b95735c634cc717cd6",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:6692472e501ac3a0b9c28e3055486f6931132f0a4e10ab5713110bd021585598",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:207:621:sha256-d9adba2c171127a3c21ebbe087fc151fca252c6416affca75551ba601187d717"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:4b3086413dc7bec56442f286dcb2dc193698bca3ee21844a552f99dd4558339f",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:6692472e501ac3a0b9c28e3055486f6931132f0a4e10ab5713110bd021585598",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:65:81:sha256-b67ed427ed2ffb66dc130dc5cef35c2a0310e96e5715860ab9d13d924059bde9",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:82:205:sha256-9ca0d032313c67620c9fadea21be43f372f8301e6585b73b55d3f803c8a63164",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:207:621:sha256-d9adba2c171127a3c21ebbe087fc151fca252c6416affca75551ba601187d717"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:bfe171cc612c5e2abde92a819553e93f169996935d3f711bf8c6adcd1ea388cf",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:ed9393188950af9b52a96143bba6df8ebfba6871c3848e42dc97d9407375da09",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:3ed2f50dda20f8574923304bbb04dfa202ccc1bbfb46225b451644b569aa9428",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:f3a68066c928d0738b2f28882039b56caa9fba61ae8c77254a3c32157ca56252",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:actor",
+      "rkaf:assertsValue": {
+        "@value": "prime contractor",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:4d3505d926d2903c885e4bb53fd03313596ca9b125e982a31e1e9ff82946e3a1",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:bfe171cc612c5e2abde92a819553e93f169996935d3f711bf8c6adcd1ea388cf",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:300:316:sha256-b75611f273a5b0cd6851804efb816ae9cdceb492df826bf1f26f95ac9edfcda2"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:d646af301eb8cfa5d389cdaecc17cc01814fd9ed2ded4bb5b2d02a802e36118b",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:ed9393188950af9b52a96143bba6df8ebfba6871c3848e42dc97d9407375da09",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:3ed2f50dda20f8574923304bbb04dfa202ccc1bbfb46225b451644b569aa9428",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:f3a68066c928d0738b2f28882039b56caa9fba61ae8c77254a3c32157ca56252",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "may",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:eb1f02ce077fd505575f5bb2768eed9c57f46d7843240da5aad7bc078b178844",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:d646af301eb8cfa5d389cdaecc17cc01814fd9ed2ded4bb5b2d02a802e36118b",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:317:326:sha256-b478fafb20bc2258b84640c40fbb5142386bbdc32caa156f1a1a06a99729dbc9"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:f451bd0a63cbd288c8fbfef08879e2873dea46c9160d982de1a00312db68648b",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:ed9393188950af9b52a96143bba6df8ebfba6871c3848e42dc97d9407375da09",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:3ed2f50dda20f8574923304bbb04dfa202ccc1bbfb46225b451644b569aa9428",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:f3a68066c928d0738b2f28882039b56caa9fba61ae8c77254a3c32157ca56252",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:scope_text",
+      "rkaf:assertsValue": {
+        "@value": "For purposes of determining whether or not a prime contractor has attained the percentage goals specified in paragraph (6), if the subcontracting goals pertain only to a single contract with a Federal agency",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:6bb971162a9f0a849ecc65a268f46990b6fff06e2ad1a782aa1588cc8b3918ef",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:f451bd0a63cbd288c8fbfef08879e2873dea46c9160d982de1a00312db68648b",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:65:81:sha256-b67ed427ed2ffb66dc130dc5cef35c2a0310e96e5715860ab9d13d924059bde9",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:82:205:sha256-9ca0d032313c67620c9fadea21be43f372f8301e6585b73b55d3f803c8a63164",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:207:621:sha256-d9adba2c171127a3c21ebbe087fc151fca252c6416affca75551ba601187d717"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:995722e455c85c523fe0832ed89808b637aaeba3cdaae4c975e70b2107c1f94b",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:ed9393188950af9b52a96143bba6df8ebfba6871c3848e42dc97d9407375da09",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:3ed2f50dda20f8574923304bbb04dfa202ccc1bbfb46225b451644b569aa9428",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:f3a68066c928d0738b2f28882039b56caa9fba61ae8c77254a3c32157ca56252",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"actor\":\"prime contractor\",\"kind\":\"permission\",\"modality\":\"may\",\"scope_text\":\"For purposes of determining whether or not a prime contractor has attained the percentage goals specified in paragraph (6), if the subcontracting goals pertain only to a single contract with a Federal agency\",\"summary\":\"For purposes of determining whether or not a prime contractor has attained the percentage goals specified in paragraph (6), if the subcontracting goals pertain only to a single contract with a Federal agency, the prime contractor may elect to receive credit for small business concerns performing as first tier subcontractors or subcontractors at any tier pursuant to the subcontracting plans required under paragraph (6)(D) in an amount equal to the total dollar value of any subcontracts awarded to such small business concerns.\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed",
+      "rkaf:hasApplicability": "urn:rulespec:document-understanding:scope:7add07e38410584db9285267220e72a4c577a882698cb310f451b07c5aebf5e5"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:f94eafd0fc53afc316f581ef603606e8dbcc8adbaca1d93630e913bbfe52a6c3",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:995722e455c85c523fe0832ed89808b637aaeba3cdaae4c975e70b2107c1f94b",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:207:621:sha256-d9adba2c171127a3c21ebbe087fc151fca252c6416affca75551ba601187d717",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:300:316:sha256-b75611f273a5b0cd6851804efb816ae9cdceb492df826bf1f26f95ac9edfcda2",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:317:326:sha256-b478fafb20bc2258b84640c40fbb5142386bbdc32caa156f1a1a06a99729dbc9"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:6e75ebbedc5630ef2ab5e82132e8d2d613f2f37b211099c8ac5d6b6c88853379",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:995722e455c85c523fe0832ed89808b637aaeba3cdaae4c975e70b2107c1f94b",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:65:81:sha256-b67ed427ed2ffb66dc130dc5cef35c2a0310e96e5715860ab9d13d924059bde9",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:82:205:sha256-9ca0d032313c67620c9fadea21be43f372f8301e6585b73b55d3f803c8a63164",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:207:621:sha256-d9adba2c171127a3c21ebbe087fc151fca252c6416affca75551ba601187d717"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:8ca8366af1d682fafaa9eb5abf0a41e9f8f6d2c0d1187d19f62110457f11a34e",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:8ca8366af1d682fafaa9eb5abf0a41e9f8f6d2c0d1187d19f62110457f11a34e",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:8d51a9f7f5eef3a1b0e96bcb3ed30c89b9ace593705f1ea9f0b5fef78852f86a",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"prime contractor\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:6692472e501ac3a0b9c28e3055486f6931132f0a4e10ab5713110bd021585598\",\"urn:rulespec:document-understanding:assertion:bfe171cc612c5e2abde92a819553e93f169996935d3f711bf8c6adcd1ea388cf\",\"urn:rulespec:document-understanding:assertion:d646af301eb8cfa5d389cdaecc17cc01814fd9ed2ded4bb5b2d02a802e36118b\",\"urn:rulespec:document-understanding:assertion:f451bd0a63cbd288c8fbfef08879e2873dea46c9160d982de1a00312db68648b\",\"urn:rulespec:document-understanding:assertion:995722e455c85c523fe0832ed89808b637aaeba3cdaae4c975e70b2107c1f94b\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"defined_terms\":[],\"effective_periods\":[],\"end\":621,\"evidence\":[{\"end\":621,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:207:621:sha256-d9adba2c171127a3c21ebbe087fc151fca252c6416affca75551ba601187d717\",\"quote\":\"(i) if the subcontracting goals pertain only to a single contract with a Federal agency, the prime contractor may elect to receive credit for small business concerns performing as first tier subcontractors or subcontractors at any tier pursuant to the subcontracting plans required under paragraph (6)(D) in an amount equal to the total dollar value of any subcontracts awarded to such small business concerns; and\",\"start\":207},{\"end\":316,\"field\":\"actor\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:300:316:sha256-b75611f273a5b0cd6851804efb816ae9cdceb492df826bf1f26f95ac9edfcda2\",\"quote\":\"prime contractor\",\"start\":300},{\"end\":326,\"field\":\"modality\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:317:326:sha256-b478fafb20bc2258b84640c40fbb5142386bbdc32caa156f1a1a06a99729dbc9\",\"quote\":\"may elect\",\"start\":317},{\"end\":81,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:65:81:sha256-b67ed427ed2ffb66dc130dc5cef35c2a0310e96e5715860ab9d13d924059bde9\",\"quote\":\"(A) In general.—\",\"start\":65},{\"end\":205,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:82:205:sha256-9ca0d032313c67620c9fadea21be43f372f8301e6585b73b55d3f803c8a63164\",\"quote\":\"For purposes of determining whether or not a prime contractor has attained the percentage goals specified in paragraph (6)—\",\"start\":82},{\"end\":621,\"field\":\"scope_text:1\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:207:621:sha256-d9adba2c171127a3c21ebbe087fc151fca252c6416affca75551ba601187d717\",\"quote\":\"(i) if the subcontracting goals pertain only to a single contract with a Federal agency, the prime contractor may elect to receive credit for small business concerns performing as first tier subcontractors or subcontractors at any tier pursuant to the subcontracting plans required under paragraph (6)(D) in an amount equal to the total dollar value of any subcontracts awarded to such small business concerns; and\",\"start\":207}],\"id\":\"urn:rulespec:document-understanding:revision:8ca8366af1d682fafaa9eb5abf0a41e9f8f6d2c0d1187d19f62110457f11a34e\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"permission\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:995722e455c85c523fe0832ed89808b637aaeba3cdaae4c975e70b2107c1f94b\",\"modality\":\"may\",\"modality_quote\":\"may elect\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:3a453fc82f768cafd5546cd80d5ca3afa46357ded2a7caf84fb733e08e730096\",\"origin\":\"aiSuggested\",\"quote\":\"(i) if the subcontracting goals pertain only to a single contract with a Federal agency, the prime contractor may elect to receive credit for small business concerns performing as first tier subcontractors or subcontractors at any tier pursuant to the subcontracting plans required under paragraph (6)(D) in an amount equal to the total dollar value of any subcontracts awarded to such small business concerns; and\",\"references\":[\"paragraph (6)\",\"paragraph (6)(D)\"],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:f3a68066c928d0738b2f28882039b56caa9fba61ae8c77254a3c32157ca56252\",\"scope_quotes\":[\"(A) In general.— For purposes of determining whether or not a prime contractor has attained the percentage goals specified in paragraph (6)—\",\"(i) if the subcontracting goals pertain only to a single contract with a Federal agency, the prime contractor may elect to receive credit for small business concerns performing as first tier subcontractors or subcontractors at any tier pursuant to the subcontracting plans required under paragraph (6)(D) in an amount equal to the total dollar value of any subcontracts awarded to such small business concerns; and\"],\"scope_text\":\"For purposes of determining whether or not a prime contractor has attained the percentage goals specified in paragraph (6), if the subcontracting goals pertain only to a single contract with a Federal agency\",\"section_id\":\"section-1\",\"start\":207,\"summary\":\"For purposes of determining whether or not a prime contractor has attained the percentage goals specified in paragraph (6), if the subcontracting goals pertain only to a single contract with a Federal agency, the prime contractor may elect to receive credit for small business concerns performing as first tier subcontractors or subcontractors at any tier pursuant to the subcontracting plans required under paragraph (6)(D) in an amount equal to the total dollar value of any subcontracts awarded to such small business concerns.\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:6692472e501ac3a0b9c28e3055486f6931132f0a4e10ab5713110bd021585598"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:bfe171cc612c5e2abde92a819553e93f169996935d3f711bf8c6adcd1ea388cf"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:d646af301eb8cfa5d389cdaecc17cc01814fd9ed2ded4bb5b2d02a802e36118b"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:f451bd0a63cbd288c8fbfef08879e2873dea46c9160d982de1a00312db68648b"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:995722e455c85c523fe0832ed89808b637aaeba3cdaae4c975e70b2107c1f94b"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:623:887:sha256-b24809219b9ff5c08e3a84b27c34ea3aecebd1de54dce0f0fd606259f5f9cb5e",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentContentDigest": "sha256:b24809219b9ff5c08e3a84b27c34ea3aecebd1de54dce0f0fd606259f5f9cb5e",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(ii) if the subcontracting goals pertain to more than one contract with one or more Federal agencies, or to one contract with more than one Federal agency, the prime contractor may only receive credit for first tier subcontractors that are small business concerns."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 623,
+          "oa:end": 887,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:783:799:sha256-b75611f273a5b0cd6851804efb816ae9cdceb492df826bf1f26f95ac9edfcda2",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentContentDigest": "sha256:b75611f273a5b0cd6851804efb816ae9cdceb492df826bf1f26f95ac9edfcda2",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "prime contractor"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 783,
+          "oa:end": 799,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:800:808:sha256-1d66cc8216136a1e9f6134736491c77002e9859eaf9e64645699e5cdc603a5fb",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentContentDigest": "sha256:1d66cc8216136a1e9f6134736491c77002e9859eaf9e64645699e5cdc603a5fb",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "may only"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 800,
+          "oa:end": 808,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:scope:59881838eb7aa99f7bb90bdcd9f3c930444e22de761a87359e1dd0e694caf774",
+      "@type": "rkaf:ApplicabilityScope",
+      "rkaf:appliesInJurisdiction": [],
+      "rkaf:applicabilityCondition": "For purposes of determining whether or not a prime contractor has attained the percentage goals specified in paragraph (6), if the subcontracting goals pertain to more than one contract with one or more Federal agencies, or to one contract with more than one Federal agency"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:3eec01bbbfa860312402f1e3800d4ce32d2eb5537b3dbca8d7a6fcc2c47d3dd1",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:ed9393188950af9b52a96143bba6df8ebfba6871c3848e42dc97d9407375da09",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:3ed2f50dda20f8574923304bbb04dfa202ccc1bbfb46225b451644b569aa9428",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:a6a45cbee9ac935853c33a34588feb320d05dbc9351a75f8ba4ff59467975d5f",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-requirement",
+      "rkaf:assertsValue": {
+        "@value": "For purposes of determining whether or not a prime contractor has attained the percentage goals specified in paragraph (6), if the subcontracting goals pertain to more than one contract with one or more Federal agencies, or to one contract with more than one Federal agency, the prime contractor may only receive credit for first tier subcontractors that are small business concerns.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:1ac071a7aedf2f6bab60c882eabfe09fc714a7e021eb6d75d1302217b2d2ef9b",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:3eec01bbbfa860312402f1e3800d4ce32d2eb5537b3dbca8d7a6fcc2c47d3dd1",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:623:887:sha256-b24809219b9ff5c08e3a84b27c34ea3aecebd1de54dce0f0fd606259f5f9cb5e"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:02391d548b2f0b6ebe2240f507dbe08ffa11d904d3d581a60b5314d0e76d8fd2",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:3eec01bbbfa860312402f1e3800d4ce32d2eb5537b3dbca8d7a6fcc2c47d3dd1",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:65:81:sha256-b67ed427ed2ffb66dc130dc5cef35c2a0310e96e5715860ab9d13d924059bde9",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:82:205:sha256-9ca0d032313c67620c9fadea21be43f372f8301e6585b73b55d3f803c8a63164",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:623:887:sha256-b24809219b9ff5c08e3a84b27c34ea3aecebd1de54dce0f0fd606259f5f9cb5e"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:406790fae93b3e2b71dafc63db98cc1016d6c14efd90ea7d5d42db7d3ae30a72",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:ed9393188950af9b52a96143bba6df8ebfba6871c3848e42dc97d9407375da09",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:3ed2f50dda20f8574923304bbb04dfa202ccc1bbfb46225b451644b569aa9428",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:a6a45cbee9ac935853c33a34588feb320d05dbc9351a75f8ba4ff59467975d5f",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:actor",
+      "rkaf:assertsValue": {
+        "@value": "prime contractor",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:58d322579ced707459f8b8cfc52ebc1e09f3626202cedbc16d131646e6504ec5",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:406790fae93b3e2b71dafc63db98cc1016d6c14efd90ea7d5d42db7d3ae30a72",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:783:799:sha256-b75611f273a5b0cd6851804efb816ae9cdceb492df826bf1f26f95ac9edfcda2"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:a7d73b94142ef2cac8e3ece07ed9fba5bee85ad4d9f8c80e681cb2d1eb1a3a99",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:ed9393188950af9b52a96143bba6df8ebfba6871c3848e42dc97d9407375da09",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:3ed2f50dda20f8574923304bbb04dfa202ccc1bbfb46225b451644b569aa9428",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:a6a45cbee9ac935853c33a34588feb320d05dbc9351a75f8ba4ff59467975d5f",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "must",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:68d2628ddd4ee42e2a81a94eaeeab58aa9cb1577b8a0896f4519ba83d2d1aa08",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:a7d73b94142ef2cac8e3ece07ed9fba5bee85ad4d9f8c80e681cb2d1eb1a3a99",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:800:808:sha256-1d66cc8216136a1e9f6134736491c77002e9859eaf9e64645699e5cdc603a5fb"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:bf363660404e9a9bfb6f72a0d6a5e9b7b78d089501f5a7e785e7712006fb3092",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:ed9393188950af9b52a96143bba6df8ebfba6871c3848e42dc97d9407375da09",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:3ed2f50dda20f8574923304bbb04dfa202ccc1bbfb46225b451644b569aa9428",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:a6a45cbee9ac935853c33a34588feb320d05dbc9351a75f8ba4ff59467975d5f",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:scope_text",
+      "rkaf:assertsValue": {
+        "@value": "For purposes of determining whether or not a prime contractor has attained the percentage goals specified in paragraph (6), if the subcontracting goals pertain to more than one contract with one or more Federal agencies, or to one contract with more than one Federal agency",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:f429df1386653912dd8bec713f5ad8ee8e36e058c2d470bfde016d1f97eeaaca",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:bf363660404e9a9bfb6f72a0d6a5e9b7b78d089501f5a7e785e7712006fb3092",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:65:81:sha256-b67ed427ed2ffb66dc130dc5cef35c2a0310e96e5715860ab9d13d924059bde9",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:82:205:sha256-9ca0d032313c67620c9fadea21be43f372f8301e6585b73b55d3f803c8a63164",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:623:887:sha256-b24809219b9ff5c08e3a84b27c34ea3aecebd1de54dce0f0fd606259f5f9cb5e"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:74fe83436dc8142e79c98b27313b025d73f225e8c0d7bc5979bc84c2afac4c47",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:ed9393188950af9b52a96143bba6df8ebfba6871c3848e42dc97d9407375da09",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:3ed2f50dda20f8574923304bbb04dfa202ccc1bbfb46225b451644b569aa9428",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:a6a45cbee9ac935853c33a34588feb320d05dbc9351a75f8ba4ff59467975d5f",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"actor\":\"prime contractor\",\"kind\":\"requirement\",\"modality\":\"must\",\"scope_text\":\"For purposes of determining whether or not a prime contractor has attained the percentage goals specified in paragraph (6), if the subcontracting goals pertain to more than one contract with one or more Federal agencies, or to one contract with more than one Federal agency\",\"summary\":\"For purposes of determining whether or not a prime contractor has attained the percentage goals specified in paragraph (6), if the subcontracting goals pertain to more than one contract with one or more Federal agencies, or to one contract with more than one Federal agency, the prime contractor may only receive credit for first tier subcontractors that are small business concerns.\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed",
+      "rkaf:hasApplicability": "urn:rulespec:document-understanding:scope:59881838eb7aa99f7bb90bdcd9f3c930444e22de761a87359e1dd0e694caf774"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:67c05b4166eae82c13eb0c872f8706b0d4e82401da89f6d28134bbd79a10ca6b",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:74fe83436dc8142e79c98b27313b025d73f225e8c0d7bc5979bc84c2afac4c47",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:623:887:sha256-b24809219b9ff5c08e3a84b27c34ea3aecebd1de54dce0f0fd606259f5f9cb5e",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:783:799:sha256-b75611f273a5b0cd6851804efb816ae9cdceb492df826bf1f26f95ac9edfcda2",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:800:808:sha256-1d66cc8216136a1e9f6134736491c77002e9859eaf9e64645699e5cdc603a5fb"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:960cbbc7be8d6eeb3cf897ce1d609e917014f55ead2f37b55f1172515b7baaea",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:74fe83436dc8142e79c98b27313b025d73f225e8c0d7bc5979bc84c2afac4c47",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:65:81:sha256-b67ed427ed2ffb66dc130dc5cef35c2a0310e96e5715860ab9d13d924059bde9",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:82:205:sha256-9ca0d032313c67620c9fadea21be43f372f8301e6585b73b55d3f803c8a63164",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:623:887:sha256-b24809219b9ff5c08e3a84b27c34ea3aecebd1de54dce0f0fd606259f5f9cb5e"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:44228636b2ab793f48fc0daa747e5c07a6446fcca284963b8cfb5267fda585a3",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:44228636b2ab793f48fc0daa747e5c07a6446fcca284963b8cfb5267fda585a3",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:b823b1b7324c2696689324901000ee0dfdd22ebbfb0232fb585d63d2c18ea25e",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"prime contractor\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:3eec01bbbfa860312402f1e3800d4ce32d2eb5537b3dbca8d7a6fcc2c47d3dd1\",\"urn:rulespec:document-understanding:assertion:406790fae93b3e2b71dafc63db98cc1016d6c14efd90ea7d5d42db7d3ae30a72\",\"urn:rulespec:document-understanding:assertion:a7d73b94142ef2cac8e3ece07ed9fba5bee85ad4d9f8c80e681cb2d1eb1a3a99\",\"urn:rulespec:document-understanding:assertion:bf363660404e9a9bfb6f72a0d6a5e9b7b78d089501f5a7e785e7712006fb3092\",\"urn:rulespec:document-understanding:assertion:74fe83436dc8142e79c98b27313b025d73f225e8c0d7bc5979bc84c2afac4c47\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"defined_terms\":[],\"effective_periods\":[],\"end\":887,\"evidence\":[{\"end\":887,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:623:887:sha256-b24809219b9ff5c08e3a84b27c34ea3aecebd1de54dce0f0fd606259f5f9cb5e\",\"quote\":\"(ii) if the subcontracting goals pertain to more than one contract with one or more Federal agencies, or to one contract with more than one Federal agency, the prime contractor may only receive credit for first tier subcontractors that are small business concerns.\",\"start\":623},{\"end\":799,\"field\":\"actor\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:783:799:sha256-b75611f273a5b0cd6851804efb816ae9cdceb492df826bf1f26f95ac9edfcda2\",\"quote\":\"prime contractor\",\"start\":783},{\"end\":808,\"field\":\"modality\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:800:808:sha256-1d66cc8216136a1e9f6134736491c77002e9859eaf9e64645699e5cdc603a5fb\",\"quote\":\"may only\",\"start\":800},{\"end\":81,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:65:81:sha256-b67ed427ed2ffb66dc130dc5cef35c2a0310e96e5715860ab9d13d924059bde9\",\"quote\":\"(A) In general.—\",\"start\":65},{\"end\":205,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:82:205:sha256-9ca0d032313c67620c9fadea21be43f372f8301e6585b73b55d3f803c8a63164\",\"quote\":\"For purposes of determining whether or not a prime contractor has attained the percentage goals specified in paragraph (6)—\",\"start\":82},{\"end\":887,\"field\":\"scope_text:1\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:623:887:sha256-b24809219b9ff5c08e3a84b27c34ea3aecebd1de54dce0f0fd606259f5f9cb5e\",\"quote\":\"(ii) if the subcontracting goals pertain to more than one contract with one or more Federal agencies, or to one contract with more than one Federal agency, the prime contractor may only receive credit for first tier subcontractors that are small business concerns.\",\"start\":623}],\"id\":\"urn:rulespec:document-understanding:revision:44228636b2ab793f48fc0daa747e5c07a6446fcca284963b8cfb5267fda585a3\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"requirement\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:74fe83436dc8142e79c98b27313b025d73f225e8c0d7bc5979bc84c2afac4c47\",\"modality\":\"must\",\"modality_quote\":\"may only\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:2f8b5080147634d0f405733b3caa6d9b2e8c94c0ada5e29c89be727834c48983\",\"origin\":\"aiSuggested\",\"quote\":\"(ii) if the subcontracting goals pertain to more than one contract with one or more Federal agencies, or to one contract with more than one Federal agency, the prime contractor may only receive credit for first tier subcontractors that are small business concerns.\",\"references\":[\"paragraph (6)\"],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:a6a45cbee9ac935853c33a34588feb320d05dbc9351a75f8ba4ff59467975d5f\",\"scope_quotes\":[\"(A) In general.— For purposes of determining whether or not a prime contractor has attained the percentage goals specified in paragraph (6)—\",\"(ii) if the subcontracting goals pertain to more than one contract with one or more Federal agencies, or to one contract with more than one Federal agency, the prime contractor may only receive credit for first tier subcontractors that are small business concerns.\"],\"scope_text\":\"For purposes of determining whether or not a prime contractor has attained the percentage goals specified in paragraph (6), if the subcontracting goals pertain to more than one contract with one or more Federal agencies, or to one contract with more than one Federal agency\",\"section_id\":\"section-1\",\"start\":623,\"summary\":\"For purposes of determining whether or not a prime contractor has attained the percentage goals specified in paragraph (6), if the subcontracting goals pertain to more than one contract with one or more Federal agencies, or to one contract with more than one Federal agency, the prime contractor may only receive credit for first tier subcontractors that are small business concerns.\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:3eec01bbbfa860312402f1e3800d4ce32d2eb5537b3dbca8d7a6fcc2c47d3dd1"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:406790fae93b3e2b71dafc63db98cc1016d6c14efd90ea7d5d42db7d3ae30a72"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:a7d73b94142ef2cac8e3ece07ed9fba5bee85ad4d9f8c80e681cb2d1eb1a3a99"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:bf363660404e9a9bfb6f72a0d6a5e9b7b78d089501f5a7e785e7712006fb3092"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:74fe83436dc8142e79c98b27313b025d73f225e8c0d7bc5979bc84c2afac4c47"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1017:1208:sha256-010a1b1bf69256da0aa50889a068c8ad104b4a34a6c42a0e44e9c0bf6a19049e",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentContentDigest": "sha256:010a1b1bf69256da0aa50889a068c8ad104b4a34a6c42a0e44e9c0bf6a19049e",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(i) collects and reports data on the extent to which prime contractors of the agency meet the goals and objectives set forth in subcontracting plans submitted pursuant to this subsection; and"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1017,
+          "oa:end": 1208,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:950:985:sha256-45979d0614d397290238290a2479960fe7b60f48e9e39729090cce80c84637ae",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentContentDigest": "sha256:45979d0614d397290238290a2479960fe7b60f48e9e39729090cce80c84637ae",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "The head of each contracting agency"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 950,
+          "oa:end": 985,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:890:949:sha256-5d1536e42e190bdce59f3a843e6c66436766669d286f445ce20771d9600491e9",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentContentDigest": "sha256:5d1536e42e190bdce59f3a843e6c66436766669d286f445ce20771d9600491e9",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(B) Collection and review of data on subcontracting plans.—"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 890,
+          "oa:end": 949,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:950:1015:sha256-1093fa67029f55942b06a0875a4420fe11be02685521c789c7d6456d5678813c",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentContentDigest": "sha256:1093fa67029f55942b06a0875a4420fe11be02685521c789c7d6456d5678813c",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "The head of each contracting agency shall ensure that the agency—"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 950,
+          "oa:end": 1015,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:bf76de78a94d2a39f4f6a9083547e1b6704c772d3a4daa41eab90cd5fc24eb65",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:ed9393188950af9b52a96143bba6df8ebfba6871c3848e42dc97d9407375da09",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:3ed2f50dda20f8574923304bbb04dfa202ccc1bbfb46225b451644b569aa9428",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:492f06d0395720fb5be0a82215633dd7b534a4f5c886c8b04c44f24c238e46b7",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-requirement",
+      "rkaf:assertsValue": {
+        "@value": "The head of each contracting agency shall ensure that the agency collects and reports data on the extent to which prime contractors of the agency meet the goals and objectives set forth in subcontracting plans submitted pursuant to this subsection.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:c83bc775967c4a4282ac97c5ca8247253a3b3ac07d42f293dd37704db7de7d81",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:bf76de78a94d2a39f4f6a9083547e1b6704c772d3a4daa41eab90cd5fc24eb65",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1017:1208:sha256-010a1b1bf69256da0aa50889a068c8ad104b4a34a6c42a0e44e9c0bf6a19049e"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:a1367fbaed730a7689bdd40a6bb3fc4c5f58282c471ab0bab4a79b6faa31be93",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:bf76de78a94d2a39f4f6a9083547e1b6704c772d3a4daa41eab90cd5fc24eb65",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:providesContext",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:890:949:sha256-5d1536e42e190bdce59f3a843e6c66436766669d286f445ce20771d9600491e9",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:950:1015:sha256-1093fa67029f55942b06a0875a4420fe11be02685521c789c7d6456d5678813c"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:800dc805364bf21b24fd35ce131da8b5c3e7f3b87f9e60497a504a26eee120db",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:ed9393188950af9b52a96143bba6df8ebfba6871c3848e42dc97d9407375da09",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:3ed2f50dda20f8574923304bbb04dfa202ccc1bbfb46225b451644b569aa9428",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:492f06d0395720fb5be0a82215633dd7b534a4f5c886c8b04c44f24c238e46b7",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:actor",
+      "rkaf:assertsValue": {
+        "@value": "The head of each contracting agency",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:8433d9381f33c2ab17250a19a4e0f21a895ecafecf8bbf6bd1f79430cd8efebf",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:800dc805364bf21b24fd35ce131da8b5c3e7f3b87f9e60497a504a26eee120db",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:950:985:sha256-45979d0614d397290238290a2479960fe7b60f48e9e39729090cce80c84637ae"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:0c383ef542e6c3a05e6edefcc699754e996bc3f2d88b10fa11e365f73b5d749f",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:ed9393188950af9b52a96143bba6df8ebfba6871c3848e42dc97d9407375da09",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:3ed2f50dda20f8574923304bbb04dfa202ccc1bbfb46225b451644b569aa9428",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:492f06d0395720fb5be0a82215633dd7b534a4f5c886c8b04c44f24c238e46b7",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "must",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:6aa1cdf2ec89d2d3e852556111ff59212dff3fd209f8800557cb09c19ae65d6e",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:0c383ef542e6c3a05e6edefcc699754e996bc3f2d88b10fa11e365f73b5d749f",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:providesContext",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1017:1208:sha256-010a1b1bf69256da0aa50889a068c8ad104b4a34a6c42a0e44e9c0bf6a19049e"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:8e02b389100e540e20cc61b12405deab612d7147b41b409d033bb3339a3ca7a9",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:ed9393188950af9b52a96143bba6df8ebfba6871c3848e42dc97d9407375da09",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:3ed2f50dda20f8574923304bbb04dfa202ccc1bbfb46225b451644b569aa9428",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:492f06d0395720fb5be0a82215633dd7b534a4f5c886c8b04c44f24c238e46b7",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"actor\":\"The head of each contracting agency\",\"kind\":\"requirement\",\"modality\":\"must\",\"summary\":\"The head of each contracting agency shall ensure that the agency collects and reports data on the extent to which prime contractors of the agency meet the goals and objectives set forth in subcontracting plans submitted pursuant to this subsection.\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:125a840feb98a2a426a4d5d634a62fd55a12142a0b2813705ad167c83f5eefad",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:8e02b389100e540e20cc61b12405deab612d7147b41b409d033bb3339a3ca7a9",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1017:1208:sha256-010a1b1bf69256da0aa50889a068c8ad104b4a34a6c42a0e44e9c0bf6a19049e",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:950:985:sha256-45979d0614d397290238290a2479960fe7b60f48e9e39729090cce80c84637ae"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:36d5aefa05a2933b54456836994d317fadc58d920bc46714d9fdb5b693bfa19d",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:8e02b389100e540e20cc61b12405deab612d7147b41b409d033bb3339a3ca7a9",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:providesContext",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:890:949:sha256-5d1536e42e190bdce59f3a843e6c66436766669d286f445ce20771d9600491e9",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:950:1015:sha256-1093fa67029f55942b06a0875a4420fe11be02685521c789c7d6456d5678813c"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:5ba9dc780a41a5a515ae1331750a7481f623be75497a32ec19589361551077fb",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:5ba9dc780a41a5a515ae1331750a7481f623be75497a32ec19589361551077fb",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:672582f52bc1a5b96967d27730b4918bdd69d99ab9684bf1cfb6a50ded4ab764",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"The head of each contracting agency\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:bf76de78a94d2a39f4f6a9083547e1b6704c772d3a4daa41eab90cd5fc24eb65\",\"urn:rulespec:document-understanding:assertion:800dc805364bf21b24fd35ce131da8b5c3e7f3b87f9e60497a504a26eee120db\",\"urn:rulespec:document-understanding:assertion:0c383ef542e6c3a05e6edefcc699754e996bc3f2d88b10fa11e365f73b5d749f\",\"urn:rulespec:document-understanding:assertion:8e02b389100e540e20cc61b12405deab612d7147b41b409d033bb3339a3ca7a9\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[\"(B) Collection and review of data on subcontracting plans.— The head of each contracting agency shall ensure that the agency—\"],\"defined_terms\":[],\"effective_periods\":[],\"end\":1208,\"evidence\":[{\"end\":1208,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1017:1208:sha256-010a1b1bf69256da0aa50889a068c8ad104b4a34a6c42a0e44e9c0bf6a19049e\",\"quote\":\"(i) collects and reports data on the extent to which prime contractors of the agency meet the goals and objectives set forth in subcontracting plans submitted pursuant to this subsection; and\",\"start\":1017},{\"end\":985,\"field\":\"actor\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:950:985:sha256-45979d0614d397290238290a2479960fe7b60f48e9e39729090cce80c84637ae\",\"quote\":\"The head of each contracting agency\",\"start\":950},{\"end\":949,\"field\":\"context:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:890:949:sha256-5d1536e42e190bdce59f3a843e6c66436766669d286f445ce20771d9600491e9\",\"quote\":\"(B) Collection and review of data on subcontracting plans.—\",\"start\":890},{\"end\":1015,\"field\":\"context:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:950:1015:sha256-1093fa67029f55942b06a0875a4420fe11be02685521c789c7d6456d5678813c\",\"quote\":\"The head of each contracting agency shall ensure that the agency—\",\"start\":950}],\"id\":\"urn:rulespec:document-understanding:revision:5ba9dc780a41a5a515ae1331750a7481f623be75497a32ec19589361551077fb\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"requirement\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:8e02b389100e540e20cc61b12405deab612d7147b41b409d033bb3339a3ca7a9\",\"modality\":\"must\",\"modality_quote\":\"shall\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:f238af85a192f63b41284f4336d921856de009e66cefea91cc9fa533d8ede4ea\",\"origin\":\"aiSuggested\",\"quote\":\"(i) collects and reports data on the extent to which prime contractors of the agency meet the goals and objectives set forth in subcontracting plans submitted pursuant to this subsection; and\",\"references\":[\"this subsection\"],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:492f06d0395720fb5be0a82215633dd7b534a4f5c886c8b04c44f24c238e46b7\",\"scope_quotes\":[],\"scope_text\":\"\",\"section_id\":\"section-1\",\"start\":1017,\"summary\":\"The head of each contracting agency shall ensure that the agency collects and reports data on the extent to which prime contractors of the agency meet the goals and objectives set forth in subcontracting plans submitted pursuant to this subsection.\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:bf76de78a94d2a39f4f6a9083547e1b6704c772d3a4daa41eab90cd5fc24eb65"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:800dc805364bf21b24fd35ce131da8b5c3e7f3b87f9e60497a504a26eee120db"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:0c383ef542e6c3a05e6edefcc699754e996bc3f2d88b10fa11e365f73b5d749f"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:8e02b389100e540e20cc61b12405deab612d7147b41b409d033bb3339a3ca7a9"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1210:1399:sha256-c7843eb0f97186330ec0c395e2d7f0601aee766d8ad306ba65ec061d041824ec",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentContentDigest": "sha256:c7843eb0f97186330ec0c395e2d7f0601aee766d8ad306ba65ec061d041824ec",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(ii) periodically reviews data collected and reported pursuant to clause (i) for the purpose of ensuring that such contractors comply in good faith with the requirements of this subsection."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1210,
+          "oa:end": 1399,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:747249607ef9e5c8a4694c9df15d359df39781bc152b7a8b3636cba08b10b678",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:ed9393188950af9b52a96143bba6df8ebfba6871c3848e42dc97d9407375da09",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:3ed2f50dda20f8574923304bbb04dfa202ccc1bbfb46225b451644b569aa9428",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:559a06c96851455ab6771fb39d31a698646d50454739f785d69433d0dad534bb",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-requirement",
+      "rkaf:assertsValue": {
+        "@value": "The head of each contracting agency shall ensure that the agency periodically reviews data collected and reported pursuant to clause (i) for the purpose of ensuring that such contractors comply in good faith with the requirements of this subsection.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:b04ed9e307ff2ca79ee5fc6540667c1adc0d1c540cf99c404614e7ae76da614d",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:747249607ef9e5c8a4694c9df15d359df39781bc152b7a8b3636cba08b10b678",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1210:1399:sha256-c7843eb0f97186330ec0c395e2d7f0601aee766d8ad306ba65ec061d041824ec"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:55a1c7301675b19395ae33b7a52195297985dd122a5386989eff09b31058b38b",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:747249607ef9e5c8a4694c9df15d359df39781bc152b7a8b3636cba08b10b678",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:providesContext",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:890:949:sha256-5d1536e42e190bdce59f3a843e6c66436766669d286f445ce20771d9600491e9",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:950:1015:sha256-1093fa67029f55942b06a0875a4420fe11be02685521c789c7d6456d5678813c"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:910936f6ddbfacea509034ed8592d146cadc1dbc2ee1c5d81bf0e97ff3ad0d0b",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:ed9393188950af9b52a96143bba6df8ebfba6871c3848e42dc97d9407375da09",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:3ed2f50dda20f8574923304bbb04dfa202ccc1bbfb46225b451644b569aa9428",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:559a06c96851455ab6771fb39d31a698646d50454739f785d69433d0dad534bb",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:actor",
+      "rkaf:assertsValue": {
+        "@value": "The head of each contracting agency",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:c2fb63dc89eff3846b11fd7e537735445dc66ea63ccd80cc65100b13ad8c05bd",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:910936f6ddbfacea509034ed8592d146cadc1dbc2ee1c5d81bf0e97ff3ad0d0b",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:950:985:sha256-45979d0614d397290238290a2479960fe7b60f48e9e39729090cce80c84637ae"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:2615f871534becd2ac0c98aefd952ed6cd08347ff18c4b187c9a96f8928aa4e6",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:ed9393188950af9b52a96143bba6df8ebfba6871c3848e42dc97d9407375da09",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:3ed2f50dda20f8574923304bbb04dfa202ccc1bbfb46225b451644b569aa9428",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:559a06c96851455ab6771fb39d31a698646d50454739f785d69433d0dad534bb",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "must",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:a4cad0e11e8a514ddaf4765115bdf4ce0cbadee9fe298ad5add3f93704fc226f",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:2615f871534becd2ac0c98aefd952ed6cd08347ff18c4b187c9a96f8928aa4e6",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:providesContext",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1210:1399:sha256-c7843eb0f97186330ec0c395e2d7f0601aee766d8ad306ba65ec061d041824ec"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:7dfeb242638144c52fff04be3f4e21c6232928c91a30cdd2ebafae6a0d19a00e",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:ed9393188950af9b52a96143bba6df8ebfba6871c3848e42dc97d9407375da09",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:3ed2f50dda20f8574923304bbb04dfa202ccc1bbfb46225b451644b569aa9428",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:559a06c96851455ab6771fb39d31a698646d50454739f785d69433d0dad534bb",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"actor\":\"The head of each contracting agency\",\"kind\":\"requirement\",\"modality\":\"must\",\"summary\":\"The head of each contracting agency shall ensure that the agency periodically reviews data collected and reported pursuant to clause (i) for the purpose of ensuring that such contractors comply in good faith with the requirements of this subsection.\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:9837d72420a0e4dfd6179429ad7a7b5ffc0e83c951bd77c3b81614f3a3942c83",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:7dfeb242638144c52fff04be3f4e21c6232928c91a30cdd2ebafae6a0d19a00e",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1210:1399:sha256-c7843eb0f97186330ec0c395e2d7f0601aee766d8ad306ba65ec061d041824ec",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:950:985:sha256-45979d0614d397290238290a2479960fe7b60f48e9e39729090cce80c84637ae"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:2053ef1d775c770b29d1b065bc4e9caf99417e8904d5142a667e7fcf1a88a7d4",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:7dfeb242638144c52fff04be3f4e21c6232928c91a30cdd2ebafae6a0d19a00e",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:providesContext",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:890:949:sha256-5d1536e42e190bdce59f3a843e6c66436766669d286f445ce20771d9600491e9",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:950:1015:sha256-1093fa67029f55942b06a0875a4420fe11be02685521c789c7d6456d5678813c"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:1bbc730be2bb9ad243c49bb579ab79e79bcb6013feb782f22a0d904c17c4f728",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:1bbc730be2bb9ad243c49bb579ab79e79bcb6013feb782f22a0d904c17c4f728",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:5c88a0069bda377ba724f579fbdbedea8a1487886f965f546e5937f88d455fb6",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"The head of each contracting agency\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:747249607ef9e5c8a4694c9df15d359df39781bc152b7a8b3636cba08b10b678\",\"urn:rulespec:document-understanding:assertion:910936f6ddbfacea509034ed8592d146cadc1dbc2ee1c5d81bf0e97ff3ad0d0b\",\"urn:rulespec:document-understanding:assertion:2615f871534becd2ac0c98aefd952ed6cd08347ff18c4b187c9a96f8928aa4e6\",\"urn:rulespec:document-understanding:assertion:7dfeb242638144c52fff04be3f4e21c6232928c91a30cdd2ebafae6a0d19a00e\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[\"(B) Collection and review of data on subcontracting plans.— The head of each contracting agency shall ensure that the agency—\"],\"defined_terms\":[],\"effective_periods\":[],\"end\":1399,\"evidence\":[{\"end\":1399,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1210:1399:sha256-c7843eb0f97186330ec0c395e2d7f0601aee766d8ad306ba65ec061d041824ec\",\"quote\":\"(ii) periodically reviews data collected and reported pursuant to clause (i) for the purpose of ensuring that such contractors comply in good faith with the requirements of this subsection.\",\"start\":1210},{\"end\":985,\"field\":\"actor\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:950:985:sha256-45979d0614d397290238290a2479960fe7b60f48e9e39729090cce80c84637ae\",\"quote\":\"The head of each contracting agency\",\"start\":950},{\"end\":949,\"field\":\"context:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:890:949:sha256-5d1536e42e190bdce59f3a843e6c66436766669d286f445ce20771d9600491e9\",\"quote\":\"(B) Collection and review of data on subcontracting plans.—\",\"start\":890},{\"end\":1015,\"field\":\"context:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:950:1015:sha256-1093fa67029f55942b06a0875a4420fe11be02685521c789c7d6456d5678813c\",\"quote\":\"The head of each contracting agency shall ensure that the agency—\",\"start\":950}],\"id\":\"urn:rulespec:document-understanding:revision:1bbc730be2bb9ad243c49bb579ab79e79bcb6013feb782f22a0d904c17c4f728\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"requirement\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:7dfeb242638144c52fff04be3f4e21c6232928c91a30cdd2ebafae6a0d19a00e\",\"modality\":\"must\",\"modality_quote\":\"shall\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:46403c472b12f66b12b677fb6edd0698b1e242b75f6a629fca331606c346be76\",\"origin\":\"aiSuggested\",\"quote\":\"(ii) periodically reviews data collected and reported pursuant to clause (i) for the purpose of ensuring that such contractors comply in good faith with the requirements of this subsection.\",\"references\":[\"clause (i)\",\"this subsection\"],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:559a06c96851455ab6771fb39d31a698646d50454739f785d69433d0dad534bb\",\"scope_quotes\":[],\"scope_text\":\"\",\"section_id\":\"section-1\",\"start\":1210,\"summary\":\"The head of each contracting agency shall ensure that the agency periodically reviews data collected and reported pursuant to clause (i) for the purpose of ensuring that such contractors comply in good faith with the requirements of this subsection.\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:747249607ef9e5c8a4694c9df15d359df39781bc152b7a8b3636cba08b10b678"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:910936f6ddbfacea509034ed8592d146cadc1dbc2ee1c5d81bf0e97ff3ad0d0b"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:2615f871534becd2ac0c98aefd952ed6cd08347ff18c4b187c9a96f8928aa4e6"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:7dfeb242638144c52fff04be3f4e21c6232928c91a30cdd2ebafae6a0d19a00e"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1402:1428:sha256-45ff8a971322f316b3c473c66173998f55683c355e58d1fa9a3d7c4f186e81b7",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentContentDigest": "sha256:45ff8a971322f316b3c473c66173998f55683c355e58d1fa9a3d7c4f186e81b7",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(C) Rule of construction.—"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1402,
+          "oa:end": 1428,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1429:1528:sha256-ec109706645e8152666f8f23ceb46c968ee1dde997d957755551d4f7283cf035",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentContentDigest": "sha256:ec109706645e8152666f8f23ceb46c968ee1dde997d957755551d4f7283cf035",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "Nothing in this paragraph shall be construed to allow a Federal agency to establish a goal for an 5"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1429,
+          "oa:end": 1528,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1530:1571:sha256-4d8931aa4e3d1811c09f43ddf0d21e944e028ccd694e809b33b4b44a1b72ed74",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentContentDigest": "sha256:4d8931aa4e3d1811c09f43ddf0d21e944e028ccd694e809b33b4b44a1b72ed74",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "5 So in original. Probably should be “a”."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1530,
+          "oa:end": 1571,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1573:1711:sha256-f15c79f538731769a58e9339384b8e1b2e79b61526d3d7aaf4466ea9c04d5d1f",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentContentDigest": "sha256:f15c79f538731769a58e9339384b8e1b2e79b61526d3d7aaf4466ea9c04d5d1f",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": " number of subcontracts with a subcontractor at any tier for a prime contractor otherwise eligible to receive credit under this paragraph."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1573,
+          "oa:end": 1711,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1485:1499:sha256-0bc51407810f6458de6b15502cab9409d676172dc5ee6a25cd18e60c03fa7b19",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentContentDigest": "sha256:0bc51407810f6458de6b15502cab9409d676172dc5ee6a25cd18e60c03fa7b19",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "Federal agency"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1485,
+          "oa:end": 1499,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1429:1482:sha256-ab6753297d0e536764d5821b60ca9caed4e032b5adb435fcd6c3056b8175d753",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:da51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629",
+      "rkaf:fragmentContentDigest": "sha256:ab6753297d0e536764d5821b60ca9caed4e032b5adb435fcd6c3056b8175d753",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "Nothing in this paragraph shall be construed to allow"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 1429,
+          "oa:end": 1482,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:3ff9c0e23148db73b29cc92fa39124cfb0eea9f7e0f2627f47a23d51771f3ae1",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:ed9393188950af9b52a96143bba6df8ebfba6871c3848e42dc97d9407375da09",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:3ed2f50dda20f8574923304bbb04dfa202ccc1bbfb46225b451644b569aa9428",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:90969c246633fba0c6d61cab625f6ef7c790a1e029f11c20adc1dfbbb37e01b9",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-prohibition",
+      "rkaf:assertsValue": {
+        "@value": "Nothing in this paragraph shall be construed to allow a Federal agency to establish a goal for a number of subcontracts with a subcontractor at any tier for a prime contractor otherwise eligible to receive credit under this paragraph.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:34a9034a6a30dd0a8ac399d44e4d1dddbb51028c3c774d1c8b084b49bd7a4ad5",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:3ff9c0e23148db73b29cc92fa39124cfb0eea9f7e0f2627f47a23d51771f3ae1",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1402:1428:sha256-45ff8a971322f316b3c473c66173998f55683c355e58d1fa9a3d7c4f186e81b7",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1429:1528:sha256-ec109706645e8152666f8f23ceb46c968ee1dde997d957755551d4f7283cf035",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1530:1571:sha256-4d8931aa4e3d1811c09f43ddf0d21e944e028ccd694e809b33b4b44a1b72ed74",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1573:1711:sha256-f15c79f538731769a58e9339384b8e1b2e79b61526d3d7aaf4466ea9c04d5d1f"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:3ef6fb615eba4fa02c9a2f3c4e1585c316a832d53035c4a894a15df593be5f9c",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:ed9393188950af9b52a96143bba6df8ebfba6871c3848e42dc97d9407375da09",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:3ed2f50dda20f8574923304bbb04dfa202ccc1bbfb46225b451644b569aa9428",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:90969c246633fba0c6d61cab625f6ef7c790a1e029f11c20adc1dfbbb37e01b9",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:actor",
+      "rkaf:assertsValue": {
+        "@value": "Federal agency",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:330f61ba452d6bb92dd8c069cd5261c7dbd68e6160c237d2053a887845000ea1",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:3ef6fb615eba4fa02c9a2f3c4e1585c316a832d53035c4a894a15df593be5f9c",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1485:1499:sha256-0bc51407810f6458de6b15502cab9409d676172dc5ee6a25cd18e60c03fa7b19"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:abe0efe93db835eb31cc4930b99d8af830703e86fddc90f225b29ec2548572a1",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:ed9393188950af9b52a96143bba6df8ebfba6871c3848e42dc97d9407375da09",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:3ed2f50dda20f8574923304bbb04dfa202ccc1bbfb46225b451644b569aa9428",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:90969c246633fba0c6d61cab625f6ef7c790a1e029f11c20adc1dfbbb37e01b9",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "must_not",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:93197c0973ad34d9e1ca403842aeb7a3e9214ed7d5b81b824fc08e577e14a130",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:abe0efe93db835eb31cc4930b99d8af830703e86fddc90f225b29ec2548572a1",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1429:1482:sha256-ab6753297d0e536764d5821b60ca9caed4e032b5adb435fcd6c3056b8175d753"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:a5afdda63c2602d479a03976ca45e8ad5f02049cee6e64c984f6be36f08bf987",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:ed9393188950af9b52a96143bba6df8ebfba6871c3848e42dc97d9407375da09",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:3ed2f50dda20f8574923304bbb04dfa202ccc1bbfb46225b451644b569aa9428",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:90969c246633fba0c6d61cab625f6ef7c790a1e029f11c20adc1dfbbb37e01b9",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"actor\":\"Federal agency\",\"kind\":\"prohibition\",\"modality\":\"must_not\",\"summary\":\"Nothing in this paragraph shall be construed to allow a Federal agency to establish a goal for a number of subcontracts with a subcontractor at any tier for a prime contractor otherwise eligible to receive credit under this paragraph.\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:970d8d0298ef463e8a46fda0afec1ffe4f0a910a8e00486d54dc6f7d5f1ab9d8",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:a5afdda63c2602d479a03976ca45e8ad5f02049cee6e64c984f6be36f08bf987",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1402:1428:sha256-45ff8a971322f316b3c473c66173998f55683c355e58d1fa9a3d7c4f186e81b7",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1429:1528:sha256-ec109706645e8152666f8f23ceb46c968ee1dde997d957755551d4f7283cf035",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1530:1571:sha256-4d8931aa4e3d1811c09f43ddf0d21e944e028ccd694e809b33b4b44a1b72ed74",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1573:1711:sha256-f15c79f538731769a58e9339384b8e1b2e79b61526d3d7aaf4466ea9c04d5d1f",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1485:1499:sha256-0bc51407810f6458de6b15502cab9409d676172dc5ee6a25cd18e60c03fa7b19",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1429:1482:sha256-ab6753297d0e536764d5821b60ca9caed4e032b5adb435fcd6c3056b8175d753"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:06168355dcdac3d74ce5dec51d9e3a2cef94c5e65e9eb6f78089064d07d5c05c",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:06168355dcdac3d74ce5dec51d9e3a2cef94c5e65e9eb6f78089064d07d5c05c",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:0773da3b5d47abecca73ee783cf65e9ca5fda65fff51f7dfcd44e90a7ce79410",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"Federal agency\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:3ff9c0e23148db73b29cc92fa39124cfb0eea9f7e0f2627f47a23d51771f3ae1\",\"urn:rulespec:document-understanding:assertion:3ef6fb615eba4fa02c9a2f3c4e1585c316a832d53035c4a894a15df593be5f9c\",\"urn:rulespec:document-understanding:assertion:abe0efe93db835eb31cc4930b99d8af830703e86fddc90f225b29ec2548572a1\",\"urn:rulespec:document-understanding:assertion:a5afdda63c2602d479a03976ca45e8ad5f02049cee6e64c984f6be36f08bf987\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"defined_terms\":[],\"effective_periods\":[],\"end\":1711,\"evidence\":[{\"end\":1428,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1402:1428:sha256-45ff8a971322f316b3c473c66173998f55683c355e58d1fa9a3d7c4f186e81b7\",\"quote\":\"(C) Rule of construction.—\",\"start\":1402},{\"end\":1528,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1429:1528:sha256-ec109706645e8152666f8f23ceb46c968ee1dde997d957755551d4f7283cf035\",\"quote\":\"Nothing in this paragraph shall be construed to allow a Federal agency to establish a goal for an 5\",\"start\":1429},{\"end\":1571,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1530:1571:sha256-4d8931aa4e3d1811c09f43ddf0d21e944e028ccd694e809b33b4b44a1b72ed74\",\"quote\":\"5 So in original. Probably should be “a”.\",\"start\":1530},{\"end\":1711,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1573:1711:sha256-f15c79f538731769a58e9339384b8e1b2e79b61526d3d7aaf4466ea9c04d5d1f\",\"quote\":\" number of subcontracts with a subcontractor at any tier for a prime contractor otherwise eligible to receive credit under this paragraph.\",\"start\":1573},{\"end\":1499,\"field\":\"actor\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1485:1499:sha256-0bc51407810f6458de6b15502cab9409d676172dc5ee6a25cd18e60c03fa7b19\",\"quote\":\"Federal agency\",\"start\":1485},{\"end\":1482,\"field\":\"modality\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3Ada51036a061b529f2659f2e88d4489faeb17e04c33aded955b4dfbf56be27629:1429:1482:sha256-ab6753297d0e536764d5821b60ca9caed4e032b5adb435fcd6c3056b8175d753\",\"quote\":\"Nothing in this paragraph shall be construed to allow\",\"start\":1429}],\"id\":\"urn:rulespec:document-understanding:revision:06168355dcdac3d74ce5dec51d9e3a2cef94c5e65e9eb6f78089064d07d5c05c\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"prohibition\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:a5afdda63c2602d479a03976ca45e8ad5f02049cee6e64c984f6be36f08bf987\",\"modality\":\"must_not\",\"modality_quote\":\"Nothing in this paragraph shall be construed to allow\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:cc575e29a6a184d20a6c7dff44e2a8b58af4ea53e49e401061558dc221ab8904\",\"origin\":\"aiSuggested\",\"quote\":\"(C) Rule of construction.— Nothing in this paragraph shall be construed to allow a Federal agency to establish a goal for an 5\\n\\n5 So in original. Probably should be “a”.\\n\\n number of subcontracts with a subcontractor at any tier for a prime contractor otherwise eligible to receive credit under this paragraph.\",\"references\":[\"this paragraph\"],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:90969c246633fba0c6d61cab625f6ef7c790a1e029f11c20adc1dfbbb37e01b9\",\"scope_quotes\":[],\"scope_text\":\"\",\"section_id\":\"section-1\",\"start\":1402,\"summary\":\"Nothing in this paragraph shall be construed to allow a Federal agency to establish a goal for a number of subcontracts with a subcontractor at any tier for a prime contractor otherwise eligible to receive credit under this paragraph.\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:3ff9c0e23148db73b29cc92fa39124cfb0eea9f7e0f2627f47a23d51771f3ae1"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:3ef6fb615eba4fa02c9a2f3c4e1585c316a832d53035c4a894a15df593be5f9c"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:abe0efe93db835eb31cc4930b99d8af830703e86fddc90f225b29ec2548572a1"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:a5afdda63c2602d479a03976ca45e8ad5f02049cee6e64c984f6be36f08bf987"
+        }
+      ]
+    }
+  ]
+}
