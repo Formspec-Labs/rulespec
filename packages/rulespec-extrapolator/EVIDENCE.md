@@ -30,6 +30,13 @@ current claim evidence, with explicit ambiguity and refusal controls. Semantic
 qualification assignment remains open. No new model pass or automatic governing
 link was adopted; 713 extractor/schema and 180 targeted reader tests passed.
 
+The [subsequent recovery comparison](../../thoughts/experiments/2026-09-12-navigation-repair/README.md)
+tested whether supplying that navigation leads to complete statements. Both arms
+returned empty proposals on IEP and a constructed control; no omissions were
+repaired. Existing fields and review previews can represent the needed changes,
+so the result does not justify a new schema. Keep navigation and repair quality
+separate; no production model pass changed.
+
 ## Discovery and optional audit check — 2026-09-12
 
 [Three fresh sources](../../thoughts/experiments/2026-09-12-simple-path/RESULTS.md)

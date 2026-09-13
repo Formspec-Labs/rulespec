@@ -35,6 +35,19 @@
   `requirement` records. Do not bypass that guard or duplicate records casually.
   Test purpose-versus-applicability guidance against fresh cases before adopting
   prompt changes. Navigation is now delivered; these semantic changes are not.
+- [x] **Test navigation as input to the existing repair pass.** The
+  [four-call comparison](../experiments/2026-09-12-navigation-repair/README.md)
+  returned empty proposals/observations in both arms: neither IEP omission nor
+  the constructed request-content omission was repaired. Current fields and
+  temporary review previews can represent the intended changes without changing
+  the writing requirement or qualification guard. No new production pass or
+  schema was adopted. Negative cases also received no changes, which does not
+  demonstrate semantic discrimination.
+- [ ] **Separate repair selection from repair recognition.** Challenge fixed,
+  source-checked candidate edits with the existing verdict/evidence schema,
+  alongside false prerequisites and wrong-branch edits. Require a decision for
+  each candidate. This is a constructed diagnostic; a successful result still
+  needs fresh real documents before adopting new routine model behavior.
 
 ## Next priority: independently usable requirements — 2026-09-12
 
