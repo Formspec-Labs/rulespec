@@ -15,6 +15,12 @@ confirms a 19/32 to 26/32 improvement, mostly from rejecting unnecessary edits;
 full checker replacement remains experimental because needed-detail and no-change
 failures persist. The prioritized list records the next small comparisons.
 
+The [instruction-isolation follow-up](../experiments/2026-09-13-checker-instruction-isolation/README.md)
+now favors one positive completeness sentence: 25/32 to 32/32 on saved cases,
+including needed medical details and incoming exceptions. The isolated
+optional-field paragraph reduced noise but lost a needed repair. Next validate
+the unchanged positive shared task on new sources; neither change is in production.
+
 ## Checkpoints: assessment labels and existing qualification links — 2026-09-12–13
 
 - [x] **Checkpoint the confidence/narrative work.** Inline and separate confidence

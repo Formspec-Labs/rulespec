@@ -10,6 +10,12 @@ gate. Fresh-source validation now confirms a narrower gain, mainly rejecting
 unnecessary edits; the full replacement and no-change checks remain unadopted.
 M5 remains on hold.
 
+Latest update: [isolated instruction tests](../experiments/2026-09-13-checker-instruction-isolation/README.md)
+improved shared-task judgments from 25/32 to 32/32 by replacing one ambiguous
+sentence with a positive completeness instruction. That version advances to a
+new-source comparison; production remains unchanged. The optional-field-only
+variant reduced needless edits but regressed on medical detail, so it is not adopted.
+
 Reuse CUE definitions, passage catalogs, evidence resolution and the current review
 path. Keep useful schema descriptions and semantic examples. Preserve original
 captures and review history. Model-behavior changes require comparisons; code and
@@ -232,3 +238,29 @@ should be the smallest demonstrated behavior from M4a/M4b; M6, M7 and M10 remain
 conditional. This checkpoint supersedes the earlier suggestion to redesign
 source-to-baseline accounting first: isolate the observed optional-field benefit
 and the concrete instruction ambiguity before expanding the pipeline.
+
+## Instruction-isolation checkpoint — September 13
+
+- [x] **M4a diagnostic completed; not adopted.** A single optional-field paragraph
+  changes unnecessary-edit rejection from 0/6 to 6/6, while retaining all four
+  component/link fixes and rejecting all twelve wrong edits. Medical-repair
+  acceptance falls from 1/2 to 0/2. Total 17/24 to 22/24 is a bounded benefit with
+  a regression; the preregistered gate fails. Do not add this paragraph alone.
+- [x] **M4b diagnostic passed; fresh-source validation pending.** Replacing only
+  the negative sentence in the shared task improves 25/32 to 32/32, across all
+  three target contexts. Needed repairs improve 5/8 to 8/8; incomplete no-change
+  rejections improve 4/8 to 8/8. Wrong-target/meaning and complete no-change controls
+  remain correct. Raw rationale imperfections are recorded separately.
+- [ ] **Next: validate the unchanged positive shared task on eight new excerpts.**
+  Compare with the production checker under frozen source-based criteria and
+  current provider settings. Preserve all shared-edit and no-change denominators,
+  original captures, rationale problems and unavailable-context controls. These
+  now-repeated cases are development regressions, not that fresh cohort. Avoid
+  combining M4a's paragraph with the successful wording.
+- M5 repair generation and M8's untouched generation holdout remain pending. M9
+  may integrate the smallest supported checker policy only after the new-source
+  decision. No production behavior changed in this diagnostic.
+
+Evidence: [plan, raw review and results](../experiments/2026-09-13-checker-instruction-isolation/README.md).
+Forty fresh calls, 112 judgments, 286,274 tokens and 350.7 summed provider seconds;
+all request bodies and saved-response decodes verified without provider access.
