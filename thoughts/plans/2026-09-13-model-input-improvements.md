@@ -3,7 +3,15 @@
 Improve independently usable rule meanings while preserving the simple extraction
 path. This list follows the [independent input review](../reviews/2026-09-13-model-input-construction-review.md)
 and [construction experiment](../experiments/2026-09-13-explicit-rule-construction/README.md).
-Latest update: the [fresh positive-task comparison](../experiments/2026-09-13-fresh-field-completeness/README.md)
+Latest update: the [standalone integration bridge](../experiments/2026-09-13-focused-check-integration/README.md)
+has a working prototype with 729 passing tests, but its live quality gate fails:
+**7/8 versus 8/8** shared unchanged-reading decisions. One complete leave reading
+is rejected for evidence-location/reference-status concerns. The prototype is
+saved as an applicable patch; production remains unchanged. Next separate current
+link-status visibility from the removal of competing edit candidates. Do not add
+prose warnings or optional fields to correct statements to satisfy this checker.
+
+The preceding [fresh positive-task comparison](../experiments/2026-09-13-fresh-field-completeness/README.md)
 passes its preregistered checker gate: **24/36 to 36/36** shared edit judgments,
 **1/6 to 6/6** needed repairs, and **16/16** explicit no-change decisions correct.
 All redundant-field and wrong-edit controls pass; useful actor/link corrections
@@ -362,3 +370,34 @@ alignment remains unfinished. M4's checker evaluation is complete; its productio
 integration is pending M9a–d. M6 evidence changes, M7 layout changes and M10 broader
 pipeline changes remain conditional. No further wording tuning on this cohort is
 needed before the integration and generation work.
+
+## Standalone integration bridge checkpoint — September 13
+
+- [x] **Build and mechanically verify the focused checker prototype.** The
+  candidate command selects exact current statements, copies unchanged candidates,
+  records source-grounded assessments without meaning edits, preserves evidence
+  warnings/approval, and replays through existing review machinery. All 729 tests
+  pass. Code and tests are retained in the experiment's implementation patch.
+- [x] **Test actual integrated requests before adoption.** Four known sources,
+  two repetitions, 16 fresh calls. Source and meaning remain identical; production
+  review adds current `link_issues`, and standalone input removes the constructed
+  edit alternatives. Old comparison input gets 8/8 shared no-change judgments;
+  standalone gets 7/8. Both catch every real billing/offset omission. One leave
+  no-change response conflates complete meaning with unresolved record metadata.
+  The all-correct/no-regression gate fails. Original labels and failures remain.
+- [ ] **Isolate the two actual input differences before another policy change.**
+  Use the saved leave failure and unaffected hazard control: competing candidates
+  present/absent crossed with saved/current link-status detail, same source and
+  policy, two repetitions. Preserve genuine warnings in captures; do not repair
+  the benchmark by clearing them or rewriting correct prose. If status visibility
+  drives the result, test a clear distinction between meaning and traceability.
+  If competing candidates drive it, keep the checker attached to comparisons
+  rather than treating standalone checks as equivalent. Neither explanation is
+  established by the present bundle. Freeze a bounded comparison before calls.
+
+M9a–c exist as a tested prototype, not adopted production behavior; M9d's
+mechanical checks pass and its live gate fails. The code is restored to its prior
+production version. M5/M8 repair generation remains separate; the earlier rich
+candidate checker evidence survives, but standalone unchanged-reading approval
+cannot yet be treated as an interchangeable evaluator. This checkpoint supersedes
+the previous instruction to proceed directly with integration.

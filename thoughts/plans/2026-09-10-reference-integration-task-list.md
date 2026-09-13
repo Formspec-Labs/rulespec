@@ -2,6 +2,14 @@
 
 ## Active follow-up: model input improvements — 2026-09-13
 
+Current: the [standalone integration bridge](../experiments/2026-09-13-focused-check-integration/README.md)
+passes 729 implementation tests but fails its live quality gate (7/8 versus 8/8
+shared no-change decisions). A complete leave statement receives a false alarm
+about evidence/reference status. The candidate implementation is retained as a
+patch; production is unchanged. The active list now separates current link-status
+visibility from removal of competing candidates before another policy change.
+The earlier successful comparison below still applies to its tested request shape.
+
 Latest: the [fresh positive-task checker comparison](../experiments/2026-09-13-fresh-field-completeness/README.md)
 passes its preregistered gate on eight new excerpts: shared edited-candidate
 judgments improve **24/36 to 36/36**, needed repairs **1/6 to 6/6**, and explicit
