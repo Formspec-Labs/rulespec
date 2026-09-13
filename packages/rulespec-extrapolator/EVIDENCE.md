@@ -37,6 +37,16 @@ repaired. Existing fields and review previews can represent the needed changes,
 so the result does not justify a new schema. Keep navigation and repair quality
 separate; no production model pass changed.
 
+The [fixed-repair diagnostic](../../thoughts/experiments/2026-09-12-fixed-repair-check/README.md)
+then supplied ten constructed repairs to the unchanged checker, each twice in
+reversed presentation order. Both correct IEP edits were accepted both times;
+all seven wrong edits were rejected both times. The constructed request-content
+addition was rejected twice as duplication of another claim. One correct
+rejection's rationale also wrongly extended writing to agency consent. The full
+gate failed despite exact citations and complete verdict output. This supports
+recognition of the supplied IEP repairs, not automatic discovery or a general
+accuracy claim. No new production pass, prompt or schema was adopted.
+
 ## Discovery and optional audit check — 2026-09-12
 
 [Three fresh sources](../../thoughts/experiments/2026-09-12-simple-path/RESULTS.md)

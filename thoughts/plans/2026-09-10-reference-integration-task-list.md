@@ -43,11 +43,22 @@
   the writing requirement or qualification guard. No new production pass or
   schema was adopted. Negative cases also received no changes, which does not
   demonstrate semantic discrimination.
-- [ ] **Separate repair selection from repair recognition.** Challenge fixed,
-  source-checked candidate edits with the existing verdict/evidence schema,
-  alongside false prerequisites and wrong-branch edits. Require a decision for
-  each candidate. This is a constructed diagnostic; a successful result still
-  needs fresh real documents before adopting new routine model behavior.
+- [x] **Separate repair selection from repair recognition.** The
+  [fixed-repair diagnostic](../experiments/2026-09-12-fixed-repair-check/README.md)
+  accepted both IEP repairs in both presentations and rejected all seven wrong
+  edits twice. It rejected the constructed request-content repair twice as
+  duplication; one otherwise correct rejection overstated the agency's writing
+  duty in its rationale. The full gate failed. Existing fields and checker can
+  handle the IEP repairs, but generation, record boundaries and rationale quality
+  remain unresolved. No production model behavior changed.
+- [ ] **Test focused repair generation on untouched local-reference cases.**
+  Freeze which meanings must appear in the default reading versus separately
+  navigable duties. Compare ordinary recovery with the same source focused on
+  located referring/target claims; reuse the existing checker and preview path.
+  Include independent reporting duties and wrong-target controls. Report actual
+  generation separately from supplied-repair recognition, and factual fidelity
+  separately from edit necessity. Preserve the completed cases as regressions;
+  do not patch duplicate protection or the qualification guard to fit them.
 
 ## Next priority: independently usable requirements — 2026-09-12
 
