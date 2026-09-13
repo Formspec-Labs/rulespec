@@ -1,0 +1,2370 @@
+{
+  "@context": {
+    "rkaf": "https://rulespec.org/ns/v1#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "oa": "http://www.w3.org/ns/oa#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "cito": "http://purl.org/spar/cito/",
+    "wos": "https://w3id.org/wos/ns/v1#",
+    "formspec": "https://w3id.org/formspec/ns/v1#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "eli": "http://data.europa.eu/eli/ontology#",
+    "aknt": "http://docs.oasis-open.org/legaldocml/ns/akn/3.0/",
+    "uslm": "https://uslm.gov/2.1.0/",
+    "lrml": "http://docs.oasis-open.org/legalruleml/ns/v1.0/",
+    "rrmv": "http://data.europa.eu/m8g/rrmv/",
+    "eco": "http://purl.obolibrary.org/obo/ECO_",
+    "sepio": "http://purl.obolibrary.org/obo/SEPIO_",
+    "dpv": "https://w3id.org/dpv#",
+    "odrl": "http://www.w3.org/ns/odrl/2/",
+    "rkaf:Artifact": {
+      "@type": "@id"
+    },
+    "rkaf:hasArtifactIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:artifactIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasRegulatoryIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:regulatoryIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:publishedInProceeding": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:publishedInDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:hasFormat": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:format": {
+      "@type": "xsd:string"
+    },
+    "dcterms:isFormatOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:isVersionOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "prov:wasRevisionOf": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasContentDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:versionLineageEvidence": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:SourceFragment": {
+      "@type": "@id"
+    },
+    "oa:hasSource": {
+      "@type": "@id"
+    },
+    "oa:hasSelector": {
+      "@type": "@id"
+    },
+    "oa:TextQuoteSelector": {
+      "@type": "@id"
+    },
+    "oa:TextPositionSelector": {
+      "@type": "@id"
+    },
+    "oa:exact": {
+      "@type": "xsd:string"
+    },
+    "oa:prefix": {
+      "@type": "xsd:string"
+    },
+    "oa:suffix": {
+      "@type": "xsd:string"
+    },
+    "oa:start": {
+      "@type": "xsd:integer"
+    },
+    "oa:end": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:selectorKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:coordinateSystem": {
+      "@type": "@vocab"
+    },
+    "rkaf:sourceArtifactDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:fragmentContentDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:EvidenceBinding": {
+      "@type": "@id"
+    },
+    "rkaf:bindsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:bindsSourceFragment": {
+      "@type": "@id"
+    },
+    "rkaf:noEvidenceReason": {
+      "@type": "@id"
+    },
+    "rkaf:Warrant": {
+      "@type": "@id"
+    },
+    "rkaf:hasWarrant": {
+      "@type": "@id"
+    },
+    "rkaf:warrantKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:warrantFamily": {
+      "@type": "@vocab"
+    },
+    "rkaf:defeasible": {
+      "@type": "xsd:boolean"
+    },
+    "rkaf:ConfidenceRecord": {
+      "@type": "@id"
+    },
+    "rkaf:hasConfidence": {
+      "@type": "@id"
+    },
+    "rkaf:confidenceMethod": {
+      "@type": "@vocab"
+    },
+    "rkaf:calibrationStatus": {
+      "@type": "@vocab"
+    },
+    "rkaf:confidenceBasis": {
+      "@type": "@id"
+    },
+    "rkaf:evaluatedAgainst": {
+      "@type": "@id"
+    },
+    "rkaf:generatedBy": {
+      "@type": "@id"
+    },
+    "rkaf:score": {
+      "@type": "xsd:float"
+    },
+    "rkaf:scoreCategorical": {
+      "@type": "@vocab"
+    },
+    "rkaf:AccessScope": {
+      "@type": "@id"
+    },
+    "rkaf:hasAccessScope": {
+      "@type": "@id"
+    },
+    "rkaf:accessScopeKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:regulatoryClass": {
+      "@type": "@vocab"
+    },
+    "rkaf:embargoUntil": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:permittedRole": {
+      "@type": "@id"
+    },
+    "rkaf:AILineage": {
+      "@type": "@id"
+    },
+    "rkaf:hasAILineage": {
+      "@type": "@id"
+    },
+    "rkaf:modelId": {
+      "@type": "xsd:string"
+    },
+    "rkaf:modelVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:promptTemplateRef": {
+      "@type": "@id"
+    },
+    "rkaf:temperature": {
+      "@type": "xsd:float"
+    },
+    "rkaf:seed": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:inputContextHash": {
+      "@type": "xsd:string"
+    },
+    "rkaf:humanApprover": {
+      "@type": "@id"
+    },
+    "rkaf:humanRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:MappingState": {
+      "@type": "@id"
+    },
+    "rkaf:mappingState": {
+      "@type": "@vocab"
+    },
+    "rkaf:RetentionPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:hasRetentionPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:retentionDurationDays": {
+      "@type": "xsd:int"
+    },
+    "rkaf:retentionTrigger": {
+      "@type": "@vocab"
+    },
+    "rkaf:retentionPostExpiry": {
+      "@type": "@vocab"
+    },
+    "rkaf:Workspace": {
+      "@type": "@id"
+    },
+    "rkaf:scopedToWorkspace": {
+      "@type": "@id"
+    },
+    "rkaf:workspaceId": {
+      "@type": "xsd:string"
+    },
+    "rkaf:workspaceTrustList": {
+      "@type": "@id"
+    },
+    "rkaf:projectsTo": {
+      "@type": "@id"
+    },
+    "rkaf:llmHint": {
+      "@type": "@id"
+    },
+    "rkaf:Authority": {
+      "@type": "@id"
+    },
+    "rkaf:Attestation": {
+      "@type": "@id"
+    },
+    "rkaf:LocalAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:ApplicabilityScope": {
+      "@type": "@id"
+    },
+    "rkaf:EffectivePeriod": {
+      "@type": "@id"
+    },
+    "rkaf:LifecycleEvent": {
+      "@type": "@id"
+    },
+    "rkaf:Proceeding": {
+      "@type": "@id"
+    },
+    "rkaf:RegulatoryAgendaItem": {
+      "@type": "@id"
+    },
+    "rkaf:RegulatoryAgendaObservation": {
+      "@type": "@id"
+    },
+    "rkaf:AgendaProceedingRelationship": {
+      "@type": "@id"
+    },
+    "dcat:Resource": {
+      "@type": "@id"
+    },
+    "dcat:CatalogRecord": {
+      "@type": "@id"
+    },
+    "dcat:Relationship": {
+      "@type": "@id"
+    },
+    "rkaf:CommentPeriod": {
+      "@type": "@id"
+    },
+    "rkaf:Docket": {
+      "@type": "@id"
+    },
+    "prov:Entity": {
+      "@type": "@id"
+    },
+    "rkaf:hasDocketIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:docketIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasProceedingIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:proceedingIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasAgendaItemIdentifier": {
+      "@type": "@id"
+    },
+    "rkaf:agendaItemIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaScopeStatus": {
+      "@type": "@vocab"
+    },
+    "dcat:qualifiedRelation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "foaf:primaryTopic": {
+      "@type": "@id"
+    },
+    "rkaf:agendaStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaPriority": {
+      "@type": "@vocab"
+    },
+    "rkaf:agendaAffectsCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:agendaAuthorityCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcterms:relation": {
+      "@type": "@id"
+    },
+    "dcat:hadRole": {
+      "@type": "@vocab"
+    },
+    "rkaf:identifierRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:proceedingStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:proceedingTerminationCause": {
+      "@type": "@vocab"
+    },
+    "rkaf:hasAuthority": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingAffects": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingAffectsCitation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingProduces": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasProceedingEvidenceIdentifier": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proceedingEvidenceIdentifierScheme": {
+      "@type": "@vocab"
+    },
+    "rkaf:proceedingSupersedes": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:hasDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodFor": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodDocket": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodOpenedBy": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:commentPeriodStart": {
+      "@type": "xsd:date"
+    },
+    "rkaf:commentPeriodEnd": {
+      "@type": "xsd:date"
+    },
+    "rkaf:RegisteredConcept": {
+      "@type": "@id"
+    },
+    "rkaf:LocalConcept": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptMapping": {
+      "@type": "@id"
+    },
+    "rkaf:ReferenceResourceRelease": {
+      "@type": "@id"
+    },
+    "rkaf:MappingApplicabilityContext": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptResolutionResult": {
+      "@type": "@id"
+    },
+    "rkaf:BridgeValidationResult": {
+      "@type": "@id"
+    },
+    "rkaf:BridgeConsumerRegistration": {
+      "@type": "@id"
+    },
+    "rkaf:RegistryConflict": {
+      "@type": "@id"
+    },
+    "rkaf:Finding": {
+      "@type": "@id"
+    },
+    "rkaf:Justification": {
+      "@type": "@id"
+    },
+    "rkaf:hasJustification": {
+      "@type": "@id"
+    },
+    "rkaf:PointInTimeException": {
+      "@type": "@id"
+    },
+    "rkaf:evaluationAnchor": {
+      "@type": "@id"
+    },
+    "rkaf:retainsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:retainsWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:GeneratedWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:justifiedByAssertion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:consumerLifecycleState": {
+      "@type": "@id"
+    },
+    "rkaf:proposedUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:RevalidationEvent": {
+      "@type": "@id"
+    },
+    "rkaf:RevalidationClosureEvent": {
+      "@type": "@id"
+    },
+    "rkaf:revalidationFor": {
+      "@type": "@id"
+    },
+    "rkaf:triggeredBy": {
+      "@type": "@id"
+    },
+    "rkaf:closesRevalidation": {
+      "@type": "@id"
+    },
+    "rkaf:openedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:closedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:closureDecision": {
+      "@type": "@id"
+    },
+    "rkaf:successorAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:successorWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:ConsumerEffectiveDeclaration": {
+      "@type": "@id"
+    },
+    "rkaf:forAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:declaredEffective": {
+      "@type": "@vocab"
+    },
+    "rkaf:declaredScope": {
+      "@type": "@id"
+    },
+    "rkaf:declaredAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:BridgeIssueAttestationContract": {
+      "@type": "@id"
+    },
+    "rkaf:attestedIssueKinds": {
+      "@type": "@vocab"
+    },
+    "rkaf:usedAsAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:detectedIssues": {
+      "@type": "@id"
+    },
+    "rkaf:derivesAuthorityFrom": {
+      "@type": "@id"
+    },
+    "rkaf:hasApplicability": {
+      "@type": "@id"
+    },
+    "rkaf:hasEffectivePeriod": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:adoptedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:attestationScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:attestorKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:targets": {
+      "@type": "@id"
+    },
+    "rkaf:attestedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:revokedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:rationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:lifecycleEventKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:bridgeContractVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:maxAttestationStalenessDays": {
+      "@type": "xsd:integer"
+    },
+    "rkaf:evaluationTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectivePeriodStart": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectivePeriodEnd": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:retroactiveFrom": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:sunsetAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:resolvedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:validatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:anchoredBy": {
+      "@type": "@id"
+    },
+    "rkaf:anchorType": {
+      "@type": "@id"
+    },
+    "rkaf:Assertion": {
+      "@type": "@id"
+    },
+    "rkaf:RelationshipAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:ValueAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:assertsSubject": {
+      "@type": "@id"
+    },
+    "rkaf:assertsPredicate": {
+      "@type": "@id"
+    },
+    "rkaf:assertsObject": {
+      "@type": "@id"
+    },
+    "rkaf:assertsValue": {
+      "@id": "https://rulespec.org/ns/v1#assertsValue"
+    },
+    "rkaf:assertionPolarity": {
+      "@type": "@vocab"
+    },
+    "rkaf:assertedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:hasSourceClaimant": {
+      "@type": "@id"
+    },
+    "rkaf:hasExtractionProvenance": {
+      "@type": "@id"
+    },
+    "rkaf:SourceClaimant": {
+      "@type": "@id"
+    },
+    "rkaf:claimsAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:claimantAttribution": {
+      "@type": "@vocab"
+    },
+    "rkaf:claimantText": {
+      "@type": "xsd:string"
+    },
+    "rkaf:claimantIdentity": {
+      "@type": "@id"
+    },
+    "rkaf:attributedInFragment": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ExtractionActivity": {
+      "@type": "@id"
+    },
+    "rkaf:extractionMethod": {
+      "@type": "@vocab"
+    },
+    "rkaf:extractionRun": {
+      "@type": "@id"
+    },
+    "rkaf:extractedBy": {
+      "@type": "@id"
+    },
+    "rkaf:extractorVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:requestContractDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:extractionModelRef": {
+      "@type": "@id"
+    },
+    "rkaf:extractionPromptRef": {
+      "@type": "@id"
+    },
+    "rkaf:inputDigest": {
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "rkaf:extractionAttempt": {
+      "@type": "xsd:integer"
+    },
+    "prov:startedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "prov:endedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:hasSafetyLabel": {
+      "@type": "@id"
+    },
+    "rkaf:usageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:capabilityCap": {
+      "@type": "@id"
+    },
+    "rkaf:assertionOrigin": {
+      "@type": "@id"
+    },
+    "rkaf:epistemicBasis": {
+      "@type": "@vocab"
+    },
+    "rkaf:authorityKind": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionAuthorityKind": {
+      "@type": "@id"
+    },
+    "rkaf:adoptionStatus": {
+      "@type": "@id"
+    },
+    "rkaf:result": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionStatus": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionMethod": {
+      "@type": "@id"
+    },
+    "rkaf:cacheStatus": {
+      "@type": "@id"
+    },
+    "rkaf:usageCeiling": {
+      "@type": "@id"
+    },
+    "rkaf:lifecycleEvent": {
+      "@type": "@id"
+    },
+    "rkaf:cascadeAlgorithm": {
+      "@type": "@id"
+    },
+    "rkaf:evidenceRole": {
+      "@type": "@id"
+    },
+    "rkaf:evidentiaryFunction": {
+      "@type": "@vocab"
+    },
+    "rkaf:warningCode": {
+      "@type": "@id"
+    },
+    "rkaf:errorCode": {
+      "@type": "@id"
+    },
+    "rkaf:decision": {
+      "@type": "@id"
+    },
+    "rkaf:scope": {
+      "@type": "@id"
+    },
+    "rkaf:visibility": {
+      "@type": "@id"
+    },
+    "rkaf:attestorType": {
+      "@type": "@id"
+    },
+    "rkaf:role": {
+      "@type": "@id"
+    },
+    "rkaf:transitionTo": {
+      "@type": "@id"
+    },
+    "rkaf:status": {
+      "@type": "@id"
+    },
+    "rkaf:predicate": {
+      "@type": "@id"
+    },
+    "rkaf:conceptScope": {
+      "@type": "xsd:string"
+    },
+    "rkaf:governanceModel": {
+      "@type": "@id"
+    },
+    "rkaf:revisedUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:effectiveUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:safeAutomaticMigration": {
+      "@type": "@id"
+    },
+    "rkaf:resourceKind": {
+      "@type": "@id"
+    },
+    "rkaf:officialStatus": {
+      "@type": "@id"
+    },
+    "rkaf:legalValue": {
+      "@type": "@id"
+    },
+    "rkaf:publicationStatus": {
+      "@type": "@id"
+    },
+    "rkaf:remediationAction": {
+      "@type": "@id"
+    },
+    "rkaf:requiredPredicate": {
+      "@type": "@id"
+    },
+    "rkaf:minimumUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:noRemediationReason": {
+      "@type": "@id"
+    },
+    "rkaf:authorityChainStatus": {
+      "@type": "@id"
+    },
+    "rkaf:chainTerminusKind": {
+      "@type": "@id"
+    },
+    "rkaf:fragmentType": {
+      "@type": "@id"
+    },
+    "rkaf:reviewStatus": {
+      "@type": "@id"
+    },
+    "rkaf:newWorkProductStatus": {
+      "@type": "@id"
+    },
+    "rkaf:newUsageEligibility": {
+      "@type": "@id"
+    },
+    "rkaf:newAssertionState": {
+      "@type": "@id"
+    },
+    "rkaf:resourceFamily": {
+      "@type": "@id"
+    },
+    "rkaf:assertedBy": {
+      "@type": "@id"
+    },
+    "rkaf:attestor": {
+      "@type": "@id"
+    },
+    "rkaf:targetAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:targetWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:targetPacket": {
+      "@type": "@id"
+    },
+    "rkaf:sourceConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:targetConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:targetMappingConflict": {
+      "@type": "@id"
+    },
+    "rkaf:targetBridgeValidation": {
+      "@type": "@id"
+    },
+    "rkaf:targetRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:targetAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:authorizedBy": {
+      "@type": "@id"
+    },
+    "rkaf:organization": {
+      "@type": "@id"
+    },
+    "rkaf:packetId": {
+      "@type": "@id"
+    },
+    "rkaf:consumer": {
+      "@type": "@id"
+    },
+    "rkaf:emittedBy": {
+      "@type": "@id"
+    },
+    "rkaf:triggeredByPacket": {
+      "@type": "@id"
+    },
+    "rkaf:closesRevalidationEvent": {
+      "@type": "@id"
+    },
+    "rkaf:successorAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:closedBy": {
+      "@type": "@id"
+    },
+    "rkaf:queuedFor": {
+      "@type": "@id"
+    },
+    "rkaf:supersedesAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:supersedesWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:revalidationOf": {
+      "@type": "@id"
+    },
+    "rkaf:precedingArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:precedingVersion": {
+      "@type": "@id"
+    },
+    "rkaf:supportingEvent": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnClassification": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnEvent": {
+      "@type": "@id"
+    },
+    "rkaf:basedOnAttestation": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:basedOnAttestations": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:artifactId": {
+      "@type": "@id"
+    },
+    "rkaf:realizedByArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:resourceLineage": {
+      "@type": "@id"
+    },
+    "rkaf:sourceAuthorityHint": {
+      "@type": "@id"
+    },
+    "rkaf:capturedBy": {
+      "@type": "@id"
+    },
+    "rkaf:subjectArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:priorArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:classifiedBy": {
+      "@type": "@id"
+    },
+    "rkaf:classification": {
+      "@type": "@id"
+    },
+    "rkaf:managedByRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:referenceReleaseDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:versionBasis": {
+      "@type": "@vocab"
+    },
+    "rkaf:membershipMode": {
+      "@type": "@vocab"
+    },
+    "rkaf:hostedByRegistry": {
+      "@type": "@id"
+    },
+    "rkaf:mintingAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:resolutionEndpoint": {
+      "@type": "@id"
+    },
+    "rkaf:registeredVia": {
+      "@type": "@id"
+    },
+    "rkaf:replacedBy": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:absorbedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:splitInto": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:conceptLifecycleOperation": {
+      "@type": "@vocab"
+    },
+    "rkaf:predecessorConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:successorConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:predecessorConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:successorConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:subjectConcept": {
+      "@type": "@id"
+    },
+    "rkaf:relatedConcept": {
+      "@type": "@id"
+    },
+    "rkaf:sharedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:relatedPublishedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:conflictingMappings": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:concept": {
+      "@type": "@id"
+    },
+    "rkaf:inputConcept": {
+      "@type": "@id"
+    },
+    "rkaf:resolvedConcept": {
+      "@type": "@id"
+    },
+    "rkaf:mappingAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:openLabelFacet": {
+      "@type": "@id"
+    },
+    "rkaf:openLabelRole": {
+      "@type": "@vocab"
+    },
+    "rkaf:resolutionTrustedVia": {
+      "@type": "@id"
+    },
+    "rkaf:registry": {
+      "@type": "@id"
+    },
+    "rkaf:resolvedToConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:assertion": {
+      "@type": "@id"
+    },
+    "rkaf:object": {
+      "@type": "@id"
+    },
+    "rkaf:dataConcept": {
+      "@type": "@id"
+    },
+    "rkaf:proposedFromLocalConcept": {
+      "@type": "@id"
+    },
+    "rkaf:registeredConcept": {
+      "@type": "@id"
+    },
+    "rkaf:registrationAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:proposedBy": {
+      "@type": "@id"
+    },
+    "rkaf:delegatingAuthority": {
+      "@type": "@id"
+    },
+    "rkaf:delegatedTo": {
+      "@type": "@id"
+    },
+    "rkaf:publisher": {
+      "@type": "@id"
+    },
+    "rkaf:appliesTo": {
+      "@type": "@id"
+    },
+    "rkaf:affectedAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedAuthorityAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedImplementationAssertions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedWorkProducts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedAdoptions": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedFragments": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:affectedWorkProduct": {
+      "@type": "@id"
+    },
+    "rkaf:affectedAdoption": {
+      "@type": "@id"
+    },
+    "rkaf:affectedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:staleDependencies": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:unresolvedConcepts": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:registryUnavailable": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:staleConceptCache": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedEvaluationAnchors": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedAutomaticMigrations": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:supportedAuthorityKinds": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:justificationBackedBy": {
+      "@type": "@id"
+    },
+    "rkaf:derivedFromFragment": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:associatedWorkflowStep": {
+      "@type": "@id"
+    },
+    "rkaf:generationRun": {
+      "@type": "@id"
+    },
+    "rkaf:fromConcept": {
+      "@type": "@id"
+    },
+    "rkaf:toConcept": {
+      "@type": "@id"
+    },
+    "rkaf:requiredAdoptionScope": {
+      "@type": "@id"
+    },
+    "rkaf:collectsEvidenceType": {
+      "@type": "@id"
+    },
+    "rkaf:requiresEvidenceType": {
+      "@type": "@id"
+    },
+    "rkaf:acceptedDocumentTypes": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:excludesCategory": {
+      "@container": "@set"
+    },
+    "rkaf:evidencePurpose": {
+      "@container": "@set"
+    },
+    "rkaf:excludesPurposes": {
+      "@container": "@set"
+    },
+    "rkaf:jurisdiction": {
+      "@container": "@set"
+    },
+    "prov:wasGeneratedBy": {
+      "@type": "@id"
+    },
+    "prov:wasAttributedTo": {
+      "@type": "@id"
+    },
+    "prov:wasDerivedFrom": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "prov:generatedAtTime": {
+      "@type": "xsd:dateTime"
+    },
+    "eli:consolidates": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "eli:consolidated_by": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dpv:hasPersonalDataCategory": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dpv:hasLegalBasis": {
+      "@type": "@id"
+    },
+    "dpv:hasPurpose": {
+      "@type": "@id"
+    },
+    "skos:prefLabel": {
+      "@container": "@language"
+    },
+    "skos:altLabel": {
+      "@container": "@language"
+    },
+    "skos:hiddenLabel": {
+      "@container": "@language"
+    },
+    "skos:definition": {
+      "@container": "@language"
+    },
+    "skos:example": {
+      "@container": "@language"
+    },
+    "skos:note": {
+      "@container": "@language"
+    },
+    "skos:scopeNote": {
+      "@container": "@language"
+    },
+    "skos:changeNote": {
+      "@container": "@language"
+    },
+    "skos:editorialNote": {
+      "@container": "@language"
+    },
+    "skos:historyNote": {
+      "@container": "@language"
+    },
+    "skos:notation": {
+      "@id": "http://www.w3.org/2004/02/skos/core#notation"
+    },
+    "skos:broader": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:narrower": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:related": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "skos:inScheme": {
+      "@type": "@id"
+    },
+    "skos:hasTopConcept": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ConceptScheme": {
+      "@type": "@id"
+    },
+    "rkaf:schemeFacet": {
+      "@type": "@id"
+    },
+    "rkaf:ConceptAssignment": {
+      "@type": "@id"
+    },
+    "rkaf:assignedConceptRelease": {
+      "@type": "@id"
+    },
+    "rkaf:fragmentIdentityScheme": {
+      "@type": "@vocab"
+    },
+    "prov:hadMember": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcat:distribution": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dcat:version": {
+      "@type": "xsd:string"
+    },
+    "dcterms:type": {
+      "@type": "@id"
+    },
+    "dcterms:issued": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:capturedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:registeredAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:effectiveDate": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:exceptionEffectivePeriodEnd": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:exceptionEffectivePeriodStart": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:cachedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:deprecatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:rescissionEffectiveDate": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:detectedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:definedInScope": {
+      "@type": "@id"
+    },
+    "rkaf:findingKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:severity": {
+      "@type": "@vocab"
+    },
+    "rkaf:subject": {
+      "@type": "@id"
+    },
+    "rkaf:detectedBy": {
+      "@type": "@id"
+    },
+    "rkaf:lastVerifiedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:verifiedBy": {
+      "@type": "@id"
+    },
+    "rkaf:targetFinding": {
+      "@type": "@id"
+    },
+    "rkaf:findings": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:RelationChangeEvent": {
+      "@type": "@id"
+    },
+    "rkaf:changeSubject": {
+      "@type": "@id"
+    },
+    "rkaf:changePredicate": {
+      "@type": "@id"
+    },
+    "rkaf:changeObject": {
+      "@type": "@id"
+    },
+    "rkaf:relationChangeOperation": {
+      "@type": "@vocab"
+    },
+    "rkaf:relationChangeStage": {
+      "@type": "@vocab"
+    },
+    "rkaf:relationChangeTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:changeIntendedEffectiveTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:changeEvidence": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:replacementRelationObject": {
+      "@type": "@id"
+    },
+    "rkaf:RelationComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonBaselineArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonObservedArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonExpectedAssertion": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonConsumer": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonScope": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonEvaluationTime": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:comparisonPolicyVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonDetector": {
+      "@type": "@id"
+    },
+    "rkaf:comparisonDetectorVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonSnapshot": {
+      "@type": "xsd:string"
+    },
+    "rkaf:comparisonOutcome": {
+      "@type": "@vocab"
+    },
+    "rkaf:comparisonProofRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:ResolverProofIssuer": {
+      "@type": "@id"
+    },
+    "rkaf:proofResolver": {
+      "@type": "@id"
+    },
+    "rkaf:proofResolverVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofPolicy": {
+      "@type": "@id"
+    },
+    "rkaf:proofPolicyVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:ResolverProofRecord": {
+      "@type": "@id"
+    },
+    "rkaf:proofType": {
+      "@type": "@vocab"
+    },
+    "rkaf:proofIssuer": {
+      "@type": "@id"
+    },
+    "rkaf:proofComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:proofOutcome": {
+      "@type": "@vocab"
+    },
+    "rkaf:proofRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofInput": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proofInputDigest": {
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "rkaf:proofSupportingRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:proofEvaluatedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:proofSnapshot": {
+      "@type": "xsd:string"
+    },
+    "rkaf:proofRecordDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:independenceGroup": {
+      "@type": "@id"
+    },
+    "rkaf:adjudicationVerdict": {
+      "@type": "@vocab"
+    },
+    "rkaf:sealedRequestDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:sealedResponseArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:RelationFinding": {
+      "@type": "@id"
+    },
+    "rkaf:relationFindingKind": {
+      "@type": "@vocab"
+    },
+    "rkaf:findingComparisonContext": {
+      "@type": "@id"
+    },
+    "rkaf:findingComparedAssertion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:findingProofRecord": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:findingDetectedAt": {
+      "@type": "xsd:dateTime"
+    },
+    "rkaf:findingRationale": {
+      "@type": "xsd:string"
+    },
+    "rkaf:findingFingerprint": {
+      "@type": "xsd:string"
+    },
+    "rkaf:ClosureClaim": {
+      "@type": "@id"
+    },
+    "rkaf:closureClaimStatus": {
+      "@type": "@vocab"
+    },
+    "rkaf:closureArtifact": {
+      "@type": "@id"
+    },
+    "rkaf:closureRegion": {
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "rkaf:closurePredicateFamily": {
+      "@type": "@id"
+    },
+    "rkaf:closureProfileVersion": {
+      "@type": "xsd:string"
+    },
+    "rkaf:closureMemberDigest": {
+      "@type": "xsd:string"
+    },
+    "rkaf:closureReviewedAt": {
+      "@type": "xsd:dateTime"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "urn:rulespec:document-understanding:document:0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:document:0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452",
+      "rkaf:artifactIdentifierScheme": "rkaf:hash-sha256",
+      "rkaf:hasContentDigest": "sha256:0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452",
+      "dcterms:format": "text/plain"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:lineage:b10e9f672c60d88918a3152c9ef596b9db26a71255655bd4b7f910ae438d6bc7",
+      "@type": "rkaf:AILineage",
+      "rkaf:modelId": "gemini-3.8-flash",
+      "rkaf:modelVersion": "gemini-3.8-flash",
+      "rkaf:temperature": 0.0,
+      "rkaf:promptTemplateRef": "urn:rulespec:document-understanding:prompt:f68d460a221d1f3299cf927cbbf9bceae26342cbafa3cf383655065aa7428db5",
+      "rkaf:inputContextHash": "sha256:0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:activity:73bcfb64f96da72b5e5f85f4cc0b9f217fc6d455c550b7d6bbc32edb6c34e7db",
+      "@type": "rkaf:ExtractionActivity",
+      "rkaf:extractionMethod": "rkaf:modelExtraction",
+      "rkaf:extractionRun": "urn:rulespec:document-understanding:run:572f6a5c-33b9-4190-9606-4fc186033b89",
+      "rkaf:extractedBy": "urn:rulespec:document-understanding:extractor:langextract",
+      "rkaf:extractorVersion": "document-understanding/3",
+      "rkaf:requestContractDigest": "sha256:f008fc547eb0304e08e3000b17195d0634040a945afddd97f75f6c25d5e76e11",
+      "rkaf:extractionModelRef": "urn:rulespec:document-understanding:model:319034f3e25d0d9bd6b3a46b1def7a01b7689f0d51384c63da1f6e0b464af810",
+      "rkaf:extractionPromptRef": "urn:rulespec:document-understanding:prompt:f68d460a221d1f3299cf927cbbf9bceae26342cbafa3cf383655065aa7428db5",
+      "rkaf:inputDigest": [
+        "sha256:0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452"
+      ],
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b10e9f672c60d88918a3152c9ef596b9db26a71255655bd4b7f910ae438d6bc7"
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:12:26:sha256-ca9693d7a03c9f0992c78cc6587bb92ef32954c0803056e0a7056d093f04556c",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452",
+      "rkaf:fragmentContentDigest": "sha256:ca9693d7a03c9f0992c78cc6587bb92ef32954c0803056e0a7056d093f04556c",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(A) In general"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 12,
+          "oa:end": 26,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:27:147:sha256-3177afe66bf3f4c757216b63469f69ad94a050ed4dec7d6c2ef477023d60ad1b",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452",
+      "rkaf:fragmentContentDigest": "sha256:3177afe66bf3f4c757216b63469f69ad94a050ed4dec7d6c2ef477023d60ad1b",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "Before filing an action under paragraph (1), the attorney general of the State involved shall provide to the Commission—"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 27,
+          "oa:end": 147,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:149:234:sha256-6fc75461b0108902a9e24e40226ffde778ff21816b2947744b3399fd27a9eb0a",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452",
+      "rkaf:fragmentContentDigest": "sha256:6fc75461b0108902a9e24e40226ffde778ff21816b2947744b3399fd27a9eb0a",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "(i) written notice of that action; and\n\n(ii) a copy of the complaint for that action."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 149,
+          "oa:end": 234,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:72:114:sha256-6ae72880e7b9ecfd0e3fca93f4108a353abe13eb069f571e5b0b803bccb5bbb2",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452",
+      "rkaf:fragmentContentDigest": "sha256:6ae72880e7b9ecfd0e3fca93f4108a353abe13eb069f571e5b0b803bccb5bbb2",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "the attorney general of the State involved"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 72,
+          "oa:end": 114,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:115:120:sha256-56ee5b508706bf2de91712d85d6d1e11ddbff01949142ed6e8c22e3b1bed1c71",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452",
+      "rkaf:fragmentContentDigest": "sha256:56ee5b508706bf2de91712d85d6d1e11ddbff01949142ed6e8c22e3b1bed1c71",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "shall"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 115,
+          "oa:end": 120,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:scope:9e82c0dcdb068ef863ce95afae53165f5159b5a8f19af2bb36ddac63646e8d35",
+      "@type": "rkaf:ApplicabilityScope",
+      "rkaf:appliesInJurisdiction": [],
+      "rkaf:applicabilityCondition": "Before filing an action under paragraph (1)"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:11125c46ded628ba5d8b44875d92c4f58fe6723ae344d5c4045dc7b4931bb871",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b10e9f672c60d88918a3152c9ef596b9db26a71255655bd4b7f910ae438d6bc7",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:73bcfb64f96da72b5e5f85f4cc0b9f217fc6d455c550b7d6bbc32edb6c34e7db",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:dd934a16103e0b815e47b54fae82d74c4fd8457badaca944d162e9529f44b4a0",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-requirement",
+      "rkaf:assertsValue": {
+        "@value": "Before filing an action under paragraph (1), the attorney general of the State involved shall provide to the Commission written notice of that action and a copy of the complaint for that action.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:53568754c1f7bc193efb290daa43775a88bacd10765cdee78156b41facee465d",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:11125c46ded628ba5d8b44875d92c4f58fe6723ae344d5c4045dc7b4931bb871",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:12:26:sha256-ca9693d7a03c9f0992c78cc6587bb92ef32954c0803056e0a7056d093f04556c",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:27:147:sha256-3177afe66bf3f4c757216b63469f69ad94a050ed4dec7d6c2ef477023d60ad1b",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:149:234:sha256-6fc75461b0108902a9e24e40226ffde778ff21816b2947744b3399fd27a9eb0a"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:3154d2daa319f2c5a04537622e40fe1702e96d12a09533ed5bdafd766ee03a1e",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:11125c46ded628ba5d8b44875d92c4f58fe6723ae344d5c4045dc7b4931bb871",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:12:26:sha256-ca9693d7a03c9f0992c78cc6587bb92ef32954c0803056e0a7056d093f04556c",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:27:147:sha256-3177afe66bf3f4c757216b63469f69ad94a050ed4dec7d6c2ef477023d60ad1b"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:ef0a6c4b19a58b7debab03e717486ba017b9c7924be4441c36602d9349e6aed7",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b10e9f672c60d88918a3152c9ef596b9db26a71255655bd4b7f910ae438d6bc7",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:73bcfb64f96da72b5e5f85f4cc0b9f217fc6d455c550b7d6bbc32edb6c34e7db",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:dd934a16103e0b815e47b54fae82d74c4fd8457badaca944d162e9529f44b4a0",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:actor",
+      "rkaf:assertsValue": {
+        "@value": "the attorney general of the State involved",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:f6d37fe8782361b59439b59ec4940a642a0d1d475d6508e352f4c7501b714950",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:ef0a6c4b19a58b7debab03e717486ba017b9c7924be4441c36602d9349e6aed7",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:72:114:sha256-6ae72880e7b9ecfd0e3fca93f4108a353abe13eb069f571e5b0b803bccb5bbb2"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:798f60498f9ad44e238915498fb5f2eb1d45b7385736c2bd7c689cdb4c50bd3d",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b10e9f672c60d88918a3152c9ef596b9db26a71255655bd4b7f910ae438d6bc7",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:73bcfb64f96da72b5e5f85f4cc0b9f217fc6d455c550b7d6bbc32edb6c34e7db",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:dd934a16103e0b815e47b54fae82d74c4fd8457badaca944d162e9529f44b4a0",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "must",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:963e9350b4fed55f2a891dd054ff0dad74c38677f02e0181f2b3c68147351d2a",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:798f60498f9ad44e238915498fb5f2eb1d45b7385736c2bd7c689cdb4c50bd3d",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:115:120:sha256-56ee5b508706bf2de91712d85d6d1e11ddbff01949142ed6e8c22e3b1bed1c71"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:25f553e57322a20fceb543e58110ebad78f8c29b9f6655119b4aeb116820ecdb",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b10e9f672c60d88918a3152c9ef596b9db26a71255655bd4b7f910ae438d6bc7",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:73bcfb64f96da72b5e5f85f4cc0b9f217fc6d455c550b7d6bbc32edb6c34e7db",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:dd934a16103e0b815e47b54fae82d74c4fd8457badaca944d162e9529f44b4a0",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:scope_text",
+      "rkaf:assertsValue": {
+        "@value": "Before filing an action under paragraph (1)",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:ceb50de044a07b8393c0e5234f10b05d0687f95378339b17befdffdd81662586",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:25f553e57322a20fceb543e58110ebad78f8c29b9f6655119b4aeb116820ecdb",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:12:26:sha256-ca9693d7a03c9f0992c78cc6587bb92ef32954c0803056e0a7056d093f04556c",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:27:147:sha256-3177afe66bf3f4c757216b63469f69ad94a050ed4dec7d6c2ef477023d60ad1b"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:bd33bc563ba9138503ce390e9b46b0fd4ecfafec6f8856ca5674c60b313f8a13",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b10e9f672c60d88918a3152c9ef596b9db26a71255655bd4b7f910ae438d6bc7",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:73bcfb64f96da72b5e5f85f4cc0b9f217fc6d455c550b7d6bbc32edb6c34e7db",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:dd934a16103e0b815e47b54fae82d74c4fd8457badaca944d162e9529f44b4a0",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"actor\":\"the attorney general of the State involved\",\"kind\":\"requirement\",\"modality\":\"must\",\"scope_text\":\"Before filing an action under paragraph (1)\",\"summary\":\"Before filing an action under paragraph (1), the attorney general of the State involved shall provide to the Commission written notice of that action and a copy of the complaint for that action.\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed",
+      "rkaf:hasApplicability": "urn:rulespec:document-understanding:scope:9e82c0dcdb068ef863ce95afae53165f5159b5a8f19af2bb36ddac63646e8d35"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:7cf719a1c70dda18f726d98f1f396148f6ff47f4ba5207a3b672c99f92718b59",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:bd33bc563ba9138503ce390e9b46b0fd4ecfafec6f8856ca5674c60b313f8a13",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:12:26:sha256-ca9693d7a03c9f0992c78cc6587bb92ef32954c0803056e0a7056d093f04556c",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:27:147:sha256-3177afe66bf3f4c757216b63469f69ad94a050ed4dec7d6c2ef477023d60ad1b",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:149:234:sha256-6fc75461b0108902a9e24e40226ffde778ff21816b2947744b3399fd27a9eb0a",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:72:114:sha256-6ae72880e7b9ecfd0e3fca93f4108a353abe13eb069f571e5b0b803bccb5bbb2",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:115:120:sha256-56ee5b508706bf2de91712d85d6d1e11ddbff01949142ed6e8c22e3b1bed1c71"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:b2b225f8ca1636848a0dae39442820e989795bd574515a0c8579c9e654a09095",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:bd33bc563ba9138503ce390e9b46b0fd4ecfafec6f8856ca5674c60b313f8a13",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:12:26:sha256-ca9693d7a03c9f0992c78cc6587bb92ef32954c0803056e0a7056d093f04556c",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:27:147:sha256-3177afe66bf3f4c757216b63469f69ad94a050ed4dec7d6c2ef477023d60ad1b"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:426a03fe614634d3de0fe5bcd852aff7ca1e4e4b09636ae8d6133bd6faebc4db",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:426a03fe614634d3de0fe5bcd852aff7ca1e4e4b09636ae8d6133bd6faebc4db",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:88d6a44f2167ce122acf34f79f1956ca1a84e55afb7086eb8296edf90b6fa8b0",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"the attorney general of the State involved\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:11125c46ded628ba5d8b44875d92c4f58fe6723ae344d5c4045dc7b4931bb871\",\"urn:rulespec:document-understanding:assertion:ef0a6c4b19a58b7debab03e717486ba017b9c7924be4441c36602d9349e6aed7\",\"urn:rulespec:document-understanding:assertion:798f60498f9ad44e238915498fb5f2eb1d45b7385736c2bd7c689cdb4c50bd3d\",\"urn:rulespec:document-understanding:assertion:25f553e57322a20fceb543e58110ebad78f8c29b9f6655119b4aeb116820ecdb\",\"urn:rulespec:document-understanding:assertion:bd33bc563ba9138503ce390e9b46b0fd4ecfafec6f8856ca5674c60b313f8a13\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"defined_terms\":[],\"effective_periods\":[],\"end\":234,\"evidence\":[{\"end\":26,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:12:26:sha256-ca9693d7a03c9f0992c78cc6587bb92ef32954c0803056e0a7056d093f04556c\",\"quote\":\"(A) In general\",\"start\":12},{\"end\":147,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:27:147:sha256-3177afe66bf3f4c757216b63469f69ad94a050ed4dec7d6c2ef477023d60ad1b\",\"quote\":\"Before filing an action under paragraph (1), the attorney general of the State involved shall provide to the Commission—\",\"start\":27},{\"end\":234,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:149:234:sha256-6fc75461b0108902a9e24e40226ffde778ff21816b2947744b3399fd27a9eb0a\",\"quote\":\"(i) written notice of that action; and\\n\\n(ii) a copy of the complaint for that action.\",\"start\":149},{\"end\":114,\"field\":\"actor\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:72:114:sha256-6ae72880e7b9ecfd0e3fca93f4108a353abe13eb069f571e5b0b803bccb5bbb2\",\"quote\":\"the attorney general of the State involved\",\"start\":72},{\"end\":120,\"field\":\"modality\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:115:120:sha256-56ee5b508706bf2de91712d85d6d1e11ddbff01949142ed6e8c22e3b1bed1c71\",\"quote\":\"shall\",\"start\":115},{\"end\":26,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:12:26:sha256-ca9693d7a03c9f0992c78cc6587bb92ef32954c0803056e0a7056d093f04556c\",\"quote\":\"(A) In general\",\"start\":12},{\"end\":147,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:27:147:sha256-3177afe66bf3f4c757216b63469f69ad94a050ed4dec7d6c2ef477023d60ad1b\",\"quote\":\"Before filing an action under paragraph (1), the attorney general of the State involved shall provide to the Commission—\",\"start\":27}],\"id\":\"urn:rulespec:document-understanding:revision:426a03fe614634d3de0fe5bcd852aff7ca1e4e4b09636ae8d6133bd6faebc4db\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"requirement\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:bd33bc563ba9138503ce390e9b46b0fd4ecfafec6f8856ca5674c60b313f8a13\",\"modality\":\"must\",\"modality_quote\":\"shall\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:5a9e08b6a95bdc0f64cff819b0999ac917b9436ffd2af537ab1ed4152569d68e\",\"origin\":\"aiSuggested\",\"quote\":\"(A) In general Before filing an action under paragraph (1), the attorney general of the State involved shall provide to the Commission—\\n\\n(i) written notice of that action; and\\n\\n(ii) a copy of the complaint for that action.\",\"references\":[\"paragraph (1)\"],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:dd934a16103e0b815e47b54fae82d74c4fd8457badaca944d162e9529f44b4a0\",\"scope_quotes\":[\"(A) In general Before filing an action under paragraph (1), the attorney general of the State involved shall provide to the Commission—\"],\"scope_text\":\"Before filing an action under paragraph (1)\",\"section_id\":\"section-1\",\"start\":12,\"summary\":\"Before filing an action under paragraph (1), the attorney general of the State involved shall provide to the Commission written notice of that action and a copy of the complaint for that action.\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:11125c46ded628ba5d8b44875d92c4f58fe6723ae344d5c4045dc7b4931bb871"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:ef0a6c4b19a58b7debab03e717486ba017b9c7924be4441c36602d9349e6aed7"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:798f60498f9ad44e238915498fb5f2eb1d45b7385736c2bd7c689cdb4c50bd3d"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:25f553e57322a20fceb543e58110ebad78f8c29b9f6655119b4aeb116820ecdb"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:bd33bc563ba9138503ce390e9b46b0fd4ecfafec6f8856ca5674c60b313f8a13"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:268:542:sha256-8a080febaa88583509f3a18c581aab5ac5711d8711bcc8c64256acf22631ef64",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452",
+      "rkaf:fragmentContentDigest": "sha256:8a080febaa88583509f3a18c581aab5ac5711d8711bcc8c64256acf22631ef64",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "Subparagraph (A) shall not apply with respect to the filing of an action by an attorney general of a State under this subsection, if the attorney general determines that it is not feasible to provide the notice described in that subparagraph before the filing of the action."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 268,
+          "oa:end": 542,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:285:300:sha256-7001dc18e4250cacd3b4c31ed3fe0df3af0a721931a03c64cc5478da04eb29bd",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452",
+      "rkaf:fragmentContentDigest": "sha256:7001dc18e4250cacd3b4c31ed3fe0df3af0a721931a03c64cc5478da04eb29bd",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "shall not apply"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 285,
+          "oa:end": 300,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:scope:c79ff43168048b978abf9567df768b2ca9b9c689e03700edfc86c3ce5994f773",
+      "@type": "rkaf:ApplicabilityScope",
+      "rkaf:appliesInJurisdiction": [],
+      "rkaf:applicabilityCondition": "if the attorney general determines that it is not feasible to provide the notice described in that subparagraph before the filing of the action"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:375767ee6f9b826eef0dec4ab68a9414efc107a699a4b0f50d885d0b4279615f",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b10e9f672c60d88918a3152c9ef596b9db26a71255655bd4b7f910ae438d6bc7",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:73bcfb64f96da72b5e5f85f4cc0b9f217fc6d455c550b7d6bbc32edb6c34e7db",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:afef99488dd5b86fc30d1cdd6f4f1ec52fa5f672bea4b565358df36c271e653c",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-exemption",
+      "rkaf:assertsValue": {
+        "@value": "Subparagraph (A) shall not apply with respect to the filing of an action by an attorney general of a State under this subsection, if the attorney general determines that it is not feasible to provide the notice described in that subparagraph before the filing of the action.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:c04462a3284f053dad84bc944d4a2e3b36fec59b52e42e2712832545131d926e",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:375767ee6f9b826eef0dec4ab68a9414efc107a699a4b0f50d885d0b4279615f",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:268:542:sha256-8a080febaa88583509f3a18c581aab5ac5711d8711bcc8c64256acf22631ef64"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:99cf7425393f530c09e5cfcf3508dc67bcefeebf298ad9449e9595f1ccb189af",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:375767ee6f9b826eef0dec4ab68a9414efc107a699a4b0f50d885d0b4279615f",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:268:542:sha256-8a080febaa88583509f3a18c581aab5ac5711d8711bcc8c64256acf22631ef64"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:1521981a8288b8070c80f0dbf555bf5cc4ee7f3bcb57c7c74d053220eaa91b26",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b10e9f672c60d88918a3152c9ef596b9db26a71255655bd4b7f910ae438d6bc7",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:73bcfb64f96da72b5e5f85f4cc0b9f217fc6d455c550b7d6bbc32edb6c34e7db",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:afef99488dd5b86fc30d1cdd6f4f1ec52fa5f672bea4b565358df36c271e653c",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "not_required",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:4486d62d6c80f9ddd2fa74554f22a1129e6c9aff574c612c9a35c85d5ad1f9fc",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:1521981a8288b8070c80f0dbf555bf5cc4ee7f3bcb57c7c74d053220eaa91b26",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:285:300:sha256-7001dc18e4250cacd3b4c31ed3fe0df3af0a721931a03c64cc5478da04eb29bd"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:ed61d87d3ba311f3e954d71f5ddc93e7fb85d0637f6ba2062d6f3d15cc3b4728",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b10e9f672c60d88918a3152c9ef596b9db26a71255655bd4b7f910ae438d6bc7",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:73bcfb64f96da72b5e5f85f4cc0b9f217fc6d455c550b7d6bbc32edb6c34e7db",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:afef99488dd5b86fc30d1cdd6f4f1ec52fa5f672bea4b565358df36c271e653c",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:scope_text",
+      "rkaf:assertsValue": {
+        "@value": "if the attorney general determines that it is not feasible to provide the notice described in that subparagraph before the filing of the action",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:f120594523610c459f721d3ef43e5e6f6314119238fd3e21f4dde84f502ebeb8",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:ed61d87d3ba311f3e954d71f5ddc93e7fb85d0637f6ba2062d6f3d15cc3b4728",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:268:542:sha256-8a080febaa88583509f3a18c581aab5ac5711d8711bcc8c64256acf22631ef64"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:6d81eb750bd1029ce92fc587da252f67060ba51c8a57edc2e2cb39372aaca179",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b10e9f672c60d88918a3152c9ef596b9db26a71255655bd4b7f910ae438d6bc7",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:73bcfb64f96da72b5e5f85f4cc0b9f217fc6d455c550b7d6bbc32edb6c34e7db",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:afef99488dd5b86fc30d1cdd6f4f1ec52fa5f672bea4b565358df36c271e653c",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"kind\":\"exemption\",\"modality\":\"not_required\",\"scope_text\":\"if the attorney general determines that it is not feasible to provide the notice described in that subparagraph before the filing of the action\",\"summary\":\"Subparagraph (A) shall not apply with respect to the filing of an action by an attorney general of a State under this subsection, if the attorney general determines that it is not feasible to provide the notice described in that subparagraph before the filing of the action.\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed",
+      "rkaf:hasApplicability": "urn:rulespec:document-understanding:scope:c79ff43168048b978abf9567df768b2ca9b9c689e03700edfc86c3ce5994f773"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:f4bb3344347663a8723a698386468e67cf17b40fcc30cbed233d7f840bdffd1a",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:6d81eb750bd1029ce92fc587da252f67060ba51c8a57edc2e2cb39372aaca179",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:268:542:sha256-8a080febaa88583509f3a18c581aab5ac5711d8711bcc8c64256acf22631ef64",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:285:300:sha256-7001dc18e4250cacd3b4c31ed3fe0df3af0a721931a03c64cc5478da04eb29bd"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:a29310364c86b4dab07b208f3cf131d766447d917353457d3eb73f634e02d18d",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:6d81eb750bd1029ce92fc587da252f67060ba51c8a57edc2e2cb39372aaca179",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:268:542:sha256-8a080febaa88583509f3a18c581aab5ac5711d8711bcc8c64256acf22631ef64"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:5cf7b36875f2aac4e384c331667158a8de02dd3e3adb50c6f5d1c085e3a39370",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:5cf7b36875f2aac4e384c331667158a8de02dd3e3adb50c6f5d1c085e3a39370",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:4053cc5d97dd4f446357fb8cb23fbb29167e7c15b7ad27a0933d10a7c13e0640",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:375767ee6f9b826eef0dec4ab68a9414efc107a699a4b0f50d885d0b4279615f\",\"urn:rulespec:document-understanding:assertion:1521981a8288b8070c80f0dbf555bf5cc4ee7f3bcb57c7c74d053220eaa91b26\",\"urn:rulespec:document-understanding:assertion:ed61d87d3ba311f3e954d71f5ddc93e7fb85d0637f6ba2062d6f3d15cc3b4728\",\"urn:rulespec:document-understanding:assertion:6d81eb750bd1029ce92fc587da252f67060ba51c8a57edc2e2cb39372aaca179\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"defined_terms\":[],\"effective_periods\":[],\"end\":542,\"evidence\":[{\"end\":542,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:268:542:sha256-8a080febaa88583509f3a18c581aab5ac5711d8711bcc8c64256acf22631ef64\",\"quote\":\"Subparagraph (A) shall not apply with respect to the filing of an action by an attorney general of a State under this subsection, if the attorney general determines that it is not feasible to provide the notice described in that subparagraph before the filing of the action.\",\"start\":268},{\"end\":300,\"field\":\"modality\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:285:300:sha256-7001dc18e4250cacd3b4c31ed3fe0df3af0a721931a03c64cc5478da04eb29bd\",\"quote\":\"shall not apply\",\"start\":285},{\"end\":542,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:268:542:sha256-8a080febaa88583509f3a18c581aab5ac5711d8711bcc8c64256acf22631ef64\",\"quote\":\"Subparagraph (A) shall not apply with respect to the filing of an action by an attorney general of a State under this subsection, if the attorney general determines that it is not feasible to provide the notice described in that subparagraph before the filing of the action.\",\"start\":268}],\"id\":\"urn:rulespec:document-understanding:revision:5cf7b36875f2aac4e384c331667158a8de02dd3e3adb50c6f5d1c085e3a39370\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"exemption\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:6d81eb750bd1029ce92fc587da252f67060ba51c8a57edc2e2cb39372aaca179\",\"modality\":\"not_required\",\"modality_quote\":\"shall not apply\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:d6d7d48a492e84aedcee0ec143f996d2abb50eb709ba3001f72c9e26b806a78e\",\"origin\":\"aiSuggested\",\"quote\":\"Subparagraph (A) shall not apply with respect to the filing of an action by an attorney general of a State under this subsection, if the attorney general determines that it is not feasible to provide the notice described in that subparagraph before the filing of the action.\",\"references\":[\"Subparagraph (A)\",\"this subsection\"],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:afef99488dd5b86fc30d1cdd6f4f1ec52fa5f672bea4b565358df36c271e653c\",\"scope_quotes\":[\"Subparagraph (A) shall not apply with respect to the filing of an action by an attorney general of a State under this subsection, if the attorney general determines that it is not feasible to provide the notice described in that subparagraph before the filing of the action.\"],\"scope_text\":\"if the attorney general determines that it is not feasible to provide the notice described in that subparagraph before the filing of the action\",\"section_id\":\"section-1\",\"start\":268,\"summary\":\"Subparagraph (A) shall not apply with respect to the filing of an action by an attorney general of a State under this subsection, if the attorney general determines that it is not feasible to provide the notice described in that subparagraph before the filing of the action.\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:375767ee6f9b826eef0dec4ab68a9414efc107a699a4b0f50d885d0b4279615f"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:1521981a8288b8070c80f0dbf555bf5cc4ee7f3bcb57c7c74d053220eaa91b26"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:ed61d87d3ba311f3e954d71f5ddc93e7fb85d0637f6ba2062d6f3d15cc3b4728"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:6d81eb750bd1029ce92fc587da252f67060ba51c8a57edc2e2cb39372aaca179"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:564:759:sha256-e86dc24ce4eb1ddb4286e54aee0e4cd1f42becb54c04a87919b4f801c49f6bf5",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452",
+      "rkaf:fragmentContentDigest": "sha256:e86dc24ce4eb1ddb4286e54aee0e4cd1f42becb54c04a87919b4f801c49f6bf5",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "In an action described in clause (i), the attorney general of a State shall provide notice and a copy of the complaint to the Commission at the same time as the attorney general files the action."
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 564,
+          "oa:end": 759,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:602:633:sha256-b9f72adaf185909be072de03ef60618e3105a4923ea09de6c18a38da621e6833",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452",
+      "rkaf:fragmentContentDigest": "sha256:b9f72adaf185909be072de03ef60618e3105a4923ea09de6c18a38da621e6833",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "the attorney general of a State"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 602,
+          "oa:end": 633,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:634:639:sha256-56ee5b508706bf2de91712d85d6d1e11ddbff01949142ed6e8c22e3b1bed1c71",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rulespec:document-understanding:document:0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452",
+      "rkaf:fragmentIdentityScheme": "rkaf:carrier-local-fragment",
+      "rkaf:sourceArtifactDigest": "sha256:0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452",
+      "rkaf:fragmentContentDigest": "sha256:56ee5b508706bf2de91712d85d6d1e11ddbff01949142ed6e8c22e3b1bed1c71",
+      "rkaf:selectorKind": [
+        "oa:TextQuoteSelector",
+        "oa:TextPositionSelector"
+      ],
+      "oa:hasSelector": [
+        {
+          "@type": "oa:TextQuoteSelector",
+          "oa:exact": "shall"
+        },
+        {
+          "@type": "oa:TextPositionSelector",
+          "oa:start": 634,
+          "oa:end": 639,
+          "rkaf:coordinateSystem": "rkaf:unicode-codepoint"
+        }
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:scope:c4fe377f77dc380c0fde87c0d0e5284201678600a65c0d65d26987115e511c74",
+      "@type": "rkaf:ApplicabilityScope",
+      "rkaf:appliesInJurisdiction": [],
+      "rkaf:applicabilityCondition": "In an action described in clause (i)"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:1c168d26af9b17ff04efb5763c50c9eca63b907c9e96d36b44c1ce1b949615e1",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b10e9f672c60d88918a3152c9ef596b9db26a71255655bd4b7f910ae438d6bc7",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:73bcfb64f96da72b5e5f85f4cc0b9f217fc6d455c550b7d6bbc32edb6c34e7db",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:7fb5c499aea7999c89e19670ae41818d0968d983904048505711b6a1807b8a48",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:states-requirement",
+      "rkaf:assertsValue": {
+        "@value": "In an action described in clause (i), the attorney general of a State shall provide notice and a copy of the complaint to the Commission at the same time as the attorney general files the action.",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:efd53d16b20d4db74d74399a08561c2e17ae0138690192b49872d3399592cabe",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:1c168d26af9b17ff04efb5763c50c9eca63b907c9e96d36b44c1ce1b949615e1",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:564:759:sha256-e86dc24ce4eb1ddb4286e54aee0e4cd1f42becb54c04a87919b4f801c49f6bf5"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:ee0b8b608cc0787a9558e5c6e931879e65b3a88643fbd75330ae4a6ac2386e58",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:1c168d26af9b17ff04efb5763c50c9eca63b907c9e96d36b44c1ce1b949615e1",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:564:759:sha256-e86dc24ce4eb1ddb4286e54aee0e4cd1f42becb54c04a87919b4f801c49f6bf5"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:aabf69721941f1d0efcbb0fc664945566b32757787ba1e51bf75aa57aa833a0b",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b10e9f672c60d88918a3152c9ef596b9db26a71255655bd4b7f910ae438d6bc7",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:73bcfb64f96da72b5e5f85f4cc0b9f217fc6d455c550b7d6bbc32edb6c34e7db",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:7fb5c499aea7999c89e19670ae41818d0968d983904048505711b6a1807b8a48",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:actor",
+      "rkaf:assertsValue": {
+        "@value": "the attorney general of a State",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:3dd81369653132e90c82e2a49092f926c9234807174c3143e2420573bbfe621d",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:aabf69721941f1d0efcbb0fc664945566b32757787ba1e51bf75aa57aa833a0b",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:602:633:sha256-b9f72adaf185909be072de03ef60618e3105a4923ea09de6c18a38da621e6833"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:137389fcf8b28511e04dddca3e8cff43658dc2d911da83c06853f652d6432d63",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b10e9f672c60d88918a3152c9ef596b9db26a71255655bd4b7f910ae438d6bc7",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:73bcfb64f96da72b5e5f85f4cc0b9f217fc6d455c550b7d6bbc32edb6c34e7db",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:7fb5c499aea7999c89e19670ae41818d0968d983904048505711b6a1807b8a48",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:modality",
+      "rkaf:assertsValue": {
+        "@value": "must",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:984ae7fd12479a8d1377aca44609980d344482a5126eb60d3f4559c920ffed2a",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:137389fcf8b28511e04dddca3e8cff43658dc2d911da83c06853f652d6432d63",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:634:639:sha256-56ee5b508706bf2de91712d85d6d1e11ddbff01949142ed6e8c22e3b1bed1c71"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:1c75fa9d3323db3716a543b215123423d33d58bc820c84cea96fd904ffa20290",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b10e9f672c60d88918a3152c9ef596b9db26a71255655bd4b7f910ae438d6bc7",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:73bcfb64f96da72b5e5f85f4cc0b9f217fc6d455c550b7d6bbc32edb6c34e7db",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:7fb5c499aea7999c89e19670ae41818d0968d983904048505711b6a1807b8a48",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:scope_text",
+      "rkaf:assertsValue": {
+        "@value": "In an action described in clause (i)",
+        "@language": "en"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:1f19f6d558ea9878586a7ef9fe30b833e271a3e3cf3757fbc525d72f6f4f1ee8",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:1c75fa9d3323db3716a543b215123423d33d58bc820c84cea96fd904ffa20290",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:564:759:sha256-e86dc24ce4eb1ddb4286e54aee0e4cd1f42becb54c04a87919b4f801c49f6bf5"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:assertion:230986d3010e12a1bfef445f2f1db7287825e08aecb8b9a77ac4eae9243f1cb6",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:aiSuggested",
+      "rkaf:epistemicBasis": "rkaf:statisticalInference",
+      "rkaf:usageEligibility": "rkaf:reviewQueueOnly",
+      "rkaf:consumerLifecycleState": "rkaf:draft",
+      "rkaf:hasAILineage": "urn:rulespec:document-understanding:lineage:b10e9f672c60d88918a3152c9ef596b9db26a71255655bd4b7f910ae438d6bc7",
+      "rkaf:hasExtractionProvenance": "urn:rulespec:document-understanding:activity:73bcfb64f96da72b5e5f85f4cc0b9f217fc6d455c550b7d6bbc32edb6c34e7db",
+      "rkaf:assertsSubject": "urn:rulespec:document-understanding:rule:7fb5c499aea7999c89e19670ae41818d0968d983904048505711b6a1807b8a48",
+      "rkaf:assertsPredicate": "urn:rulespec:document-understanding:meaning",
+      "rkaf:assertsValue": {
+        "@value": "{\"actor\":\"the attorney general of a State\",\"kind\":\"requirement\",\"modality\":\"must\",\"scope_text\":\"In an action described in clause (i)\",\"summary\":\"In an action described in clause (i), the attorney general of a State shall provide notice and a copy of the complaint to the Commission at the same time as the attorney general files the action.\"}",
+        "@type": "xsd:string"
+      },
+      "rkaf:assertionPolarity": "rkaf:affirmed",
+      "rkaf:hasApplicability": "urn:rulespec:document-understanding:scope:c4fe377f77dc380c0fde87c0d0e5284201678600a65c0d65d26987115e511c74"
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:1b8b2427c1c4934bcdf06872b7a3a21a9ab6e2f3175da03f03b134f1094e5386",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:230986d3010e12a1bfef445f2f1db7287825e08aecb8b9a77ac4eae9243f1cb6",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:supports",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:564:759:sha256-e86dc24ce4eb1ddb4286e54aee0e4cd1f42becb54c04a87919b4f801c49f6bf5",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:602:633:sha256-b9f72adaf185909be072de03ef60618e3105a4923ea09de6c18a38da621e6833",
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:634:639:sha256-56ee5b508706bf2de91712d85d6d1e11ddbff01949142ed6e8c22e3b1bed1c71"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:binding:67e15bab7b03d839c94b50fb66c184a3081857ad07f1888d4ef74c8f63fa8a86",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rulespec:document-understanding:assertion:230986d3010e12a1bfef445f2f1db7287825e08aecb8b9a77ac4eae9243f1cb6",
+      "rkaf:evidenceRole": "rkaf:textualEvidence",
+      "rkaf:evidentiaryFunction": "rkaf:definesScope",
+      "rkaf:bindsSourceFragment": [
+        "urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:564:759:sha256-e86dc24ce4eb1ddb4286e54aee0e4cd1f42becb54c04a87919b4f801c49f6bf5"
+      ]
+    },
+    {
+      "@id": "urn:rulespec:document-understanding:revision:57c75717b4eaf7cafd7e8662683c7acf87b28b786e191fc3b81fb2b14f9653f4",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rulespec:document-understanding:revision:57c75717b4eaf7cafd7e8662683c7acf87b28b786e191fc3b81fb2b14f9653f4",
+      "rkaf:artifactIdentifierScheme": "rkaf:urn-persistent",
+      "rkaf:hasContentDigest": "sha256:adf7c7f80a812db17ecaaa07b0f2bbe3878fa44fb298249f5975d2e3c198cb6c",
+      "dcterms:format": "application/json",
+      "dcterms:description": "{\"action\":\"\",\"actor\":\"the attorney general of a State\",\"alternative_quotes\":[],\"applies_to\":[],\"assertion_ids\":[\"urn:rulespec:document-understanding:assertion:1c168d26af9b17ff04efb5763c50c9eca63b907c9e96d36b44c1ce1b949615e1\",\"urn:rulespec:document-understanding:assertion:aabf69721941f1d0efcbb0fc664945566b32757787ba1e51bf75aa57aa833a0b\",\"urn:rulespec:document-understanding:assertion:137389fcf8b28511e04dddca3e8cff43658dc2d911da83c06853f652d6432d63\",\"urn:rulespec:document-understanding:assertion:1c75fa9d3323db3716a543b215123423d33d58bc820c84cea96fd904ffa20290\",\"urn:rulespec:document-understanding:assertion:230986d3010e12a1bfef445f2f1db7287825e08aecb8b9a77ac4eae9243f1cb6\"],\"choice_quote\":\"\",\"choice_text\":\"\",\"claimants\":[],\"concepts\":[],\"context_quotes\":[],\"defined_terms\":[],\"effective_periods\":[],\"end\":759,\"evidence\":[{\"end\":759,\"field\":\"summary\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:564:759:sha256-e86dc24ce4eb1ddb4286e54aee0e4cd1f42becb54c04a87919b4f801c49f6bf5\",\"quote\":\"In an action described in clause (i), the attorney general of a State shall provide notice and a copy of the complaint to the Commission at the same time as the attorney general files the action.\",\"start\":564},{\"end\":633,\"field\":\"actor\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:602:633:sha256-b9f72adaf185909be072de03ef60618e3105a4923ea09de6c18a38da621e6833\",\"quote\":\"the attorney general of a State\",\"start\":602},{\"end\":639,\"field\":\"modality\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:634:639:sha256-56ee5b508706bf2de91712d85d6d1e11ddbff01949142ed6e8c22e3b1bed1c71\",\"quote\":\"shall\",\"start\":634},{\"end\":759,\"field\":\"scope_text:0\",\"fragment_id\":\"urn:rkaf:fragment:urn%3Arulespec%3Adocument-understanding%3Adocument%3A0c61a50e5689400a9508156758910cf258b73866d6dbe1c0e05fe60a6431f452:564:759:sha256-e86dc24ce4eb1ddb4286e54aee0e4cd1f42becb54c04a87919b4f801c49f6bf5\",\"quote\":\"In an action described in clause (i), the attorney general of a State shall provide notice and a copy of the complaint to the Commission at the same time as the attorney general files the action.\",\"start\":564}],\"id\":\"urn:rulespec:document-understanding:revision:57c75717b4eaf7cafd7e8662683c7acf87b28b786e191fc3b81fb2b14f9653f4\",\"jurisdiction\":\"\",\"jurisdiction_quote\":\"\",\"kind\":\"requirement\",\"logic_text\":\"\",\"meaning_assertion_id\":\"urn:rulespec:document-understanding:assertion:230986d3010e12a1bfef445f2f1db7287825e08aecb8b9a77ac4eae9243f1cb6\",\"modality\":\"must\",\"modality_quote\":\"shall\",\"object\":\"\",\"occurrence_id\":\"urn:rulespec:document-understanding:occurrence:681647ed28a7de709265a9db0ee7b91bb431b12bb2d041e9009ddab86da155c4\",\"origin\":\"aiSuggested\",\"quote\":\"In an action described in clause (i), the attorney general of a State shall provide notice and a copy of the complaint to the Commission at the same time as the attorney general files the action.\",\"references\":[\"clause (i)\"],\"relation\":\"none\",\"rule_id\":\"urn:rulespec:document-understanding:rule:7fb5c499aea7999c89e19670ae41818d0968d983904048505711b6a1807b8a48\",\"scope_quotes\":[\"In an action described in clause (i), the attorney general of a State shall provide notice and a copy of the complaint to the Commission at the same time as the attorney general files the action.\"],\"scope_text\":\"In an action described in clause (i)\",\"section_id\":\"section-1\",\"start\":564,\"summary\":\"In an action described in clause (i), the attorney general of a State shall provide notice and a copy of the complaint to the Commission at the same time as the attorney general files the action.\",\"target_ids\":[],\"term_refs\":[],\"typed_values\":[]}",
+      "dcterms:references": [
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:1c168d26af9b17ff04efb5763c50c9eca63b907c9e96d36b44c1ce1b949615e1"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:aabf69721941f1d0efcbb0fc664945566b32757787ba1e51bf75aa57aa833a0b"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:137389fcf8b28511e04dddca3e8cff43658dc2d911da83c06853f652d6432d63"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:1c75fa9d3323db3716a543b215123423d33d58bc820c84cea96fd904ffa20290"
+        },
+        {
+          "@id": "urn:rulespec:document-understanding:assertion:230986d3010e12a1bfef445f2f1db7287825e08aecb8b9a77ac4eae9243f1cb6"
+        }
+      ]
+    }
+  ]
+}

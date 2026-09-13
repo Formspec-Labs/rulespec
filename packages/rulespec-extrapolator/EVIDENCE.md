@@ -59,6 +59,20 @@ calls followed. Original extraction and recovery replay passed; production stays
 unchanged. Record boundaries and the requested generation task remain open;
 supplied-repair recognition is not evidence of automatic repair.
 
+The [explicit construction comparison](../../thoughts/experiments/2026-09-13-explicit-rule-construction/README.md)
+then changed the task definition while holding source, selected claims, navigation
+and the full CUE-derived schema constant. Construction generated complete default
+wording for 3/6 selected opportunities versus 0/6 for ordinary recovery; 2/6 versus
+0/6 survived decoding, individual review preview and checking. One baseline reading
+was partial, with uncertainty over its implicit determining actor. Both arms failed
+the full gate: request content and two new notice readings remained incomplete.
+One faithful statement was discarded for an optional non-verbatim quote. The
+checker also mistook an application-inserted relationship identifier for invented
+source content, while correctly identifying a separate action/object problem.
+Fourteen calls reported 75,504 tokens. Provider-blocked replay passes with saved
+preview event identifiers; full replacement records otherwise differ in newly
+generated identities. No production prompt, schema or model pass was adopted.
+
 ## Discovery and optional audit check — 2026-09-12
 
 [Three fresh sources](../../thoughts/experiments/2026-09-12-simple-path/RESULTS.md)

@@ -60,15 +60,32 @@
   IEP gaps was repaired; the reporting control also stayed unchanged. Focus used
   13.4% more recovery tokens. No checker calls were needed, no provider calls were
   retried, and all captures replay. No production behavior was adopted.
-- [ ] **Test explicit construction of a complete default reading.** Stop varying
-  navigation/context size for the same recovery objective on these development
-  cases. Compare a direct request to construct a selected rule's self-contained
-  meaning with ordinary recovery, reusing existing fields, source evidence and
-  review machinery. Include references to independent duties that must not become
-  prerequisites and new sources. Score generated replacements, preserved meaning,
-  standalone usefulness and checker acceptance separately. This is a different
-  experimental task objective; it does not authorize a new default pass, wholesale
-  duplication of related duties, or changes to the qualification guard.
+- [x] **Test explicit construction of a complete default reading — 2026-09-13.**
+  The [paired comparison](../experiments/2026-09-13-explicit-rule-construction/README.md)
+  kept source, selected statements, navigation and the full schema identical.
+  Construction produced complete wording for 3/6 target opportunities versus 0/6
+  under ordinary recovery; 2/6 versus 0/6 survived validation, individual preview
+  and checking. One baseline reading was partial and could pass a more permissive
+  actor label. Both arms failed the full gate. A useful pension repair was refused
+  for optional non-verbatim `logic_text`; neither arm repaired the request-content
+  case or all three new notice readings. Fourteen calls used 75,504 tokens. Exact
+  replay requires reusing saved preview event identities. No production adoption.
+- [ ] **Remove input/validation noise before another generation comparison.** Use
+  the saved construction outputs to test consistent short relationship aliases
+  in checker input: cell 6's application-inserted `applies_to` identifier was
+  falsely criticized as invented source content, alongside a real action/object
+  problem. Separately test reuse of existing component-withholding behavior for
+  optional quote failures; cell 3's useful statement was discarded for `logic_text`.
+  Preserve original captures, refusals, bad-meaning controls and relationship
+  guards. Do not treat a corrected identifier presentation as proof that a proposal
+  is semantically correct or relax quotation matching to remove list markers.
+- [ ] **Test narrowly scoped meaning edits on new sources.** Compare the current
+  full replacement against a response containing only changed meaning/evidence,
+  deriving allowed fields from CUE and preserving other fields deterministically.
+  Keep the construction objective fixed for that comparison. Measure completeness,
+  evidence survival, component regressions and unchanged-checker behavior, including
+  justified no-ops and unrelated duties. This is a proposed experiment; do not add
+  a new default pass or continue patching these now-development cases.
 
 ## Next priority: independently usable requirements — 2026-09-12
 
