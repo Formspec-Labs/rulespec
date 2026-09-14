@@ -5,6 +5,18 @@ report describes its own settings and checkpoint; it is not a current installati
 recipe. Use the [README](README.md) for the main path and the
 [operating reference](OPERATIONS.md) for current commands.
 
+## Complete CSBG retest — September 13
+
+The [whole-chapter retest](../../thoughts/experiments/2026-09-13-csbg-retest/RESULTS.md)
+compared fresh normal and section-focused extraction of the same complete source.
+Section focus independently addressed all thirteen State-plan contents: eleven
+faithful at the tested detail level and two partial. Normal extraction again
+replaced those contents with a generic pointer and separately truncated one large
+window. Section focus used 56.5% more total tokens and still exposed context loss,
+opaque references and broad evidence. Both runs replayed identically and retained
+all 979 source passages. Prefer the existing section option for this CSBG source;
+no universal default, prompt, schema or automatic model pass changed.
+
 ## Repair iteration closed — September 13
 
 The [final response-format comparison](../../thoughts/experiments/2026-09-13-repair-finish/README.md)
