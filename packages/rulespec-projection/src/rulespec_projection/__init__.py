@@ -42,7 +42,7 @@ from .projection import (
 )
 from .provenance import RunContext, canonical_json, stable_id, text_digest
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 __all__ = [
     "ASSERTION_ORIGIN_DETERMINISTIC",

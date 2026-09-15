@@ -48,6 +48,7 @@ from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Any, Protocol, runtime_checkable
+from urllib.parse import quote
 
 from .attestations import ATTESTOR_KIND_AI_MODEL, DECISION_ENDORSED_FOR_REVIEW, attestation_row
 from .citations import (
@@ -191,13 +192,7 @@ def encode_for_uri(value: str) -> str:
     for the artifact component and the encoding
     ``CarrierLocalFragmentUrnSourceAgreementShape`` compares against.
     """
-    out: list[str] = []
-    for character in value:
-        if (character.isascii() and character.isalnum()) or character in "-._~":
-            out.append(character)
-        else:
-            out.extend(f"%{byte:02X}" for byte in character.encode("utf-8"))
-    return "".join(out)
+    return quote(value, safe="-._~", encoding="utf-8", errors="strict")
 
 
 def fragment_urn(artifact_iri: str, start: int, end: int, region_sha256: str) -> str:

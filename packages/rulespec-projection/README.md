@@ -34,6 +34,12 @@ Unused copies of those helpers have been removed here. The remaining citation
 readers serve the published-row graph functions; their dictionary and compact
 key inputs need to be accounted for before a reader migration.
 
+`encode_for_uri` uses Python's strict UTF-8 percent encoder. Version 0.1.1
+preserves string output and fragment IDs, including literal percent signs and
+Unicode without normalization. Surrogates still fail; error positions now refer
+to the whole input string. Non-string inputs now raise `TypeError`, including
+empty or string-valued iterables the old loop accepted incidentally.
+
 ## The two seams
 
 The producer read Parquet in two places. Both are Protocols here, and the
