@@ -25,7 +25,7 @@ from typing import Any, Protocol
 import jsonschema
 import pyarrow as pa
 import pyarrow.parquet as pq
-import rfc8785
+from rulespec_artifacts import canonical_json_bytes, parse_canonical_json
 
 try:
     from rulespec_release import (
@@ -209,47 +209,14 @@ def _issue(issues: list[VerificationIssue], code: str, path: str, message: str) 
     issues.append(VerificationIssue(code=code, path=path, message=message))
 
 
-def canonical_json_bytes(value: Any) -> bytes:
-    """Encode one identity-bearing value under ``spicy-canonical-json-v1``."""
-
-    _validate_canonical_domain(value)
-    return rfc8785.dumps(value)
-
-
 def canonical_sha256(value: Any) -> str:
     """Return an unqualified digest over canonical JSON bytes."""
 
     return hashlib.sha256(canonical_json_bytes(value)).hexdigest()
 
 
-def _validate_canonical_domain(value: Any, path: str = "$") -> None:
-    if value is None or isinstance(value, (str, bool)):
-        return
-    if isinstance(value, int):
-        if isinstance(value, bool) or abs(value) > MAX_SAFE_INTEGER:
-            raise ValueError(f"{path} integer is outside the JSON safe range")
-        return
-    if isinstance(value, float):
-        raise ValueError(f"{path} floating-point values are forbidden")
-    if isinstance(value, list):
-        for index, member in enumerate(value):
-            _validate_canonical_domain(member, f"{path}/{index}")
-        return
-    if isinstance(value, dict):
-        for key, member in value.items():
-            if not isinstance(key, str):
-                raise ValueError(f"{path} object key is not a string")
-            _validate_canonical_domain(member, f"{path}/{key}")
-        return
-    raise ValueError(f"{path} contains unsupported JSON value {type(value).__name__}")
-
-
 def _reject_constant(value: str) -> None:
     raise ValueError(f"JSON constant {value!r} is forbidden")
-
-
-def _reject_float(value: str) -> None:
-    raise ValueError(f"JSON floating-point value {value!r} is forbidden")
 
 
 def _reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
@@ -264,19 +231,7 @@ def _reject_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
 def load_strict_canonical_json(path: Path) -> Any:
     """Load a canonical manifest and reject noncanonical source bytes."""
 
-    raw = path.read_bytes()
-    if raw.startswith(b"\xef\xbb\xbf"):
-        raise ValueError("a UTF-8 byte order mark is forbidden")
-    value = json.loads(
-        raw.decode("utf-8"),
-        parse_constant=_reject_constant,
-        parse_float=_reject_float,
-        object_pairs_hook=_reject_duplicate_keys,
-    )
-    _validate_canonical_domain(value)
-    if canonical_json_bytes(value) != raw:
-        raise ValueError("JSON bytes are not canonical")
-    return value
+    return parse_canonical_json(path.read_bytes())
 
 
 def write_canonical_json(path: Path, value: Any) -> None:
@@ -486,7 +441,7 @@ def _read_v2_root(
         )
     try:
         expected = expected_release_id(root)
-    except (TypeError, ValueError, rfc8785.CanonicalizationError) as exc:
+    except (TypeError, ValueError) as exc:
         _issue(issues, "invalid.identity", "release.json", str(exc))
     else:
         if root.get("releaseId") != expected:
@@ -932,7 +887,7 @@ def _validate_schema_set(
         )
     try:
         expected_set_id = f"urn:spicy:schema-set:v1:{canonical_sha256(descriptors)}"
-    except (TypeError, ValueError, rfc8785.CanonicalizationError) as exc:
+    except (TypeError, ValueError) as exc:
         _issue(issues, "invalid.schema", "release.json/content/schemaSet", str(exc))
     else:
         if schema_set.get("schemaSetId") != expected_set_id:
@@ -1699,7 +1654,7 @@ def _validate_assignments_and_evidence(
         }
         try:
             expected_policy_digest = canonical_sha256(policy_preimage)
-        except (TypeError, ValueError, rfc8785.CanonicalizationError) as exc:
+        except (TypeError, ValueError) as exc:
             _issue(
                 issues,
                 "invalid.schema",

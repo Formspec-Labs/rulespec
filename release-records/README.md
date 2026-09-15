@@ -42,6 +42,13 @@ python3 -m tools.extrapolation_release_v2 validate \
   --vocabulary-atlas release-records/fixtures/rulespec-atlas-membership-stub
 ```
 
+The v2 tool uses `rulespec_artifacts` for canonical JSON bytes and strict
+loading. Its Python encoder accepts the owner's string-keyed mappings and
+list/tuple sequences; parsed manifests remain JSON objects and arrays.
+Refusals retain structured owner details inside the existing release issue
+code and file path. Release IDs and accepted manifest bytes stay unchanged.
+Embedded v1 records retain their separate finite-float JSON rules.
+
 The version 2 root and row schemas live under
 `release-records/schemas/extrapolation-release-v2*`. Version 1 keeps its current
 single-JSON schema, fixtures, and validator path.

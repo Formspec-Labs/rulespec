@@ -18,8 +18,9 @@ rdfcanon==1.0.0
 
 PyYAML>=6.0
 jsonschema>=4.23.0
-# ExtrapolationRelease v2 uses RFC 8785 root identities and partitioned
-# Apache Parquet members.  Pin both implementations so generated conformance
-# fixture bytes remain reproducible across local and CI runs.
+# The owner package builds independently of the generated conformance tree.
+./packages/rulespec-artifacts
+# Frozen pre-consolidation canonical-JSON oracle, used only by tests.
 rfc8785==0.1.4
+# Pin Parquet generation so conformance fixture bytes remain reproducible.
 pyarrow==21.0.0
