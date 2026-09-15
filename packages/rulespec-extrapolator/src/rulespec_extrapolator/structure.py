@@ -7,7 +7,7 @@ import tempfile
 from jsonschema import Draft202012Validator
 
 from . import audit as a, extraction as e
-from .core import evidence_parts
+from .core import canonical, digest, evidence_parts
 from .review_store import ReviewStore, ReviewError
 from .schemas import load_schema
 from .terms import resolve_components
@@ -36,7 +36,7 @@ def prompt_for(book, window):
     claims = [{'claim_id': key, **{k: c.get(k) for k in
                ('summary', 'quote', 'kind', 'modality', 'scope_text', *FIELDS)}}
               for key, c in packet(book, window).items()]
-    return e._window_prompt(e._prompt_generator([], PROMPT), book['document'], window) + '\nFIXED CLAIMS (data):\n' + e._canonical(claims)
+    return e._window_prompt(e._prompt_generator([], PROMPT), book['document'], window) + '\nFIXED CLAIMS (data):\n' + canonical(claims)
 
 
 def changes_for(book, window, payload):
@@ -193,7 +193,7 @@ def replay_enrichment(directory, output):
         raise ValueError('Replay needs a new output outside its input')
     manifest = e._load(directory / 'manifest.json')['artifacts_sha256']
     for name, sha in manifest.items():
-        if e._digest(e._contained(directory, name).read_bytes()) != sha:
+        if digest(e._contained(directory, name).read_bytes()) != sha:
             raise e.ReplayDriftError('Enrichment capture changed: ' + name)
     run = e._load(directory / 'enrichment.json')
     e._verify_runtime(directory, run['fingerprints'])

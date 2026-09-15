@@ -210,7 +210,7 @@ def export_context(book, focus, *, reference_sources=(), act_index=None,
                 'reference_readings': readings, 'recorded_feedback': feedback,
                 'selection_decisions': decisions, 'source_metadata': source_metadata}
     return deepcopy({'schema_version': 'rulespec-context/1', 'material': material,
-            'exporter_sha256': e._digest(Path(__file__).read_bytes()),
+            'exporter_sha256': digest(Path(__file__).read_bytes()),
             'documents': {sid: docs[sid] for sid in selected}, 'reference_scan': scan,
             'observations': feedback_records,
             'focus': deepcopy(focus), 'rulebook_sha256': digest(book),

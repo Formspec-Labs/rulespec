@@ -4,7 +4,7 @@ import json
 
 import pytest
 from rulespec_extrapolator import extraction as e
-from rulespec_extrapolator.core import compile_candidates, validate_graph
+from rulespec_extrapolator.core import compile_candidates, digest, validate_graph
 from rulespec_extrapolator.documents import prepare_document
 from rulespec_extrapolator.review_store import ReviewStore
 
@@ -58,7 +58,7 @@ def test_complete_source_meaning_uses_existing_core_records():
     assert by_id[assignment['rkaf:assertsSubject']]['@type'] == 'rkaf:SourceFragment'
     assert assignment['@id'] in claim['assertion_ids']
     distribution = by_id[release['dcat:distribution'][0]]
-    assert e._digest(distribution['dcterms:description']) == distribution['rkaf:hasContentDigest'].removeprefix('sha256:')
+    assert digest(distribution['dcterms:description']) == distribution['rkaf:hasContentDigest'].removeprefix('sha256:')
     assert json.loads(distribution['dcterms:description'])['@graph']
 
 

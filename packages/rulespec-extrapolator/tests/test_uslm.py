@@ -10,7 +10,7 @@ from rulespec_extrapolator.discovery import export_discovery
 from rulespec_extrapolator.documents import load_document
 from rulespec_extrapolator.extraction import _window_prompt, plan_windows
 from rulespec_extrapolator.references import scan_references
-from rulespec_extrapolator.uslm import prepare_xml, read_xml
+from rulespec_extrapolator.uslm import SourceIndex, prepare_xml, read_xml
 
 NS = 'http://xml.house.gov/schemas/uslm/1.0'
 FIXTURE = Path(__file__).parent/'fixtures/uslm/fresh-title-05-pair.xml'
@@ -18,6 +18,24 @@ FIXTURE = Path(__file__).parent/'fixtures/uslm/fresh-title-05-pair.xml'
 
 def document(body):
     return prepare_xml(f'<uscDoc xmlns="{NS}" identifier="/us/usc/t5"><section identifier="/us/usc/t5/s1">{body}</section></uscDoc>')
+
+
+@pytest.mark.parametrize('path, expected', [
+    ('/*[1]/*[1]', [('Café 😀.', 0, 7), ('Second.', 9, 16)]),
+    ('/*[1]/*[1]/*[1]', [('Café 😀.', 0, 7)]),
+    ('/*[1]/*[1]/*[2]', [('Second.', 9, 16)]),
+])
+def test_native_support_keeps_exact_unicode_source_intervals_and_xpath(path, expected):
+    doc = document('<p>Café 😀.</p><p>Second.</p>')
+    assert doc['text'] == 'Café 😀.\n\nSecond.'
+    index = SourceIndex(doc)
+    fragment, evidence = index.support(path, index.prepared['nodes'][path], 'target')
+    assert [(item['quote'], item['start'], item['end']) for item in evidence] == expected
+    assert all(item['field'] == 'target' for item in evidence)
+    assert index.fragments[fragment]['oa:hasSelector'] == [
+        {'@type': 'oa:XPathSelector', 'rdf:value': path}]
+    assert index.fragments[fragment]['oa:hasSource'] == index.source_id
+    assert index.support(path, index.prepared['nodes'][path], 'target', include_text=False) == (fragment, [])
 
 
 def test_fresh_definition_target_and_core_fragments():

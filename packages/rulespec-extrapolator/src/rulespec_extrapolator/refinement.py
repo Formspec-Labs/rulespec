@@ -9,7 +9,7 @@ import tempfile
 from jsonschema import Draft202012Validator, ValidationError
 
 from . import audit as a, extraction as e
-from .core import CANDIDATE_SCHEMA, MEANING_FIELDS
+from .core import CANDIDATE_SCHEMA, MEANING_FIELDS, canonical, digest
 from .evaluation import compare_runs, content_digest
 from .review_store import ReviewStore, ReviewError, RevisionConflict
 from .schemas import load_schema
@@ -167,7 +167,7 @@ def _model_packet(packet):
     ids.update({unit["id"]: f"U{i:04d}" for i, unit in enumerate(packet["inventory"])})
 
     def identity(value):
-        return ids.get(value, "prior_or_outside:" + e._digest(value.encode())[:8])
+        return ids.get(value, "prior_or_outside:" + digest(value.encode())[:8])
 
     def visit(value):
         if isinstance(value, list):
@@ -219,9 +219,9 @@ def _challenge_prompt(packet, prepared, document):
     # The catalog supplies the focus/context text once, with selectable IDs.
     view.pop("focus")
     view.pop("context")
-    return (CHECK + "\nSource passages: " + e._canonical(_challenge_catalog(document, packet))
+    return (CHECK + "\nSource passages: " + canonical(_challenge_catalog(document, packet))
             + "\nDraft and audit (audit rationale aliases refer to initial_audit_aliases): "
-            + e._canonical(view) + "\nProposed changes: " + e._canonical(proposals))
+            + canonical(view) + "\nProposed changes: " + canonical(proposals))
 
 
 def _ranges(packet):
@@ -456,7 +456,7 @@ def refine_run(run_dir, output, model_id=e.DEFAULT_MODEL, *, audit_dir=None, env
            "max_output_tokens": OUTPUT_TOKENS, "max_chars": max_chars,
            "before_sha256": content_digest(before), "runtime": e._runtime_versions(),
            "initial_audit_reused": audit_dir is not None,
-           "sources_sha256": {n: e._digest(p.read_bytes()) for n, p in sources.items()},
+           "sources_sha256": {n: digest(p.read_bytes()) for n, p in sources.items()},
            "status": "running", "started_at": e._now(), "steps": []}
     for name, path in sources.items():
         destination = output / "frozen" / name
@@ -589,10 +589,10 @@ def replay_refinement(directory, output):
     if not required <= manifest.get("artifacts_sha256", {}).keys():
         raise e.ReplayDriftError("Refinement manifest omits required records")
     for name, sha in manifest["artifacts_sha256"].items():
-        if e._digest(e._contained(directory, name).read_bytes()) != sha:
+        if digest(e._contained(directory, name).read_bytes()) != sha:
             raise e.ReplayDriftError("Refinement capture changed: " + name)
     run = e._load(directory / "refinement.json")
-    if run["schema_version"] != VERSION or run["runtime"] != e._runtime_versions() or run["sources_sha256"] != {n: e._digest(p.read_bytes()) for n, p in e._runtime_sources().items()}:
+    if run["schema_version"] != VERSION or run["runtime"] != e._runtime_versions() or run["sources_sha256"] != {n: digest(p.read_bytes()) for n, p in e._runtime_sources().items()}:
         raise e.ReplayDriftError("Refinement runtime differs from its frozen version")
     before, after = e._load(directory / "before.json"), e._load(directory / "after.json")
     if run["before_sha256"] != content_digest(before) or run["after_sha256"] != content_digest(after):
@@ -690,6 +690,6 @@ def replay_refinement(directory, output):
         dest.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(e._contained(directory, name), dest)
     e._save(output / "replay.json", {"status": "verified", "provider_calls": 0,
-        "input_manifest_sha256": e._digest((directory / "manifest.json").read_bytes())})
+        "input_manifest_sha256": digest((directory / "manifest.json").read_bytes())})
     e._write_manifest(output)
     return {"status": "verified", "provider_calls": 0, "applied_actions": len(all_changes)}

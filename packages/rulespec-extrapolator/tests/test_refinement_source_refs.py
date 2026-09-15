@@ -5,6 +5,7 @@ import json
 import pytest
 
 from rulespec_extrapolator import audit as a, extraction as e, refinement as r
+from rulespec_extrapolator.core import canonical
 from rulespec_extrapolator.documents import prepare_document
 
 
@@ -68,7 +69,7 @@ def test_context_and_selected_claim_evidence_do_not_allow_unsupplied_gap():
     assert [s["quote"] for s in rows["P0000"]["source_spans"]] == ["Scope.", "Exception."]
     rows, issues = check(document, packet, ["C000:C001"])
     assert not rows and issues
-    assert "HIDDEN" not in e._canonical(r._challenge_catalog(document, packet))
+    assert "HIDDEN" not in canonical(r._challenge_catalog(document, packet))
 
 
 def test_inserted_source_map_text_is_not_admitted_as_evidence():

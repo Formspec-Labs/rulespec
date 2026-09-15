@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 from rulespec_extrapolator import audit as a, extraction as e, refinement as r
-from rulespec_extrapolator.core import compile_candidates
+from rulespec_extrapolator.core import canonical, compile_candidates
 from rulespec_extrapolator.documents import prepare_document
 from rulespec_extrapolator.review_store import ReviewStore
 from test_audit import provider
@@ -291,7 +291,7 @@ def test_model_view_keeps_meaning_and_evidence_while_omitting_opaque_ids(tmp_pat
                   'alternative_quotes', 'modality', 'references', 'reference_links', 'start', 'end'):
         assert new[field] == old[field]
     assert new['evidence'] == [{k: v for k, v in item.items() if k != 'fragment_id'} for item in old['evidence']]
-    assert 'fragment_id' not in e._canonical(view)
+    assert 'fragment_id' not in canonical(view)
 
 
 def test_checker_uses_qualification_alias_without_changing_internal_target(tmp_path):

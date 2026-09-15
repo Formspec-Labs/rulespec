@@ -11,7 +11,7 @@ from jsonschema import Draft202012Validator, ValidationError
 from rulespec_projection.evidence import resolve_exact_evidence_offsets
 
 from . import extraction as e
-from .core import MEANING_FIELDS, NS, evidence_parts, validate_graph, sparse
+from .core import MEANING_FIELDS, NS, canonical, digest, evidence_parts, validate_graph, sparse
 from .documents import source_passages, validate_document
 from .schemas import load_schema
 from .evaluation import (COVERAGE, MEANING_DIMENSIONS, VERDICTS, claim_digest,
@@ -108,7 +108,7 @@ This extraction profile permits qualifications in complete prose without separat
 relationship records. Missing optional graph enrichment is not a links error.
 Judge populated links for correct direction and targets, and flag meaning actually
 lost through an omitted qualification. Do not invent a local target for remote rules.
-""" + "\nCUE-generated field definitions: " + e._canonical(definitions)
+""" + "\nCUE-generated field definitions: " + canonical(definitions)
 
 
 def _object(properties):
@@ -321,7 +321,7 @@ In logic_text it represents retained verbatim logic; in evidence/quote fields it
 is supporting evidence only. Preserve that distinction when assessing meaning.
 """
     return (e._window_prompt(e._prompt_generator([], description), book["document"], window)
-            + '\nDraft and inventory: ' + e._canonical(_comparison_model_input(book, labels, window)))
+            + '\nDraft and inventory: ' + canonical(_comparison_model_input(book, labels, window)))
 
 
 def _judgments(directory, book, labels, windows, attempts, model_id):
@@ -423,7 +423,7 @@ def _findings(book, report, run):
         add(book["document"]["id"], f"Model-assisted audit marked {unit['unit_id']} {unit['status']}: "
             + unit["meaning"] + ". " + (unit.get("rationale") or ""))
     for issue in report.get("issues", []) + report.get("audit_issues", []):
-        add(book["document"]["id"], "Audit processing issue: " + e._canonical(issue))
+        add(book["document"]["id"], "Audit processing issue: " + canonical(issue))
     # The local report retains diagnostic details. This derived graph supplies
     # shared, referenceable records without defining a second finding schema.
     unique = {node["@id"]: node for node in nodes}
@@ -467,7 +467,7 @@ def audit_run(book, output, model_id=e.DEFAULT_MODEL, *, env_file=None, max_char
     output = Path(output)
     output.mkdir(parents=True, exist_ok=False)
     e._save(output / "rulebook.json", book)
-    fingerprints = {name: e._digest(path.read_bytes()) for name, path in e._runtime_sources().items()}
+    fingerprints = {name: digest(path.read_bytes()) for name, path in e._runtime_sources().items()}
     run = {"schema_version": AUDIT_VERSION, "model": model_id, "windows": windows, "temperature": None,
             "rulebook_sha256": content_digest(book), "max_chars": max_chars,
             "max_output_tokens": max_output_tokens, "thinking_level": thinking_level,
@@ -530,7 +530,7 @@ def load_audit(directory):
     if not required <= manifest.get("artifacts_sha256", {}).keys():
         raise e.ReplayDriftError("Audit manifest omits required artifacts")
     for name, expected in manifest["artifacts_sha256"].items():
-        if e._digest(e._contained(directory, name).read_bytes()) != expected:
+        if digest(e._contained(directory, name).read_bytes()) != expected:
             raise e.ReplayDriftError("Audit capture changed: " + name)
     run, book = e._load(directory / "audit.json"), e._load(directory / "rulebook.json")
     if run.get("schema_version") != AUDIT_VERSION or run["rulebook_sha256"] != content_digest(book):
@@ -555,7 +555,7 @@ def replay_audit(directory, output):
         raise e.ReplayDriftError("Audit generation settings are invalid")
     if run["windows"] != e.plan_windows(book["document"], run["max_chars"]):
         raise e.ReplayDriftError("Audit request coverage changed")
-    current = {name: e._digest(path.read_bytes()) for name, path in e._runtime_sources().items()}
+    current = {name: digest(path.read_bytes()) for name, path in e._runtime_sources().items()}
     if run["sources_sha256"] != current or run["runtime"] != e._runtime_versions() or run["rulebook_sha256"] != content_digest(book):
         raise e.ReplayDriftError("Audit runtime or input differs from its frozen version")
     inventory = _inventory(directory / "inventory", book["document"], run["windows"], run["inventory_attempts"])
@@ -603,6 +603,6 @@ def replay_audit(directory, output):
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(e._contained(directory, name), target)
     e._save(output / "replay.json", {"status": "verified", "provider_calls": 0,
-                                    "input_manifest_sha256": e._digest((directory / "manifest.json").read_bytes())})
+                                    "input_manifest_sha256": digest((directory / "manifest.json").read_bytes())})
     e._write_manifest(output)
     return report

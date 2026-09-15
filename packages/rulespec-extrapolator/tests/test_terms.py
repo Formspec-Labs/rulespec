@@ -5,7 +5,7 @@ import json
 import pytest
 
 from rulespec_extrapolator import extraction as e, structure as s
-from rulespec_extrapolator.core import compile_candidates, validate_graph
+from rulespec_extrapolator.core import compile_candidates, digest, validate_graph
 from rulespec_extrapolator.documents import prepare_document
 from rulespec_extrapolator.review_store import ReviewStore
 from rulespec_extrapolator.terms import term_index
@@ -201,8 +201,8 @@ def test_captured_enrichment_retains_approval_and_all_old_meaning_then_replays(t
     event = after['history'][-1]
     provenance = event['provenance']
     assert provenance['model_version'] == 'gemini-3.8-flash'
-    assert provenance['input_sha256'] == e._digest(requests[0]['contents'])
-    assert provenance['request_sha256'] == e._digest(requests[0])
+    assert provenance['input_sha256'] == digest(requests[0]['contents'])
+    assert provenance['request_sha256'] == digest(requests[0])
     assert any(n.get('rkaf:inputContextHash') == 'sha256:' + provenance['input_sha256']
                and n.get('rkaf:modelVersion') == provenance['model_version'] for n in after['graph']['@graph'])
     assert len(requests) == 1

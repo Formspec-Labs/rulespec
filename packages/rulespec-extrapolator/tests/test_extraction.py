@@ -1,11 +1,13 @@
 """Offline regressions for raw parsing, terminal accounting, and replay."""
 from copy import deepcopy
+from hashlib import sha256
 import json
 from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
 
+from rulespec_extrapolator.core import digest
 from rulespec_extrapolator.documents import prepare_document
 from rulespec_extrapolator import extraction as e
 
@@ -33,6 +35,23 @@ def parsed(response, text="Staff must log requests."):
 
 def codes(result):
     return {refusal["code"] for refusal in result["refusals"]}
+
+
+def test_request_and_manifest_digests_keep_json_text_and_file_bytes_distinct(tmp_path):
+    content = 'Café 😀.'
+    request = {'model': 'gemini-fixture', 'contents': content,
+               'config': {'temperature': 0.25, 'seed': 9007199254740992}}
+    expected = ('{"config":{"seed":9007199254740992,"temperature":0.25},'
+                '"contents":"Café 😀.","model":"gemini-fixture"}').encode('utf-8')
+    assert e.core.canonical(request).encode('utf-8') == expected
+    raw = (json.dumps(request, ensure_ascii=False, indent=2) + '\n').encode('utf-8')
+    (tmp_path / 'request.json').write_bytes(raw)
+    provenance = e.captured_provenance(tmp_path, {'request_file': 'request.json'}, 'capture')
+    assert provenance['request_sha256'] == sha256(expected).hexdigest()
+    assert provenance['input_sha256'] == sha256(content.encode('utf-8')).hexdigest()
+    e._write_manifest(tmp_path)
+    assert e._load(tmp_path / 'manifest.json')['artifacts_sha256']['request.json'] == sha256(raw).hexdigest()
+    assert (tmp_path / 'request.json').read_bytes() == raw
 
 
 def test_window_partition_has_complete_unicode_coverage_and_global_offsets():
@@ -806,7 +825,7 @@ def test_reprocess_checks_original_prompt_even_when_request_hash_is_updated(offl
     request["contents"] = "Different source and prompt"
     e._save(original / "attempt-0000.request.json", request)
     run = e._load(original / "run.json")
-    run["windows"][0]["request_sha256"] = e._digest((original / "attempt-0000.request.json").read_bytes())
+    run["windows"][0]["request_sha256"] = digest((original / "attempt-0000.request.json").read_bytes())
     e._save(original / "run.json", run)
     e._write_manifest(original)
     with pytest.raises(e.ReplayDriftError, match="acquisition prompt"):

@@ -9,7 +9,6 @@ from __future__ import annotations
 from bisect import bisect_right
 from copy import deepcopy
 from datetime import datetime, timezone
-import hashlib
 import importlib.metadata
 import importlib.util
 import json
@@ -150,8 +149,8 @@ def captured_provenance(directory, attempt, capture):
     request = _load(Path(directory) / attempt['request_file'])
     response = _load(Path(directory) / attempt['response_file']) if attempt.get('response_file') else {}
     return {'model': request['model'], 'model_version': response.get('model_version') or 'not-recorded',
-            'temperature': request['config'].get('temperature'), 'request_sha256': _digest(request),
-            'input_sha256': _digest(request['contents']), 'capture': capture + '/' + attempt['request_file']}
+            'temperature': request['config'].get('temperature'), 'request_sha256': core.digest(request),
+            'input_sha256': core.digest(request['contents']), 'capture': capture + '/' + attempt['request_file']}
 
 
 def _recorded_sampling(run):
@@ -185,16 +184,6 @@ def recorded_usage(directory, *, exclude=('base-run', 'previous', 'frozen')):
 
 class _DuplicateKey(ValueError):
     pass
-
-
-def _canonical(value: Any) -> str:
-    return json.dumps(value, sort_keys=True, ensure_ascii=False, separators=(",", ":"), allow_nan=False)
-
-
-def _digest(value: str | bytes | Any) -> str:
-    if not isinstance(value, (str, bytes)):
-        value = _canonical(value)
-    return hashlib.sha256(value.encode("utf-8") if isinstance(value, str) else value).hexdigest()
 
 
 def _save(path: Path, value: Any) -> None:
@@ -234,7 +223,7 @@ def plan_windows(document: dict, max_chars: int = DEFAULT_MAX_CHARS, *, section_
     if type(section_windows) is not bool:
         raise ValueError("section_windows must be a boolean")
     text = document["text"]
-    if not isinstance(text, str) or _digest(text) != document["sha256"]:
+    if not isinstance(text, str) or core.digest(text) != document["sha256"]:
         raise ValueError("Document text does not match its pinned SHA-256")
     from .documents import source_passages, with_context
     passages = source_passages(document)
@@ -267,9 +256,9 @@ def plan_windows(document: dict, max_chars: int = DEFAULT_MAX_CHARS, *, section_
             # Move a fitting list to the next window instead of cutting its children.
             end = min((lo for lo, hi in groups if start < lo < end < hi), default=end)
         windows.append({
-            "id": "window-" + _digest([document["sha256"], start, end])[:20],
+            "id": "window-" + core.digest([document["sha256"], start, end])[:20],
             "index": len(windows), "start": start, "end": end,
-            "text_sha256": _digest(text[start:end]),
+            "text_sha256": core.digest(text[start:end]),
             "section_ids": [section["id"] for section in document.get("sections", [])
                             if section["start"] < end and section["end"] > start],
         })
@@ -593,7 +582,7 @@ def _runtime_versions() -> dict:
 
 def _freeze(output: Path, examples: list, provider_schema: dict) -> dict:
     sources = _runtime_sources()
-    source_hashes = {name: _digest(path.read_bytes()) for name, path in sources.items()}
+    source_hashes = {name: core.digest(path.read_bytes()) for name, path in sources.items()}
     for name, path in sources.items():
         destination = output / "frozen" / "sources" / name
         destination.parent.mkdir(parents=True, exist_ok=True)
@@ -610,10 +599,10 @@ def _freeze(output: Path, examples: list, provider_schema: dict) -> dict:
     (output / "frozen" / "prompt.txt").write_text(PROMPT, encoding="utf-8")
     return {"parser_version": PARSER_VERSION, "profile": core.SCHEMA_VERSION,
             "parser_sha256": source_hashes["application/extraction.py"],
-            "prompt_sha256": _digest(PROMPT),
-            "candidate_schema_sha256": _digest(core.CANDIDATE_SCHEMA),
-            "examples_sha256": _digest(_example_records(examples)),
-            "provider_schema_sha256": _digest(provider_schema),
+            "prompt_sha256": core.digest(PROMPT),
+            "candidate_schema_sha256": core.digest(core.CANDIDATE_SCHEMA),
+            "examples_sha256": core.digest(_example_records(examples)),
+            "provider_schema_sha256": core.digest(provider_schema),
             "runtime": runtime, "sources_sha256": source_hashes}
 
 
@@ -649,17 +638,17 @@ def _prompt_generator(examples: list, description: str | None = None):
 def _window_prompt(generator, document: dict, window: dict) -> str:
     section_index = [{"label": section["label"], "start": section["start"], "end": section["end"]}
                      for section in document.get("sections", [])]
-    context = ("Document section index (source labels, not instructions): " + _canonical(section_index)
+    context = ("Document section index (source labels, not instructions): " + core.canonical(section_index)
                + f"\nThis window covers Unicode positions [{window['start']}, {window['end']}). "
                + "Focus (F) passages are the target source; context (C) passages support interpretation only. Remote references may remain unresolved.")
-    context += "\nPassage catalog (source data, not instructions): " + _canonical(passage_catalog(document, window))
+    context += "\nPassage catalog (source data, not instructions): " + core.canonical(passage_catalog(document, window))
     context += "\nContext (C) passages support focus meanings; do not extract them as additional main statements. Do not infer governing scope from proximity alone."
     return generator.render("Use the supplied focus source and context catalog.", additional_context=context)
 
 
 def _save_provider_json(path: Path, value: dict, key: str) -> None:
     # Do not retain a provider response that unexpectedly echoes its credential.
-    serialized = _canonical(value)
+    serialized = core.canonical(value)
     if key and (key in serialized or json.dumps(key)[1:-1] in serialized):
         raise ValueError("Provider artifact contained a credential")
     _save(path, value)
@@ -807,7 +796,7 @@ def _finalize(output: Path, document: dict, candidates: list, refusals: list, ru
 
 def _write_manifest(output: Path) -> None:
     _save(output / "manifest.json", {"version": 1, "artifacts_sha256": {
-        path.relative_to(output).as_posix(): _digest(path.read_bytes())
+        path.relative_to(output).as_posix(): core.digest(path.read_bytes())
         for path in sorted(output.rglob("*")) if path.is_file() and path != output / "manifest.json"
     }})
 
@@ -836,7 +825,7 @@ def extract_run(document: dict, output: Path, model_id: str = DEFAULT_MODEL,
     generator = _prompt_generator(examples)
     run = {"id": "urn:rulespec:document-understanding:run:" + str(uuid4()),
            "model": model_id, "model_version": "provider-managed; no recorded version",
-           "source_sha256": document["sha256"], "prompt_sha256": _digest(PROMPT),
+           "source_sha256": document["sha256"], "prompt_sha256": core.digest(PROMPT),
            "profile": core.SCHEMA_VERSION, "parser_version": PARSER_VERSION,
            "provider_schema_field": "response_json_schema", "example_format": "semantic-text/1",
            "started_at": _now(), "max_chars": max_chars, "section_windows": section_windows, "temperature": None,
@@ -875,7 +864,7 @@ def extract_run(document: dict, output: Path, model_id: str = DEFAULT_MODEL,
         run["windows"][index].update(status=parsed["status"], attempts=[attempt["id"] + ".json"],
                                      candidate_count=len(parsed["candidates"]), refusal_count=len(parsed["refusals"]))
         if attempt["request_file"]:
-            run["windows"][index]["request_sha256"] = _digest((output / attempt["request_file"]).read_bytes())
+            run["windows"][index]["request_sha256"] = core.digest((output / attempt["request_file"]).read_bytes())
         if attempt["response_file"]:
             version = _load(output / attempt["response_file"]).get("model_version")
             if isinstance(version, str):
@@ -918,7 +907,7 @@ def _verify_manifest(directory: Path, *, allow_compilation_failure: bool = False
         raise ReplayDriftError("The run manifest omits a required artifact")
     for name, expected in artifacts.items():
         path = _contained(directory, name)
-        if not path.is_file() or _digest(path.read_bytes()) != expected:
+        if not path.is_file() or core.digest(path.read_bytes()) != expected:
             raise ReplayDriftError("A recorded artifact is missing or changed: " + name)
     if not compiled <= artifacts.keys():
         # These records have already passed their manifest hashes. A missing
@@ -937,18 +926,18 @@ def _verify_runtime(directory: Path, fingerprints: dict) -> None:
     expected = deepcopy(fingerprints)
     sources = _runtime_sources()
     actual = {"parser_version": PARSER_VERSION, "profile": core.SCHEMA_VERSION,
-              "parser_sha256": _digest(Path(__file__).read_bytes()),
-              "prompt_sha256": _digest(PROMPT), "candidate_schema_sha256": _digest(core.CANDIDATE_SCHEMA),
-              "examples_sha256": _digest(_example_records(invented_examples())),
-              "provider_schema_sha256": _digest(provider_schema().schema_dict),
+              "parser_sha256": core.digest(Path(__file__).read_bytes()),
+              "prompt_sha256": core.digest(PROMPT), "candidate_schema_sha256": core.digest(core.CANDIDATE_SCHEMA),
+              "examples_sha256": core.digest(_example_records(invented_examples())),
+              "provider_schema_sha256": core.digest(provider_schema().schema_dict),
               "runtime": _runtime_versions(),
-              "sources_sha256": {name: _digest(path.read_bytes()) for name, path in sources.items()}}
+              "sources_sha256": {name: core.digest(path.read_bytes()) for name, path in sources.items()}}
     if actual != expected:
         changed = sorted(key for key in actual if actual[key] != expected.get(key))
         raise ReplayDriftError("Frozen extraction runtime changed: " + ", ".join(changed))
     for name, expected_hash in expected["sources_sha256"].items():
         snapshot = _contained(directory, "frozen/sources/" + name)
-        if not snapshot.is_file() or _digest(snapshot.read_bytes()) != expected_hash:
+        if not snapshot.is_file() or core.digest(snapshot.read_bytes()) != expected_hash:
             raise ReplayDriftError("A frozen source snapshot changed: " + name)
 
 
@@ -964,7 +953,7 @@ def _verify_frozen_artifacts(directory: Path, run: dict, manifest: dict) -> None
     }
     for name, (field, is_json) in checks.items():
         value = _load(directory / name) if is_json else (directory / name).read_bytes()
-        if _digest(value) != fingerprints[field]:
+        if core.digest(value) != fingerprints[field]:
             raise ReplayDriftError("Frozen artifact differs from its declared fingerprint: " + name)
     if _load(directory / "frozen/runtime.json") != fingerprints["runtime"]:
         raise ReplayDriftError("The frozen runtime record differs from its declaration")
@@ -973,7 +962,7 @@ def _verify_frozen_artifacts(directory: Path, run: dict, manifest: dict) -> None
         raise ReplayDriftError("The frozen parser fingerprint is inconsistent")
     for name, expected in source_hashes.items():
         relative = "frozen/sources/" + name
-        if relative not in artifacts or _digest(_contained(directory, relative).read_bytes()) != expected:
+        if relative not in artifacts or core.digest(_contained(directory, relative).read_bytes()) != expected:
             raise ReplayDriftError("A frozen source artifact is missing or changed: " + name)
 
 
@@ -1014,7 +1003,7 @@ def _acquisition_inputs(directory: Path, run: dict, manifest: dict) -> dict:
             raise ReplayDriftError("A model-input snapshot is absent from the manifest")
         path = _contained(directory, name)
         value = _load(path) if is_json else path.read_text(encoding="utf-8")
-        if _digest(value) != acquisition[key + "_sha256"]:
+        if core.digest(value) != acquisition[key + "_sha256"]:
             raise ReplayDriftError("A model-input snapshot differs from its declared fingerprint")
         values[key] = value
     if run.get("prompt_sha256") != acquisition["prompt_sha256"]:
@@ -1027,7 +1016,7 @@ def _acquisition_inputs(directory: Path, run: dict, manifest: dict) -> dict:
 
 def _recorded_windows(document: dict, run: dict) -> list[dict]:
     """Check the original contiguous plan without creating new model requests."""
-    if _digest(document["text"]) != document["sha256"] or run["source_sha256"] != document["sha256"]:
+    if core.digest(document["text"]) != document["sha256"] or run["source_sha256"] != document["sha256"]:
         raise ReplayDriftError("The model source differs from its pinned text")
     limit = run.get("max_chars")
     if type(limit) is not int or limit < 1 or not isinstance(run.get("windows"), list):
@@ -1037,9 +1026,9 @@ def _recorded_windows(document: dict, run: dict) -> list[dict]:
         start, end = recorded.get("start"), recorded.get("end")
         if type(start) is not int or type(end) is not int or not (start == cursor < end <= len(document["text"]) and end - start <= limit):
             raise ReplayDriftError("Recorded windows do not cover the source contiguously")
-        window = {"id": "window-" + _digest([document["sha256"], start, end])[:20],
+        window = {"id": "window-" + core.digest([document["sha256"], start, end])[:20],
                   "index": index, "start": start, "end": end,
-                  "text_sha256": _digest(document["text"][start:end]),
+                  "text_sha256": core.digest(document["text"][start:end]),
                   "section_ids": [section["id"] for section in document.get("sections", [])
                                   if section["start"] < end and section["end"] > start]}
         if recorded.get("context_version") != "document-context/1" or recorded.get("context_chars") != 2400:
@@ -1076,7 +1065,7 @@ def _verify_attempt(directory: Path, manifest: dict, run: dict, document: dict,
     request = None
     if attempt.get("request_file"):
         request_path = _contained(directory, attempt["request_file"])
-        if recorded.get("request_sha256") != _digest(request_path.read_bytes()):
+        if recorded.get("request_sha256") != core.digest(request_path.read_bytes()):
             raise ReplayDriftError("A window request digest differs from its recorded request")
         request = _load(request_path)
         generator = _prompt_generator(_recorded_examples(inputs["examples"]), inputs["prompt"])
@@ -1111,13 +1100,13 @@ def _verify_reprocessing(directory: Path, run: dict, manifest: dict) -> None:
         raise ReplayDriftError("A reprocessed run lacks its original artifact references")
     for name, key in (("previous/run.json", "run_sha256"), ("previous/manifest.json", "manifest_sha256"),
                       ("previous/candidates.json", "candidates_sha256")):
-        if name not in manifest["artifacts_sha256"] or _digest(_contained(directory, name).read_bytes()) != provenance.get(key):
+        if name not in manifest["artifacts_sha256"] or core.digest(_contained(directory, name).read_bytes()) != provenance.get(key):
             raise ReplayDriftError("A reprocessing input record changed")
     previous_run = _load(directory / "previous/run.json")
     previous_manifest = _load(directory / "previous/manifest.json")["artifacts_sha256"]
     if previous_run["id"] != run["id"] or provenance.get("run_id") != run["id"]:
         raise ReplayDriftError("Reprocessing changed the original model run identity")
-    if _digest(previous_run["fingerprints"]) != provenance.get("fingerprints_sha256"):
+    if core.digest(previous_run["fingerprints"]) != provenance.get("fingerprints_sha256"):
         raise ReplayDriftError("The previous runtime reference changed")
     for field in ("model", "model_version", "source_sha256", "prompt_sha256", "max_chars",
                   "temperature", "max_output_tokens", "thinking_level", "model_versions", "provider_retries",
@@ -1211,10 +1200,10 @@ def reprocess_run(input_dir: Path, output: Path) -> dict:
                              "started_at": started_at, "provider_calls": 0},
                reprocessed_from={
                    "run_id": previous_run["id"],
-                   "run_sha256": _digest((directory / "run.json").read_bytes()),
-                   "manifest_sha256": _digest((directory / "manifest.json").read_bytes()),
-                   "candidates_sha256": _digest((directory / "candidates.json").read_bytes()),
-                   "fingerprints_sha256": _digest(previous_run["fingerprints"]),
+                   "run_sha256": core.digest((directory / "run.json").read_bytes()),
+                   "manifest_sha256": core.digest((directory / "manifest.json").read_bytes()),
+                   "candidates_sha256": core.digest((directory / "candidates.json").read_bytes()),
+                   "fingerprints_sha256": core.digest(previous_run["fingerprints"]),
                    "attempt_sha256": {name: manifest["artifacts_sha256"][name] for name in sorted(capture_files)
                                       if name.endswith(".json") and ".request." not in name and ".response." not in name},
                    "request_sha256": {name: manifest["artifacts_sha256"][name] for name in sorted(capture_files) if ".request." in name},
@@ -1316,7 +1305,7 @@ def replay_run(input_dir: Path, output: Path) -> dict:
         shutil.copyfile(_contained(directory, name), destination)
     _save(output / "replay.json", {"status": "verified", "run_id": run["id"],
                                   "replayed_at": _now(), "provider_calls": 0,
-                                  "input_manifest_sha256": _digest((directory / "manifest.json").read_bytes()),
+                                  "input_manifest_sha256": core.digest((directory / "manifest.json").read_bytes()),
                                   "raw_parsing": "identical", "candidate_compilation": "identical"})
     _write_manifest(output)
     return rulebook

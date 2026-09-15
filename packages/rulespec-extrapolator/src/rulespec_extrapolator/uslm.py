@@ -5,7 +5,7 @@ from importlib.metadata import version
 from pathlib import Path
 
 from .core import NS, _evidence, digest, sparse
-from .documents import prepare_document, validate_document
+from .documents import prepare_document, source_slicer, validate_document
 
 
 def _read(xml):
@@ -86,9 +86,7 @@ class SourceIndex:
             self.addresses, self.issues = section_addresses(self.prepared)
         for path, identifier in self.addresses.items():
             self.identifiers[identifier].append((path, self.prepared['nodes'][path]))
-        self.source_parts = [p for p in document['source_map'] if p['kind'] == 'source']
-        self.starts = [p['start'] for p in self.source_parts]
-        self.ends = [p['end'] for p in self.source_parts]
+        self.source_slices = source_slicer(document)
 
     def artifact(self):
         return {'@id': self.source_id, '@type': 'rkaf:Artifact',
@@ -100,7 +98,6 @@ class SourceIndex:
     def support(self, path, node, field, *, include_text=True):
         document, prepared, source = self.document, self.prepared, self.source
         source_id, fragments = self.source_id, self.fragments
-        source_parts, starts, ends = self.source_parts, self.starts, self.ends
         fragment_id = NS + 'xml-fragment:' + digest([source_id, path])
         fragments.setdefault(fragment_id, {'@id': fragment_id, '@type': 'rkaf:SourceFragment',
             'oa:hasSource': source_id, 'oa:hasSelector': [{'@type': 'oa:XPathSelector', 'rdf:value': path}],
@@ -108,8 +105,7 @@ class SourceIndex:
             'rkaf:fragmentContentDigest': 'sha256:' + digest(prepared['source_text'][node['source_start']:node['source_end']])})
         evidence = []
         if include_text and 'start' in node:
-            for part in source_parts[bisect_right(ends, node['start']):bisect_left(starts, node['end'])]:
-                start, end = max(part['start'], node['start']), min(part['end'], node['end'])
+            for start, end in self.source_slices(node['start'], node['end']):
                 exact = _evidence(document, document['text'][start:end], field, start, end)
                 if exact is None:
                     raise ValueError('Publisher text evidence does not resolve in the prepared source')
