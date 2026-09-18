@@ -75,7 +75,39 @@ def _exists(directory: int, name: str) -> bool:
     return True
 
 
+#: One read plus at most two re-reads while only ctime or mode keeps moving.
+_VERIFICATION_PASSES = 3
+
+
+def _byte_identity(state: LocalFileState) -> tuple[int, int, int, int]:
+    """The fields no byte change can leave alone: device, inode, size, mtime."""
+    return (state.device, state.inode, state.size, state.modified_nanoseconds)
+
+
+def _hash_from_start(descriptor: int, digest: str, byte_size: int) -> None:
+    os.lseek(descriptor, 0, os.SEEK_SET)
+    observed = 0
+    actual = hashlib.sha256()
+    while block := os.read(descriptor, min(DEFAULT_READ_CHUNK_BYTES, byte_size - observed + 1)):
+        observed += len(block)
+        if observed > byte_size:
+            raise BlobIntegrityError(f"blob grew beyond its content identity: {digest}")
+        actual.update(block)
+    if observed != byte_size or "sha256:" + actual.hexdigest() != digest:
+        raise BlobIntegrityError(f"blob differs from its content identity: {digest}")
+
+
 def _verify(directory: int, name: str, digest: str, byte_size: int) -> None:
+    """Prove the named object holds exactly the bytes its digest names.
+
+    Another writer publishing the same content adds and then removes a
+    hardlink to this inode, which moves ctime without touching a byte; a
+    chmod does the same. Those moves are a trigger, not a verdict: the pass is
+    repeated until one sees no change at all, and every pass must reproduce
+    the digest. Any move of device, inode, size or mtime, or a file that keeps
+    changing, is refused.
+    """
+
     try:
         # O_NONBLOCK prevents a raced-in FIFO from blocking before fstat.
         descriptor = os.open(name, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=directory)
@@ -85,17 +117,16 @@ def _verify(directory: int, name: str, digest: str, byte_size: int) -> None:
         before = LocalFileState.from_stat(os.fstat(descriptor))
         if not stat.S_ISREG(before.mode) or before.size != byte_size:
             raise BlobIntegrityError(f"blob differs from its content identity: {digest}")
-        observed = 0
-        actual = hashlib.sha256()
-        while block := os.read(descriptor, min(DEFAULT_READ_CHUNK_BYTES, byte_size - observed + 1)):
-            observed += len(block)
-            if observed > byte_size:
-                raise BlobIntegrityError(f"blob grew beyond its content identity: {digest}")
-            actual.update(block)
-        after = LocalFileState.from_stat(os.fstat(descriptor))
-        visible = LocalFileState.from_stat(os.stat(name, dir_fd=directory, follow_symlinks=False))
-        if observed != byte_size or "sha256:" + actual.hexdigest() != digest or before != after or after != visible:
-            raise BlobIntegrityError(f"blob differs from its content identity: {digest}")
+        for _ in range(_VERIFICATION_PASSES):
+            _hash_from_start(descriptor, digest, byte_size)
+            after = LocalFileState.from_stat(os.fstat(descriptor))
+            visible = LocalFileState.from_stat(os.stat(name, dir_fd=directory, follow_symlinks=False))
+            if _byte_identity(after) != _byte_identity(before) or _byte_identity(visible) != _byte_identity(before):
+                raise BlobIntegrityError(f"blob differs from its content identity: {digest}")
+            if after == before and visible == after:
+                return
+            before = visible
+        raise BlobIntegrityError(f"blob kept changing during verification: {digest}")
     except FileNotFoundError as error:
         raise BlobIntegrityError(f"immutable blob disappeared: {digest}") from error
     finally:
@@ -124,8 +155,12 @@ class LocalBlobWriter:
     The default layout is ``sha256/<hex>``. A consumer needing two-digit
     sharding selects ``object_prefix='objects/sha256', shard_digits=2``.
     ``create=False`` admits an existing root, prefix and .pending directory;
-    put may still create a missing shard. The caller owns the input iterator,
-    including closing it when a known, verified object bypasses consumption.
+    put may still create a missing shard. A caller that already admitted the
+    root elsewhere passes its ``(device, inode)`` as ``expected_root``: the
+    writer then never creates the root, refuses any other directory at that
+    path before touching the filesystem, and reports the identity it holds as
+    ``root_identity``. The caller owns the input iterator, including closing
+    it when a known, verified object bypasses consumption.
     """
 
     def __init__(
@@ -135,18 +170,27 @@ class LocalBlobWriter:
         object_prefix: str = "sha256",
         shard_digits: int = 0,
         create: bool = True,
+        expected_root: tuple[int, int] | None = None,
     ) -> None:
         prefix = validate_object_key(object_prefix, path="object_prefix")
         if prefix.split("/")[0] == ".pending":
             raise ValueError("object_prefix must not use the .pending staging directory")
         if isinstance(shard_digits, bool) or not isinstance(shard_digits, int) or shard_digits not in (0, 2):
             raise ValueError("shard_digits must be 0 or 2")
+        if expected_root is not None and (
+            not isinstance(expected_root, tuple)
+            or len(expected_root) != 2
+            or any(isinstance(value, bool) or not isinstance(value, int) for value in expected_root)
+        ):
+            raise ValueError("expected_root must be a (device, inode) tuple of integers")
         selected = Path(root)
-        if create:
+        if create and expected_root is None:
             selected.mkdir(parents=True, exist_ok=True)
         try:
-            self._pin = PinnedLocalDirectory(selected)
+            self._pin = PinnedLocalDirectory(selected, expected_identity=expected_root)
         except (ArtifactVerificationError, MemberSourceError) as error:
+            if expected_root is not None:
+                raise ValueError("blob store root is not the admitted directory") from error
             raise ValueError("blob store root must be a present non-symlink directory") from error
         self.root = self._pin.path
         self.object_prefix = prefix
@@ -155,6 +199,11 @@ class LocalBlobWriter:
         with self._layout(create=create):
             pass
         self._recheck()
+
+    @property
+    def root_identity(self) -> tuple[int, int]:
+        """Device and inode of the admitted root; pass it as expected_root to pin a later writer."""
+        return self._pin._identity
 
     @contextmanager
     def _layout(self, *, create: bool = False) -> Iterator[tuple[int, int, int]]:
@@ -216,8 +265,10 @@ class LocalBlobWriter:
     ) -> LocalBlobWrite:
         """Hash and stage at most max_bytes; verify reuse instead of overwriting.
 
-        A file changing during verification is refused, even if another writer
-        only removed its temporary hardlink. Callers may retry that operation.
+        Verification refuses any change to a blob's device, inode, size or
+        mtime and any digest mismatch. A move of ctime or mode alone, which is
+        what another writer's pending-hardlink cleanup or a chmod leaves, is
+        re-read rather than refused; a blob that keeps changing is refused.
         """
 
         _nonnegative(max_bytes, "max_bytes")

@@ -608,7 +608,27 @@ does not establish implementation or package qualification.
   the operation and removes its physical writer; this is local qualification,
   not upstream publication.
 
-  - [ ] **RS03 follow-up — Qualify same-content concurrent reuse and an already-pinned caller root.**
+  - [x] **RS03 follow-up — Qualify same-content concurrent reuse and an already-pinned caller root.**
+    **Done 2026-09-18 in Rulespec Artifacts 1.0.13**, wheel SHA-256
+    `72d15ff9453bb819ab5945141dea92cae6c3ff5f76e1d26bb04849cf690bf377`.
+    `_verify` now separates the fields no byte change can leave alone (device,
+    inode, size, mtime), which refuse outright, from ctime and mode, which
+    trigger a bounded re-read that must reproduce the digest and see the file
+    hold still; a blob that keeps changing is refused. `LocalBlobWriter` takes
+    `expected_root=(device, inode)` and exposes `root_identity`; a wrong or
+    replaced root is refused before any layout write and the root is never
+    created. Evidence: `make test-package-artifacts` exit 0, 69 tests, 44
+    canonical cases on the installed wheel. DocSpec's retained probe fails on
+    the installed 1.0.12 wheel and passes on 1.0.13; of the five new package
+    tests, four error or fail on 1.0.12 and all five pass on 1.0.13, the one
+    passing on both being the control that a restored-mtime rewrite is still
+    refused. **Adoption is the consumer's call, not a consequence:** DocSpec's
+    D31 now routes the shared-writer question to Core C07, which keeps and
+    completes DocSpec's own blob store and calls no upstream fix a
+    prerequisite. The writer's actual consumers today are SpicyDocs (five
+    modules, pinned 1.0.12) and RefSpec (`billstatus_codes.py`); each re-pins
+    through its own gate. The earlier text is retained below as the record.
+
     **Owner: Rulespec.** DocSpec's September 12 adoption probe found an ordinary
     concurrent-write failure in the installed 1.0.12 writer: writer A publishes
     a blob and pauses before removing its pending hardlink; writer B captures

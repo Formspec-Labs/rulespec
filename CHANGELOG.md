@@ -24,6 +24,31 @@ adapted for a specification + shape + fixture project.
   itself. `make test-package-projection` proves the installed wheel's
   dependency closure is empty and reruns the suite against the installed copy.
 
+### Fixed
+
+- `rulespec-artifacts` 1.0.13: `LocalBlobWriter` no longer refuses a valid
+  same-content concurrent reuse. DocSpec's 2026-09-12 probe showed writer A
+  publishing a blob and removing its pending hardlink while writer B verified
+  the same object; the unlink moved the inode's ctime and `_verify` treated
+  any state change as corruption (`_blobs.py:98`). Verification now separates
+  the fields no byte change can leave alone (device, inode, size, mtime),
+  which still refuse outright, from ctime and mode, which are a trigger: the
+  pass repeats, at most three times, until one sees no change, and every
+  pass must reproduce the digest. A rewrite that restores mtime is caught by
+  the re-read; a blob that keeps changing is refused as `kept changing`.
+  Ported DocSpec's probe as a package test beside three new controls
+  (ctime-only and chmod re-verify; restored-mtime rewrite refused; bounded
+  passes). Closes the concurrency half of the RS03 follow-up in `TODO.md`.
+
+### Added
+
+- `LocalBlobWriter(expected_root=(device, inode))` and `root_identity`.
+  A caller that admitted the store root in its own transaction pins the
+  writer to that identity: the root is never created, any other directory
+  at the path is refused before a layout or blob write, and the identity the
+  writer holds is readable for the caller's receipt. Closes the admitted-root
+  half of the RS03 follow-up.
+
 ## 0.2.0-pre.18 — Platform artifacts, the contract package, and Federal Register identifier spaces
 
 ### Added

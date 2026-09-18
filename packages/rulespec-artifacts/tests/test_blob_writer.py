@@ -6,7 +6,9 @@ import hashlib
 import os
 import stat
 import tempfile
+import threading
 import unittest
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from unittest.mock import patch
 
@@ -358,6 +360,161 @@ class BlobWriterTest(unittest.TestCase):
             writer.put([b"a"], max_bytes=1)
         self.assertEqual(list((self.root / "sha256").iterdir()), [])
         self.assertEqual(list((self.root / ".pending").iterdir()), [])
+
+    def test_same_content_concurrent_reuse_survives_the_winners_pending_link_cleanup(self) -> None:
+        # DocSpec's 2026-09-12 probe: writer A publishes and pauses before unlinking its
+        # pending hardlink; writer B captures its first file state; A unlinks; B reads
+        # unchanged bytes whose ctime moved. Synchronized on the writers' own IO calls.
+        payload = b"same immutable bytes"
+        first = LocalBlobWriter(self.root, object_prefix="objects/sha256", shard_digits=2)
+        second = LocalBlobWriter(self.root, object_prefix="objects/sha256", shard_digits=2)
+        winner_at_cleanup, allow_cleanup, winner_finished = threading.Event(), threading.Event(), threading.Event()
+        current = threading.local()
+        original_unlink, original_read = os.unlink, os.read
+
+        def unlink(name, *args, **kwargs):
+            if getattr(current, "role", None) == "winner" and kwargs.get("dir_fd") is not None:
+                winner_at_cleanup.set()
+                self.assertTrue(allow_cleanup.wait(10), "second writer never reached verification")
+            return original_unlink(name, *args, **kwargs)
+
+        def read(descriptor, size):
+            if getattr(current, "role", None) == "reuse" and not current.released:
+                current.released = True  # the verifier has captured its before-state here
+                allow_cleanup.set()
+                self.assertTrue(winner_finished.wait(10), "winner cleanup did not finish")
+            return original_read(descriptor, size)
+
+        def winner():
+            current.role = "winner"
+            try:
+                return first.put((payload,), max_bytes=len(payload))
+            finally:
+                winner_finished.set()
+
+        def reuse():
+            current.role, current.released = "reuse", False
+            return second.put((), max_bytes=len(payload), expected_digest=digest(payload), expected_size=len(payload))
+
+        with (
+            patch("rulespec_artifacts._blobs.os.unlink", side_effect=unlink),
+            patch("rulespec_artifacts._blobs.os.read", side_effect=read),
+            ThreadPoolExecutor(max_workers=2) as workers,
+        ):
+            written = workers.submit(winner)
+            try:
+                self.assertTrue(winner_at_cleanup.wait(10), "winner never published the blob")
+                reused = workers.submit(reuse)
+                published = written.result(timeout=15)
+                self.assertEqual((self.root / published.object_key).read_bytes(), payload)
+                self.assertEqual(list((self.root / ".pending").iterdir()), [])
+                verified = reused.result(timeout=15)
+            finally:
+                allow_cleanup.set()
+        self.assertEqual((verified.reused, verified.digest, verified.bytes_written), (True, published.digest, 0))
+
+    def _touch_ctime(self, target: Path) -> None:
+        # A hardlink added and removed moves ctime and link count and no byte.
+        link = target.with_name(target.name + ".link")
+        os.link(target, link)
+        os.unlink(link)
+
+    def test_ctime_or_mode_only_change_during_verification_is_reverified_not_refused(self) -> None:
+        writer = LocalBlobWriter(self.root)
+        payload = b"unchanged bytes"
+        result = writer.put([payload], max_bytes=len(payload))
+        target = self.root / result.object_key
+        for disturb in (self._touch_ctime, lambda path: os.chmod(path, 0o444)):
+            with self.subTest(disturb=disturb.__name__ if hasattr(disturb, "__name__") else "chmod"):
+                original, passes = os.read, []
+
+                def read(descriptor, size, disturb=disturb, passes=passes):
+                    block = original(descriptor, size)
+                    if not block:
+                        passes.append(True)
+                        if len(passes) == 1:
+                            disturb(target)
+                    return block
+
+                with patch("rulespec_artifacts._blobs.os.read", side_effect=read):
+                    reused = writer.put(None, max_bytes=len(payload), expected_digest=result.digest, expected_size=len(payload))
+                self.assertTrue(reused.reused)
+                self.assertGreaterEqual(len(passes), 2, "a ctime-only move must trigger a second read")
+        self.assertEqual(target.read_bytes(), payload)
+
+    def test_rewrite_that_restores_mtime_after_the_read_is_refused(self) -> None:
+        writer = LocalBlobWriter(self.root)
+        payload = b"original bytes"
+        result = writer.put([payload], max_bytes=len(payload))
+        target = self.root / result.object_key
+        original, rewritten = os.read, []
+
+        def read(descriptor, size):
+            block = original(descriptor, size)
+            if not block and not rewritten:
+                # Same inode, same size, mtime put back: only ctime betrays it.
+                state = target.stat()
+                with open(target, "r+b") as handle:
+                    handle.write(b"replaced bytes")
+                os.utime(target, ns=(state.st_atime_ns, state.st_mtime_ns))
+                rewritten.append(True)
+            return block
+
+        with patch("rulespec_artifacts._blobs.os.read", side_effect=read), self.assertRaises(BlobIntegrityError):
+            writer.put(None, max_bytes=len(payload), expected_digest=result.digest, expected_size=len(payload))
+        self.assertEqual(target.read_bytes(), b"replaced bytes")
+
+    def test_a_blob_that_keeps_changing_is_refused_after_a_bounded_number_of_passes(self) -> None:
+        writer = LocalBlobWriter(self.root)
+        payload = b"restless"
+        result = writer.put([payload], max_bytes=len(payload))
+        target = self.root / result.object_key
+        original, passes = os.read, []
+
+        def read(descriptor, size):
+            block = original(descriptor, size)
+            if not block:
+                passes.append(True)
+                self._touch_ctime(target)
+            return block
+
+        with patch("rulespec_artifacts._blobs.os.read", side_effect=read), self.assertRaises(BlobIntegrityError) as error:
+            writer.put(None, max_bytes=len(payload), expected_digest=result.digest, expected_size=len(payload))
+        self.assertIn("kept changing", str(error.exception))
+        self.assertEqual(len(passes), 3)
+        self.assertEqual(target.read_bytes(), payload)
+
+    def test_expected_root_pins_the_admitted_directory_before_any_write(self) -> None:
+        self.root.mkdir()
+        state = self.root.stat()
+        identity = (state.st_dev, state.st_ino)
+        writer = LocalBlobWriter(self.root, expected_root=identity)
+        self.assertEqual(writer.root_identity, identity)
+        self.assertEqual(writer.put([b"a"], max_bytes=1).reused, False)
+
+        untouched = Path(self.temporary.name) / "untouched"
+        untouched.mkdir()
+        with self.assertRaises(ValueError):
+            LocalBlobWriter(untouched, expected_root=(identity[0], identity[1] + 1))
+        self.assertEqual(list(untouched.iterdir()), [], "a wrong identity must be refused before any layout write")
+
+        replaced = Path(self.temporary.name) / "replaced"
+        replaced.mkdir()
+        admitted = (replaced.stat().st_dev, replaced.stat().st_ino)
+        replaced.rename(Path(self.temporary.name) / "moved-away")
+        replaced.mkdir()
+        with self.assertRaises(ValueError):
+            LocalBlobWriter(replaced, expected_root=admitted)
+        self.assertEqual(list(replaced.iterdir()), [])
+
+        missing = Path(self.temporary.name) / "missing"
+        with self.assertRaises(ValueError):
+            LocalBlobWriter(missing, expected_root=identity)
+        self.assertFalse(missing.exists(), "an expected identity never creates the root")
+
+        for bad in ((1,), (1, 2, 3), (True, 1), ("1", 2), [1, 2]):
+            with self.subTest(expected_root=bad), self.assertRaises(ValueError):
+                LocalBlobWriter(self.root, expected_root=bad)
 
 
 if __name__ == "__main__":
