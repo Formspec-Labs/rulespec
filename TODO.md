@@ -26,7 +26,8 @@ The plan specified `rkaf-conformance` Rust binary + `suite.index.json` + `confor
 
 - [x] Land and tag the prerequisite `v0.2.0-pre.7` consolidation. The tag points
   to `7205347`; the US identifier, L0, and rulemaking work remains Unreleased.
-- [ ] Decide the release shape before tagging: the memo prescribed two releases (N+1: identifiers + L0; N+2: rulemaking module + corpus), but all four deliverables sit together in Unreleased. Either cut them as two tags or record in the memo why one combined release preserves the sequencing intent (2026-07-23 architecture review, FINDING 2). Record in the same decision where the assertion, concept, and analysis contract reshape (section below) lands relative to these tags.
+- [x] Decide the release shape before tagging: the memo prescribed two releases (N+1: identifiers + L0; N+2: rulemaking module + corpus), but all four deliverables sit together in Unreleased. Either cut them as two tags or record in the memo why one combined release preserves the sequencing intent (2026-07-23 architecture review, FINDING 2). Record in the same decision where the assertion, concept, and analysis contract reshape (section below) lands relative to these tags.
+  **Decided by events, recorded 2026-09-18:** all four deliverables shipped together in `0.2.0-pre.18` (tagged 2026-09-04; CHANGELOG "US regulatory identifiers, L0 conformance, and rulemaking module"). One combined release preserved the sequencing intent because the paired Spicy Regs gate receipt bound both repositories' commits to a single contract digest, so the consumer adopted identifiers and module against the same contract. The contract reshape landed inside the same span (pre.8 through pre.18). The sixteen VERSION bumps that carried no tag were tagged the same day under one convention: `v<VERSION>` at the commit that set `VERSION`.
 - [ ] Regenerate `conformance/partners/rulespec-reference.yaml` via `tools/conformance_report.py --self-certify` at the release cut — it is pinned to `0.2.0-pre.6` with a 2026-05-17 corpus run and predates the US-identifier fixtures (2026-07-23 architecture review, FINDING 6).
 - [ ] File `conformance/partners/spicy-regs.yaml` only after spicy-regs ships both `rule_targets` and `docs/ontology.md`, then run `tools/l0_mapping_audit.py` against that real mapping.
 - [x] Record the 2026-07-24 maintainer-operated adversarial simulated-consumer review and its three agenda decisions. The simulation is evidence, not a non-originating review.
@@ -69,7 +70,7 @@ a non-originating consumer reviews or ratifies the repaired module.
 
 ## Assertion, concept, and analysis contract reshape (paired with Spicy Regs)
 
-Execution source of truth: `../spicy-regs/TODO-RULE.md` Milestone A, governed
+Execution source of truth was `../spicy-regs/TODO-RULE.md` Milestone A (that file is retired; the program's record is `../spicy-regs/docs/disposition.md`), governed
 by the canonical vision
 (`../spicy-regs/docs/superpowers/specs/2026-07-25-rulespec-spicy-regs-complete-vision-goal.md`).
 Carrier evidence: the corpus receipts and evaluation records linked from that
@@ -166,13 +167,15 @@ value, or concept data under it.
       154 cargo tests, 170 Python unit tests, 0 core parity divergences (the
       two documentation-class adversarial findings are the unchanged
       baseline), 420 conformance fixtures, 0 divergences.
-- [ ] Complete the non-originating-consumer review, then cut one reviewed
-      pre-1.0 release with an immutable contract digest (maintainer
-      authorization required).
+- [ ] Cut one reviewed pre-1.0 release with an immutable contract digest
+      **when an external consumer files a conformance disclosure** (trigger
+      recorded 2026-09-18; maintainer authorization required). Until then the
+      rulemaking module stays Experimental. Nothing downstream waits on 1.0:
+      every sibling pins the `rulespec-artifacts` package, not this contract.
 
 **Release train:** decided with the release-shape item above. Default: a
 separate release after the pending US-identifier/L0/rulemaking tag(s); record
-the final decision in both this file and `../spicy-regs/TODO-RULE.md`.
+the final decision in this file; `../spicy-regs/TODO-RULE.md` no longer exists, and spicy-regs' record is `docs/disposition.md`.
 
 ## Consumer-requested contract simplifications (Spicy Regs)
 
@@ -555,7 +558,7 @@ does not establish implementation or package qualification.
   needs in [DocSpec D27](../DocSpec/docs/dataset-experiments-todo.md#d27).
   Reuse existing capabilities first; add only a bounded missing operation that
   belongs in the shared package. Assess concrete compiled-schema-gate gaps from
-  [SpicySearch SC02](../spicysearch/PLAN.md#sc02) and
+  [SpicySearch SC02, lane retired 2026-09-11](../spicysearch/docs/history/2026-09-11-parquet-dataset.md) and
   [DocSpec D31](../DocSpec/docs/dataset-experiments-todo.md#d31) only where they
   fit an existing suitable shared API; this task does not create a schema
   framework or require moving a working gate. Depends on [RS01](#rs01) for any
