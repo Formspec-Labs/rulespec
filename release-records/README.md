@@ -53,6 +53,17 @@ The version 2 root and row schemas live under
 `release-records/schemas/extrapolation-release-v2*`. Version 1 keeps its current
 single-JSON schema, fixtures, and validator path.
 
+`schemas/document-capture-v1.schema.json` is the parent schema for a captured
+federal document (structure, exact text, provenance), composed per document
+family by SpicyDocs profiles; see [`spec/document-capture.md`](../spec/document-capture.md).
+`fixtures/document-capture-v1/` holds the smallest conforming capture and
+profile, and `tools/test_document_capture_schema.py` checks both, the negative
+controls and the composition rule:
+
+```sh
+uv run --no-project --python 3.12 --with-requirements requirements.txt python -m unittest tools.test_document_capture_schema
+```
+
 To refresh the publisher-owned document fixture, provide the reviewed path:
 
 ```sh

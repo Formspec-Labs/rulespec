@@ -22,6 +22,14 @@ repositories retain only their semantic checks and storage adapters. The local
 REF-048 supersedes the older decision row that assigned `DocumentRelease`
 ownership to SpicyRegs.
 
+### `document-capture.md`
+
+One JSON shape for a captured federal document in any rendition: structure as
+nodes, exact text as an ordered partition of evidence spans, provenance of
+both, and the rule by which a SpicyDocs family profile composes it. Any leaf
+renders as a `rkaf:SourceFragment` without loss. Draft version 1 under
+architecture review; owner ruling of 2026-09-19 in `docs/decisions.md`.
+
 ### `rkaf-core.md`
 
 Normative architecture and conformance — the load-bearing surface above the vocabulary. Defines the framework's layered model (vocabulary, constraints, registries, projectors, SDKs, conformance, corpora), the overlay pattern, anchoring contract, adoption-depth gradient, and conformance levels.

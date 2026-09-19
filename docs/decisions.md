@@ -1,5 +1,52 @@
 # Product and release decisions
 
+## 2026-09-19: The document capture schema is a Rulespec parent, composed per family in SpicyDocs
+
+**Status:** Accepted — owner ruling.
+
+### Decision
+
+One JSON shape captures a federal document in whatever rendition it arrived
+in, with its structure and its evidence, so any product can cite any part of
+it. The parent schema and its composition rule live here:
+[`spec/document-capture.md`](../spec/document-capture.md) and
+[`release-records/schemas/document-capture-v1.schema.json`](../release-records/schemas/document-capture-v1.schema.json).
+The family profiles (USLM law, bill XML, committee-report HTML, Federal
+Register XML, CFR reconstruction, slip-opinion PDF text) and the converters
+that produce captures live in SpicyDocs, each profile composing the parent
+through `allOf` and pinning it by digest.
+
+The owner settled the home on 2026-09-19 against the ledger as it stood:
+DocSpec has become a processing pipeline only; SpicyDocs handles acquisition
+and parsing; the reusable capture shape is a parent schema in Rulespec,
+composed per document family in SpicyDocs.
+
+### Scope and consequences
+
+- **What this supersedes.** The 2026-08-02 entry below records that "DocSpec
+  owns under REF-048 document parsing, exact captured text, durable structural
+  passages, and model-input segmentation." Three of those four move: SpicyDocs
+  owns parsing and exact captured text; the durable structural shape is this
+  parent plus the SpicyDocs profiles. DocSpec keeps model-input segmentation
+  over captures it is given, and REF-048's catalog ownership is untouched.
+  DocSpec never defined a passage shape: its `structuralNode` record
+  (DocSpec decision 0001, row 7) is planned and unimplemented as of
+  2026-09-19.
+- **Rulespec still builds no document pipeline.** The parent is a schema, a
+  composition rule and a validator over both. A capture reaches this
+  repository as a document. The 2026-08-02 boundary otherwise stands.
+- **The standalone workflow keeps its input.** Under the 2026-09-06 entry,
+  Rulespec's semantic segmentation may read a capture as its local source
+  document; the capture's leaves are the `rkaf:SourceFragment`s its
+  assertions bind to, and its structure is not a segmentation.
+- **Composition means composition.** A profile narrows only `profile.name`,
+  `profile.version`, `profile.ext`, node `kind` within its namespace and node
+  `ext`. A profile that restates a parent field is non-conforming, and
+  `tools/test_document_capture_schema.py` refuses it.
+- **Version 1 is a draft under review.** The digest-pinned bytes are the
+  contract; a change to the parent moves every profile's `x-parent` pin and
+  every capture's `schema` pin in the same change.
+
 ## Shared canonical values for source and dataset identities
 
 **September 11, 2026 — decision accepted; current-wheel qualification pending.**
