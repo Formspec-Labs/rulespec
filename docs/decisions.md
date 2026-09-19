@@ -33,16 +33,35 @@ composed per document family in SpicyDocs.
   (DocSpec decision 0001, row 7) is planned and unimplemented as of
   2026-09-19.
 - **Rulespec still builds no document pipeline.** The parent is a schema, a
-  composition rule and a validator over both. A capture reaches this
-  repository as a document. The 2026-08-02 boundary otherwise stands.
+  composition rule and a validator over both. The composition rule is a
+  meta-schema (`release-records/schemas/document-capture-profile-v1.schema.json`)
+  and the invariant validator is
+  `rulespec_artifacts.document_capture.check_invariants`; both ship in the
+  artifacts wheel, the schemas as `_data` and the validator as a module that
+  requires nothing. A capture reaches this repository as a document. The
+  2026-08-02 boundary otherwise stands.
 - **The standalone workflow keeps its input.** Under the 2026-09-06 entry,
   Rulespec's semantic segmentation may read a capture as its local source
   document; the capture's leaves are the `rkaf:SourceFragment`s its
   assertions bind to, and its structure is not a segmentation.
 - **Composition means composition.** A profile narrows only `profile.name`,
   `profile.version`, `profile.ext`, node `kind` within its namespace and node
-  `ext`. A profile that restates a parent field is non-conforming, and
-  `tools/test_document_capture_schema.py` refuses it.
+  `ext`. A profile that restates a parent field is non-conforming, and the
+  profile meta-schema refuses it. The rule is data because the hand-written
+  checker it replaces was a whitelist over `properties` keys: seven
+  tightenings a profile must not make passed it, five of them changing what a
+  capture validated as, and the second copy beside the SpicyDocs profiles had
+  already drifted from the first. Each probe is now a negative control.
+- **Amended 2026-09-19 after the architecture and visual reviews.** Four
+  reshapes, all inside version 1's draft: `artifact` is always the publisher's
+  own bytes and a PDF capture names its extractor output in the new
+  `rendition.intermediate` slot, so a consumer following `locator.url` and
+  checking `sha256` lands on the bytes the publisher issued; the composition
+  rule became the meta-schema above; the invariant validator moved into the
+  wheel as the one implementation; and page regions are cited in the unit
+  RFC 8118 names, which is why `page` nodes now retain `pageSize` in points.
+  The reviews and the evidence behind each are in the SpicyDocs design record.
+
 - **Version 1 is a draft under review.** The digest-pinned bytes are the
   contract; a change to the parent moves every profile's `x-parent` pin and
   every capture's `schema` pin in the same change.
@@ -270,7 +289,13 @@ boundary. The implementation detail and compatibility rules are normative in
 
 ## 2026-08-02: The Extrapolator consumes prepared segments and verifies receipts
 
-**Status:** Accepted
+**Status:** Accepted. **Amended 2026-09-19, see above** — the owner ruling at
+the top of this file moves three of the four DocSpec ownership claims below
+(document parsing, exact captured text, durable structural passages) to
+SpicyDocs and this repository's `DocumentCapture v1` parent schema. DocSpec
+keeps model-input segmentation over captures it is given; REF-048's catalog
+ownership is untouched; the prohibition on a parallel document pipeline in
+Rulespec stands.
 
 ### Decision
 

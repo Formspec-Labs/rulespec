@@ -27,8 +27,11 @@ ownership to SpicyRegs.
 One JSON shape for a captured federal document in any rendition: structure as
 nodes, exact text as an ordered partition of evidence spans, provenance of
 both, and the rule by which a SpicyDocs family profile composes it. Any leaf
-renders as a `rkaf:SourceFragment` without loss. Draft version 1 under
-architecture review; owner ruling of 2026-09-19 in `docs/decisions.md`.
+renders as a `rkaf:SourceFragment` without loss. The composition rule is a
+meta-schema and the invariants have one validator, both shipped in the
+artifacts wheel. Draft version 1 under architecture review; owner ruling of
+2026-09-19 in `docs/decisions.md`, amended the same day after the
+architecture and visual reviews.
 
 ### `rkaf-core.md`
 
