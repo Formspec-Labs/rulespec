@@ -145,8 +145,11 @@ test-audits:
 # validator the artifacts wheel ships. Separate from test-audits because it
 # needs no compiled tree and runs in well under a second, so a SpicyDocs
 # profile change can be checked against this repository in one command.
+# --refresh-package because the two schemas and the spec are force-included
+# from outside packages/rulespec-artifacts/, so uv's build cache key does not
+# see them change and would otherwise install a wheel carrying stale data.
 test-document-capture:
-	$(PYTHON) -m unittest tools.test_document_capture_schema -v
+	uv run --no-project --python 3.12 --refresh-package rulespec-artifacts --with-requirements requirements.txt python -m unittest tools.test_document_capture_schema -v
 
 test-conformance: build-runtime-cli
 	$(PYTHON) tools/conformance_report.py
