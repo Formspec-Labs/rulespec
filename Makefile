@@ -17,7 +17,7 @@ CARGO_MANIFEST = --manifest-path crates/Cargo.toml
 # targets other than cue-vet). Run tools/install-cue.sh once to populate it.
 CUE           = .tools/cue
 
-.PHONY: all help build build-runtime-cli test test-rust test-shapes test-reference-corpora test-audits test-conformance test-package test-package-artifacts test-package-conformance test-package-projection test-artifact-encoder-compat clean compile cue-vet
+.PHONY: all help build build-runtime-cli test test-rust test-shapes test-document-capture test-reference-corpora test-audits test-conformance test-package test-package-artifacts test-package-conformance test-package-projection test-artifact-encoder-compat clean compile cue-vet
 
 # Scratch venvs for installed-wheel checks. Each stays outside the tree so no
 # source checkout can satisfy an import. Keeping the artifact-only environment
@@ -65,7 +65,7 @@ build-runtime-cli:
 # faster local loops. Conformance depends on the release CLI being built
 # (the reporter shells out to it for L4 behavior verdicts).
 
-test: test-rust test-shapes test-audits test-conformance test-package
+test: test-rust test-shapes test-audits test-document-capture test-conformance test-package
 
 # The artifact wheel and graph validator use separate environments. Installing
 # both together cannot prove that an artifact-only consumer avoids RDF/SHACL.
@@ -140,6 +140,13 @@ test-audits:
 	$(PYTHON) tools/projector_parity.py
 	$(PYTHON) tools/version_sync.py --check
 	$(PYTHON) tools/codegen_drift_audit.py
+
+# The capture parent schema, its profile meta-schema and the invariant
+# validator the artifacts wheel ships. Separate from test-audits because it
+# needs no compiled tree and runs in well under a second, so a SpicyDocs
+# profile change can be checked against this repository in one command.
+test-document-capture:
+	$(PYTHON) -m unittest tools.test_document_capture_schema -v
 
 test-conformance: build-runtime-cli
 	$(PYTHON) tools/conformance_report.py
