@@ -175,11 +175,20 @@ def check_profile_bindings(
     if len(node_clauses) != 3:
         return [*problems, "the node narrowing is not the three clauses the meta-schema requires"]
     kind_clause, foreign_clause, _ = node_clauses
-    if kind_clause["if"]["properties"]["kind"]["pattern"] != f"^{name}:":
+
+    def at(value: Any, *keys: str) -> Any:
+        """Read a path that the meta-schema guarantees; missing means the meta-schema already refused it."""
+        for key in keys:
+            if not isinstance(value, Mapping):
+                return None
+            value = value.get(key)
+        return value
+
+    if at(kind_clause, "if", "properties", "kind", "pattern") != f"^{name}:":
         problems.append(f"the kind clause tests a namespace other than {name}:")
-    for kind in kind_clause["then"]["properties"]["kind"]["enum"]:
-        if not kind.startswith(f"{name}:"):
+    for kind in at(kind_clause, "then", "properties", "kind", "enum") or ():
+        if not isinstance(kind, str) or not kind.startswith(f"{name}:"):
             problems.append(f"{kind} is enumerated by profile {name} but is not in its namespace")
-    if foreign_clause["properties"]["kind"]["not"]["pattern"] != f"^(?!{name}:)[a-z][a-z0-9-]*:":
+    if at(foreign_clause, "properties", "kind", "not", "pattern") != f"^(?!{name}:)[a-z][a-z0-9-]*:":
         problems.append(f"the foreign-namespace refusal does not name {name}")
     return problems
