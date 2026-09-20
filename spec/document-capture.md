@@ -84,7 +84,8 @@ satisfies these, and a validator MUST check them:
    `rendition.spanDefaults` updated by the span's own `source` — states a
    `coordinateSystem`.
 2. **Ownership.** Every span id appears in exactly one node's or one
-   unresolved region's `evidence`.
+   unresolved region's `evidence`, and every id in an `evidence` list names a
+   span in `evidence` (a dangling citation is a defect, not a missing span).
 3. **Tree.** `nodes[0]` is the root (`kind` `document`, `parent` null);
    every other node's `parent` names an earlier node; `depth` is the
    parent's plus one; siblings' `ordinal` values are dense from 0.
