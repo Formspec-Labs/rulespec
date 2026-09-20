@@ -92,6 +92,26 @@ class DocumentCaptureSchemaTest(unittest.TestCase):
     def test_minimal_fixture_holds_the_invariants(self) -> None:
         self.assertEqual([], document_capture.check_invariants(self.valid, parent_schema=self.schema))
 
+    def test_child_before_parent_fixture_is_refused(self) -> None:
+        doc = json.loads((FIXTURES / "negative-child-before-parent.json").read_text())
+        self.assertEqual([], [e.message for e in self.validator.iter_errors(doc)])
+        findings = document_capture.check_invariants(doc, parent_schema=self.schema)
+        self.assertEqual(["parent-not-earlier"], [finding.partition(":")[0] for finding in findings])
+
+        # Moving the parent before its child repairs the fixture's only defect.
+        doc["nodes"][1], doc["nodes"][2] = doc["nodes"][2], doc["nodes"][1]
+        self.assertEqual([], document_capture.check_invariants(doc, parent_schema=self.schema))
+
+    def test_duplicate_node_id_fixture_is_refused(self) -> None:
+        doc = json.loads((FIXTURES / "negative-duplicate-node-id.json").read_text())
+        self.assertEqual([], [e.message for e in self.validator.iter_errors(doc)])
+        findings = document_capture.check_invariants(doc, parent_schema=self.schema)
+        self.assertEqual(["duplicate-node-id"], [finding.partition(":")[0] for finding in findings])
+
+        # Giving the second sibling its own id repairs the fixture's only defect.
+        doc["nodes"][-1]["id"] = "n0003"
+        self.assertEqual([], document_capture.check_invariants(doc, parent_schema=self.schema))
+
     def test_negative_controls(self) -> None:
         def broken(mutate):
             doc = copy.deepcopy(self.valid)

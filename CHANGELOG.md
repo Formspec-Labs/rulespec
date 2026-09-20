@@ -45,6 +45,11 @@ adapted for a specification + shape + fixture project.
 
 ### Fixed
 
+- The `DocumentCapture v1` validator now enforces the declared tree guarantees:
+  parents precede their children and node ids are unique. Findings keep the
+  existing string-list format, with stable codes `parent-not-earlier` and
+  `duplicate-node-id`. The JSON schemas and accepted fixture results are
+  unchanged. The package version remains 1.0.14 for the maintainer to bump.
 - `rulespec-artifacts` 1.0.13: `LocalBlobWriter` no longer refuses a valid
   same-content concurrent reuse. DocSpec's 2026-09-12 probe showed writer A
   publishing a blob and removing its pending hardlink while writer B verified
