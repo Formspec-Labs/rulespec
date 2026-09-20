@@ -67,6 +67,9 @@ def effective_source(capture: Mapping[str, Any], span: Mapping[str, Any]) -> dic
 def check_invariants(capture: Mapping[str, Any], *, parent_schema: Mapping[str, Any] | None = None) -> list[str]:
     """Every §2 invariant, as a list of what failed; empty means the capture holds them.
 
+    Tree order and duplicate node id findings use the stable string prefixes
+    ``parent-not-earlier:`` and ``duplicate-node-id:``, respectively.
+
     Complexity is O(N + S) over nodes and spans: one pass to index, one to
     check. Nothing here re-reads the artifact -- a capture is checked from its
     own bytes, so a consumer with no fixture checkout can still refuse a
@@ -115,6 +118,7 @@ def check_invariants(capture: Mapping[str, Any], *, parent_schema: Mapping[str, 
     by_id = {n["id"]: n for n in capture["nodes"]}
     span_by_id = {s["id"]: s for s in spans}
     children: dict[str | None, list[Mapping[str, Any]]] = {}
+    seen_ids: set[str] = set()
     for node in capture["nodes"]:
         children.setdefault(node["parent"], []).append(node)
         match = _NAMESPACED.match(node["kind"])
@@ -123,6 +127,11 @@ def check_invariants(capture: Mapping[str, Any], *, parent_schema: Mapping[str, 
         elif not match and node["kind"] not in kinds:
             problems.append(f"{node['id']} kind {node['kind']} is neither core nor namespaced")
         parent_id = node["parent"]
+        if parent_id is not None and parent_id not in seen_ids:
+            problems.append(f"parent-not-earlier: {node['id']} parent {parent_id} has not appeared earlier")
+        if node["id"] in seen_ids:
+            problems.append(f"duplicate-node-id: {node['id']} appears more than once")
+        seen_ids.add(node["id"])
         if parent_id is not None:
             if parent_id not in by_id:
                 problems.append(f"{node['id']} names a parent that is not a node")
