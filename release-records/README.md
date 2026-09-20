@@ -53,6 +53,24 @@ The version 2 root and row schemas live under
 `release-records/schemas/extrapolation-release-v2*`. Version 1 keeps its current
 single-JSON schema, fixtures, and validator path.
 
+`schemas/document-capture-v1.schema.json` is the parent schema for a captured
+federal document (structure, exact text, provenance), composed per document
+family by SpicyDocs profiles; see [`spec/document-capture.md`](../spec/document-capture.md).
+`schemas/document-capture-profile-v1.schema.json` is the composition rule
+itself, stated as a meta-schema rather than as a checker, so a profile that
+tightens a parent field fails validation instead of passing a whitelist. Both
+ship in the `rulespec-artifacts` wheel's `_data` beside the invariant
+validator (`rulespec_artifacts.document_capture`), which is the one
+implementation of the invariants the schema cannot state.
+`fixtures/document-capture-v1/` holds the smallest conforming capture and
+profile, both pinned by digest, and `tools/test_document_capture_schema.py`
+checks the schemas, the fixtures, the schema and invariant negative controls
+and the composition refusals:
+
+```sh
+make test-document-capture
+```
+
 To refresh the publisher-owned document fixture, provide the reviewed path:
 
 ```sh

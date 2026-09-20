@@ -17,7 +17,7 @@ CARGO_MANIFEST = --manifest-path crates/Cargo.toml
 # targets other than cue-vet). Run tools/install-cue.sh once to populate it.
 CUE           = .tools/cue
 
-.PHONY: all help build build-runtime-cli test test-rust test-shapes test-reference-corpora test-audits test-conformance test-package test-package-artifacts test-package-conformance test-package-projection test-artifact-encoder-compat clean compile cue-vet
+.PHONY: all help build build-runtime-cli test test-rust test-shapes test-document-capture test-reference-corpora test-audits test-conformance test-package test-package-artifacts test-package-conformance test-package-projection test-artifact-encoder-compat clean compile cue-vet
 
 # Scratch venvs for installed-wheel checks. Each stays outside the tree so no
 # source checkout can satisfy an import. Keeping the artifact-only environment
@@ -65,7 +65,7 @@ build-runtime-cli:
 # faster local loops. Conformance depends on the release CLI being built
 # (the reporter shells out to it for L4 behavior verdicts).
 
-test: test-rust test-shapes test-audits test-conformance test-package
+test: test-rust test-shapes test-audits test-document-capture test-conformance test-package
 
 # The artifact wheel and graph validator use separate environments. Installing
 # both together cannot prove that an artifact-only consumer avoids RDF/SHACL.
@@ -79,6 +79,7 @@ test-package-artifacts:
 	VIRTUAL_ENV="$(ARTIFACT_PACKAGE_CHECK_DIR)" uv pip install --quiet $(ARTIFACT_WHEEL_GLOB)
 	cd "$(ARTIFACT_PACKAGE_CHECK_DIR)" && ./bin/python -c 'import importlib.util; import rulespec_artifacts as package; from importlib.metadata import distributions, requires, version; excluded={"rdfcanon", "rdflib", "pyshacl"}; installed={item.metadata["Name"].lower() for item in distributions() if item.metadata["Name"]}; assert version("rulespec-artifacts") == package.__version__; assert not requires("rulespec-artifacts"); assert not installed & excluded; assert all(importlib.util.find_spec(name) is None for name in excluded)'
 	cd "$(ARTIFACT_PACKAGE_CHECK_DIR)" && ./bin/python -c 'import rulespec_artifacts as p; from rulespec_artifacts import resources; assert p.FORMAT == "spicy-artifact"; assert resources.platform_artifact_spec(); assert resources.fixture_corpus()["cases"]; assert resources.canonical_json_corpus()["encodeAccepted"]; assert resources.fixture("valid").is_dir()'
+	cd "$(ARTIFACT_PACKAGE_CHECK_DIR)" && ./bin/python -c 'from rulespec_artifacts import document_capture, resources; schema = resources.document_capture_schema(); assert schema["title"] == "DocumentCapture v1"; assert resources.document_capture_profile_schema()["title"] == "DocumentCapture v1 family profile"; assert resources.document_capture_spec(); assert "document" in document_capture.core_kinds(); assert document_capture.check_profile_bindings({}) == ["the profile does not name itself"]'
 	cd "$(ARTIFACT_PACKAGE_CHECK_DIR)" && ./bin/python "$(CURDIR)/packages/rulespec-artifacts/tests/canonical_corpus_runner.py"
 	cd "$(ARTIFACT_PACKAGE_CHECK_DIR)" && ./bin/python -c 'from pathlib import Path; from rulespec_artifacts import LocalMemberSource, verify_artifact; from rulespec_artifacts import resources; corpus=resources.fixture_corpus(); observed={case["name"]: verify_artifact(LocalMemberSource(Path(str(resources.fixture(case["name"]))))).code for case in corpus["cases"]}; assert observed == {case["name"]: case["expectedCode"] for case in corpus["cases"]}'
 	cd "$(ARTIFACT_PACKAGE_CHECK_DIR)" && ./bin/python -c 'import tempfile; import rulespec_artifacts as package; from pathlib import Path; from rulespec_artifacts import LocalMemberSource, Producer, ROOT_OBJECT_KEY, admit_artifact, build_artifact_root, canonical_json_bytes; temporary=tempfile.TemporaryDirectory(); root=Path(temporary.name); producer=Producer("test-product", "git:https://example.test/product@" + "1" * 40, "urn:test:verifier", "1", f"pkg:pypi/rulespec-artifacts@{package.__version__}?checksum=sha256:" + "2" * 64); artifact=build_artifact_root(kind="unknown-test-kind", spec={"fixture": "1"}, producer=producer); (root / ROOT_OBJECT_KEY).write_bytes(canonical_json_bytes(artifact)); admitted=admit_artifact(LocalMemberSource(root)); assert admitted.root == artifact; temporary.cleanup()'
@@ -140,6 +141,16 @@ test-audits:
 	$(PYTHON) tools/projector_parity.py
 	$(PYTHON) tools/version_sync.py --check
 	$(PYTHON) tools/codegen_drift_audit.py
+
+# The capture parent schema, its profile meta-schema and the invariant
+# validator the artifacts wheel ships. Separate from test-audits because it
+# needs no compiled tree and runs in well under a second, so a SpicyDocs
+# profile change can be checked against this repository in one command.
+# --refresh-package because the two schemas and the spec are force-included
+# from outside packages/rulespec-artifacts/, so uv's build cache key does not
+# see them change and would otherwise install a wheel carrying stale data.
+test-document-capture:
+	uv run --no-project --python 3.12 --refresh-package rulespec-artifacts --with-requirements requirements.txt python -m unittest tools.test_document_capture_schema -v
 
 test-conformance: build-runtime-cli
 	$(PYTHON) tools/conformance_report.py

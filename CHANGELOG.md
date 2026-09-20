@@ -9,6 +9,25 @@ adapted for a specification + shape + fixture project.
 
 ### Added
 
+- `rulespec-artifacts` 1.0.14: `rulespec_artifacts.document_capture`, the one
+  implementation of the `DocumentCapture v1` invariants JSON Schema cannot
+  state (partition and digests, ownership, tree, leaf text, kind namespace)
+  and of the two profile bindings its meta-schema cannot state. The wheel's
+  `_data` now also carries `spec/document-capture.md`, the parent schema and
+  the profile meta-schema, exposed by `resources.document_capture_schema`,
+  `resources.document_capture_profile_schema` and their `_bytes` forms, so a
+  consumer pins the shipped bytes instead of copying a checkout. The package
+  still requires nothing: the meta-schema is validated by whatever JSON
+  Schema implementation the caller already has.
+- `document-capture-v1` reshaped before adoption, after the architecture and
+  visual reviews of the draft: `artifact` is always the publisher's own
+  bytes, with a PDF's extractor output named separately in
+  `rendition.intermediate`; `rendition.kind` gains `pdf` and loses
+  `evidence-lines`; `page` nodes retain `pageSize` in points so a permille
+  box converts to the unit RFC 8118 names; `rendition.spanDefaults` hoists
+  the span source fields that are constant for a document; and span `sha256`
+  and leaf `text` became derivable-optional with the validator recomputing
+  them. `make test-document-capture` is a `make test` gate.
 - `rulespec-projection`, a third distribution beside `rulespec-artifacts`:
   the deterministic layer of the RKAF document projection, moved from
   spicy-regs `docpipeline/rkaf_projection.py` at `8d9e7a2` (spicy-regs
