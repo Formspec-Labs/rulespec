@@ -1,0 +1,222 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:rulespec:rs1-review-profile:uslm-law",
+  "title": "DocumentCapture profile: uslm-law v1",
+  "description": "A GovInfo USLM public law (pLaw). Structure is the publisher's: section, subsection and lower units are native; num is the label; quotedContent is a quote. Family kinds name USLM elements the core vocabulary lacks.",
+  "x-parent": {
+    "$id": "https://rulespec.org/schemas/releases/document-capture-v2.schema.json",
+    "sha256": "97681a29ffbbc53366e9f705a2c07291a664b7555d0d3d391d0f1e87dbf0e025"
+  },
+  "allOf": [
+    {
+      "$ref": "https://rulespec.org/schemas/releases/document-capture-v2.schema.json"
+    },
+    {
+      "properties": {
+        "profile": {
+          "properties": {
+            "name": {
+              "const": "uslm-law"
+            },
+            "version": {
+              "const": "2-rs1-review"
+            },
+            "ext": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "approvedDate",
+                "citableAs",
+                "congress",
+                "docNumber",
+                "processedBy",
+                "processedDate",
+                "schemaLocation",
+                "source",
+                "title"
+              ],
+              "properties": {
+                "source": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "docNumber": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "congress": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "citableAs": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "approvedDate": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "schemaLocation": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "processedBy": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "processedDate": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "archiveMember": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "archive",
+                    "memberPath",
+                    "sha256",
+                    "byteSize",
+                    "mediaType"
+                  ],
+                  "properties": {
+                    "archive": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "url",
+                        "path",
+                        "sha256",
+                        "byteSize",
+                        "mediaType",
+                        "retrievedAt"
+                      ],
+                      "properties": {
+                        "url": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "sha256": {
+                          "type": "string",
+                          "pattern": "^[0-9a-f]{64}$"
+                        },
+                        "byteSize": {
+                          "type": "integer"
+                        },
+                        "mediaType": {
+                          "const": "application/zip"
+                        },
+                        "retrievedAt": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "memberPath": {
+                      "type": "string"
+                    },
+                    "sha256": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "byteSize": {
+                      "type": "integer"
+                    },
+                    "mediaType": {
+                      "const": "application/xml"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "nodes": {
+          "items": {
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "kind": {
+                      "type": "string",
+                      "pattern": "^uslm-law:"
+                    }
+                  },
+                  "required": [
+                    "kind"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "kind": {
+                      "enum": [
+                        "uslm-law:amendingAction",
+                        "uslm-law:enactingFormula",
+                        "uslm-law:sidenote",
+                        "uslm-law:sourceCredit",
+                        "uslm-law:toc"
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "kind": {
+                    "not": {
+                      "pattern": "^(?!uslm-law:)[a-z][a-z0-9-]*:"
+                    }
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "ext": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "identifier": {
+                        "type": "string"
+                      },
+                      "role": {
+                        "type": "string"
+                      },
+                      "numValue": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "x-provenance": [
+    "acquisition",
+    "rendition-reason",
+    "coordinates",
+    "decisions",
+    "rule-bindings",
+    "govinfo",
+    "mods"
+  ]
+}

@@ -12,6 +12,9 @@ CARGO         = cargo
 # the generated `compiled/` tree — so on a fresh clone `make compile` would
 # depend on its own output. Tooling reads src/ through the tools/ shims instead.
 PYTHON        = uv run --no-project --python 3.12 --with-requirements requirements.txt python
+# Override with an empty value only after rebuilding the local package, for an
+# offline gate. uv does not permit --refresh-package together with --offline.
+CAPTURE_PACKAGE_REFRESH ?= --refresh-package rulespec-artifacts
 CARGO_MANIFEST = --manifest-path crates/Cargo.toml
 # Pinned by tools/install-cue.sh into .tools/cue (gitignored; not required for
 # targets other than cue-vet). Run tools/install-cue.sh once to populate it.
@@ -80,6 +83,7 @@ test-package-artifacts:
 	cd "$(ARTIFACT_PACKAGE_CHECK_DIR)" && ./bin/python -c 'import importlib.util; import rulespec_artifacts as package; from importlib.metadata import distributions, requires, version; excluded={"rdfcanon", "rdflib", "pyshacl"}; installed={item.metadata["Name"].lower() for item in distributions() if item.metadata["Name"]}; assert version("rulespec-artifacts") == package.__version__; assert not requires("rulespec-artifacts"); assert not installed & excluded; assert all(importlib.util.find_spec(name) is None for name in excluded)'
 	cd "$(ARTIFACT_PACKAGE_CHECK_DIR)" && ./bin/python -c 'import rulespec_artifacts as p; from rulespec_artifacts import resources; assert p.FORMAT == "spicy-artifact"; assert resources.platform_artifact_spec(); assert resources.fixture_corpus()["cases"]; assert resources.canonical_json_corpus()["encodeAccepted"]; assert resources.fixture("valid").is_dir()'
 	cd "$(ARTIFACT_PACKAGE_CHECK_DIR)" && ./bin/python -c 'from rulespec_artifacts import document_capture, resources; schema = resources.document_capture_schema(); assert schema["title"] == "DocumentCapture v1"; assert resources.document_capture_profile_schema()["title"] == "DocumentCapture v1 family profile"; assert resources.document_capture_spec(); assert "document" in document_capture.core_kinds(); assert document_capture.check_profile_bindings({}) == ["the profile does not name itself"]'
+	cd "$(ARTIFACT_PACKAGE_CHECK_DIR)" && ./bin/python -m unittest discover -s "$(CURDIR)/packages/rulespec-artifacts/tests" -p 'test_document_capture_provenance.py'
 	cd "$(ARTIFACT_PACKAGE_CHECK_DIR)" && ./bin/python "$(CURDIR)/packages/rulespec-artifacts/tests/canonical_corpus_runner.py"
 	cd "$(ARTIFACT_PACKAGE_CHECK_DIR)" && ./bin/python -c 'from pathlib import Path; from rulespec_artifacts import LocalMemberSource, verify_artifact; from rulespec_artifacts import resources; corpus=resources.fixture_corpus(); observed={case["name"]: verify_artifact(LocalMemberSource(Path(str(resources.fixture(case["name"]))))).code for case in corpus["cases"]}; assert observed == {case["name"]: case["expectedCode"] for case in corpus["cases"]}'
 	cd "$(ARTIFACT_PACKAGE_CHECK_DIR)" && ./bin/python -c 'import tempfile; import rulespec_artifacts as package; from pathlib import Path; from rulespec_artifacts import LocalMemberSource, Producer, ROOT_OBJECT_KEY, admit_artifact, build_artifact_root, canonical_json_bytes; temporary=tempfile.TemporaryDirectory(); root=Path(temporary.name); producer=Producer("test-product", "git:https://example.test/product@" + "1" * 40, "urn:test:verifier", "1", f"pkg:pypi/rulespec-artifacts@{package.__version__}?checksum=sha256:" + "2" * 64); artifact=build_artifact_root(kind="unknown-test-kind", spec={"fixture": "1"}, producer=producer); (root / ROOT_OBJECT_KEY).write_bytes(canonical_json_bytes(artifact)); admitted=admit_artifact(LocalMemberSource(root)); assert admitted.root == artifact; temporary.cleanup()'
@@ -150,7 +154,7 @@ test-audits:
 # from outside packages/rulespec-artifacts/, so uv's build cache key does not
 # see them change and would otherwise install a wheel carrying stale data.
 test-document-capture:
-	uv run --no-project --python 3.12 --refresh-package rulespec-artifacts --with-requirements requirements.txt python -m unittest tools.test_document_capture_schema -v
+	uv run --no-project --python 3.12 $(CAPTURE_PACKAGE_REFRESH) --with-requirements requirements.txt python -m unittest tools.test_document_capture_schema tools.test_document_capture_v2 -v
 
 test-conformance: build-runtime-cli
 	$(PYTHON) tools/conformance_report.py
