@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:rulespec:rs1-review-profile:cfr-reconstruction",
+  "title": "DocumentCapture profile: cfr-reconstruction v1",
+  "description": "An annual CFR section reconstructed from a GovInfo PDF's extracted lines by spicy_docs.reconstruction. Every node carries the parser's decision and review status; derived.text is the profile's assembled text; xmlPath joins the serialized granule's source map.",
+  "x-parent": {
+    "$id": "https://rulespec.org/schemas/releases/document-capture-v2.schema.json",
+    "sha256": "97681a29ffbbc53366e9f705a2c07291a664b7555d0d3d391d0f1e87dbf0e025"
+  },
+  "allOf": [
+    {
+      "$ref": "https://rulespec.org/schemas/releases/document-capture-v2.schema.json"
+    },
+    {
+      "properties": {
+        "profile": {
+          "properties": {
+            "name": {
+              "const": "cfr-reconstruction"
+            },
+            "version": {
+              "const": "2-rs1-review"
+            },
+            "ext": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "granuleId",
+                "outOfScopeBlocks",
+                "pages",
+                "pdfBytes",
+                "pdfSha256",
+                "reconstructionProfile",
+                "selectedSection",
+                "serializedXmlSha256",
+                "serializer",
+                "unresolvedRegions"
+              ],
+              "properties": {
+                "reconstructionProfile": {
+                  "type": "string"
+                },
+                "selectedSection": {
+                  "type": "string"
+                },
+                "granuleId": {
+                  "type": "string"
+                },
+                "pdfSha256": {
+                  "type": "string"
+                },
+                "pdfBytes": {
+                  "type": "integer"
+                },
+                "pages": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                "serializedXmlSha256": {
+                  "type": "string"
+                },
+                "serializer": {
+                  "type": "string"
+                },
+                "outOfScopeBlocks": {
+                  "type": "integer"
+                },
+                "unresolvedRegions": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "nodes": {
+          "items": {
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "kind": {
+                      "type": "string",
+                      "pattern": "^cfr-reconstruction:"
+                    }
+                  },
+                  "required": [
+                    "kind"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "kind": {
+                      "enum": [
+                        "cfr-reconstruction:authority",
+                        "cfr-reconstruction:blank",
+                        "cfr-reconstruction:cita",
+                        "cfr-reconstruction:contents",
+                        "cfr-reconstruction:flushParagraph",
+                        "cfr-reconstruction:partHeading",
+                        "cfr-reconstruction:sourceNote"
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "kind": {
+                    "not": {
+                      "pattern": "^(?!cfr-reconstruction:)[a-z][a-z0-9-]*:"
+                    }
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "ext": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "reconstructionNode",
+                      "reconstructionKind"
+                    ],
+                    "properties": {
+                      "reconstructionNode": {
+                        "type": "string"
+                      },
+                      "reconstructionKind": {
+                        "type": "string"
+                      },
+                      "xmlPath": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "x-provenance": [
+    "acquisition",
+    "rendition-reason",
+    "coordinates",
+    "decisions",
+    "rule-bindings",
+    "govinfo",
+    "mods",
+    "pdf-intermediate",
+    "page-dimensions"
+  ]
+}

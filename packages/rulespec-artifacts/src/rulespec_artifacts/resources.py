@@ -32,32 +32,36 @@ def _schema(name: str) -> Traversable:
     return _data() / "release-records" / "schemas" / name
 
 
-def document_capture_schema_bytes() -> bytes:
-    """The DocumentCapture v1 parent schema exactly as shipped.
+def document_capture_schema_bytes(version: int = 1) -> bytes:
+    """The selected parent schema exactly as shipped; the default stays v1.
 
     A consumer that vendors a copy pins it by the sha256 of these bytes, so
     read the bytes and not a re-serialization of the parsed object: a
     round trip through a JSON encoder moves the digest and the pin with it.
     """
 
-    return _schema("document-capture-v1.schema.json").read_bytes()
+    if type(version) is not int or version not in (1, 2):
+        raise ValueError("unsupported document capture version")
+    return _schema(f"document-capture-v{version}.schema.json").read_bytes()
 
 
-def document_capture_schema() -> dict[str, object]:
-    value = json.loads(document_capture_schema_bytes())
+def document_capture_schema(version: int = 1) -> dict[str, object]:
+    value = json.loads(document_capture_schema_bytes(version))
     if not isinstance(value, dict):
         raise TypeError("the document capture schema must be a JSON object")
     return value
 
 
-def document_capture_profile_schema_bytes() -> bytes:
+def document_capture_profile_schema_bytes(version: int = 1) -> bytes:
     """The profile meta-schema: the structural half of the composition rule, as data."""
 
-    return _schema("document-capture-profile-v1.schema.json").read_bytes()
+    if type(version) is not int or version not in (1, 2):
+        raise ValueError("unsupported document capture version")
+    return _schema(f"document-capture-profile-v{version}.schema.json").read_bytes()
 
 
-def document_capture_profile_schema() -> dict[str, object]:
-    value = json.loads(document_capture_profile_schema_bytes())
+def document_capture_profile_schema(version: int = 1) -> dict[str, object]:
+    value = json.loads(document_capture_profile_schema_bytes(version))
     if not isinstance(value, dict):
         raise TypeError("the document capture profile meta-schema must be a JSON object")
     return value

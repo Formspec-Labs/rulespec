@@ -1,5 +1,36 @@
 # Product and release decisions
 
+## 2026-09-21: Shared capture provenance is an explicit v2 opt-in
+
+**Status:** Accepted — RS1 owner design; integration requires independent review.
+
+Rulespec owns shared source records, derived-artifact relationships, finite
+provenance requirements, and rule/converter bindings. SpicyDocs keeps family
+applicability and publisher parsing. A pinned v2 family profile selects the
+applicable shared checks through `x-provenance`; it cannot replace parent fields.
+GovInfo identity and MODS evidence are conditional, not universal requirements.
+
+V1 schema bytes and default resource APIs remain unchanged. V2 uses separate
+schemas and explicit versioned resource calls. No capture is silently upgraded.
+The `rulespec-artifacts` package adds these APIs without runtime dependencies.
+Existing rkaf Artifact / PROV derivation concepts and the capture's converter
+manifest supply the necessary structure; an artifact-container wrapper would
+give a receipt or page cut the wrong identity.
+
+The seven retained migration examples preserve their eleven known incomplete
+evidence findings. A generated node or inferred heading level keeps an explicit
+origin even when its Decision is removed, so decision requirements cannot be
+evaded by deleting the field being checked. The shared checker verifies evidence
+bindings; caller-supplied retained bytes and URL observations verify acquisition
+assertions without implicit file or network access. Neither check proves the
+semantics of a publisher-specific selector or a rule implementation.
+
+RS2 owns the subsequent shared archive/member relationship. RS1 recognizes that
+acquisition kind and reports it as pending; the existing family extension is not
+treated as sufficient shared proof. See
+[the design and compatibility record](document-capture-v2-provenance.md) and
+[the v2 specification](../spec/document-capture.md#7-v2-shared-provenance-rs1).
+
 ## 2026-09-19: The document capture schema is a Rulespec parent, composed per family in SpicyDocs
 
 **Status:** Accepted — owner ruling.

@@ -255,3 +255,67 @@ uv run --no-project --python 3.12 --with-requirements requirements.txt python -m
 The worked conversions that prove the shape fits six renditions, and the
 design record, are in SpicyDocs:
 `docs/research/document-capture-schema-2026-09-19.md`.
+
+## 7. V2 shared provenance (RS1)
+
+V2 is an explicit opt-in. `document_capture_schema_bytes(2)` and
+`document_capture_profile_schema_bytes(2)` read the v2 resources shipped in the
+artifacts wheel. Their no-argument forms still return the exact v1 bytes. Existing
+v1 captures and profiles remain valid under v1; their validation does not establish
+v2 provenance completeness. An upgrade creates a separately identified capture
+and pins the v2 parent and its composed v2 profile.
+
+The v2 parent adds `provenance`. Its source records distinguish retained receipt
+or metadata bytes (`artifact`, with a selector) from the publisher object an
+acquisition receipt describes (`observedArtifact`). Both have byte digest, size,
+media type and locator. `govinfoIdentity` represents package and granule scope
+explicitly; a package has `granuleId: null`, while a granule has a nonempty id.
+MODS records retain the observed identity paths and literal source fields.
+SpicyDocs owns their interpretation and family applicability.
+
+`acquisitionKind: derived` requires `derivedFrom`: the original Artifact, method,
+and explicit derived-page/source-page mapping. The page cut keeps its own byte
+identity. It does not inherit the original's publisher URL or acquisition time.
+An optional generation time is a separate observation. `archive-member` reserves
+the seam for RS2 and currently returns `archive-member-pending`; v2 does not yet
+qualify a shared archive/member proof.
+
+`ruleBindings` pair a rule id/version with `converterSha256`, the SHA-256 digest
+of the existing converter manifest encoded by `canonical_json_bytes`. Decisions
+and derived text identify that rule version. A changed converter or dependency
+invalidates an unchanged binding. Generated structure uses `derivation: generated`.
+When a node has `level`, `levelOrigin` names `publisher`, `rule`, `model`, or
+`generated`; the last three require a Decision even when the structure itself is
+native. These fields describe the observed conversion, not a new extraction
+model or independent proof that a producer's declared rule version is truthful.
+
+The v2 profile meta-schema adds a finite `x-provenance` list: `acquisition`,
+`govinfo`, `mods`, `pdf-intermediate`, `coordinates`, `page-dimensions`,
+`decisions`, `rule-bindings`, and `rendition-reason`. Family profiles select the
+applicable checks and pin them by profile digest; they retain v1's restrictions
+on overriding parent fields. The parent still requires a structurally complete
+provenance record and explicit PDF intermediate even if a profile omits a check.
+
+Validate the parent, profile meta-schema and composed profile with JSON Schema;
+then call `check_invariants(capture, parent_schema=document_capture_schema(2))`
+and `document_capture_provenance.check_provenance(capture, profile_bytes=...)`.
+The latter verifies pins and cross-field bindings, returning code/path findings.
+It does not replace shape validation. Date-only acquisition times and absent
+geometry remain incomplete evidence; an issue explaining them does not waive a
+requirement. Coordinates include effective span defaults.
+
+`check_retained_evidence` separately accepts a caller-owned byte reader and
+independently retained URL observations. It compares digest, size, URL byte
+identity, and the recorded acquisition timestamp without changing its precision.
+It performs no acquisition, implicit path resolution or receipt parsing. Exact
+receipt bytes establish the evidence being cited; publisher-specific code must
+still check that a selector and metadata interpretation agree with those bytes.
+
+The seven migration fixtures under
+`release-records/fixtures/document-capture-v2/retained/` are review examples, not
+published SpicyDocs profiles or assertions that incomplete records pass. Their
+manifest records exact input/output hashes, field-origin changes, text-stream
+digests, and findings. The [RS1 design record](../docs/document-capture-v2-provenance.md)
+explains reuse, migration and the archive seam. `make test-document-capture`
+validates both versions, and `make test-package-artifacts` checks the installed
+wheel outside the checkout.
