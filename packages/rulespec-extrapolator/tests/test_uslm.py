@@ -41,6 +41,9 @@ def test_native_support_keeps_exact_unicode_source_intervals_and_xpath(path, exp
 def test_fresh_definition_target_and_core_fragments():
     doc = load_document(FIXTURE)
     scan = scan_references(doc)
+    assert [parser['name'] for parser in scan['parsers']
+            if parser['name'].startswith('refspec.registry.uslm.')] == [
+                'refspec.registry.uslm.read_edges']
     rows = [r for r in scan['candidates'] if r['kind']=='publisher_reference']
     assert len(rows)==37
     row, = [r for r in rows if r['value']=='/us/usc/t5/s5721']

@@ -266,7 +266,16 @@ fail the scan. An empty candidate list does not establish completeness.
 SpicySearch and RefSpec are optional application dependencies (`references` extra),
 never Core validation dependencies. Use compatible, pinned builds in the same
 Python environment as the extractor. Check actual wheel/module digests as well as
-versions, since local builds can share a version. The
+versions, since local builds can share a version. The current extra pairs
+SpicySearch 0.2.0 with RefSpec 0.1.0.dev11. Both use `rulespec-artifacts` 1.0.12;
+RefSpec and Search's DocSpec 0.7.0 dependency use PyArrow 25. RefSpec 0.1.0.dev0
+requires the older shared packages and cannot resolve with Search 0.2.0.
+
+Install the extractor's wheel with `[references]` and supply the verified reader
+and dependency wheels explicitly, as recorded in the
+[Search 0.2.0 qualification](../../thoughts/reviews/2026-09-21-search-020/README.md).
+This retains Search's identifier recognition and source coordinates; it does not
+require SpicyEngine or a running search service. The
 [historical installation receipt](EVIDENCE.md#historical-optional-reader-installation-checkpoint)
 records a tested dependency set; it is not an instruction to replace newer builds.
 SpicySearch's dependency metadata also installs DocSpec, but Rulespec's semantic

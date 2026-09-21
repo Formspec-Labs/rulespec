@@ -192,7 +192,7 @@ def attach_publisher_links(document, scan, passages):
     root_id = prepared['nodes']['/*[1]'].get('identifier', '')
     title = root_id.removeprefix('/us/usc/t').split('/')[0] if root_id.startswith('/us/usc/t') else ''
     skipped = Counter()
-    for native in uslm.iter_edges(source['xml'].encode('utf-8'), title, skipped, include_source_path=True):
+    def add_publisher_reference(native):
         path = native['sourceXPath']
         node = prepared['nodes'][path]
         xml_fragment, evidence = support(path, node, 'reference')
@@ -210,6 +210,8 @@ def attach_publisher_links(document, scan, passages):
         publisher_rows.append(row)
         if 'start' in node:
             anchors.append((node, row))
+
+    uslm.read_edges(source['xml'].encode('utf-8'), title, skipped, add_publisher_reference, include_source_path=True)
 
     # XML text intervals are nested or disjoint. Index enclosing anchors once;
     # each lookup follows only the source's nesting, not every publisher link.
@@ -250,7 +252,7 @@ def attach_publisher_links(document, scan, passages):
     scan['xml_fragments'], scan['targets'], scan['publisher_skipped'] = fragments, targets, dict(skipped)
     scan['parsers'].extend({'name': name, 'version': version('refspec'),
                             'module_sha256': digest(Path(module.__file__).read_bytes())}
-                           for name, module in (('refspec.registry.uslm.iter_edges', uslm),
+                           for name, module in (('refspec.registry.uslm.read_edges', uslm),
                                                 ('refspec.registry.xml_text.read_text', xml_text)))
     scan['supported_kinds'] = sorted(set(scan['supported_kinds']) | {'publisher_reference'})
     scan['target_resolution'] = 'publisher_targets_and_named_act_identity' if scan.get('indexes') else 'publisher_targets_in_supplied_xml'

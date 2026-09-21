@@ -527,6 +527,8 @@ def _runtime_sources() -> dict[str, Path]:
     for name in ("refspec.registry.uslm", "refspec.registry.xml_text", "refspec.registry.ecfr", "refspec.registry.citation_grammar", "refspec.registry.usc_section_oracle",
                  "refspec.registry.iri_minting", "refspec.registry.identifier_shapes",
                  "refspec.registry.hand_validated_interpretations", "refspec.registry.act_resolution",
+                 "spicy_docs.reading.xml", "spicy_docs.reading.xml_observations",
+                 "spicy_docs.sources.uscode", "spicy_docs.sources.uscode.references",
                  "spicysearch.identifiers", "spicysearch.identifier_normalization", "spicysearch.canonical"):
         try:
             spec = importlib.util.find_spec(name)
@@ -571,7 +573,7 @@ def _runtime_versions() -> dict:
         raise RuntimeError("A required runtime dependency is unavailable") from None
     if versions["langextract"] != LANGEXTRACT_VERSION:
         raise RuntimeError("This extraction profile requires LangExtract 1.6.0")
-    for name in ("refspec", "spicysearch"):
+    for name in ("refspec", "spicysearch", "spicy-docs"):
         try:
             versions[name] = importlib.metadata.version(name)
         except importlib.metadata.PackageNotFoundError:
