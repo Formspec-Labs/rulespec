@@ -7,8 +7,17 @@ adapted for a specification + shape + fixture project.
 
 ## Unreleased
 
+## 0.2.0-pre.19 — DocumentCapture, the projection package, and release-fixture repair
+
 ### Added
 
+- `rulespec-artifacts` 1.1.0: opt-in `DocumentCapture v2` provenance evidence.
+  The v1 parent schema, profile meta-schema and validator resources are
+  unchanged, so consumers pinning their digests keep them.
+- `oa:XPathSelector` as a Core source-fragment selector: the payload is an
+  `rdf:value` string addressing the pinned XML/HTML DOM, and the source reader
+  verifies what it selects.
+- The `rkaf` umbrella crate in the SDK workspace.
 - `rulespec-artifacts` 1.0.14: `rulespec_artifacts.document_capture`, the one
   implementation of the `DocumentCapture v1` invariants JSON Schema cannot
   state (partition and digests, ownership, tree, leaf text, kind namespace)
@@ -45,6 +54,13 @@ adapted for a specification + shape + fixture project.
 
 ### Fixed
 
+- `make test-audits` passes again. `oa:XPathSelector` gained its context term,
+  `rkaf-core` crate-root re-export and a document-root edge fixture. The m2
+  Core release fixture is re-stamped for the recompiled `source-fragment` and
+  `ai-lineage` schemas, with its synthetic SpicyRegs document release and the
+  dependent extrapolation, atlas-stub and platform fixtures regenerated; the
+  platform fixtures now name `rulespec-artifacts` 1.1.0 as their verifier.
+- AI-lineage records use provider sampling defaults with honest lineage.
 - The `DocumentCapture v1` validator now enforces the declared tree guarantees:
   parents precede their children and node ids are unique. Findings keep the
   existing string-list format, with stable codes `parent-not-earlier` and
