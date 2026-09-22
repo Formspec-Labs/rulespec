@@ -1,3 +1,4 @@
+// Claim review client: shows claims with evidence and history; posts add, edit, split, merge, approve and reject.
 "use strict";
 
 // All source, model, and reviewer content enters the page as text, never HTML.

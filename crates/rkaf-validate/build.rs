@@ -1,3 +1,5 @@
+//! Embed the compiled kernel, analysis and profile JSON Schemas as the validator's `@type` schema registry.
+
 use serde_json::Value;
 use std::collections::BTreeMap;
 use std::env;
