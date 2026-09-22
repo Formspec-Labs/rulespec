@@ -392,16 +392,16 @@ are batched into one revision rather than deferred into compatibility debt.
 
 ## Rust SDK (Layer 5) — umbrella crate
 
-Registry client + federation are blocked on Plan 4. The ~80% below is buildable today from existing ingredients.
+Registry client + federation are blocked on Plan 4. The ~80% below is buildable today from existing ingredients. **Landed 2026-09-21 as `crates/rkaf`; the boxes below record what each piece became.**
 
-- [ ] `crates/rkaf/Cargo.toml` — umbrella crate depending on `rkaf-core`, `rkaf-validate`, `rkaf-projector-core`, `rkaf-projector-json-schema`, `rkaf-projector-json-ld`, `rkaf-projector-openapi`, `rkaf-runtime`. Substitute `rkaf-validate` for the non-existent `rkaf-constraints-runtime`.
-- [ ] `crates/rkaf/src/lib.rs` — facade: `pub mod vocabulary/constraints/projectors/registries;` + `pub fn parse_and_validate()` wrapping `rkaf_validate::Validator`.
-- [ ] `crates/rkaf/src/vocabulary.rs` — `pub use rkaf_core::*` (30+ types already exist).
-- [ ] `crates/rkaf/src/constraints.rs` — `pub use rkaf_validate::*` (`Validator`, `ValidationError`, `ValidatorError`).
-- [ ] `crates/rkaf/src/projectors.rs` — re-export `Projector` trait + 3 concrete projector structs.
-- [ ] `crates/rkaf/src/registries.rs` — stub module, compiles but returns "not yet implemented" for registry ops. Real impl gated on Plan 4.
-- [ ] `crates/rkaf/tests/conformance.rs` — vocab round-trips + validation + projector ops. Skip registry/federation.
-- [ ] `crates/rkaf/README.md` — `cargo add rkaf` + validate + attach-overlay examples.
+- [x] `crates/rkaf/Cargo.toml` — umbrella crate depending on `rkaf-core`, `rkaf-validate`, `rkaf-projector-core`, `rkaf-projector-json-schema`, `rkaf-projector-json-ld`, `rkaf-projector-openapi`, `rkaf-runtime`. Substitute `rkaf-validate` for the non-existent `rkaf-constraints-runtime`.
+- [x] `crates/rkaf/src/lib.rs` — facade: `pub mod vocabulary/constraints/projectors/registries;` + `pub fn parse_and_validate()` wrapping `rkaf_validate::Validator`.
+- [x] `crates/rkaf/src/vocabulary.rs` — `pub use rkaf_core::*` (30+ types already exist).
+- [x] `crates/rkaf/src/constraints.rs` — `pub use rkaf_validate::*` (`Validator`, `ValidationError`, `ValidatorError`).
+- [x] `crates/rkaf/src/projectors.rs` — re-export `Projector` trait + 3 concrete projector structs.
+- [x] `crates/rkaf/src/registries.rs` — stub module, compiles but returns "not yet implemented" for registry ops. Real impl gated on Plan 4.
+- [x] `crates/rkaf/tests/conformance.rs` — vocab round-trips + validation + projector ops. Skip registry/federation.
+- [x] `crates/rkaf/README.md` — `cargo add rkaf` + validate + attach-overlay examples.
 - [x] Bump workspace version in `crates/Cargo.toml` to match `VERSION` (`0.2.0-pre.6`). **Already true:** `crates/Cargo.toml` and `VERSION` both carry `0.2.0-pre.18` (checked 2026-09-21).
 
 ## Formspec Needs layer — three incoming proposals
