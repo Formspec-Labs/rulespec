@@ -47,6 +47,12 @@ jobs:
           # duplicated here, and the copies drifted: CI kept invoking three
           # modules that had been deleted, and never gained the two that
           # replaced them, so CI and `make` were running different suites.
+          #
+          # This includes the L0 mapping audit. A carrier's mapping lives in the
+          # carrier's repository, which no runner checks out, so a declaration
+          # that pins its mapping's digest is reported as skipped here and
+          # audited in a checkout that has the carrier beside this one. A
+          # declaration without that pin still fails.
           make test-audits PYTHON=python3
 
       - name: SHACL Pattern-C lint (no sh:if/sh:then in compiled output)

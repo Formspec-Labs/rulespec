@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import tempfile
 import unittest
 from pathlib import Path
@@ -537,6 +538,58 @@ class L0MappingAuditTests(unittest.TestCase):
             )
             result = audit_partner(partner, registry=self.registry, repo_root=root)
             self.assertIsNotNone(result)
+            assert result is not None
+            self.assertEqual(result.issues, ())
+
+    def test_an_absent_carrier_mapping_skips_only_when_its_bytes_are_pinned(self) -> None:
+        """CI has no carrier checkout. A pinned digest makes that a skip, not a verdict."""
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            partner = self.write_partner(
+                root,
+                mappings=[self.stage_mapping()],
+                terms_used=[f"{RKAF}proceedingStage"],
+                carrier_mapping="../carrier/ontology.md",
+                carrier_mapping_sha256=f"sha256:{'a' * 64}",
+            )
+            result = audit_partner(partner, registry=self.registry, repo_root=root)
+            assert result is not None
+            self.assertEqual(result.issues, ())
+            self.assertIn("not in this checkout", result.unavailable)
+
+            unpinned = self.write_partner(
+                root,
+                mappings=[self.stage_mapping()],
+                terms_used=[f"{RKAF}proceedingStage"],
+                carrier_mapping="../carrier/ontology.md",
+            )
+            result = audit_partner(unpinned, registry=self.registry, repo_root=root)
+            assert result is not None
+            self.assertEqual(result.unavailable, "")
+            self.assertTrue(any("does not resolve" in issue for issue in result.issues))
+
+    def test_a_present_carrier_mapping_must_match_its_pinned_bytes(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            partner = self.write_partner(
+                root,
+                mappings=[self.stage_mapping()],
+                terms_used=[f"{RKAF}proceedingStage"],
+                carrier_mapping_sha256=f"sha256:{'b' * 64}",
+            )
+            result = audit_partner(partner, registry=self.registry, repo_root=root)
+            assert result is not None
+            self.assertTrue(
+                any("carrier_mapping_sha256" in issue for issue in result.issues)
+            )
+            pinned = f"sha256:{hashlib.sha256((root / 'ontology.md').read_bytes()).hexdigest()}"
+            partner = self.write_partner(
+                root,
+                mappings=[self.stage_mapping()],
+                terms_used=[f"{RKAF}proceedingStage"],
+                carrier_mapping_sha256=pinned,
+            )
+            result = audit_partner(partner, registry=self.registry, repo_root=root)
             assert result is not None
             self.assertEqual(result.issues, ())
 

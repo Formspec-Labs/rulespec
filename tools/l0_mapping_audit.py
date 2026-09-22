@@ -175,6 +175,9 @@ class MappingAudit:
     # say which carrier tables it deliberately left unmapped and have that
     # claim CHECKED against what the mapping actually covers.
     tables: frozenset[str] = frozenset()
+    # Set when the mapping lives in a carrier repository this checkout does not
+    # have. Not a pass and not a failure: the audit did not run here.
+    unavailable: str = ""
 
 
 def _expand(value: str, prefixes: dict[str, str]) -> str:
@@ -1084,10 +1087,39 @@ def audit_partner(
     if not isinstance(results, dict) or results.get("L0") != "pass":
         issues.append("L0 declaration requires results.L0: pass")
 
+    pinned = document.get("carrier_mapping_sha256")
+    if pinned is not None and (
+        not isinstance(pinned, str) or not CONTRACT_VERSION.fullmatch(pinned)
+    ):
+        issues.append("carrier_mapping_sha256 MUST be sha256:<64 lowercase hex>")
+        pinned = None
+
     mapping_path = _resolve_mapping_path(partner_path, carrier_mapping, repo_root)
     if mapping_path is None:
-        issues.append(f"carrier_mapping does not resolve to a local file: {carrier_mapping}")
-        return MappingAudit(frozenset(), 0, 0, tuple(issues))
+        # A carrier's mapping lives in the carrier's own repository. A checkout
+        # without it -- CI, or a clone of this repository alone -- cannot audit
+        # the mapping at all. Failing there would say the declaration is wrong;
+        # passing would say it was checked. A declaration that pins the digest
+        # of the bytes it was filed against names what this checkout can still
+        # report, so report that and skip. Without the pin there is nothing to
+        # stand on, and the declaration fails as before.
+        if pinned is None:
+            issues.append(f"carrier_mapping does not resolve to a local file: {carrier_mapping}")
+            return MappingAudit(frozenset(), 0, 0, tuple(issues))
+        return MappingAudit(
+            frozenset(),
+            0,
+            0,
+            tuple(issues),
+            unavailable=f"{carrier_mapping} is not in this checkout; declaration pins {pinned}",
+        )
+
+    if pinned is not None:
+        actual = f"sha256:{hashlib.sha256(mapping_path.read_bytes()).hexdigest()}"
+        if actual != pinned:
+            issues.append(
+                f"carrier_mapping_sha256 {pinned} does not match {carrier_mapping} ({actual})"
+            )
 
     mapping = audit_mapping_text(mapping_path.read_text(), registry=registry)
     issues.extend(mapping.issues)
@@ -1145,6 +1177,7 @@ def main() -> int:
     paths = args.paths or sorted(PARTNER_DIR.glob("*.yaml"))
     failures = 0
     audited = 0
+    skipped = 0
 
     for path in paths:
         if not path.is_file():
@@ -1157,19 +1190,24 @@ def main() -> int:
                 continue
         else:
             result = audit_mapping_text(path.read_text(), registry=registry)
-        audited += 1
         if result.issues:
+            audited += 1
             failures += 1
             print(f"[FAIL] {path}")
             for issue in result.issues:
                 print(f"  - {issue}")
+        elif result.unavailable:
+            skipped += 1
+            print(f"[SKIP] {path}: {result.unavailable}")
         else:
+            audited += 1
             print(
                 f"[PASS] {path}: {result.blocks} block(s), "
                 f"{result.entries} mapping(s), {len(result.terms)} term(s)"
             )
 
-    print(f"L0 mapping audit: {audited - failures}/{audited} passed")
+    summary = f"L0 mapping audit: {audited - failures}/{audited} passed"
+    print(f"{summary}, {skipped} skipped" if skipped else summary)
     return 1 if failures else 0
 
 
