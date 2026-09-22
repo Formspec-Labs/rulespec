@@ -1,0 +1,24 @@
+{
+  "@context": "../../context/rkaf-context.jsonld",
+  "@graph": [
+    {
+      "@id": "urn:rkaf:fixture:sf-xpath-root:artifact",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": "urn:rkaf:fixture:sf-xpath-root:artifact",
+      "rkaf:artifactIdentifierScheme": "rkaf:partner-defined"
+    },
+    {
+      "@id": "urn:rkaf:fixture:sf-xpath-root:fragment",
+      "@type": "rkaf:SourceFragment",
+      "oa:hasSource": "urn:rkaf:fixture:sf-xpath-root:artifact",
+      "oa:hasSelector": "urn:rkaf:fixture:sf-xpath-root:selector",
+      "rkaf:selectorKind": "oa:XPathSelector"
+    },
+    {
+      "@id": "urn:rkaf:fixture:sf-xpath-root:selector",
+      "@type": "oa:XPathSelector",
+      "rdf:value": "/"
+    }
+  ],
+  "_comment": "Edge: the document-root path. `/` is a legal XPath that selects the whole pinned DOM, so the payload shape admits it. Core does not interpret the path; the source reader verifies what it selects, and a fragment that is the whole document is still a fragment."
+}

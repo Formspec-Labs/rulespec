@@ -411,6 +411,8 @@ FIXTURE_BINDINGS: list[tuple[str, str, str, str]] = [
     ("source-fragment", "XPathSelector",
      "fixtures/sourcefragment-referenced-xpath-selector-positive.jsonld", "PASS"),
     ("source-fragment", "XPathSelector",
+     "fixtures/edges/xpath-selector-document-root-edge.jsonld", "PASS"),
+    ("source-fragment", "XPathSelector",
      "fixtures/negatives/xpath-selector-missing-value-negative.jsonld", "FAIL"),
     ("source-fragment", "XPathSelector",
      "fixtures/negatives/xpath-selector-nonstring-value-negative.jsonld", "FAIL"),

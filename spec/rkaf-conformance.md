@@ -55,7 +55,7 @@ current `sha256:<64 lowercase hex>` contract digest. Every block in one
 document MUST use the same digest.
 
 ```yaml rkaf-l0-mapping
-rulespec_version: "sha256:e0f219f4bbbf8743975640e44d40a6b5cdb20cd1a420864add43394e49046304"
+rulespec_version: "sha256:c9e2370b0cfc3a260b1715330c5c90b4600c1c991f39dc60710fbeeae764111e"
 mappings:
   - table: proceedings
     column: current_stage
@@ -217,7 +217,7 @@ The mapping below is the worked example. It is audited by
 `tools/test_l0_mapping_audit.py`, so it is executable rather than illustrative:
 
 ```yaml rkaf-l0-mapping
-rulespec_version: "sha256:e0f219f4bbbf8743975640e44d40a6b5cdb20cd1a420864add43394e49046304"
+rulespec_version: "sha256:c9e2370b0cfc3a260b1715330c5c90b4600c1c991f39dc60710fbeeae764111e"
 mappings:
   - table: attestations
     column: attestor_id
@@ -323,7 +323,7 @@ digest covers the selected text. The SourceFragment declares
 node and independently records evidence kind and function:
 
 ```yaml rkaf-l0-mapping
-rulespec_version: "sha256:e0f219f4bbbf8743975640e44d40a6b5cdb20cd1a420864add43394e49046304"
+rulespec_version: "sha256:c9e2370b0cfc3a260b1715330c5c90b4600c1c991f39dc60710fbeeae764111e"
 mappings:
   - table: evidence_bindings
     column: assertion_iri

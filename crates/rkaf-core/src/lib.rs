@@ -287,11 +287,11 @@ pub use generated::profiles::us_rulemaking::us_lifecycle_event::{
 };
 pub use generated::profiles::us_rulemaking::us_regulatory_artifact::USRegulatoryArtifact;
 pub use generated::source_claimant::SourceClaimant;
-// `TextQuoteSelector` and `TextPositionSelector` are `oa:`-typed classes with
+// `TextQuoteSelector`, `TextPositionSelector` and `XPathSelector` are `oa:`-typed classes with
 // compiled shapes of their own (Core §4.2) — required payload, offset ordering,
 // and the coordinate system an offset counts in — so they are primitive classes
 // here for the same reason `rkaf-validate` binds them.
-pub use generated::source_fragment::{SourceFragment, TextPositionSelector, TextQuoteSelector};
+pub use generated::source_fragment::{SourceFragment, TextPositionSelector, TextQuoteSelector, XPathSelector};
 pub use generated::value_assertion::ValueAssertion;
 pub use generated::warrant::Warrant;
 pub use generated::workspace::Workspace;
