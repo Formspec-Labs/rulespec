@@ -6,7 +6,10 @@ For every `round-trip-*.{jsonld,yaml}` fixture under
 run Attach → Extract on the matching projector and assert that round-trip
 identity holds. Then run the same valid and invalid
 `ConceptResolutionResult` through every target's Validate operation so no
-carrier can silently bypass the shared generated constraints.
+carrier can silently bypass the shared generated constraints. Finally, for
+every `derive-*.cue` profile fixture, run `derive(profile)` and compare the
+printed bytes to the committed `<stem>.expected.json`, so derive output
+cannot drift byte by byte without a failing gate.
 
 Targets:
   - json-schema  (fixtures: *.jsonld)
@@ -61,6 +64,23 @@ def run_validate(target: str, fixture: Path) -> bool:
     return res.returncode == 0
 
 
+def run_derive(target: str, profile: Path, expected: Path) -> bool:
+    """Run ``derive(profile)`` and compare the printed bytes to ``expected``.
+
+    Byte-identical output is the whole point: the expected file is committed
+    beside the profile fixture, so a compiler or projector change that alters
+    any derived byte fails here instead of drifting in a published schema.
+    """
+    res = subprocess.run(
+        [str(HARNESS), "--target", target, "derive", "--profile", str(profile)],
+        capture_output=True,
+        cwd=ROOT,
+    )
+    if res.returncode != 0:
+        return False
+    return res.stdout == expected.read_bytes()
+
+
 def main() -> int:
     err = ensure_harness()
     if err is not None:
@@ -103,6 +123,22 @@ def main() -> int:
             print(
                 f"  [{tag}] {target}/validate "
                 f"{fixture.name} expected={expectation}"
+            )
+            if not ok:
+                fails += 1
+
+    for target, exts in TARGETS.items():
+        d = ROOT / "fixtures" / "projectors" / target
+        if not d.is_dir():
+            continue
+        for profile in sorted(d.glob("derive-*.cue")):
+            expected = profile.with_suffix(".expected.json")
+            total += 1
+            ok = expected.is_file() and run_derive(target, profile, expected)
+            tag = "OK" if ok else "FAIL"
+            print(
+                f"  [{tag}] {target}/derive {profile.name} "
+                f"vs {expected.name}"
             )
             if not ok:
                 fails += 1

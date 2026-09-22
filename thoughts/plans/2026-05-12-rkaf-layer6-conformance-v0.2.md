@@ -656,14 +656,37 @@ git commit -m "docs(rkaf): CHANGELOG v0.2.0-pre.7 — Layer 6 Conformance"
 
 ## Self-review
 
-- [x] Coverage matrix exists and maps every §10.1 coverage target to a concrete fixture.
-- [x] Every Vocabulary class has ≥3 fixtures (positive, negative, edge) per source spec §10.1.
-- [x] Every constraint has positive + negative coverage (Plan 3's `tools/constraints_parity.py` enforces this).
-- [x] Every projector has round-trip + Derive coverage (Plan 5's `tools/projector_parity.py` enforces this).
-- [ ] Federation protocol covered by ≥3 fixtures (pull, push, disagreement) per source spec §10.1 (Plan 4 + this plan).
-- [ ] ≥5 adversarial fixtures (Plan 3) and ≥3 AI-extraction adversarial fixtures (Plan 3) cross-referenced in the index.
-- [x] Cascade closure (CascadeClosureV1) and usageEligibility reducer fixtures exist for L3.
-- [ ] `rkaf-conformance --level {L1,L2,L3,L4}` exits 0 against the local reference stack.
-- [ ] Self-certification template + howto published.
-- [ ] CI runs all four conformance levels on every push.
-- [ ] CHANGELOG entry for v0.2.0-pre.7 lands.
+Rewritten 2026-09-21 to match what actually shipped. The plan's Rust
+`rkaf-conformance` binary and `conformance/v0.2/levels/` directory were
+replaced by the Python reporter `tools/conformance_report.py`,
+`rkaf-runtime-cli` and directory-walking fixture discovery; the shipped
+architecture is recorded in TODO.md "Conformance (Layer 6)".
+
+- [x] Coverage targets map to concrete fixtures programmatically:
+  `tools/l0_l3_coverage_audit.py` and `tools/l4_coverage_audit.py` enforce
+  the §10.1 coverage classes; no hand-maintained matrix file exists.
+- [x] Every Vocabulary class has positive/negative/edge fixtures, enforced
+  by the coverage audits.
+- [x] Every constraint has positive + negative coverage
+  (`tools/constraints_parity.py` enforces this).
+- [x] Every projector has round-trip + Derive coverage
+  (`tools/projector_parity.py`; the Derive gate compares byte-identical
+  derive output against committed expected files).
+- [x] Adversarial fixtures exist: see `fixtures/adversarial/` and
+  `fixtures/ai-extraction/`.
+- [x] Cascade closure (`CascadeClosureV1`) and usageEligibility reducer
+  fixtures exist for L3.
+- [x] Level gates run through `tools/conformance_report.py --level
+  {L1,L2,L3,L4}`, not the planned binary; L4 behavior fixtures run through
+  `rkaf-runtime-cli` (see `fixtures/behavior/`).
+- [x] Self-certification template published
+  (`conformance/self-certification.template.yaml`); the partner howto is
+  `docs/conformance/partner-disclosure-howto.md`.
+- [ ] Federation protocol fixtures (pull, push, disagreement): NOT shipped —
+  federation stays gated on Plan 4 (registries), so no L4 federation
+  participation is claimed.
+- [ ] CI on every push runs only the `constraints-parity` and
+  `extraction-schemas` workflows; the four conformance levels run through
+  `make test`, not on push.
+- [x] CHANGELOG entry: the consolidation landed inside the `v0.2.0-pre.18`
+  release (TODO.md records the sequencing decision).

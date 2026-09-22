@@ -1,0 +1,63 @@
+{
+  "$defs": {
+    "ArtifactIdentifierScheme": {
+      "enum": [
+        "rkaf:urn-persistent",
+        "rkaf:partner-defined"
+      ],
+      "type": "string"
+    },
+    "ExampleArtifact": {
+      "properties": {
+        "@type": {
+          "const": "rkaf:Artifact"
+        },
+        "dcterms:format": {
+          "pattern": "^[A-Za-z0-9!#$&^_.+-]+/[A-Za-z0-9!#$&^_.+-]+(?:\\s*;.*)?$",
+          "type": "string"
+        },
+        "rkaf:artifactIdentifierScheme": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ArtifactIdentifierScheme"
+            },
+            {
+              "items": {
+                "$ref": "#/$defs/ArtifactIdentifierScheme"
+              },
+              "minItems": 1,
+              "type": "array"
+            }
+          ]
+        },
+        "rkaf:hasArtifactIdentifier": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1,
+              "type": "array"
+            }
+          ]
+        },
+        "rkaf:hasContentDigest": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "@type",
+        "rkaf:hasArtifactIdentifier",
+        "rkaf:artifactIdentifierScheme"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://rulespec.org/jsonschema/derive-basic-artifact.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "derive-basic-artifact"
+}

@@ -17,9 +17,14 @@ Gate C (studio-profile CUE derivation) is **not** a projector gap — it's a Stu
 
 The plan specified `rkaf-conformance` Rust binary + `suite.index.json` + `conformance/v0.2/levels/` docs. None of that was built. The current architecture (Python reporter + `rkaf-runtime-cli` + directory-walking) delivers L1–L4 gating with 301 fixtures, 0 core divergences. Ratify it.
 
-- [ ] Author `docs/conformance/partner-disclosure-howto.md` — step-by-step instructions for partners to produce a conformance disclosure YAML.
-- [ ] Fold any missing L1–L4 level detail into `spec/rkaf-conformance.md` (already has level descriptions at lines 106–118). Do not create separate `conformance/v0.2/levels/` files.
-- [ ] Rewrite the Layer 6 plan (`thoughts/plans/2026-05-12-rkaf-layer6-conformance-v0.2.md`) self-review checklist to match what actually shipped.
+- [x] Author `docs/conformance/partner-disclosure-howto.md` — step-by-step instructions for partners to produce a conformance disclosure YAML.
+- [x] Fold any missing L1–L4 level detail into `spec/rkaf-conformance.md` (already has level descriptions at lines 106–118). Do not create separate `conformance/v0.2/levels/` files.
+  **Done by the spec reorganization: the levels live as the summary table in
+  §0 plus the normative §1–§4 sections (Requirement/Gate/Self-certification
+  each); no `conformance/v0.2/levels/` directory exists. The old
+  "lines 106–118" citation predates that reorganization and no longer points
+  anywhere; the table and sections are the canonical description.**
+- [x] Rewrite the Layer 6 plan (`thoughts/plans/2026-05-12-rkaf-layer6-conformance-v0.2.md`) self-review checklist to match what actually shipped.
 - [x] Consolidate unreleased CHANGELOG entries (Plans 7a–7e, ADR-0093) into a versioned `v0.2.0-pre.7` release. Bump `VERSION`.
 
 ## US regulatory vocabulary and rulemaking follow-through
