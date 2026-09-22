@@ -28,7 +28,7 @@ The plan specified `rkaf-conformance` Rust binary + `suite.index.json` + `confor
   to `7205347`; the US identifier, L0, and rulemaking work remains Unreleased.
 - [x] Decide the release shape before tagging: the memo prescribed two releases (N+1: identifiers + L0; N+2: rulemaking module + corpus), but all four deliverables sit together in Unreleased. Either cut them as two tags or record in the memo why one combined release preserves the sequencing intent (2026-07-23 architecture review, FINDING 2). Record in the same decision where the assertion, concept, and analysis contract reshape (section below) lands relative to these tags.
   **Decided by events, recorded 2026-09-18:** all four deliverables shipped together in `0.2.0-pre.18` (tagged 2026-09-04; CHANGELOG "US regulatory identifiers, L0 conformance, and rulemaking module"). One combined release preserved the sequencing intent because the paired Spicy Regs gate receipt bound both repositories' commits to a single contract digest, so the consumer adopted identifiers and module against the same contract. The contract reshape landed inside the same span (pre.8 through pre.18). The sixteen VERSION bumps that carried no tag were tagged the same day under one convention: `v<VERSION>` at the commit that set `VERSION`.
-- [ ] Regenerate `conformance/partners/rulespec-reference.yaml` via `tools/conformance_report.py --self-certify` at the release cut — it is pinned to `0.2.0-pre.6` with a 2026-05-17 corpus run and predates the US-identifier fixtures (2026-07-23 architecture review, FINDING 6).
+- [ ] Regenerate `conformance/partners/rulespec-reference.yaml` via `tools/conformance_report.py --self-certify` at the release cut — it is pinned to `0.2.0-pre.9` with a 2026-05-17 corpus run and predates the US-identifier fixtures (2026-07-23 architecture review, FINDING 6).
 - [ ] File `conformance/partners/spicy-regs.yaml` only after spicy-regs ships both `rule_targets` and `docs/ontology.md`, then run `tools/l0_mapping_audit.py` against that real mapping.
 - [x] Record the 2026-07-24 maintainer-operated adversarial simulated-consumer review and its three agenda decisions. The simulation is evidence, not a non-originating review.
 - [ ] Keep `spec/rkaf-rulemaking.md` Experimental until a non-originating
@@ -390,7 +390,7 @@ Registry client + federation are blocked on Plan 4. The ~80% below is buildable 
 - [ ] `crates/rkaf/src/registries.rs` — stub module, compiles but returns "not yet implemented" for registry ops. Real impl gated on Plan 4.
 - [ ] `crates/rkaf/tests/conformance.rs` — vocab round-trips + validation + projector ops. Skip registry/federation.
 - [ ] `crates/rkaf/README.md` — `cargo add rkaf` + validate + attach-overlay examples.
-- [ ] Bump workspace version in `crates/Cargo.toml` to match `VERSION` (`0.2.0-pre.6`).
+- [x] Bump workspace version in `crates/Cargo.toml` to match `VERSION` (`0.2.0-pre.6`). **Already true:** `crates/Cargo.toml` and `VERSION` both carry `0.2.0-pre.18` (checked 2026-09-21).
 
 ## Formspec Needs layer — three incoming proposals
 
