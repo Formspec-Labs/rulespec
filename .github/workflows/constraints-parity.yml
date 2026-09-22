@@ -29,6 +29,10 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip
           pip install -r requirements.txt
+          # `make test-package` builds and installs the wheels with uv, the
+          # same way the local gate does. Without it that step dies on
+          # `make: uv: No such file or directory`.
+          pip install uv
 
       - name: Recompile every constraint to every target
         run: tools/compile_all.sh
