@@ -25,9 +25,11 @@ CUE           = .tools/cue
 # Scratch venvs for installed-wheel checks. Each stays outside the tree so no
 # source checkout can satisfy an import. Keeping the artifact-only environment
 # separate also proves its dependency closure excludes the graph stack.
-ARTIFACT_PACKAGE_CHECK_DIR = $(shell printf '%s' "$${TMPDIR:-/tmp}")rulespec-artifact-package-check
-CONFORMANCE_PACKAGE_CHECK_DIR = $(shell printf '%s' "$${TMPDIR:-/tmp}")rulespec-conformance-package-check
-PROJECTION_PACKAGE_CHECK_DIR = $(shell printf '%s' "$${TMPDIR:-/tmp}")rulespec-projection-package-check
+# macOS sets TMPDIR with a trailing slash and Linux does not, so strip any and
+# add one: bare concatenation made this `/tmprulespec-...` on CI runners.
+ARTIFACT_PACKAGE_CHECK_DIR = $(shell printf '%s' "$${TMPDIR:-/tmp}" | sed 's:/*$$::')/rulespec-artifact-package-check
+CONFORMANCE_PACKAGE_CHECK_DIR = $(shell printf '%s' "$${TMPDIR:-/tmp}" | sed 's:/*$$::')/rulespec-conformance-package-check
+PROJECTION_PACKAGE_CHECK_DIR = $(shell printf '%s' "$${TMPDIR:-/tmp}" | sed 's:/*$$::')/rulespec-projection-package-check
 ARTIFACT_WHEEL_GLOB = dist/artifacts/rulespec_artifacts-*.whl
 PROJECTION_WHEEL_GLOB = dist/projection/rulespec_projection-*.whl
 PREVIOUS_ARTIFACT_WHEEL ?=
