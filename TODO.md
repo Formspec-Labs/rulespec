@@ -29,7 +29,14 @@ The plan specified `rkaf-conformance` Rust binary + `suite.index.json` + `confor
 - [x] Decide the release shape before tagging: the memo prescribed two releases (N+1: identifiers + L0; N+2: rulemaking module + corpus), but all four deliverables sit together in Unreleased. Either cut them as two tags or record in the memo why one combined release preserves the sequencing intent (2026-07-23 architecture review, FINDING 2). Record in the same decision where the assertion, concept, and analysis contract reshape (section below) lands relative to these tags.
   **Decided by events, recorded 2026-09-18:** all four deliverables shipped together in `0.2.0-pre.18` (tagged 2026-09-04; CHANGELOG "US regulatory identifiers, L0 conformance, and rulemaking module"). One combined release preserved the sequencing intent because the paired Spicy Regs gate receipt bound both repositories' commits to a single contract digest, so the consumer adopted identifiers and module against the same contract. The contract reshape landed inside the same span (pre.8 through pre.18). The sixteen VERSION bumps that carried no tag were tagged the same day under one convention: `v<VERSION>` at the commit that set `VERSION`.
 - [ ] Regenerate `conformance/partners/rulespec-reference.yaml` via `tools/conformance_report.py --self-certify` at the release cut — it is pinned to `0.2.0-pre.9` with a 2026-05-17 corpus run and predates the US-identifier fixtures (2026-07-23 architecture review, FINDING 6).
-- [ ] File `conformance/partners/spicy-regs.yaml` only after spicy-regs ships both `rule_targets` and `docs/ontology.md`, then run `tools/l0_mapping_audit.py` against that real mapping.
+- [x] File `conformance/partners/spicy-regs.yaml` only after spicy-regs ships both `rule_targets` and `docs/ontology.md`, then run `tools/l0_mapping_audit.py` against that real mapping.
+  **Filed 2026-09-21, audited PASS (1 block, 3 mappings, 3 terms) against the
+  current contract. The carrier side — `docs/ontology.md` with the normative
+  `rule_targets` L0 mapping — lives on spicy-regs branch
+  `tier12/stale-sweep` (commit `ad9d806`) and resolves here through
+  `../spicy-regs/docs/ontology.md` once that branch merges; until then the
+  in-workspace audit run reports the carrier_mapping file as missing, which
+  is the intended dependency, not a defect.**
 - [x] Record the 2026-07-24 maintainer-operated adversarial simulated-consumer review and its three agenda decisions. The simulation is evidence, not a non-originating review.
 - [ ] Keep `spec/rkaf-rulemaking.md` Experimental until a non-originating
   consumer reviews the repaired RIN agenda-item contract or ratifies the
