@@ -3,7 +3,9 @@
 A partner publishes what it claims by filing a conformance disclosure under
 `conformance/partners/<name>.yaml`. Disclosure is **self-certified** — no
 central authority pre-1.0; the falsifiability gate is the audit or reporter
-run named in the file. Levels and their gates live in
+run named in the file.
+
+Levels and their gates live in
 [`spec/rkaf-conformance.md`](../spec/rkaf-conformance.md); the document shape
 is [`conformance/self-certification.template.yaml`](../conformance/self-certification.template.yaml).
 
