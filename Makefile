@@ -76,8 +76,12 @@ test: test-rust test-shapes test-audits test-document-capture test-conformance t
 # both together cannot prove that an artifact-only consumer avoids RDF/SHACL.
 test-package: test-package-conformance test-package-projection
 
+# The wheel ships platform-fixtures/, whose artifacts name this package's own
+# version as their verifier, so a version bump without a regenerated corpus
+# fails here, before the wheel is built.
 test-package-artifacts:
 	rm -rf dist/artifacts "$(ARTIFACT_PACKAGE_CHECK_DIR)"
+	$(PYTHON) tools/build_platform_artifact_fixtures.py --check
 	uv run --project packages/rulespec-artifacts python -m unittest discover -s packages/rulespec-artifacts/tests -p 'test_*.py'
 	uv build --project packages/rulespec-artifacts --wheel --out-dir dist/artifacts
 	uv venv --python 3.12 "$(ARTIFACT_PACKAGE_CHECK_DIR)"
@@ -137,7 +141,6 @@ test-audits:
 	$(CARGO) build $(CARGO_MANIFEST) -p projector-harness
 	$(PYTHON) tools/vocab_audit.py
 	$(PYTHON) -m unittest tools.test_constraints_compile tools.test_l0_mapping_audit tools.test_semantic_carriers tools.test_reference_release_digest tools.test_rulespec_releases tools.test_extrapolation_release_v2 tools.test_extrapolation_canonical_shared tools.test_atlas_membership_stub tools.test_platform_artifact tools.test_contract_exports tools.test_projection_terms tools.test_projection_conformance -v
-	$(PYTHON) tools/build_platform_artifact_fixtures.py --check
 	$(PYTHON) tools/build_contract_exports.py --check
 	$(PYTHON) tools/l0_mapping_audit.py
 	$(PYTHON) tools/l0_l3_coverage_audit.py

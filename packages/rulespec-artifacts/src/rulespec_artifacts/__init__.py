@@ -10,4 +10,4 @@ from ._blobs import __all__ as _blob_exports
 
 __all__ = [*_artifact_exports, *_blob_exports]
 
-__version__ = "1.1.1"
+__version__ = "1.1.2"
