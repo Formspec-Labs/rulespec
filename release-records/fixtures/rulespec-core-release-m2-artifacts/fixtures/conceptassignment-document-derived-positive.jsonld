@@ -1,0 +1,55 @@
+{
+  "@context": "../context/rkaf-context.jsonld",
+  "@graph": [
+    {
+      "@id": "urn:rkaf:fixture:ca-doc:release:topics",
+      "@type": "rkaf:ReferenceResourceRelease",
+      "dcterms:isVersionOf": "urn:rkaf:fixture:registry:topics",
+      "dcat:version": "2026.07.28",
+      "dcterms:type": "skos:ConceptScheme",
+      "rkaf:membershipMode": "rkaf:completeMembership",
+      "prov:hadMember": ["urn:rkaf:fixture:concept:household-income"],
+      "dcat:distribution": ["urn:rkaf:fixture:ca-doc:distribution:topics"],
+      "rkaf:referenceReleaseDigest": "sha256:662d65b6a8c096e73866c32a4fed83fb06af3b4ec6e7a6f9c31546be70cbe94f"
+    },
+    {
+      "@id": "urn:rkaf:fixture:ca-doc:distribution:topics",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": ["urn:rkaf:fixture:ca-doc:distribution:topics"],
+      "rkaf:artifactIdentifierScheme": ["rkaf:partner-defined"],
+      "dcterms:format": "application/ld+json",
+      "rkaf:hasContentDigest": "sha256:4545454545454545454545454545454545454545454545454545454545454545"
+    },
+    {
+      "@id": "urn:rkaf:fixture:ca-doc:artifact",
+      "@type": "rkaf:Artifact",
+      "rkaf:hasArtifactIdentifier": ["urn:rkaf:fixture:ca-doc:artifact"],
+      "rkaf:artifactIdentifierScheme": ["rkaf:partner-defined"]
+    },
+    {
+      "@id": "urn:rkaf:fixture:ca-doc:segment-assignment",
+      "@type": "prov:Entity"
+    },
+    {
+      "@id": "urn:rkaf:fixture:ca-doc:assignment",
+      "@type": "rkaf:ConceptAssignment",
+      "rkaf:assertsSubject": "urn:rkaf:fixture:ca-doc:artifact",
+      "rkaf:assertsPredicate": "rkaf:assignmentPrimary",
+      "rkaf:assertsObject": "urn:rkaf:fixture:concept:household-income",
+      "rkaf:assertionPolarity": "rkaf:affirmed",
+      "rkaf:assignedConceptRelease": "urn:rkaf:fixture:ca-doc:release:topics",
+      "rkaf:assertionOrigin": "rkaf:deterministicExtraction",
+      "rkaf:epistemicBasis": "rkaf:deterministicDerivation",
+      "rkaf:hasExtractionProvenance": "urn:rkaf:fixture:ca-doc:extraction",
+      "prov:wasDerivedFrom": ["urn:rkaf:fixture:ca-doc:segment-assignment"],
+      "rkaf:hasJustification": "urn:rkaf:fixture:ca-doc:aggregation-rule"
+    },
+    {
+      "@id": "urn:rkaf:fixture:ca-doc:evidence",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rkaf:fixture:ca-doc:assignment",
+      "rkaf:noEvidenceReason": "rkaf:inferred-from-warrant-class"
+    }
+  ],
+  "_comment": "A derived document assignment uses ordinary PROV derivation plus a named justification and ExtractionActivity reference; it does not revive assignment-specific derivation fields."
+}

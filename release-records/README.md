@@ -5,6 +5,16 @@ for the independent Rulespec Core and Rulespec Extrapolator release units. See
 [`spec/rulespec-releases.md`](../spec/rulespec-releases.md) for the normative
 identity and validation rules.
 
+`fixtures/rulespec-core-release-m2-artifacts/` retains all 16 exact artifact
+files named by the sealed M2 Core manifest, using their manifest-relative
+paths. The seven schemas were recovered with the source and compiler at
+commit `daa3f82267ac0ada25a2f6c48506fd8991e9f5e2`; the validator and eight
+conformance fixtures were copied from that commit. Every file matches its
+existing manifest digest. Historical release tests read only this snapshot
+and reject missing or changed bytes. The M2 release identity and downstream
+pins stay unchanged as current schemas evolve. Current generated output is
+checked separately by the compiler parity and code-generation drift gates.
+
 `fixtures/upstream/` holds a byte-for-byte publisher-owned `DocumentRelease`.
 Rulespec pins and validates that copy; it does not own its contents. The
 bundled `m2-input-releases.json` repeats the document record so the portable

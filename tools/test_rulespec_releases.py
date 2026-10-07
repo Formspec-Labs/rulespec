@@ -7,6 +7,7 @@ import hashlib
 import inspect
 import io
 import re
+import shutil
 import tempfile
 import unittest
 from contextlib import redirect_stderr, redirect_stdout
@@ -43,6 +44,7 @@ RELEASES = ROOT / "release-records"
 FIXTURES = RELEASES / "fixtures"
 SCHEMAS = RELEASES / "schemas"
 CORE = FIXTURES / "rulespec-core-release-m2.json"
+CORE_ARTIFACTS = FIXTURES / "rulespec-core-release-m2-artifacts"
 INPUTS = FIXTURES / "m2-input-releases.json"
 EXTRAPOLATION = FIXTURES / "m2-extrapolation-release-positive.json"
 NEGATIVE_CONTROLS = FIXTURES / "m2-negative-controls.json"
@@ -114,7 +116,7 @@ class CoreReleaseTests(unittest.TestCase):
         jsonschema.Draft202012Validator.check_schema(schema)
         jsonschema.Draft202012Validator(schema).validate(load_json(CORE))
 
-    def test_core_manifest_digests_match_repository_artifacts(self) -> None:
+    def _check_core_artifact_digests(self, artifact_root: Path) -> None:
         release = load_json(CORE)
         for manifest_name in (
             "schema_artifacts",
@@ -122,10 +124,25 @@ class CoreReleaseTests(unittest.TestCase):
             "conformance_fixture_artifacts",
         ):
             for artifact in release[manifest_name]:
-                with self.subTest(artifact=artifact["name"]):
-                    content = (ROOT / artifact["name"]).read_bytes()
-                    digest = "sha256:" + hashlib.sha256(content).hexdigest()
-                    self.assertEqual(artifact["artifact_digest"], digest)
+                content = (artifact_root / artifact["name"]).read_bytes()
+                digest = "sha256:" + hashlib.sha256(content).hexdigest()
+                self.assertEqual(artifact["artifact_digest"], digest, artifact["name"])
+
+    def test_core_manifest_digests_match_sealed_artifacts(self) -> None:
+        # M2 is a historical release; live codegen freshness has separate gates.
+        self._check_core_artifact_digests(CORE_ARTIFACTS)
+
+    def test_core_snapshot_rejects_missing_or_changed_artifacts(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            snapshot = Path(directory) / "snapshot"
+            shutil.copytree(CORE_ARTIFACTS, snapshot)
+            artifact = snapshot / load_json(CORE)["schema_artifacts"][0]["name"]
+            artifact.write_bytes(artifact.read_bytes() + b"\n")
+            with self.assertRaises(AssertionError):
+                self._check_core_artifact_digests(snapshot)
+            artifact.unlink()
+            with self.assertRaises(FileNotFoundError):
+                self._check_core_artifact_digests(snapshot)
 
 
 class InputReleaseIndexTests(unittest.TestCase):
