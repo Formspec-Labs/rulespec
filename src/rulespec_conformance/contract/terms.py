@@ -519,6 +519,7 @@ humanRationale = Term("rkaf:humanRationale")
 humanUser = Term("rkaf:humanUser")
 human_estimation = Term("rkaf:human-estimation")
 identifierRegistry = Term("rkaf:identifierRegistry")
+illustrativeSample = Term("rkaf:illustrativeSample")
 implements = Term("rkaf:implements")
 imported = Term("rkaf:imported")
 importedRecord = Term("rkaf:importedRecord")
@@ -1382,6 +1383,7 @@ _TERM_NAMES: tuple[str, ...] = (
     "humanUser",
     "human_estimation",
     "identifierRegistry",
+    "illustrativeSample",
     "implements",
     "imported",
     "importedRecord",

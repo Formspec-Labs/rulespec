@@ -108,3 +108,8 @@ The four v0.1.1 files — `rkaf-shapes-core-v0.1.ttl`,
 at `archive/v0.1/shapes/`. No active gate loads them. Their per-shape fixture
 coverage matrix, including four accepted coverage gaps, is preserved in
 `archive/v0.1/v0.1.1-release-manifest.md`.
+
+`rkaf:IllustrativeSampleEligibilityShape` in `rkaf-shapes-warrant.ttl` checks
+the sample binding against its assertion: a resolved assertion and an explicit
+usage cap are required, including on LocalAdoption grants targeting that sample. This cross-node invariant complements the CUE-generated
+NoEvidenceReason enum; it does not change per-node Rust validation.

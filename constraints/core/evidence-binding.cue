@@ -21,7 +21,12 @@ import "list"
 // note in Core §4.3 and TODO.md.
 #NoEvidenceReason: "rkaf:axiomatic" | "rkaf:inferred-from-warrant-class" |
 	"rkaf:consensus-without-citation" | "rkaf:permitted-by-safety-label" |
-	"rkaf:declared-hypothesis"
+	"rkaf:declared-hypothesis" | "rkaf:illustrativeSample"
+
+// Illustrative samples are explicitly invented examples, not legal authority.
+// The authored cross-node SHACL invariant requires the bound assertion to state
+// usageEligibility no higher than draftGenerationAllowed (Core §4.3).
+// Unlike other evidence gaps, this reason does not require a safety label.
 
 // The portable evidence kind or source role carried by this binding. This is
 // NOT how the evidence bears on the assertion; `#EvidentiaryFunction` below

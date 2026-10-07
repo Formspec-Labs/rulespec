@@ -424,6 +424,7 @@ NO_EVIDENCE_REASON: tuple[str, ...] = (
     "rkaf:consensus-without-citation",
     "rkaf:permitted-by-safety-label",
     "rkaf:declared-hypothesis",
+    "rkaf:illustrativeSample",
 )
 
 #: `#ProceedingIdentifierScheme` — constraints/profiles/us-rulemaking/rulemaking.cue

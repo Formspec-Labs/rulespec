@@ -35,6 +35,16 @@ pub enum USRegulatoryIdentifierScheme {
 
 use std::collections::BTreeMap;
 
+/// Language map or legacy untagged text for `PreferredLabelMap`.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum PreferredLabelMapOrString {
+    /// Language-tagged titles retained without normalization.
+    LanguageMap(crate::generated::vocabulary_text::PreferredLabelMap),
+    /// Existing untagged text retained for compatibility.
+    Text(String),
+}
+
 /// Generated JSON-LD carrier for `USRegulatoryArtifact`.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct USRegulatoryArtifact {
@@ -44,6 +54,15 @@ pub struct USRegulatoryArtifact {
     /// Optional JSON-LD resource identifier.
     #[serde(rename = "@id", skip_serializing_if = "Option::is_none", default)]
     pub id: Option<String>,
+    /// JSON-LD property `dcterms:title`.
+    #[serde(rename = "dcterms:title", skip_serializing_if = "Option::is_none", default)]
+    pub title: Option<PreferredLabelMapOrString>,
+    /// JSON-LD property `dcat:version`.
+    #[serde(rename = "dcat:version", skip_serializing_if = "Option::is_none", default)]
+    pub version: Option<String>,
+    /// JSON-LD property `dcterms:issued`.
+    #[serde(rename = "dcterms:issued", skip_serializing_if = "Option::is_none", default)]
+    pub issued: Option<String>,
     /// JSON-LD property `rkaf:hasArtifactIdentifier`.
     #[serde(rename = "rkaf:hasArtifactIdentifier")]
     pub has_artifact_identifier: crate::OneOrMany<String>,

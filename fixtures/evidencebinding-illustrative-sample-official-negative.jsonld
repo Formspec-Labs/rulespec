@@ -1,0 +1,25 @@
+{
+  "@context": "../context/rkaf-context.jsonld",
+  "@graph": [
+    {
+      "@id": "urn:rkaf:fixture:sample:assertion",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:humanAsserted",
+      "rkaf:epistemicBasis": "rkaf:editorialAssertion",
+      "rkaf:assertsSubject": "urn:rkaf:example:program",
+      "rkaf:assertsPredicate": "urn:rkaf:example:duration",
+      "rkaf:assertionPolarity": "rkaf:affirmed",
+      "rkaf:assertsValue": {
+        "@value": "P10D",
+        "@type": "xsd:duration"
+      },
+      "rkaf:usageEligibility": "rkaf:officialUse"
+    },
+    {
+      "@id": "urn:rkaf:fixture:sample:binding",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rkaf:fixture:sample:assertion",
+      "rkaf:noEvidenceReason": "rkaf:illustrativeSample"
+    }
+  ]
+}

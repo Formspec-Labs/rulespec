@@ -47,6 +47,12 @@ import "list"
 // evidence needs and a similarity score never has.
 #Artifact: artifact={
 	"@type":                         "rkaf:Artifact"
+	// Display metadata does not identify the source or establish legal effect.
+	// New titles use the shared language map; existing untagged text stays valid.
+	"dcterms:title"?: #PreferredLabelMap | string
+	"dcat:version"?:  string
+	// Preserve the publisher's lexical issue date, as ReferenceResourceRelease does.
+	"dcterms:issued"?: string
 	"rkaf:hasArtifactIdentifier":    [...(string & =~"^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$")] & list.MinItems(1)
 	"rkaf:artifactIdentifierScheme": [...#ArtifactIdentifierScheme] & list.MinItems(1)
 	"foaf:primaryTopic"?:            string & =~"^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"

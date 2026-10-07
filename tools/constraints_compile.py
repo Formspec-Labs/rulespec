@@ -17,6 +17,7 @@ constraints/ai-extraction/):
                                                that may live in other files
   - `#Name: string & =~"..." & !~"..."`     → reusable scalar string carrier
   - `#Name: { "field": #TypeRef, ... }`     → shape with typed properties
+  - `#Map | string`                       → language map or legacy text
   - `#Map: struct.MinFields(1) & {`
     `  [language=<BCP47>]: string | [...string] }`
                                               → named JSON-LD language map
@@ -98,6 +99,8 @@ class PropDef:
     type_ref: str             # "string" | "int" | "float" | "bool" | "enum" | "named" | "enum_union" | "list" | "json_object"
     enum_ref: Optional[str] = None
     named_ref: Optional[str] = None
+    # Retain legacy untagged text beside a reusable language map.
+    named_allow_string: Optional[bool] = None
     list_inner_enum: Optional[str] = None
     list_inner_named: Optional[str] = None
     list_min_items: int = 0
@@ -975,6 +978,13 @@ def parse_property_line(line: str) -> Optional[PropDef]:
         p.type_ref = "json_object"
         return p
 
+    map_or_string = re.fullmatch(r"#(\w+)\s*\|\s*string", rhs)
+    if map_or_string:
+        p.type_ref = "named"
+        p.named_ref = map_or_string.group(1)
+        p.named_allow_string = True
+        return p
+
     # JSON-LD one-or-many reference. The source explicitly admits the scalar
     # spelling and a non-empty array spelling; all generated carriers preserve
     # that union. Reference classification (closed enum versus named object)
@@ -1212,6 +1222,7 @@ def _classify_local_named_references(doc: ConstraintDoc) -> None:
                 continue
             prop.type_ref = "named"
             prop.named_ref = prop.enum_ref
+            prop.named_allow_string = False
             prop.enum_ref = None
         if prop.type_ref == "list" and prop.list_inner_enum in named:
             scalar = scalars.get(prop.list_inner_enum)
@@ -1249,6 +1260,7 @@ def _classify_global_named_references(
             elif isinstance(definition, (PatternMapDef, ObjectTypeDef)):
                 prop.type_ref = "named"
                 prop.named_ref = prop.enum_ref
+                prop.named_allow_string = False
                 prop.enum_ref = None
         if prop.type_ref == "list" and prop.list_inner_enum:
             definition = registry.get(prop.list_inner_enum)
@@ -1293,6 +1305,16 @@ def _prepare_named_references(
     for pattern_map in doc.pattern_maps:
         _validate_pattern_map(pattern_map, allow_unresolved=False)
     _validate_document_value_objects(doc, allow_unresolved=False)
+    local_names = {definition.name for definition in [
+        *doc.enums, *doc.enum_unions, *doc.scalar_types,
+        *doc.pattern_maps, *doc.object_types, *doc.shapes,
+    ]}
+    for prop in _all_document_properties(doc):
+        if prop.named_allow_string:
+            if _pattern_map_definition(doc, prop.named_ref, registry) is None:
+                raise CompileError(f"#{prop.named_ref} | string requires a named language map")
+            if f"{prop.named_ref}OrString" in local_names:
+                raise CompileError(f"generated carrier {prop.named_ref}OrString conflicts with a CUE definition")
 
 
 def _validate_named_value_object(definition: ObjectTypeDef) -> None:
@@ -1513,6 +1535,7 @@ _PROPERTY_FACET_DEFAULTS: dict[str, object] = {
     "type_ref": "string",
     "enum_ref": None,
     "named_ref": None,
+    "named_allow_string": None,
     "list_inner_enum": None,
     "list_inner_named": None,
     "list_min_items": 0,
@@ -1543,6 +1566,7 @@ _NARROWING_FACETS = {
     "list_max_items": min,
     "list_unique_items": lambda base, derived: bool(base or derived),
     "list_allow_scalar": lambda base, derived: bool(base and derived),
+    "named_allow_string": lambda base, derived: bool(base and derived),
     "max_inclusive": min,
 }
 
@@ -2204,7 +2228,8 @@ def property_to_jsonschema(
     if p.type_ref == "enum":
         return {"$ref": f"#/$defs/{p.enum_ref}"}
     if p.type_ref == "named":
-        return {"$ref": f"#/$defs/{p.named_ref}"}
+        reference = {"$ref": f"#/$defs/{p.named_ref}"}
+        return {"anyOf": [reference, {"type": "string"}]} if p.named_allow_string else reference
     if p.type_ref == "list":
         items: dict
         if p.list_inner_enum:
@@ -2430,6 +2455,21 @@ def target_rust(
             f"pub type {map_def.name} = BTreeMap<String, {value_type}>;"
         )
         out.append("")
+
+    for name in sorted({prop.named_ref for prop in _all_document_properties(doc) if prop.named_allow_string}):
+        carrier = _rust_type(PropDef(name="", type_ref="named", named_ref=name), local_enums, registry)
+        out.extend([
+            f"/// Language map or legacy untagged text for `{name}`.",
+            "#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]",
+            "#[serde(untagged)]",
+            f"pub enum {name}OrString {{",
+            "    /// Language-tagged titles retained without normalization.",
+            f"    LanguageMap({carrier}),",
+            "    /// Existing untagged text retained for compatibility.",
+            "    Text(String),",
+            "}",
+            "",
+        ])
 
     for object_type in doc.object_types:
         out.append(
@@ -2670,6 +2710,8 @@ def _rust_type(p: PropDef, local_enums: Optional[set] = None,
                 return fq
         return name
     if p.type_ref == "named":
+        if p.named_allow_string:
+            return f"{p.named_ref}OrString"
         name = p.named_ref or "serde_json::Value"
         if (
             local_enums is not None
@@ -2950,6 +2992,17 @@ def target_typescript(
                 "  if (entries.some(([, value]) => typeof value !== "
                 f'"string")) errs.push("{map_def.name}: values must be strings");'
             )
+        for pattern, rejected in (
+            (map_def.value.pattern, False),
+            (map_def.value.forbidden_pattern, True),
+        ):
+            if pattern:
+                operator = "" if rejected else "!"
+                out.append(
+                    "  if (entries.some(([, value]) => ([] as unknown[]).concat(value).some((item) => "
+                    f'typeof item === "string" && {operator}new RegExp({json.dumps(pattern)}).test(item)))) '
+                    f'errs.push("{map_def.name}: malformed text value");'
+                )
         out.append("  return errs;")
         out.append("}")
         out.append("")
@@ -3129,8 +3182,11 @@ def target_typescript(
                         f'errs.push("{p.name}: item outside closed set");'
                     )
             if p.type_ref == "named" and p.named_ref:
+                guard = f'v["{p.name}"] !== undefined'
+                if p.named_allow_string:
+                    guard += f' && typeof v["{p.name}"] !== "string"'
                 out.append(
-                    f'  if (v["{p.name}"] !== undefined) '
+                    f'  if ({guard}) '
                     f'errs.push(...validate{p.named_ref}(v["{p.name}"]));'
                 )
             if p.type_ref == "list" and p.list_inner_named:
@@ -3443,7 +3499,8 @@ def _ts_type(p: PropDef) -> str:
     if p.type_ref == "enum":
         return p.enum_ref or "string"
     if p.type_ref == "named":
-        return p.named_ref or "unknown"
+        name = p.named_ref or "unknown"
+        return f"{name} | string" if p.named_allow_string else name
     if p.type_ref == "list":
         if p.list_inner_named:
             return (
@@ -3646,7 +3703,10 @@ def target_shacl(
                 # `sh:uniqueLang` carries the one-preferred-label-per-language
                 # rule for a single-valued map.
                 line += " sh:nodeKind sh:Literal ;"
-                line += " sh:datatype rdf:langString ;"
+                if p.named_allow_string:
+                    line += " sh:or ( [ sh:datatype rdf:langString ] [ sh:datatype xsd:string ] ) ;"
+                else:
+                    line += " sh:datatype rdf:langString ;"
                 if named_map.value.type_ref == "string":
                     line += " sh:uniqueLang true ;"
             if named_object is not None:

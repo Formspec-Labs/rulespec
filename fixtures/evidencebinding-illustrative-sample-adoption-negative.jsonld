@@ -1,0 +1,37 @@
+{
+  "@context": "../context/rkaf-context.jsonld",
+  "@graph": [
+    {
+      "@id": "urn:rkaf:fixture:sample:assertion",
+      "@type": "rkaf:ValueAssertion",
+      "rkaf:assertionOrigin": "rkaf:humanAsserted",
+      "rkaf:epistemicBasis": "rkaf:editorialAssertion",
+      "rkaf:assertsSubject": "urn:rkaf:example:program",
+      "rkaf:assertsPredicate": "urn:rkaf:example:duration",
+      "rkaf:assertionPolarity": "rkaf:affirmed",
+      "rkaf:assertsValue": {
+        "@value": "P10D",
+        "@type": "xsd:duration"
+      },
+      "rkaf:usageEligibility": "rkaf:draftGenerationAllowed"
+    },
+    {
+      "@id": "urn:rkaf:fixture:sample:binding",
+      "@type": "rkaf:EvidenceBinding",
+      "rkaf:bindsAssertion": "urn:rkaf:fixture:sample:assertion",
+      "rkaf:noEvidenceReason": "rkaf:illustrativeSample"
+    },
+    {
+      "@id": "urn:rkaf:fixture:sample:adoption",
+      "@type": "rkaf:LocalAdoption",
+      "rkaf:organization": "urn:rkaf:example:organization",
+      "rkaf:targetAssertion": "urn:rkaf:fixture:sample:assertion",
+      "rkaf:adoptionStatus": "rkaf:active",
+      "rkaf:usageEligibility": "rkaf:officialUse",
+      "rkaf:adoptionAuthorityKind": "rkaf:localOperational",
+      "rkaf:adoptionScope": "urn:rkaf:example:scope",
+      "rkaf:authorizedBy": "urn:rkaf:example:actor",
+      "rkaf:adoptedAt": "2026-10-06T12:00:00Z"
+    }
+  ]
+}

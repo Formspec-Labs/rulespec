@@ -515,6 +515,23 @@ profile, not a universal primitive. It is normatively defined in
 definition; the kernel `#Artifact` in `constraints/core/artifact.cue` does
 not declare those terms.
 
+Optional citation display metadata uses existing public predicates:
+
+- `dcterms:title` (0..1 authored value) carries a non-empty language map,
+  using the shared BCP 47 grammar and one non-empty title per language.
+  New producers SHOULD use maps such as `{"en": "Example", "es-US": "Ejemplo"}`.
+  Existing untagged scalar titles remain accepted for compatibility; consumers
+  MUST NOT infer a language for them. A title never replaces source identity.
+- `dcat:version` (0..1) carries the publisher's edition label, reusing the
+  same predicate as ReferenceResourceRelease (§4.1.1).
+- `dcterms:issued` (0..1) retains the publisher's lexical issue date, reusing
+  the ReferenceResourceRelease predicate. This portable field does not add a
+  date/time lexical check or turn an issue date into an effective date.
+
+All three fields are optional. Artifact identifiers, content digests, source
+fragments and the evidence requirements for version/revision links remain
+unchanged. Neither metadata nor a translated title establishes legal effect.
+
 Artifact version and revision identity composes Dublin Core and PROV-O:
 
 - `dcterms:isVersionOf` (0..*) links an immutable Artifact to a stable
@@ -781,7 +798,7 @@ Required properties:
   - `rkaf:bindsSourceFragment` (1..*) — at least one SourceFragment, together
     with exactly one `rkaf:evidenceRole` and one
     `rkaf:evidentiaryFunction`; OR
-  - `rkaf:noEvidenceReason` (1) — closed enum: `rkaf:axiomatic`, `rkaf:inferred-from-warrant-class`, `rkaf:consensus-without-citation`, `rkaf:permitted-by-safety-label`, `rkaf:declared-hypothesis`. The Assertion's `rkaf:hasSafetyLabel` MUST permit the chosen reason. This rule is uniform over the enum: it applies to every member, including `rkaf:declared-hypothesis`, with no per-value exceptions.
+  - `rkaf:noEvidenceReason` (1) — closed enum: `rkaf:axiomatic`, `rkaf:inferred-from-warrant-class`, `rkaf:consensus-without-citation`, `rkaf:permitted-by-safety-label`, `rkaf:declared-hypothesis`, `rkaf:illustrativeSample`. The Assertion's `rkaf:hasSafetyLabel` MUST permit the chosen reason, except for the explicitly capped illustrative-sample case below. Declared hypotheses retain the existing label requirement.
 
 Optional properties:
 - `rkaf:hasAccessScope` (0..1) — narrows the binding's visibility.
@@ -806,6 +823,31 @@ evidence rule applies uniformly to `RelationshipAssertion`, `ValueAssertion`,
 `RelationChangeEvent`; no form has an inline evidence exception. An assertion
 lacking either a fragment-backed binding or a permitted `noEvidenceReason` is
 not operationally valid. Layer 2 and Layer 3 enforce this.
+
+**Illustrative sample.** `rkaf:illustrativeSample` declares an invented example
+with no claim to source authority. Its EvidenceBinding MUST resolve to an
+assertion that explicitly states `rkaf:usageEligibility` as `rkaf:notEligible`,
+`rkaf:searchOnly`, `rkaf:reviewQueueOnly` or `rkaf:draftGenerationAllowed`.
+It MUST NOT claim `rkaf:localOperationalUse`, `rkaf:publicationAllowed` or
+`rkaf:officialUse`. Missing eligibility and unresolved assertion targets fail.
+A `rkaf:LocalAdoption` targeting the sample MUST also state eligibility no
+higher than `rkaf:draftGenerationAllowed`, regardless of adoption status. This
+prevents activation or scoped adoption from broadening a validated sample.
+Adding a source-fragment binding alongside the sample reason does not remove
+this cap. Consumers MUST label the rule as a sample while any binding retains
+this reason; adoption, a title or an edition label cannot turn a sample into law.
+
+This reason alone permits its stated evidence absence and does not require
+`rkaf:hasSafetyLabel`. The exception lets ValueAssertion samples retain the
+existing shared schema without changing safety-label carriage or byte-pinned
+release records. Other reasons retain their existing requirements.
+
+The authored SHACL graph shape mechanically checks this cross-node cap at
+Layers 2–3. The per-node JSON Schema and Rust `Validator::validate_document`
+validate node fields; they do not enforce graph relationships or this cap.
+A sample is not qualified for broader use by a per-node pass. The Layer 4
+reducer does not inspect evidence reasons; callers MUST validate the graph
+before relying on its effective eligibility for sample-bearing inputs.
 
 **Declared hypothesis.** `rkaf:declared-hypothesis` means the assertion is a
 deliberately held, not-yet-validated belief. It is distinct from both

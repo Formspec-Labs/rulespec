@@ -44,7 +44,7 @@ rkaf:EvidenceBindingShape a sh:NodeShape ;
     [ sh:property [ sh:path rkaf:noEvidenceReason ; sh:minCount 1 ; sh:maxCount 1 ;
         sh:in ( rkaf:axiomatic rkaf:inferred-from-warrant-class
                 rkaf:consensus-without-citation rkaf:permitted-by-safety-label
-                rkaf:declared-hypothesis ) ; ] ]
+                rkaf:declared-hypothesis rkaf:illustrativeSample ) ; ] ]
   ) ;
   sh:or (
     [ sh:not [ sh:property [
@@ -94,3 +94,48 @@ rkaf:WarrantShape a sh:NodeShape ;
             rkaf:social rkaf:source-class ) ;
     sh:message "warrantFamily MUST be from the closed enum (§4.4)." ;
   ] .
+
+# An invented example cannot authorize operational, publication or official use.
+# This spans the binding and assertion, so it belongs in the authored graph half.
+rkaf:IllustrativeSampleEligibilityShape a sh:NodeShape ;
+  sh:targetClass rkaf:EvidenceBinding ;
+  sh:or (
+    [ sh:not [ sh:property [
+        sh:path rkaf:noEvidenceReason ; sh:hasValue rkaf:illustrativeSample
+      ] ] ]
+    [ sh:property [
+        sh:path rkaf:bindsAssertion ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:node [
+          sh:or (
+            [ sh:class rkaf:Assertion ]
+            [ sh:class rkaf:RelationshipAssertion ]
+            [ sh:class rkaf:ValueAssertion ]
+            [ sh:class rkaf:ConceptAssignment ]
+            [ sh:class rkaf:ConceptMapping ]
+            [ sh:class rkaf:ClosureClaim ]
+            [ sh:class rkaf:RelationChangeEvent ]
+          ) ;
+          sh:node rkaf:IllustrativeSampleUsageCeilingShape ;
+          sh:property [
+            sh:path [ sh:inversePath rkaf:targetAssertion ] ;
+            sh:node [
+              sh:or (
+                [ sh:not [ sh:class rkaf:LocalAdoption ] ]
+                rkaf:IllustrativeSampleUsageCeilingShape
+              )
+            ]
+          ]
+        ]
+      ] ]
+  ) ;
+  sh:message "An illustrative sample MUST bind an assertion with explicit usageEligibility no higher than draftGenerationAllowed (Core §4.3)." .
+
+# One ceiling for both the assertion baseline and grants targeting that sample.
+# Reject broad grants regardless of status so activation cannot bypass the cap.
+rkaf:IllustrativeSampleUsageCeilingShape a sh:NodeShape ;
+  sh:property [
+    sh:path rkaf:usageEligibility ; sh:minCount 1 ; sh:maxCount 1 ;
+    sh:in ( rkaf:notEligible rkaf:searchOnly rkaf:reviewQueueOnly
+            rkaf:draftGenerationAllowed )
+  ] ;
+  sh:message "Illustrative samples and their LocalAdoption grants MUST NOT exceed draftGenerationAllowed (Core §4.3)." .

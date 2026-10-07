@@ -22,6 +22,9 @@ pub enum NoEvidenceReason {
     /// Wire value `rkaf:declared-hypothesis`.
     #[serde(rename = "rkaf:declared-hypothesis")]
     DeclaredHypothesis,
+    /// Wire value `rkaf:illustrativeSample`.
+    #[serde(rename = "rkaf:illustrativeSample")]
+    IllustrativeSample,
 }
 
 /// Closed Rulespec values for `EvidenceRole`.

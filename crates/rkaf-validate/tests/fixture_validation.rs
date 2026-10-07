@@ -168,3 +168,22 @@ fn positive_fixtures_cover_every_embedded_schema_type() {
         "positive fixture corpus does not cover embedded schema types: {missing:?}"
     );
 }
+
+#[test]
+fn citation_title_language_map_rejects_invalid_authored_metadata() {
+    let validator = Validator::new();
+    let root = fixture_root();
+    let positive = fixture(&root.join("artifact-citation-display-positive.jsonld"));
+    validator.validate_document(&positive).unwrap();
+    for name in [
+        "artifact-citation-display-empty-map-negative.jsonld",
+        "artifact-citation-display-invalid-language-negative.jsonld",
+        "artifact-citation-display-non-text-negative.jsonld",
+    ] {
+        let negative = fixture(&root.join(name));
+        assert!(
+            validator.validate_document(&negative).is_err(),
+            "invalid citation title should be rejected: {name}"
+        );
+    }
+}

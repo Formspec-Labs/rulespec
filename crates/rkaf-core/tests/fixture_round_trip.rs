@@ -486,3 +486,27 @@ fn round_trip_mapping_state_carrier() {
         "the mapping-state annotation must survive the carrier round-trip"
     );
 }
+
+#[test]
+fn round_trip_citation_display_metadata_and_legacy_title() {
+    round_trip::<Artifact>("artifact-citation-display-positive", "rkaf:Artifact");
+    let mut original = fixture("artifact-citation-display-positive");
+    original["dcterms:title"] = serde_json::json!("Existing untagged title");
+    let typed: Artifact = serde_json::from_value(original.clone()).unwrap();
+    assert_eq!(serde_json::to_value(typed).unwrap(), original);
+}
+
+#[test]
+fn round_trip_illustrative_sample_binding() {
+    use rkaf_core::generated::evidence_binding::NoEvidenceReason;
+
+    let wire_value = serde_json::json!("rkaf:illustrativeSample");
+    let reason: NoEvidenceReason = serde_json::from_value(wire_value.clone()).unwrap();
+    assert!(matches!(reason, NoEvidenceReason::IllustrativeSample));
+    assert_eq!(serde_json::to_value(reason).unwrap(), wire_value);
+
+    round_trip::<EvidenceBinding>(
+        "evidencebinding-illustrative-sample-positive",
+        "rkaf:EvidenceBinding",
+    );
+}
