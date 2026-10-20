@@ -1,4 +1,4 @@
-# WOS Studio (Authoring) — L3 + D3 conformance disclosure.
+# WOS Studio (Authoring) — historical L3 + D3 disclosure and draft artifact hashes.
 # Filed per source spec §10.3 + Appendix E. Studio is the first Rulespec
 # reference consumer; this disclosure pairs with the in-tree L3 report at
 # policy-studio/conformance-reports/L3-report.json.
@@ -12,8 +12,9 @@ partner:
 declaration:
   rkaf_version:           "0.2.0-pre.6"
   adoption_depth:         "D3"
-  # L3 (Constraint): Rulespec SHACL on positive fixtures + full SNAP workspace.jsonld.
-  # Studio-profile carriers use wos-studio:documentKind; pure rkaf nodes via rkaf-validate.
+  # Historical declaration bound to the report below, not renewed by the current
+  # SNAP draft or native replay. Full Rulespec qualification of the revised source
+  # remains unestablished; Studio-profile validation covers a different scope.
   conformance_level:      "L3"
   fixture_suite_version:  "0.2.0-pre.6"
   test_report_url:        "policy-studio/conformance-reports/L3-report.json"
@@ -41,12 +42,16 @@ partner_participation:
   profile_publication:    true
   federation_participation: true
 
+# Current deterministic draft inspection artifacts. These identify compiled bytes;
+# they do not prove execution, publication approval, or current L3/D3 conformance.
+# The prior disclosure and export hash remain verbatim in the source history.
 cutover_evidence:
-  snap_baseline_sha256_compile_manifest:       "3daf49fbe5c79a2fef9ff8e7a51b8a0a10ad5d77ff6536937bbf34b0526c4bfd"
-  snap_baseline_sha256_scenarios:              "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
-  snap_baseline_sha256_workspace_export_bundle: "6607c8bbc5567dc060c03236924dce60e1df360941695a8565c4773a2464c520"
-  snap_baseline_sha256_wos_workflow:           "13a585f1387b6cda6009e99955394188306ae9a2edf49c37d9366bd00165e3e9"
-  snap_baseline_sha256_compile_events:         "f0189d2519033b2c394eda316044baa376af6e864441e6a34c45f259c8de7990"
+  snap_evidence_scope: "draft-inspection"
+  snap_historical_disclosure: "policy-studio/examples/snap-redetermination-from-sources/source-history/policy-studio-partner-before-native-replay.yaml"
+  snap_baseline_sha256_compile_manifest: "81dcf3e7578680763f33dc4ac622dd04306b3ce6441ba007910fb36e7cf07c9e"
+  snap_baseline_sha256_scenarios: "d10c1567fc29e6a80c0ec327e618b4183ee37ef02f726d066b4d0889345ffd0e"
+  snap_baseline_sha256_wos_workflow: "eace6b596ad182736c72dc1d1630927863b66b98dc76bda25d7bedbb630b283d"
+  snap_baseline_sha256_compile_events: "b52c9e1106f12066145ae06674bf5a2b991642e2a31c0a8f85603e67618a40f9"
   snap_cutover_projection_golden: "policy-studio/snap-golden/SHA256SUMS"
   snap_workspace_fixture: "policy-studio/examples/snap-redetermination-from-sources/workspace.jsonld"
 
