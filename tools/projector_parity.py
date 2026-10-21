@@ -27,8 +27,10 @@ import subprocess
 import sys
 from pathlib import Path
 
+from cargo_target import target_directory
+
 ROOT = Path(__file__).resolve().parent.parent
-HARNESS = ROOT / "crates/target/debug/projector-harness"
+HARNESS = target_directory() / "debug/projector-harness"
 
 TARGETS = {
     "json-schema": ("jsonld",),

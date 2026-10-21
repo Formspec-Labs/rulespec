@@ -132,15 +132,16 @@ test-shapes: test-reference-corpora
 
 test-reference-corpora:
 	$(CARGO) build $(CARGO_MANIFEST) -p rkaf-validate-cli
-	@for file in reference-corpora/us-rulemaking/v0.2/data/*.jsonld; do \
-		crates/target/debug/rkaf-validate "$$file"; \
+	@target_dir="$$($(PYTHON) tools/cargo_target.py --cargo "$(CARGO)")" || exit $$?; \
+	for file in reference-corpora/us-rulemaking/v0.2/data/*.jsonld; do \
+		"$$target_dir/debug/rkaf-validate" "$$file" || exit $$?; \
 	done
 	$(PYTHON) tools/ci_validate.py reference-corpora/us-rulemaking/v0.2/data/*.jsonld
 
 test-audits:
 	$(CARGO) build $(CARGO_MANIFEST) -p projector-harness
 	$(PYTHON) tools/vocab_audit.py
-	$(PYTHON) -m unittest tools.test_constraints_compile tools.test_citation_display tools.test_l0_mapping_audit tools.test_semantic_carriers tools.test_reference_release_digest tools.test_rulespec_releases tools.test_extrapolation_release_v2 tools.test_extrapolation_canonical_shared tools.test_atlas_membership_stub tools.test_platform_artifact tools.test_contract_exports tools.test_projection_terms tools.test_projection_conformance -v
+	$(PYTHON) -m unittest tools.test_constraints_compile tools.test_citation_display tools.test_cargo_target tools.test_l0_mapping_audit tools.test_semantic_carriers tools.test_reference_release_digest tools.test_rulespec_releases tools.test_extrapolation_release_v2 tools.test_extrapolation_canonical_shared tools.test_atlas_membership_stub tools.test_platform_artifact tools.test_contract_exports tools.test_projection_terms tools.test_projection_conformance -v
 	$(PYTHON) tools/build_contract_exports.py --check
 	$(PYTHON) tools/l0_mapping_audit.py
 	$(PYTHON) tools/l0_l3_coverage_audit.py

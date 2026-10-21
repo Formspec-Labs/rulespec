@@ -37,6 +37,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 
+from cargo_target import target_directory
+
 from conformance_lib import (
     FIXTURES_DIR,
     fixture_name,
@@ -299,9 +301,10 @@ def evaluate(path: Path) -> FixtureResult:
     return result
 
 
+_CARGO_TARGET = target_directory()
 _RUNTIME_BINS = [
-    ROOT / "crates" / "target" / "debug" / "rkaf-behavior-validate",
-    ROOT / "crates" / "target" / "release" / "rkaf-behavior-validate",
+    _CARGO_TARGET / "debug" / "rkaf-behavior-validate",
+    _CARGO_TARGET / "release" / "rkaf-behavior-validate",
 ]
 
 
