@@ -175,3 +175,32 @@ This is the falsifiability loop closing in both directions: Rulespec's §10 vali
 - No runtime restructuring (ladder already isolates it).
 - No new concept/tagging vocabulary (SKOS composition already covers it; tags stay consumer-side).
 - No change to L1–L4 semantics, the composition-mode framework, or the closed-taxonomy discipline — every addition above plays by the existing rules.
+
+## 9. Reconciliation of Standalone Rulespec and PKAF (fs-r7k2)
+
+Recorded 2026-10-23 to close `fs-r7k2`.
+
+### 9.1 Git History and Commit Range Comparison
+- **Merge-base:** `7205347` (`v0.2.0-pre.7` consolidation release tag).
+- **Standalone commit span integrated:** Commits `ac3a9fc4` (`feat(conformance): add L0 vocabulary tier`) through `a519d06b` (`v0.2.0-pre.18` release tag) were absorbed directly into the PKAF mainline history, including:
+  - `ac3a9fc4`: L0 vocabulary tier
+  - `5d09514f`: US regulatory identifier schemes
+  - `d81fb29e` / `96d1f87b`: Rulemaking contract repair and RIN `RegulatoryAgendaItem` model
+  - `72407640`: RIN agenda-item decision documentation
+  - `2cdf3eec` / `fcd8ba6b`: Profile separation into `constraints/profiles/us-rulemaking/`
+  - `36448036`: `rkaf:publishedInDocket` for document-to-docket membership
+  - `b613ba3d` / `f2a939da`: Normative tabular attestation pattern and machine-legible scope carve-outs for L0
+- **Current PKAF HEAD:** `21642d44` (`main`), ahead through `v0.2.0-pre.19`. All commits preserved, no refs moved or force-pushed.
+
+### 9.2 Disposition of Design Questions
+1. **Non-JSON Carrier Conformance:** The **L0 Vocabulary Conformance Tier** (defined normatively in `spec/rkaf-conformance.md` and audited by `tools/l0_mapping_audit.py` with embedded `yaml rkaf-l0-mapping` contract digests) is the authoritative standard. The earlier VMP sketch is retired.
+2. **Entity Identity Model:** Rulespec formally distinguishes:
+   - `rkaf:RegulatoryAgendaItem` (keyed by `rkaf:us-rin`),
+   - `rkaf:Proceeding` (independent administrative proceeding),
+   - `rkaf:Docket` (mutable administrative container with `hasDocket` and `publishedInDocket`),
+   - immutable `rkaf:Artifact` (specific publication instance, e.g. FR document with `rkaf:us-frdoc`), and
+   - US regulatory citation schemes (`rkaf:us-cfr`, `rkaf:us-usc`, `rkaf:us-pl`, `rkaf:us-eo`).
+   A RIN never identifies a Proceeding or publication directly.
+3. **Domain of Authority:** `Proceeding` authority uses `rkaf:derivesAuthorityFrom` linking to `rkaf:us-usc` statutory Artifacts. Authority declarations are optional; no placeholder or synthetic authority links are permitted.
+4. **Proceeding Stage:** Represented via `rkaf:LifecycleEvent` records attached to the Proceeding. An optional `rkaf:proceedingStage` represents current state; absence of evidence denotes `unknown` rather than defaulting to `prerule`.
+5. **Legacy Identity Migration:** Legacy RIN-as-Proceeding and citation-as-Artifact models are deprecated and migrated across schemas and test fixtures. The reference corpus `reference-corpora/us-rulemaking/` and partner self-certification (`conformance/partners/spicy-regs.yaml`) demonstrate full conformance under the resolved architecture.
