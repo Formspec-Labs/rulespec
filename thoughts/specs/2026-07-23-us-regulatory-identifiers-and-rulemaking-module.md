@@ -181,7 +181,7 @@ This is the falsifiability loop closing in both directions: Rulespec's §10 vali
 Recorded 2026-10-23 to close `fs-r7k2`.
 
 ### 9.1 Git History and Commit Range Comparison
-- **Merge-base:** `7205347` (`v0.2.0-pre.7` consolidation release tag).
+- **Integration point:** both lines are this repository's own history (its only remote is `Formspec-Labs/Rulespec`); no separate standalone checkout exists. The line carrying `ac3a9fc4` branched from `a730d2e1` (`v0.2.0-pre.6-21`) and joined mainline in merge `38b6c363` (`integrate v0.2.0-pre.7`) as its first parent; `7205347`, the `v0.2.0-pre.7` tag commit, is that merge's second parent, not a merge-base.
 - **Standalone commit span integrated:** Commits `ac3a9fc4` (`feat(conformance): add L0 vocabulary tier`) through `a519d06b` (`v0.2.0-pre.18` release tag) were absorbed directly into the PKAF mainline history, including:
   - `ac3a9fc4`: L0 vocabulary tier
   - `5d09514f`: US regulatory identifier schemes
@@ -190,7 +190,7 @@ Recorded 2026-10-23 to close `fs-r7k2`.
   - `2cdf3eec` / `fcd8ba6b`: Profile separation into `constraints/profiles/us-rulemaking/`
   - `36448036`: `rkaf:publishedInDocket` for document-to-docket membership
   - `b613ba3d` / `f2a939da`: Normative tabular attestation pattern and machine-legible scope carve-outs for L0
-- **Current PKAF HEAD:** `21642d44` (`main`), ahead through `v0.2.0-pre.19`. All commits preserved, no refs moved or force-pushed.
+- **PKAF HEAD when recorded:** `21642d44` (`main`), ahead through `v0.2.0-pre.19`. No history was rewritten or force-pushed; `main` advanced by fast-forward pushes (`21642d44` on 2026-10-22 and this section's own commit `739b74aa` on 2026-10-23).
 
 ### 9.2 Disposition of Design Questions
 1. **Non-JSON Carrier Conformance:** The **L0 Vocabulary Conformance Tier** (defined normatively in `spec/rkaf-conformance.md` and audited by `tools/l0_mapping_audit.py` with embedded `yaml rkaf-l0-mapping` contract digests) is the authoritative standard. The earlier VMP sketch is retired.
