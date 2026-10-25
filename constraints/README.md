@@ -116,7 +116,7 @@ and Rust. It has no RDF meaning, so the driver emits no SHACL or Rego for it.
 ## Build
 
 ```bash
-# Pin CUE 0.10.0
+# Install the CUE version .tool-versions pins (sha256-checked) into .tools/
 ./tools/install-cue.sh
 
 # Validate CUE source syntax before compiling (make cue-vet also works)

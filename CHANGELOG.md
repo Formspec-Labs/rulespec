@@ -7,6 +7,13 @@ adapted for a specification + shape + fixture project.
 
 ## Unreleased
 
+### Changed
+
+- `tools/install-cue.sh` installs the CUE version `.tool-versions` pins (it
+  hard-coded 0.10.0), refuses an archive whose sha256 differs from
+  `tools/cue-checksums.txt` or is missing there, and takes an optional
+  destination directory (default `.tools/`). The stack's CI installs CUE with it.
+
 ### Fixed
 
 - `rulespec-artifacts` 1.1.2: the bundled platform fixtures name 1.1.2 as their
