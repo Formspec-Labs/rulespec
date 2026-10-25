@@ -147,12 +147,13 @@ class TestStudioSchemasDeriveManifest(unittest.TestCase):
         if not (profile / "schemas-derive-manifest.json").is_file():
             self.skipTest("policy-studio sibling checkout not present")
         files, sums = ssd.compute_derived(profile)
-        self.assertEqual(len(files), 24)
-        self.assertEqual(len(sums.strip().split("\n")), 24)
         # Byte-stable vs committed tree
         derived = profile / "schemas-derived"
         if not derived.is_dir():
             self.skipTest("schemas-derived not checked in")
+        # policy-studio's manifest owns the carrier set and its committed SHA256SUMS names
+        # every output, so a manifest change that was not re-derived fails here.
+        self.assertEqual((derived / "SHA256SUMS").read_text(encoding="utf-8"), sums)
         for rel, content in files.items():
             self.assertEqual((derived / rel).read_bytes(), content, rel)
 
