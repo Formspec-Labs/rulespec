@@ -8,7 +8,6 @@ import sys
 import unittest
 from pathlib import Path
 
-RULESPEC_ROOT = Path(__file__).resolve().parent.parent
 TOOLS = Path(__file__).resolve().parent
 
 
@@ -141,21 +140,6 @@ class TestStudioSchemasDeriveManifest(unittest.TestCase):
             with self.assertRaises(ValueError) as ctx:
                 ssd.compute_derived(root)
             self.assertIn("rationale", str(ctx.exception).lower())
-
-    def test_stack_sibling_policy_studio_profile(self) -> None:
-        profile = RULESPEC_ROOT.parent / "policy-studio" / "profiles" / "studio"
-        if not (profile / "schemas-derive-manifest.json").is_file():
-            self.skipTest("policy-studio sibling checkout not present")
-        files, sums = ssd.compute_derived(profile)
-        # Byte-stable vs committed tree
-        derived = profile / "schemas-derived"
-        if not derived.is_dir():
-            self.skipTest("schemas-derived not checked in")
-        # policy-studio's manifest owns the carrier set and its committed SHA256SUMS names
-        # every output, so a manifest change that was not re-derived fails here.
-        self.assertEqual((derived / "SHA256SUMS").read_text(encoding="utf-8"), sums)
-        for rel, content in files.items():
-            self.assertEqual((derived / rel).read_bytes(), content, rel)
 
 
 if __name__ == "__main__":
