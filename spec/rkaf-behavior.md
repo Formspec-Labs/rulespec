@@ -32,7 +32,7 @@ The reducer is a pure function of:
 | `active_adoptions(assertion.@id)` | every `rkaf:LocalAdoption` where `targetAssertion == assertion.@id` AND `adoptionStatus == rkaf:active` | `Set<LocalAdoption>` |
 | `consumer.capability_cap` | consumer's declared maximum eligibility | `rkaf:UsageEligibility` |
 | `consumer.evaluation_scope` | the scope IRI the consumer is asking about | IRI \| `None` |
-| `honored_pit_exceptions(assertion.@id)` | every `rkaf:PointInTimeException` where `retainsAssertion == assertion.@id` AND `exception.evaluationAnchor ∈ consumer.supported_anchors` | `Set<PointInTimeException>` |
+| `honored_pit_exceptions(assertion.@id)` | every exception retaining this assertion whose verified case date falls before its cutoff (§4) | `Set<PointInTimeException>` |
 
 ### §1.2 — Algorithm
 
@@ -42,6 +42,7 @@ fn reduce_usage_eligibility(
     graph: &Graph,
     consumer: &BridgeConsumerRegistration,
     eval_scope: Option<IRI>,
+    case: CaseDateInput,
 ) -> UsageEligibility:
 
     // Step 1 — applicability gate
@@ -50,23 +51,18 @@ fn reduce_usage_eligibility(
        AND eval_scope.unwrap() not in assertion.applicability_set:
         return rkaf:notEligible
 
-    // Step 2 — start with the baseline
-    let baseline = assertion.baseline_eligibility OR rkaf:notEligible
+    // Steps 2 and 3 — lifecycle and date gates
+    if a declared rule pair containing assertion does not select it for this case (§4):
+        return rkaf:notEligible
+    if assertion.consumerLifecycleState == rkaf:staleForCurrentUse
+       AND honored_pit_exceptions(assertion.@id, case).is_empty():
+        return rkaf:notEligible
 
-    // Step 3 — lifecycle stale check
-    let lifecycle_floor =
-        if assertion.consumerLifecycleState == rkaf:staleForCurrentUse
-           AND honored_pit_exceptions.is_empty():
-            rkaf:notEligible
-        else:
-            baseline
-
-    // Step 4 — local-adoption broadening (the ONLY upward operation)
-    let after_adoptions =
-        for la in active_adoptions:
-            if eval_scope.is_some() AND la.adoptionScope == eval_scope.unwrap():
-                lifecycle_floor = max_on_lattice(lifecycle_floor, la.usageEligibility)
-        lifecycle_floor
+    // Step 4 — broaden the baseline only within an active adoption's scope
+    let after_adoptions = assertion.baseline_eligibility OR rkaf:notEligible
+    for la in active_adoptions:
+        if eval_scope.is_some() AND la.adoptionScope == eval_scope.unwrap():
+            after_adoptions = max_on_lattice(after_adoptions, la.usageEligibility)
 
     // Step 5.5 — freshness gate (Plan 7e.2; optional, narrowing only)
     let after_freshness =
@@ -91,9 +87,9 @@ fn reduce_usage_eligibility(
 
 1. **Consumers MAY narrow. Consumers MUST NOT broaden** — every step except #4 is monotonically narrowing; #4 is bounded to `adoptionScope`. Outside the scope the broadening does not apply.
 2. **`LocalAdoption` is the only authorized broadening operation** (v0.1 §1.4 invariant preserved).
-3. **Recompute on every event affecting any input.** Cached effective state MUST be invalidated on attestation, adoption, lifecycle event, or PIT exception ingest.
+3. **Recompute when any input changes, including the case date or its verification status.** Cached effective state MUST be invalidated on attestation, adoption, lifecycle event, or PIT exception ingest.
 4. **`assertion.consumerLifecycleState == staleForCurrentUse` plus no honored PIT** ⇒ `notEligible` regardless of all other inputs.
-5. **Reducer reports unsupported-anchor errors.** §1.2 step 3 computes `honored_pit_exceptions` by intersecting `retainsAssertion == assertion.@id` AND `evaluationAnchor ∈ consumer.supportedEvaluationAnchors`. PITs failing the second clause SHOULD be reported as a separate `rkaf:UnsupportedEvaluationAnchor` diagnostic, NOT silently dropped — Rule 4 (§3.4) fires on the same condition.
+5. A consumer that lacks the evaluation anchor cannot honor the exception. The point-in-time evaluator and bridge rule 4 report `rkaf:UnsupportedEvaluationAnchor`. A case date must satisfy §4 before either the baseline or an office approval can authorize use of a stale assertion.
 
 ### §1.4 — Scope enumeration
 
@@ -272,6 +268,8 @@ Per v0.1 §5.4. Each rule has a decidable predicate over the graph + the consume
 
 **Predicate:** for every `ConsumerEffectiveDeclaration` `D` in the graph, `D.declaredEffective` is `≤ reduce_usage_eligibility(forAssertion, ..., D.declaredScope)` on the lattice. Higher = broadened, which is forbidden except by LocalAdoption (which the reducer already accounts for in §1.2 step 4).
 
+Rule 2 uses the verified date for the case in the request (§4). Each request covers one case. A workspace-wide check without a case date cannot authorize a case-specific declaration.
+
 **Verdict on violation:** `rkaf:rejected` with `errorClass: rkaf:UnauthorizedBroadening`.
 
 ### §3.3 — Rule 3: authorityKind preserved; no substitution
@@ -346,38 +344,40 @@ A revoked Attestation, or one whose effective period ended before the BVR was em
 
 ## §4 — PointInTimeException
 
-```text
-fn evaluate_pit(
-    assertion: &Assertion,
-    exception: &PointInTimeException,
-    consumer: &BridgeConsumerRegistration,
-) -> PitVerdict:
+A policy owner records the controlling `rkaf:evaluationAnchor`, the exclusive calendar cutoff `rkaf:anchorDateBefore`, and the prior rule in `rkaf:retainsAssertion`. An optional `rkaf:successorAssertion` identifies the version that applies from the cutoff onward. Both members of a pair must resolve to distinct assertions in the input graph. Each member of a pair must have a nonempty list of source references in `prov:wasDerivedFrom`.
 
-    if exception.retainsAssertion != assertion.@id:
-        return PitVerdict::NotApplicable
+The requesting case system supplies the following fields **on the evaluation request**. It determines which filing date the case record supports and sets `rkaf:caseDateVerified` to true only after verification. A disputed date can be supplied with false. The runtime compares calendar dates in `YYYY-MM-DD` format. The day a case is opened or reviewed (`rkaf:evaluationTime`) has no bearing on this choice.
 
-    if exception.evaluationAnchor not in consumer.supportedEvaluationAnchors:
-        // v0.1 §4.6 — consumer MUST refuse, not silently ignore
-        return PitVerdict::AnchorUnsupported {
-            errorClass: rkaf:UnsupportedEvaluationAnchor
-        }
+| Field | Meaning |
+|---|---|
+| `rkaf:evaluationAnchor` | The event whose date the case system verified, such as `rkaf:applicationSubmissionTime` |
+| `rkaf:caseDate` | The calendar date of that event for this case |
+| `rkaf:caseDateVerified` | Whether the caller verified that date |
 
-    return PitVerdict::RetainedForAnchor {
-        anchor: exception.evaluationAnchor,
-    }
+| Condition | Case decision | Effect on use |
+|---|---|---|
+| Verified date for the supported anchor precedes the cutoff | `priorRule` | The prior assertion is retained for this case. Office approvals and other limits still apply. |
+| Verified date equals or follows the cutoff | `successorRule` if named, otherwise `outsideWindow` | The prior assertion stays stale. A named successor goes through its usual eligibility checks. |
+| Date missing, disputed, unverified, or supplied for another anchor | `needsReview` with `verifyCaseDate` | Neither member of a declared pair can be used. |
+| Cutoff absent, or nonempty `rkaf:exceptionScope` adds conditions in prose | `needsReview` with `reviewExceptionScope` | Human review is required before automatic use. This includes older prose-only exceptions. |
+| Another declared transition excludes the selected version | `needsReview` with `reviewRuleTransitions` | Check the transitions before citing a rule. |
+| Consumer lacks the policy's anchor | `rkaf:UnsupportedEvaluationAnchor` | Refuse the exception. |
+
+Invalid verified calendar dates and malformed cutoffs yield `MalformedTestCase`. A point-in-time request evaluates one exception retaining its named `rkaf:subjectAssertion`. A request can omit the subject when exactly one assertion exception is present. No graph ordering determines the rule version.
+
+### §4.1 — Decision record
+
+`Runtime::evaluate` returns the prior assertion's effective state for the anchor and for current use, plus `caseDecision`. The decision records the exception ID, anchor, cutoff, and status. A resolved date includes `verifiedCaseDate`. A selected version includes `selectedAssertion` and its `sourceReferences`. A review decision includes the reason and omits a selected rule. Legacy retention-only rules without source references report an empty list. The calling application can save this decision with the case for notices and appeals. Use the reducer or bridge rule 2 to check whether the office may use the selected version.
+
+This command prints the decision for an illustrative single claim from the Rulespec checkout.
+
+```sh
+cargo run --locked --manifest-path crates/Cargo.toml -p rkaf-runtime-cli -- \
+  --evaluate fixtures/behavior/point-in-time-filing-date.jsonld
 ```
 
-### §4.1 — Output shape
+The fixture applies the Social Security Administration’s verified-filing-date guidance to the rule for evaluating medical opinions. A March 22, 2017 filing selects 20 CFR § 404.1527. A March 27 filing selects § 404.1520c. [SSA filing-date instructions](https://secure.ssa.gov/poms.nsf/lnx/0424503050)
 
-For a fixture exercising PIT with a supported anchor:
-```
-{
-  "<assertion-id>.effectiveStateForAnchor:<anchor-name>": "rkaf:retainedForPointInTime",
-  "<assertion-id>.effectiveStateForCurrentUse": "rkaf:staleForCurrentUse"
-}
-```
-
-Dual output: the assertion is retained for the anchor scope; outside the anchor the original lifecycle state wins.
 
 ---
 
@@ -600,7 +600,7 @@ The runtime's `BehaviorVerdict` is compared deep-equal to `BehaviorTestCase.rkaf
 | `rkaf:UsageEligibilityReducer` | `byScope: { <scope>: <level> }` OR `effectiveUsageEligibility: <level>` + `rationale: <str>` |
 | `rkaf:CascadeClosureV1` | `affectedSet: [<@id>, ...]` (set-equal) + `algorithm: "rkaf:CascadeClosureV1"` |
 | `rkaf:BridgeContractRule` (per rule) | `bridgeValidationResult: <verdict>` + optional `errorClass: <iri>` + optional `rationale: <str>` |
-| `rkaf:PointInTimeException` | `"<assertion-id>.effectiveStateForAnchor:<anchor-name>": <state>` + `"<assertion-id>.effectiveStateForCurrentUse": <state>` |
+| `rkaf:PointInTimeException` | `"<assertion-id>.effectiveStateForAnchor:<anchor-name>": <state>` + `"<assertion-id>.effectiveStateForCurrentUse": <state>` + `caseDecision` (§4.1), or `errorClass` for an unsupported anchor |
 | `rkaf:ConceptResolutionWithConflict` | `conceptResolutionResult: { inputConcept, resolutionStatus, resolutionMethod, cacheStatus, usageCeiling, resolvedAt, ...conditional fields }` + optional `registryConflict: { conflictingEntries: [<@id>+], severity: <severity> }` |
 
 ### §7.1 — errorClass IRI registry (closed; extension via §13.4 RFC)

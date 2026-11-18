@@ -3,7 +3,10 @@
   "@id": "urn:rkaf:fixture:beh:pit:case1",
   "@type": "rkaf:BehaviorTestCase",
   "rkaf:behaviorContract": "rkaf:PointInTimeException",
-  "rkaf:rationale": "Stale assertion A retained under PITException with anchor rkaf:applicationSubmissionTime, which is in the consumer's BridgeConsumerRegistration. Consumer honors the exception.",
+  "rkaf:rationale": "The consumer supports application submission and verifies a filing date before the exclusive cutoff.",
+  "rkaf:evaluationAnchor": "rkaf:applicationSubmissionTime",
+  "rkaf:caseDate": "2026-05-31",
+  "rkaf:caseDateVerified": true,
   "rkaf:input": {
     "@graph": [
       {
@@ -17,7 +20,8 @@
         "@id": "pit1",
         "@type": "rkaf:PointInTimeException",
         "rkaf:evaluationAnchor": "rkaf:applicationSubmissionTime",
-        "rkaf:retainsAssertion": "A"
+        "rkaf:retainsAssertion": "A",
+        "rkaf:anchorDateBefore": "2026-06-01"
       },
       {
         "@id": "reg1",
@@ -40,6 +44,15 @@
   },
   "rkaf:expectedOutput": {
     "A.effectiveStateForAnchor:applicationSubmissionTime": "rkaf:retainedForPointInTime",
-    "A.effectiveStateForCurrentUse": "rkaf:staleForCurrentUse"
+    "A.effectiveStateForCurrentUse": "rkaf:staleForCurrentUse",
+    "caseDecision": {
+      "status": "priorRule",
+      "exception": "pit1",
+      "anchor": "rkaf:applicationSubmissionTime",
+      "cutoff": "2026-06-01",
+      "verifiedCaseDate": "2026-05-31",
+      "selectedAssertion": "A",
+      "sourceReferences": []
+    }
   }
 }

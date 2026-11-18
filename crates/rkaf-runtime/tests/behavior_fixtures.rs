@@ -312,3 +312,188 @@ fn concept_resolution_authority_critical() {
 fn cascade_as_of_excludes_expired() {
     assert_passes("cascade-closure-as-of-excludes-expired");
 }
+
+/// One office has an active approval for the prior version. All three interfaces
+/// must agree on both versions for each case, including a reopened claim.
+#[test]
+fn filing_date_controls_rule_citation_and_office_approval() {
+    use serde_json::json;
+    let example = load("point-in-time-filing-date");
+    let prior = example["rkaf:subjectAssertion"].as_str().unwrap();
+    let current = "urn:rulespec:example:medical-opinions:current";
+    let office = "urn:rulespec:example:office";
+    let prior_source = "https://www.ssa.gov/OP_Home/cfr20/404/404-1527.htm";
+    let current_source = "https://www.ssa.gov/OP_Home/cfr20/404/404-1520c.htm";
+    for (date, verified, selected, source) in [
+        (Some("2017-03-22"), true, Some(prior), Some(prior_source)),
+        (Some("2017-03-26"), true, Some(prior), Some(prior_source)),
+        (
+            Some("2017-03-27"),
+            true,
+            Some(current),
+            Some(current_source),
+        ),
+        (
+            Some("2017-03-28"),
+            true,
+            Some(current),
+            Some(current_source),
+        ),
+        (None, true, None, None),
+        (Some("2017-03-22"), false, None, None),
+    ] {
+        let mut case = example.clone();
+        if let Some(date) = date {
+            case["rkaf:caseDate"] = json!(date);
+        } else {
+            case.as_object_mut().unwrap().remove("rkaf:caseDate");
+        }
+        case["rkaf:caseDateVerified"] = json!(verified);
+        case["rkaf:evaluationTime"] = json!("2026-11-18T12:00:00Z");
+        let verdict = Runtime::evaluate(&case).unwrap().output;
+        let decision = &verdict["caseDecision"];
+        assert_eq!(decision["selectedAssertion"].as_str(), selected);
+        assert_eq!(
+            decision["verifiedCaseDate"].as_str(),
+            if verified { date } else { None }
+        );
+        assert_eq!(
+            decision["sourceReferences"],
+            source.map(|s| json!([s])).unwrap_or(Value::Null)
+        );
+        if selected.is_none() {
+            assert_eq!(decision["status"], "needsReview");
+            assert_eq!(decision["reason"], "verifyCaseDate");
+        }
+
+        for (id, level) in [
+            (prior, "rkaf:officialUse"),
+            (current, "rkaf:publicationAllowed"),
+        ] {
+            let mut request = case.clone();
+            request["rkaf:behaviorContract"] = json!("rkaf:UsageEligibilityReducer");
+            request["rkaf:subjectAssertion"] = json!(id);
+            request["rkaf:evaluationScopes"] = json!([office]);
+            let allowed = selected == Some(id);
+            let verdict = Runtime::evaluate(&request).unwrap().output;
+            assert_eq!(
+                verdict["byScope"][office],
+                if allowed { level } else { "rkaf:notEligible" }
+            );
+
+            request["rkaf:behaviorContract"] = json!("rkaf:BridgeContractRule");
+            request["rkaf:contractRuleNumber"] = json!(2);
+            request["rkaf:input"]["@graph"].as_array_mut().unwrap().push(json!({
+                "@id": "claim-use", "@type": "rkaf:ConsumerEffectiveDeclaration",
+                "rkaf:forAssertion": id, "rkaf:declaredScope": office, "rkaf:declaredEffective": level
+            }));
+            let verdict = Runtime::evaluate(&request).unwrap().output;
+            assert_eq!(
+                verdict["bridgeValidationResult"],
+                if allowed {
+                    "rkaf:accepted"
+                } else {
+                    "rkaf:rejected"
+                }
+            );
+        }
+    }
+}
+
+#[test]
+fn only_verified_facts_for_the_declared_anchor_can_match() {
+    use serde_json::json;
+    let original = load("point-in-time-filing-date");
+    let evaluate = |case: &Value| Runtime::evaluate(case).unwrap().output["caseDecision"].clone();
+    let mut case = original.clone();
+    case["rkaf:evaluationAnchor"] = json!("rkaf:noticeGenerationTime");
+    assert_eq!(evaluate(&case)["reason"], "verifyCaseDate");
+
+    case = original.clone();
+    let nodes = case["rkaf:input"]["@graph"].as_array_mut().unwrap();
+    let exception = nodes
+        .iter_mut()
+        .find(|n| n["@type"] == "rkaf:PointInTimeException")
+        .unwrap();
+    exception["rkaf:exceptionScope"] = json!("Only for renewals referred by the local office.");
+    assert_eq!(evaluate(&case)["reason"], "reviewExceptionScope");
+
+    case = original.clone();
+    let nodes = case["rkaf:input"]["@graph"].as_array_mut().unwrap();
+    let exception = nodes
+        .iter_mut()
+        .find(|n| n["@type"] == "rkaf:PointInTimeException")
+        .unwrap();
+    exception
+        .as_object_mut()
+        .unwrap()
+        .remove("rkaf:anchorDateBefore");
+    assert_eq!(evaluate(&case)["reason"], "reviewExceptionScope");
+
+    for invalid in ["2017-02-29", "2017-3-2", "2017-03-26T23:59:59Z"] {
+        let mut case = original.clone();
+        case["rkaf:caseDate"] = json!(invalid);
+        assert!(matches!(
+            Runtime::evaluate(&case),
+            Err(RuntimeError::MalformedTestCase(_))
+        ));
+    }
+}
+
+#[test]
+fn a_rule_pair_requires_distinct_cited_versions_and_respects_later_cutoffs() {
+    use serde_json::json;
+    let mut case = load("point-in-time-filing-date");
+    let nodes = case["rkaf:input"]["@graph"].as_array_mut().unwrap();
+    let prior = nodes
+        .iter()
+        .find(|n| n["rkaf:consumerLifecycleState"] == "rkaf:staleForCurrentUse")
+        .unwrap()["@id"]
+        .clone();
+    let successor = nodes
+        .iter_mut()
+        .find(|n| n["rkaf:consumerLifecycleState"] == "rkaf:operational")
+        .unwrap();
+    let successor_id = successor["@id"].clone();
+    let citations = successor
+        .as_object_mut()
+        .unwrap()
+        .remove("prov:wasDerivedFrom")
+        .unwrap();
+    assert!(matches!(
+        Runtime::evaluate(&case),
+        Err(RuntimeError::MalformedTestCase(_))
+    ));
+    let nodes = case["rkaf:input"]["@graph"].as_array_mut().unwrap();
+    let successor = nodes.iter_mut().find(|n| n["@id"] == successor_id).unwrap();
+    successor["prov:wasDerivedFrom"] = citations;
+    let mut third_version = successor.clone();
+    third_version["@id"] = json!("urn:example:third-version");
+    nodes.push(third_version);
+    let exception = nodes
+        .iter_mut()
+        .find(|n| n["@type"] == "rkaf:PointInTimeException")
+        .unwrap();
+    exception["rkaf:successorAssertion"] = prior;
+    assert!(matches!(
+        Runtime::evaluate(&case),
+        Err(RuntimeError::MalformedTestCase(_))
+    ));
+    let nodes = case["rkaf:input"]["@graph"].as_array_mut().unwrap();
+    let exception = nodes
+        .iter_mut()
+        .find(|n| n["@type"] == "rkaf:PointInTimeException")
+        .unwrap();
+    exception["rkaf:successorAssertion"] = successor_id.clone();
+    let mut later = exception.clone();
+    later["@id"] = json!("urn:example:later-transition");
+    later["rkaf:anchorDateBefore"] = json!("2020-01-01");
+    later["rkaf:retainsAssertion"] = successor_id;
+    later["rkaf:successorAssertion"] = json!("urn:example:third-version");
+    nodes.push(later);
+    case["rkaf:caseDate"] = json!("2020-01-01");
+    let decision = &Runtime::evaluate(&case).unwrap().output["caseDecision"];
+    assert_eq!(decision["status"], "needsReview");
+    assert_eq!(decision["reason"], "reviewRuleTransitions");
+    assert!(decision.get("selectedAssertion").is_none());
+}

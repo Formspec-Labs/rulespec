@@ -42,7 +42,7 @@ pub fn evaluate(test_case: &Value, graph: &Graph) -> Result<Verdict, RuntimeErro
 
     match rule_num {
         1 => rule_1(graph),
-        2 => rule_2(graph, consumer),
+        2 => rule_2(test_case, graph, consumer),
         3 => rule_3(graph),
         4 => rule_4(graph),
         5 => rule_5(graph, consumer),
@@ -91,9 +91,8 @@ fn rule_1(graph: &Graph) -> Result<Verdict, RuntimeError> {
 }
 
 // ── Rule 2 — usageEligibility narrow OK, broaden NOT ──
-// Calls the canonical `reducer::reduce_for_scope` (NOT a re-implementation)
-// so the two contracts can never silently diverge.
-fn rule_2(graph: &Graph, consumer: Option<&Value>) -> Result<Verdict, RuntimeError> {
+// Rule 2 checks a declaration against the same case and scope as the reducer.
+fn rule_2(case: &Value, graph: &Graph, consumer: Option<&Value>) -> Result<Verdict, RuntimeError> {
     for decl in graph.nodes_by_type("rkaf:ConsumerEffectiveDeclaration") {
         let Some(assertion_id) = decl.get("rkaf:forAssertion").and_then(Value::as_str) else {
             continue;
@@ -101,59 +100,13 @@ fn rule_2(graph: &Graph, consumer: Option<&Value>) -> Result<Verdict, RuntimeErr
         let Some(declared) = decl.get("rkaf:declaredEffective").and_then(Value::as_str) else {
             continue;
         };
-        let Some(assertion) = graph.find(assertion_id) else {
+        if graph.find(assertion_id).is_none() {
             continue;
-        };
-        let scope = decl.get("rkaf:declaredScope").and_then(Value::as_str);
-
-        let baseline = assertion
-            .get("rkaf:usageEligibility")
-            .and_then(Value::as_str)
-            .unwrap_or("rkaf:notEligible");
-        let is_stale = assertion
-            .get("rkaf:consumerLifecycleState")
-            .and_then(Value::as_str)
-            == Some("rkaf:staleForCurrentUse");
-
-        // Resolve applicability set (mirror reducer::evaluate's logic; one
-        // pass through applicability scopes).
-        let applicability_iris: Vec<&str> = match assertion.get("rkaf:hasApplicability") {
-            Some(Value::String(s)) => vec![s.as_str()],
-            Some(Value::Array(arr)) => arr.iter().filter_map(Value::as_str).collect(),
-            _ => Vec::new(),
-        };
-        let mut applicability_set: Vec<&str> = Vec::new();
-        for app_iri in &applicability_iris {
-            if let Some(app) = graph.find(app_iri) {
-                if let Some(arr) = app
-                    .get("rkaf:appliesInJurisdiction")
-                    .and_then(Value::as_array)
-                {
-                    for v in arr {
-                        if let Some(s) = v.as_str() {
-                            applicability_set.push(s);
-                        }
-                    }
-                }
-                if applicability_set.is_empty() {
-                    applicability_set.push(app_iri);
-                }
-            }
         }
-
-        // bridge::rule_2 does not pass `evaluation_time`; the freshness gate
-        // (reducer Step 5.5) is skipped here. Rule 2 enforces the structural
-        // narrowing invariant; freshness is a per-evaluation runtime concern.
-        let computed = reducer::reduce_for_scope(
-            assertion_id,
-            baseline,
-            is_stale,
-            &applicability_set,
-            scope,
-            consumer,
-            None,
-            graph,
-        )?;
+        let scope = decl.get("rkaf:declaredScope").and_then(Value::as_str);
+        let policy = reducer::AssertionUse::for_case(assertion_id, case, consumer, graph)?;
+        // Rule 2 checks permission for this case. Attestation freshness belongs to the reducer.
+        let computed = policy.reduce(scope, consumer, None, graph)?.level;
 
         if rank_above(declared, Some(&computed)) {
             return Ok(rejected(

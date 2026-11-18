@@ -4,7 +4,10 @@ use chrono::{DateTime, FixedOffset};
 use serde_json::{json, Value};
 
 use crate::{
-    errors::RuntimeError, graph::Graph, temporal::effective_attestations_at, verdict::Verdict,
+    errors::RuntimeError,
+    graph::{has_type, Graph},
+    temporal::effective_attestations_at,
+    verdict::Verdict,
 };
 
 const USAGE_LATTICE: &[&str] = &[
@@ -256,14 +259,6 @@ fn failure_result(
             "resolverId": "urn:rulespec:runtime:reference",
         },
     }))
-}
-
-fn has_type(node: &Value, expected: &str) -> bool {
-    match node.get("@type") {
-        Some(Value::String(actual)) => actual == expected,
-        Some(Value::Array(actual)) => actual.iter().any(|value| value.as_str() == Some(expected)),
-        _ => false,
-    }
 }
 
 fn string_values(value: &Value) -> Vec<&str> {

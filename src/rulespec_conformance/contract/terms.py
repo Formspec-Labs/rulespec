@@ -214,6 +214,7 @@ aiSuggested = Term("rkaf:aiSuggested")
 aknt_eId = Term("rkaf:aknt-eId")
 ambiguous = Term("rkaf:ambiguous")
 amendment = Term("rkaf:amendment")
+anchorDateBefore = Term("rkaf:anchorDateBefore")
 anchorType = Term("rkaf:anchorType")
 anchoredBy = Term("rkaf:anchoredBy")
 anonymize = Term("rkaf:anonymize")
@@ -289,6 +290,8 @@ carrier_local_fragment = Term("rkaf:carrier-local-fragment")
 cascadeAlgorithm = Term("rkaf:cascadeAlgorithm")
 cascadeAsOf = Term("rkaf:cascadeAsOf")
 cascadeSeed = Term("rkaf:cascadeSeed")
+caseDate = Term("rkaf:caseDate")
+caseDateVerified = Term("rkaf:caseDateVerified")
 chainTerminus = Term("rkaf:chainTerminus")
 chainTerminusKind = Term("rkaf:chainTerminusKind")
 changeDecided = Term("rkaf:changeDecided")
@@ -1078,6 +1081,7 @@ _TERM_NAMES: tuple[str, ...] = (
     "aknt_eId",
     "ambiguous",
     "amendment",
+    "anchorDateBefore",
     "anchorType",
     "anchoredBy",
     "anonymize",
@@ -1153,6 +1157,8 @@ _TERM_NAMES: tuple[str, ...] = (
     "cascadeAlgorithm",
     "cascadeAsOf",
     "cascadeSeed",
+    "caseDate",
+    "caseDateVerified",
     "chainTerminus",
     "chainTerminusKind",
     "changeDecided",

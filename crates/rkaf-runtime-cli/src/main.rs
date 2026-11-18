@@ -12,7 +12,7 @@
 use clap::Parser;
 use rkaf_runtime::{Runtime, RuntimeError};
 use serde_json::{json, Value};
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 
 #[derive(Parser, Debug)]
@@ -22,7 +22,7 @@ use std::process::ExitCode;
     about = "Validate Rulespec BehaviorTestCase fixtures against Layer 5 contracts",
     long_about = "Reads one or more JSON-LD BehaviorTestCase files and asserts that running each \
 through the rkaf-runtime contract dispatcher produces output matching the declared \
-rkaf:expectedOutput. Reports per-fixture pass/fail.\n\
+rkaf:expectedOutput. Use --evaluate CASE to print the computed JSON verdict for one case.\n\
 \n\
 Exit codes:\n  \
 0  all fixtures match expected output\n  \
@@ -34,8 +34,12 @@ struct Cli {
     #[arg(long)]
     json: bool,
 
+    /// Print the computed JSON verdict for one case, without an expected answer.
+    #[arg(long, value_name = "CASE", conflicts_with_all = ["fixtures", "json"])]
+    evaluate: Option<PathBuf>,
+
     /// Behavior fixture paths to validate.
-    #[arg(required = true)]
+    #[arg(required_unless_present = "evaluate")]
     fixtures: Vec<PathBuf>,
 }
 
@@ -46,30 +50,25 @@ struct FixtureVerdict {
     diagnostic: Option<String>,
 }
 
+fn read_case(path: &Path) -> Result<Value, String> {
+    let bytes = std::fs::read(path).map_err(|e| format!("read {}: {e}", path.display()))?;
+    serde_json::from_slice(&bytes).map_err(|e| format!("parse {}: {e}", path.display()))
+}
+
 fn evaluate_one(path: &PathBuf) -> FixtureVerdict {
     let name = path
         .file_stem()
         .and_then(|s| s.to_str())
         .unwrap_or("<unknown>")
-        .to_string();
-    let bytes = match std::fs::read(path) {
-        Ok(b) => b,
-        Err(e) => {
+        .to_owned();
+    let tc = match read_case(path) {
+        Ok(value) => value,
+        Err(diagnostic) => {
             return FixtureVerdict {
                 name,
                 result: "error".into(),
-                diagnostic: Some(format!("read: {e}")),
-            };
-        }
-    };
-    let tc: Value = match serde_json::from_slice(&bytes) {
-        Ok(v) => v,
-        Err(e) => {
-            return FixtureVerdict {
-                name,
-                result: "error".into(),
-                diagnostic: Some(format!("parse: {e}")),
-            };
+                diagnostic: Some(diagnostic),
+            }
         }
     };
     // Plan 7e.3 — a fixture MAY declare `rkaf:expectedRuntimeError` to assert
@@ -134,6 +133,20 @@ fn evaluate_one(path: &PathBuf) -> FixtureVerdict {
 
 fn main() -> ExitCode {
     let cli = Cli::parse();
+    if let Some(path) = cli.evaluate {
+        return match read_case(&path)
+            .and_then(|case| Runtime::evaluate(&case).map_err(|err| err.to_string()))
+        {
+            Ok(verdict) => {
+                println!("{}", verdict.output);
+                ExitCode::SUCCESS
+            }
+            Err(diagnostic) => {
+                eprintln!("{diagnostic}");
+                ExitCode::from(2)
+            }
+        };
+    }
     let verdicts: Vec<FixtureVerdict> = cli.fixtures.iter().map(evaluate_one).collect();
 
     if cli.json {

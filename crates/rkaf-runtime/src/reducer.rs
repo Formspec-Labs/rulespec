@@ -52,7 +52,7 @@ pub fn evaluate(test_case: &Value, graph: &Graph) -> Result<Verdict, RuntimeErro
     // declare `rkaf:subjectAssertion` — greenfield contract, no implicit
     // "pick the first Assertion" fallback. Graphs commonly carry multiple
     // Assertions (e.g., justification chain), so silent selection is unsafe.
-    let assertion_id_field = test_case
+    let assertion_id = test_case
         .get("rkaf:subjectAssertion")
         .and_then(Value::as_str)
         .ok_or_else(|| {
@@ -60,24 +60,131 @@ pub fn evaluate(test_case: &Value, graph: &Graph) -> Result<Verdict, RuntimeErro
                 "UsageEligibilityReducer fixture MUST declare rkaf:subjectAssertion (no implicit selection)".into(),
             )
         })?;
-    let assertion = graph.require(assertion_id_field)?;
-    let assertion_id = assertion
-        .get("@id")
-        .and_then(Value::as_str)
-        .ok_or_else(|| RuntimeError::MalformedTestCase("Assertion has no @id".into()))?
-        .to_string();
+    let policy = AssertionUse::for_case(assertion_id, test_case, consumer, graph)?;
 
-    let baseline = assertion
-        .get("rkaf:usageEligibility")
-        .and_then(Value::as_str)
-        .unwrap_or("rkaf:notEligible")
-        .to_string();
+    // Determine evaluation scopes.
+    // Behavior fixtures MAY carry rkaf:evaluationScopes; otherwise derive from
+    // LocalAdoptions targeting the assertion.
+    let mut scopes: Vec<String> = Vec::new();
+    if let Some(arr) = test_case
+        .get("rkaf:evaluationScopes")
+        .and_then(Value::as_array)
+    {
+        for v in arr {
+            if let Some(s) = v.as_str() {
+                scopes.push(s.into());
+            }
+        }
+    } else {
+        // Derive scopes from local approvals when the request omits them.
+        for la in graph.nodes_by_type("rkaf:LocalAdoption") {
+            if la.get("rkaf:targetAssertion").and_then(Value::as_str) == Some(assertion_id) {
+                if let Some(s) = la.get("rkaf:adoptionScope").and_then(Value::as_str) {
+                    if !scopes.contains(&s.to_string()) {
+                        scopes.push(s.to_string());
+                    }
+                }
+            }
+        }
+        // For multi-scope reasoning the fixture must declare scopes
+        // explicitly; we don't synthesize the "other scope" — too magical.
+    }
 
-    let is_stale = assertion
-        .get("rkaf:consumerLifecycleState")
-        .and_then(Value::as_str)
-        == Some("rkaf:staleForCurrentUse");
+    // No scopes declared → workspace-wide reduction (no LocalAdoption).
+    if scopes.is_empty() {
+        let ScopeResult {
+            level,
+            freshness_narrowed,
+            level_before_freshness,
+        } = policy.reduce(None, consumer, evaluation_time.as_ref(), graph)?;
+        let max_days = consumer
+            .and_then(|reg| {
+                reg.get("rkaf:maxAttestationStalenessDays")
+                    .and_then(Value::as_i64)
+            })
+            .unwrap_or(0);
+        let rationale: String = if freshness_narrowed {
+            format!(
+                "freshness gate narrowed from {level_before_freshness} to {level} (maxAttestationStalenessDays={max_days})"
+            )
+        } else if !policy.allowed_for_case {
+            "Lifecycle or the case-date condition prevents use of this assertion".into()
+        } else {
+            "baseline applied; no LocalAdoption broadening (workspace-wide reduction)".into()
+        };
+        return Ok(Verdict::new(json!({
+            "effectiveUsageEligibility": level,
+            "rationale": rationale,
+        })));
+    }
 
+    let mut by_scope = serde_json::Map::new();
+    for scope in scopes {
+        let result = policy.reduce(Some(&scope), consumer, evaluation_time.as_ref(), graph)?;
+        by_scope.insert(scope, Value::String(result.level));
+    }
+    Ok(Verdict::new(json!({ "byScope": Value::Object(by_scope) })))
+}
+
+/// Internal trace of a single-scope reduction. Used by `evaluate` to
+/// build a richer rationale when Step 5.5 fires; per-scope `byScope`
+/// output discards the trace (the output shape carries only the level).
+pub(crate) struct ScopeResult {
+    pub(crate) level: String,
+    freshness_narrowed: bool,
+    level_before_freshness: String,
+}
+
+/// Resolve one assertion and its case-date permissions once for all requested offices.
+pub(crate) struct AssertionUse<'a> {
+    id: &'a str,
+    baseline: &'a str,
+    applicability: Vec<&'a str>,
+    allowed_for_case: bool,
+}
+
+impl<'a> AssertionUse<'a> {
+    pub(crate) fn for_case(
+        id: &'a str,
+        case: &Value,
+        consumer: Option<&Value>,
+        graph: &Graph<'a>,
+    ) -> Result<Self, RuntimeError> {
+        let assertion = graph.require(id)?;
+        let baseline = assertion["rkaf:usageEligibility"]
+            .as_str()
+            .unwrap_or("rkaf:notEligible");
+        let is_stale = assertion["rkaf:consumerLifecycleState"] == "rkaf:staleForCurrentUse";
+        let allowed_for_case = crate::pit::allows_use(id, is_stale, case, consumer, graph)?;
+        Ok(Self {
+            id,
+            baseline,
+            applicability: applicability(assertion, graph),
+            allowed_for_case,
+        })
+    }
+
+    pub(crate) fn reduce(
+        &self,
+        scope: Option<&str>,
+        consumer: Option<&Value>,
+        evaluation_time: Option<&DateTime<FixedOffset>>,
+        graph: &Graph,
+    ) -> Result<ScopeResult, RuntimeError> {
+        reduce_for_scope_traced(
+            self.id,
+            self.baseline,
+            self.allowed_for_case,
+            &self.applicability,
+            scope,
+            consumer,
+            evaluation_time,
+            graph,
+        )
+    }
+}
+
+fn applicability<'a>(assertion: &'a Value, graph: &Graph<'a>) -> Vec<&'a str> {
     // hasApplicability is a single IRI per CUE; runtime accepts a list too
     // (defensive for graphs where authors used an array). The applicability
     // set is the IRIs pointing at ApplicabilityScope nodes; we resolve each
@@ -108,103 +215,12 @@ pub fn evaluate(test_case: &Value, graph: &Graph) -> Result<Verdict, RuntimeErro
         }
     }
 
-    // Determine evaluation scopes.
-    // Behavior fixtures MAY carry rkaf:evaluationScopes; otherwise derive from
-    // LocalAdoptions targeting the assertion.
-    let mut scopes: Vec<String> = Vec::new();
-    if let Some(arr) = test_case
-        .get("rkaf:evaluationScopes")
-        .and_then(Value::as_array)
-    {
-        for v in arr {
-            if let Some(s) = v.as_str() {
-                scopes.push(s.into());
-            }
-        }
-    } else {
-        // Default: every LocalAdoption.adoptionScope targeting this assertion,
-        // plus an out-of-scope sentinel for comparison. The
-        // local-broadens-in-scope fixture expects both an in-scope and
-        // an out-of-scope reading; we synthesize them from the fixture.
-        for la in graph.nodes_by_type("rkaf:LocalAdoption") {
-            if la.get("rkaf:targetAssertion").and_then(Value::as_str) == Some(&assertion_id) {
-                if let Some(s) = la.get("rkaf:adoptionScope").and_then(Value::as_str) {
-                    if !scopes.contains(&s.to_string()) {
-                        scopes.push(s.to_string());
-                    }
-                }
-            }
-        }
-        // For multi-scope reasoning the fixture must declare scopes
-        // explicitly; we don't synthesize the "other scope" — too magical.
-    }
-
-    // No scopes declared → workspace-wide reduction (no LocalAdoption).
-    if scopes.is_empty() {
-        let ScopeResult {
-            level,
-            freshness_narrowed,
-            level_before_freshness,
-        } = reduce_for_scope_traced(
-            &assertion_id,
-            &baseline,
-            is_stale,
-            &applicability_set,
-            None,
-            consumer,
-            evaluation_time.as_ref(),
-            graph,
-        )?;
-        let max_days = consumer
-            .and_then(|reg| {
-                reg.get("rkaf:maxAttestationStalenessDays")
-                    .and_then(Value::as_i64)
-            })
-            .unwrap_or(0);
-        let rationale: String = if freshness_narrowed {
-            format!(
-                "freshness gate narrowed from {level_before_freshness} to {level} (maxAttestationStalenessDays={max_days})"
-            )
-        } else if is_stale {
-            "lifecycle status (staleForCurrentUse) wins over baseline".into()
-        } else {
-            "baseline applied; no LocalAdoption broadening (workspace-wide reduction)".into()
-        };
-        return Ok(Verdict::new(json!({
-            "effectiveUsageEligibility": level,
-            "rationale": rationale,
-        })));
-    }
-
-    let mut by_scope = serde_json::Map::new();
-    for scope in scopes {
-        let level = reduce_for_scope(
-            &assertion_id,
-            &baseline,
-            is_stale,
-            &applicability_set,
-            Some(&scope),
-            consumer,
-            evaluation_time.as_ref(),
-            graph,
-        )?;
-        by_scope.insert(scope, Value::String(level));
-    }
-    Ok(Verdict::new(json!({ "byScope": Value::Object(by_scope) })))
-}
-
-/// Internal trace of a single-scope reduction. Used by `evaluate` to
-/// build a richer rationale when Step 5.5 fires; per-scope `byScope`
-/// output discards the trace (the output shape carries only the level).
-struct ScopeResult {
-    level: String,
-    freshness_narrowed: bool,
-    level_before_freshness: String,
+    applicability_set
 }
 
 /// Compute effective UsageEligibility per spec/rkaf-behavior.md §1.2.
-/// Public for cross-contract reuse (bridge.rs::rule_2 calls this to stay
-/// in lock-step with the reducer's canonical algorithm).
+/// This entry point has no verified case date. Use [`crate::Runtime::evaluate`]
+/// to supply a date for an assertion governed by a point-in-time exception.
 ///
 /// `evaluation_time` powers the Plan 7e.2 freshness gate (Step 5.5). When
 /// `Some`, and the consumer declares `rkaf:maxAttestationStalenessDays`,
@@ -226,10 +242,11 @@ pub fn reduce_for_scope(
     evaluation_time: Option<&DateTime<FixedOffset>>,
     graph: &Graph,
 ) -> Result<String, RuntimeError> {
+    let allowed = crate::pit::allows_use(assertion_id, is_stale, &Value::Null, consumer, graph)?;
     Ok(reduce_for_scope_traced(
         assertion_id,
         baseline,
-        is_stale,
+        allowed,
         applicability_set,
         scope,
         consumer,
@@ -243,36 +260,25 @@ pub fn reduce_for_scope(
 fn reduce_for_scope_traced(
     assertion_id: &str,
     baseline: &str,
-    is_stale: bool,
+    allowed_for_case: bool,
     applicability_set: &[&str],
     scope: Option<&str>,
     consumer: Option<&Value>,
     evaluation_time: Option<&DateTime<FixedOffset>>,
     graph: &Graph,
 ) -> Result<ScopeResult, RuntimeError> {
-    // Step 1 — applicability gate. If eval scope is non-None AND the
-    // assertion declares applicability AND eval scope is not in the
-    // applicability set, return notEligible (§1.2 step 1).
-    if let Some(scope_iri) = scope {
-        if !applicability_set.is_empty() && !applicability_set.contains(&scope_iri) {
-            return Ok(ScopeResult {
-                level: "rkaf:notEligible".to_string(),
-                freshness_narrowed: false,
-                level_before_freshness: "rkaf:notEligible".to_string(),
-            });
-        }
+    if !allowed_for_case
+        || scope.is_some_and(|id| !applicability_set.is_empty() && !applicability_set.contains(&id))
+    {
+        return Ok(ScopeResult {
+            level: "rkaf:notEligible".into(),
+            freshness_narrowed: false,
+            level_before_freshness: "rkaf:notEligible".into(),
+        });
     }
 
-    // Step 2 — baseline.
-    // Step 3 — lifecycle stale check (honored PITs restore baseline).
-    let lifecycle_floor: String = if is_stale && !has_honored_pit(assertion_id, consumer, graph) {
-        "rkaf:notEligible".to_string()
-    } else {
-        baseline.to_string()
-    };
-
-    // Step 4 — LocalAdoption broadening (only in-scope).
-    let mut effective = lifecycle_floor;
+    let mut effective = baseline.to_owned();
+    // Step 4 — LocalAdoption can broaden only after scope and case-date checks.
     if let Some(scope_iri) = scope {
         for la in graph.nodes_by_type("rkaf:LocalAdoption") {
             if la.get("rkaf:targetAssertion").and_then(Value::as_str) == Some(assertion_id)
@@ -384,29 +390,6 @@ fn step_down_lattice(level: &str) -> String {
     } else {
         LATTICE[r - 1].to_string()
     }
-}
-
-/// True iff a PointInTimeException retains this assertion AND its anchor
-/// is in the (first) BridgeConsumerRegistration's supportedEvaluationAnchors.
-/// Used by reducer step 3 (§1.2) — a stale assertion with a honored PIT
-/// keeps its baseline rather than falling to notEligible.
-fn has_honored_pit(assertion_id: &str, consumer: Option<&Value>, graph: &Graph) -> bool {
-    let supported: Vec<&str> = consumer
-        .and_then(|reg| {
-            reg.get("rkaf:supportedEvaluationAnchors")
-                .and_then(Value::as_array)
-        })
-        .map(|arr| arr.iter().filter_map(Value::as_str).collect())
-        .unwrap_or_default();
-    for pit in graph.nodes_by_type("rkaf:PointInTimeException") {
-        let retains = pit.get("rkaf:retainsAssertion").and_then(Value::as_str);
-        let anchor = pit.get("rkaf:evaluationAnchor").and_then(Value::as_str);
-        if retains == Some(assertion_id) && anchor.map(|a| supported.contains(&a)).unwrap_or(false)
-        {
-            return true;
-        }
-    }
-    false
 }
 
 #[cfg(test)]

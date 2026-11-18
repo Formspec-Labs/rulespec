@@ -1,0 +1,92 @@
+{
+  "@context": "../../context/rkaf-context.jsonld",
+  "@id": "urn:rkaf:fixture:beh:filing-date:prior",
+  "@type": "rkaf:BehaviorTestCase",
+  "rkaf:behaviorContract": "rkaf:PointInTimeException",
+  "rkaf:rationale": "A single illustrative disability insurance claim in a local office. The verified filing date determines which regulation governs evaluation of medical opinions.",
+  "rkaf:subjectAssertion": "urn:rulespec:example:medical-opinions:prior",
+  "rkaf:evaluationAnchor": "rkaf:applicationSubmissionTime",
+  "rkaf:caseDate": "2017-03-22",
+  "rkaf:caseDateVerified": true,
+  "rkaf:input": {
+    "@graph": [
+      {
+        "@id": "urn:rulespec:example:medical-opinions:current",
+        "@type": "rkaf:Assertion",
+        "rkaf:consumerLifecycleState": "rkaf:operational",
+        "rkaf:assertionOrigin": "rkaf:humanAsserted",
+        "rkaf:epistemicBasis": "rkaf:editorialAssertion",
+        "rkaf:usageEligibility": "rkaf:publicationAllowed",
+        "prov:wasDerivedFrom": [
+          "https://www.ssa.gov/OP_Home/cfr20/404/404-1520c.htm"
+        ],
+        "rkaf:supersedesAssertion": [
+          "urn:rulespec:example:medical-opinions:prior"
+        ]
+      },
+      {
+        "@id": "urn:rulespec:example:medical-opinions:prior",
+        "@type": "rkaf:Assertion",
+        "rkaf:consumerLifecycleState": "rkaf:staleForCurrentUse",
+        "rkaf:assertionOrigin": "rkaf:humanAsserted",
+        "rkaf:epistemicBasis": "rkaf:editorialAssertion",
+        "rkaf:usageEligibility": "rkaf:publicationAllowed",
+        "prov:wasDerivedFrom": [
+          "https://www.ssa.gov/OP_Home/cfr20/404/404-1527.htm"
+        ]
+      },
+      {
+        "@id": "urn:rulespec:example:medical-opinions:filing-cutoff",
+        "@type": "rkaf:PointInTimeException",
+        "rkaf:evaluationAnchor": "rkaf:applicationSubmissionTime",
+        "rkaf:retainsAssertion": "urn:rulespec:example:medical-opinions:prior",
+        "rkaf:anchorDateBefore": "2017-03-27",
+        "rkaf:successorAssertion": "urn:rulespec:example:medical-opinions:current"
+      },
+      {
+        "@id": "reg1",
+        "@type": "rkaf:BridgeConsumerRegistration",
+        "rkaf:supportedEvaluationAnchors": [
+          "rkaf:applicationSubmissionTime"
+        ],
+        "rkaf:consumer": "urn:rkaf:consumer:test",
+        "rkaf:bridgeContractVersion": "rkaf-bridge/1.0",
+        "rkaf:registeredAt": "2026-04-15T00:00:00Z",
+        "rkaf:supportsRegistryVersionRange": [
+          "^1.0"
+        ],
+        "rkaf:supportedAutomaticMigrations": [],
+        "rkaf:supportedAuthorityKinds": [
+          "rkaf:statutory"
+        ]
+      },
+      {
+        "@id": "urn:rulespec:example:prior-approval",
+        "@type": "rkaf:LocalAdoption",
+        "rkaf:targetAssertion": "urn:rulespec:example:medical-opinions:prior",
+        "rkaf:usageEligibility": "rkaf:officialUse",
+        "rkaf:adoptionScope": "urn:rulespec:example:office",
+        "rkaf:adoptionStatus": "rkaf:active",
+        "rkaf:organization": "urn:rkaf:org:test",
+        "rkaf:adoptionAuthorityKind": "rkaf:organizational",
+        "rkaf:authorizedBy": "urn:rkaf:actor:test-authority",
+        "rkaf:adoptedAt": "2026-04-15T00:00:00Z"
+      }
+    ]
+  },
+  "rkaf:expectedOutput": {
+    "urn:rulespec:example:medical-opinions:prior.effectiveStateForAnchor:applicationSubmissionTime": "rkaf:retainedForPointInTime",
+    "urn:rulespec:example:medical-opinions:prior.effectiveStateForCurrentUse": "rkaf:staleForCurrentUse",
+    "caseDecision": {
+      "status": "priorRule",
+      "exception": "urn:rulespec:example:medical-opinions:filing-cutoff",
+      "anchor": "rkaf:applicationSubmissionTime",
+      "cutoff": "2017-03-27",
+      "verifiedCaseDate": "2017-03-22",
+      "selectedAssertion": "urn:rulespec:example:medical-opinions:prior",
+      "sourceReferences": [
+        "https://www.ssa.gov/OP_Home/cfr20/404/404-1527.htm"
+      ]
+    }
+  }
+}
