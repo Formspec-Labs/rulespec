@@ -169,6 +169,16 @@
     }
   }
 
+  function downloadText(text, filename, type) {
+    const url = URL.createObjectURL(new Blob([text], { type }));
+    const link = create("a", document.body);
+    link.href = url;
+    link.download = filename;
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
   function renderFilingEvidence(parent, evidence) {
     const digest = /^sha256:([0-9a-f]{64})$/.exec(evidence.sha256);
     if (!digest) return;
@@ -186,6 +196,10 @@
     const link = create("a", create("p", details), "Download original evidence copy");
     link.href = `evidence/${digest[1]}.txt`;
     link.download = evidence.path.split("/").at(-1);
+    link.addEventListener("click", event => {
+      event.preventDefault();
+      downloadText(text, link.download, "application/octet-stream");
+    });
     const source = create("dl", details);
     pair(source, "Original file", evidence.path);
     if (evidence.anchor) pair(source, "Passage anchor", evidence.anchor);
@@ -262,13 +276,7 @@
   }
 
   document.getElementById("save").addEventListener("click", () => {
-    const url = URL.createObjectURL(new Blob([JSON.stringify(report, null, 2)], { type: "application/json" }));
-    const link = create("a", document.body);
-    link.href = url;
-    link.download = "rulespec-report.json";
-    link.click();
-    link.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    downloadText(JSON.stringify(report, null, 2), "rulespec-report.json", "application/json");
     dirty = false;
     saveStatus.textContent = "Report JSON download started";
   });
