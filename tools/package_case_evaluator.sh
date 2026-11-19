@@ -34,13 +34,13 @@ if [[ -e "$out/$archive" || -e "$out/$archive.sha256" ]]; then
 fi
 
 export CARGO_TARGET_DIR="${CARGO_TARGET_DIR:-$repo/crates/target}"
-cargo build --locked --release --target "$host" --manifest-path crates/Cargo.toml -p rkaf-runtime-cli
+cargo build --locked --release --target "$host" --manifest-path crates/Cargo.toml -p rkaf-runtime-cli -p rkaf-validate-cli
 
 stage="$(mktemp -d "$out/.case-evaluator.XXXXXX")"
 trap 'rm -rf -- "$stage"' EXIT
 install="$stage/$bundle"
 mkdir -p "$install/bin" "$install/examples/case-date/sources" "$install/fixtures/behavior" "$install/context"
-cp "$CARGO_TARGET_DIR/$host/release/rulespec-case-review" "$CARGO_TARGET_DIR/$host/release/rkaf-behavior-validate" "$install/bin/"
+cp "$CARGO_TARGET_DIR/$host/release/"{rulespec-case-review,rkaf-behavior-validate,rkaf-validate} "$install/bin/"
 cp fixtures/behavior/point-in-time-filing-date.jsonld "$install/fixtures/behavior/"
 cp context/rkaf-context.jsonld "$install/context/"
 cp examples/case-date/{cases.csv,filing-evidence.csv} "$install/examples/case-date/"
