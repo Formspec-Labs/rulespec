@@ -34,6 +34,7 @@ if [[ -e "$out/$archive" || -e "$out/$archive.sha256" ]]; then
 fi
 
 export CARGO_TARGET_DIR="${CARGO_TARGET_DIR:-$repo/crates/target}"
+PYTHON="${PYTHON:-python3}" bash tools/compile_all.sh --runtime-schemas
 cargo build --locked --release --target "$host" --manifest-path crates/Cargo.toml -p rkaf-runtime-cli -p rkaf-validate-cli
 
 stage="$(mktemp -d "$out/.case-evaluator.XXXXXX")"
