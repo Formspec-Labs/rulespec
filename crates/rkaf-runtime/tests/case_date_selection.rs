@@ -423,3 +423,141 @@ fn rule_family_is_shared_across_versions_and_refuses_ambiguous_links() {
     assert_eq!(rule_family(PRIOR, &graph).unwrap(), [PRIOR]);
     assert_eq!(rule_family(CURRENT, &graph).unwrap(), [CURRENT]);
 }
+
+#[test]
+fn earliest_filing_date_bounds_the_entire_history() {
+    const START: &str = "rkaf:anchorDateOnOrAfter";
+    let mut case = three_versions();
+    node(&mut case, FIRST_LINK)[START] = json!("2017-03-22");
+    let rules = &[PRIOR, CURRENT, THIRD];
+    for (date, selected) in [
+        ("2017-03-21", None),
+        ("2017-03-22", Some(PRIOR)),
+        ("2017-03-27", Some(CURRENT)),
+        ("2020-01-01", Some(THIRD)),
+    ] {
+        case["rkaf:caseDate"] = json!(date);
+        let result = decision(&case);
+        assert_eq!(result["earliestCaseDate"], "2017-03-22");
+        assert_eq!(result["selectedAssertion"].as_str(), selected);
+        assert_official_use(&case, rules, selected);
+        if selected.is_none() {
+            assert_eq!(result["status"], "outsideWindow");
+            assert_eq!(result["reason"], "beforeRuleHistoryStart");
+            assert!(result.get("sourceReferences").is_none());
+        }
+    }
+
+    // Later assertions cannot introduce undisclosed gaps into an existing history.
+    node(&mut case, LATER_LINK)[START] = json!("2017-03-27");
+    assert_review(&case, "reviewRuleTransitions", rules);
+    node(&mut case, LATER_LINK)
+        .as_object_mut()
+        .unwrap()
+        .remove(START);
+    for invalid in ["2017-03-27", "2017-03-28"] {
+        node(&mut case, FIRST_LINK)[START] = json!(invalid);
+        assert_review(&case, "reviewRuleTransitions", rules);
+    }
+    node(&mut case, FIRST_LINK)[START] = json!("2017-02-30");
+    assert!(Runtime::evaluate(&case).is_err());
+}
+
+#[test]
+fn bounded_standalone_exception_gates_a_current_assertion() {
+    let mut case = example();
+    let exception = node(&mut case, FIRST_LINK);
+    exception
+        .as_object_mut()
+        .unwrap()
+        .remove("rkaf:successorAssertion");
+    exception["rkaf:anchorDateOnOrAfter"] = json!("2017-03-22");
+    node(&mut case, PRIOR)["rkaf:consumerLifecycleState"] = json!("rkaf:operational");
+    for (date, selected) in [
+        ("2017-03-21", None),
+        ("2017-03-22", Some(PRIOR)),
+        ("2017-03-27", None),
+    ] {
+        case["rkaf:caseDate"] = json!(date);
+        assert_official_use(&case, &[PRIOR], selected);
+    }
+}
+
+#[test]
+fn office_approval_uses_an_inclusive_start_and_exclusive_expiry() {
+    use rkaf_runtime::reducer::active_adoptions_for_scope;
+
+    const APPROVAL: &str = "urn:rulespec:example:prior-approval";
+    const START: &str = "2026-04-15T00:00:00Z";
+    const END: &str = "2026-05-01T00:00:00Z";
+    let mut case = example();
+    case["rkaf:behaviorContract"] = json!("rkaf:UsageEligibilityReducer");
+    case["rkaf:evaluationScopes"] = json!([OFFICE]);
+    node(&mut case, APPROVAL)["rkaf:validUntil"] = json!(END);
+
+    for (instant, allowed) in [
+        (None, false),
+        (Some("2026-04-14T23:59:59Z"), false),
+        (Some(START), true),
+        (Some("2026-04-30T23:59:59Z"), true),
+        (Some("2026-04-30T20:00:00-04:00"), false),
+        (Some(END), false),
+        (Some("2026-05-01T00:00:01Z"), false),
+    ] {
+        if let Some(instant) = instant {
+            case["rkaf:evaluationTime"] = json!(instant);
+        }
+        let level = Runtime::evaluate(&case).unwrap().output;
+        assert_eq!(level["byScope"][OFFICE] == "rkaf:officialUse", allowed);
+        let time = instant.map(|time| chrono::DateTime::parse_from_rfc3339(time).unwrap());
+        let graph = Graph::from_payload(&case["rkaf:input"]).unwrap();
+        let ids: Vec<_> = active_adoptions_for_scope(&graph, PRIOR, OFFICE, time.as_ref())
+            .map(|node| node["@id"].as_str().unwrap())
+            .collect();
+        assert_eq!(ids, if allowed { vec![APPROVAL] } else { vec![] });
+    }
+
+    case["rkaf:evaluationTime"] = json!("invalid");
+    assert!(Runtime::evaluate(&case).is_err());
+    case["rkaf:evaluationTime"] = json!(START);
+    let mut bad = node(&mut case, APPROVAL).clone();
+    bad["@id"] = json!("urn:example:malformed-approval");
+    bad["rkaf:validUntil"] = json!("invalid");
+    nodes(&mut case).push(bad);
+    let mut future = node(&mut case, APPROVAL).clone();
+    future["@id"] = json!("urn:example:future-approval");
+    future["rkaf:adoptedAt"] = json!(END);
+    future["rkaf:validUntil"] = json!("2026-06-01T00:00:00Z");
+    nodes(&mut case).push(future);
+    let mut bridge = case.clone();
+    bridge["rkaf:behaviorContract"] = json!("rkaf:BridgeContractRule");
+    bridge["rkaf:contractRuleNumber"] = json!(2);
+    nodes(&mut bridge).push(json!({
+        "@id": "urn:example:use", "@type": "rkaf:ConsumerEffectiveDeclaration",
+        "rkaf:forAssertion": PRIOR, "rkaf:declaredScope": OFFICE,
+        "rkaf:declaredEffective": "rkaf:officialUse"
+    }));
+    for (valid_until, expected) in [(END, "rkaf:accepted"), ("invalid", "rkaf:rejected")] {
+        node(&mut bridge, APPROVAL)["rkaf:validUntil"] = json!(valid_until);
+        assert_eq!(
+            Runtime::evaluate(&bridge).unwrap().output["bridgeValidationResult"],
+            expected
+        );
+    }
+
+    // An old unbounded policy can still be reduced without a review timestamp.
+    node(&mut case, APPROVAL)
+        .as_object_mut()
+        .unwrap()
+        .remove("rkaf:validUntil");
+    case.as_object_mut().unwrap().remove("rkaf:evaluationTime");
+    assert_eq!(
+        Runtime::evaluate(&case).unwrap().output["byScope"][OFFICE],
+        "rkaf:officialUse"
+    );
+    case["rkaf:evaluationTime"] = json!("2026-04-14T23:59:59Z");
+    assert_eq!(
+        Runtime::evaluate(&case).unwrap().output["byScope"][OFFICE],
+        "rkaf:publicationAllowed"
+    );
+}

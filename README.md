@@ -201,7 +201,7 @@ three-case example.
 tools/package_case_evaluator.sh
 ```
 
-Give the analyst the matching archive from `dist/case-evaluator/`. The
+Give the analyst the matching archive from `dist/case-evaluator/`. Each archive names the evaluator version, platform, and source revision. The
 [quick start](examples/case-date/QUICKSTART.md) covers CSV mapping, case evidence,
 a proposed policy, dispositions, and exports.
 

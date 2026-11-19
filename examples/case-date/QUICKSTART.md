@@ -9,8 +9,8 @@ Download the versioned archive for your operating system and CPU architecture. T
 Extract the archive in a directory you can write to. Use the actual versioned filename for your platform.
 
 ```sh
-tar -xzf rulespec-case-evaluator-0.2.0-pre.19-aarch64-apple-darwin.tar.gz
-cd rulespec-case-evaluator-0.2.0-pre.19-aarch64-apple-darwin
+tar -xzf rulespec-case-evaluator-VERSION-PLATFORM-gREVISION.tar.gz
+cd rulespec-case-evaluator-VERSION-PLATFORM-gREVISION
 bin/rulespec-case-review compare \
   --policy fixtures/behavior/point-in-time-filing-date.jsonld \
   --as-of 2026-11-18T12:00:00Z \
@@ -40,7 +40,7 @@ bin/rulespec-case-review compare \
   --cases /path/to/cases.csv --out my-report
 ```
 
-The selection file contains `subjectAssertion`, `evaluationAnchor`, `evaluationConsumer` (consumer registration ID), `scope` (office ID), `evaluatedAt` (RFC 3339 timestamp), and `policySha256` (SHA-256 of the exact policy file). An explicit comparison can supply `--subject`, `--anchor`, `--consumer`, and `--as-of`. Explicit options take precedence over corresponding selection settings. Rulespec checks the office from each record against its approved use for the selected rule. A selection file with an office scope limits comparison to that office.
+The selection file contains `subjectAssertion`, `evaluationAnchor`, `evaluationConsumer` (consumer registration ID), `scope` (office ID), `evaluatedAt` (RFC 3339 timestamp), and `policySha256` (SHA-256 of the exact policy file). An explicit comparison can supply `--subject`, `--anchor`, `--consumer`, and `--as-of`. Explicit options take precedence over corresponding selection settings. Rulespec checks the office from each record against its approved use for the selected rule. A selection file with an office scope limits comparison to that office. A policy can declare its earliest covered filing date. A bounded office approval applies from adoption up to its expiry, which the evaluator checks at the supplied review time.
 
 Use these CSV headers or supply `--map column-map.json`.
 

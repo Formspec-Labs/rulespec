@@ -6,7 +6,7 @@ use std::fs;
 use std::path::Path;
 
 use anyhow::{ensure, Context, Result};
-use chrono::{DateTime, NaiveDate};
+use chrono::{DateTime, FixedOffset, NaiveDate};
 use rkaf_runtime::{consumer, pit, reducer, Graph};
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
@@ -39,6 +39,7 @@ pub struct PolicySelection {
 pub struct Policy {
     pub selection: PolicySelection,
     payload: Value,
+    evaluated_at: DateTime<FixedOffset>,
 }
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
@@ -202,7 +203,8 @@ impl Policy {
                     .flatten()
             })
             .context("Set --as-of or provide a selection file with evaluatedAt")?;
-        DateTime::parse_from_rfc3339(reviewed).context("Use an RFC 3339 review time")?;
+        let evaluated_at =
+            DateTime::parse_from_rfc3339(reviewed).context("Use an RFC 3339 review time")?;
         ensure!(
             graph.nodes_by_type(POINT_IN_TIME).any(|link| {
                 link["rkaf:retainsAssertion"] == subject && link["rkaf:evaluationAnchor"] == anchor
@@ -223,7 +225,11 @@ impl Policy {
         } else {
             doc
         };
-        Ok(Self { payload, selection })
+        Ok(Self {
+            payload,
+            selection,
+            evaluated_at,
+        })
     }
 
     pub fn graph(&self) -> Result<Graph<'_>> {
@@ -309,6 +315,10 @@ impl Policy {
                 .as_str()
                 .or_else(|| verdict["errorClass"].as_str());
             let (code, message) = match reason {
+                Some("beforeRuleHistoryStart") => (
+                    "before_rule_history_start",
+                    "Use an approved policy that covers the recorded filing date.",
+                ),
                 Some("reviewRuleSources") => (
                     "missing_rule_sources",
                     "Add supporting source passages for the policy versions.",
@@ -365,19 +375,16 @@ impl Policy {
         request["rkaf:subjectAssertion"] = json!(selected);
         match reducer::evaluate(&request, graph) {
             Ok(verdict) if verdict.output["byScope"][&case.office] == "rkaf:officialUse" => {
-                outcome.office_approvals = graph.nodes_by_type("rkaf:LocalAdoption")
-                    .filter(|node| {
-                        node["rkaf:targetAssertion"] == selected
-                            && node["rkaf:adoptionScope"] == case.office
-                            && node["rkaf:adoptionStatus"] == "rkaf:active"
-                            && node["rkaf:usageEligibility"] == "rkaf:officialUse"
-                    })
-                    .filter_map(|node| nonblank(&node["@id"]).map(str::to_owned))
-                    .collect();
+                outcome.office_approvals = reducer::active_adoptions_for_scope(
+                    graph, selected, &case.office, Some(&self.evaluated_at),
+                )
+                .filter(|node| node["rkaf:usageEligibility"] == "rkaf:officialUse")
+                .filter_map(|node| nonblank(&node["@id"]).map(str::to_owned))
+                .collect();
                 outcome.office_approvals.sort();
                 outcome.expected_rule = Some(rule);
             }
-            Ok(_) => outcome.unresolved("office_approval_unavailable", "Verify the office ID and obtain official-use approval for this rule version and office."),
+            Ok(_) => outcome.unresolved("office_approval_unavailable", "Verify the office ID and obtain official-use approval that is active at the review time."),
             Err(error) => outcome.unresolved("office_approval_unresolved", error.to_string()),
         }
         outcome

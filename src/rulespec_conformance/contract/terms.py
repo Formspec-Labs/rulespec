@@ -215,6 +215,7 @@ aknt_eId = Term("rkaf:aknt-eId")
 ambiguous = Term("rkaf:ambiguous")
 amendment = Term("rkaf:amendment")
 anchorDateBefore = Term("rkaf:anchorDateBefore")
+anchorDateOnOrAfter = Term("rkaf:anchorDateOnOrAfter")
 anchorType = Term("rkaf:anchorType")
 anchoredBy = Term("rkaf:anchoredBy")
 anonymize = Term("rkaf:anonymize")
@@ -864,6 +865,7 @@ utf16_code_unit = Term("rkaf:utf16-code-unit")
 utf8_byte = Term("rkaf:utf8-byte")
 valid = Term("rkaf:valid")
 validForPointInTimeOnly = Term("rkaf:validForPointInTimeOnly")
+validUntil = Term("rkaf:validUntil")
 validatedAt = Term("rkaf:validatedAt")
 verdictNearSame = Term("rkaf:verdictNearSame")
 verdictRelated = Term("rkaf:verdictRelated")
@@ -1082,6 +1084,7 @@ _TERM_NAMES: tuple[str, ...] = (
     "ambiguous",
     "amendment",
     "anchorDateBefore",
+    "anchorDateOnOrAfter",
     "anchorType",
     "anchoredBy",
     "anonymize",
@@ -1731,6 +1734,7 @@ _TERM_NAMES: tuple[str, ...] = (
     "utf8_byte",
     "valid",
     "validForPointInTimeOnly",
+    "validUntil",
     "validatedAt",
     "verdictNearSame",
     "verdictRelated",

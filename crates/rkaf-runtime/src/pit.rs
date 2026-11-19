@@ -16,6 +16,7 @@ const EXCEPTION_TYPE: &str = "rkaf:PointInTimeException";
 const PRIOR: &str = "rkaf:retainsAssertion";
 const SUCCESSOR: &str = "rkaf:successorAssertion";
 const ANCHOR: &str = "rkaf:evaluationAnchor";
+const EARLIEST: &str = "rkaf:anchorDateOnOrAfter";
 const CUTOFF: &str = "rkaf:anchorDateBefore";
 const REVIEW_TRANSITIONS: &str = "reviewRuleTransitions";
 
@@ -31,6 +32,7 @@ enum Selection<'a> {
         sources: Vec<&'a str>,
     },
     OutsideWindow,
+    BeforeHistory,
     Review(&'static str),
 }
 
@@ -297,8 +299,26 @@ fn resolve_chain<'a>(
     case: &Value,
     graph: &Graph<'a>,
 ) -> Result<Selection<'a>, RuntimeError> {
+    let earliest = first
+        .get(EARLIEST)
+        .map(|value| calendar_date(value, EARLIEST))
+        .transpose()?;
+    if links
+        .iter()
+        .skip(1)
+        .any(|link| link.get(EARLIEST).is_some())
+    {
+        return Ok(Selection::Review(REVIEW_TRANSITIONS));
+    }
+    if let (Some(start), Some(cutoff)) = (earliest, first.get(CUTOFF)) {
+        if start >= calendar_date(cutoff, CUTOFF)? {
+            return Ok(Selection::Review(REVIEW_TRANSITIONS));
+        }
+    }
+
     let mut selected = Some(required_string(first, PRIOR)?);
     let mut previous_cutoff = None;
+    let mut before_history = false;
 
     for link in links {
         let (cutoff, date) = match window(link, case)? {
@@ -309,11 +329,15 @@ fn resolve_chain<'a>(
             return Ok(Selection::Review(REVIEW_TRANSITIONS));
         }
         previous_cutoff = Some(cutoff);
+        before_history = earliest.is_some_and(|start| date < start);
         if date >= cutoff {
             selected = link[SUCCESSOR].as_str();
         }
     }
 
+    if before_history {
+        return Ok(Selection::BeforeHistory);
+    }
     let Some(selected) = selected else {
         return Ok(Selection::OutsideWindow);
     };
@@ -388,7 +412,11 @@ pub(crate) fn allows_use(
         return Ok(!stale);
     }
     // Standalone retentions preserve existing eligibility for a current rule.
-    if !stale && connected.iter().all(|link| link.get(SUCCESSOR).is_none()) {
+    if !stale
+        && connected
+            .iter()
+            .all(|link| link.get(SUCCESSOR).is_none() && link.get(EARLIEST).is_none())
+    {
         return Ok(true);
     }
     if unsupported_anchor(&connected, consumer)?.is_some() {
@@ -473,6 +501,9 @@ pub fn evaluate(case: &Value, graph: &Graph) -> Result<Verdict, RuntimeError> {
         })
     };
     let selection = if let Some(links) = ordered_exceptions(&connected)? {
+        if let Some(earliest) = links[0].get(EARLIEST) {
+            decision["earliestCaseDate"] = earliest.clone();
+        }
         if links.len() > 1 {
             decision["transitions"] = json!(links
                 .iter()
@@ -510,6 +541,11 @@ pub fn evaluate(case: &Value, graph: &Graph) -> Result<Verdict, RuntimeError> {
         }
         Selection::OutsideWindow => {
             decision["status"] = json!("outsideWindow");
+            decision["verifiedCaseDate"] = case["rkaf:caseDate"].clone();
+        }
+        Selection::BeforeHistory => {
+            decision["status"] = json!("outsideWindow");
+            decision["reason"] = json!("beforeRuleHistoryStart");
             decision["verifiedCaseDate"] = case["rkaf:caseDate"].clone();
         }
         Selection::Review(reason) => {

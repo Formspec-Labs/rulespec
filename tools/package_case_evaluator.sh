@@ -9,9 +9,14 @@ cd "$repo"
 
 version="$(cat VERSION)"
 host="$(rustc -vV | sed -n 's/^host: //p')"
-bundle="rulespec-case-evaluator-$version-$host"
-export CARGO_TARGET_DIR="${CARGO_TARGET_DIR:-$repo/crates/target}"
-cargo build --locked --release --target "$host" --manifest-path crates/Cargo.toml -p rkaf-runtime-cli
+revision="$(git rev-parse --short=12 HEAD)"
+bundle="rulespec-case-evaluator-$version-$host-g$revision"
+archive="$bundle.tar.gz"
+
+if ! git diff --quiet HEAD --; then
+  printf '%s\n' 'Commit the release inputs before packaging the evaluator.' >&2
+  exit 1
+fi
 
 checksum() {
   if command -v sha256sum >/dev/null 2>&1; then
@@ -21,7 +26,17 @@ checksum() {
   fi
 }
 
-stage="$(mktemp -d)"
+mkdir -p "$out"
+if [[ -e "$out/$archive" || -e "$out/$archive.sha256" ]]; then
+  (cd "$out" && checksum -c "$archive.sha256") >&2
+  printf '%s\n' "$out/$archive"
+  exit 0
+fi
+
+export CARGO_TARGET_DIR="${CARGO_TARGET_DIR:-$repo/crates/target}"
+cargo build --locked --release --target "$host" --manifest-path crates/Cargo.toml -p rkaf-runtime-cli
+
+stage="$(mktemp -d "$out/.case-evaluator.XXXXXX")"
 trap 'rm -rf -- "$stage"' EXIT
 install="$stage/$bundle"
 mkdir -p "$install/bin" "$install/examples/case-date/sources" "$install/fixtures/behavior" "$install/context"
@@ -38,11 +53,12 @@ cp LICENSE-CODE LICENSE-SPEC VERSION "$install/"
 )
 "$install/bin/rkaf-behavior-validate" "$install/fixtures/behavior/point-in-time-filing-date.jsonld" >&2
 
-mkdir -p "$out"
-tar -C "$stage" -czf "$stage/$bundle.tar.gz" "$bundle"
+tar -C "$stage" -czf "$stage/$archive" "$bundle"
 (
   cd "$stage"
-  checksum "$bundle.tar.gz" > "$bundle.tar.gz.sha256"
+  checksum "$archive" > "$archive.sha256"
 )
-mv "$stage/$bundle.tar.gz" "$stage/$bundle.tar.gz.sha256" "$out/"
-printf '%s\n' "$out/$bundle.tar.gz"
+# Hard links refuse to replace an existing archive, including concurrent builds.
+ln "$stage/$archive" "$out/$archive"
+ln "$stage/$archive.sha256" "$out/$archive.sha256"
+printf '%s\n' "$out/$archive"

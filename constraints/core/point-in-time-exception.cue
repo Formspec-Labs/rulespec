@@ -21,6 +21,7 @@ import "time"
 	"rkaf:retainsAssertion"?:   string // IRI of the retained Assertion
 	"rkaf:retainsWorkProduct"?: string // IRI of the retained GeneratedWorkProduct
 	"rkaf:exceptionScope"?:     string // additional conditions requiring human review
+	"rkaf:anchorDateOnOrAfter"?: time.Format("2006-01-02") // inclusive start on the first transition only
 	"rkaf:anchorDateBefore"?:   time.Format("2006-01-02") // exclusive cutoff for the retained assertion
 	"rkaf:successorAssertion"?: string // optional assertion selected on or after the cutoff
 }

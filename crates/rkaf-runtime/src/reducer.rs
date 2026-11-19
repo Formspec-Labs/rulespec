@@ -4,7 +4,10 @@ use chrono::{DateTime, Duration, FixedOffset};
 use serde_json::{json, Value};
 
 use crate::{
-    errors::RuntimeError, graph::Graph, temporal::effective_attestations_at, verdict::Verdict,
+    errors::RuntimeError,
+    graph::Graph,
+    temporal::{effective_attestations_at, local_adoption_effective_at},
+    verdict::Verdict,
 };
 
 /// The 7-level UsageEligibility lattice, ordered low → high.
@@ -282,15 +285,10 @@ fn reduce_for_scope_traced(
 
     let mut effective = baseline.to_owned();
     // Step 4 — LocalAdoption can broaden only after scope and case-date checks.
-    if let Some(scope_iri) = scope {
-        for la in graph.nodes_by_type("rkaf:LocalAdoption") {
-            if la.get("rkaf:targetAssertion").and_then(Value::as_str) == Some(assertion_id)
-                && la.get("rkaf:adoptionScope").and_then(Value::as_str) == Some(scope_iri)
-                && la.get("rkaf:adoptionStatus").and_then(Value::as_str) == Some("rkaf:active")
-            {
-                if let Some(eligibility) = la.get("rkaf:usageEligibility").and_then(Value::as_str) {
-                    effective = max_on_lattice(&effective, eligibility);
-                }
+    if let Some(scope) = scope {
+        for adoption in active_adoptions_for_scope(graph, assertion_id, scope, evaluation_time) {
+            if let Some(eligibility) = adoption["rkaf:usageEligibility"].as_str() {
+                effective = max_on_lattice(&effective, eligibility);
             }
         }
     }
@@ -338,6 +336,22 @@ fn reduce_for_scope_traced(
         freshness_narrowed,
         level_before_freshness,
     })
+}
+
+/// Iterate approvals active for an assertion, office, and evaluation instant.
+pub fn active_adoptions_for_scope<'a, 'graph>(
+    graph: &'graph Graph<'a>,
+    subject: &'graph str,
+    scope: &'graph str,
+    time: Option<&'graph DateTime<FixedOffset>>,
+) -> impl Iterator<Item = &'a Value> + use<'a, 'graph> {
+    graph
+        .nodes_by_type("rkaf:LocalAdoption")
+        .filter(move |adoption| {
+            adoption["rkaf:targetAssertion"] == subject
+                && adoption["rkaf:adoptionScope"] == scope
+                && local_adoption_effective_at(adoption, time)
+        })
 }
 
 fn targets_assertion(attestation: &Value, assertion_id: &str) -> bool {

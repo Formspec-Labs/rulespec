@@ -62,7 +62,7 @@ fn reduce_usage_eligibility(
 
     // Step 4 — broaden the baseline only within an active adoption's scope
     let after_adoptions = assertion.baseline_eligibility OR rkaf:notEligible
-    for la in active_adoptions:
+    for la in active_adoptions effective at evaluation_time:
         if eval_scope.is_some() AND la.adoptionScope == eval_scope.unwrap():
             after_adoptions = max_on_lattice(after_adoptions, la.usageEligibility)
 
@@ -86,6 +86,8 @@ fn reduce_usage_eligibility(
 
     return capped
 ```
+
+> **Normative — Step 4 approval dates.** With an evaluation instant, an active approval applies from its `rkaf:adoptedAt` timestamp, inclusive. A bounded approval applies until its `rkaf:validUntil` timestamp, exclusive, and requires a valid start and evaluation instant. The reducer excludes individual approvals with malformed applicable timestamps. Other active, in-scope approvals still participate. Without an evaluation instant, legacy approvals that omit an expiry remain eligible based on active status.
 
 > **Normative — Step 5.5 freshness gate (Plan 7e.2).** When the consumer declares `rkaf:maxAttestationStalenessDays`, the reducer narrows the effective level **one lattice step downward** if any effective Attestation targeting the assertion lacks `rkaf:lastVerifiedAt` or was last verified before `evaluation_time - maxAttestationStalenessDays`. An Attestation targets the assertion if its `rkaf:targets` array contains the assertion `@id`. An Attestation is effective if it has not been revoked at the evaluation instant and its `rkaf:hasEffectivePeriod`, when set, contains that instant. The reducer skips the freshness check when the consumer omits `rkaf:maxAttestationStalenessDays`. If the reduction reaches this step, the consumer declares a window, and any Attestation targets the assertion, omitting `rkaf:evaluationTime` MUST yield `MalformedTestCase`. Any supplied evaluation time MUST be a valid RFC 3339 string, including when the check can be skipped. Malformed timestamps on `lastVerifiedAt`, `revokedAt`, or `effectivePeriod{Start,End}`, and dangling `rkaf:hasEffectivePeriod` IRIs encountered during the check, MUST yield `MalformedTestCase`.
 
@@ -352,7 +354,7 @@ A revoked Attestation, or one whose effective period ended before the BVR was em
 
 ## §4 — PointInTimeException
 
-A policy owner records the controlling `rkaf:evaluationAnchor`, the exclusive calendar cutoff `rkaf:anchorDateBefore`, and the prior rule in `rkaf:retainsAssertion`. An optional `rkaf:successorAssertion` identifies the version that applies from the cutoff onward. Both IDs in a pair resolve to distinct members of the Assertion family.
+A policy owner records the controlling `rkaf:evaluationAnchor`, the exclusive calendar cutoff `rkaf:anchorDateBefore`, and the prior rule in `rkaf:retainsAssertion`. An optional `rkaf:successorAssertion` identifies the version that applies from the cutoff onward. Both IDs in a pair resolve to distinct members of the Assertion family. The first exception in a connected history may declare an inclusive start with `rkaf:anchorDateOnOrAfter`. A successor begins at its predecessor’s cutoff. Only the first exception may declare this lower bound.
 
 Every version in a linked succession requires a supporting source. The runtime follows each version's inverse `rkaf:bindsAssertion` link from an `rkaf:EvidenceBinding`, then `rkaf:bindsSourceFragment` and the fragment's `oa:hasSource` link to its Artifact. A citation requires the `rkaf:supports` function and a role of `rkaf:textualEvidence`, `rkaf:structuralEvidence`, `rkaf:authorityCitation` or `rkaf:officialSourceMetadata`. A declaration of absent evidence supplies no citation. Legacy behavior requests without EvidenceBindings can still supply a direct source list in `prov:wasDerivedFrom`. Graph validation still requires EvidenceBindings under Core §4.3.
 
@@ -366,25 +368,26 @@ The requesting case system supplies the following fields **on the evaluation req
 
 | Condition | Case decision | Effect on use |
 |---|---|---|
-| Verified date for the supported anchor precedes the first cutoff | `priorRule` | The prior assertion is retained for this case. Office approvals and other limits still apply. |
+| Verified date precedes the first exception’s declared start | `outsideWindow` with `beforeRuleHistoryStart` | The history supplies no applicable version. |
+| Verified date falls in the retained window and precedes the first cutoff | `priorRule` | The prior assertion is retained for this case. Office approvals and other limits still apply. |
 | Verified date reaches one or more cutoffs | `successorRule` if the last reached cutoff names one | That cutoff selects its successor. A later cutoff can retain that version even if it is stale for current use. |
 | Verified date reaches a cutoff with no successor | `outsideWindow` | The retention ends and no linked version applies. |
 | Date missing, disputed, unverified, or supplied for another anchor | `needsReview` with `verifyCaseDate` | The date provides no permission to use a version in the succession. |
 | Cutoff absent, or nonempty `rkaf:exceptionScope` adds conditions in prose | `needsReview` with `reviewExceptionScope` | Human review is required before automatic use. This includes older prose-only exceptions. |
-| Competing successors or predecessors, a cycle, or cutoffs that fail to increase | `needsReview` with `reviewRuleTransitions` | Review the links and dates before using any version in the succession. |
+| Competing successors or predecessors, a cycle, cutoffs that fail to increase, a lower bound at or after its cutoff, or a lower bound on a later exception | `needsReview` with `reviewRuleTransitions` | Review the links and dates before using any version in the succession. |
 | A version in the succession lacks supporting source references | `needsReview` with `reviewRuleSources` | Verify its sources before automatic use. |
 | Consumer lacks an anchor on any connected exception | `rkaf:UnsupportedEvaluationAnchor` | Refuse the exception, including when the links require review for another reason. |
 
-Invalid verified calendar dates and malformed cutoffs yield `MalformedTestCase`. A point-in-time request starts at the exception retaining its named `rkaf:subjectAssertion`. A request can omit the subject when exactly one assertion exception is present. The runtime checks the connected versions and follows their linked cutoffs. A request naming a later subject receives `reviewRuleTransitions` if the case date belongs to an earlier version. Graph order and unrelated rule successions have no effect on selection. The reducer and bridge rule 2 use the same succession when evaluating use of any of its versions.
+Invalid verified calendar dates and malformed date bounds yield `MalformedTestCase`. A point-in-time request starts at the exception retaining its named `rkaf:subjectAssertion`. A request can omit the subject when exactly one assertion exception is present. The runtime checks the connected versions and follows their linked cutoffs. A request naming a later subject receives `reviewRuleTransitions` if the case date belongs to an earlier version. Graph order and unrelated rule successions have no effect on selection. The reducer and bridge rule 2 use the same succession when evaluating use of any of its versions.
 
 ### §4.1 — Decision record
 
-`Runtime::evaluate` returns the requested assertion's effective state for the anchor and for current use, plus `caseDecision`. The decision's `exception` and `cutoff` identify the exception retaining the requested assertion. Both fields are null if multiple exceptions retain that assertion. A chain with multiple cutoffs also records `transitions`, an ordered list of exception IDs and cutoffs from oldest to newest. The `status` is relative to the requested assertion. A resolved selection includes `verifiedCaseDate`, `selectedAssertion`, and its `sourceReferences`. When the runtime uses EvidenceBindings, the source references are distinct Artifact IDs in lexical order. Legacy retention-only rules without source references report an empty list. A review decision records its reason and omits a selected rule. Save this decision with the case for notices and appeals. Use the reducer or bridge rule 2 to check whether the office may use the selected version.
+`Runtime::evaluate` returns the requested assertion's effective state for the anchor and for current use, plus `caseDecision`. The decision's `exception` and `cutoff` identify the exception retaining the requested assertion. Both fields are null if multiple exceptions retain that assertion. A chain with multiple cutoffs also records `transitions`, an ordered list of exception IDs and cutoffs from oldest to newest. When the first transition declares an inclusive start, the decision records it as `earliestCaseDate`. The `status` is relative to the requested assertion. A resolved selection includes `verifiedCaseDate`, `selectedAssertion`, and its `sourceReferences`. When the runtime uses EvidenceBindings, the source references are distinct Artifact IDs in lexical order. Legacy retention-only rules without source references report an empty list. A review decision records its reason and omits a selected rule. Save this decision with the case for notices and appeals. Use the reducer or bridge rule 2 to check whether the office may use the selected version.
 
 This command prints the decision for an illustrative single claim from the Rulespec checkout.
 
 ```sh
-cargo run --locked --manifest-path crates/Cargo.toml -p rkaf-runtime-cli -- \
+cargo run --locked --manifest-path crates/Cargo.toml -p rkaf-runtime-cli --bin rkaf-behavior-validate -- \
   --evaluate fixtures/behavior/point-in-time-filing-date.jsonld
 ```
 

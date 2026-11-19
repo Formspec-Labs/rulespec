@@ -541,14 +541,8 @@ fn active_local_adoption<'a>(
         .nodes_by_type("rkaf:LocalAdoption")
         .filter(|adoption| {
             adoption.get("rkaf:targetAssertion").and_then(Value::as_str) == Some(mapping_id)
-                && adoption.get("rkaf:adoptionStatus").and_then(Value::as_str)
-                    == Some("rkaf:active")
-                && adoption
-                    .get("rkaf:adoptedAt")
-                    .and_then(Value::as_str)
-                    .and_then(|raw| DateTime::parse_from_rfc3339(raw).ok())
-                    .map(|adopted| adopted <= *time)
-                    .unwrap_or(false)
+                && adoption.get("rkaf:adoptedAt").is_some()
+                && crate::temporal::local_adoption_effective_at(adoption, Some(time))
         })
         .max_by_key(|adoption| {
             adoption

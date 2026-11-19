@@ -144,6 +144,7 @@
     }
     if (outcome.reason) pair(list, "Next step", outcome.reason);
     if (status === "historical_rule_absent") pair(list, "Next step", "Retrieve the rule version recorded in the closed case.");
+    if (outcome.runtime_decision?.earliestCaseDate) pair(list, "Earliest covered filing", outcome.runtime_decision.earliestCaseDate);
     if (outcome.runtime_decision?.cutoff) pair(list, "First cutoff", outcome.runtime_decision.cutoff);
     if (outcome.runtime_decision?.transitions?.length) {
       pair(list, "Rule transition dates", outcome.runtime_decision.transitions.map(transition => transition.cutoff).join(", "));
