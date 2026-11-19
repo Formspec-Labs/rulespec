@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Rulespec case comparison</title>
+<style>
+  :root { color-scheme: light; font-family: system-ui, sans-serif; color: #172633; background: #f5f7f9; }
+  * { box-sizing: border-box; }
+  body { max-width: 76rem; margin: auto; padding: 2rem clamp(1rem, 4vw, 3rem); }
+  h1, h2, h3, p { margin: 0; }
+  h1 { font-size: clamp(1.8rem, 4vw, 2.7rem); line-height: 1.13; }
+  h2 { margin-bottom: .75rem; font-size: 1.35rem; }
+  h3 { font-size: 1rem; }
+  p { margin-top: .5rem; }
+  section { margin-top: 2rem; }
+  a { color: #07588b; }
+  code { white-space: normal; overflow-wrap: anywhere; }
+  button, select, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; color: white; background: #164863; border: 0; padding: .55rem .8rem; border-radius: .35rem; }
+  button:disabled { opacity: .6; cursor: default; }
+  :focus-visible { outline: 3px solid #137495; outline-offset: 2px; }
+  .hint { color: #40515e; }
+  .panel, #cases > details { border: 1px solid #c9d4de; background: #fff; border-radius: .45rem; padding: .85rem 1rem; }
+  .group { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); gap: .7rem; }
+  dl { margin: .65rem 0; display: grid; grid-template-columns: minmax(6rem, 1fr) 2fr; gap: .35rem .5rem; overflow-wrap: anywhere; }
+  dt { color: #40515e; }
+  dd { margin: 0; }
+  #cases { display: grid; gap: .6rem; }
+  summary { cursor: pointer; font-weight: 650; overflow-wrap: anywhere; }
+  details[open] > summary { margin-bottom: .65rem; }
+  .toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: .65rem; margin-bottom: .8rem; }
+  article { min-width: 0; }
+  .refs { padding: .55rem 0; overflow-wrap: anywhere; }
+  blockquote { margin: .55rem 0; padding: .2rem .7rem; border-left: 3px solid #597e90; }
+  .disposition { display: grid; gap: .4rem; margin-top: .85rem; }
+  select, textarea { border: 1px solid #8b9ba8; border-radius: .3rem; padding: .35rem .5rem; background: white; }
+  textarea { width: 100%; min-height: 3.5rem; }
+  footer { margin-top: 2rem; }
+</style>
+<main>
+  <header>
+    <h1>Rulespec case comparison</h1>
+    <p>Compare recorded rule versions with the versions selected by Rulespec. Each result concerns rule selection only.</p>
+  </header>
+  <section aria-labelledby="totals-title">
+    <h2 id="totals-title">Reconciled totals</h2>
+    <p id="count"></p>
+    <div class="group" id="totals"></div>
+  </section>
+  <section aria-labelledby="cases-title">
+    <h2 id="cases-title">Case records</h2>
+    <div class="toolbar">
+      <label for="filter">Show</label>
+      <select id="filter">
+        <option value="">All records</option>
+        <option value="agreement">Agreements</option>
+        <option value="difference">Differences</option>
+        <option value="unresolved">Unresolved</option>
+        <option value="historical_rule_absent">Historical rule absent</option>
+      </select>
+      <button type="button" id="save">Download report JSON</button>
+      <span id="save-status" class="hint" role="status"></span>
+    </div>
+    <p class="hint">Save dispositions with the report JSON. Run the export command on that file to refresh the report and CSV.</p>
+    <div id="cases"></div>
+  </section>
+  <footer class="panel">
+    <details>
+      <summary>Inputs and review configuration</summary>
+      <dl id="metadata"></dl>
+    </details>
+  </footer>
+</main>
+<noscript>Enable JavaScript for the offline case view or open rows.csv and totals.json in the report directory.</noscript>
+<script type="application/json" id="report-data">{{REPORT}}</script>
+<script type="application/json" id="totals-data">{{TOTALS}}</script>
+<script>
+  const report = JSON.parse(document.getElementById("report-data").textContent);
+  const totals = JSON.parse(document.getElementById("totals-data").textContent);
+  const labels = {
+    agreement: "Agreement",
+    difference: "Difference",
+    unresolved: "Unresolved",
+    historical_rule_absent: "Historical rule absent",
+    changed: "Selection changed",
+    unchanged: "Selection unchanged",
+    previously_unresolved: "Baseline unresolved",
+    proposed_unresolved: "Proposed unresolved",
+    both_unresolved: "Both unresolved",
+  };
+  const blank = "—";
+  const saveStatus = document.getElementById("save-status");
+  let dirty = false;
+
+  function create(tag, parent, text) {
+    const element = document.createElement(tag);
+    if (text !== undefined) element.textContent = text;
+    parent.append(element);
+    return element;
+  }
+
+  function pair(list, name, value) {
+    create("dt", list, name);
+    create("dd", list, value === undefined || value === null || value === "" ? blank : value);
+  }
+
+  function sourceLink(parent, value, label) {
+    try {
+      const url = new URL(value);
+      if (url.protocol !== "https:" && url.protocol !== "http:") return;
+      const link = create("a", parent, label);
+      link.href = url.href;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+    } catch {
+      // An identifier can refer to an offline source or an internal record.
+    }
+  }
+
+  function renderTotals(title, counts) {
+    if (!counts) return;
+    const block = create("article", document.getElementById("totals"));
+    block.className = "panel";
+    create("h3", block, title);
+    const list = create("dl", block);
+    for (const [key, value] of Object.entries(counts)) pair(list, labels[key], value);
+  }
+
+  function ruleText(rule) {
+    if (!rule) return blank;
+    return rule.label ? `${rule.label} (${rule.id})` : rule.id;
+  }
+
+  function renderOutcome(parent, title, outcome, status) {
+    const block = create("article", parent);
+    block.className = "panel";
+    create("h3", block, title);
+    const list = create("dl", block);
+    pair(list, "Comparison", labels[status]);
+    pair(list, "Expected rule", ruleText(outcome.expected_rule));
+    if (!outcome.expected_rule && outcome.candidate_rule) {
+      pair(list, "Date-based candidate", ruleText(outcome.candidate_rule));
+    }
+    if (outcome.reason) pair(list, "Next step", outcome.reason);
+    if (status === "historical_rule_absent") pair(list, "Next step", "Retrieve the rule version recorded in the closed case.");
+    if (outcome.runtime_decision?.cutoff) pair(list, "First cutoff", outcome.runtime_decision.cutoff);
+    if (outcome.runtime_decision?.transitions?.length) {
+      pair(list, "Rule transition dates", outcome.runtime_decision.transitions.map(transition => transition.cutoff).join(", "));
+    }
+    if (outcome.office_approvals.length) pair(list, "Office approvals", outcome.office_approvals.join(", "));
+    for (const passage of outcome.passages) {
+      const detail = create("details", block);
+      detail.className = "refs";
+      create("summary", detail, passage.exact_quote ? "Open cited passage" : "Open citation");
+      if (passage.exact_quote) create("blockquote", detail, passage.exact_quote);
+      sourceLink(create("p", detail), passage.artifact, "Open archived source at the publisher");
+      if (passage.publisher_url) sourceLink(create("p", detail), passage.publisher_url, "Open regulation at the agency");
+      const source = create("dl", detail);
+      pair(source, "Artifact", passage.artifact);
+      pair(source, "Fragment", passage.fragment);
+      pair(source, "Artifact SHA-256", passage.source_sha256);
+      if (passage.fragment_sha256) pair(source, "Passage SHA-256", passage.fragment_sha256);
+    }
+  }
+
+  function renderRow(row) {
+    const details = create("details", document.getElementById("cases"));
+    details.dataset.comparison = row.comparison;
+    const item = row.case;
+    const change = row.selection_change ? ` · ${labels[row.selection_change]}` : "";
+    create("summary", details, `${row.record_number}. ${item.case_id || "Case ID missing"} · ${labels[row.comparison]}${change}`);
+    const facts = create("dl", details);
+    pair(facts, "Filing date", item.filing_date);
+    pair(facts, "Verification status", item.verification_status);
+    pair(facts, "Office", item.office);
+    pair(facts, "Recorded rule", item.recorded_rule);
+    pair(facts, "Filing evidence reference", item.evidence_reference);
+    if (item.evidence_reference) {
+      const link = create("p", details);
+      sourceLink(link, item.evidence_reference, "Open filing evidence");
+      if (!link.hasChildNodes()) link.remove();
+    } else if (item.verification_status.toLowerCase() === "verified") {
+      create("p", details, "The CSV marks the date verified. Retrieve the filing evidence reference before confirming a finding.").className = "hint";
+    }
+
+    const outcomes = create("div", details);
+    outcomes.className = "group";
+    renderOutcome(outcomes, "Baseline policy", row.baseline, row.comparison);
+    if (row.proposed) renderOutcome(outcomes, "Proposed policy", row.proposed, row.proposed_comparison);
+
+    const disposition = create("div", details);
+    disposition.className = "disposition";
+    const status = create("select", create("label", disposition, "Analyst disposition "));
+    for (const [value, label] of [
+      ["", "Unassigned"], ["confirmed_difference", "Confirmed difference"],
+      ["reviewed", "Reviewed"], ["follow_up", "Follow-up needed"],
+    ]) {
+      create("option", status, label).value = value;
+    }
+    status.value = row.disposition.status;
+    const note = create("textarea", create("label", disposition, "Disposition note"));
+    note.value = row.disposition.note;
+    const changeDisposition = () => {
+      row.disposition.status = status.value;
+      row.disposition.note = note.value;
+      dirty = true;
+      saveStatus.textContent = "Unsaved dispositions";
+    };
+    status.addEventListener("change", changeDisposition);
+    note.addEventListener("input", changeDisposition);
+  }
+
+  document.getElementById("count").textContent = `${totals.rows} case record(s)`;
+  renderTotals("Baseline policy", totals.baseline);
+  renderTotals("Proposed policy", totals.proposed);
+  renderTotals("Selection changes", totals.selection_changes);
+  for (const row of report.rows) renderRow(row);
+  if (report.rows.length === 0) create("p", document.getElementById("cases"), "The CSV contains no case records.");
+  document.getElementById("filter").addEventListener("change", event => {
+    for (const row of document.getElementById("cases").children) {
+      row.hidden = Boolean(event.target.value && row.dataset.comparison !== event.target.value);
+    }
+  });
+
+  const metadata = document.getElementById("metadata");
+  pair(metadata, "Rulespec evaluator", report.evaluator_version);
+  pair(metadata, "Case CSV SHA-256", report.input_sha256);
+  pair(metadata, "Mapped columns", Object.values(report.column_mapping).filter(Boolean).join(", "));
+  for (const [name, selection] of [["Baseline", report.baseline], ["Proposed", report.proposed]]) {
+    if (!selection) continue;
+    pair(metadata, `${name} policy SHA-256`, selection.policySha256);
+    pair(metadata, `${name} review time`, selection.evaluatedAt);
+    pair(metadata, `${name} office`, selection.scope || "Office ID from each CSV record");
+    pair(metadata, `${name} rule history`, selection.subjectAssertion);
+  }
+
+  document.getElementById("save").addEventListener("click", () => {
+    const url = URL.createObjectURL(new Blob([JSON.stringify(report, null, 2)], { type: "application/json" }));
+    const link = create("a", document.body);
+    link.href = url;
+    link.download = "rulespec-report.json";
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    dirty = false;
+    saveStatus.textContent = "Report JSON download started";
+  });
+  window.addEventListener("beforeunload", event => {
+    if (!dirty) return;
+    event.preventDefault();
+    event.returnValue = "";
+  });
+</script>

@@ -146,7 +146,11 @@ fn source_references<'a>(id: &str, rule: &'a Value, graph: &Graph<'a>) -> Vec<&'
             })
             .unwrap_or_default();
     }
-    bound_source_references(bindings, graph, false)
+    bound_source_fragments(bindings, graph, false)
+        .map(|(_, source)| source)
+        .collect::<BTreeSet<_>>()
+        .into_iter()
+        .collect()
 }
 
 /// List supporting Artifact IDs with pinned source fragments.
@@ -155,7 +159,21 @@ fn source_references<'a>(id: &str, rule: &'a Value, graph: &Graph<'a>) -> Vec<&'
 /// The digest must agree with the Artifact digest when the graph supplies one.
 /// The returned IDs are distinct and sorted.
 pub fn pinned_source_references<'a>(subject: &str, graph: &Graph<'a>) -> Vec<&'a str> {
-    bound_source_references(evidence_bindings(subject, graph), graph, true)
+    pinned_source_fragments(subject, graph)
+        .map(|(_, source)| source)
+        .collect::<BTreeSet<_>>()
+        .into_iter()
+        .collect()
+}
+
+/// Iterate supporting fragments and their pinned Artifact IDs.
+///
+/// Uses the same evidence and digest checks as [`pinned_source_references`].
+pub fn pinned_source_fragments<'a, 'graph>(
+    subject: &'graph str,
+    graph: &'graph Graph<'a>,
+) -> impl Iterator<Item = (&'a Value, &'a str)> + use<'a, 'graph> {
+    bound_source_fragments(evidence_bindings(subject, graph), graph, true)
 }
 
 fn has_source_pin(fragment: &Value, artifact: &Value) -> bool {
@@ -174,14 +192,17 @@ fn has_source_pin(fragment: &Value, artifact: &Value) -> bool {
             .is_none_or(|value| value.as_str() == Some(digest))
 }
 
-fn bound_source_references<'a>(
-    bindings: impl Iterator<Item = &'a Value>,
-    graph: &Graph<'a>,
+fn bound_source_fragments<'a, 'graph, I>(
+    bindings: I,
+    graph: &'graph Graph<'a>,
     require_digest: bool,
-) -> Vec<&'a str> {
+) -> impl Iterator<Item = (&'a Value, &'a str)> + use<'a, 'graph, I>
+where
+    I: Iterator<Item = &'a Value> + 'graph,
+{
     // Only affirmative evidence that can express the rule contributes a
     // citation. The role and function are independent in Core §4.3.
-    let sources: BTreeSet<_> = bindings
+    bindings
         .filter(|binding| {
             binding.get("rkaf:noEvidenceReason").is_none()
                 && binding["rkaf:evidentiaryFunction"] == "rkaf:supports"
@@ -197,17 +218,15 @@ fn bound_source_references<'a>(
         })
         .filter_map(|binding| binding["rkaf:bindsSourceFragment"].as_array())
         .flatten()
-        .filter_map(|fragment| graph.find(fragment.as_str()?))
+        .filter_map(move |fragment| graph.find(fragment.as_str()?))
         .filter(|fragment| has_type(fragment, "rkaf:SourceFragment"))
-        .filter_map(|fragment| {
+        .filter_map(move |fragment| {
             let source = fragment["oa:hasSource"].as_str()?;
             let artifact = graph.find(source)?;
             (has_type(artifact, "rkaf:Artifact")
                 && (!require_digest || has_source_pin(fragment, artifact)))
-            .then_some(source)
+            .then_some((fragment, source))
         })
-        .collect();
-    sources.into_iter().collect()
 }
 
 fn connected_exceptions<'a>(id: &str, graph: &Graph<'a>) -> Vec<&'a Value> {
