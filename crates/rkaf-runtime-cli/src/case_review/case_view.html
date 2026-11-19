@@ -78,6 +78,8 @@
   for (const citation of record.policy_citations) {
     const roles = {
       selected_rule: "Selected rule",
+      filing_instruction: "Controlling filing event",
+      rule_cutoff: "Rule change cutoff",
       filing_review_context: "Filing review context",
       office_scope: "Office scope",
     };
@@ -86,6 +88,7 @@
     pair(facts, "Source", citation.source_id);
     pair(facts, "Fragment", citation.fragment_id);
     pair(facts, "Source SHA-256", citation.source_sha256);
+    if (citation.fragment_sha256) pair(facts, "Passage SHA-256", citation.fragment_sha256);
     if (citation.excerpt) create("blockquote", policy, citation.excerpt);
   }
 

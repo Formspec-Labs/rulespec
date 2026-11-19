@@ -2,6 +2,7 @@
 // Rust guideline compliant 2026-02-21
 
 use anyhow::{bail, ensure, Context, Result};
+use chrono::NaiveDate;
 use serde::{Deserialize, Serialize};
 
 use crate::evidence::{case_passage, contains_id, valid_case_passage};
@@ -58,6 +59,7 @@ struct Citation {
     source_id: String,
     fragment_id: Option<String>,
     source_sha256: Option<String>,
+    fragment_sha256: Option<String>,
     excerpt: Option<String>,
 }
 
@@ -214,6 +216,7 @@ fn citations(report: &Report, row: &CaseRow) -> Vec<Citation> {
             source_id: passage.artifact.clone(),
             fragment_id: passage.fragment.clone(),
             source_sha256: passage.source_sha256.clone(),
+            fragment_sha256: passage.fragment_sha256.clone(),
             excerpt: passage
                 .exact_quote
                 .as_deref()
@@ -222,37 +225,133 @@ fn citations(report: &Report, row: &CaseRow) -> Vec<Citation> {
         }
     }
 
-    if row.baseline.expected_id().is_some() {
-        return row
-            .baseline
-            .passages
-            .iter()
-            .take(8)
-            .map(|p| citation(p, "selected_rule"))
-            .collect();
-    }
     if matches!(row.comparison, Comparison::OutsidePolicyScope) {
         return report
             .filing_instructions
             .iter()
-            .filter(|p| {
-                p.exact_quote
+            .filter(|passage| {
+                passage
+                    .exact_quote
                     .as_deref()
                     .is_some_and(|quote| contains_id(quote, &row.case.office))
             })
-            .take(8)
-            .map(|p| citation(p, "office_scope"))
+            .take(1)
+            .map(|passage| citation(passage, "office_scope"))
             .collect();
     }
-    if report.baseline.scope.as_deref() == Some(row.case.office.as_str()) {
-        return report
-            .filing_instructions
+
+    let selected = row.baseline.expected_id().is_some();
+    let mut citations: Vec<_> = if selected {
+        row.baseline
+            .passages
             .iter()
             .take(8)
-            .map(|p| citation(p, "filing_review_context"))
-            .collect();
+            .map(|p| citation(p, "selected_rule"))
+            .collect()
+    } else {
+        Vec::new()
+    };
+    if report.baseline.scope.as_deref() != Some(row.case.office.as_str()) {
+        return citations;
     }
-    Vec::new()
+
+    let reason = row.baseline.reason_code.as_deref();
+    let held_for_date = matches!(
+        reason,
+        Some("disputed_filing_date" | "missing_verified_filing_evidence" | "invalid_filing_date")
+    );
+    let applicable = report.filing_instructions.iter().filter(|passage| {
+        // Older saved comparisons recorded the office's approval passages without grant IDs.
+        !selected
+            || passage.approval_ids.is_empty()
+            || passage
+                .approval_ids
+                .iter()
+                .any(|id| row.baseline.office_approvals.contains(id))
+    });
+    if selected || held_for_date {
+        if let Some(passage) = applicable
+            .clone()
+            .find(|p| p.exact_quote.as_deref().is_some_and(filing_instruction))
+        {
+            citations.push(citation(passage, "filing_instruction"));
+        }
+    }
+    if selected {
+        for cutoff in governing_cutoffs(row.baseline.runtime_decision.as_ref())
+            .into_iter()
+            .flatten()
+        {
+            if let Some(passage) = applicable.clone().find(|p| {
+                p.exact_quote
+                    .as_deref()
+                    .is_some_and(|quote| names_cutoff(quote, cutoff))
+            }) {
+                if !citations.iter().any(|already| {
+                    already.source_id == passage.artifact
+                        && already.fragment_id == passage.fragment
+                        && already.role == "rule_cutoff"
+                }) {
+                    citations.push(citation(passage, "rule_cutoff"));
+                }
+            }
+        }
+    }
+    if reason == Some("disputed_filing_date") {
+        if let Some(passage) = applicable.clone().find(|p| {
+            p.exact_quote.as_deref().is_some_and(|quote| {
+                let text = quote.to_ascii_lowercase();
+                text.contains("reconcile") && text.contains("date") && text.contains("record")
+            })
+        }) {
+            citations.push(citation(passage, "filing_review_context"));
+        }
+    }
+    citations
+}
+
+fn filing_instruction(quote: &str) -> bool {
+    let text = quote.to_ascii_lowercase();
+    contains_id(&text, "first")
+        && text.contains("acceptance")
+        && text.contains("local date")
+        && (text.contains("receipt") || text.contains("stamp"))
+}
+
+fn governing_cutoffs(decision: Option<&serde_json::Value>) -> [Option<&str>; 2] {
+    let Some(decision) = decision else {
+        return [None, None];
+    };
+    let Some(transitions) = decision["transitions"].as_array() else {
+        return [decision["cutoff"].as_str(), None];
+    };
+    let Some(filing) = decision["verifiedCaseDate"].as_str() else {
+        return [None, None];
+    };
+    let cutoffs = transitions
+        .iter()
+        .filter_map(|link| link["cutoff"].as_str());
+    [
+        cutoffs.clone().filter(|date| *date <= filing).max(),
+        cutoffs.filter(|date| *date > filing).min(),
+    ]
+}
+
+fn names_cutoff(quote: &str, cutoff: &str) -> bool {
+    let Ok(date) = NaiveDate::parse_from_str(cutoff, "%Y-%m-%d") else {
+        return false;
+    };
+    let text = quote.to_ascii_lowercase();
+    let marks_rule_change = ["cutoff", "on or after", "at or after", "effective"]
+        .iter()
+        .any(|phrase| text.contains(phrase));
+    marks_rule_change
+        && [
+            cutoff.to_owned(),
+            date.format("%B %-d, %Y").to_string().to_ascii_lowercase(),
+        ]
+        .iter()
+        .any(|date| text.contains(date))
 }
 
 pub fn resolve<'a>(record: &'a CaseExcerpt, reference: &str) -> Result<&'a FilingEvidence> {
@@ -297,4 +396,45 @@ pub fn html(record: &CaseExcerpt) -> Result<String> {
         "{{CASE_RECORD}}",
         &html_safe(&serde_json::to_string(record)?),
     ))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{filing_instruction, governing_cutoffs, names_cutoff};
+    use serde_json::json;
+
+    #[test]
+    fn names_only_the_decisions_effective_boundaries() {
+        let decision = json!({
+            "verifiedCaseDate": "2026-07-01",
+            "cutoff": "2026-03-01",
+            "transitions": [{"cutoff":"2026-03-01"}, {"cutoff":"2026-07-01"}, {"cutoff":"2027-01-01"}],
+        });
+        assert_eq!(
+            governing_cutoffs(Some(&decision)),
+            [Some("2026-07-01"), Some("2027-01-01")]
+        );
+        assert!(names_cutoff(
+            "The policy changes at or after **July 1, 2026 at midnight**.",
+            "2026-07-01"
+        ));
+        assert!(!names_cutoff(
+            "The report was printed July 1, 2026.",
+            "2026-07-01"
+        ));
+        assert!(!names_cutoff(
+            "The policy is effective June 1, 2026.",
+            "2026-07-01"
+        ));
+    }
+
+    #[test]
+    fn distinguishes_first_receipt_instructions_from_office_scope() {
+        assert!(filing_instruction(
+            "Convert the acceptance on the receipt marked FIRST to the local date."
+        ));
+        assert!(!filing_instruction(
+            "The office on the first acceptance receipt determines the office."
+        ));
+    }
 }

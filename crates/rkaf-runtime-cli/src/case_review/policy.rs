@@ -55,6 +55,8 @@ pub struct Passage {
     pub source_sha256: Option<String>,
     pub fragment_sha256: Option<String>,
     pub exact_quote: Option<String>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub approval_ids: Vec<String>,
     publisher_url: Option<String>,
 }
 
@@ -240,32 +242,40 @@ impl Policy {
         let Some(scope) = self.selection.scope.as_deref() else {
             return Vec::new();
         };
-        let mut approval_sources = BTreeSet::new();
+        let mut approval_sources: BTreeMap<&str, BTreeSet<&str>> = BTreeMap::new();
         for rule in pit::rule_family(&self.selection.subject_assertion, graph).unwrap_or_default() {
             for adoption in
                 reducer::active_adoptions_for_scope(graph, &rule, scope, Some(&self.evaluated_at))
                     .filter(|adoption| adoption["rkaf:usageEligibility"] == "rkaf:officialUse")
             {
-                approval_sources.extend(
-                    adoption["prov:wasDerivedFrom"]
-                        .as_array()
-                        .into_iter()
-                        .flatten()
-                        .filter_map(Value::as_str),
-                );
+                for source in adoption["prov:wasDerivedFrom"]
+                    .as_array()
+                    .into_iter()
+                    .flatten()
+                    .filter_map(Value::as_str)
+                {
+                    approval_sources
+                        .entry(source)
+                        .or_default()
+                        .extend(nonblank(&adoption["@id"]));
+                }
             }
         }
         let artifacts: BTreeMap<_, _> = graph
             .nodes_by_type("rkaf:Artifact")
             .filter_map(|artifact| Some((nonblank(&artifact["@id"])?, artifact)))
-            .filter(|(id, _)| approval_sources.contains(id))
+            .filter(|(id, _)| approval_sources.contains_key(id))
             .collect();
         let mut instructions: Vec<_> = graph
             .nodes_by_type("rkaf:SourceFragment")
             .filter_map(|fragment| {
                 let source = nonblank(&fragment["oa:hasSource"])?;
                 let artifact = artifacts.get(source)?;
-                let instruction = passage(fragment, source, Some(artifact))?;
+                let mut instruction = passage(fragment, source, Some(artifact))?;
+                instruction.approval_ids = approval_sources[source]
+                    .iter()
+                    .map(|id| (*id).into())
+                    .collect();
                 let pinned = instruction
                     .source_sha256
                     .as_deref()?
@@ -498,6 +508,7 @@ fn passage(fragment: &Value, source: &str, artifact: Option<&Value>) -> Option<P
         return None;
     }
     Some(Passage {
+        approval_ids: Vec::new(),
         fragment: nonblank(&fragment["@id"]).map(str::to_owned),
         artifact: source.to_owned(),
         source_sha256: nonblank(&fragment["rkaf:sourceArtifactDigest"]).map(str::to_owned),

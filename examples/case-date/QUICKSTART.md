@@ -79,7 +79,7 @@ The CSV protects formula-like text for spreadsheet viewing. Use `report.json` fo
 
 ## Explain one case
 
-Open a row in the batch browser report and select **Open single-case review**. Its sentence, facts, and policy citations come from the saved baseline result. **Open filing evidence** shows the case-specific passage when available. **Download case JSON** saves the same record for a reviewer or another tool.
+Open a row in the batch browser report and select **Open single-case review**. Its sentence, facts, and policy citations come from the saved baseline result. When the scoped approval contains matching instructions, the view cites the exact filing instruction and rule-change boundary. **Open filing evidence** shows the case-specific passage when available. **Download case JSON** saves the same record for a reviewer or another tool.
 
 Use the native CLI to select the same case from a saved report.
 
