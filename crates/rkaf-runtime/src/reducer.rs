@@ -18,7 +18,7 @@ const LATTICE: &[&str] = &[
     "rkaf:officialUse",
 ];
 
-fn rank(level: &str) -> Option<usize> {
+pub(crate) fn rank(level: &str) -> Option<usize> {
     LATTICE.iter().position(|&l| l == level)
 }
 
@@ -36,18 +36,7 @@ fn min_on_lattice(a: &str, b: &str) -> String {
 
 pub fn evaluate(test_case: &Value, graph: &Graph) -> Result<Verdict, RuntimeError> {
     let consumer = crate::consumer::select_consumer(test_case, graph)?;
-    // Plan 7e.2 — optional evaluation time for the freshness gate. If absent,
-    // the reducer skips the freshness check (Attestations of any age accepted).
-    // Strictness: malformed RFC-3339 propagates as MalformedTestCase.
-    let evaluation_time: Option<DateTime<FixedOffset>> =
-        match test_case.get("rkaf:evaluationTime").and_then(Value::as_str) {
-            Some(s) => Some(DateTime::parse_from_rfc3339(s).map_err(|e| {
-                RuntimeError::MalformedTestCase(format!(
-                    "rkaf:evaluationTime value {s:?} is not valid RFC-3339: {e}"
-                ))
-            })?),
-            None => None,
-        };
+    let evaluation_time = parse_evaluation_time(test_case)?;
     // Locate the Assertion under evaluation. Per spec §1, the fixture MUST
     // declare `rkaf:subjectAssertion` — greenfield contract, no implicit
     // "pick the first Assertion" fallback. Graphs commonly carry multiple
@@ -124,6 +113,22 @@ pub fn evaluate(test_case: &Value, graph: &Graph) -> Result<Verdict, RuntimeErro
         by_scope.insert(scope, Value::String(result.level));
     }
     Ok(Verdict::new(json!({ "byScope": Value::Object(by_scope) })))
+}
+
+pub(crate) fn parse_evaluation_time(
+    case: &Value,
+) -> Result<Option<DateTime<FixedOffset>>, RuntimeError> {
+    let Some(value) = case.get("rkaf:evaluationTime") else {
+        return Ok(None);
+    };
+    let raw = value.as_str().ok_or_else(|| {
+        RuntimeError::MalformedTestCase("rkaf:evaluationTime must be an RFC 3339 timestamp".into())
+    })?;
+    DateTime::parse_from_rfc3339(raw).map(Some).map_err(|err| {
+        RuntimeError::MalformedTestCase(format!(
+            "rkaf:evaluationTime value {raw:?} is not valid RFC 3339: {err}"
+        ))
+    })
 }
 
 /// Internal trace of a single-scope reduction. Used by `evaluate` to
@@ -222,15 +227,13 @@ fn applicability<'a>(assertion: &'a Value, graph: &Graph<'a>) -> Vec<&'a str> {
 /// This entry point has no verified case date. Use [`crate::Runtime::evaluate`]
 /// to supply a date for an assertion governed by a point-in-time exception.
 ///
-/// `evaluation_time` powers the Plan 7e.2 freshness gate (Step 5.5). When
-/// `Some`, and the consumer declares `rkaf:maxAttestationStalenessDays`,
-/// the gate narrows the effective level one lattice step downward if any
-/// Attestation targeting `assertion_id` has a `lastVerifiedAt` older than
-/// `evaluation_time - max_staleness_days`. When `None` (or the consumer
-/// has no `maxAttestationStalenessDays`), the gate is skipped.
+/// When the consumer declares `rkaf:maxAttestationStalenessDays`, any effective
+/// Attestation targeting `assertion_id` with absent or overdue `lastVerifiedAt`
+/// narrows the effective level by one step.
 ///
-/// Errors propagate from malformed RFC-3339 literals on Attestation
-/// `lastVerifiedAt` — same loud-error posture as `cascade::is_active`.
+/// # Errors
+/// Returns [`RuntimeError`] for invalid case rules or attestation timestamps,
+/// or when freshness could affect the result and `evaluation_time` is absent.
 #[allow(clippy::too_many_arguments)]
 pub fn reduce_for_scope(
     assertion_id: &str,
@@ -299,18 +302,26 @@ fn reduce_for_scope_traced(
     // Effectiveness gate (Plan 7e review F1+F4): revoked or out-of-period
     // Attestations are silently excluded — they're not in the active
     // authority chain so they should not narrow freshness either.
-    // Skipped when consumer omits the field OR no evaluation_time given.
     let level_before_freshness = effective.clone();
     let mut freshness_narrowed = false;
-    if let (Some(reg), Some(eval_t)) = (consumer, evaluation_time) {
-        if let Some(max_days) = reg
-            .get("rkaf:maxAttestationStalenessDays")
-            .and_then(Value::as_i64)
-        {
-            if narrow_for_freshness(assertion_id, graph, eval_t, max_days)? {
-                effective = step_down_lattice(&effective);
-                freshness_narrowed = effective != level_before_freshness;
+    if let Some(max_days) =
+        consumer.and_then(|reg| reg["rkaf:maxAttestationStalenessDays"].as_i64())
+    {
+        let stale = match evaluation_time {
+            Some(instant) => narrow_for_freshness(assertion_id, graph, instant, max_days)?,
+            None if graph
+                .nodes_by_type("rkaf:Attestation")
+                .any(|att| targets_assertion(att, assertion_id)) =>
+            {
+                return Err(RuntimeError::MalformedTestCase(format!(
+                    "rkaf:evaluationTime is required to check attestation freshness for {assertion_id}"
+                )));
             }
+            None => false,
+        };
+        if stale {
+            effective = step_down_lattice(&effective);
+            freshness_narrowed = effective != level_before_freshness;
         }
     }
 
@@ -327,6 +338,12 @@ fn reduce_for_scope_traced(
         freshness_narrowed,
         level_before_freshness,
     })
+}
+
+fn targets_assertion(attestation: &Value, assertion_id: &str) -> bool {
+    attestation["rkaf:targets"]
+        .as_array()
+        .is_some_and(|targets| targets.iter().any(|id| id.as_str() == Some(assertion_id)))
 }
 
 /// Step 5.5 helper — returns true iff a relevant **effective** Attestation
@@ -349,15 +366,16 @@ fn narrow_for_freshness(
     evaluation_time: &DateTime<FixedOffset>,
     max_days: i64,
 ) -> Result<bool, RuntimeError> {
-    let cutoff = *evaluation_time - Duration::days(max_days);
+    let cutoff = Duration::try_days(max_days)
+        .and_then(|window| evaluation_time.checked_sub_signed(window))
+        .ok_or_else(|| {
+            RuntimeError::MalformedTestCase(format!(
+                "rkaf:maxAttestationStalenessDays value {max_days} is out of range for rkaf:evaluationTime"
+            ))
+        })?;
     let effective = effective_attestations_at(graph, evaluation_time)?;
     for att in effective {
-        let targets_match = att
-            .get("rkaf:targets")
-            .and_then(Value::as_array)
-            .map(|arr| arr.iter().any(|v| v.as_str() == Some(assertion_id)))
-            .unwrap_or(false);
-        if !targets_match {
+        if !targets_assertion(att, assertion_id) {
             continue;
         }
         let Some(raw) = att.get("rkaf:lastVerifiedAt").and_then(Value::as_str) else {

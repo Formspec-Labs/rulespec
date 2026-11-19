@@ -32,6 +32,7 @@ The reducer is a pure function of:
 | `active_adoptions(assertion.@id)` | every `rkaf:LocalAdoption` where `targetAssertion == assertion.@id` AND `adoptionStatus == rkaf:active` | `Set<LocalAdoption>` |
 | `consumer.capability_cap` | consumer's declared maximum eligibility | `rkaf:UsageEligibility` |
 | `consumer.evaluation_scope` | the scope IRI the consumer is asking about | IRI \| `None` |
+| `evaluation_time` | `BehaviorTestCase.rkaf:evaluationTime` or the workflow evaluation instant | RFC 3339 timestamp \| omitted |
 | `honored_pit_exceptions(assertion.@id)` | every exception retaining this assertion whose verified case date falls before its cutoff (§4) | `Set<PointInTimeException>` |
 
 ### §1.2 — Algorithm
@@ -43,6 +44,7 @@ fn reduce_usage_eligibility(
     consumer: &BridgeConsumerRegistration,
     eval_scope: Option<IRI>,
     case: CaseDateInput,
+    evaluation_time: Option<DateTime>,
 ) -> UsageEligibility:
 
     // Step 1 — applicability gate
@@ -65,6 +67,10 @@ fn reduce_usage_eligibility(
             after_adoptions = max_on_lattice(after_adoptions, la.usageEligibility)
 
     // Step 5.5 — freshness gate (Plan 7e.2; optional, narrowing only)
+    if consumer.maxAttestationStalenessDays.is_some()
+       AND evaluation_time.is_none()
+       AND exists att targeting assertion.@id:
+        raise MalformedTestCase
     let after_freshness =
         if consumer.maxAttestationStalenessDays.is_some()
            AND evaluation_time.is_some()
@@ -81,7 +87,7 @@ fn reduce_usage_eligibility(
     return capped
 ```
 
-> **Normative — Step 5.5 freshness gate (Plan 7e.2):** when the BridgeConsumerRegistration declares `rkaf:maxAttestationStalenessDays` AND the evaluation carries an `evaluation_time` (the fixture's `rkaf:evaluationTime`, or in production the BVR's `validatedAt` / workflow evaluation instant), the reducer narrows the effective level **one lattice step downward** if any **effective** Attestation (per `temporal::effective_at`) targeting the subject Assertion's `@id` has `rkaf:lastVerifiedAt` older than `evaluation_time - maxAttestationStalenessDays`. "Effective" means the Attestation is not revoked at `evaluation_time` and falls inside its `rkaf:hasEffectivePeriod` (if any) — revoked or out-of-period Attestations are silently excluded from freshness narrowing because they are already excluded from the authority chain. "Relevant" means the Attestation's `rkaf:targets` array contains the subject Assertion's `@id`. An Attestation with no `lastVerifiedAt` is treated as stale (the consumer asked for freshness signals; absence is a failed signal). The gate NEVER broadens. The gate is skipped when the consumer omits `rkaf:maxAttestationStalenessDays` or the evaluation carries no `evaluation_time`. Strictness: malformed RFC-3339 on `lastVerifiedAt`, `revokedAt`, or `effectivePeriod{Start,End}` MUST yield `MalformedTestCase` (same posture as `cascade::is_active`); dangling `rkaf:hasEffectivePeriod` IRIs MUST yield `MalformedTestCase` (Plan 7c.6 parity, propagated via `effective_attestations_at`). Orthogonality preserved: lifecycle answers "in force?", freshness answers "when last checked?" — the two are independent.
+> **Normative — Step 5.5 freshness gate (Plan 7e.2).** When the consumer declares `rkaf:maxAttestationStalenessDays`, the reducer narrows the effective level **one lattice step downward** if any effective Attestation targeting the assertion lacks `rkaf:lastVerifiedAt` or was last verified before `evaluation_time - maxAttestationStalenessDays`. An Attestation targets the assertion if its `rkaf:targets` array contains the assertion `@id`. An Attestation is effective if it has not been revoked at the evaluation instant and its `rkaf:hasEffectivePeriod`, when set, contains that instant. The reducer skips the freshness check when the consumer omits `rkaf:maxAttestationStalenessDays`. If the reduction reaches this step, the consumer declares a window, and any Attestation targets the assertion, omitting `rkaf:evaluationTime` MUST yield `MalformedTestCase`. Any supplied evaluation time MUST be a valid RFC 3339 string, including when the check can be skipped. Malformed timestamps on `lastVerifiedAt`, `revokedAt`, or `effectivePeriod{Start,End}`, and dangling `rkaf:hasEffectivePeriod` IRIs encountered during the check, MUST yield `MalformedTestCase`.
 
 ### §1.3 — Invariants
 
@@ -268,7 +274,9 @@ Per v0.1 §5.4. Each rule has a decidable predicate over the graph + the consume
 
 **Predicate:** for every `ConsumerEffectiveDeclaration` `D` in the graph, `D.declaredEffective` is `≤ reduce_usage_eligibility(forAssertion, ..., D.declaredScope)` on the lattice. Higher = broadened, which is forbidden except by LocalAdoption (which the reducer already accounts for in §1.2 step 4).
 
-Rule 2 uses the verified date for the case in the request (§4). Each request covers one case. A workspace-wide check without a case date cannot authorize a case-specific declaration.
+Rule 2 runs the same reducer with the declared scope, the selected consumer, the request's verified case facts (§4), and the same `rkaf:evaluationTime` parsing and freshness requirements (§1.2). Each request covers one case. A workspace-wide check without a case date cannot authorize a case-specific declaration.
+
+A supplied `rkaf:evaluationConsumer` must resolve to a registration by its `@id`. A request can omit the field if the graph has at most one registration. When a registration is selected, a declaration's supplied `rkaf:consumer` must match the consumer named by that registration. An official-use declaration must supply that consumer when the graph contains multiple registrations. Its `rkaf:forAssertion` must identify a member of the Assertion family in the input graph.
 
 **Verdict on violation:** `rkaf:rejected` with `errorClass: rkaf:UnauthorizedBroadening`.
 
@@ -280,7 +288,7 @@ Rule 2 uses the verified date for the case in the request (§4). Each request co
 
 ### §3.4 — Rule 4: declared EvaluationAnchor support; unsupported anchors refused
 
-**Predicate:** for every `PointInTimeException` in the graph, the `evaluationAnchor` is in the consumer's `BridgeConsumerRegistration.supportedEvaluationAnchors`. The rule fires on any PIT, not only on those a BVR has chosen to honor — v0.1 §4.6 says consumers MUST refuse unsupported anchors, not silently ignore them.
+**Predicate:** for every `PointInTimeException` in the graph, the `evaluationAnchor` is in the selected registration's `rkaf:supportedEvaluationAnchors`. The rule checks each exception because v0.1 §4.6 requires the consumer to refuse unsupported anchors.
 
 **Verdict on violation:** `rkaf:rejected` with `errorClass: rkaf:UnsupportedEvaluationAnchor`.
 
@@ -344,7 +352,9 @@ A revoked Attestation, or one whose effective period ended before the BVR was em
 
 ## §4 — PointInTimeException
 
-A policy owner records the controlling `rkaf:evaluationAnchor`, the exclusive calendar cutoff `rkaf:anchorDateBefore`, and the prior rule in `rkaf:retainsAssertion`. An optional `rkaf:successorAssertion` identifies the version that applies from the cutoff onward. Both members of a pair must resolve to distinct assertions in the input graph. Each member of a pair must have a nonempty list of source references in `prov:wasDerivedFrom`.
+A policy owner records the controlling `rkaf:evaluationAnchor`, the exclusive calendar cutoff `rkaf:anchorDateBefore`, and the prior rule in `rkaf:retainsAssertion`. An optional `rkaf:successorAssertion` identifies the version that applies from the cutoff onward. Both IDs in a pair resolve to distinct members of the Assertion family.
+
+Every version in a linked succession requires a supporting source. The runtime follows each version's inverse `rkaf:bindsAssertion` link from an `rkaf:EvidenceBinding`, then `rkaf:bindsSourceFragment` and the fragment's `oa:hasSource` link to its Artifact. A citation requires the `rkaf:supports` function and a role of `rkaf:textualEvidence`, `rkaf:structuralEvidence`, `rkaf:authorityCitation` or `rkaf:officialSourceMetadata`. A declaration of absent evidence supplies no citation. Legacy behavior requests without EvidenceBindings can still supply a direct source list in `prov:wasDerivedFrom`. Graph validation still requires EvidenceBindings under Core §4.3.
 
 The requesting case system supplies the following fields **on the evaluation request**. It determines which filing date the case record supports and sets `rkaf:caseDateVerified` to true only after verification. A disputed date can be supplied with false. The runtime compares calendar dates in `YYYY-MM-DD` format. The day a case is opened or reviewed (`rkaf:evaluationTime`) has no bearing on this choice.
 
@@ -356,18 +366,20 @@ The requesting case system supplies the following fields **on the evaluation req
 
 | Condition | Case decision | Effect on use |
 |---|---|---|
-| Verified date for the supported anchor precedes the cutoff | `priorRule` | The prior assertion is retained for this case. Office approvals and other limits still apply. |
-| Verified date equals or follows the cutoff | `successorRule` if named, otherwise `outsideWindow` | The prior assertion stays stale. A named successor goes through its usual eligibility checks. |
-| Date missing, disputed, unverified, or supplied for another anchor | `needsReview` with `verifyCaseDate` | Neither member of a declared pair can be used. |
+| Verified date for the supported anchor precedes the first cutoff | `priorRule` | The prior assertion is retained for this case. Office approvals and other limits still apply. |
+| Verified date reaches one or more cutoffs | `successorRule` if the last reached cutoff names one | That cutoff selects its successor. A later cutoff can retain that version even if it is stale for current use. |
+| Verified date reaches a cutoff with no successor | `outsideWindow` | The retention ends and no linked version applies. |
+| Date missing, disputed, unverified, or supplied for another anchor | `needsReview` with `verifyCaseDate` | The date provides no permission to use a version in the succession. |
 | Cutoff absent, or nonempty `rkaf:exceptionScope` adds conditions in prose | `needsReview` with `reviewExceptionScope` | Human review is required before automatic use. This includes older prose-only exceptions. |
-| Another declared transition excludes the selected version | `needsReview` with `reviewRuleTransitions` | Check the transitions before citing a rule. |
-| Consumer lacks the policy's anchor | `rkaf:UnsupportedEvaluationAnchor` | Refuse the exception. |
+| Competing successors or predecessors, a cycle, or cutoffs that fail to increase | `needsReview` with `reviewRuleTransitions` | Review the links and dates before using any version in the succession. |
+| A version in the succession lacks supporting source references | `needsReview` with `reviewRuleSources` | Verify its sources before automatic use. |
+| Consumer lacks an anchor on any connected exception | `rkaf:UnsupportedEvaluationAnchor` | Refuse the exception, including when the links require review for another reason. |
 
-Invalid verified calendar dates and malformed cutoffs yield `MalformedTestCase`. A point-in-time request evaluates one exception retaining its named `rkaf:subjectAssertion`. A request can omit the subject when exactly one assertion exception is present. No graph ordering determines the rule version.
+Invalid verified calendar dates and malformed cutoffs yield `MalformedTestCase`. A point-in-time request starts at the exception retaining its named `rkaf:subjectAssertion`. A request can omit the subject when exactly one assertion exception is present. The runtime checks the connected versions and follows their linked cutoffs. A request naming a later subject receives `reviewRuleTransitions` if the case date belongs to an earlier version. Graph order and unrelated rule successions have no effect on selection. The reducer and bridge rule 2 use the same succession when evaluating use of any of its versions.
 
 ### §4.1 — Decision record
 
-`Runtime::evaluate` returns the prior assertion's effective state for the anchor and for current use, plus `caseDecision`. The decision records the exception ID, anchor, cutoff, and status. A resolved date includes `verifiedCaseDate`. A selected version includes `selectedAssertion` and its `sourceReferences`. A review decision includes the reason and omits a selected rule. Legacy retention-only rules without source references report an empty list. The calling application can save this decision with the case for notices and appeals. Use the reducer or bridge rule 2 to check whether the office may use the selected version.
+`Runtime::evaluate` returns the requested assertion's effective state for the anchor and for current use, plus `caseDecision`. The decision's `exception` and `cutoff` identify the exception retaining the requested assertion. Both fields are null if multiple exceptions retain that assertion. A chain with multiple cutoffs also records `transitions`, an ordered list of exception IDs and cutoffs from oldest to newest. The `status` is relative to the requested assertion. A resolved selection includes `verifiedCaseDate`, `selectedAssertion`, and its `sourceReferences`. When the runtime uses EvidenceBindings, the source references are distinct Artifact IDs in lexical order. Legacy retention-only rules without source references report an empty list. A review decision records its reason and omits a selected rule. Save this decision with the case for notices and appeals. Use the reducer or bridge rule 2 to check whether the office may use the selected version.
 
 This command prints the decision for an illustrative single claim from the Rulespec checkout.
 
@@ -376,7 +388,7 @@ cargo run --locked --manifest-path crates/Cargo.toml -p rkaf-runtime-cli -- \
   --evaluate fixtures/behavior/point-in-time-filing-date.jsonld
 ```
 
-The fixture applies the Social Security Administration’s verified-filing-date guidance to the rule for evaluating medical opinions. A March 22, 2017 filing selects 20 CFR § 404.1527. A March 27 filing selects § 404.1520c. [SSA filing-date instructions](https://secure.ssa.gov/poms.nsf/lnx/0424503050)
+The fixture applies the Social Security Administration’s verified-filing-date guidance to the rule for evaluating medical opinions. A March 22, 2017 filing selects 20 CFR § 404.1527. A March 27 filing selects § 404.1520c. The example office has active official-use approval for both rules. The verified date controls which approval can apply. The decision cites the April 2018 annual edition of the Code of Federal Regulations from GovInfo. Each cited fragment records the SHA-256 digest of its source XML and its quoted text. The graph links the corresponding SSA pages as related resources. [Prior rule XML](https://www.govinfo.gov/content/pkg/CFR-2018-title20-vol2/xml/CFR-2018-title20-vol2-sec404-1527.xml), [revised rule XML](https://www.govinfo.gov/content/pkg/CFR-2018-title20-vol2/xml/CFR-2018-title20-vol2-sec404-1520c.xml), [SSA filing-date instructions](https://secure.ssa.gov/poms.nsf/lnx/0424503050)
 
 
 ---

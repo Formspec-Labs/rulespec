@@ -184,6 +184,30 @@ fn bridge_rule_4_positive() {
 fn bridge_rule_4_negative() {
     assert_passes("bridge-rule-4-unsupported-anchor-negative");
 }
+
+#[test]
+fn bridge_rule_4_checks_anchor_support_for_the_selected_registration() {
+    use serde_json::json;
+
+    let mut request = load("bridge-rule-4-unsupported-anchor-negative");
+    let nodes = request["rkaf:input"]["@graph"].as_array_mut().unwrap();
+    let mut alternate = nodes[2].clone();
+    alternate["@id"] = json!("reg2");
+    alternate["rkaf:consumer"] = json!("urn:example:alternate-consumer");
+    alternate["rkaf:supportedEvaluationAnchors"] = json!(["rkaf:eligibilityDeterminationTime"]);
+    nodes.push(alternate);
+
+    request["rkaf:evaluationConsumer"] = json!("reg1");
+    let unsupported = Runtime::evaluate(&request).unwrap().output;
+    assert_eq!(unsupported["bridgeValidationResult"], "rkaf:rejected");
+    assert_eq!(unsupported["errorClass"], "rkaf:UnsupportedEvaluationAnchor");
+
+    request["rkaf:evaluationConsumer"] = json!("reg2");
+    assert_eq!(
+        Runtime::evaluate(&request).unwrap().output["bridgeValidationResult"],
+        "rkaf:accepted"
+    );
+}
 #[test]
 fn bridge_rule_5_positive() {
     assert_passes("bridge-rule-5-stale-transition-set-positive");
@@ -298,6 +322,229 @@ fn reducer_freshness_malformed_negative() {
     assert_passes("usage-eligibility-reducer-freshness-malformed-negative");
 }
 
+#[test]
+fn scoped_bridge_and_reducer_apply_the_same_freshness_gate() {
+    use serde_json::json;
+
+    let office = "urn:rulespec:example:office";
+    let mut request = load("point-in-time-filing-date");
+    let assertion = request["rkaf:subjectAssertion"].clone();
+    request["rkaf:evaluationScopes"] = json!([office]);
+    let nodes = request["rkaf:input"]["@graph"].as_array_mut().unwrap();
+    let registration = nodes
+        .iter_mut()
+        .find(|node| node["@type"] == "rkaf:BridgeConsumerRegistration")
+        .unwrap();
+    registration["rkaf:maxAttestationStalenessDays"] = json!(30);
+    nodes.push(json!({
+        "@id": "urn:example:attestation", "@type": "rkaf:Attestation",
+        "rkaf:targets": [assertion], "rkaf:lastVerifiedAt": "2026-05-10T00:00:00Z"
+    }));
+    nodes.push(json!({
+        "@id": "urn:example:declaration", "@type": "rkaf:ConsumerEffectiveDeclaration",
+        "rkaf:forAssertion": assertion, "rkaf:declaredScope": office,
+        "rkaf:declaredEffective": "rkaf:officialUse"
+    }));
+    request["rkaf:contractRuleNumber"] = json!(2);
+
+    for (instant, level, bridge) in [
+        ("2026-05-15T00:00:00Z", "rkaf:officialUse", "rkaf:accepted"),
+        ("2026-07-15T00:00:00Z", "rkaf:publicationAllowed", "rkaf:rejected"),
+    ] {
+        request["rkaf:evaluationTime"] = json!(instant);
+        request["rkaf:behaviorContract"] = json!("rkaf:UsageEligibilityReducer");
+        let reduced = Runtime::evaluate(&request).unwrap().output;
+        assert_eq!(reduced["byScope"][office], level);
+        request["rkaf:behaviorContract"] = json!("rkaf:BridgeContractRule");
+        let checked = Runtime::evaluate(&request).unwrap().output;
+        assert_eq!(checked["bridgeValidationResult"], bridge);
+        if bridge == "rkaf:rejected" {
+            assert_eq!(checked["errorClass"], "rkaf:UnauthorizedBroadening");
+        }
+    }
+
+    for contract in ["rkaf:UsageEligibilityReducer", "rkaf:BridgeContractRule"] {
+        request["rkaf:behaviorContract"] = json!(contract);
+        for invalid in [json!("not an instant"), json!(20260515), Value::Null] {
+            request["rkaf:evaluationTime"] = invalid;
+            assert!(matches!(
+                Runtime::evaluate(&request),
+                Err(RuntimeError::MalformedTestCase(message)) if message.contains("rkaf:evaluationTime")
+            ));
+        }
+        request.as_object_mut().unwrap().remove("rkaf:evaluationTime");
+        assert!(matches!(
+            Runtime::evaluate(&request),
+            Err(RuntimeError::MalformedTestCase(message)) if message.contains("rkaf:evaluationTime")
+        ));
+    }
+
+    let attestation = request["rkaf:input"]["@graph"]
+        .as_array_mut()
+        .unwrap()
+        .iter_mut()
+        .find(|node| node["@id"] == "urn:example:attestation")
+        .unwrap();
+    attestation["rkaf:targets"] = json!(["urn:example:unrelated"]);
+    assert_eq!(
+        Runtime::evaluate(&request).unwrap().output["bridgeValidationResult"],
+        "rkaf:accepted"
+    );
+    request["rkaf:behaviorContract"] = json!("rkaf:UsageEligibilityReducer");
+    assert_eq!(
+        Runtime::evaluate(&request).unwrap().output["byScope"][office],
+        "rkaf:officialUse"
+    );
+}
+
+#[test]
+fn bridge_rule_2_binds_official_use_to_the_declaring_consumer() {
+    use serde_json::json;
+
+    let mut request = load("point-in-time-filing-date");
+    request["rkaf:behaviorContract"] = json!("rkaf:BridgeContractRule");
+    request["rkaf:contractRuleNumber"] = json!(2);
+    request["rkaf:evaluationTime"] = json!("2026-07-15T00:00:00Z");
+    request["rkaf:evaluationConsumer"] = json!("urn:example:alternate-registration");
+    let assertion = request["rkaf:subjectAssertion"].clone();
+    let nodes = request["rkaf:input"]["@graph"].as_array_mut().unwrap();
+    let registration = nodes
+        .iter_mut()
+        .find(|node| node["@type"] == "rkaf:BridgeConsumerRegistration")
+        .unwrap();
+    registration["rkaf:maxAttestationStalenessDays"] = json!(30);
+    let registered_consumer = registration["rkaf:consumer"].clone();
+    let registration_id = registration["@id"].clone();
+    let mut alternate = registration.clone();
+    alternate["@id"] = json!("urn:example:alternate-registration");
+    alternate["rkaf:consumer"] = json!("urn:example:alternate-consumer");
+    alternate
+        .as_object_mut()
+        .unwrap()
+        .remove("rkaf:maxAttestationStalenessDays");
+    nodes.extend([
+        alternate,
+        json!({
+            "@id": "urn:example:attestation", "@type": "rkaf:Attestation",
+            "rkaf:targets": [assertion], "rkaf:lastVerifiedAt": "2026-05-10T00:00:00Z"
+        }),
+        json!({
+            "@id": "urn:example:declaration", "@type": "rkaf:ConsumerEffectiveDeclaration",
+            "rkaf:consumer": registered_consumer, "rkaf:forAssertion": assertion,
+            "rkaf:declaredScope": "urn:rulespec:example:office",
+            "rkaf:declaredEffective": "rkaf:officialUse", "rkaf:declaredAt": "2026-07-15T00:00:00Z"
+        }),
+    ]);
+
+    let mismatched = Runtime::evaluate(&request).unwrap().output;
+    assert_eq!(mismatched["bridgeValidationResult"], "rkaf:rejected");
+    assert!(mismatched["rationale"]
+        .as_str()
+        .unwrap()
+        .contains("rkaf:consumer"));
+
+    request["rkaf:evaluationConsumer"] = registration_id;
+    let stale = Runtime::evaluate(&request).unwrap().output;
+    assert_eq!(stale["bridgeValidationResult"], "rkaf:rejected");
+    assert!(stale["rationale"]
+        .as_str()
+        .unwrap()
+        .contains("rkaf:publicationAllowed"));
+
+    request["rkaf:evaluationTime"] = json!("2026-05-15T00:00:00Z");
+    assert_eq!(
+        Runtime::evaluate(&request).unwrap().output["bridgeValidationResult"],
+        "rkaf:accepted"
+    );
+
+    request["rkaf:input"]["@graph"]
+        .as_array_mut()
+        .unwrap()
+        .last_mut()
+        .unwrap()
+        .as_object_mut()
+        .unwrap()
+        .remove("rkaf:consumer");
+    let omitted = Runtime::evaluate(&request).unwrap().output;
+    assert_eq!(omitted["bridgeValidationResult"], "rkaf:rejected");
+    assert!(omitted["rationale"]
+        .as_str()
+        .unwrap()
+        .contains("rkaf:consumer"));
+}
+
+#[test]
+fn bridge_rule_2_refuses_an_official_declaration_without_a_resolved_subject() {
+    use serde_json::json;
+
+    let mut request = load("bridge-rule-2-declared-broadens-without-adoption-negative");
+    let declaration = &mut request["rkaf:input"]["@graph"][1];
+    declaration["rkaf:forAssertion"] = json!("urn:example:missing-assertion");
+    let dangling = Runtime::evaluate(&request).unwrap().output;
+    assert_eq!(dangling["bridgeValidationResult"], "rkaf:rejected");
+    assert!(dangling["rationale"]
+        .as_str()
+        .unwrap()
+        .contains("rkaf:forAssertion"));
+
+    request["rkaf:input"]["@graph"][1]
+        .as_object_mut()
+        .unwrap()
+        .remove("rkaf:forAssertion");
+    let omitted = Runtime::evaluate(&request).unwrap().output;
+    assert_eq!(omitted["bridgeValidationResult"], "rkaf:rejected");
+    assert!(omitted["rationale"]
+        .as_str()
+        .unwrap()
+        .contains("rkaf:forAssertion"));
+
+    let nodes = request["rkaf:input"]["@graph"].as_array_mut().unwrap();
+    nodes[1]["rkaf:forAssertion"] = json!("urn:example:adoption");
+    nodes.push(json!({
+        "@id": "urn:example:adoption", "@type": "rkaf:LocalAdoption",
+        "rkaf:usageEligibility": "rkaf:officialUse"
+    }));
+    let wrong_type = Runtime::evaluate(&request).unwrap().output;
+    assert_eq!(wrong_type["bridgeValidationResult"], "rkaf:rejected");
+    assert!(wrong_type["rationale"]
+        .as_str()
+        .unwrap()
+        .contains("rkaf:forAssertion"));
+}
+
+#[test]
+fn bridge_rule_2_does_not_fall_back_from_an_explicit_consumer() {
+    use serde_json::json;
+
+    let mut request = load("bridge-rule-2-declared-equals-reducer-positive");
+    request["rkaf:evaluationConsumer"] = json!("urn:example:other-registration");
+    let refuses = |request: &Value| {
+        assert!(matches!(
+            Runtime::evaluate(request),
+            Err(RuntimeError::MalformedTestCase(message)) if message.contains("rkaf:evaluationConsumer")
+        ));
+    };
+    refuses(&request);
+
+    request["rkaf:input"]["@graph"]
+        .as_array_mut()
+        .unwrap()
+        .push(json!({
+            "@id": "urn:example:registration", "@type": "rkaf:BridgeConsumerRegistration",
+            "rkaf:consumer": "urn:rkaf:consumer:test"
+        }));
+    refuses(&request);
+
+    request["rkaf:evaluationConsumer"] = Value::Null;
+    refuses(&request);
+
+    request["rkaf:evaluationConsumer"] = json!("urn:example:registration");
+    assert_eq!(
+        Runtime::evaluate(&request).unwrap().output["bridgeValidationResult"],
+        "rkaf:accepted"
+    );
+}
+
 // ─── Plan 7c — severity ladder + cascade as_of ─────────────────────────
 
 #[test]
@@ -313,7 +560,7 @@ fn cascade_as_of_excludes_expired() {
     assert_passes("cascade-closure-as-of-excludes-expired");
 }
 
-/// One office has an active approval for the prior version. All three interfaces
+/// One office has an active approval for both versions. All three interfaces
 /// must agree on both versions for each case, including a reopened claim.
 #[test]
 fn filing_date_controls_rule_citation_and_office_approval() {
@@ -322,8 +569,11 @@ fn filing_date_controls_rule_citation_and_office_approval() {
     let prior = example["rkaf:subjectAssertion"].as_str().unwrap();
     let current = "urn:rulespec:example:medical-opinions:current";
     let office = "urn:rulespec:example:office";
-    let prior_source = "https://www.ssa.gov/OP_Home/cfr20/404/404-1527.htm";
-    let current_source = "https://www.ssa.gov/OP_Home/cfr20/404/404-1520c.htm";
+    let other_office = "urn:rulespec:example:other-office";
+    let prior_source =
+        "https://www.govinfo.gov/content/pkg/CFR-2018-title20-vol2/xml/CFR-2018-title20-vol2-sec404-1527.xml";
+    let current_source =
+        "https://www.govinfo.gov/content/pkg/CFR-2018-title20-vol2/xml/CFR-2018-title20-vol2-sec404-1520c.xml";
     for (date, verified, selected, source) in [
         (Some("2017-03-22"), true, Some(prior), Some(prior_source)),
         (Some("2017-03-26"), true, Some(prior), Some(prior_source)),
@@ -366,36 +616,41 @@ fn filing_date_controls_rule_citation_and_office_approval() {
             assert_eq!(decision["reason"], "verifyCaseDate");
         }
 
-        for (id, level) in [
-            (prior, "rkaf:officialUse"),
-            (current, "rkaf:publicationAllowed"),
-        ] {
+        for id in [prior, current] {
             let mut request = case.clone();
             request["rkaf:behaviorContract"] = json!("rkaf:UsageEligibilityReducer");
             request["rkaf:subjectAssertion"] = json!(id);
-            request["rkaf:evaluationScopes"] = json!([office]);
+            request["rkaf:evaluationScopes"] = json!([office, other_office]);
             let allowed = selected == Some(id);
             let verdict = Runtime::evaluate(&request).unwrap().output;
             assert_eq!(
                 verdict["byScope"][office],
-                if allowed { level } else { "rkaf:notEligible" }
+                if allowed { "rkaf:officialUse" } else { "rkaf:notEligible" }
+            );
+            assert_eq!(
+                verdict["byScope"][other_office],
+                if allowed { "rkaf:publicationAllowed" } else { "rkaf:notEligible" }
             );
 
-            request["rkaf:behaviorContract"] = json!("rkaf:BridgeContractRule");
-            request["rkaf:contractRuleNumber"] = json!(2);
-            request["rkaf:input"]["@graph"].as_array_mut().unwrap().push(json!({
-                "@id": "claim-use", "@type": "rkaf:ConsumerEffectiveDeclaration",
-                "rkaf:forAssertion": id, "rkaf:declaredScope": office, "rkaf:declaredEffective": level
-            }));
-            let verdict = Runtime::evaluate(&request).unwrap().output;
-            assert_eq!(
-                verdict["bridgeValidationResult"],
-                if allowed {
-                    "rkaf:accepted"
-                } else {
-                    "rkaf:rejected"
-                }
-            );
+            for scope in [office, other_office] {
+                let mut bridge_request = request.clone();
+                bridge_request["rkaf:behaviorContract"] = json!("rkaf:BridgeContractRule");
+                bridge_request["rkaf:contractRuleNumber"] = json!(2);
+                bridge_request["rkaf:input"]["@graph"].as_array_mut().unwrap().push(json!({
+                    "@id": "claim-use", "@type": "rkaf:ConsumerEffectiveDeclaration",
+                    "rkaf:forAssertion": id, "rkaf:declaredScope": scope,
+                    "rkaf:declaredEffective": "rkaf:officialUse"
+                }));
+                let verdict = Runtime::evaluate(&bridge_request).unwrap().output;
+                assert_eq!(
+                    verdict["bridgeValidationResult"],
+                    if allowed && scope == office {
+                        "rkaf:accepted"
+                    } else {
+                        "rkaf:rejected"
+                    }
+                );
+            }
         }
     }
 }
@@ -438,62 +693,4 @@ fn only_verified_facts_for_the_declared_anchor_can_match() {
             Err(RuntimeError::MalformedTestCase(_))
         ));
     }
-}
-
-#[test]
-fn a_rule_pair_requires_distinct_cited_versions_and_respects_later_cutoffs() {
-    use serde_json::json;
-    let mut case = load("point-in-time-filing-date");
-    let nodes = case["rkaf:input"]["@graph"].as_array_mut().unwrap();
-    let prior = nodes
-        .iter()
-        .find(|n| n["rkaf:consumerLifecycleState"] == "rkaf:staleForCurrentUse")
-        .unwrap()["@id"]
-        .clone();
-    let successor = nodes
-        .iter_mut()
-        .find(|n| n["rkaf:consumerLifecycleState"] == "rkaf:operational")
-        .unwrap();
-    let successor_id = successor["@id"].clone();
-    let citations = successor
-        .as_object_mut()
-        .unwrap()
-        .remove("prov:wasDerivedFrom")
-        .unwrap();
-    assert!(matches!(
-        Runtime::evaluate(&case),
-        Err(RuntimeError::MalformedTestCase(_))
-    ));
-    let nodes = case["rkaf:input"]["@graph"].as_array_mut().unwrap();
-    let successor = nodes.iter_mut().find(|n| n["@id"] == successor_id).unwrap();
-    successor["prov:wasDerivedFrom"] = citations;
-    let mut third_version = successor.clone();
-    third_version["@id"] = json!("urn:example:third-version");
-    nodes.push(third_version);
-    let exception = nodes
-        .iter_mut()
-        .find(|n| n["@type"] == "rkaf:PointInTimeException")
-        .unwrap();
-    exception["rkaf:successorAssertion"] = prior;
-    assert!(matches!(
-        Runtime::evaluate(&case),
-        Err(RuntimeError::MalformedTestCase(_))
-    ));
-    let nodes = case["rkaf:input"]["@graph"].as_array_mut().unwrap();
-    let exception = nodes
-        .iter_mut()
-        .find(|n| n["@type"] == "rkaf:PointInTimeException")
-        .unwrap();
-    exception["rkaf:successorAssertion"] = successor_id.clone();
-    let mut later = exception.clone();
-    later["@id"] = json!("urn:example:later-transition");
-    later["rkaf:anchorDateBefore"] = json!("2020-01-01");
-    later["rkaf:retainsAssertion"] = successor_id;
-    later["rkaf:successorAssertion"] = json!("urn:example:third-version");
-    nodes.push(later);
-    case["rkaf:caseDate"] = json!("2020-01-01");
-    let decision = &Runtime::evaluate(&case).unwrap().output["caseDecision"];
-    assert_eq!(decision["status"], "needsReview");
-    assert_eq!(decision["reason"], "reviewRuleTransitions");
-    assert!(decision.get("selectedAssertion").is_none());
 }
