@@ -252,8 +252,33 @@ impl Policy {
             return outcome;
         }
 
-        match case.verification_status.to_ascii_lowercase().as_str() {
+        if self
+            .selection
+            .scope
+            .as_ref()
+            .is_some_and(|scope| !case.office.is_empty() && scope != &case.office)
+        {
+            outcome.unresolved(
+                "office_outside_policy_scope",
+                "Send this row to the recorded office or use a policy selection approved for that office.",
+            );
+            return outcome;
+        }
+
+        match case
+            .verification_status
+            .trim()
+            .to_ascii_lowercase()
+            .as_str()
+        {
             "verified" => {}
+            "conflicting" => {
+                outcome.unresolved(
+                    "disputed_filing_date",
+                    "Reconcile the two original first-filing receipts before marking the filing date verified.",
+                );
+                return outcome;
+            }
             "disputed" => {
                 outcome.unresolved(
                     "disputed_filing_date",
@@ -271,7 +296,7 @@ impl Policy {
             _ => {
                 outcome.unresolved(
                     "invalid_verification_status",
-                    "Use verified, disputed, missing, or unverified for the verification status.",
+                    "Use verified, disputed, conflicting, missing, or unverified for the verification status.",
                 );
                 return outcome;
             }
@@ -357,18 +382,6 @@ impl Policy {
             outcome.unresolved(
                 "missing_pinned_rule_sources",
                 "Add a supporting source fragment with a valid artifact digest.",
-            );
-            return outcome;
-        }
-        if self
-            .selection
-            .scope
-            .as_ref()
-            .is_some_and(|scope| scope != &case.office)
-        {
-            outcome.unresolved(
-                "office_outside_policy_scope",
-                "Use a policy selection approved for the recorded office or verify the office ID.",
             );
             return outcome;
         }

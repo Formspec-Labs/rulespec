@@ -9,6 +9,7 @@ use anyhow::{ensure, Context, Result};
 use csv::{ByteRecord, ReaderBuilder, StringRecord, Writer};
 use serde::{Deserialize, Serialize};
 
+use crate::evidence::{self, Documents, EvidenceDirectory, LocalEvidence};
 use crate::policy::{sha256, Outcome, Policy, PolicySelection};
 
 const REPORT_VERSION: u32 = 1;
@@ -103,20 +104,23 @@ pub struct CaseRecord {
 
 impl CaseRecord {
     fn from_csv(row: &ByteRecord, indices: &ColumnIndices) -> Self {
-        let value = |index| {
+        let raw = |index| {
             row.get(index)
                 .and_then(|field| std::str::from_utf8(field).ok())
                 .unwrap_or_default()
-                .trim()
-                .to_owned()
         };
+        let value = |index| raw(index).trim().to_owned();
         Self {
             case_id: value(indices.case_id),
             filing_date: value(indices.filing_date),
-            verification_status: value(indices.verification_status),
+            verification_status: raw(indices.verification_status).to_owned(),
             office: value(indices.office),
             recorded_rule: value(indices.recorded_rule),
-            evidence_reference: indices.evidence_reference.map(value).unwrap_or_default(),
+            evidence_reference: indices
+                .evidence_reference
+                .map(raw)
+                .unwrap_or_default()
+                .to_owned(),
         }
     }
 }
@@ -134,10 +138,14 @@ enum Comparison {
     Difference,
     Unresolved,
     HistoricalRuleAbsent,
+    OutsidePolicyScope,
 }
 
 impl Comparison {
     fn for_case(case: &CaseRecord, outcome: &Outcome) -> Self {
+        if outcome.reason_code.as_deref() == Some("office_outside_policy_scope") {
+            return Self::OutsidePolicyScope;
+        }
         match outcome.expected_id() {
             None => Self::Unresolved,
             Some(_) if case.recorded_rule.is_empty() => Self::HistoricalRuleAbsent,
@@ -152,6 +160,7 @@ impl Comparison {
             Self::Difference => "difference",
             Self::Unresolved => "unresolved",
             Self::HistoricalRuleAbsent => "historical_rule_absent",
+            Self::OutsidePolicyScope => "outside_policy_scope",
         }
     }
 }
@@ -192,6 +201,8 @@ impl SelectionChange {
 pub struct CaseRow {
     record_number: usize,
     case: CaseRecord,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    local_evidence: Option<LocalEvidence>,
     baseline: Outcome,
     comparison: Comparison,
     proposed: Option<Outcome>,
@@ -209,11 +220,14 @@ pub struct Report {
     baseline: PolicySelection,
     proposed: Option<PolicySelection>,
     pub rows: Vec<CaseRow>,
+    #[serde(default, skip_serializing_if = "Documents::is_empty")]
+    evidence_documents: Documents,
 }
 
 pub fn compare(
     path: &Path,
     mapping: Option<&Path>,
+    evidence_dir: Option<&Path>,
     baseline: &Policy,
     proposed: Option<&Policy>,
 ) -> Result<Report> {
@@ -236,6 +250,7 @@ pub fn compare(
     if indices.evidence_reference.is_none() {
         columns.evidence_reference = None;
     }
+    let mut evidence = evidence_dir.map(EvidenceDirectory::open).transpose()?;
     let graph = baseline.graph()?;
     let proposed_graph = proposed.map(Policy::graph).transpose()?;
     let mut rows = Vec::new();
@@ -252,6 +267,10 @@ pub fn compare(
         } else {
             None
         };
+        let local_evidence = evidence
+            .as_mut()
+            .filter(|_| issue.is_none())
+            .and_then(|directory| directory.resolve(&case.evidence_reference));
         let baseline = baseline.evaluate(&graph, &case, issue.as_deref());
         let proposed = proposed
             .zip(proposed_graph.as_ref())
@@ -266,6 +285,7 @@ pub fn compare(
                 .as_ref()
                 .map(|outcome| SelectionChange::between(&baseline, outcome)),
             case,
+            local_evidence,
             baseline,
             proposed,
             disposition: Disposition::default(),
@@ -279,6 +299,9 @@ pub fn compare(
         baseline: baseline.selection.clone(),
         proposed: proposed.map(|policy| policy.selection.clone()),
         rows,
+        evidence_documents: evidence
+            .map(|directory| directory.documents)
+            .unwrap_or_default(),
     })
 }
 
@@ -288,6 +311,7 @@ struct Reconciliation {
     difference: usize,
     unresolved: usize,
     historical_rule_absent: usize,
+    outside_policy_scope: usize,
 }
 
 impl Reconciliation {
@@ -299,6 +323,7 @@ impl Reconciliation {
                 Comparison::Difference => totals.difference += 1,
                 Comparison::Unresolved => totals.unresolved += 1,
                 Comparison::HistoricalRuleAbsent => totals.historical_rule_absent += 1,
+                Comparison::OutsidePolicyScope => totals.outside_policy_scope += 1,
             }
         }
         totals
@@ -344,6 +369,24 @@ pub fn write_report(report: &Report, out: &Path) -> Result<()> {
         "Unsupported report format {}",
         report.format_version
     );
+    evidence::validate(&report.evidence_documents)?;
+    let mut cited = BTreeSet::new();
+    for evidence in report
+        .rows
+        .iter()
+        .filter_map(|row| row.local_evidence.as_ref())
+    {
+        ensure!(
+            report.evidence_documents.contains_key(&evidence.sha256),
+            "Missing filing evidence copy {}",
+            evidence.sha256
+        );
+        cited.insert(evidence.sha256.as_str());
+    }
+    ensure!(
+        cited.len() == report.evidence_documents.len(),
+        "The report contains uncited filing evidence"
+    );
     let has_proposal = report.proposed.is_some();
     let totals = Totals {
         rows: report.rows.len(),
@@ -375,6 +418,7 @@ pub fn write_report(report: &Report, out: &Path) -> Result<()> {
         fs::write(out.join("report.json"), json)?;
         fs::write(out.join("totals.json"), serde_json::to_vec_pretty(&totals)?)?;
         write_csv(report, &out.join("rows.csv"))?;
+        evidence::write_copies(&report.evidence_documents, out)?;
         fs::write(out.join("index.html"), html)?;
         Ok(())
     })();
@@ -383,6 +427,10 @@ pub fn write_report(report: &Report, out: &Path) -> Result<()> {
         for name in ["report.json", "totals.json", "rows.csv", "index.html"] {
             let _ = fs::remove_file(out.join(name));
         }
+        for digest in report.evidence_documents.keys() {
+            let _ = fs::remove_file(out.join(evidence::copy_path(digest)));
+        }
+        let _ = fs::remove_dir(out.join("evidence"));
         let _ = fs::remove_dir(out);
     }
     result
@@ -398,6 +446,9 @@ fn write_csv(report: &Report, path: &Path) -> Result<()> {
         "office",
         "recorded_rule",
         "evidence_reference",
+        "filing_evidence_sha256",
+        "filing_evidence_copy",
+        "filing_evidence_anchor",
         "expected_rule",
         "date_based_candidate",
         "comparison",
@@ -418,6 +469,8 @@ fn write_csv(report: &Report, path: &Path) -> Result<()> {
     ])?;
     for row in &report.rows {
         let case = &row.case;
+        let local = row.local_evidence.as_ref();
+        let evidence_path = local.map(|evidence| evidence::copy_path(&evidence.sha256));
         let proposed = row.proposed.as_ref();
         let passages = serde_json::to_string(&row.baseline.passages)?;
         let approvals = serde_json::to_string(&row.baseline.office_approvals)?;
@@ -433,6 +486,13 @@ fn write_csv(report: &Report, path: &Path) -> Result<()> {
                 &case.office,
                 &case.recorded_rule,
                 &case.evidence_reference,
+                local
+                    .map(|evidence| evidence.sha256.as_str())
+                    .unwrap_or_default(),
+                evidence_path.as_deref().unwrap_or_default(),
+                local
+                    .and_then(|evidence| evidence.anchor.as_deref())
+                    .unwrap_or_default(),
                 row.baseline.expected_id().unwrap_or_default(),
                 row.baseline
                     .candidate_rule

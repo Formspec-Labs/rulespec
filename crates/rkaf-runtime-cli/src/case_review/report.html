@@ -32,6 +32,8 @@
   .toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: .65rem; margin-bottom: .8rem; }
   article { min-width: 0; }
   .refs { padding: .55rem 0; overflow-wrap: anywhere; }
+  .filing-evidence { margin: .75rem 0; }
+  .filing-evidence pre { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; }
   blockquote { margin: .55rem 0; padding: .2rem .7rem; border-left: 3px solid #597e90; }
   .disposition { display: grid; gap: .4rem; margin-top: .85rem; }
   select, textarea { border: 1px solid #8b9ba8; border-radius: .3rem; padding: .35rem .5rem; background: white; }
@@ -57,6 +59,7 @@
         <option value="agreement">Agreements</option>
         <option value="difference">Differences</option>
         <option value="unresolved">Unresolved</option>
+        <option value="outside_policy_scope">Outside selected office</option>
         <option value="historical_rule_absent">Historical rule absent</option>
       </select>
       <button type="button" id="save">Download report JSON</button>
@@ -83,6 +86,7 @@
     difference: "Difference",
     unresolved: "Unresolved",
     historical_rule_absent: "Historical rule absent",
+    outside_policy_scope: "Outside selected office",
     changed: "Selection changed",
     unchanged: "Selection unchanged",
     previously_unresolved: "Baseline unresolved",
@@ -165,6 +169,29 @@
     }
   }
 
+  function renderFilingEvidence(parent, evidence) {
+    const digest = /^sha256:([0-9a-f]{64})$/.exec(evidence.sha256);
+    if (!digest) return;
+    const details = create("details", parent);
+    details.className = "panel filing-evidence";
+    create("summary", details, "Open filing evidence");
+    const text = report.evidence_documents[evidence.sha256];
+    if (evidence.passage) {
+      create("pre", details, evidence.passage);
+    } else if (evidence.anchor) {
+      create("p", details, "The archive has no unique passage for this anchor. Open the original evidence copy.");
+    } else {
+      create("pre", details, text);
+    }
+    const link = create("a", create("p", details), "Download original evidence copy");
+    link.href = `evidence/${digest[1]}.txt`;
+    link.download = evidence.path.split("/").at(-1);
+    const source = create("dl", details);
+    pair(source, "Original file", evidence.path);
+    if (evidence.anchor) pair(source, "Passage anchor", evidence.anchor);
+    pair(source, "SHA-256", evidence.sha256);
+  }
+
   function renderRow(row) {
     const details = create("details", document.getElementById("cases"));
     details.dataset.comparison = row.comparison;
@@ -177,11 +204,9 @@
     pair(facts, "Office", item.office);
     pair(facts, "Recorded rule", item.recorded_rule);
     pair(facts, "Filing evidence reference", item.evidence_reference);
-    if (item.evidence_reference) {
-      const link = create("p", details);
-      sourceLink(link, item.evidence_reference, "Open filing evidence");
-      if (!link.hasChildNodes()) link.remove();
-    } else if (item.verification_status.toLowerCase() === "verified") {
+    if (row.local_evidence) {
+      renderFilingEvidence(details, row.local_evidence);
+    } else if (!item.evidence_reference.trim() && item.verification_status.trim().toLowerCase() === "verified") {
       create("p", details, "The CSV marks the date verified. Retrieve the filing evidence reference before confirming a finding.").className = "hint";
     }
 

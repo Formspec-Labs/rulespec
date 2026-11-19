@@ -48,14 +48,18 @@ Use these CSV headers or supply `--map column-map.json`.
 | --- | --- |
 | `case_id` | De-identified case identifier |
 | `filing_date` | Calendar date in `YYYY-MM-DD` format |
-| `verification_status` | `verified`, `disputed`, `missing`, or `unverified` |
+| `verification_status` | `verified`, `disputed`, `conflicting`, `missing`, or `unverified` |
 | `office` | Office ID used in the policy graph |
 | `recorded_rule` | Exact assertion ID for the recorded rule. Leave blank when the historical rule is unavailable. |
 | `evidence_reference` | Optional receipt or filing-record reference |
 
 A mapping file uses the known field names as keys and exact CSV header names as values. For example, `{"case_id":"Case Number","filing_date":"Filing Date","evidence_reference":"Receipt ID"}` maps those three fields and keeps the default headers for the others. Use `null` for an unused evidence reference.
 
-Rulespec uses the CSV's verification status as the program's report of whether the date was verified. Retain the original records separately and obtain a missing filing evidence reference before confirming a finding. A disputed or unverified filing date, invalid record, or unavailable office approval remains unresolved. Blank separators in a CSV are skipped. Each parsed record has its own record number, including records that share a case ID.
+Rulespec uses the CSV's verification status as the program's report of whether the date was verified. Retain the original records separately and obtain a missing filing evidence reference before confirming a finding. A disputed, conflicting, or unverified filing date, invalid record, or unavailable office approval remains unresolved. Cases from another office count separately when the policy selection names an office. Blank separators in a CSV are skipped. Each parsed record has its own record number, including records that share a case ID.
+
+Add `--evidence-dir /path/to/curated-evidence` to review local evidence offline. A reference such as `receipts/filing-records.md#fr-09` uses a path relative to that directory. Path and anchor components use letters, numbers, periods, underscores, or hyphens. The report accepts UTF-8 Markdown and text files. It finds a passage using an explicit anchor on its own line or a Markdown heading with spaces converted to hyphens. Other references display as text.
+
+The report copies only referenced files, stores one exact copy per SHA-256 hash, and displays excerpts as plain text. The downloadable report JSON includes the source copies. Export verifies their hashes and writes the copies with the new report directory.
 
 To assess a proposed version, add `--proposed candidate.jsonld --proposed-selection candidate-selection.json`. The report retains the baseline selection, proposed selection, and recorded rule for each case. A change to either version of the policy requires a new report directory.
 

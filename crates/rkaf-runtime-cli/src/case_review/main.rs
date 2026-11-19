@@ -1,6 +1,7 @@
 //! Compares recorded rule versions against a local Rulespec policy.
 // Rust guideline compliant 2026-02-21
 
+mod evidence;
 mod policy;
 mod report;
 
@@ -68,6 +69,9 @@ struct Compare {
     /// JSON object mapping the report field names to CSV headers.
     #[arg(long)]
     map: Option<PathBuf>,
+    /// Curated directory of local text or Markdown filing evidence.
+    #[arg(long)]
+    evidence_dir: Option<PathBuf>,
     /// New directory for the report.
     #[arg(long)]
     out: PathBuf,
@@ -89,6 +93,7 @@ fn run_compare(args: Compare) -> Result<()> {
     let report = compare(
         &args.cases,
         args.map.as_deref(),
+        args.evidence_dir.as_deref(),
         &baseline,
         proposed.as_ref(),
     )?;
