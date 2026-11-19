@@ -20,6 +20,7 @@
   button { cursor: pointer; color: white; background: #164863; border: 0; padding: .55rem .8rem; border-radius: .35rem; }
   button:disabled { opacity: .6; cursor: default; }
   :focus-visible { outline: 3px solid #137495; outline-offset: 2px; }
+  .disposition button { justify-self: start; }
   .hint { color: #40515e; }
   .panel, #cases > details { border: 1px solid #c9d4de; background: #fff; border-radius: .45rem; padding: .85rem 1rem; }
   .group { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); gap: .7rem; }
@@ -62,10 +63,11 @@
         <option value="outside_policy_scope">Outside selected office</option>
         <option value="historical_rule_absent">Historical rule absent</option>
       </select>
+      <button type="button" id="save-html">Save reviewed report</button>
       <button type="button" id="save">Download report JSON</button>
       <span id="save-status" class="hint" role="status"></span>
     </div>
-    <p class="hint">Save dispositions with the report JSON. Run the export command on that file to refresh the report and CSV.</p>
+    <p class="hint">Open the saved HTML in your browser to resume review. It contains all cases, notes, and any shared evidence archives.</p>
     <div id="cases"></div>
   </section>
   <footer class="panel">
@@ -80,6 +82,14 @@
 <script type="application/json" id="totals-data">{{TOTALS}}</script>
 <script>
   const report = JSON.parse(document.getElementById("report-data").textContent);
+  const emptyReportPage = document.documentElement.cloneNode(true);
+  const evidenceUses = new Map();
+  for (const { local_evidence } of report.rows) {
+    if (local_evidence) {
+      const sha = local_evidence.sha256;
+      evidenceUses.set(sha, (evidenceUses.get(sha) || 0) + 1);
+    }
+  }
   const totals = JSON.parse(document.getElementById("totals-data").textContent);
   const labels = {
     agreement: "Agreement",
@@ -179,9 +189,27 @@
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
+  function renderFilingInstructions(parent, row) {
+    const held = ["disputed_filing_date", "missing_verified_filing_evidence", "invalid_filing_date"];
+    if (!report.filing_instructions?.length
+        || report.baseline.scope !== row.case.office
+        || !held.includes(row.baseline.reason_code)) return;
+    const detail = create("details", parent);
+    detail.className = "panel filing-evidence";
+    create("summary", detail, "Open filing instructions from policy approval");
+    create("p", detail, "Approval passages for the selected office. This case is pending filing-date verification.");
+    for (const instruction of report.filing_instructions) {
+      create("blockquote", detail, instruction.exact_quote);
+      const source = create("dl", detail);
+      pair(source, "Approval source", instruction.artifact);
+      pair(source, "Passage", instruction.fragment);
+      pair(source, "Approval SHA-256", instruction.source_sha256);
+      pair(source, "Passage SHA-256", instruction.fragment_sha256);
+    }
+  }
+
   function renderFilingEvidence(parent, evidence) {
-    const digest = /^sha256:([0-9a-f]{64})$/.exec(evidence.sha256);
-    if (!digest) return;
+    if (!/^sha256:[0-9a-f]{64}$/.test(evidence.sha256)) return;
     const details = create("details", parent);
     details.className = "panel filing-evidence";
     create("summary", details, "Open filing evidence");
@@ -193,17 +221,44 @@
     } else {
       create("pre", details, text);
     }
-    const link = create("a", create("p", details), "Download original evidence copy");
-    link.href = `evidence/${digest[1]}.txt`;
-    link.download = evidence.path.split("/").at(-1);
-    link.addEventListener("click", event => {
-      event.preventDefault();
-      downloadText(text, link.download, "application/octet-stream");
+    const uses = evidenceUses.get(evidence.sha256);
+    const shared = uses > 1;
+    if (shared) create("p", details, `The full filing archive contains records for ${uses} cases in this report.`);
+    const download = create("button", create("p", details), shared ? "Download full shared filing archive" : "Download original evidence copy");
+    download.type = "button";
+    download.addEventListener("click", () => {
+      downloadText(text, evidence.path.split("/").at(-1), "application/octet-stream");
     });
     const source = create("dl", details);
     pair(source, "Original file", evidence.path);
     if (evidence.anchor) pair(source, "Passage anchor", evidence.anchor);
     pair(source, "SHA-256", evidence.sha256);
+  }
+
+  function referralText(row, dispositionLabel) {
+    const item = row.case;
+    const fallbackAction = {
+      agreement: "Retain the review with the closed case.",
+      difference: "Review the recorded rule with the responsible office.",
+      historical_rule_absent: "Retrieve the rule version recorded in the closed case.",
+    };
+    const action = row.baseline.reason || fallbackAction[row.comparison] || "Review the filing evidence.";
+    return [
+      "Rulespec single-case referral summary",
+      "",
+      `Case — ${item.case_id || blank}`,
+      `Recorded office — ${item.office || blank}`,
+      `Recorded filing date — ${item.filing_date || blank}`,
+      `Recorded verification status — ${item.verification_status || blank}`,
+      `Recorded rule — ${item.recorded_rule || blank}`,
+      `Finding — ${labels[row.comparison]}`,
+      ...(row.baseline.expected_rule ? [`Expected rule — ${ruleText(row.baseline.expected_rule)}`] : []),
+      `Requested next action — ${action}`,
+      `Disposition — ${dispositionLabel}`,
+      `Saved note — ${row.disposition.note || blank}`,
+      `Original evidence reference — ${item.evidence_reference || blank}`,
+      "",
+    ].join("\n");
   }
 
   function renderRow(row) {
@@ -228,6 +283,7 @@
     outcomes.className = "group";
     renderOutcome(outcomes, "Baseline policy", row.baseline, row.comparison);
     if (row.proposed) renderOutcome(outcomes, "Proposed policy", row.proposed, row.proposed_comparison);
+    renderFilingInstructions(details, row);
 
     const disposition = create("div", details);
     disposition.className = "disposition";
@@ -241,9 +297,17 @@
     status.value = row.disposition.status;
     const note = create("textarea", create("label", disposition, "Disposition note"));
     note.value = row.disposition.note;
+    const referral = create("button", disposition, "Download single-case referral");
+    referral.type = "button";
+    referral.disabled = !status.value;
+    referral.addEventListener("click", () => {
+      const identity = item.case_id.replace(/[^a-zA-Z0-9_-]/g, "-").slice(0, 80) || row.record_number;
+      downloadText(referralText(row, status.selectedOptions[0].textContent), `rulespec-referral-${identity}.txt`, "text/plain");
+    });
     const changeDisposition = () => {
       row.disposition.status = status.value;
       row.disposition.note = note.value;
+      referral.disabled = !status.value;
       dirty = true;
       saveStatus.textContent = "Unsaved dispositions";
     };
@@ -275,6 +339,14 @@
     pair(metadata, `${name} rule history`, selection.subjectAssertion);
   }
 
+  document.getElementById("save-html").addEventListener("click", () => {
+    // Escape HTML parsing delimiters inside the data script in the saved page.
+    emptyReportPage.querySelector("#report-data").textContent =
+      JSON.stringify(report, null, 2).replaceAll("<", "\\u003c");
+    downloadText("<!doctype html>\n" + emptyReportPage.outerHTML, "rulespec-reviewed-report.html", "text/html");
+    dirty = false;
+    saveStatus.textContent = "Reviewed HTML download started";
+  });
   document.getElementById("save").addEventListener("click", () => {
     downloadText(JSON.stringify(report, null, 2), "rulespec-report.json", "application/json");
     dirty = false;

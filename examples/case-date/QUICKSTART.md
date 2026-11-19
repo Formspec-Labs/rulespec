@@ -65,7 +65,11 @@ To assess a proposed version, add `--proposed candidate.jsonld --proposed-select
 
 ## Save dispositions and export
 
-Open a case in `index.html`, choose an analyst disposition, and add a note. Select **Download report JSON** to save your edits. Generate the detailed CSV, updated interactive report, and reconciled totals in a new directory.
+Open a case in `index.html`, choose an analyst disposition, and add a note. Select **Save reviewed report** to download one HTML file. Open it directly in a browser to resume offline. Keep the full report where authorized reviewers can access it. It includes all case rows, notes, and any shared filing archive.
+
+Choose **Download single-case referral** on a reviewed row to send just the case entry, finding, requested action, disposition, note, and evidence reference to the responsible staff. Reviewed rows keep access to their filing evidence in the full report. A held row may also show approval passages from the selected office's active approval while the filing date is unresolved.
+
+Select **Download report JSON** for native export. Generate the detailed CSV, interactive report, and reconciled totals in a new directory.
 
 ```sh
 bin/rulespec-case-review export --report /path/to/rulespec-report.json --out reviewed-report

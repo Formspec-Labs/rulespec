@@ -10,7 +10,7 @@ use csv::{ByteRecord, ReaderBuilder, StringRecord, Writer};
 use serde::{Deserialize, Serialize};
 
 use crate::evidence::{self, Documents, EvidenceDirectory, LocalEvidence};
-use crate::policy::{sha256, Outcome, Policy, PolicySelection};
+use crate::policy::{sha256, Outcome, Passage, Policy, PolicySelection};
 
 const REPORT_VERSION: u32 = 1;
 
@@ -220,6 +220,8 @@ pub struct Report {
     baseline: PolicySelection,
     proposed: Option<PolicySelection>,
     pub rows: Vec<CaseRow>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    filing_instructions: Vec<Passage>,
     #[serde(default, skip_serializing_if = "Documents::is_empty")]
     evidence_documents: Documents,
 }
@@ -299,6 +301,7 @@ pub fn compare(
         baseline: baseline.selection.clone(),
         proposed: proposed.map(|policy| policy.selection.clone()),
         rows,
+        filing_instructions: baseline.filing_instructions(&graph),
         evidence_documents: evidence
             .map(|directory| directory.documents)
             .unwrap_or_default(),

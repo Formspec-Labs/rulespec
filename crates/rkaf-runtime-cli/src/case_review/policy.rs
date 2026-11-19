@@ -236,6 +236,57 @@ impl Policy {
         Graph::from_payload(&self.payload).context("Index policy graph")
     }
 
+    pub fn filing_instructions(&self, graph: &Graph<'_>) -> Vec<Passage> {
+        let Some(scope) = self.selection.scope.as_deref() else {
+            return Vec::new();
+        };
+        let mut approval_sources = BTreeSet::new();
+        for rule in pit::rule_family(&self.selection.subject_assertion, graph).unwrap_or_default() {
+            for adoption in
+                reducer::active_adoptions_for_scope(graph, &rule, scope, Some(&self.evaluated_at))
+                    .filter(|adoption| adoption["rkaf:usageEligibility"] == "rkaf:officialUse")
+            {
+                approval_sources.extend(
+                    adoption["prov:wasDerivedFrom"]
+                        .as_array()
+                        .into_iter()
+                        .flatten()
+                        .filter_map(Value::as_str),
+                );
+            }
+        }
+        let artifacts: BTreeMap<_, _> = graph
+            .nodes_by_type("rkaf:Artifact")
+            .filter_map(|artifact| Some((nonblank(&artifact["@id"])?, artifact)))
+            .filter(|(id, _)| approval_sources.contains(id))
+            .collect();
+        let mut instructions: Vec<_> = graph
+            .nodes_by_type("rkaf:SourceFragment")
+            .filter_map(|fragment| {
+                let source = nonblank(&fragment["oa:hasSource"])?;
+                let artifact = artifacts.get(source)?;
+                let instruction = passage(fragment, source, Some(artifact))?;
+                let pinned = instruction
+                    .source_sha256
+                    .as_deref()?
+                    .strip_prefix("sha256:")?;
+                (pinned.len() == 64
+                    && pinned
+                        .bytes()
+                        .all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
+                    && nonblank(&artifact["rkaf:hasContentDigest"])
+                        == instruction.source_sha256.as_deref()
+                    && instruction.fragment_sha256.is_some()
+                    && instruction.exact_quote.is_some())
+                .then_some(instruction)
+            })
+            .collect();
+        instructions.sort_by(|left, right| {
+            (&left.artifact, &left.fragment).cmp(&(&right.artifact, &right.fragment))
+        });
+        instructions
+    }
+
     pub fn evaluate(
         &self,
         graph: &Graph<'_>,
@@ -275,7 +326,7 @@ impl Policy {
             "conflicting" => {
                 outcome.unresolved(
                     "disputed_filing_date",
-                    "Reconcile the two original first-filing receipts before marking the filing date verified.",
+                    "Reconcile the conflicting records of first acceptance before marking the filing date verified.",
                 );
                 return outcome;
             }
@@ -418,39 +469,42 @@ fn passages(graph: &Graph<'_>, selected: &str, source_references: &Value) -> Vec
         {
             continue;
         }
-        let fragment_id = nonblank(&fragment["@id"]);
-        let fragment_digest = nonblank(&fragment["rkaf:fragmentContentDigest"]);
-        let selector = &fragment["oa:hasSelector"];
-        let mut quotes = selector
-            .as_array()
-            .into_iter()
-            .flatten()
-            .filter_map(|selector| {
-                (selector["@type"] == "oa:TextQuoteSelector")
-                    .then(|| nonblank(&selector["oa:exact"]))
-                    .flatten()
-            });
-        let quote = quotes.next();
-        if quote
-            .zip(fragment_digest)
-            .is_some_and(|(quote, expected)| sha256(quote.as_bytes()) != expected)
-        {
-            continue;
+        if let Some(citation) = passage(fragment, artifact, graph.find(artifact)) {
+            passages.insert(
+                (
+                    artifact,
+                    nonblank(&fragment["@id"]),
+                    citation.exact_quote.clone(),
+                ),
+                citation,
+            );
         }
-        let publisher_url = graph
-            .find(artifact)
-            .and_then(|node| nonblank(&node["dcterms:relation"]));
-        passages.insert(
-            (artifact, fragment_id, quote),
-            Passage {
-                fragment: fragment_id.map(str::to_owned),
-                artifact: artifact.to_owned(),
-                source_sha256: nonblank(&fragment["rkaf:sourceArtifactDigest"]).map(str::to_owned),
-                fragment_sha256: fragment_digest.map(str::to_owned),
-                exact_quote: quote.map(str::to_owned),
-                publisher_url: publisher_url.map(str::to_owned),
-            },
-        );
     }
     passages.into_values().collect()
+}
+
+fn passage(fragment: &Value, source: &str, artifact: Option<&Value>) -> Option<Passage> {
+    let fragment_digest = nonblank(&fragment["rkaf:fragmentContentDigest"]);
+    let quote = fragment["oa:hasSelector"]
+        .as_array()
+        .into_iter()
+        .flatten()
+        .filter(|selector| selector["@type"] == "oa:TextQuoteSelector")
+        .find_map(|selector| nonblank(&selector["oa:exact"]));
+    if quote
+        .zip(fragment_digest)
+        .is_some_and(|(quote, expected)| sha256(quote.as_bytes()) != expected)
+    {
+        return None;
+    }
+    Some(Passage {
+        fragment: nonblank(&fragment["@id"]).map(str::to_owned),
+        artifact: source.to_owned(),
+        source_sha256: nonblank(&fragment["rkaf:sourceArtifactDigest"]).map(str::to_owned),
+        fragment_sha256: fragment_digest.map(str::to_owned),
+        exact_quote: quote.map(str::to_owned),
+        publisher_url: artifact
+            .and_then(|node| nonblank(&node["dcterms:relation"]))
+            .map(str::to_owned),
+    })
 }
