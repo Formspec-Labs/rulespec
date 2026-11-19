@@ -55,10 +55,15 @@
   document.getElementById("case-title").textContent = record.case_id || "Case ID missing";
   document.getElementById("explanation").textContent = record.explanation;
   const facts = document.getElementById("facts");
+  const dateLabel = {
+    verified: "Verified local filing date",
+    conflicting: "Disputed date recorded in the index",
+    missing: "Unverified date recorded in the index",
+  }[record.filing.verification_status] || "Reported local date";
   for (const [name, value] of [
     ["Finding", record.comparison.replaceAll("_", " ")], ["Office", record.office],
     ["Recorded rule", record.recorded_rule], ["Selected rule", record.selected_rule],
-    ["Controlling event", record.filing.event], ["Reported local date", record.filing.reported_local_date],
+    ["Controlling event", record.filing.event], [dateLabel, record.filing.reported_local_date],
     ["Verification status", record.filing.verification_status], ["Time zone", record.filing.time_zone],
     ["Next action", record.next_action], ["Policy SHA-256", record.policy_sha256],
   ]) pair(facts, name, value);
