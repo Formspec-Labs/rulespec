@@ -122,11 +122,17 @@ pub(crate) fn assertion<'a>(graph: &Graph<'a>, id: &str) -> Result<&'a Value, Ru
     }
 }
 
-fn source_references<'a>(id: &str, rule: &'a Value, graph: &Graph<'a>) -> Vec<&'a str> {
-    let mut bindings = graph
+fn evidence_bindings<'a, 'graph>(
+    id: &'graph str,
+    graph: &'graph Graph<'a>,
+) -> impl Iterator<Item = &'a Value> + use<'a, 'graph> {
+    graph
         .nodes_by_type("rkaf:EvidenceBinding")
-        .filter(|binding| binding["rkaf:bindsAssertion"].as_str() == Some(id))
-        .peekable();
+        .filter(move |binding| binding["rkaf:bindsAssertion"].as_str() == Some(id))
+}
+
+fn source_references<'a>(id: &str, rule: &'a Value, graph: &Graph<'a>) -> Vec<&'a str> {
+    let mut bindings = evidence_bindings(id, graph).peekable();
     if bindings.peek().is_none() {
         // Behavior-only callers may still cite sources through direct PROV
         // derivation. Canonical bindings take precedence when present.
@@ -140,7 +146,39 @@ fn source_references<'a>(id: &str, rule: &'a Value, graph: &Graph<'a>) -> Vec<&'
             })
             .unwrap_or_default();
     }
+    bound_source_references(bindings, graph, false)
+}
 
+/// List supporting Artifact IDs with pinned source fragments.
+///
+/// Each fragment needs the SHA-256 digest of its source bytes (Core §4.2).
+/// The digest must agree with the Artifact digest when the graph supplies one.
+/// The returned IDs are distinct and sorted.
+pub fn pinned_source_references<'a>(subject: &str, graph: &Graph<'a>) -> Vec<&'a str> {
+    bound_source_references(evidence_bindings(subject, graph), graph, true)
+}
+
+fn has_source_pin(fragment: &Value, artifact: &Value) -> bool {
+    let Some(digest) = fragment["rkaf:sourceArtifactDigest"].as_str() else {
+        return false;
+    };
+    let Some(hex) = digest.strip_prefix("sha256:") else {
+        return false;
+    };
+    hex.len() == 64
+        && hex
+            .bytes()
+            .all(|digit| matches!(digit, b'0'..=b'9' | b'a'..=b'f'))
+        && artifact
+            .get("rkaf:hasContentDigest")
+            .is_none_or(|value| value.as_str() == Some(digest))
+}
+
+fn bound_source_references<'a>(
+    bindings: impl Iterator<Item = &'a Value>,
+    graph: &Graph<'a>,
+    require_digest: bool,
+) -> Vec<&'a str> {
     // Only affirmative evidence that can express the rule contributes a
     // citation. The role and function are independent in Core §4.3.
     let sources: BTreeSet<_> = bindings
@@ -161,11 +199,12 @@ fn source_references<'a>(id: &str, rule: &'a Value, graph: &Graph<'a>) -> Vec<&'
         .flatten()
         .filter_map(|fragment| graph.find(fragment.as_str()?))
         .filter(|fragment| has_type(fragment, "rkaf:SourceFragment"))
-        .filter_map(|fragment| fragment["oa:hasSource"].as_str())
-        .filter(|source| {
-            graph
-                .find(source)
-                .is_some_and(|node| has_type(node, "rkaf:Artifact"))
+        .filter_map(|fragment| {
+            let source = fragment["oa:hasSource"].as_str()?;
+            let artifact = graph.find(source)?;
+            (has_type(artifact, "rkaf:Artifact")
+                && (!require_digest || has_source_pin(fragment, artifact)))
+            .then_some(source)
         })
         .collect();
     sources.into_iter().collect()

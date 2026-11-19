@@ -1,6 +1,6 @@
 // Rust guideline compliant 2026-02-21
 
-use rkaf_runtime::Runtime;
+use rkaf_runtime::{pit::pinned_source_references, Graph, Runtime};
 use serde_json::{json, Value};
 
 const PRIOR: &str = "urn:rulespec:example:medical-opinions:prior";
@@ -158,6 +158,55 @@ fn only_supporting_rule_evidence_is_citable() {
     case = example();
     nodes(&mut case).retain(|node| node["@id"] != CURRENT_BINDING);
     assert_review(&case, "reviewRuleSources", &[PRIOR, CURRENT]);
+}
+
+#[test]
+fn operational_citations_require_a_canonical_fragment_and_a_consistent_source_pin() {
+    fn pinned(case: &Value) -> Vec<&str> {
+        let graph = Graph::from_payload(&case["rkaf:input"]).unwrap();
+        pinned_source_references(PRIOR, &graph)
+    }
+
+    let mut case = example();
+    assert_eq!(pinned(&case), [PRIOR_SOURCE]);
+    let binding = node(&mut case, PRIOR_BINDING);
+    let fragment_id = binding["rkaf:bindsSourceFragment"][0]
+        .as_str()
+        .unwrap()
+        .to_owned();
+    binding.as_object_mut().unwrap().remove("@id");
+    assert_eq!(pinned(&case), [PRIOR_SOURCE]);
+
+    let artifact_digest = node(&mut case, PRIOR_SOURCE)["rkaf:hasContentDigest"].clone();
+    node(&mut case, PRIOR_SOURCE)
+        .as_object_mut()
+        .unwrap()
+        .remove("rkaf:hasContentDigest");
+    assert_eq!(pinned(&case), [PRIOR_SOURCE]);
+
+    node(&mut case, PRIOR_SOURCE)["rkaf:hasContentDigest"] = artifact_digest;
+    node(&mut case, &fragment_id)["rkaf:sourceArtifactDigest"] =
+        json!("sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    assert!(pinned(&case).is_empty());
+
+    node(&mut case, &fragment_id)
+        .as_object_mut()
+        .unwrap()
+        .remove("rkaf:sourceArtifactDigest");
+    assert!(pinned(&case).is_empty());
+    assert_eq!(decision(&case)["sourceReferences"], json!([PRIOR_SOURCE]));
+
+    node(&mut case, PRIOR_SOURCE)
+        .as_object_mut()
+        .unwrap()
+        .remove("rkaf:hasContentDigest");
+    node(&mut case, &fragment_id)["rkaf:sourceArtifactDigest"] = json!("sha256:1234");
+    assert!(pinned(&case).is_empty());
+
+    nodes(&mut case).retain(|node| node["rkaf:bindsAssertion"] != PRIOR);
+    node(&mut case, PRIOR)["prov:wasDerivedFrom"] = json!([PRIOR_SOURCE]);
+    assert!(pinned(&case).is_empty());
+    assert_eq!(decision(&case)["sourceReferences"], json!([PRIOR_SOURCE]));
 }
 
 fn link(id: &str, prior: &str, successor: &str, cutoff: &str) -> Value {
@@ -351,7 +400,7 @@ fn terminal_retention_window_ends_selection_and_eligibility_for_every_subject() 
 
 #[test]
 fn rule_family_is_shared_across_versions_and_refuses_ambiguous_links() {
-    use rkaf_runtime::{pit::rule_family, Graph};
+    use rkaf_runtime::pit::rule_family;
 
     let mut case = three_versions();
     let graph = Graph::from_payload(&case["rkaf:input"]).unwrap();
