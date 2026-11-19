@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<link rel="icon" href="data:,">
+<title>Rulespec single-case review</title>
+<style>
+  :root { font: 16px system-ui, sans-serif; color: #172633; background: #f5f7f9; }
+  body { max-width: 49rem; margin: auto; padding: 1.5rem; }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.25rem; }
+  p, dl, pre { overflow-wrap: anywhere; }
+  pre { font: inherit; white-space: pre-wrap; }
+  dl { display: grid; grid-template-columns: minmax(7rem, 1fr) 2fr; gap: .45rem; }
+  dt { color: #40515e; }
+  dd { margin: 0; }
+  section, details { background: white; border: 1px solid #c9d4de; border-radius: .4rem; margin: .85rem 0; padding: .8rem 1rem; }
+  summary, button { cursor: pointer; font: inherit; font-weight: 650; }
+  button { color: white; background: #164863; border: 0; border-radius: .4rem; padding: .55rem .8rem; }
+  :focus-visible { outline: 3px solid #137495; outline-offset: 2px; }
+</style>
+<main>
+  <header>
+    <p>Rulespec report excerpt</p>
+    <h1 id="case-title"></h1>
+    <p id="explanation"></p>
+    <button type="button" id="download">Download case JSON</button>
+  </header>
+  <section aria-labelledby="facts-title">
+    <h2 id="facts-title">Case facts</h2>
+    <dl id="facts"></dl>
+  </section>
+  <details id="evidence">
+    <summary>Open filing evidence</summary>
+    <dl id="receipt"></dl>
+  </details>
+  <details id="policy">
+    <summary>Open policy citations</summary>
+  </details>
+</main>
+<script type="application/json" id="case-data">{{CASE_RECORD}}</script>
+<script>
+  const record = JSON.parse(document.getElementById("case-data").textContent);
+  function create(tag, parent, text) {
+    const element = document.createElement(tag);
+    element.textContent = text;
+    parent.append(element);
+    return element;
+  }
+  function pair(list, label, value) {
+    create("dt", list, label);
+    create("dd", list, value || "—");
+  }
+  document.getElementById("case-title").textContent = record.case_id || "Case ID missing";
+  document.getElementById("explanation").textContent = record.explanation;
+  const facts = document.getElementById("facts");
+  for (const [name, value] of [
+    ["Finding", record.comparison.replaceAll("_", " ")], ["Office", record.office],
+    ["Recorded rule", record.recorded_rule], ["Selected rule", record.selected_rule],
+    ["Controlling event", record.filing.event], ["Reported local date", record.filing.reported_local_date],
+    ["Verification status", record.filing.verification_status], ["Time zone", record.filing.time_zone],
+    ["Next action", record.next_action], ["Policy SHA-256", record.policy_sha256],
+  ]) pair(facts, name, value);
+
+  const evidence = record.filing_evidence;
+  const receipt = document.getElementById("receipt");
+  pair(receipt, "Receipt reference", evidence.reference);
+  pair(receipt, "Excerpt SHA-256", evidence.excerpt_sha256);
+  if (evidence.excerpt) {
+    create("pre", document.getElementById("evidence"), evidence.excerpt);
+  } else {
+    create("p", document.getElementById("evidence"), "Use the authorized case source to inspect the original filing record.");
+  }
+
+  const policy = document.getElementById("policy");
+  if (!record.policy_citations.length) create("p", policy, "The saved result has no applicable policy citation.");
+  for (const citation of record.policy_citations) {
+    const roles = {
+      selected_rule: "Selected rule",
+      filing_review_context: "Filing review context",
+      office_scope: "Office scope",
+    };
+    const facts = create("dl", policy, "");
+    pair(facts, "Citation role", roles[citation.role]);
+    pair(facts, "Source", citation.source_id);
+    pair(facts, "Fragment", citation.fragment_id);
+    pair(facts, "Source SHA-256", citation.source_sha256);
+    if (citation.excerpt) create("blockquote", policy, citation.excerpt);
+  }
+
+  document.getElementById("download").addEventListener("click", () => {
+    const url = URL.createObjectURL(new Blob([JSON.stringify(record) + "\n"], { type: "application/json" }));
+    const link = create("a", document.body, "");
+    link.href = url;
+    link.download = "rulespec-case-" + record.record_number + ".json";
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+</script>
+</html>

@@ -80,9 +80,13 @@
 <noscript>Enable JavaScript for the offline case view or open rows.csv and totals.json in the report directory.</noscript>
 <script type="application/json" id="report-data">{{REPORT}}</script>
 <script type="application/json" id="totals-data">{{TOTALS}}</script>
+<script type="application/json" id="case-records">{{CASE_RECORDS}}</script>
+<script type="application/json" id="case-view">{{CASE_VIEW}}</script>
 <script>
   const report = JSON.parse(document.getElementById("report-data").textContent);
   const emptyReportPage = document.documentElement.cloneNode(true);
+  const compact = JSON.parse(document.getElementById("case-records").textContent);
+  const caseView = JSON.parse(document.getElementById("case-view").textContent);
   const evidenceUses = new Map();
   for (const { local_evidence } of report.rows) {
     if (local_evidence) {
@@ -261,12 +265,24 @@
     ].join("\n");
   }
 
-  function renderRow(row) {
+  function renderRow(row, excerpt) {
     const details = create("details", document.getElementById("cases"));
     details.dataset.comparison = row.comparison;
     const item = row.case;
     const change = row.selection_change ? ` · ${labels[row.selection_change]}` : "";
     create("summary", details, `${row.record_number}. ${item.case_id || "Case ID missing"} · ${labels[row.comparison]}${change}`);
+    if (excerpt) {
+      create("p", details, excerpt.explanation);
+      const open = create("button", create("p", details), "Open single-case review");
+      open.type = "button";
+      open.addEventListener("click", () => {
+        const data = JSON.stringify(excerpt).replaceAll("<", "\\u003c");
+        const view = caseView.replace("{{CASE_RECORD}}", () => data);
+        const url = URL.createObjectURL(new Blob([view], {type: "text/html"}));
+        window.open(url, "_blank", "noopener,noreferrer");
+        setTimeout(() => URL.revokeObjectURL(url), 60000);
+      });
+    }
     const facts = create("dl", details);
     pair(facts, "Filing date", item.filing_date);
     pair(facts, "Verification status", item.verification_status);
@@ -319,7 +335,7 @@
   renderTotals("Baseline policy", totals.baseline);
   renderTotals("Proposed policy", totals.proposed);
   renderTotals("Selection changes", totals.selection_changes);
-  for (const row of report.rows) renderRow(row);
+  report.rows.forEach((row, index) => renderRow(row, compact[index]));
   if (report.rows.length === 0) create("p", document.getElementById("cases"), "The CSV contains no case records.");
   document.getElementById("filter").addEventListener("change", event => {
     for (const row of document.getElementById("cases").children) {

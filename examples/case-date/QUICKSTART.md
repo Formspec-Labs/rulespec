@@ -76,3 +76,24 @@ bin/rulespec-case-review export --report /path/to/rulespec-report.json --out rev
 ```
 
 The CSV protects formula-like text for spreadsheet viewing. Use `report.json` for exact field values, policy hashes, source references, and the review settings. Keep report files local and use de-identified data.
+
+## Explain one case
+
+Open a row in the batch browser report and select **Open single-case review**. Its sentence, facts, and policy citations come from the saved baseline result. **Open filing evidence** shows the case-specific passage when available. **Download case JSON** saves the same record for a reviewer or another tool.
+
+Use the native CLI to select the same case from a saved report.
+
+```sh
+bin/rulespec-case-review case --report my-report/report.json --case-id SAMPLE-22 > case.json
+bin/rulespec-case-review case --report my-report/report.json --case-id SAMPLE-22 --format text
+```
+
+Add `--record-number` when a case ID appears more than once. Use `--format html` to save the single-case browser view directly. When you build a comparison, `--filing-event` and `--time-zone` can record the event label and local time zone from the approved instructions. The evaluator uses the verified local date from the case export for selection.
+
+A one-case record carries only the selected row's facts. Filing evidence carries an opaque receipt reference, and its excerpt is limited to an identified paragraph from the retained archive. An ambiguous anchor, missing case identifier, or unsafe passage yields a reference-only result. The opaque reference identifies evidence without granting access to the original archive.
+
+```sh
+bin/rulespec-case-review evidence --case-record case.json --reference 'RECEIPT_REFERENCE_FROM_CASE_JSON'
+```
+
+This command accepts only the reference in that case record. Retain the complete batch and original files in authorized storage when reviewers need the full archive.

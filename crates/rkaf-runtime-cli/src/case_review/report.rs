@@ -9,10 +9,11 @@ use anyhow::{ensure, Context, Result};
 use csv::{ByteRecord, ReaderBuilder, StringRecord, Writer};
 use serde::{Deserialize, Serialize};
 
+use crate::case::{self, CaseContext};
 use crate::evidence::{self, Documents, EvidenceDirectory, LocalEvidence};
 use crate::policy::{sha256, Outcome, Passage, Policy, PolicySelection};
 
-const REPORT_VERSION: u32 = 1;
+pub const REPORT_VERSION: u32 = 1;
 
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(default, deny_unknown_fields)]
@@ -133,7 +134,7 @@ struct Disposition {
 
 #[derive(Clone, Copy, Debug, Deserialize, Serialize)]
 #[serde(rename_all = "snake_case")]
-enum Comparison {
+pub enum Comparison {
     Agreement,
     Difference,
     Unresolved,
@@ -154,7 +155,7 @@ impl Comparison {
         }
     }
 
-    fn label(self) -> &'static str {
+    pub fn label(self) -> &'static str {
         match self {
             Self::Agreement => "agreement",
             Self::Difference => "difference",
@@ -199,12 +200,12 @@ impl SelectionChange {
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct CaseRow {
-    record_number: usize,
-    case: CaseRecord,
+    pub record_number: usize,
+    pub case: CaseRecord,
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    local_evidence: Option<LocalEvidence>,
-    baseline: Outcome,
-    comparison: Comparison,
+    pub local_evidence: Option<LocalEvidence>,
+    pub baseline: Outcome,
+    pub comparison: Comparison,
     proposed: Option<Outcome>,
     proposed_comparison: Option<Comparison>,
     selection_change: Option<SelectionChange>,
@@ -213,17 +214,19 @@ pub struct CaseRow {
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Report {
-    format_version: u32,
+    pub format_version: u32,
     evaluator_version: String,
-    input_sha256: String,
+    pub input_sha256: String,
     column_mapping: Columns,
-    baseline: PolicySelection,
+    pub baseline: PolicySelection,
     proposed: Option<PolicySelection>,
     pub rows: Vec<CaseRow>,
+    #[serde(default, skip_serializing_if = "CaseContext::is_empty")]
+    pub case_context: CaseContext,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
-    filing_instructions: Vec<Passage>,
+    pub filing_instructions: Vec<Passage>,
     #[serde(default, skip_serializing_if = "Documents::is_empty")]
-    evidence_documents: Documents,
+    pub evidence_documents: Documents,
 }
 
 pub fn compare(
@@ -232,6 +235,7 @@ pub fn compare(
     evidence_dir: Option<&Path>,
     baseline: &Policy,
     proposed: Option<&Policy>,
+    case_context: CaseContext,
 ) -> Result<Report> {
     let mut columns = mapping
         .map(|p| {
@@ -301,6 +305,7 @@ pub fn compare(
         baseline: baseline.selection.clone(),
         proposed: proposed.map(|policy| policy.selection.clone()),
         rows,
+        case_context,
         filing_instructions: baseline.filing_instructions(&graph),
         evidence_documents: evidence
             .map(|directory| directory.documents)
@@ -400,14 +405,22 @@ pub fn write_report(report: &Report, out: &Path) -> Result<()> {
         selection_changes: has_proposal.then(|| Changes::count(&report.rows)),
     };
     let json = serde_json::to_string_pretty(report)?;
-    // A case ID or analyst note can contain an HTML parser delimiter.
-    let html_data = json
-        .replace('&', "\\u0026")
-        .replace('<', "\\u003c")
-        .replace('>', "\\u003e");
+    let cases = report
+        .rows
+        .iter()
+        .map(|row| case::excerpt(report, row))
+        .collect::<Vec<_>>();
     let html = include_str!("report.html")
         .replace("{{TOTALS}}", &serde_json::to_string(&totals)?)
-        .replace("{{REPORT}}", &html_data);
+        .replace(
+            "{{CASE_VIEW}}",
+            &case::html_safe(&serde_json::to_string(case::CASE_VIEW)?),
+        )
+        .replace(
+            "{{CASE_RECORDS}}",
+            &case::html_safe(&serde_json::to_string(&cases)?),
+        )
+        .replace("{{REPORT}}", &case::html_safe(&json));
     let mut dir = fs::DirBuilder::new();
     #[cfg(unix)]
     {

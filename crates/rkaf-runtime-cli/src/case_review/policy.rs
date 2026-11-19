@@ -28,11 +28,11 @@ pub struct PolicyOverrides<'a> {
 #[serde(rename_all = "camelCase")]
 pub struct PolicySelection {
     subject_assertion: String,
-    evaluation_anchor: String,
+    pub evaluation_anchor: String,
     evaluation_consumer: String,
-    scope: Option<String>,
+    pub scope: Option<String>,
     evaluated_at: String,
-    policy_sha256: String,
+    pub policy_sha256: String,
 }
 
 #[derive(Debug)]
@@ -50,11 +50,11 @@ pub struct Rule {
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Passage {
-    fragment: Option<String>,
-    artifact: String,
-    source_sha256: Option<String>,
-    fragment_sha256: Option<String>,
-    exact_quote: Option<String>,
+    pub fragment: Option<String>,
+    pub artifact: String,
+    pub source_sha256: Option<String>,
+    pub fragment_sha256: Option<String>,
+    pub exact_quote: Option<String>,
     publisher_url: Option<String>,
 }
 

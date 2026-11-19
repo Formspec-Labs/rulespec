@@ -146,6 +146,80 @@ fn anchored_passage(text: &str, anchor: &str) -> Option<String> {
     Some(lines[start..end].join("\n").trim_end().to_owned())
 }
 
+/// Extract one explicitly identified case paragraph from retained local evidence.
+pub fn case_passage(
+    source: &LocalEvidence,
+    reference: &str,
+    documents: &Documents,
+    case_id: &str,
+    other_ids: impl Iterator<Item = impl AsRef<str>>,
+) -> Option<String> {
+    let (path, Some(anchor)) = parse_reference(reference)? else {
+        return None;
+    };
+    if !is_safe_token(case_id) || path != source.path || Some(anchor) != source.anchor.as_deref() {
+        return None;
+    }
+    let document = documents.get(&source.sha256)?;
+    if sha256(document.as_bytes()) != source.sha256 {
+        return None;
+    }
+    let section = anchored_passage(document, anchor)?;
+    let mut lines = section.lines().peekable();
+    let named_heading = lines
+        .peek()
+        .and_then(|line| heading(line))
+        .is_some_and(|title| identifies_case(title, case_id));
+    if lines.peek().is_some_and(|line| heading(line).is_some()) {
+        lines.next();
+    }
+    let paragraph = lines
+        .skip_while(|line| line.trim().is_empty())
+        .take_while(|line| !line.trim().is_empty())
+        .collect::<Vec<_>>()
+        .join("\n");
+    if !(named_heading || identifies_case(&paragraph, case_id))
+        || !valid_case_passage(&paragraph)
+        || other_ids
+            .into_iter()
+            .any(|id| contains_id(&paragraph, id.as_ref()))
+    {
+        return None;
+    }
+    Some(paragraph)
+}
+
+pub fn valid_case_passage(text: &str) -> bool {
+    // One short paragraph can travel with the compact record.
+    const MAX_BYTES: usize = 768;
+    !text.is_empty()
+        && text.len() <= MAX_BYTES
+        && !text.contains("\n\n")
+        && !text.contains(['<', '>'])
+        && !text.contains("](")
+        && !text.contains("://")
+}
+
+fn identifies_case(text: &str, case_id: &str) -> bool {
+    let mut words = text.split_whitespace();
+    let Some(first) = words.next() else {
+        return false;
+    };
+    let label = first.trim_matches(|ch: char| !ch.is_ascii_alphanumeric());
+    contains_id(first, case_id)
+        || (matches!(
+            label.to_ascii_lowercase().as_str(),
+            "case" | "record" | "jacket"
+        ) && words.next().is_some_and(|word| contains_id(word, case_id)))
+}
+
+pub fn contains_id(text: &str, id: &str) -> bool {
+    !id.is_empty()
+        && text
+            .split(|ch: char| !ch.is_ascii_alphanumeric() && !matches!(ch, '-' | '_' | '.'))
+            .any(|word| word == id || word.trim_end_matches('.') == id)
+}
+
 pub fn validate(documents: &Documents) -> Result<()> {
     for (digest, text) in documents {
         ensure!(
@@ -174,7 +248,9 @@ pub fn write_copies(documents: &Documents, out: &Path) -> Result<()> {
 
 #[cfg(test)]
 mod tests {
-    use super::{anchored_passage, parse_reference};
+    use super::{
+        anchored_passage, case_passage, parse_reference, sha256, Documents, LocalEvidence,
+    };
 
     #[test]
     fn permits_only_relative_text_references() {
@@ -211,5 +287,70 @@ mod tests {
         );
         assert_eq!(anchored_passage(text, "fr-99"), None);
         assert_eq!(anchored_passage("### X\nFirst\n### X\nSecond", "x"), None);
+    }
+    #[test]
+    fn case_view_requires_a_verified_named_paragraph() {
+        let mut documents = Documents::new();
+        let archive = "## One\n\n**Jacket A-1.** The first receipt says June 30.\n\nIgnore the internal note.\n\n## Two\n\n**Case B-2.** Other evidence.";
+        let digest = sha256(archive.as_bytes());
+        documents.insert(digest.clone(), archive.into());
+        let mut source = LocalEvidence {
+            path: "archive.md".into(),
+            sha256: digest,
+            anchor: Some("one".into()),
+            passage: Some("IGNORE THE SAVED PREVIEW".into()),
+        };
+        assert_eq!(
+            case_passage(
+                &source,
+                "archive.md#one",
+                &documents,
+                "A-1",
+                ["B-2"].into_iter()
+            )
+            .as_deref(),
+            Some("**Jacket A-1.** The first receipt says June 30.")
+        );
+        assert!(case_passage(
+            &source,
+            "archive.md#two",
+            &documents,
+            "A-1",
+            ["B-2"].into_iter()
+        )
+        .is_none());
+        assert!(case_passage(
+            &source,
+            "archive.md#one",
+            &documents,
+            "B-2",
+            ["A-1"].into_iter()
+        )
+        .is_none());
+        assert!(case_passage(
+            &source,
+            "archive.md#one",
+            &documents,
+            "A-1",
+            ["June"].into_iter()
+        )
+        .is_none());
+        assert!(case_passage(
+            &source,
+            "archive.md",
+            &documents,
+            "A-1",
+            ["B-2"].into_iter()
+        )
+        .is_none());
+        source.sha256 = sha256(b"wrong");
+        assert!(case_passage(
+            &source,
+            "archive.md#one",
+            &documents,
+            "A-1",
+            ["B-2"].into_iter()
+        )
+        .is_none());
     }
 }
