@@ -55,7 +55,7 @@ current `sha256:<64 lowercase hex>` contract digest. Every block in one
 document MUST use the same digest.
 
 ```yaml rkaf-l0-mapping
-rulespec_version: "sha256:89b70e1c1ca7ba7b7f54c5878ef7257a2eaf548149498ae3446f9b75c9613690"
+rulespec_version: "sha256:226929b97fc806a77fbd1b864677430c22d7d02b5ce7c89e381a060e5a261ad6"
 mappings:
   - table: proceedings
     column: current_stage
@@ -217,7 +217,7 @@ The mapping below is the worked example. It is audited by
 `tools/test_l0_mapping_audit.py`, so it is executable rather than illustrative:
 
 ```yaml rkaf-l0-mapping
-rulespec_version: "sha256:89b70e1c1ca7ba7b7f54c5878ef7257a2eaf548149498ae3446f9b75c9613690"
+rulespec_version: "sha256:226929b97fc806a77fbd1b864677430c22d7d02b5ce7c89e381a060e5a261ad6"
 mappings:
   - table: attestations
     column: attestor_id
@@ -323,7 +323,7 @@ digest covers the selected text. The SourceFragment declares
 node and independently records evidence kind and function:
 
 ```yaml rkaf-l0-mapping
-rulespec_version: "sha256:89b70e1c1ca7ba7b7f54c5878ef7257a2eaf548149498ae3446f9b75c9613690"
+rulespec_version: "sha256:226929b97fc806a77fbd1b864677430c22d7d02b5ce7c89e381a060e5a261ad6"
 mappings:
   - table: evidence_bindings
     column: assertion_iri
@@ -524,7 +524,7 @@ An L4 implementation MUST:
 2. Implement the `usageEligibility` reducer per `spec/rkaf-behavior.md` §1, honoring narrow-only / LocalAdoption-broadens-within-scope invariants.
 3. Implement `CascadeClosureV1` per `spec/rkaf-behavior.md` §2 — the algorithm name in `LifecycleEvent.cascadeAlgorithm` is the conformance identifier.
 4. Honor all 10 bridge contract rules per `spec/rkaf-behavior.md` §3.
-5. Honor point-in-time exceptions per §4 — refuse unsupported `evaluationAnchor` values.
+5. Honor assertion exceptions only for a matching verified case date per Behavior §4. Refuse unsupported `evaluationAnchor` values.
 6. Implement stale transition per §5.
 7. Emit a `rkaf:BridgeValidationResult` for every packet ingest, with conformant `result` / `effectiveUsageEligibility` / `authorityChainStatus`.
 

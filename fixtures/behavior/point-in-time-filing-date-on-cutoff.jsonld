@@ -1,0 +1,59 @@
+{
+  "@context": "../../context/rkaf-context.jsonld",
+  "@id": "urn:rkaf:fixture:beh:filing-date:on-cutoff",
+  "@type": "rkaf:BehaviorTestCase",
+  "rkaf:behaviorContract": "rkaf:PointInTimeException",
+  "rkaf:subjectAssertion": "prior",
+  "rkaf:evaluationAnchor": "rkaf:applicationSubmissionTime",
+  "rkaf:caseDate": "2017-03-27",
+  "rkaf:caseDateVerified": true,
+  "rkaf:input": {
+    "@graph": [
+      {
+        "@id": "prior",
+        "@type": "rkaf:Assertion",
+        "rkaf:consumerLifecycleState": "rkaf:staleForCurrentUse",
+        "prov:wasDerivedFrom": [
+          "https://www.ssa.gov/OP_Home/cfr20/404/404-1527.htm"
+        ]
+      },
+      {
+        "@id": "current",
+        "@type": "rkaf:Assertion",
+        "prov:wasDerivedFrom": [
+          "https://www.ssa.gov/OP_Home/cfr20/404/404-1520c.htm"
+        ]
+      },
+      {
+        "@id": "transition",
+        "@type": "rkaf:PointInTimeException",
+        "rkaf:evaluationAnchor": "rkaf:applicationSubmissionTime",
+        "rkaf:anchorDateBefore": "2017-03-27",
+        "rkaf:retainsAssertion": "prior",
+        "rkaf:successorAssertion": "current"
+      },
+      {
+        "@id": "office",
+        "@type": "rkaf:BridgeConsumerRegistration",
+        "rkaf:supportedEvaluationAnchors": [
+          "rkaf:applicationSubmissionTime"
+        ]
+      }
+    ]
+  },
+  "rkaf:expectedOutput": {
+    "prior.effectiveStateForAnchor:applicationSubmissionTime": "rkaf:staleForCurrentUse",
+    "prior.effectiveStateForCurrentUse": "rkaf:staleForCurrentUse",
+    "caseDecision": {
+      "status": "successorRule",
+      "exception": "transition",
+      "anchor": "rkaf:applicationSubmissionTime",
+      "cutoff": "2017-03-27",
+      "verifiedCaseDate": "2017-03-27",
+      "selectedAssertion": "current",
+      "sourceReferences": [
+        "https://www.ssa.gov/OP_Home/cfr20/404/404-1520c.htm"
+      ]
+    }
+  }
+}

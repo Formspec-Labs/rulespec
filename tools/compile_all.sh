@@ -109,6 +109,13 @@ compile_one() {
 }
 
 main() {
+    # Native validators embed just these kernel, analysis and profile JSON Schemas.
+    if [[ "${1:-}" == --runtime-schemas ]]; then
+        for src in constraints/core/*.cue constraints/analysis/*.cue constraints/profiles/*/*.cue; do
+            compile_one "$src" json-schema
+        done
+        return
+    fi
     local sources=(
         constraints/core/*.cue
         constraints/platform/*.cue

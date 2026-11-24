@@ -136,7 +136,7 @@ The report cross-references every fixture against every layer. Behavior
 fixtures are produced by a small but exact Rust runtime that implements the
 five contracts described in `spec/rkaf-behavior.md`.
 
-Rulespec has three non-duplicating distributions. Artifact consumers install the
+Rulespec has three Python distributions. Artifact consumers install the
 small `rulespec-artifacts` distribution for canonical JSON, framed-section and
 schema-bundle digests, container building, and structural verification. It has
 no RDF, JSON-LD, SHACL, `rdflib`, `pyshacl`, or RDF-canonicalization dependency.
@@ -191,6 +191,19 @@ Rulespec renamed or retired is an `ImportError` in the consumer's build rather
 than a string that validates as a string. `python -m
 rulespec_conformance.contract` prints what the installed contract carries and
 fails if any of it is missing.
+
+## Local case evaluator
+
+Build a versioned archive containing the native Rust evaluator and an offline
+three-case example.
+
+```sh
+tools/package_case_evaluator.sh
+```
+
+Give the analyst the matching archive from `dist/case-evaluator/`. Each archive names the evaluator version, platform, and source revision. The
+[quick start](examples/case-date/QUICKSTART.md) covers CSV mapping, case evidence,
+a proposed policy, dispositions, and exports.
 
 ## Who this is for
 

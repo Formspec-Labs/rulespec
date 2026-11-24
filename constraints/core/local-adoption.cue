@@ -23,6 +23,7 @@ package rkaf
 	"rkaf:adoptionScope":          string // free-form scope IRI or label
 	"rkaf:authorizedBy":           string // IRI of authorizing actor
 	"rkaf:adoptedAt":              string // xsd:dateTime
+	"rkaf:validUntil"?:            string // xsd:dateTime
 	"rkaf:adoptsApplicability"?:   string // optional IRI of an ApplicabilityScope
 	"rkaf:basedOnAttestation"?:    string // optional IRI of an Attestation
 }

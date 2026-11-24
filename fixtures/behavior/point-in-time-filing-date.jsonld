@@ -1,0 +1,180 @@
+{
+  "@context": "../../context/rkaf-context.jsonld",
+  "@id": "urn:rkaf:fixture:beh:filing-date:prior",
+  "@type": "rkaf:BehaviorTestCase",
+  "rkaf:behaviorContract": "rkaf:PointInTimeException",
+  "rkaf:rationale": "A single illustrative disability insurance claim in a local office. The verified filing date determines which regulation governs evaluation of medical opinions.",
+  "rkaf:subjectAssertion": "urn:rulespec:example:medical-opinions:prior",
+  "rkaf:evaluationAnchor": "rkaf:applicationSubmissionTime",
+  "rkaf:caseDate": "2017-03-22",
+  "rkaf:caseDateVerified": true,
+  "rkaf:input": {
+    "@graph": [
+      {
+        "@id": "urn:rulespec:example:medical-opinions:current",
+        "@type": "rkaf:Assertion",
+        "rkaf:consumerLifecycleState": "rkaf:operational",
+        "rkaf:assertionOrigin": "rkaf:humanAsserted",
+        "rkaf:epistemicBasis": "rkaf:editorialAssertion",
+        "rkaf:usageEligibility": "rkaf:publicationAllowed",
+        "rkaf:supersedesAssertion": [
+          "urn:rulespec:example:medical-opinions:prior"
+        ]
+      },
+      {
+        "@id": "urn:rulespec:example:medical-opinions:prior",
+        "@type": "rkaf:Assertion",
+        "rkaf:consumerLifecycleState": "rkaf:staleForCurrentUse",
+        "rkaf:assertionOrigin": "rkaf:humanAsserted",
+        "rkaf:epistemicBasis": "rkaf:editorialAssertion",
+        "rkaf:usageEligibility": "rkaf:publicationAllowed"
+      },
+      {
+        "@id": "urn:rulespec:example:medical-opinions:filing-cutoff",
+        "@type": "rkaf:PointInTimeException",
+        "rkaf:evaluationAnchor": "rkaf:applicationSubmissionTime",
+        "rkaf:retainsAssertion": "urn:rulespec:example:medical-opinions:prior",
+        "rkaf:anchorDateBefore": "2017-03-27",
+        "rkaf:successorAssertion": "urn:rulespec:example:medical-opinions:current"
+      },
+      {
+        "@id": "reg1",
+        "@type": "rkaf:BridgeConsumerRegistration",
+        "rkaf:supportedEvaluationAnchors": [
+          "rkaf:applicationSubmissionTime"
+        ],
+        "rkaf:consumer": "urn:rkaf:consumer:test",
+        "rkaf:bridgeContractVersion": "rkaf-bridge/1.0",
+        "rkaf:registeredAt": "2026-04-15T00:00:00Z",
+        "rkaf:supportsRegistryVersionRange": [
+          "^1.0"
+        ],
+        "rkaf:supportedAutomaticMigrations": [
+          "rkaf:replaceInPlace"
+        ],
+        "rkaf:supportedAuthorityKinds": [
+          "rkaf:statutory"
+        ]
+      },
+      {
+        "@id": "urn:rulespec:example:prior-approval",
+        "@type": "rkaf:LocalAdoption",
+        "rkaf:targetAssertion": "urn:rulespec:example:medical-opinions:prior",
+        "rkaf:usageEligibility": "rkaf:officialUse",
+        "rkaf:adoptionScope": "urn:rulespec:example:office",
+        "rkaf:adoptionStatus": "rkaf:active",
+        "rkaf:organization": "urn:rkaf:org:test",
+        "rkaf:adoptionAuthorityKind": "rkaf:organizational",
+        "rkaf:authorizedBy": "urn:rkaf:actor:test-authority",
+        "rkaf:adoptedAt": "2026-04-15T00:00:00Z"
+      },
+      {
+        "@id": "urn:rulespec:example:current-approval",
+        "@type": "rkaf:LocalAdoption",
+        "rkaf:targetAssertion": "urn:rulespec:example:medical-opinions:current",
+        "rkaf:usageEligibility": "rkaf:officialUse",
+        "rkaf:adoptionScope": "urn:rulespec:example:office",
+        "rkaf:adoptionStatus": "rkaf:active",
+        "rkaf:organization": "urn:rkaf:org:test",
+        "rkaf:adoptionAuthorityKind": "rkaf:organizational",
+        "rkaf:authorizedBy": "urn:rkaf:actor:test-authority",
+        "rkaf:adoptedAt": "2026-04-15T00:00:00Z"
+      },
+      {
+        "@id": "https://www.govinfo.gov/content/pkg/CFR-2018-title20-vol2/xml/CFR-2018-title20-vol2-sec404-1520c.xml",
+        "@type": "rkaf:Artifact",
+        "rkaf:hasArtifactIdentifier": [
+          "https://www.govinfo.gov/content/pkg/CFR-2018-title20-vol2/xml/CFR-2018-title20-vol2-sec404-1520c.xml"
+        ],
+        "rkaf:artifactIdentifierScheme": [
+          "rkaf:partner-defined"
+        ],
+        "dcterms:format": "application/xml",
+        "dcterms:issued": "2018-04-01",
+        "rkaf:hasContentDigest": "sha256:7b8cadfd67c28824626437a036e4e273efad7f9f22ea4eb3deb4d62c3936e26f",
+        "dcterms:relation": "https://www.ssa.gov/OP_Home/cfr20/404/404-1520c.htm"
+      },
+      {
+        "@id": "urn:rulespec:example:medical-opinions:current:filing-text",
+        "@type": "rkaf:SourceFragment",
+        "oa:hasSource": "https://www.govinfo.gov/content/pkg/CFR-2018-title20-vol2/xml/CFR-2018-title20-vol2-sec404-1520c.xml",
+        "oa:hasSelector": [
+          {
+            "@type": "oa:TextQuoteSelector",
+            "oa:exact": "on or after March 27, 2017, the rules in this section apply"
+          }
+        ],
+        "rkaf:selectorKind": [
+          "oa:TextQuoteSelector"
+        ],
+        "rkaf:sourceArtifactDigest": "sha256:7b8cadfd67c28824626437a036e4e273efad7f9f22ea4eb3deb4d62c3936e26f",
+        "rkaf:fragmentContentDigest": "sha256:5c10143cb11c8b8341f7b7ee220433d9809c2d01b2edccbd13412f04a413d99b"
+      },
+      {
+        "@id": "urn:rulespec:example:medical-opinions:current:filing-evidence",
+        "@type": "rkaf:EvidenceBinding",
+        "rkaf:bindsAssertion": "urn:rulespec:example:medical-opinions:current",
+        "rkaf:bindsSourceFragment": [
+          "urn:rulespec:example:medical-opinions:current:filing-text"
+        ],
+        "rkaf:evidenceRole": "rkaf:authorityCitation",
+        "rkaf:evidentiaryFunction": "rkaf:supports"
+      },
+      {
+        "@id": "https://www.govinfo.gov/content/pkg/CFR-2018-title20-vol2/xml/CFR-2018-title20-vol2-sec404-1527.xml",
+        "@type": "rkaf:Artifact",
+        "rkaf:hasArtifactIdentifier": [
+          "https://www.govinfo.gov/content/pkg/CFR-2018-title20-vol2/xml/CFR-2018-title20-vol2-sec404-1527.xml"
+        ],
+        "rkaf:artifactIdentifierScheme": [
+          "rkaf:partner-defined"
+        ],
+        "dcterms:format": "application/xml",
+        "dcterms:issued": "2018-04-01",
+        "rkaf:hasContentDigest": "sha256:be0bfb0eb7c2a041a0a0d252f28dfc2e4dfe7c147a5d7ce6fe130913e00b29d7",
+        "dcterms:relation": "https://www.ssa.gov/OP_Home/cfr20/404/404-1527.htm"
+      },
+      {
+        "@id": "urn:rulespec:example:medical-opinions:prior:filing-text",
+        "@type": "rkaf:SourceFragment",
+        "oa:hasSource": "https://www.govinfo.gov/content/pkg/CFR-2018-title20-vol2/xml/CFR-2018-title20-vol2-sec404-1527.xml",
+        "oa:hasSelector": [
+          {
+            "@type": "oa:TextQuoteSelector",
+            "oa:exact": "before March 27, 2017, the rules in this section apply"
+          }
+        ],
+        "rkaf:selectorKind": [
+          "oa:TextQuoteSelector"
+        ],
+        "rkaf:sourceArtifactDigest": "sha256:be0bfb0eb7c2a041a0a0d252f28dfc2e4dfe7c147a5d7ce6fe130913e00b29d7",
+        "rkaf:fragmentContentDigest": "sha256:1fc52ba8f18010ef06355ec8dd6493f1202d29cd683cb1c338cefe266debb47e"
+      },
+      {
+        "@id": "urn:rulespec:example:medical-opinions:prior:filing-evidence",
+        "@type": "rkaf:EvidenceBinding",
+        "rkaf:bindsAssertion": "urn:rulespec:example:medical-opinions:prior",
+        "rkaf:bindsSourceFragment": [
+          "urn:rulespec:example:medical-opinions:prior:filing-text"
+        ],
+        "rkaf:evidenceRole": "rkaf:authorityCitation",
+        "rkaf:evidentiaryFunction": "rkaf:supports"
+      }
+    ]
+  },
+  "rkaf:expectedOutput": {
+    "urn:rulespec:example:medical-opinions:prior.effectiveStateForAnchor:applicationSubmissionTime": "rkaf:retainedForPointInTime",
+    "urn:rulespec:example:medical-opinions:prior.effectiveStateForCurrentUse": "rkaf:staleForCurrentUse",
+    "caseDecision": {
+      "status": "priorRule",
+      "exception": "urn:rulespec:example:medical-opinions:filing-cutoff",
+      "anchor": "rkaf:applicationSubmissionTime",
+      "cutoff": "2017-03-27",
+      "verifiedCaseDate": "2017-03-22",
+      "selectedAssertion": "urn:rulespec:example:medical-opinions:prior",
+      "sourceReferences": [
+        "https://www.govinfo.gov/content/pkg/CFR-2018-title20-vol2/xml/CFR-2018-title20-vol2-sec404-1527.xml"
+      ]
+    }
+  }
+}

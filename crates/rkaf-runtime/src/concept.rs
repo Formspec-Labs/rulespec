@@ -4,7 +4,10 @@ use chrono::{DateTime, FixedOffset};
 use serde_json::{json, Value};
 
 use crate::{
-    errors::RuntimeError, graph::Graph, temporal::effective_attestations_at, verdict::Verdict,
+    errors::RuntimeError,
+    graph::{has_type, Graph},
+    temporal::effective_attestations_at,
+    verdict::Verdict,
 };
 
 const USAGE_LATTICE: &[&str] = &[
@@ -256,14 +259,6 @@ fn failure_result(
             "resolverId": "urn:rulespec:runtime:reference",
         },
     }))
-}
-
-fn has_type(node: &Value, expected: &str) -> bool {
-    match node.get("@type") {
-        Some(Value::String(actual)) => actual == expected,
-        Some(Value::Array(actual)) => actual.iter().any(|value| value.as_str() == Some(expected)),
-        _ => false,
-    }
 }
 
 fn string_values(value: &Value) -> Vec<&str> {
@@ -546,14 +541,8 @@ fn active_local_adoption<'a>(
         .nodes_by_type("rkaf:LocalAdoption")
         .filter(|adoption| {
             adoption.get("rkaf:targetAssertion").and_then(Value::as_str) == Some(mapping_id)
-                && adoption.get("rkaf:adoptionStatus").and_then(Value::as_str)
-                    == Some("rkaf:active")
-                && adoption
-                    .get("rkaf:adoptedAt")
-                    .and_then(Value::as_str)
-                    .and_then(|raw| DateTime::parse_from_rfc3339(raw).ok())
-                    .map(|adopted| adopted <= *time)
-                    .unwrap_or(false)
+                && adoption.get("rkaf:adoptedAt").is_some()
+                && crate::temporal::local_adoption_effective_at(adoption, Some(time))
         })
         .max_by_key(|adoption| {
             adoption
