@@ -61,11 +61,14 @@ REDUCER_BRANCHES = {
     "capability_cap_narrows",
     "stale_narrows",
     "stale_honored_pit",
+    "stale_blocks_local_adoption",
 }
 
 PIT_BRANCHES = {
     "supported_anchor_retains",
     "unsupported_anchor_refuses",
+    "cutoff_selects_successor",
+    "unverified_date_needs_review",
 }
 
 CONCEPT_RESULTS = {
@@ -211,6 +214,14 @@ def collect_reducer_branch(doc: dict[str, Any], branches: set[str]) -> None:
     if assertion.get("rkaf:hasApplicability") and "rkaf:notEligible" in levels:
         branches.add("applicability_gate")
 
+    if is_stale and levels and set(levels) == {"rkaf:notEligible"}:
+        for adoption in nodes_by_type(doc, "rkaf:LocalAdoption"):
+            if (adoption.get("rkaf:targetAssertion") == subject_id
+                    and adoption.get("rkaf:adoptionStatus") == "rkaf:active"
+                    and adoption.get("rkaf:adoptionScope") in expected.get("byScope", {})
+                    and rank(adoption.get("rkaf:usageEligibility")) > 0):
+                branches.add("stale_blocks_local_adoption")
+
     if is_stale and "rkaf:notEligible" in levels and not has_supported_pit(doc, subject_id):
         branches.add("stale_narrows")
 
@@ -272,7 +283,14 @@ def collect_pit_branch(doc: dict[str, Any], branches: set[str]) -> None:
     expected = doc.get("rkaf:expectedOutput", {})
     if expected.get("errorClass") == "rkaf:UnsupportedEvaluationAnchor":
         branches.add("unsupported_anchor_refuses")
-    if "rkaf:retainedForPointInTime" in string_values(expected):
+    decision = expected.get("caseDecision", {})
+    if (decision.get("status") == "successorRule" and doc.get("rkaf:caseDateVerified") is True
+            and decision.get("cutoff") == doc.get("rkaf:caseDate")):
+        branches.add("cutoff_selects_successor")
+    if (decision.get("status") == "needsReview" and doc.get("rkaf:caseDateVerified") is not True
+            and "selectedAssertion" not in decision):
+        branches.add("unverified_date_needs_review")
+    if decision.get("status") == "priorRule" and "rkaf:retainedForPointInTime" in string_values(expected):
         branches.add("supported_anchor_retains")
 
 

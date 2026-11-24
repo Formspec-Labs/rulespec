@@ -1,0 +1,42 @@
+{
+  "@context": "../../context/rkaf-context.jsonld",
+  "@id": "urn:rkaf:fixture:beh:ue-stale:standing-adoption",
+  "@type": "rkaf:BehaviorTestCase",
+  "rkaf:behaviorContract": "rkaf:UsageEligibilityReducer",
+  "rkaf:subjectAssertion": "a1",
+  "rkaf:rationale": "The same standing local approval cannot restore a stale assertion in either office.",
+  "rkaf:evaluationScopes": [
+    "scope:state-tx-snap",
+    "scope:state-ca-snap"
+  ],
+  "rkaf:input": {
+    "@graph": [
+      {
+        "@id": "a1",
+        "@type": "rkaf:Assertion",
+        "rkaf:assertionOrigin": "rkaf:humanAsserted",
+        "rkaf:epistemicBasis": "rkaf:editorialAssertion",
+        "rkaf:usageEligibility": "rkaf:publicationAllowed",
+        "rkaf:consumerLifecycleState": "rkaf:staleForCurrentUse"
+      },
+      {
+        "@id": "la1",
+        "@type": "rkaf:LocalAdoption",
+        "rkaf:targetAssertion": "a1",
+        "rkaf:usageEligibility": "rkaf:officialUse",
+        "rkaf:adoptionScope": "scope:state-tx-snap",
+        "rkaf:adoptionStatus": "rkaf:active",
+        "rkaf:organization": "urn:rkaf:org:test",
+        "rkaf:adoptionAuthorityKind": "rkaf:organizational",
+        "rkaf:authorizedBy": "urn:rkaf:actor:test-authority",
+        "rkaf:adoptedAt": "2026-04-15T00:00:00Z"
+      }
+    ]
+  },
+  "rkaf:expectedOutput": {
+    "byScope": {
+      "scope:state-tx-snap": "rkaf:notEligible",
+      "scope:state-ca-snap": "rkaf:notEligible"
+    }
+  }
+}

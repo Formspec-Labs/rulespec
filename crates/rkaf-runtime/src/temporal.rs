@@ -12,6 +12,26 @@ use serde_json::Value;
 
 use crate::{errors::RuntimeError, graph::Graph};
 
+/// Check whether a local approval is active at the evaluation instant.
+pub(crate) fn local_adoption_effective_at(
+    adoption: &Value,
+    time: Option<&DateTime<FixedOffset>>,
+) -> bool {
+    if adoption["rkaf:adoptionStatus"] != "rkaf:active" {
+        return false;
+    }
+    let expiry = adoption.get("rkaf:validUntil");
+    let Some(time) = time else {
+        // An unbounded legacy request can still rely on the active status.
+        return expiry.is_none();
+    };
+    let parse = |value: &Value| DateTime::parse_from_rfc3339(value.as_str()?).ok();
+    let Some(start) = parse(&adoption["rkaf:adoptedAt"]) else {
+        return false;
+    };
+    start <= *time && expiry.map_or(true, |value| parse(value).is_some_and(|end| *time < end))
+}
+
 /// True iff `attestation` is effective at `time`, per Plan 7d semantics:
 ///   * `rkaf:revokedAt` is absent OR strictly after `time`, AND
 ///   * `rkaf:hasEffectivePeriod` is absent OR its EffectivePeriod contains

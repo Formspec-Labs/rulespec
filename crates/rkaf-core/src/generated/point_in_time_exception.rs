@@ -27,6 +27,15 @@ pub struct PointInTimeException {
     /// JSON-LD property `rkaf:exceptionScope`.
     #[serde(rename = "rkaf:exceptionScope", skip_serializing_if = "Option::is_none", default)]
     pub exception_scope: Option<String>,
+    /// JSON-LD property `rkaf:anchorDateOnOrAfter`.
+    #[serde(rename = "rkaf:anchorDateOnOrAfter", skip_serializing_if = "Option::is_none", default)]
+    pub anchor_date_on_or_after: Option<String>,
+    /// JSON-LD property `rkaf:anchorDateBefore`.
+    #[serde(rename = "rkaf:anchorDateBefore", skip_serializing_if = "Option::is_none", default)]
+    pub anchor_date_before: Option<String>,
+    /// JSON-LD property `rkaf:successorAssertion`.
+    #[serde(rename = "rkaf:successorAssertion", skip_serializing_if = "Option::is_none", default)]
+    pub successor_assertion: Option<String>,
     /// Additional JSON-LD properties preserved during round trips.
     #[serde(flatten)]
     pub extra: BTreeMap<String, serde_json::Value>,

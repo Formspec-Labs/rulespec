@@ -4,7 +4,10 @@
   "@type": "rkaf:BehaviorTestCase",
   "rkaf:behaviorContract": "rkaf:UsageEligibilityReducer",
   "rkaf:subjectAssertion": "a1",
-  "rkaf:rationale": "Assertion is staleForCurrentUse but a PointInTimeException retains it and the consumer supports the anchor. Reducer step 3 restores baseline per \u00a71.2 step 3.",
+  "rkaf:rationale": "The consumer supports application submission and verifies a filing date before the exclusive cutoff.",
+  "rkaf:evaluationAnchor": "rkaf:applicationSubmissionTime",
+  "rkaf:caseDate": "2026-05-31",
+  "rkaf:caseDateVerified": true,
   "rkaf:input": {
     "@graph": [
       {
@@ -19,7 +22,8 @@
         "@id": "pit1",
         "@type": "rkaf:PointInTimeException",
         "rkaf:evaluationAnchor": "rkaf:applicationSubmissionTime",
-        "rkaf:retainsAssertion": "a1"
+        "rkaf:retainsAssertion": "a1",
+        "rkaf:anchorDateBefore": "2026-06-01"
       },
       {
         "@id": "reg1",

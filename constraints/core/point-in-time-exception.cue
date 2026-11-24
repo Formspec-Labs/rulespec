@@ -1,12 +1,14 @@
 package rkaf
 
+import "time"
+
 // PointInTimeException (v0.1 §4.6).
 //
 // A lifecycle packet MAY include `pointInTimeExceptions[]`, each declaring an
 // `evaluationAnchor` (from the EvaluationAnchor vocabulary), a scope
 // description, and `retainsAssertion` / `retainsWorkProduct`. Consumers
-// honor the exception only if they support the referenced anchor;
-// otherwise they MUST refuse the packet rather than ignore the anchor.
+// evaluate a dated assertion exception against a verified case date;
+// they MUST refuse an unsupported anchor (behavior §4).
 #PointInTimeException: {
 	"@type":                  "rkaf:PointInTimeException"
 	"rkaf:evaluationAnchor":  #EvaluationAnchor
@@ -18,5 +20,8 @@ package rkaf
 	// straight to a per-property JSON Schema; the invariant is L3 SHACL.
 	"rkaf:retainsAssertion"?:   string // IRI of the retained Assertion
 	"rkaf:retainsWorkProduct"?: string // IRI of the retained GeneratedWorkProduct
-	"rkaf:exceptionScope"?:     string // human-readable scope description
+	"rkaf:exceptionScope"?:     string // additional conditions requiring human review
+	"rkaf:anchorDateOnOrAfter"?: time.Format("2006-01-02") // inclusive start on the first transition only
+	"rkaf:anchorDateBefore"?:   time.Format("2006-01-02") // exclusive cutoff for the retained assertion
+	"rkaf:successorAssertion"?: string // optional assertion selected on or after the cutoff
 }

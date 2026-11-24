@@ -42,9 +42,9 @@ pub fn evaluate(test_case: &Value, graph: &Graph) -> Result<Verdict, RuntimeErro
 
     match rule_num {
         1 => rule_1(graph),
-        2 => rule_2(graph, consumer),
+        2 => rule_2(test_case, graph, consumer),
         3 => rule_3(graph),
-        4 => rule_4(graph),
+        4 => rule_4(graph, consumer),
         5 => rule_5(graph, consumer),
         6 => rule_6(graph),
         7 => rule_7(graph),
@@ -91,96 +91,64 @@ fn rule_1(graph: &Graph) -> Result<Verdict, RuntimeError> {
 }
 
 // ── Rule 2 — usageEligibility narrow OK, broaden NOT ──
-// Calls the canonical `reducer::reduce_for_scope` (NOT a re-implementation)
-// so the two contracts can never silently diverge.
-fn rule_2(graph: &Graph, consumer: Option<&Value>) -> Result<Verdict, RuntimeError> {
+// Rule 2 checks a declaration against the same case and scope as the reducer.
+fn rule_2(case: &Value, graph: &Graph, consumer: Option<&Value>) -> Result<Verdict, RuntimeError> {
+    let evaluation_time = reducer::parse_evaluation_time(case)?;
+    let multiple_registrations = graph
+        .nodes_by_type("rkaf:BridgeConsumerRegistration")
+        .nth(1)
+        .is_some();
     for decl in graph.nodes_by_type("rkaf:ConsumerEffectiveDeclaration") {
-        let Some(assertion_id) = decl.get("rkaf:forAssertion").and_then(Value::as_str) else {
-            continue;
-        };
         let Some(declared) = decl.get("rkaf:declaredEffective").and_then(Value::as_str) else {
             continue;
         };
-        let Some(assertion) = graph.find(assertion_id) else {
+        let official = declared == "rkaf:officialUse";
+        let subject = decl["rkaf:forAssertion"]
+            .as_str()
+            .filter(|id| !id.trim().is_empty());
+        let assertion_id = if official {
+            subject.filter(|id| crate::pit::assertion(graph, id).is_ok())
+        } else {
+            subject.filter(|id| graph.find(id).is_some())
+        };
+        let Some(assertion_id) = assertion_id else {
+            if official {
+                return Ok(rejected(
+                    "rkaf:UnauthorizedBroadening",
+                    "An official-use declaration requires rkaf:forAssertion to identify an Assertion in the input graph",
+                ));
+            }
             continue;
         };
-        let scope = decl.get("rkaf:declaredScope").and_then(Value::as_str);
-
-        let baseline = assertion
-            .get("rkaf:usageEligibility")
-            .and_then(Value::as_str)
-            .unwrap_or("rkaf:notEligible");
-        let is_stale = assertion
-            .get("rkaf:consumerLifecycleState")
-            .and_then(Value::as_str)
-            == Some("rkaf:staleForCurrentUse");
-
-        // Resolve applicability set (mirror reducer::evaluate's logic; one
-        // pass through applicability scopes).
-        let applicability_iris: Vec<&str> = match assertion.get("rkaf:hasApplicability") {
-            Some(Value::String(s)) => vec![s.as_str()],
-            Some(Value::Array(arr)) => arr.iter().filter_map(Value::as_str).collect(),
-            _ => Vec::new(),
-        };
-        let mut applicability_set: Vec<&str> = Vec::new();
-        for app_iri in &applicability_iris {
-            if let Some(app) = graph.find(app_iri) {
-                if let Some(arr) = app
-                    .get("rkaf:appliesInJurisdiction")
-                    .and_then(Value::as_array)
-                {
-                    for v in arr {
-                        if let Some(s) = v.as_str() {
-                            applicability_set.push(s);
-                        }
-                    }
+        let consumer_mismatch =
+            consumer.is_some_and(|registration| match decl.get("rkaf:consumer") {
+                Some(declared_consumer) => {
+                    !registration["rkaf:consumer"].as_str().is_some_and(|id| {
+                        !id.trim().is_empty() && declared_consumer.as_str() == Some(id)
+                    })
                 }
-                if applicability_set.is_empty() {
-                    applicability_set.push(app_iri);
-                }
-            }
-        }
-
-        // bridge::rule_2 does not pass `evaluation_time`; the freshness gate
-        // (reducer Step 5.5) is skipped here. Rule 2 enforces the structural
-        // narrowing invariant; freshness is a per-evaluation runtime concern.
-        let computed = reducer::reduce_for_scope(
-            assertion_id,
-            baseline,
-            is_stale,
-            &applicability_set,
-            scope,
-            consumer,
-            None,
-            graph,
-        )?;
-
-        if rank_above(declared, Some(&computed)) {
+                None => official && multiple_registrations,
+            });
+        if consumer_mismatch {
             return Ok(rejected(
                 "rkaf:UnauthorizedBroadening",
-                "ConsumerEffectiveDeclaration.declaredEffective is above the reducer output",
+                "Declaration rkaf:consumer must identify the consumer named by the selected registration",
+            ));
+        }
+        let scope = decl.get("rkaf:declaredScope").and_then(Value::as_str);
+        let policy = reducer::AssertionUse::for_case(assertion_id, case, consumer, graph)?;
+        let computed = policy
+            .reduce(scope, consumer, evaluation_time.as_ref(), graph)?
+            .level;
+
+        if reducer::rank(declared).unwrap_or(0) > reducer::rank(&computed).unwrap_or(0) {
+            return Ok(rejected(
+                "rkaf:UnauthorizedBroadening",
+                &format!("Declaration requests {declared} for {assertion_id}; the reducer allows {computed}"),
             ));
         }
     }
     Ok(accepted())
-}
-
-fn rank_index(level: &str) -> usize {
-    let lattice = [
-        "rkaf:notEligible",
-        "rkaf:searchOnly",
-        "rkaf:reviewQueueOnly",
-        "rkaf:draftGenerationAllowed",
-        "rkaf:localOperationalUse",
-        "rkaf:publicationAllowed",
-        "rkaf:officialUse",
-    ];
-    lattice.iter().position(|&x| x == level).unwrap_or(0)
-}
-
-fn rank_above(a: &str, b: Option<&str>) -> bool {
-    let Some(b) = b else { return false };
-    rank_index(a) > rank_index(b)
 }
 
 // ── Rule 3 — authorityKind preserved; no substitution ──
@@ -215,24 +183,15 @@ fn rule_3(graph: &Graph) -> Result<Verdict, RuntimeError> {
 }
 
 // ── Rule 4 — declared EvaluationAnchor support ──
-fn rule_4(graph: &Graph) -> Result<Verdict, RuntimeError> {
-    let supported: HashSet<&str> = graph
-        .nodes_by_type("rkaf:BridgeConsumerRegistration")
-        .flat_map(|reg| {
-            reg.get("rkaf:supportedEvaluationAnchors")
-                .and_then(Value::as_array)
-                .map(|arr| arr.iter().filter_map(Value::as_str).collect::<Vec<_>>())
-                .unwrap_or_default()
-        })
-        .collect();
+fn rule_4(graph: &Graph, consumer: Option<&Value>) -> Result<Verdict, RuntimeError> {
     for pit in graph.nodes_by_type("rkaf:PointInTimeException") {
         let Some(anchor) = pit.get("rkaf:evaluationAnchor").and_then(Value::as_str) else {
             continue;
         };
-        if !supported.contains(anchor) {
+        if !crate::pit::supports_anchor(consumer, anchor) {
             return Ok(rejected(
                 "rkaf:UnsupportedEvaluationAnchor",
-                "PIT carries an evaluationAnchor not in any consumer's supportedEvaluationAnchors",
+                &format!("Consumer does not support {anchor}"),
             ));
         }
     }

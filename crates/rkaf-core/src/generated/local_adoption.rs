@@ -56,6 +56,9 @@ pub struct LocalAdoption {
     /// JSON-LD property `rkaf:adoptedAt`.
     #[serde(rename = "rkaf:adoptedAt")]
     pub adopted_at: String,
+    /// JSON-LD property `rkaf:validUntil`.
+    #[serde(rename = "rkaf:validUntil", skip_serializing_if = "Option::is_none", default)]
+    pub valid_until: Option<String>,
     /// JSON-LD property `rkaf:adoptsApplicability`.
     #[serde(rename = "rkaf:adoptsApplicability", skip_serializing_if = "Option::is_none", default)]
     pub adopts_applicability: Option<String>,

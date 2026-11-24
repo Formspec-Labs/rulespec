@@ -214,6 +214,8 @@ aiSuggested = Term("rkaf:aiSuggested")
 aknt_eId = Term("rkaf:aknt-eId")
 ambiguous = Term("rkaf:ambiguous")
 amendment = Term("rkaf:amendment")
+anchorDateBefore = Term("rkaf:anchorDateBefore")
+anchorDateOnOrAfter = Term("rkaf:anchorDateOnOrAfter")
 anchorType = Term("rkaf:anchorType")
 anchoredBy = Term("rkaf:anchoredBy")
 anonymize = Term("rkaf:anonymize")
@@ -289,6 +291,8 @@ carrier_local_fragment = Term("rkaf:carrier-local-fragment")
 cascadeAlgorithm = Term("rkaf:cascadeAlgorithm")
 cascadeAsOf = Term("rkaf:cascadeAsOf")
 cascadeSeed = Term("rkaf:cascadeSeed")
+caseDate = Term("rkaf:caseDate")
+caseDateVerified = Term("rkaf:caseDateVerified")
 chainTerminus = Term("rkaf:chainTerminus")
 chainTerminusKind = Term("rkaf:chainTerminusKind")
 changeDecided = Term("rkaf:changeDecided")
@@ -861,6 +865,7 @@ utf16_code_unit = Term("rkaf:utf16-code-unit")
 utf8_byte = Term("rkaf:utf8-byte")
 valid = Term("rkaf:valid")
 validForPointInTimeOnly = Term("rkaf:validForPointInTimeOnly")
+validUntil = Term("rkaf:validUntil")
 validatedAt = Term("rkaf:validatedAt")
 verdictNearSame = Term("rkaf:verdictNearSame")
 verdictRelated = Term("rkaf:verdictRelated")
@@ -1078,6 +1083,8 @@ _TERM_NAMES: tuple[str, ...] = (
     "aknt_eId",
     "ambiguous",
     "amendment",
+    "anchorDateBefore",
+    "anchorDateOnOrAfter",
     "anchorType",
     "anchoredBy",
     "anonymize",
@@ -1153,6 +1160,8 @@ _TERM_NAMES: tuple[str, ...] = (
     "cascadeAlgorithm",
     "cascadeAsOf",
     "cascadeSeed",
+    "caseDate",
+    "caseDateVerified",
     "chainTerminus",
     "chainTerminusKind",
     "changeDecided",
@@ -1725,6 +1734,7 @@ _TERM_NAMES: tuple[str, ...] = (
     "utf8_byte",
     "valid",
     "validForPointInTimeOnly",
+    "validUntil",
     "validatedAt",
     "verdictNearSame",
     "verdictRelated",
