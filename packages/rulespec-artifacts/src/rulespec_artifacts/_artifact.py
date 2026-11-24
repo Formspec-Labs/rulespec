@@ -3002,6 +3002,9 @@ def _admit(
             "mode INTEGER)"
         )
         index.execute(
+            "CREATE INDEX expected_object_key ON expected (object_key)"
+        )
+        index.execute(
             "INSERT INTO expected (location_key, object_key, kind) VALUES (?, ?, 'protocol')",
             (f"object-key:{ROOT_OBJECT_KEY}", ROOT_OBJECT_KEY),
         )

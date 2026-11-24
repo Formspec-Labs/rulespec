@@ -915,6 +915,42 @@ class ArtifactTests(unittest.TestCase):
             self.assertTrue((retained / "tombstone").is_dir())
             self.assertTrue(parent.is_symlink())
 
+    def test_expected_index_supports_object_key_lookup_without_table_scan(self) -> None:
+        files, _ = artifact_files()
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for key, raw in files.items():
+                target = root / key
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes(raw)
+            admitted = admit_artifact(LocalMemberSource(root))
+            states = admitted.local_member_states
+            assert states is not None
+            try:
+                self.assertEqual(list(states), ["records/a.jsonl"])
+                self.assertEqual(states["records/a.jsonl"].size, len(files["records/a.jsonl"]))
+                connection = states._open_connection()
+                update_plan = " ".join(
+                    str(row[-1])
+                    for row in connection.execute(
+                        "EXPLAIN QUERY PLAN UPDATE expected SET observed = 1 WHERE object_key = ?",
+                        ("records/a.jsonl",),
+                    ).fetchall()
+                )
+                lookup_plan = " ".join(
+                    str(row[-1])
+                    for row in connection.execute(
+                        "EXPLAIN QUERY PLAN SELECT device, inode, state_size, "
+                        "modified_nanoseconds, changed_nanoseconds, mode "
+                        "FROM expected WHERE kind = 'payload' AND object_key = ?",
+                        ("records/a.jsonl",),
+                    ).fetchall()
+                )
+                self.assertIn("USING INDEX expected_object_key", update_plan)
+                self.assertIn("USING INDEX expected_object_key", lookup_plan)
+            finally:
+                states.close()
+
 
 if __name__ == "__main__":
     unittest.main()
