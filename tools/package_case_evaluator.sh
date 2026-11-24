@@ -46,12 +46,14 @@ git archive "$revision" -- crates constraints tools/compile_all.sh tools/constra
   cd "$source_dir"
   PYTHON="${PYTHON:-python3}" bash tools/compile_all.sh --runtime-schemas
 )
-export CARGO_TARGET_DIR="${CARGO_TARGET_DIR:-$repo/crates/target}"
-cargo build --locked --release --target "$host" --manifest-path "$source_dir/crates/Cargo.toml" -p rkaf-runtime-cli -p rkaf-validate-cli
+# A workspace target can reuse a validator that embedded schemas from another checkout.
+target_dir="$stage/target"
+CARGO_BUILD_BUILD_DIR="$target_dir" cargo build --locked --release --target "$host" \
+  --target-dir "$target_dir" --manifest-path "$source_dir/crates/Cargo.toml" -p rkaf-runtime-cli -p rkaf-validate-cli
 
 install="$stage/$bundle"
 mkdir -p "$install/bin" "$install/examples/case-date/sources" "$install/fixtures/behavior" "$install/context"
-cp "$CARGO_TARGET_DIR/$host/release/"{rulespec-case-review,rkaf-behavior-validate,rkaf-validate} "$install/bin/"
+cp "$target_dir/$host/release/"{rulespec-case-review,rkaf-behavior-validate,rkaf-validate} "$install/bin/"
 cd "$source_dir"
 cp fixtures/behavior/point-in-time-filing-date.jsonld "$install/fixtures/behavior/"
 cp context/rkaf-context.jsonld "$install/context/"
