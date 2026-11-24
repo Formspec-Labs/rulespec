@@ -10,7 +10,8 @@ use std::collections::HashMap;
 
 use crate::errors::RuntimeError;
 
-pub(crate) fn has_type(node: &Value, expected: &str) -> bool {
+/// Return whether a JSON-LD node declares the given type.
+pub fn has_type(node: &Value, expected: &str) -> bool {
     match node.get("@type") {
         Some(Value::String(actual)) => actual == expected,
         Some(Value::Array(actual)) => actual.iter().any(|value| value.as_str() == Some(expected)),

@@ -271,7 +271,7 @@ impl Policy {
             .filter_map(|fragment| {
                 let source = nonblank(&fragment["oa:hasSource"])?;
                 let artifact = artifacts.get(source)?;
-                let mut instruction = passage(fragment, source, Some(artifact))?;
+                let mut instruction = passage(graph, fragment, source)?;
                 instruction.approval_ids = approval_sources[source]
                     .iter()
                     .map(|id| (*id).into())
@@ -479,7 +479,7 @@ fn passages(graph: &Graph<'_>, selected: &str, source_references: &Value) -> Vec
         {
             continue;
         }
-        if let Some(citation) = passage(fragment, artifact, graph.find(artifact)) {
+        if let Some(citation) = passage(graph, fragment, artifact) {
             passages.insert(
                 (
                     artifact,
@@ -493,13 +493,23 @@ fn passages(graph: &Graph<'_>, selected: &str, source_references: &Value) -> Vec
     passages.into_values().collect()
 }
 
-fn passage(fragment: &Value, source: &str, artifact: Option<&Value>) -> Option<Passage> {
+fn passage(graph: &Graph<'_>, fragment: &Value, source: &str) -> Option<Passage> {
     let fragment_digest = nonblank(&fragment["rkaf:fragmentContentDigest"]);
-    let quote = fragment["oa:hasSelector"]
+    let selectors = &fragment["oa:hasSelector"];
+    let quote = selectors
         .as_array()
-        .into_iter()
-        .flatten()
-        .filter(|selector| selector["@type"] == "oa:TextQuoteSelector")
+        .map(Vec::as_slice)
+        .unwrap_or_else(|| std::slice::from_ref(selectors))
+        .iter()
+        .filter_map(|selector| {
+            if selector.get("@type").is_some() {
+                Some(selector)
+            } else {
+                let id = selector.as_str().or_else(|| selector["@id"].as_str())?;
+                graph.find(id)
+            }
+        })
+        .filter(|selector| rkaf_runtime::graph::has_type(selector, "oa:TextQuoteSelector"))
         .find_map(|selector| nonblank(&selector["oa:exact"]));
     if quote
         .zip(fragment_digest)
@@ -514,8 +524,42 @@ fn passage(fragment: &Value, source: &str, artifact: Option<&Value>) -> Option<P
         source_sha256: nonblank(&fragment["rkaf:sourceArtifactDigest"]).map(str::to_owned),
         fragment_sha256: fragment_digest.map(str::to_owned),
         exact_quote: quote.map(str::to_owned),
-        publisher_url: artifact
+        publisher_url: graph
+            .find(source)
             .and_then(|node| nonblank(&node["dcterms:relation"]))
             .map(str::to_owned),
     })
+}
+
+#[cfg(test)]
+mod citation_tests {
+    use super::*;
+
+    #[test]
+    fn quoted_passages_resolve_inline_and_referenced_selectors() {
+        let text = "Use the date on the receipt.";
+        let selector =
+            json!({"@id": "urn:quote", "@type": "oa:TextQuoteSelector", "oa:exact": text});
+        let payload = json!({"@graph": [selector]});
+        let graph = Graph::from_payload(&payload).unwrap();
+        for selectors in [
+            json!([selector]),
+            json!("urn:quote"),
+            json!([{"@id": "urn:quote"}]),
+        ] {
+            let mut fragment = json!({
+                "oa:hasSelector": selectors,
+                "rkaf:fragmentContentDigest": sha256(text.as_bytes())
+            });
+            let citation = passage(&graph, &fragment, "urn:source").unwrap();
+            assert_eq!(citation.exact_quote.as_deref(), Some(text));
+            fragment["rkaf:fragmentContentDigest"] = json!(sha256(b"other text"));
+            assert!(passage(&graph, &fragment, "urn:source").is_none());
+        }
+        let missing = json!({"oa:hasSelector": [{"@id": "urn:missing"}]});
+        assert!(passage(&graph, &missing, "urn:source")
+            .unwrap()
+            .exact_quote
+            .is_none());
+    }
 }
