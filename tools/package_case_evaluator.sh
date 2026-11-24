@@ -7,16 +7,16 @@ out="${1:-$repo/dist/case-evaluator}"
 case "$out" in /*) ;; *) out="$caller/$out" ;; esac
 cd "$repo"
 
-version="$(cat VERSION)"
-host="$(rustc -vV | sed -n 's/^host: //p')"
-revision="$(git rev-parse --short=12 HEAD)"
-bundle="rulespec-case-evaluator-$version-$host-g$revision"
-archive="$bundle.tar.gz"
-
-if ! git diff --quiet HEAD --; then
+revision="$(git rev-parse HEAD)"
+if ! git diff --quiet "$revision" --; then
   printf '%s\n' 'Commit the release inputs before packaging the evaluator.' >&2
   exit 1
 fi
+
+version="$(git show "$revision:VERSION")"
+host="$(rustc -vV | sed -n 's/^host: //p')"
+bundle="rulespec-case-evaluator-$version-$host-g$(git rev-parse --short=12 "$revision")"
+archive="$bundle.tar.gz"
 
 checksum() {
   if command -v sha256sum >/dev/null 2>&1; then
@@ -33,15 +33,26 @@ if [[ -e "$out/$archive" || -e "$out/$archive.sha256" ]]; then
   exit 0
 fi
 
-export CARGO_TARGET_DIR="${CARGO_TARGET_DIR:-$repo/crates/target}"
-PYTHON="${PYTHON:-python3}" bash tools/compile_all.sh --runtime-schemas
-cargo build --locked --release --target "$host" --manifest-path crates/Cargo.toml -p rkaf-runtime-cli -p rkaf-validate-cli
-
 stage="$(mktemp -d "$out/.case-evaluator.XXXXXX")"
 trap 'rm -rf -- "$stage"' EXIT
+source_dir="$stage/source"
+mkdir "$source_dir"
+# Cargo reads the workspace manifests, and the schema compiler resolves types across constraints/.
+# Generate into this snapshot so a previous checkout's schemas cannot enter the validator.
+git archive "$revision" -- crates constraints tools/compile_all.sh tools/constraints_compile.py \
+  context/rkaf-context.jsonld fixtures/behavior/point-in-time-filing-date.jsonld \
+  examples/case-date LICENSE-CODE LICENSE-SPEC VERSION | tar -xf - -C "$source_dir"
+(
+  cd "$source_dir"
+  PYTHON="${PYTHON:-python3}" bash tools/compile_all.sh --runtime-schemas
+)
+export CARGO_TARGET_DIR="${CARGO_TARGET_DIR:-$repo/crates/target}"
+cargo build --locked --release --target "$host" --manifest-path "$source_dir/crates/Cargo.toml" -p rkaf-runtime-cli -p rkaf-validate-cli
+
 install="$stage/$bundle"
 mkdir -p "$install/bin" "$install/examples/case-date/sources" "$install/fixtures/behavior" "$install/context"
 cp "$CARGO_TARGET_DIR/$host/release/"{rulespec-case-review,rkaf-behavior-validate,rkaf-validate} "$install/bin/"
+cd "$source_dir"
 cp fixtures/behavior/point-in-time-filing-date.jsonld "$install/fixtures/behavior/"
 cp context/rkaf-context.jsonld "$install/context/"
 cp examples/case-date/{cases.csv,filing-evidence.csv} "$install/examples/case-date/"
