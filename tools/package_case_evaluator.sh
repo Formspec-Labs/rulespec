@@ -54,7 +54,8 @@ cp LICENSE-CODE LICENSE-SPEC VERSION "$install/"
 )
 "$install/bin/rkaf-behavior-validate" "$install/fixtures/behavior/point-in-time-filing-date.jsonld" >&2
 
-tar -C "$stage" -czf "$stage/$archive" "$bundle"
+# macOS tar otherwise adds AppleDouble files containing the build host's extended attributes.
+COPYFILE_DISABLE=1 tar -C "$stage" -czf "$stage/$archive" "$bundle"
 (
   cd "$stage"
   checksum "$archive" > "$archive.sha256"
