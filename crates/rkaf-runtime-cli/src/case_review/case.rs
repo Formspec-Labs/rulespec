@@ -94,8 +94,8 @@ pub fn select<'a>(
         "Pass --case-id or --record-number"
     );
     let mut matches = report.rows.iter().filter(|row| {
-        case_id.is_none_or(|id| row.case.case_id == id)
-            && ordinal.is_none_or(|number| row.record_number == number)
+        case_id.map_or(true, |id| row.case.case_id == id)
+            && ordinal.map_or(true, |number| row.record_number == number)
     });
     let first = matches.next().context("No matching case record")?;
     if matches.next().is_some() {
@@ -371,7 +371,10 @@ pub fn resolve<'a>(record: &'a CaseExcerpt, reference: &str) -> Result<&'a Filin
         "That receipt reference does not belong to this case record"
     );
     ensure!(
-        evidence.excerpt.as_deref().is_none_or(valid_case_passage),
+        evidence
+            .excerpt
+            .as_deref()
+            .map_or(true, |text| valid_case_passage(text, &record.case_id)),
         "Filing evidence exceeds the single-case passage boundary"
     );
     ensure!(

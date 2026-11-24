@@ -182,11 +182,11 @@ pub fn case_passage(
     }
     let section = anchored_passage(document, anchor)?;
     let mut lines = section.lines().peekable();
-    let named_heading = lines
-        .peek()
-        .and_then(|line| heading(line))
-        .is_some_and(|title| identifies_case(title, case_id));
-    if lines.peek().is_some_and(|line| heading(line).is_some()) {
+    let title = lines.peek().and_then(|line| heading(line));
+    if title.is_some_and(|text| names_another_case(text, case_id)) {
+        return None;
+    }
+    if title.is_some() {
         lines.next();
     }
     let paragraph = lines
@@ -194,18 +194,23 @@ pub fn case_passage(
         .take_while(|line| !line.trim().is_empty())
         .collect::<Vec<_>>()
         .join("\n");
-    if !(named_heading || identifies_case(&paragraph, case_id))
-        || !valid_case_passage(&paragraph)
+    if !(identifies_case(&paragraph, case_id)
+        || title.is_some_and(|text| identifies_case(text, case_id)))
+        || !valid_case_passage(&paragraph, case_id)
         || other_ids
             .into_iter()
             .any(|id| contains_id(&paragraph, id.as_ref()))
+        || document
+            .lines()
+            .filter_map(archive_case_id)
+            .any(|id| id != case_id && title != Some(id) && contains_id(&paragraph, id))
     {
         return None;
     }
     Some(paragraph)
 }
 
-pub fn valid_case_passage(text: &str) -> bool {
+pub fn valid_case_passage(text: &str, case_id: &str) -> bool {
     // One short paragraph can travel with the compact record.
     const MAX_BYTES: usize = 768;
     !text.is_empty()
@@ -214,19 +219,60 @@ pub fn valid_case_passage(text: &str) -> bool {
         && !text.contains(['<', '>'])
         && !text.contains("](")
         && !text.contains("://")
+        && !names_another_case(text, case_id)
+}
+
+fn case_label(word: &str) -> bool {
+    ["case", "record", "jacket"]
+        .iter()
+        .any(|label| word.eq_ignore_ascii_case(label))
+}
+
+fn marker(word: &str) -> &str {
+    word.trim_matches(|ch: char| !ch.is_ascii_alphanumeric() && !matches!(ch, '-' | '_' | '.'))
+        .trim_end_matches('.')
 }
 
 fn identifies_case(text: &str, case_id: &str) -> bool {
-    let mut words = text.split_whitespace();
+    let mut words = text.split_whitespace().map(marker);
     let Some(first) = words.next() else {
         return false;
     };
-    let label = first.trim_matches(|ch: char| !ch.is_ascii_alphanumeric());
-    contains_id(first, case_id)
-        || (matches!(
-            label.to_ascii_lowercase().as_str(),
-            "case" | "record" | "jacket"
-        ) && words.next().is_some_and(|word| contains_id(word, case_id)))
+    first == case_id || (case_label(first) && words.next() == Some(case_id))
+}
+
+// A shared archive can contain cases omitted from the CSV being reviewed.
+fn archive_case_id(line: &str) -> Option<&str> {
+    let title = heading(line);
+    let mut words = title.unwrap_or(line).split_whitespace().map(marker);
+    let first = words.next()?;
+    let id = if case_label(first) {
+        words.next()?
+    } else if title.is_some() && words.next().is_none() {
+        first
+    } else {
+        return None;
+    };
+    is_safe_token(id).then_some(id)
+}
+
+fn names_another_case(text: &str, case_id: &str) -> bool {
+    let words = text.split_whitespace();
+    for (index, (word, next)) in words.clone().zip(words.skip(1)).enumerate() {
+        // A period or comma ends the label: "this jacket. Closeout slip ..." is prose.
+        let label = word.trim_matches(['*', '`', '"', '\'', '(', ')', ':']);
+        if !case_label(label) {
+            continue;
+        }
+        let id = marker(next);
+        let identifier = id.bytes().any(|byte| {
+            byte.is_ascii_uppercase() || byte.is_ascii_digit() || matches!(byte, b'-' | b'_')
+        });
+        if (index == 0 || label.as_bytes()[0].is_ascii_uppercase() || identifier) && id != case_id {
+            return true;
+        }
+    }
+    false
 }
 
 pub fn contains_id(text: &str, id: &str) -> bool {
@@ -304,6 +350,35 @@ mod tests {
         assert_eq!(anchored_passage(text, "fr-99"), None);
         assert_eq!(anchored_passage("### X\nFirst\n### X\nSecond", "x"), None);
     }
+
+    #[test]
+    fn a_filtered_batch_can_share_only_its_own_unambiguous_passage() {
+        for (section, expected) in [
+            ("## A-1\n\nCase B-2. Filed in March.", None),
+            ("## Case B-2\n\nCase A-1. Filed in March.", None),
+            ("## A-1\n\nCase A-1. See case B-2 for personal details.", None),
+            ("## A-1\n\nCase A-1. Filed in March.\nRecord B-2: filed in May.", None),
+            ("## A-1\n\nB-2. Filed in March.\n\n## B-2\n\nAnother receipt.", None),
+            ("## A-1\n\nCase A-1. This receipt is for beta.\n\n## Another\n\nCase beta. External receipt.", None),
+            ("## A-1\n\nThe receipt records March 22.", Some("The receipt records March 22.")),
+            ("## A-1\n\nCase A-1. The jacket copy was filed.", Some("Case A-1. The jacket copy was filed.")),
+        ] {
+            let archive = format!("<a id=\"receipt\"></a>\n\n{section}");
+            let digest = sha256(archive.as_bytes());
+            let source = LocalEvidence {
+                path: "receipts.md".into(),
+                anchor: Some("receipt".into()),
+                sha256: digest.clone(),
+                passage: None,
+            };
+            let documents = Documents::from([(digest, archive)]);
+            let excerpt = case_passage(
+                &source, "receipts.md#receipt", &documents, "A-1", std::iter::empty::<&str>(),
+            );
+            assert_eq!(excerpt.as_deref(), expected, "{section}");
+        }
+    }
+
     #[test]
     fn case_view_requires_a_verified_named_paragraph() {
         let mut documents = Documents::new();
