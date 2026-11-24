@@ -1,7 +1,7 @@
 //! Reads and reconciles CSV records and writes portable case reports.
 // Rust guideline compliant 2026-02-21
 
-use std::collections::BTreeSet;
+use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
 use std::path::Path;
 
@@ -62,7 +62,7 @@ impl ColumnIndices {
             ensure!(matching.len() <= 1, "CSV header {name:?} is ambiguous");
             let index = matching.first().copied();
             ensure!(
-                index.is_none_or(|index| used.insert(index)),
+                index.map_or(true, |index| used.insert(index)),
                 "CSV header {name:?} was mapped to multiple fields"
             );
             Ok(index)
@@ -371,30 +371,54 @@ struct Totals {
     selection_changes: Option<Changes>,
 }
 
-pub fn write_report(report: &Report, out: &Path) -> Result<()> {
-    ensure!(
-        report.format_version == REPORT_VERSION,
-        "Unsupported report format {}",
-        report.format_version
-    );
-    evidence::validate(&report.evidence_documents)?;
-    let mut cited = BTreeSet::new();
-    for evidence in report
-        .rows
-        .iter()
-        .filter_map(|row| row.local_evidence.as_ref())
-    {
+impl Report {
+    pub(super) fn reconcile(&mut self) -> Result<()> {
         ensure!(
-            report.evidence_documents.contains_key(&evidence.sha256),
-            "Missing filing evidence copy {}",
-            evidence.sha256
+            self.format_version == REPORT_VERSION,
+            "Unsupported report format {}",
+            self.format_version
         );
-        cited.insert(evidence.sha256.as_str());
+        evidence::validate(&self.evidence_documents)?;
+        let mut sources = BTreeMap::new();
+        for row in &mut self.rows {
+            let proposed = row.proposed.as_ref();
+            ensure!(
+                self.proposed.is_some() == proposed.is_some(),
+                "Record {} and the report disagree about the presence of a proposed policy",
+                row.record_number
+            );
+            row.comparison = Comparison::for_case(&row.case, &row.baseline);
+            row.proposed_comparison =
+                proposed.map(|outcome| Comparison::for_case(&row.case, outcome));
+            row.selection_change =
+                proposed.map(|outcome| SelectionChange::between(&row.baseline, outcome));
+            if let Some(source) = &mut row.local_evidence {
+                source
+                    .restore_passage(&row.case.evidence_reference, &self.evidence_documents)
+                    .with_context(|| {
+                        format!("Read filing evidence for record {}", row.record_number)
+                    })?;
+                if let Some(previous) = sources.insert(source.path.as_str(), source.sha256.as_str())
+                {
+                    ensure!(
+                        previous == source.sha256,
+                        "Record {} assigns a different digest to the same filing evidence path",
+                        row.record_number
+                    );
+                }
+            }
+        }
+        let cited = sources.into_values().collect::<BTreeSet<_>>();
+        ensure!(
+            cited.len() == self.evidence_documents.len(),
+            "The report contains uncited filing evidence"
+        );
+        Ok(())
     }
-    ensure!(
-        cited.len() == report.evidence_documents.len(),
-        "The report contains uncited filing evidence"
-    );
+}
+
+pub fn write_report(report: &mut Report, out: &Path) -> Result<()> {
+    report.reconcile()?;
     let has_proposal = report.proposed.is_some();
     let totals = Totals {
         rows: report.rows.len(),
@@ -559,5 +583,138 @@ fn spreadsheet_text(value: &str) -> std::borrow::Cow<'_, [u8]> {
         format!("'{value}").into_bytes().into()
     } else {
         value.as_bytes().into()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::policy::PolicyOverrides;
+
+    fn example_report() -> Result<Report> {
+        let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let policy = Policy::read(
+            &repo.join("fixtures/behavior/point-in-time-filing-date.jsonld"),
+            None,
+            &PolicyOverrides {
+                subject: None,
+                anchor: None,
+                consumer: None,
+                as_of: Some("2026-11-18T12:00:00Z"),
+            },
+        )?;
+        compare(
+            &repo.join("examples/case-date/cases.csv"),
+            None,
+            None,
+            &policy,
+            Some(&policy),
+            CaseContext::default(),
+        )
+    }
+
+    #[test]
+    fn reconciles_saved_findings_from_the_case_and_both_policy_results() -> Result<()> {
+        let mut report = example_report()?;
+        let row = &mut report.rows[0];
+        row.comparison = Comparison::Difference;
+        row.proposed_comparison = Some(Comparison::HistoricalRuleAbsent);
+        row.selection_change = Some(SelectionChange::Changed);
+        row.disposition.status = "reviewed".into();
+        row.disposition.note = "Checked the receipt".into();
+
+        // Earlier version-1 reports counted an outside-office case as unresolved.
+        report.rows[1].baseline = Outcome::default();
+        report.rows[1]
+            .baseline
+            .unresolved("office_outside_policy_scope", "Other office");
+        report.rows[1].comparison = Comparison::Unresolved;
+        report.rows[2].comparison = Comparison::Agreement;
+        report.reconcile()?;
+
+        let row = &report.rows[0];
+        assert_eq!(row.comparison.label(), "agreement");
+        assert_eq!(row.proposed_comparison.unwrap().label(), "agreement");
+        assert_eq!(row.selection_change.unwrap().label(), "unchanged");
+        assert_eq!(row.disposition.status, "reviewed");
+        assert_eq!(row.disposition.note, "Checked the receipt");
+        assert_eq!(report.rows[1].comparison.label(), "outside_policy_scope");
+        assert_eq!(
+            report.rows[1].selection_change.unwrap().label(),
+            "previously_unresolved"
+        );
+        assert_eq!(report.rows[2].comparison.label(), "unresolved");
+        Ok(())
+    }
+
+    #[test]
+    fn requires_the_declared_proposal_for_each_row_and_allows_an_empty_batch() -> Result<()> {
+        let mut report = example_report()?;
+        report.rows[2].proposed = None;
+        assert!(report.reconcile().is_err());
+        report.rows.clear();
+        report.reconcile()?;
+        report = example_report()?;
+        report.proposed = None;
+        assert!(report.reconcile().is_err());
+        for row in &mut report.rows {
+            row.proposed = None;
+        }
+        report.reconcile()?;
+        assert!(report
+            .rows
+            .iter()
+            .all(|row| row.proposed_comparison.is_none() && row.selection_change.is_none()));
+        Ok(())
+    }
+
+    #[test]
+    fn restores_anchored_evidence_only_from_the_referenced_retained_copy() -> Result<()> {
+        let mut report = example_report()?;
+        let text = "## Earlier\nOther case\n## Receipt\nSAMPLE-22 filed on March 22.";
+        let digest = sha256(text.as_bytes());
+        report
+            .evidence_documents
+            .insert(digest.clone(), text.into());
+        let row = &mut report.rows[0];
+        row.case.evidence_reference = "filings.md#receipt".into();
+        row.local_evidence = Some(LocalEvidence {
+            path: "filings.md".into(),
+            sha256: digest.clone(),
+            anchor: Some("receipt".into()),
+            passage: Some("stale text".into()),
+        });
+        report.reconcile()?;
+        assert_eq!(
+            report.rows[0]
+                .local_evidence
+                .as_ref()
+                .unwrap()
+                .passage
+                .as_deref(),
+            Some("## Receipt\nSAMPLE-22 filed on March 22.")
+        );
+        for reference in [
+            "filings.md#earlier",
+            "other.md#receipt",
+            "../filings.md#receipt",
+        ] {
+            report.rows[0].case.evidence_reference = reference.into();
+            assert!(report.reconcile().is_err(), "{reference}");
+        }
+        report.rows[0].case.evidence_reference = "filings.md".into();
+        report.rows[0].local_evidence.as_mut().unwrap().anchor = None;
+        report.reconcile()?;
+        assert!(report.rows[0]
+            .local_evidence
+            .as_ref()
+            .unwrap()
+            .passage
+            .is_none());
+        report
+            .evidence_documents
+            .insert(digest, "different bytes".into());
+        assert!(report.reconcile().is_err());
+        Ok(())
     }
 }

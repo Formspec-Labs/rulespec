@@ -20,6 +20,22 @@ pub struct LocalEvidence {
     pub passage: Option<String>,
 }
 
+impl LocalEvidence {
+    pub(super) fn restore_passage(&mut self, reference: &str, documents: &Documents) -> Result<()> {
+        let (path, anchor) =
+            parse_reference(reference).context("Invalid filing evidence reference")?;
+        ensure!(
+            self.path == path && self.anchor.as_deref() == anchor,
+            "Filing evidence path or anchor differs from the case reference"
+        );
+        let text = documents
+            .get(&self.sha256)
+            .with_context(|| format!("Missing filing evidence copy {}", self.sha256))?;
+        self.passage = anchor.and_then(|id| anchored_passage(text, id));
+        Ok(())
+    }
+}
+
 pub struct EvidenceDirectory {
     root: PathBuf,
     paths: BTreeMap<String, Option<String>>,

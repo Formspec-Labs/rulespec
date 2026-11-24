@@ -141,11 +141,11 @@ fn run_compare(args: Compare) -> Result<()> {
             time_zone: args.time_zone,
         },
     )?;
-    save(&report, &args.out)
+    save(report, &args.out)
 }
 
-fn save(report: &Report, out: &Path) -> Result<()> {
-    write_report(report, out).with_context(|| format!("Write report to {}", out.display()))?;
+fn save(mut report: Report, out: &Path) -> Result<()> {
+    write_report(&mut report, out).with_context(|| format!("Write report to {}", out.display()))?;
     println!("Reviewed {} case row(s).", report.rows.len());
     println!("Open {}", out.join("index.html").display());
     Ok(())
@@ -172,7 +172,8 @@ fn main() -> Result<()> {
             record_number,
             format,
         } => {
-            let report = read_json(&report)?;
+            let mut report: Report = read_json(&report)?;
+            report.reconcile()?;
             let row = case::select(&report, case_id.as_deref(), record_number)?;
             let excerpt = case::excerpt(&report, row);
             match format {
@@ -188,6 +189,6 @@ fn main() -> Result<()> {
             let excerpt = read_json(&case_record)?;
             print_json(case::resolve(&excerpt, &reference)?)
         }
-        Command::Export { report, out } => save(&read_json(&report)?, &out),
+        Command::Export { report, out } => save(read_json(&report)?, &out),
     }
 }
