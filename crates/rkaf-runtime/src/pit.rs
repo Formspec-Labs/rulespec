@@ -127,7 +127,7 @@ pub(crate) fn assertion<'a>(graph: &Graph<'a>, id: &str) -> Result<&'a Value, Ru
 fn evidence_bindings<'a, 'graph>(
     id: &'graph str,
     graph: &'graph Graph<'a>,
-) -> impl Iterator<Item = &'a Value> + use<'a, 'graph> {
+) -> impl Iterator<Item = &'a Value> + 'graph {
     graph
         .nodes_by_type("rkaf:EvidenceBinding")
         .filter(move |binding| binding["rkaf:bindsAssertion"].as_str() == Some(id))
@@ -174,7 +174,7 @@ pub fn pinned_source_references<'a>(subject: &str, graph: &Graph<'a>) -> Vec<&'a
 pub fn pinned_source_fragments<'a, 'graph>(
     subject: &'graph str,
     graph: &'graph Graph<'a>,
-) -> impl Iterator<Item = (&'a Value, &'a str)> + use<'a, 'graph> {
+) -> impl Iterator<Item = (&'a Value, &'a str)> + 'graph {
     bound_source_fragments(evidence_bindings(subject, graph), graph, true)
 }
 
@@ -191,14 +191,14 @@ fn has_source_pin(fragment: &Value, artifact: &Value) -> bool {
             .all(|digit| matches!(digit, b'0'..=b'9' | b'a'..=b'f'))
         && artifact
             .get("rkaf:hasContentDigest")
-            .is_none_or(|value| value.as_str() == Some(digest))
+            .map_or(true, |value| value.as_str() == Some(digest))
 }
 
 fn bound_source_fragments<'a, 'graph, I>(
     bindings: I,
     graph: &'graph Graph<'a>,
     require_digest: bool,
-) -> impl Iterator<Item = (&'a Value, &'a str)> + use<'a, 'graph, I>
+) -> impl Iterator<Item = (&'a Value, &'a str)> + 'graph
 where
     I: Iterator<Item = &'a Value> + 'graph,
 {
@@ -364,7 +364,7 @@ fn resolve_chain<'a>(
 
 fn rule_ids<'a, 'links>(
     links: &'links [&'a Value],
-) -> impl Iterator<Item = Result<&'a str, RuntimeError>> + use<'a, 'links> {
+) -> impl Iterator<Item = Result<&'a str, RuntimeError>> + 'links {
     let terminal = links.last().and_then(|link| link[SUCCESSOR].as_str());
     links
         .iter()

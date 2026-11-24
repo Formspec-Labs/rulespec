@@ -344,7 +344,7 @@ pub fn active_adoptions_for_scope<'a, 'graph>(
     subject: &'graph str,
     scope: &'graph str,
     time: Option<&'graph DateTime<FixedOffset>>,
-) -> impl Iterator<Item = &'a Value> + use<'a, 'graph> {
+) -> impl Iterator<Item = &'a Value> + 'graph {
     graph
         .nodes_by_type("rkaf:LocalAdoption")
         .filter(move |adoption| {
