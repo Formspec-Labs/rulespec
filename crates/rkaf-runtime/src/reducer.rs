@@ -158,7 +158,7 @@ impl<'a> AssertionUse<'a> {
         consumer: Option<&Value>,
         graph: &Graph<'a>,
     ) -> Result<Self, RuntimeError> {
-        let assertion = graph.require(id)?;
+        let assertion = crate::pit::assertion(graph, id)?;
         let baseline = assertion["rkaf:usageEligibility"]
             .as_str()
             .unwrap_or("rkaf:notEligible");

@@ -126,6 +126,21 @@ fn usage_eligibility_reducer_local_broadens_in_scope() {
     assert_passes("usage-eligibility-reducer-local-broadens-in-scope");
 }
 
+#[test]
+fn usage_eligibility_reducer_requires_an_assertion_as_its_subject() {
+    let mut request = load("usage-eligibility-reducer-local-broadens-in-scope");
+    assert_eq!(
+        Runtime::evaluate(&request).unwrap().output,
+        request["rkaf:expectedOutput"]
+    );
+    request["rkaf:subjectAssertion"] = Value::from("la1");
+    assert!(matches!(
+        Runtime::evaluate(&request),
+        Err(RuntimeError::MalformedTestCase(message))
+            if message.contains("la1") && message.contains("Assertion")
+    ));
+}
+
 // ─── PointInTimeException ──────────────────────────────────────────────
 
 #[test]
