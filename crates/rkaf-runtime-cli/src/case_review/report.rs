@@ -434,17 +434,11 @@ pub fn write_report(report: &mut Report, out: &Path) -> Result<()> {
         .iter()
         .map(|row| case::excerpt(report, row))
         .collect::<Vec<_>>();
-    let html = include_str!("report.html")
-        .replace("{{TOTALS}}", &serde_json::to_string(&totals)?)
-        .replace(
-            "{{CASE_VIEW}}",
-            &case::html_safe(&serde_json::to_string(case::CASE_VIEW)?),
-        )
-        .replace(
-            "{{CASE_RECORDS}}",
-            &case::html_safe(&serde_json::to_string(&cases)?),
-        )
-        .replace("{{REPORT}}", &case::html_safe(&json));
+    let html = report_html(
+        &json,
+        &serde_json::to_string(&totals)?,
+        &serde_json::to_string(&cases)?,
+    )?;
     let mut dir = fs::DirBuilder::new();
     #[cfg(unix)]
     {
@@ -474,6 +468,28 @@ pub fn write_report(report: &mut Report, out: &Path) -> Result<()> {
         let _ = fs::remove_dir(out);
     }
     result
+}
+
+fn report_html(report: &str, totals: &str, cases: &str) -> Result<String> {
+    let view = serde_json::to_string(case::CASE_VIEW)?;
+    let mut template = include_str!("report.html");
+    let mut html = String::with_capacity(template.len() + report.len() + cases.len() + view.len());
+    // Only the remaining template contains slots. Inserted case text is always literal.
+    for (marker, json) in [
+        ("{{REPORT}}", report),
+        ("{{TOTALS}}", totals),
+        ("{{CASE_RECORDS}}", cases),
+        ("{{CASE_VIEW}}", view.as_str()),
+    ] {
+        let (prefix, rest) = template
+            .split_once(marker)
+            .with_context(|| format!("Missing {marker} in batch report template"))?;
+        html.push_str(prefix);
+        html.push_str(&case::html_safe(json));
+        template = rest;
+    }
+    html.push_str(template);
+    Ok(html)
 }
 
 fn write_csv(report: &Report, path: &Path) -> Result<()> {
@@ -590,6 +606,18 @@ fn spreadsheet_text(value: &str) -> std::borrow::Cow<'_, [u8]> {
 mod tests {
     use super::*;
     use crate::policy::PolicyOverrides;
+
+    #[test]
+    fn embedded_case_text_preserves_literal_template_markers() -> Result<()> {
+        let data = r#"["{{REPORT}}", "{{TOTALS}}", "{{CASE_RECORDS}}", "{{CASE_VIEW}}"]"#;
+        let page = report_html(data, "{}", data)?;
+        for id in ["report-data", "case-records"] {
+            let marker = format!("id=\"{id}\">");
+            let (_, body) = page.split_once(&marker).unwrap();
+            assert_eq!(body.split_once("</script>").unwrap().0, data);
+        }
+        Ok(())
+    }
 
     fn example_report() -> Result<Report> {
         let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
