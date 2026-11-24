@@ -2,7 +2,7 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
 <link rel="icon" href="data:,">
 <title>Rulespec single-case review</title>
 <style>
@@ -55,15 +55,20 @@
   document.getElementById("case-title").textContent = record.case_id || "Case ID missing";
   document.getElementById("explanation").textContent = record.explanation;
   const facts = document.getElementById("facts");
-  const dateLabel = {
-    verified: "Verified local filing date",
-    conflicting: "Disputed local date in the case record",
-    missing: "Unverified local date in the case record",
-  }[record.filing.verification_status] || "Reported local date";
+  function filingDateLabel(status) {
+    switch (status.trim().toLowerCase()) {
+      case "verified": return "Verified local filing date";
+      case "disputed":
+      case "conflicting": return "Disputed local date in the case record";
+      case "missing":
+      case "unverified": return "Unverified local date in the case record";
+      default: return "Reported local date";
+    }
+  }
   for (const [name, value] of [
     ["Finding", record.comparison.replaceAll("_", " ")], ["Office", record.office],
     ["Recorded rule", record.recorded_rule], ["Selected rule", record.selected_rule],
-    ["Controlling event", record.filing.event], [dateLabel, record.filing.reported_local_date],
+    ["Controlling event", record.filing.event], [filingDateLabel(record.filing.verification_status), record.filing.reported_local_date],
     ["Verification status", record.filing.verification_status], ["Time zone", record.filing.time_zone],
     ["Next action", record.next_action], ["Policy SHA-256", record.policy_sha256],
   ]) pair(facts, name, value);
