@@ -151,7 +151,7 @@ impl Policy {
                 settings
                     .scope
                     .as_ref()
-                    .is_none_or(|scope| !scope.trim().is_empty()),
+                    .map_or(true, |scope| !scope.trim().is_empty()),
                 "Selection scope must be nonempty"
             );
         }
@@ -447,23 +447,40 @@ impl Policy {
             return outcome;
         }
         request["rkaf:subjectAssertion"] = json!(selected);
-        match reducer::evaluate(&request, graph) {
-            Ok(verdict) if verdict.output["byScope"][&case.office] == "rkaf:officialUse" => {
-                outcome.office_approvals = reducer::active_adoptions_for_scope(
-                    graph, selected, &case.office, Some(&self.evaluated_at),
-                )
-                .filter(|node| node["rkaf:usageEligibility"] == "rkaf:officialUse")
-                .filter_map(|node| nonblank(&node["@id"]).map(str::to_owned))
-                .collect();
-                outcome.office_approvals.sort();
-                outcome.expected_rule = Some(rule);
+        let verdict = match reducer::evaluate(&request, graph) {
+            Ok(verdict) => verdict,
+            Err(error) => {
+                outcome.unresolved("office_approval_unresolved", error.to_string());
+                return outcome;
             }
-            Ok(_) => outcome.unresolved("office_approval_unavailable", "Verify the office ID and obtain official-use approval that is active at the review time."),
-            Err(error) => outcome.unresolved("office_approval_unresolved", error.to_string()),
+        };
+        if verdict.output["byScope"][&case.office] == "rkaf:officialUse" {
+            outcome.office_approvals = reducer::active_adoptions_for_scope(
+                graph,
+                selected,
+                &case.office,
+                Some(&self.evaluated_at),
+            )
+            .filter(|node| node["rkaf:usageEligibility"] == "rkaf:officialUse")
+            .filter_map(|node| nonblank(&node["@id"]).map(str::to_owned))
+            .collect();
+        }
+        if outcome.office_approvals.is_empty() {
+            outcome.unresolved(
+                "office_approval_unavailable",
+                "Verify the office ID and obtain official-use approval that is active at the review time.",
+            );
+        } else {
+            outcome.office_approvals.sort();
+            outcome.expected_rule = Some(rule);
         }
         outcome
     }
 }
+
+#[cfg(test)]
+#[path = "office_approval_tests.rs"]
+mod office_approval_tests;
 
 fn valid_date(value: &str) -> bool {
     value.len() == 10
