@@ -411,11 +411,13 @@ pub(crate) fn allows_use(
     if connected.is_empty() {
         return Ok(!stale);
     }
-    // Standalone retentions preserve existing eligibility for a current rule.
+    // A legacy retention without a successor or date bounds only affects stale rules.
     if !stale
-        && connected
-            .iter()
-            .all(|link| link.get(SUCCESSOR).is_none() && link.get(EARLIEST).is_none())
+        && connected.iter().all(|link| {
+            link.get(SUCCESSOR).is_none()
+                && link.get(EARLIEST).is_none()
+                && link.get(CUTOFF).is_none()
+        })
     {
         return Ok(true);
     }

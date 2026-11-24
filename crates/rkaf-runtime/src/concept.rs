@@ -541,7 +541,6 @@ fn active_local_adoption<'a>(
         .nodes_by_type("rkaf:LocalAdoption")
         .filter(|adoption| {
             adoption.get("rkaf:targetAssertion").and_then(Value::as_str) == Some(mapping_id)
-                && adoption.get("rkaf:adoptedAt").is_some()
                 && crate::temporal::local_adoption_effective_at(adoption, Some(time))
         })
         .max_by_key(|adoption| {

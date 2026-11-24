@@ -484,6 +484,46 @@ fn bounded_standalone_exception_gates_a_current_assertion() {
 }
 
 #[test]
+fn standalone_cutoff_ends_current_use_without_an_earliest_date() {
+    let mut case = example();
+    node(&mut case, FIRST_LINK)
+        .as_object_mut()
+        .unwrap()
+        .remove("rkaf:successorAssertion");
+    node(&mut case, PRIOR)["rkaf:consumerLifecycleState"] = json!("rkaf:operational");
+
+    for (date, selected) in [
+        ("2017-03-26", Some(PRIOR)),
+        ("2017-03-27", None),
+        ("2017-03-28", None),
+    ] {
+        case["rkaf:caseDate"] = json!(date);
+        assert_eq!(decision(&case)["selectedAssertion"].as_str(), selected);
+        assert_official_use(&case, &[PRIOR], selected);
+    }
+    case["rkaf:caseDateVerified"] = json!(false);
+    assert_review(&case, "verifyCaseDate", &[PRIOR]);
+
+    // An undated legacy retention leaves the current rule's existing permission in place.
+    node(&mut case, FIRST_LINK)
+        .as_object_mut()
+        .unwrap()
+        .remove("rkaf:anchorDateBefore");
+    assert_official_use(&case, &[PRIOR], Some(PRIOR));
+}
+
+#[test]
+fn evaluating_an_unbounded_office_approval_at_an_instant_requires_its_start() {
+    let mut case = example();
+    node(&mut case, PRIOR)["rkaf:usageEligibility"] = json!("rkaf:notEligible");
+    node(&mut case, "urn:rulespec:example:prior-approval")
+        .as_object_mut()
+        .unwrap()
+        .remove("rkaf:adoptedAt");
+    assert_official_use(&case, &[PRIOR], None);
+}
+
+#[test]
 fn office_approval_uses_an_inclusive_start_and_exclusive_expiry() {
     use rkaf_runtime::reducer::active_adoptions_for_scope;
 

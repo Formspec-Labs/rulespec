@@ -26,11 +26,10 @@ pub(crate) fn local_adoption_effective_at(
         return expiry.is_none();
     };
     let parse = |value: &Value| DateTime::parse_from_rfc3339(value.as_str()?).ok();
-    let start = adoption.get("rkaf:adoptedAt");
-    if start.is_some_and(|value| parse(value).is_none_or(|start| start > *time)) {
+    let Some(start) = parse(&adoption["rkaf:adoptedAt"]) else {
         return false;
-    }
-    expiry.is_none_or(|value| start.is_some() && parse(value).is_some_and(|end| *time < end))
+    };
+    start <= *time && expiry.map_or(true, |value| parse(value).is_some_and(|end| *time < end))
 }
 
 /// True iff `attestation` is effective at `time`, per Plan 7d semantics:

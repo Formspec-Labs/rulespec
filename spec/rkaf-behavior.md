@@ -54,7 +54,7 @@ fn reduce_usage_eligibility(
         return rkaf:notEligible
 
     // Steps 2 and 3 — lifecycle and date gates
-    if a declared rule pair containing assertion does not select it for this case (§4):
+    if assertion has a linked version or a dated retention, and §4 does not select it for this case:
         return rkaf:notEligible
     if assertion.consumerLifecycleState == rkaf:staleForCurrentUse
        AND honored_pit_exceptions(assertion.@id, case).is_empty():
@@ -87,7 +87,7 @@ fn reduce_usage_eligibility(
     return capped
 ```
 
-> **Normative — Step 4 approval dates.** With an evaluation instant, an active approval applies from its `rkaf:adoptedAt` timestamp, inclusive. A bounded approval applies until its `rkaf:validUntil` timestamp, exclusive, and requires a valid start and evaluation instant. The reducer excludes individual approvals with malformed applicable timestamps. Other active, in-scope approvals still participate. Without an evaluation instant, legacy approvals that omit an expiry remain eligible based on active status.
+> **Normative — Step 4 approval dates.** With an evaluation instant, an active approval requires a valid `rkaf:adoptedAt` timestamp and applies from that timestamp, inclusive. A bounded approval also requires an evaluation instant and applies until its `rkaf:validUntil` timestamp, exclusive. The reducer excludes individual approvals with missing or malformed required timestamps. Other active, in-scope approvals still participate. Without an evaluation instant, legacy approvals that omit an expiry remain eligible based on active status.
 
 > **Normative — Step 5.5 freshness gate (Plan 7e.2).** When the consumer declares `rkaf:maxAttestationStalenessDays`, the reducer narrows the effective level **one lattice step downward** if any effective Attestation targeting the assertion lacks `rkaf:lastVerifiedAt` or was last verified before `evaluation_time - maxAttestationStalenessDays`. An Attestation targets the assertion if its `rkaf:targets` array contains the assertion `@id`. An Attestation is effective if it has not been revoked at the evaluation instant and its `rkaf:hasEffectivePeriod`, when set, contains that instant. The reducer skips the freshness check when the consumer omits `rkaf:maxAttestationStalenessDays`. If the reduction reaches this step, the consumer declares a window, and any Attestation targets the assertion, omitting `rkaf:evaluationTime` MUST yield `MalformedTestCase`. Any supplied evaluation time MUST be a valid RFC 3339 string, including when the check can be skipped. Malformed timestamps on `lastVerifiedAt`, `revokedAt`, or `effectivePeriod{Start,End}`, and dangling `rkaf:hasEffectivePeriod` IRIs encountered during the check, MUST yield `MalformedTestCase`.
 
