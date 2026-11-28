@@ -6,9 +6,11 @@ import fcntl
 import io
 import json
 import os
+import sqlite3
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 import canonical_corpus_runner
 
@@ -915,39 +917,51 @@ class ArtifactTests(unittest.TestCase):
             self.assertTrue((retained / "tombstone").is_dir())
             self.assertTrue(parent.is_symlink())
 
-    def test_expected_index_supports_object_key_lookup_without_table_scan(self) -> None:
+    def test_expected_index_uses_location_key_for_admission_updates(self) -> None:
         files, _ = artifact_files()
+        statements: list[str] = []
+        connect = sqlite3.connect
+
+        def traced_connect(
+            database: str | Path, *, check_same_thread: bool
+        ) -> sqlite3.Connection:
+            connection = connect(database, check_same_thread=check_same_thread)
+            connection.set_trace_callback(statements.append)
+            return connection
+
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             for key, raw in files.items():
                 target = root / key
                 target.parent.mkdir(parents=True, exist_ok=True)
                 target.write_bytes(raw)
-            admitted = admit_artifact(LocalMemberSource(root))
+            with patch.object(sqlite3, "connect", traced_connect):
+                admitted = admit_artifact(LocalMemberSource(root))
             states = admitted.local_member_states
             assert states is not None
             try:
                 self.assertEqual(list(states), ["records/a.jsonl"])
                 self.assertEqual(states["records/a.jsonl"].size, len(files["records/a.jsonl"]))
                 connection = states._open_connection()
-                update_plan = " ".join(
-                    str(row[-1])
-                    for row in connection.execute(
-                        "EXPLAIN QUERY PLAN UPDATE expected SET observed = 1 WHERE object_key = ?",
-                        ("records/a.jsonl",),
-                    ).fetchall()
-                )
-                lookup_plan = " ".join(
-                    str(row[-1])
-                    for row in connection.execute(
-                        "EXPLAIN QUERY PLAN SELECT device, inode, state_size, "
-                        "modified_nanoseconds, changed_nanoseconds, mode "
-                        "FROM expected WHERE kind = 'payload' AND object_key = ?",
-                        ("records/a.jsonl",),
-                    ).fetchall()
-                )
-                self.assertIn("USING INDEX expected_object_key", update_plan)
-                self.assertIn("USING INDEX expected_object_key", lookup_plan)
+                connection.set_trace_callback(None)
+
+                def plan_for(statement: str) -> str:
+                    return " ".join(
+                        str(row[-1])
+                        for row in connection.execute(f"EXPLAIN QUERY PLAN {statement}")
+                    )
+
+                updates = [sql for sql in statements if sql.startswith("UPDATE expected")]
+                self.assertEqual(len(updates), len(files) + 1)
+                for sql in updates:
+                    with self.subTest(sql=sql):
+                        plan = plan_for(sql)
+                        self.assertIn("SEARCH expected USING INDEX", plan)
+                        self.assertIn("(location_key=?)", plan)
+
+                lookup = [sql for sql in statements if sql.startswith("SELECT device, inode")]
+                self.assertEqual(len(lookup), 1)
+                self.assertIn("USING INDEX expected_object_key", plan_for(lookup[0]))
             finally:
                 states.close()
 
