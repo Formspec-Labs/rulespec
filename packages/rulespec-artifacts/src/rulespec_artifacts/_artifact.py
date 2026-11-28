@@ -3086,8 +3086,8 @@ def _admit(
                 )
                 continue
             index.execute(
-                "UPDATE expected SET observed = 1 WHERE object_key = ?",
-                (object_key,),
+                "UPDATE expected SET observed = 1 WHERE location_key = ?",
+                (f"object-key:{object_key}",),
             )
         missing = index.execute(
             "SELECT object_key FROM expected WHERE kind IN ('protocol', 'payload') "
@@ -3122,7 +3122,7 @@ def _admit(
                 index.execute(
                     "UPDATE expected SET device = ?, inode = ?, state_size = ?, "
                     "modified_nanoseconds = ?, changed_nanoseconds = ?, mode = ? "
-                    "WHERE object_key = ?",
+                    "WHERE location_key = ?",
                     (
                         state.device,
                         state.inode,
@@ -3130,7 +3130,7 @@ def _admit(
                         state.modified_nanoseconds,
                         state.changed_nanoseconds,
                         state.mode,
-                        member.object_key,
+                        f"object-key:{member.object_key}",
                     ),
                 )
 
